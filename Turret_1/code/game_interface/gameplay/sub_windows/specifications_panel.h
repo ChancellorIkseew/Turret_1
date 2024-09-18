@@ -27,7 +27,6 @@ private:
 	ResInfo ACShellsInfo;
 	ResInfo rocketInfo;
 
-	static inline SpecificationsPanel* _self = 0;
 	SpecificationsPanel();
 	SpecificationsPanel(const SpecificationsPanel&) = delete;
 	SpecificationsPanel& operator=(const SpecificationsPanel&) = delete;
@@ -35,24 +34,10 @@ private:
 	
 public:
 
-	static SpecificationsPanel* getInstance()
+	static SpecificationsPanel& getInstance()
 	{
-		if (!_self)
-		{
-			_self = new SpecificationsPanel();
-		}
-		return _self;
-	}
-
-	static bool deleteInstance()
-	{
-		if (_self)
-		{
-			delete _self;
-			_self = 0;
-			return true;
-		}
-		return false;
+		static SpecificationsPanel self;
+		return self;
 	}
 	
 	void interact(sf::RenderWindow& window, int index);

@@ -42,18 +42,24 @@ private:
 
 	sf::Text waveTimerText;
 	sf::Text waveTimerText2;
+
+	MainControlPanel();
+	MainControlPanel(const MainControlPanel&) = delete;
+	MainControlPanel& operator=(const MainControlPanel&) = delete;
+	~MainControlPanel() = default;
 	
 public:
 	
-	MainControlPanel();
-	~MainControlPanel() = default;
-	
-	void prepareInterfaceSprites() override;
+	static MainControlPanel& getInstance()
+	{
+		static MainControlPanel self;
+		return self;
+	}
 	
 	void interact(sf::Vector2i& mouseCoord, int time, bool& isPaused, bool& isGameplayActive, std::string saveFolderName);
-	
 	void interactWaveTimer(int time, bool isPaused);
-	
+
+	void prepareInterfaceSprites() override;
 	void draw(sf::RenderWindow& window) override;
 	
 };

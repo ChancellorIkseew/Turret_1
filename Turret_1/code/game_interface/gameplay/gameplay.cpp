@@ -20,7 +20,12 @@
 
 
 #include "sub_windows/sub_windows_util/sub_windows_list.h"
+#include "sub_windows/exit_confirmation.h"
+#include "sub_windows/settings_window.h"
+#include "sub_windows/resources_panel.h"
+#include "sub_windows/main_control_panel.h"
 #include "sub_windows/specifications_panel.h"
+#include "sub_windows/building_panel.h"
 
 
 #include "../../map_structures/pre-settings/pre-settings.h"
@@ -133,15 +138,15 @@ char startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, std::string 
             {
                 if (LMB_Pressed)
                 {
-                    mainControlPanel.interact(mouseCoord, time, isPaused, isGameplayActive, saveFolderName);
-                    buildingPanel.interact(mouseCoord, mouseMapCoord, isBuildingTypeSelected, buildingType);
+                    MainControlPanel::getInstance().interact(mouseCoord, time, isPaused, isGameplayActive, saveFolderName);
+                    BuildingPanel::getInstance().interact(mouseCoord, mouseMapCoord, isBuildingTypeSelected, buildingType);
 
                     Sleep(150);
                 }
 
                 if (RMB_Pressed)
                 {
-                    buildingPanel.rotateBuilding(buildingType);
+                    BuildingPanel::getInstance().rotateBuilding(buildingType);
                     Sleep(150);
                 }
 
@@ -228,29 +233,29 @@ char startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, std::string 
 	    
         if(isBuildingTypeSelected)
 		{   
-			buildingPanel.drawBuildExample(mainWindow ,mouseMapCoord, buildingType);
-           	SpecificationsPanel::getInstance()->interact(mainWindow, buildingType);
+            BuildingPanel::getInstance().drawBuildExample(mainWindow ,mouseMapCoord, buildingType);
+           	SpecificationsPanel::getInstance().interact(mainWindow, buildingType);
 		}
         
         
         mainWindow.setView(overlay);						//	Draw_inteface block
         
-        mainControlPanel.draw(mainWindow);
-        mainControlPanel.interactWaveTimer(time, isPaused);
+        MainControlPanel::getInstance().draw(mainWindow);
+        MainControlPanel::getInstance().interactWaveTimer(time, isPaused);
         
-		buildingPanel.draw(mainWindow);
+        BuildingPanel::getInstance().draw(mainWindow);
 		
-		resWin.interactResourcesPanel(mainWindow); //Resourses_panel
-		resWin.drawResourcesPanel(mainWindow); 	//Resourses_panel
+		ResourcesPanel::getInstance().interactResourcesPanel(mainWindow); //Resourses_panel
+        ResourcesPanel::getInstance().drawResourcesPanel(mainWindow); 	//Resourses_panel
 		
 		if(isBuildingTypeSelected)
 		{
-			SpecificationsPanel::getInstance()->draw(mainWindow);	//Specification_panel
+			SpecificationsPanel::getInstance().draw(mainWindow);	//Specification_panel
 		}
 
 		
-        confWin.draw(mainWindow);
-        settingsWindow.draw(mainWindow);
+        ConfirmationWindow::getInstance().draw(mainWindow);
+        SettingsWindow::getInstance().draw(mainWindow);
 
 		mainWindow.setView(t1camera.camera);
 		

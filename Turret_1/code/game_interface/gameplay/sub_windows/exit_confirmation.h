@@ -19,18 +19,24 @@ private:
 
 	sf::Text confirmationText;
 
+	ConfirmationWindow();
+	ConfirmationWindow(const ConfirmationWindow&) = delete;
+	ConfirmationWindow& operator=(const ConfirmationWindow&) = delete;
+	~ConfirmationWindow() = default;
+
 public:
 
-	ConfirmationWindow();
-	~ConfirmationWindow();
-
-	void prepareInterfaceSprites() override;
-
-	void draw(sf::RenderWindow& window) override;
+	static ConfirmationWindow& getInstance()
+	{
+		static ConfirmationWindow self;
+		return self;
+	}
 
 	bool interactWindow(sf::Vector2i& mouseCoord);
-
 	void relocate(int windowSizeX, int windowSizeY) override;
+
+	void prepareInterfaceSprites() override;
+	void draw(sf::RenderWindow& window) override;
 
 };
 

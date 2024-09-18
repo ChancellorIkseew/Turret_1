@@ -38,22 +38,26 @@ private:
 	void selectBuildingType(bool& isBuildingTypeSelected);
 
 	void selectBuildingTexture(int buildingType);
+
+	BuildingPanel();
+	BuildingPanel(const BuildingPanel&) = delete;
+	BuildingPanel& operator=(const BuildingPanel&) = delete;
+	~BuildingPanel() = default;
 	
 public:
 	
-	BuildingPanel();
-	~BuildingPanel() = default;
-	
-	void prepareInterfaceSprites() override;
+	static BuildingPanel& getInstance()
+	{
+		static BuildingPanel self;
+		return self;
+	}
 	
 	void interact(sf::Vector2i& mouseCoord, sf::Vector2f& mouseMapCoord, bool& isBuildingTypeSelected, int& buildingType);
-	
 	void rotateBuilding(int &buildingType);
-	
 	void relocate(int windowSizeX, int windowSizeY) override;
 	
+	void prepareInterfaceSprites() override;
 	void draw(sf::RenderWindow &window) override;
-
 	void drawBuildExample(sf::RenderWindow& window, sf::Vector2f mouseMapCoord, int buildingType);
 	
 };

@@ -21,18 +21,24 @@ private:
 
 	sf::Text confirmationText;
 
+	SettingsWindow();
+	SettingsWindow(const SettingsWindow&) = delete;
+	SettingsWindow& operator=(const SettingsWindow&) = delete;
+	~SettingsWindow() = default;
+
 public:
 
-	SettingsWindow();
-	~SettingsWindow();
-
-	void prepareInterfaceSprites() override;
-
-	void draw(sf::RenderWindow& window) override;
+	static SettingsWindow& getInstance()
+	{
+		static SettingsWindow self;
+		return self;
+	}
 
 	bool interact(sf::Vector2i& mouseCoord);
-
 	void relocate(int windowSizeX, int windowSizeY) override;
+
+	void prepareInterfaceSprites() override;
+	void draw(sf::RenderWindow& window) override;
 
 };
 

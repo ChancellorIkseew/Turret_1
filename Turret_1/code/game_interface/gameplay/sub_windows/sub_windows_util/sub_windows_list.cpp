@@ -11,38 +11,28 @@
 
 std::list<SubWindow*> SubWindowsList;
 
-ConfirmationWindow confWin;
-ResourcesPanel resWin;
-SettingsWindow settingsWindow;
-MainControlPanel mainControlPanel;
-BuildingPanel buildingPanel;
 
 void initSubWindows()
 {
 	
-	
-
-
-
 }
 
 
 void relocateSubWindows(int windowSizeX, int windowSizeY)
 {
-	confWin.relocate(windowSizeX, windowSizeY);
-	settingsWindow.relocate(windowSizeX, windowSizeY);
-	resWin.relocate(windowSizeX, windowSizeY);
-	SpecificationsPanel::getInstance()->relocate(windowSizeX, windowSizeY);
-	buildingPanel.relocate(windowSizeX, windowSizeY);
+	ConfirmationWindow::getInstance().relocate(windowSizeX, windowSizeY);
+	SettingsWindow::getInstance().relocate(windowSizeX, windowSizeY);
+	ResourcesPanel::getInstance().relocate(windowSizeX, windowSizeY);
+	SpecificationsPanel::getInstance().relocate(windowSizeX, windowSizeY);
+	BuildingPanel::getInstance().relocate(windowSizeX, windowSizeY);
 
 }
 
 
-
 bool noSubWindowSelected(sf::Vector2i mouseCoord)
 {
-	if (!mainControlPanel.containsCoursor(mouseCoord) && !resWin.containsCoursor(mouseCoord) &&
-		!buildingPanel.containsCoursor(mouseCoord) && !SpecificationsPanel::getInstance()->containsCoursor(mouseCoord))
+	if (!MainControlPanel::getInstance().containsCoursor(mouseCoord) && !ResourcesPanel::getInstance().containsCoursor(mouseCoord) &&
+		!BuildingPanel::getInstance().containsCoursor(mouseCoord) && !SpecificationsPanel::getInstance().containsCoursor(mouseCoord))
 	{
 		return true;
 	}

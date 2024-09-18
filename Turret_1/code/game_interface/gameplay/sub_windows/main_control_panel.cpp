@@ -125,9 +125,9 @@ void MainControlPanel::interact(sf::Vector2i& mouseCoord, int time, bool& isPaus
 	if (etmButtonSprite.getGlobalBounds().contains(mouseCoord.x, mouseCoord.y))
 	{
 		std::cout << "exit to menu button works" << std::endl;
-		confWin.setVisible(true);
+		ConfirmationWindow::getInstance().setVisible(true);
 		
-		if(confWin.interactWindow(mouseCoord))
+		if(ConfirmationWindow::getInstance().interactWindow(mouseCoord))
 		{
 			time = 0;
 			waveNumber = 0;
@@ -142,15 +142,15 @@ void MainControlPanel::interact(sf::Vector2i& mouseCoord, int time, bool& isPaus
 			isGameplayActive = false;
 		}
 		
-		confWin.setVisible(false);
+		ConfirmationWindow::getInstance().setVisible(false);
 	}
 	
 	if (settingButtonSprite.getGlobalBounds().contains(mouseCoord.x, mouseCoord.y))
 	{
 		std::cout << "setting button works" << std::endl;
-		settingsWindow.setVisible(true);
-		settingsWindow.interact(mouseCoord);
-		settingsWindow.setVisible(false);
+		SettingsWindow::getInstance().setVisible(true);
+		SettingsWindow::getInstance().interact(mouseCoord);
+		SettingsWindow::getInstance().setVisible(false);
 	}
 	
 	if (helpButtonSprite.getGlobalBounds().contains(mouseCoord.x, mouseCoord.y))

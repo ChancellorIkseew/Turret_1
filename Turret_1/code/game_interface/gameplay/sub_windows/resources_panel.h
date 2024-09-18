@@ -20,18 +20,24 @@ private:
 	ResInfo sulfurInfo;
 	ResInfo ACShellsInfo;
 	ResInfo rocketInfo;
+
+	ResourcesPanel();
+	ResourcesPanel(const ResourcesPanel&) = delete;
+	ResourcesPanel& operator=(const ResourcesPanel&) = delete;
+	~ResourcesPanel() = default;
 	
 public:
 	
-	ResourcesPanel();
-	~ResourcesPanel() = default;
-	
-	void prepareInterfaceSprites();
+	static ResourcesPanel& getInstance()
+	{
+		static ResourcesPanel self;
+		return self;
+	}
 	
 	void interactResourcesPanel(sf::RenderWindow &window);
-	
 	void relocate(int windowSizeX, int windowSizeY) override;
 	
+	void prepareInterfaceSprites();
 	void drawResourcesPanel(sf::RenderWindow &window);
 	
 };

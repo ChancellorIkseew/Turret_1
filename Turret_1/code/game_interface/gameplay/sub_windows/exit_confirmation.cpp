@@ -16,11 +16,6 @@ ConfirmationWindow::ConfirmationWindow() : SubWindow('s', 128, 100, 0, 0)
     isVisible = false;
 }
 
-ConfirmationWindow::~ConfirmationWindow()
-{
-
-}
-
 
 void ConfirmationWindow::prepareInterfaceSprites()
 {

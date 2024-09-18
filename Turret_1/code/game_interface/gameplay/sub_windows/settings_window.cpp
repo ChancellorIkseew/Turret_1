@@ -18,11 +18,6 @@ SettingsWindow::SettingsWindow() : SubWindow('s', 720, 480, 0, 0)
 	isVisible = false;
 }
 
-SettingsWindow::~SettingsWindow()
-{
-
-}
-
 
 void SettingsWindow::prepareInterfaceSprites()
 {
@@ -41,20 +36,6 @@ void SettingsWindow::prepareInterfaceSprites()
 	confirmationText.setCharacterSize(16);
 	confirmationText.setFillColor(sf::Color(180, 52, 52));
 }
-
-
-
-void SettingsWindow::draw(sf::RenderWindow& window)
-{
-	if (isVisible)
-	{
-		this->drawSubWindowBase(window);
-		window.draw(confirmButtonSprite);
-		window.draw(rejectButtonSprite);
-		window.draw(confirmationText);
-	}
-}
-
 
 
 bool SettingsWindow::interact(sf::Vector2i& mouseCoord)
@@ -79,7 +60,6 @@ bool SettingsWindow::interact(sf::Vector2i& mouseCoord)
 }
 
 
-
 void SettingsWindow::relocate(int windowSizeX, int windowSizeY)
 {
 	positionX = (windowSizeX - sizeX) / 2;
@@ -89,4 +69,16 @@ void SettingsWindow::relocate(int windowSizeX, int windowSizeY)
 	confirmButtonSprite.setPosition(positionX + 10, positionY + 10);
 	rejectButtonSprite.setPosition(positionX + 70, positionY + 10);
 	confirmationText.setPosition(positionX + 10, positionY + 60);
+}
+
+
+void SettingsWindow::draw(sf::RenderWindow& window)
+{
+	if (isVisible)
+	{
+		this->drawSubWindowBase(window);
+		window.draw(confirmButtonSprite);
+		window.draw(rejectButtonSprite);
+		window.draw(confirmationText);
+	}
 }
