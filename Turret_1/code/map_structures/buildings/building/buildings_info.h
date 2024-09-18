@@ -18,7 +18,7 @@ struct BuildingInfo
 	sf::String description;
 };
 
-extern BuildingInfo g_BuildingsInfoArray[500];
+extern BuildingInfo g_BuildingsInfoArray[1100];
 
 void initBuildingsInfo();
 

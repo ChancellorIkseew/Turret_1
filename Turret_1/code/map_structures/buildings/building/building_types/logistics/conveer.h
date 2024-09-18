@@ -17,7 +17,7 @@ public:
 
 	Conveyer(char v_type, char v_direction, short v_durability, short v_size, int tileX, int tileY);
 	Conveyer();
-	virtual ~Conveyer();
+	virtual ~Conveyer() = default;
 
 	void save(std::ofstream& fout) override;
 	virtual void load(std::ifstream& fin) override;

@@ -1,7 +1,4 @@
 
-
-
-
 #include "building.h"
 #include "buildings_enum.h"
 
@@ -36,7 +33,7 @@ void Building::save(std::ofstream& fout)
 	for (std::list<StoredResource>::iterator it = storedResourcesList.begin(); it != storedResourcesList.end(); ++it)
 	{
 		if(it->quant != 0)
-		fout << it->type << " " << it->quant << '\n';
+			fout << it->type << " " << it->quant << '\n';
 	}
 
 	fout << "$\n";

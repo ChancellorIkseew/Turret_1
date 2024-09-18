@@ -23,11 +23,6 @@ Conveyer::Conveyer() : Building()
 	}
 }
 
-Conveyer::~Conveyer()
-{
-
-}
-
 
 void Conveyer::save(std::ofstream& fout)
 {
@@ -60,6 +55,9 @@ void Conveyer::load(std::ifstream& fin)
 		type = STANDARD_CONVEYER_RIGHT;
 		break;
 	}
+
+	char specialSymbol;
+	fin >> specialSymbol;
 }
 
 

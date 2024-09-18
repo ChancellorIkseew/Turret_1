@@ -3,7 +3,7 @@
 #include "buildings_enum.h"
 
 
-BuildingInfo g_BuildingsInfoArray[500];
+BuildingInfo g_BuildingsInfoArray[1100];
 
 
 void initBuildingsInfo()

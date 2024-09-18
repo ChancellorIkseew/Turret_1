@@ -48,6 +48,9 @@ void ShieldedConveyer::load(std::ifstream& fin)
 		type = SHIELDED_CONVEYER_RIGHT;
 		break;
 	}
+
+	char specialSymbol;
+	fin >> specialSymbol;
 }
 
 
