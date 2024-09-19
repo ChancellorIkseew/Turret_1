@@ -1,10 +1,9 @@
 #pragma once
-
 #ifndef CHOISE_FOLDER_MENU_H
 #define CHOISE_FOLDER_MENU_H
 
 #include <SFML/Graphics.hpp>
-#include "../../gameplay/sub_windows/sub_windows_util/sub_window.h"
+#include "game_interface/gameplay/sub_windows/sub_windows_util/sub_window.h"
 
 
 class ChoiseFolderMenu : public SubWindow

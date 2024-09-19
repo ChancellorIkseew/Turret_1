@@ -2,21 +2,20 @@
 #include <iostream>	
 #include <SFML/Graphics.hpp>
 #include <thread>
-#include <list>
 
 #include "gameplay.h"
 
-#include "../main_window/main_window.h"
-#include "../main_window/main_window_resize.h"
-#include "../settings/settings_util/settings_save_system.h"
+#include "game_interface/main_window/main_window.h"
+#include "game_interface/main_window/main_window_resize.h"
+#include "game_interface/settings/settings_util/settings_save_system.h"
 
 
 #include "gameplay_util/camera.h"
 #include "gameplay_util/wave_constructor.h"
 #include "gameplay_util/cheet_commands.h"
 
-#include "../system/system.h"
-#include "../../map_structures/base_engine/t1_mutex.h"
+#include "game_interface/system/system.h"
+#include "map_structures/base_engine/t1_mutex.h"
 
 
 #include "sub_windows/sub_windows_util/sub_windows_list.h"
@@ -28,20 +27,20 @@
 #include "sub_windows/building_panel.h"
 
 
-#include "../../map_structures/pre-settings/pre-settings.h"
+#include "map_structures/pre-settings/pre-settings.h"
 
-#include "../../map_structures/buildings/building/buildings_info.h"
+#include "map_structures/buildings/building/buildings_info.h"
 
-#include "../../map_structures/entities/turrets.h"
-#include "../../map_structures/entities/entities.h"
-#include "../../map_structures/entities/entities_util/entities_list.h"
+#include "map_structures/entities/turrets.h"
+#include "map_structures/entities/entities.h"
+#include "map_structures/entities/entities_util/entities_list.h"
 
-#include "../../map_structures/shells/shells.h"
-#include "../../map_structures/shells/shell_types/rockets.h"
+#include "map_structures/shells/shells.h"
+#include "map_structures/shells/shell_types/rockets.h"
 
-#include "../../map_structures/particles/particles.h"
+#include "map_structures/particles/particles.h"
 
-#include "../../map_structures/resources/resource_units.h"
+#include "map_structures/resources/resource_units.h"
 
 
 char startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, std::string saveFolderName)

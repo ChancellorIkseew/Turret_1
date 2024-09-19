@@ -6,18 +6,18 @@
 
 #include "wave_constructor.h"
 
-#include "../../../map_structures/entities/entities.h"
-#include "../../../map_structures/entities/mob_enum.h"
-#include "../../../map_structures/entities/entities_util/entities_list.h"
+#include "map_structures/entities/entities.h"
+#include "map_structures/entities/mob_enum.h"
+#include "map_structures/entities/entities_util/entities_list.h"
 
 // mobs
-#include "../../../map_structures/entities/mob_types/standard_bot.h"
-#include "../../../map_structures/entities/mob_types/heavy_bot.h"
-#include "../../../map_structures/entities/mob_types/rocket_bot.h"
-#include "../../../map_structures/entities/mob_types/laser_bot.h"
+#include "map_structures/entities/mob_types/standard_bot.h"
+#include "map_structures/entities/mob_types/heavy_bot.h"
+#include "map_structures/entities/mob_types/rocket_bot.h"
+#include "map_structures/entities/mob_types/laser_bot.h"
 // boss_mobs
-#include "../../../map_structures/entities/mob_types/cannon_boss_bot.h"
-#include "../../../map_structures/entities/mob_types/rocket_boss_bot.h"
+#include "map_structures/entities/mob_types/cannon_boss_bot.h"
+#include "map_structures/entities/mob_types/rocket_boss_bot.h"
 
 
 

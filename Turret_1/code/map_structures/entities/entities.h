@@ -5,8 +5,8 @@
 #include <fstream>
 #include <SFML\Graphics.hpp>
 
-#include "../buildings/buildings_map.h"
-#include "../base_engine/tile_coord.h"
+#include "map_structures/buildings/buildings_map.h"
+#include "map_structures/base_engine/tile_coord.h"
 
 
 class Entity

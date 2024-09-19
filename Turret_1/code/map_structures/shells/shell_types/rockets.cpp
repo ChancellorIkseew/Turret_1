@@ -1,21 +1,13 @@
 
-#include <iostream>
-#include <string>
 #include <SFML\Graphics.hpp>
-#include <cmath>
-#include <list>
-
-
-#include "../../buildings/buildings_map.h"
-#include "../../buildings/building/buildings_enum.h"
-#include "../../entities/entities.h"
-#include"../../entities/entities_util/entities_list.h"
 
 #include "rockets.h"
 
-//#include "../../entities/entities_util/turrets_list.h"
-
-#include "../../particles/particles.h"
+#include "map_structures/buildings/buildings_map.h"
+#include "map_structures/buildings/building/buildings_enum.h"
+#include "map_structures/entities/entities.h"
+#include "map_structures/entities/entities_util/entities_list.h"
+#include "map_structures/particles/particles.h"
 
 
 Rocket::Rocket(char v_shellType ,float v_coordX, float v_coordY, float v_angleRad, float v_angleDeg) : 
@@ -23,7 +15,6 @@ Rocket::Rocket(char v_shellType ,float v_coordX, float v_coordY, float v_angleRa
 {
 
 }
-
 
 
 void Rocket::tryPlayerShellsHitting(BuildingsMap& buildingsMap1)
@@ -41,7 +32,6 @@ void Rocket::tryPlayerShellsHitting(BuildingsMap& buildingsMap1)
 }
 
 
-
 void Rocket::tryEnemyShellsHitting(BuildingsMap& buildingsMap1)
 {
 	if (buildingsMap1.getBuildingType(tile(coordX), tile(coordY)) != VOID_)
@@ -51,7 +41,6 @@ void Rocket::tryEnemyShellsHitting(BuildingsMap& buildingsMap1)
 		//this->explosion(buildingsMap1);
 	}
 }
-
 
 
 void Rocket::explosion(BuildingsMap& buildingsMap1)
@@ -77,8 +66,7 @@ void Rocket::explosion(BuildingsMap& buildingsMap1)
 }
 
 
-
-void Rocket::drawShell(sf::RenderWindow &window, int time)
+void Rocket::draw(sf::RenderWindow &window, int time)
 {
 	if(time%20 < 10)
 	{
@@ -95,10 +83,3 @@ void Rocket::drawShell(sf::RenderWindow &window, int time)
 	
 	//std::cout << "rocket draw works" << '\n';
 }		
-
-
-
-Rocket::~Rocket()
-{
-	
-}

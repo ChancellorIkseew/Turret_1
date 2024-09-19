@@ -70,8 +70,6 @@ void CannonBossBot::findPath(BuildingsMap& buildingsMap1)
 		destCoordX = pixel(this->newTileCoordX + coordSpyralArr[nIt].x);
 		destCoordY = pixel(this->newTileCoordY + coordSpyralArr[nIt].y);
 	}
-
-	std::cout << "x:" << destCoordX << " y:" << destCoordY << '\n';
 }
 
 
@@ -125,7 +123,6 @@ TileCoord CannonBossBot::findShootingAim(BuildingsMap& buildingsMap1)
 
 			if (buildingsMap1.getBuildingType(tileCoordX, tileCoordY) != VOID_)
 			{
-				std::cout << "b_type: " << buildingsMap1.getBuildingType(tileCoordX, tileCoordY) << " x: " << tileCoordX << " y: " << tileCoordY << '\n';
 				return { tileCoordX, tileCoordY };
 			}
 		}

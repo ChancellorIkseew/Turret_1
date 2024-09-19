@@ -3,12 +3,11 @@
 #include <sstream>
 #include <fstream>
 #include <string>
-#include <SFML\Graphics.hpp>
 #include <list>
 
 
-#include "../terrain/terrain.h"
-#include "../buildings/buildings_map.h"
+#include "map_structures/terrain/terrain.h"
+#include "map_structures/buildings/buildings_map.h"
 
 #include "resources.h"
 #include "res_enum.h"
@@ -176,64 +175,53 @@ void sendToBalance(int type, short amount)
 	{
 
 	case RES_STONE:
-	{
 		if (stoneQuantity < 1000000)
 			stoneQuantity = stoneQuantity + amount;
 
 		if (stoneQuantity >= 1000000)
 			stoneQuantity = 999999;
 		break;
-	}
 
 	case RES_IRON:
-	{
 		if (ironQuantity < 1000000)
 			ironQuantity = ironQuantity + amount;
 
 		if (ironQuantity >= 1000000)
 			ironQuantity = 999999;
 		break;
-	}
 
 	case RES_COPPER:
-	{
 		if (copperQuantity < 1000000)
 			copperQuantity = copperQuantity + amount;
 
 		if (copperQuantity >= 1000000)
 			copperQuantity = 999999;
 		break;
-	}
 
 	case RES_SILICON:
-	{
 		if (siliconQuantity < 1000000)
 			siliconQuantity = siliconQuantity + amount;
 
 		if (siliconQuantity >= 1000000)
 			siliconQuantity = 999999;
 		break;
-	}
 
 	case RES_COAL:
-	{
 		if (coalQuantity < 1000000)
 			coalQuantity = coalQuantity + amount;
 
 		if (coalQuantity >= 1000000)
 			coalQuantity = 999999;
 		break;
-	}
 
 	case RES_SULFUR:
-	{
 		if (sulfurQuantity < 1000000)
 			sulfurQuantity = sulfurQuantity + amount;
 
 		if (sulfurQuantity >= 1000000)
 			sulfurQuantity = 999999;
 		break;
-	}
+
 	/*
 	case RES_AC_SHELLS:
 	{

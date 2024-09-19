@@ -6,11 +6,11 @@
 
 #include "choise_save_folder.h"
 
-#include "../../gameplay/sub_windows/sub_windows_util/fonts.h"
-#include "../../system/system.h"
-#include "../../main_window/main_window.h"
+#include "game_interface/gameplay/sub_windows/sub_windows_util/fonts.h"
+#include "game_interface/system/system.h"
+#include "game_interface/main_window/main_window.h"
 
-#include "../../../map_structures/pre-settings/pre-settings.h"
+#include "map_structures/pre-settings/pre-settings.h"
 
 std::string ChoiseFolderMenu::selectFolder(std::string v_saveFileName, bool& isFolderSelected)
 {

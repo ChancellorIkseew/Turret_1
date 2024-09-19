@@ -1,8 +1,8 @@
 
 #include "drill.h"
-#include "../../../../resources/resource_units.h"
-#include "../../../../resources/res_enum.h"
-#include "../../../buildings_map.h"
+#include "map_structures/resources/resource_units.h"
+#include "map_structures/resources/res_enum.h"
+#include "map_structures/buildings/buildings_map.h"
 
 
 Drill::Drill(int v_type, short v_durability, short v_size, int tileX, int tileY) : Building(v_type, v_durability, v_size, tileX, tileY)

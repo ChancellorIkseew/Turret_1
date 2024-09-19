@@ -4,7 +4,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../../resources/resources.h"
+#include "map_structures/resources/resources.h"
 
 struct BuildingInfo
 {

@@ -34,16 +34,13 @@ private:
 public:
 
 	TerrainPreSettingsWindow();
-
-	void prepareInterfaceSprites() override;
+	~TerrainPreSettingsWindow() = default;
 
 	void interact(sf::Vector2i& mouseCoord, bool& isMenuOpen);
-
 	void relocate(int windowSizeX, int windowSizeY) override;
 
+	void prepareInterfaceSprites() override;
 	void draw(sf::RenderWindow& window) override;
-
-	~TerrainPreSettingsWindow();
 
 };
 

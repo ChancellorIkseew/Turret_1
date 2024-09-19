@@ -72,8 +72,4 @@ void loadResUnitsList(std::string saveFolderName);
 void cleanResUnitsList();
 
 
-
-
-
-
 #endif // RESOURCE_UNITS_H

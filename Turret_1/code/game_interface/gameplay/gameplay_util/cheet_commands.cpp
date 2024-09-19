@@ -4,13 +4,13 @@
 
 #include "cheet_commands.h"
 
-#include "../../../map_structures/base_engine/test.h"
+#include "map_structures/base_engine/test.h"
 
-#include "../../../map_structures/resources/resources.h"
-#include "../../../map_structures/resources/res_enum.h"
-#include "../../../map_structures/entities/entities.h"
-#include "../../../map_structures/entities/mob_types/standard_bot.h"
-#include "../../../map_structures/entities/entities_util/entities_list.h"
+#include "map_structures/resources/resources.h"
+#include "map_structures/resources/res_enum.h"
+#include "map_structures/entities/entities.h"
+#include "map_structures/entities/mob_types/standard_bot.h"
+#include "map_structures/entities/entities_util/entities_list.h"
 
 
 void acceptCheetCommand()

@@ -1,6 +1,6 @@
 
 #include "resources.h"
-#include "../pre-settings/pre-settings.h"
+#include "map_structures/pre-settings/pre-settings.h"
 
 
 bool isEnoughAllRes(AllResources expenses)

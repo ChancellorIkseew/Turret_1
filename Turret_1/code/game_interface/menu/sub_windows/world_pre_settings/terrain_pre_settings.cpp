@@ -3,7 +3,7 @@
 
 #include "terrain_pre_settings.h"
 
-#include "../../../system/system.h"
+#include "game_interface/system/system.h"
 
 
 TerrainPreSettingsWindow::TerrainPreSettingsWindow() : SubWindow('s', 400, 700, 100, 100)
@@ -46,13 +46,6 @@ void TerrainPreSettingsWindow::relocate(int windowSizeX, int windowSizeY)
 
 
 void TerrainPreSettingsWindow::draw(sf::RenderWindow& window)
-{
-
-}
-
-
-
-TerrainPreSettingsWindow::~TerrainPreSettingsWindow()
 {
 
 }

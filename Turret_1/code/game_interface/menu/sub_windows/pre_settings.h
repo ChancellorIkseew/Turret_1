@@ -4,7 +4,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../../gameplay/sub_windows/sub_windows_util/sub_window.h"
+#include "game_interface/gameplay/sub_windows/sub_windows_util/sub_window.h"
 
 #include "world_pre_settings/general_pre_settings.h"
 
@@ -42,16 +42,13 @@ private:
 public:
 
 	PreSettingsWindow();
-
-	void prepareInterfaceSprites() override;
+	~PreSettingsWindow() = default;
 
 	int interact(sf::Vector2i& mouseCoord, bool& isMenuOpen);
-
 	void relocate(int windowSizeX, int windowSizeY) override;
 
+	void prepareInterfaceSprites() override;
 	void draw(sf::RenderWindow& window) override;
-
-	~PreSettingsWindow();
 
 };
 

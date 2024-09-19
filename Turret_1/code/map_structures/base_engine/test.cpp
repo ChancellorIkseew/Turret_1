@@ -3,7 +3,7 @@
 #include "test.h"
 
 #include "tile_coord.h"
-#include "../buildings/buildings_map.h"
+#include "map_structures/buildings/buildings_map.h"
 
 
 void spiralTest()

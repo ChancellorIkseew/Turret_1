@@ -4,9 +4,8 @@
 
 #include "main_window_resize.h"
 
-#include "../settings/settings_util/settings_save_system.h"
-
-#include "../gameplay/sub_windows/sub_windows_util/sub_windows_list.h"
+#include "game_interface/settings/settings_util/settings_save_system.h"
+#include "game_interface/gameplay/sub_windows/sub_windows_util/sub_windows_list.h"
 
 
 sf::View overlay;
@@ -41,7 +40,6 @@ void overlayResize(sf::RenderWindow& mainWindow)
 	}
 	
 }
-
 
 
 void mainWindowResize(sf::RenderWindow& mainWindow)

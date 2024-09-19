@@ -3,8 +3,8 @@
 
 #include "pre_settings.h"
 
-#include "../../system/system.h"
-#include "../../main_window/main_window.h"
+#include "game_interface/system/system.h"
+#include "game_interface/main_window/main_window.h"
 
 #include "world_pre_settings/general_pre_settings.h"
 
@@ -146,11 +146,4 @@ void PreSettingsWindow::draw(sf::RenderWindow& window)
 
 		generalPreSettingsWindow.draw(window);
 	}
-}
-
-
-
-PreSettingsWindow::~PreSettingsWindow()
-{
-	
 }

@@ -2,7 +2,7 @@
 #include <iostream>
 
 #include "camera.h"
-#include "../../../map_structures/pre-settings/pre-settings.h"
+#include "map_structures/pre-settings/pre-settings.h"
 
 
 

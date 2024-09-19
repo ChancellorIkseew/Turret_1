@@ -1,15 +1,14 @@
 
-#include "../entities.h"
-#include "../mob_enum.h"
+#include "map_structures/entities/entities.h"
+#include "map_structures/entities/mob_enum.h"
 
 
-#include "../mob_types/standard_bot.h"
-#include "../mob_types/heavy_bot.h"
-#include "../mob_types/rocket_bot.h"
+#include "map_structures/entities/mob_types/standard_bot.h"
+#include "map_structures/entities/mob_types/heavy_bot.h"
+#include "map_structures/entities/mob_types/rocket_bot.h"
 
-#include "../mob_types/cannon_boss_bot.h"
-#include "../mob_types/rocket_boss_bot.h"
-
+#include "map_structures/entities/mob_types/cannon_boss_bot.h"
+#include "map_structures/entities/mob_types/rocket_boss_bot.h"
 
 
 Entity* Entity::createEntity(int type)

@@ -1,18 +1,16 @@
 
-#include <iostream>
 #include <fstream>
 #include <string>
 #include <SFML\Graphics.hpp>
-#include <cmath>
 #include <list>
 
 #include "shells.h"
 
-#include "../buildings/buildings_map.h"
-#include "../buildings/building/buildings_enum.h"
+#include "map_structures/buildings/buildings_map.h"
+#include "map_structures/buildings/building/buildings_enum.h"
 
-#include "../entities/entities.h"
-#include "../entities/entities_util/entities_list.h"
+#include "map_structures/entities/entities.h"
+#include "map_structures/entities/entities_util/entities_list.h"
 
 		
 Shell::Shell(char v_shellType ,float v_coordX, float v_coordY, float v_angleRad, float v_angleDeg)
@@ -75,10 +73,7 @@ Shell::Shell(char v_shellType ,float v_coordX, float v_coordY, float v_angleRad,
 	lineMotionY = cos(angleRad)*speed;
 	
 	curentShellsLifeTime = 0;
-
-	//std::cout << "shell_created\n";
 }
-
 
 
 void Shell::prepareSprites()
@@ -90,7 +85,6 @@ void Shell::prepareSprites()
 	shellSprite.setTextureRect(sf::IntRect(0, 0, 1, 2));
 	shellSprite.setOrigin(1, 1);
 }
-
 
 
 void Shell::motion()
@@ -107,11 +101,11 @@ void Shell::motion()
 	
 }
 
+
 void Shell::explosion(BuildingsMap& buildingsMap1) { }
 
 
-
-void Shell::drawShell(sf::RenderWindow &window, int time)
+void Shell::draw(sf::RenderWindow &window, int time)
 {
 	if(shellType == '1')
 	{
@@ -127,10 +121,7 @@ void Shell::drawShell(sf::RenderWindow &window, int time)
 	shellSprite.setPosition(coordX, coordY);
 	shellSprite.setRotation(angleDeg);
 	window.draw(shellSprite);
-	
-	//std::cout << "shell draw works" << '\n';
 }		
-
 
 
 void Shell::tryEnemyShellsHitting(BuildingsMap &buildingsMap1)
@@ -155,22 +146,17 @@ void Shell::tryEnemyShellsHitting(BuildingsMap &buildingsMap1)
 }
 
 
-
 void Shell::tryPlayerShellsHitting(BuildingsMap& buildingsMap1)
 {
-	for (std::list<Entity*>::iterator it = entitiesList.begin(); it != entitiesList.end(); ++it)	//Cheek damage
+	for (std::list<Entity*>::iterator it = entitiesList.begin(); it != entitiesList.end(); ++it)
 	{
-
 		if (abs((*it)->getCoordX() - coordX) < 7 && abs((*it)->getCoordY() - coordY) < 7)
 		{
-			std::cout << "hitboxes contact" << '\n';
-
 			(*it)->setDamage(10);
 			return;
 		}
 	}
 }
-
 
 
 float Shell::getCoordX() { return coordX; }
@@ -179,17 +165,10 @@ float Shell::getCoordY() { return coordY; }
 
 bool Shell::getIsWasted() { return isWasted; }
 
-Shell::~Shell()
-{
-	
-}
-
-
 
 std::list<Shell*> playerShellsList;		//Player's shels
 
 std::list<Shell*> enemyShellsList;	//Enemie's shels
-
 
 
 void moveShellsList(int time)
@@ -204,7 +183,6 @@ void moveShellsList(int time)
 		(*it)->motion();
 	}
 }
-
 
 
 void checkShellsHitting(BuildingsMap& buildingsMap1)
@@ -245,21 +223,19 @@ void checkShellsHitting(BuildingsMap& buildingsMap1)
 }
 
 
-
 void drawShellsList(sf::RenderWindow& window, int time)
 {
 	for (std::list<Shell*>::iterator it = playerShellsList.begin(); it != playerShellsList.end(); ++it)
 	{
-		(*it)->drawShell(window, time);
+		(*it)->draw(window, time);
 		
 	}
 	
 	for (std::list<Shell*>::iterator it = enemyShellsList.begin(); it != enemyShellsList.end(); ++it)
 	{
-		(*it)->drawShell(window, time);
+		(*it)->draw(window, time);
 	}
 }
-
 
 
 void loadShellsList(int saveFileNumber)
@@ -268,12 +244,10 @@ void loadShellsList(int saveFileNumber)
 }
 
 
-
 void saveShellsList(int saveFileNumber)
 {
 	
 }
-
 
 
 void cleanShellsList()

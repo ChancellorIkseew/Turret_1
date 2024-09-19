@@ -19,7 +19,4 @@ enum MobType
 };
 
 
-
-
-
 #endif //!MOB_ENUM_H

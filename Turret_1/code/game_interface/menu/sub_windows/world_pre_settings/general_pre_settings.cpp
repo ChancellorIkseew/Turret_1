@@ -1,9 +1,7 @@
 
-#include <iostream>
-//#include "../../../system/system.h"
-
 #include "general_pre_settings.h"
-#include "../../../../map_structures/pre-settings/pre-settings.h"
+#include "map_structures/pre-settings/pre-settings.h"
+
 
 GeneralPreSettingsWindow::GeneralPreSettingsWindow() : SubWindow('s', 700, 350, 100, 100)
 {
@@ -48,7 +46,6 @@ void GeneralPreSettingsWindow::draw(sf::RenderWindow& window)
 	if (isVisible)
 	{
 		this->drawSubWindowBase(window);
-		//window.draw();
 
 		mapMaxX.draw(window);
 		mapMaxY.draw(window);
@@ -61,11 +58,4 @@ void GeneralPreSettingsWindow::enterSettings()
 {
 	PreSettings::setMapMaxX(mapMaxX.getIntValue());
 	PreSettings::setMapMaxY(mapMaxY.getIntValue());
-}
-
-
-
-GeneralPreSettingsWindow::~GeneralPreSettingsWindow()
-{
-
 }

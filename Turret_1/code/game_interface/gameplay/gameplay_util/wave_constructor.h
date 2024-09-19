@@ -1,16 +1,8 @@
 #pragma once
-
 #ifndef WAVE_CONSTRUCTOR_H
 #define WAVE_CONSTRUCTOR_H
 
-#include <iostream>
-#include <fstream>
 #include <string>
-#include <SFML\Graphics.hpp>
-#include <list>
-
-
-
 
 
 extern int waveNumber;

@@ -5,8 +5,8 @@
 
 #include "main_menu.h"
 
-#include "../../system/system.h"
-#include "../../main_window/main_window.h"
+#include "game_interface/system/system.h"
+#include "game_interface/main_window/main_window.h"
 
 MainMenu::MainMenu() : SubWindow('s', 720, 480, 100, 100)
 {
@@ -85,11 +85,4 @@ void MainMenu::draw(sf::RenderWindow& window)
 		window.draw(optionsButtonSprite);
 		window.draw(playButtonSprite);
 	}
-}
-
-
-
-MainMenu::~MainMenu()
-{
-
 }

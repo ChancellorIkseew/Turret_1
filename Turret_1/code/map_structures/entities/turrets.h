@@ -2,9 +2,7 @@
 #ifndef TURRETS_H
 #define TURRETS_H
 
-#include <iostream>
 #include <fstream>
-#include <string>
 #include <SFML\Graphics.hpp>
 
 

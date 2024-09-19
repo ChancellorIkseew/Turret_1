@@ -4,8 +4,8 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../../../gameplay/sub_windows/sub_windows_util/sub_window.h"
-#include "../../../gameplay/sub_windows/sub_windows_util/text_field.h"
+#include "game_interface/gameplay/sub_windows/sub_windows_util/sub_window.h"
+#include "game_interface/gameplay/sub_windows/sub_windows_util/text_field.h"
 
 
 class GeneralPreSettingsWindow : public SubWindow
@@ -37,18 +37,14 @@ private:
 public:
 
 	GeneralPreSettingsWindow();
-
-	void prepareInterfaceSprites() override;
+	~GeneralPreSettingsWindow() = default;
 
 	void interact(sf::Vector2i& mouseCoord, bool& isMenuOpen);
-
 	void relocate(int windowSizeX, int windowSizeY) override;
-
-	void draw(sf::RenderWindow& window) override;
-
 	void enterSettings();
 
-	~GeneralPreSettingsWindow();
+	void prepareInterfaceSprites() override;
+	void draw(sf::RenderWindow& window) override;
 
 };
 

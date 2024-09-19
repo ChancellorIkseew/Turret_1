@@ -6,16 +6,16 @@
 
 #include "main_window_resize.h"
 
-#include "../menu/menu.h"
-#include "../gameplay/gameplay.h"
+#include "game_interface/menu/menu.h"
+#include "game_interface/gameplay/gameplay.h"
 
-#include "../gameplay/sub_windows/sub_windows_util/sub_window.h"
-#include "../gameplay/sub_windows/sub_windows_util/sub_windows_list.h"
-#include "../gameplay/sub_windows/sub_windows_util/fonts.h"
+#include "game_interface/gameplay/sub_windows/sub_windows_util/sub_window.h"
+#include "game_interface/gameplay/sub_windows/sub_windows_util/sub_windows_list.h"
+#include "game_interface/gameplay/sub_windows/sub_windows_util/fonts.h"
 
-#include "../sound_system/sound_system.h"
+#include "game_interface/sound_system/sound_system.h"
 
-#include "../settings/settings_util/settings_save_system.h"
+#include "game_interface/settings/settings_util/settings_save_system.h"
 
 
 void openMainWindow()

@@ -1,21 +1,14 @@
 
 #include <iostream>
 #include <fstream>
-#include <string>
 #include <SFML\Graphics.hpp>
-#include <cmath>
-#include <list>
-
 
 #include "turrets.h"
 
 #include "entities.h"
 #include "entities_util/entities_list.h"
 
-#include "../shells/shells.h"
-#include "../shells/shell_types/rockets.h"
-
-#include "../buildings/building/buildings_enum.h"
+#include "map_structures/buildings/building/buildings_enum.h"
 
 #include "turret_types/autocannon_turret.h"
 #include "turret_types/rocket_turret.h"
@@ -81,7 +74,6 @@ bool Turret::findAim()
 			aimCoordX = (*it)->getCoordX();
 			aimCoordY = (*it)->getCoordY();
 
-			//std::cout << "angle: " << angleRad << " deltaX: " << deltaX << '\n';
 			return true;
 			break;
 		}

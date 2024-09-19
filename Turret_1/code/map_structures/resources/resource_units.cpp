@@ -7,11 +7,11 @@
 
 #include "resource_units.h"
 
-#include "../../game_interface/gameplay/gameplay_util/camera.h"
+#include "game_interface/gameplay/gameplay_util/camera.h"
 
-#include "../buildings/buildings_map.h"
-#include "../buildings/building/buildings_enum.h"
-#include "../base_engine/tile_coord.h"
+#include "map_structures/buildings/buildings_map.h"
+#include "map_structures/buildings/building/buildings_enum.h"
+#include "map_structures/base_engine/tile_coord.h"
 
 #include "res_enum.h"
 #include "resources.h"

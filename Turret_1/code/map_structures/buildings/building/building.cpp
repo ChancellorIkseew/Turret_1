@@ -2,8 +2,8 @@
 #include "building.h"
 #include "buildings_enum.h"
 
-#include "../buildings_map.h"
-#include "../../resources/res_enum.h"
+#include "map_structures/buildings/buildings_map.h"
+#include "map_structures/resources/res_enum.h"
 
 
 Building::Building(int v_type, short v_durability, short v_size, int tileX, int tileY)
@@ -32,8 +32,10 @@ void Building::save(std::ofstream& fout)
 
 	for (std::list<StoredResource>::iterator it = storedResourcesList.begin(); it != storedResourcesList.end(); ++it)
 	{
-		if(it->quant != 0)
+		if (it->quant != 0)
+		{
 			fout << it->type << " " << it->quant << '\n';
+		}	
 	}
 
 	fout << "$\n";
@@ -49,19 +51,17 @@ void Building::load(std::ifstream& fin)
 		char nextSymbol;
 		fin >> nextSymbol;
 		
-		if (nextSymbol != '$')
-		{
-			fin.seekg(-1, std::ios::cur);
-			int resType;
-			fin >> resType;
-			short amount;
-			fin >> amount;
-			storedResourcesList.push_back(StoredResource{ resType, amount });
-		}
-		else
+		if (nextSymbol == '$')
 		{
 			break;
 		}
+
+		fin.seekg(-1, std::ios::cur);
+		int resType;
+		fin >> resType;
+		short amount;
+		fin >> amount;
+		storedResourcesList.push_back(StoredResource{ resType, amount });	
 	}
 }
 
@@ -77,16 +77,11 @@ void Building::addToInventory(int resType, short amount)
 		if (it->type == resType)
 		{
 			it->quant = it->quant + amount;
-
-			//std::cout << "resource was accepted; ";
-			//std::cout << " resource_quant: " << (*it)->quant;
-			//std::cout << "; resource_type: " << (*it)->type << '\n';
 			return;
 		}
 	}
 
 	storedResourcesList.emplace_back(StoredResource{ resType, amount });
-	//std::cout << "new resource_obj created" << '\n';
 }
 
 
@@ -97,7 +92,6 @@ int Building::findResource()
 	{
 		if (it->quant > 0)
 		{
-			//std::cout << "detected_resource_quant:" << (*it)->quant << '\n';
 			return it->type;
 		}
 	}
@@ -113,7 +107,6 @@ bool Building::isEnoughRes(int v_type, short amount)
 	{
 		if (it->type == v_type && it->quant >= amount)
 		{
-			//std::cout << "detected_resource_type:" << (*it)->type << '\n';
 			return true;
 		}
 	}
@@ -130,12 +123,9 @@ void Building::wasteResorce(int v_type, int amount)
 		if (it->type == v_type)
 		{
 			it->quant = it->quant - amount;
-			//std::cout << "resource_wasted:" << (*it)->type << '\n';
 			return;
 		}
 	}
-
-	return;
 }
 
 

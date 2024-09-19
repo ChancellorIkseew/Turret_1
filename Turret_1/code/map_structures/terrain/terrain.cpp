@@ -4,13 +4,12 @@
 #include <string>
 #include <SFML\Graphics.hpp>
 
-
 #include "terrain.h"
 
-#include "../pre-settings/pre-settings.h"
-#include "../base_engine/tile_coord.h"
+#include "map_structures/pre-settings/pre-settings.h"
+#include "map_structures/base_engine/tile_coord.h"
 
-#include "../../game_interface/gameplay/gameplay_util/camera.h"
+#include "game_interface/gameplay/gameplay_util/camera.h"
 
 
 TerrainMap::TerrainMap(std::string saveFolderName)
@@ -257,10 +256,7 @@ void TerrainMap::drawMap(sf::RenderWindow& window)
 
 			}
 
-
 			mapSprite.setPosition(x * _TILE_, y * _TILE_);
-
-
 			window.draw(mapSprite);
 		}
 	}

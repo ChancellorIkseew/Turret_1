@@ -6,8 +6,8 @@
 #include <fstream>
 #include <SFML/Graphics.hpp>
 
-#include "../../base_engine/tile_coord.h"
-#include "../../terrain/terrain.h"
+#include "map_structures/base_engine/tile_coord.h"
+#include "map_structures/terrain/terrain.h"
 
 
 struct StoredResource
@@ -37,7 +37,7 @@ public:
 public:
 
 	Building(int v_type, short v_durability, short v_size, int tileCoordX, int tileCoordY);
-	Building();
+	Building(); // refactor
 	virtual ~Building();
 
 	virtual void save(std::ofstream& fout);
@@ -56,7 +56,7 @@ public:
 
 	int findResource();
 	bool isEnoughRes(int v_type, short amount);
-	void wasteResorce(int type, int amount);
+	void wasteResorce(int v_type, int amount);
 
 	bool hasCorrectConveyerUp(int tileX, int tileY);
 	bool hasCorrectConveyerLeft(int tileX, int tileY);

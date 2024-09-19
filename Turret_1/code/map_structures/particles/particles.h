@@ -11,17 +11,9 @@
 class Particle
 {
 	private:
-		
-	//bool isFriendly;
-	
-	//float angleRad;
-	//float angleDeg;
 	
 	float coordX;
 	float coordY;
-	
-	//float lineMotionX;
-	//float lineMotionY;
 	
 	int particlesLifeTime;
 	

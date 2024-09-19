@@ -9,12 +9,12 @@
 #include "building/buildings_enum.h"
 #include "building/buildings_info.h"
 
-#include "../pre-settings/pre-settings.h"
+#include "map_structures/pre-settings/pre-settings.h"
 
-#include "../../game_interface/gameplay/gameplay_util/camera.h"
+#include "game_interface/gameplay/gameplay_util/camera.h"
 
-#include "../base_engine/tile_coord.h"
-#include "../resources/resources.h"
+#include "map_structures/base_engine/tile_coord.h"
+#include "map_structures/resources/resources.h"
 
 
 #include "building/building_types/walls/wall.h"

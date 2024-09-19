@@ -3,10 +3,10 @@
 #include <thread>
 #include <SFML/Graphics.hpp>
 
-#include "../main_window/main_window_resize.h"
-#include "../main_window/main_window.h"
+#include "game_interface/main_window/main_window_resize.h"
+#include "game_interface/main_window/main_window.h"
 
-#include "../system/system.h"
+#include "game_interface/system/system.h"
 
 #include "sub_windows/main_menu.h"
 #include "sub_windows/choise_save_folder.h"

@@ -2,7 +2,6 @@
 #ifndef MAIN_WINDOW_H
 #define MAIN_WINDOW_H
 
-#include <SFML/Graphics.hpp>
 
 extern int overlaySizeX;
 extern int overlaySizeY;
