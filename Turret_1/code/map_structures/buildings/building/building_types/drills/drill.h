@@ -19,7 +19,7 @@ public:
 
 	Drill(int v_type, short v_durability, short v_size, int tileX, int tileY);
 	Drill();
-	virtual ~Drill();
+	virtual ~Drill() = default;
 
 	void interact() override;
 	virtual void mineResource();

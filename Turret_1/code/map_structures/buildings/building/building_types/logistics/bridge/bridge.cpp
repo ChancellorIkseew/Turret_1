@@ -1,9 +1,8 @@
 
 #include "bridge.h"
-
-#include "../../../../buildings_map.h"
-#include "../../../buildings_enum.h"
-#include "../../../../../resources/resource_units.h"
+#include "map_structures/buildings/buildings_map.h"
+#include "map_structures/buildings/building/buildings_enum.h"
+#include "map_structures/resources/resource_units.h"
 
 
 Bridge::Bridge(int v_type, char v_direction, short v_durability, short v_size, int tileX, int tileY) : Building(v_type, v_durability, v_size, tileX, tileY)
@@ -158,10 +157,4 @@ void Bridge::draw(sf::RenderWindow& window)
 
 	buildingSprite.setRotation(0);
 	buildingSprite.setOrigin(0, 0);
-}
-
-
-Bridge::~Bridge()
-{
-
 }

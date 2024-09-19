@@ -2,8 +2,9 @@
 #ifndef CONVEYER_H
 #define CONVEYER_H
 
-#include "../../../buildings_map.h"
+#include "map_structures/buildings/buildings_map.h"
 #include "SFML/Graphics.hpp"
+
 
 class Conveyer : public Building
 {

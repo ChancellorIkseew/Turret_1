@@ -1,9 +1,8 @@
 
 #include "router.h"
-
-#include "../../../../buildings_map.h"
-#include "../../../buildings_enum.h"
-#include "../../../../../resources/resource_units.h"
+#include "map_structures/buildings/buildings_map.h"
+#include "map_structures/buildings/building/buildings_enum.h"
+#include "map_structures/resources/resource_units.h"
 
 
 Router::Router(int v_type, short v_durability, short v_size, int tileX, int tileY) : Building(v_type, v_durability, v_size, tileX, tileY)
@@ -119,10 +118,4 @@ void Router::draw(sf::RenderWindow& window)
 	buildingSprite.setPosition(tileX * _TILE_, tileY * _TILE_);
 	buildingSprite.setTextureRect(sf::IntRect(0, 256, 32, 32));
 	window.draw(buildingSprite);
-}
-
-
-Router::~Router()
-{
-
 }

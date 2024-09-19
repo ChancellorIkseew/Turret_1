@@ -14,11 +14,6 @@ Factory::Factory()
 
 }
 
-Factory::~Factory()
-{
-
-}
-
 
 void Factory::interact()
 {

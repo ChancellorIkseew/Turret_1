@@ -13,7 +13,7 @@ public:
 
 	BigDrill(int v_type, short v_durability, short v_size, int tileX, int tileY);
 	BigDrill();
-	~BigDrill();
+	~BigDrill() = default;
 
 	void mineResource() override;
 
@@ -21,7 +21,6 @@ public:
 	void draw(sf::RenderWindow& window) override;
 	
 };
-
 
 
 #endif // BIG_DRILL_H

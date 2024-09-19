@@ -1,13 +1,12 @@
 
 #include "core.h"
-#include "../../buildings_enum.h"
+#include "map_structures/buildings/building/buildings_enum.h"
+
 
 Core::Core(int v_type, short v_durability, short v_size, int tileX, int tileY) : Building(v_type, v_durability, v_size, tileX, tileY)
 {
 
 }
-
-
 
 Core::Core()
 {
@@ -40,11 +39,4 @@ void Core::draw(sf::RenderWindow& window)
 	buildingSprite.setTextureRect(sf::IntRect(0, 96, 128, 128));
 
 	window.draw(buildingSprite);
-}
-
-
-
-Core::~Core()
-{
-
 }

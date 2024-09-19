@@ -2,11 +2,9 @@
 #ifndef CORE_H
 #define CORE_H
 
-
-#include "../../../buildings_map.h"
-//#include "../../../buildings_map.h"
-
 #include "SFML/Graphics.hpp"
+
+#include "map_structures/buildings/buildings_map.h"
 
 
 class Core : public Building
@@ -17,7 +15,7 @@ public:
 
 	Core(int v_type, short v_durability, short v_size, int tileX, int tileY);
 	Core();
-	virtual ~Core();
+	virtual ~Core() = default;
 
 	void interact() override;
 

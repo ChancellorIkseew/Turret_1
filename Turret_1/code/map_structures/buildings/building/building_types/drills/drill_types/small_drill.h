@@ -13,7 +13,7 @@ public:
 
 	SmallDrill(int v_type, short v_durability, short v_size, int tileX, int tileY);
 	SmallDrill();
-	~SmallDrill();
+	~SmallDrill() = default;
 
 	void animation() override;
 	void draw(sf::RenderWindow& window) override;

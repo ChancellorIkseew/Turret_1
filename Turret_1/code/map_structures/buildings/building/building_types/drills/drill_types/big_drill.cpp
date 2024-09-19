@@ -8,8 +8,6 @@ BigDrill::BigDrill(int v_type, short v_durability, short v_size, int tileX, int 
 	
 }
 
-
-
 BigDrill::BigDrill() : Drill()
 {
 	type = BIG_DRILL;
@@ -63,11 +61,4 @@ void BigDrill::draw(sf::RenderWindow& window)
 	window.draw(buildingSprite);
 	//std::cout << "draw_drill" << '\n';
 	//std::cout << "draw_drill" << '\n';
-}
-
-
-
-BigDrill::~BigDrill()
-{
-
 }

@@ -3,7 +3,6 @@
 #define SHELL_FACTORY_H
 
 #include "../factory.h"
-//#include "../../../buildings_map.h"
 
 #include "SFML/Graphics.hpp"
 
@@ -16,7 +15,7 @@ public:
 
 	ShellFactory(int v_type, short v_durability, short v_size, int tileX, int tileY);
 	ShellFactory();
-	~ShellFactory();
+	~ShellFactory() = default;
 
 	void interact() override;
 	void produceResource() override;

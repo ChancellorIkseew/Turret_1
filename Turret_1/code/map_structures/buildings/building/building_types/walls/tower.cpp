@@ -1,9 +1,10 @@
 
 #include "tower.h"
-#include "../../buildings_enum.h"
-#include "../../../../resources/res_enum.h"
-#include "../../../../entities/turret_types/autocannon_turret.h"
-#include "../../../../entities/turret_types/rocket_turret.h"
+#include "map_structures/buildings/building/buildings_enum.h"
+#include "map_structures/resources/res_enum.h"
+#include "map_structures/entities/turret_types/autocannon_turret.h"
+#include "map_structures/entities/turret_types/rocket_turret.h"
+
 
 Tower::Tower(char v_type, short v_durability, short v_size, int tileX, int tileY) : Building (v_type, v_durability, v_size, tileX, tileY)
 {

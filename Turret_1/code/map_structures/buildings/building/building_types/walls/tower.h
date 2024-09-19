@@ -2,8 +2,8 @@
 #ifndef TOWER_H
 #define TOWER_H
 
-#include "../../building.h"
-#include "../../../../entities/turrets.h"
+#include "map_structures/buildings/building/building.h"
+#include "map_structures/entities/turrets.h"
 
 class Tower : public Building
 {

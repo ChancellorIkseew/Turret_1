@@ -3,7 +3,6 @@
 #define ROCKET_FACTORY_H
 
 #include "../factory.h"
-//#include "../../../buildings_map.h"
 
 #include "SFML/Graphics.hpp"
 
@@ -16,7 +15,7 @@ public:
 
 	RocketFactory(int v_type, short v_durability, short v_size, int tileX, int tileY);
 	RocketFactory();
-	~RocketFactory();
+	~RocketFactory() = default;
 
 	void interact() override;
 	void produceResource() override;
@@ -27,9 +26,7 @@ public:
 	void animation();
 	void draw(sf::RenderWindow& window) override;
 
-	
 };
-
 
 
 #endif // ROCKET_FACTORY_H

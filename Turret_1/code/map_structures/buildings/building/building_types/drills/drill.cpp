@@ -15,11 +15,6 @@ Drill::Drill()
 	timer = 150;
 }
 
-Drill::~Drill()
-{
-
-}
-
 
 void Drill::interact()
 {

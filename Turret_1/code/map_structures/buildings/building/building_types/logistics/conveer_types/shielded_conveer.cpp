@@ -1,6 +1,6 @@
 
 #include "shielded_conveer.h"
-#include "../../../buildings_enum.h"
+#include "map_structures/buildings/building/buildings_enum.h"
 
 
 ShieldedConveyer::ShieldedConveyer(char v_type, char v_direction, short v_durability, short v_size, int tileX, int tileY) : Conveyer(v_type, v_direction, v_durability, v_size, tileX, tileY)
@@ -21,10 +21,6 @@ ShieldedConveyer::ShieldedConveyer() : Conveyer()
 	}
 }
 
-ShieldedConveyer::~ShieldedConveyer()
-{
-
-}
 
 void ShieldedConveyer::load(std::ifstream& fin)
 {

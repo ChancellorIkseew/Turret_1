@@ -2,8 +2,9 @@
 #ifndef BUILDING_ROUTER_H
 #define BUILDING_ROUTER_H
 
-#include "../../../building.h"
+#include "map_structures/buildings/building/building.h"
 #include "SFML/Graphics.hpp"
+
 
 class Router : public Building
 {
@@ -11,7 +12,7 @@ public:
 
 	Router(int v_type, short v_durability, short v_size, int tileX, int tileY);
 	Router();
-	~Router();
+	~Router() = default;
 
 	void interact() override;
 	void placeResourceUnit(int type) override;

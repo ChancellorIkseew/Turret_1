@@ -11,7 +11,7 @@ public:
 
 	StoneTower(char v_type, short v_durability, short v_size, int tileX, int tileY);
 	StoneTower();
-	~StoneTower();
+	~StoneTower() = default;
 
 	void draw(sf::RenderWindow& window) override;
 

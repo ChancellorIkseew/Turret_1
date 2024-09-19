@@ -51,10 +51,3 @@ void SmallDrill::draw(sf::RenderWindow& window)
 	//std::cout << "draw_drill" << '\n';
 	//std::cout << "draw_drill" << '\n';
 }
-
-
-
-SmallDrill::~SmallDrill()
-{
-
-}

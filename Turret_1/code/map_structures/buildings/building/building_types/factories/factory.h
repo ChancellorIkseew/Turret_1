@@ -17,7 +17,7 @@ public:
 
 	Factory(int v_type, short v_durability, short v_size, int tileX, int tileY);
 	Factory();
-	virtual ~Factory();
+	virtual ~Factory() = default;
 
 	void interact() override;
 	virtual void produceResource() = 0;

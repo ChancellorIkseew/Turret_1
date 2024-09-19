@@ -2,9 +2,8 @@
 #include <iostream>
 
 #include "shell_factory.h"
-#include "../../../../../resources/res_enum.h"
-#include "../../../buildings_enum.h"
-#include "../../../../../resources/res_enum.h"
+#include "map_structures/resources/res_enum.h"
+#include "map_structures/buildings/building/buildings_enum.h"
 
 
 ShellFactory::ShellFactory(int v_type, short v_durability, short v_size, int tileX, int tileY) : Factory(v_type, v_durability, v_size, tileX, tileY)
@@ -92,11 +91,4 @@ void ShellFactory::draw(sf::RenderWindow& window)
 	buildingSprite.setTextureRect(sf::IntRect(0, 320, 64, 64));
 
 	window.draw(buildingSprite);
-}
-
-
-
-ShellFactory::~ShellFactory()
-{
-	storedResourcesList.clear();
 }

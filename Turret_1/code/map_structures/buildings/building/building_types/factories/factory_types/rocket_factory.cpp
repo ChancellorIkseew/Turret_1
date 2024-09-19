@@ -1,7 +1,8 @@
 
 #include "rocket_factory.h"
-#include "../../../../../resources/res_enum.h"
-#include "../../../buildings_enum.h"
+
+#include "map_structures/resources/res_enum.h"
+#include "map_structures/buildings/building/buildings_enum.h"
 
 
 RocketFactory::RocketFactory(int v_type, short v_durability, short v_size, int tileX, int tileY) : Factory(v_type, v_durability, v_size, tileX, tileY)
@@ -39,8 +40,6 @@ void RocketFactory::interact()
 }
 
 
-
-
 void RocketFactory::produceResource()
 {
 	if (isEnoughRes(RES_IRON, 3) && isEnoughRes(RES_COPPER, 2) && isEnoughRes(RES_SILICON, 1) && isEnoughRes(RES_SULFUR, 10) && !isEnoughRes(RES_ROCKET, 60))
@@ -53,8 +52,6 @@ void RocketFactory::produceResource()
 		addToInventory(RES_ROCKET, 1);
 	}
 }
-
-
 
 
 
@@ -93,11 +90,4 @@ void RocketFactory::draw(sf::RenderWindow& window)
 	buildingSprite.setTextureRect(sf::IntRect(256, 384, 96, 96));
 
 	window.draw(buildingSprite);
-}
-
-
-
-RocketFactory::~RocketFactory()
-{
-	storedResourcesList.clear();
 }
