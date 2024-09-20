@@ -201,8 +201,7 @@
     <ClCompile Include="code\map_structures\buildings\building\building_types\storages\core.cpp" />
     <ClCompile Include="code\map_structures\buildings\building\building_types\walls\tower.cpp" />
     <ClCompile Include="code\map_structures\buildings\building\building_types\walls\tower_types\stone_tower.cpp" />
-    <ClCompile Include="code\map_structures\buildings\building\building_types\walls\wall.cpp" />
-    <ClCompile Include="code\map_structures\buildings\building\building_types\walls\wall_types\stone_wall.cpp" />
+    <ClCompile Include="code\map_structures\buildings\building\building_types\walls\stone_wall.cpp" />
     <ClCompile Include="code\map_structures\entities\entities.cpp" />
     <ClCompile Include="code\map_structures\entities\entities_util\create_entity.cpp" />
     <ClCompile Include="code\map_structures\entities\entities_util\entities_list.cpp" />
@@ -297,8 +296,7 @@
     <ClInclude Include="code\map_structures\buildings\building\building_types\storages\core.h" />
     <ClInclude Include="code\map_structures\buildings\building\building_types\walls\tower.h" />
     <ClInclude Include="code\map_structures\buildings\building\building_types\walls\tower_types\stone_tower.h" />
-    <ClInclude Include="code\map_structures\buildings\building\building_types\walls\wall.h" />
-    <ClInclude Include="code\map_structures\buildings\building\building_types\walls\wall_types\stone_wall.h" />
+    <ClInclude Include="code\map_structures\buildings\building\building_types\walls\stone_wall.h" />
     <ClInclude Include="code\map_structures\entities\entities.h" />
     <ClInclude Include="code\map_structures\entities\entities_util\entities_list.h" />
     <ClInclude Include="code\map_structures\entities\mob_enum.h" />

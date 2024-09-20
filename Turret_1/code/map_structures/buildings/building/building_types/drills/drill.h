@@ -2,9 +2,7 @@
 #ifndef DRILL_H
 #define DRILL_H
 
-#include "../../building.h"
-
-#include "SFML/Graphics.hpp"
+#include "map_structures/buildings/building/building.h"
 
 
 class Drill : public Building
@@ -21,12 +19,8 @@ public:
 	Drill();
 	virtual ~Drill() = default;
 
-	void interact() override;
-	virtual void mineResource();
-	void placeResourceUnit(int type) override;
+	void mineResource(int amountFromOneTile);
 
-	virtual void draw(sf::RenderWindow& window) override = 0;
-	
 };
 
 

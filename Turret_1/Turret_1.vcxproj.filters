@@ -153,10 +153,7 @@
     <ClCompile Include="code\map_structures\buildings\building\building_types\storages\core.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="code\map_structures\buildings\building\building_types\walls\wall_types\stone_wall.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="code\map_structures\buildings\building\building_types\walls\wall.cpp">
+    <ClCompile Include="code\map_structures\buildings\building\building_types\walls\stone_wall.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="code\map_structures\buildings\building\building.cpp">
@@ -413,10 +410,7 @@
     <ClInclude Include="code\map_structures\buildings\building\building_types\storages\core.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="code\map_structures\buildings\building\building_types\walls\wall_types\stone_wall.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="code\map_structures\buildings\building\building_types\walls\wall.h">
+    <ClInclude Include="code\map_structures\buildings\building\building_types\walls\stone_wall.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\map_structures\buildings\building\building.h">

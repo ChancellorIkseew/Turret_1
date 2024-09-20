@@ -7,7 +7,7 @@
 #include "SFML/Graphics.hpp"
 
 
-class ShellFactory : public Factory
+class ShellFactory final : public Factory
 {
 protected:
 
@@ -21,7 +21,6 @@ public:
 	void produceResource() override;
 
 	bool canAccept(int resType) override;
-	bool isThisPositionFree(int position) override;
 
 	void animation();
 	void draw(sf::RenderWindow& window) override;

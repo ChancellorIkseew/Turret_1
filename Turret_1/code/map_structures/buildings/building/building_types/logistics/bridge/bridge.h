@@ -23,7 +23,7 @@ public:
 	void load(std::ifstream& fin) override;
 
 	void interact() override;
-	void placeResourceUnit(int type) override;
+	void transmitResourceUnit();
 
 	bool canAccept(int resType) override;
 	bool isThisPositionFree(int position) override;

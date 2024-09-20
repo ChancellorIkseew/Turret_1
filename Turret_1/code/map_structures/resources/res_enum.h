@@ -6,6 +6,8 @@
 enum ResType
 {
 	RES_NO_RESOURCES = 0,
+	RES_ANY_RES = 0,
+
 	RES_STONE = 1,
 	RES_IRON = 2,
 	RES_COPPER = 3,

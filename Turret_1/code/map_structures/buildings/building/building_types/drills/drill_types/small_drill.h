@@ -7,13 +7,15 @@
 #include "SFML/Graphics.hpp"
 
 
-class SmallDrill : public Drill
+class SmallDrill final : public Drill
 {
 public:
 
 	SmallDrill(int v_type, short v_durability, short v_size, int tileX, int tileY);
 	SmallDrill();
 	~SmallDrill() = default;
+
+	void interact() override final;
 
 	void animation() override;
 	void draw(sf::RenderWindow& window) override;

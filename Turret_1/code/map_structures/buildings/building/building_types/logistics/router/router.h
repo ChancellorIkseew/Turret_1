@@ -15,7 +15,7 @@ public:
 	~Router() = default;
 
 	void interact() override;
-	void placeResourceUnit(int type) override;
+	void placeResourceUnitX1(int type) override;
 
 	bool canAccept(int resType) override;
 	bool isThisPositionFree(int position) override;

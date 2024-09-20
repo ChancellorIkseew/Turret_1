@@ -37,7 +37,7 @@ public:
 public:
 
 	Building(int v_type, short v_durability, short v_size, int tileCoordX, int tileCoordY);
-	Building(); // refactor
+	Building() = default;
 	virtual ~Building();
 
 	virtual void save(std::ofstream& fout);
@@ -52,7 +52,10 @@ public:
 	virtual void takePosition(int position);
 
 	void addToInventory(int resType, short amount);
-	virtual void placeResourceUnit(int type);
+	virtual void placeResourceUnit(int type, int tileX, int tileY);
+	virtual void placeResourceUnitX1(int type);
+	virtual void placeResourceUnitX4(int type);
+	virtual void placeResourceUnitX9(int type);
 
 	int findResource();
 	bool isEnoughRes(int v_type, short amount);

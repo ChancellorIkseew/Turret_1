@@ -3,7 +3,7 @@
 #define BUILDINGS_ENUM_H
 
 
-extern enum bType
+enum bType
 {
 	// auxilary
 	REMOVE = 0,

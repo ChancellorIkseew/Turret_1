@@ -1,6 +1,6 @@
 
 #include "small_drill.h"
-#include "../../../buildings_enum.h"
+#include "map_structures/buildings/building/buildings_enum.h"
 
 
 SmallDrill::SmallDrill(int v_type, short v_durability, short v_size, int tileX, int tileY) : Drill(v_type, v_durability, v_size, tileX, tileY)
@@ -8,11 +8,28 @@ SmallDrill::SmallDrill(int v_type, short v_durability, short v_size, int tileX, 
 
 }
 
-
-
 SmallDrill::SmallDrill()
 {
 	type = SMALL_DRILL;
+}
+
+
+void SmallDrill::interact()
+{
+	if (timer % 15 == 0)
+	{
+		Building::placeResourceUnitX1(this->findResource());
+	}
+
+	if (timer == 0)
+	{
+		timer = 150;
+		Drill::mineResource(1);
+	}
+
+	--timer;
+
+	this->animation();
 }
 
 
@@ -28,12 +45,8 @@ void SmallDrill::animation()
 	}
 }
 
-
-
 void SmallDrill::draw(sf::RenderWindow& window)
 {
-	
-
 	buildingSprite.setOrigin(16, 16);
 	buildingSprite.setRotation(rotorAngle);
 	buildingSprite.setPosition(tileX * _TILE_ + _HALF_TILE_, tileY * _TILE_ + _HALF_TILE_);
@@ -47,7 +60,4 @@ void SmallDrill::draw(sf::RenderWindow& window)
 	buildingSprite.setTextureRect(sf::IntRect(32, 0, 32, 32));
 
 	window.draw(buildingSprite);
-
-	//std::cout << "draw_drill" << '\n';
-	//std::cout << "draw_drill" << '\n';
 }

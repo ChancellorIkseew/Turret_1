@@ -1,6 +1,5 @@
 #include "big_drill.h"
 #include "map_structures/buildings/building/buildings_enum.h"
-#include "map_structures/resources/res_enum.h"
 
 
 BigDrill::BigDrill(int v_type, short v_durability, short v_size, int tileX, int tileY) : Drill(v_type, v_durability, v_size, tileX, tileY)
@@ -14,22 +13,23 @@ BigDrill::BigDrill() : Drill()
 }
 
 
-
-
-void BigDrill::mineResource()
+void BigDrill::interact()
 {
-	for (int i = 0; i < size; ++i)
+	if (timer % 15 == 0)
 	{
-		int resType = TerrainMap::getTileType(tileX + coordSquareArr[i].x, tileY + coordSquareArr[i].y);
-
-		if (resType != RES_NO_RESOURCES && !isEnoughRes(resType, 20))
-		{
-			addToInventory(resType, 2);
-		}
+		Building::placeResourceUnitX4(this->findResource());
 	}
+
+	if (timer == 0)
+	{
+		timer = 150;
+		Drill::mineResource(2);
+	}
+
+	--timer;
+
+	this->animation();
 }
-
-
 
 void BigDrill::animation()
 {
@@ -42,7 +42,6 @@ void BigDrill::animation()
 		}
 	}
 }
-
 
 void BigDrill::draw(sf::RenderWindow& window)
 {
@@ -59,6 +58,4 @@ void BigDrill::draw(sf::RenderWindow& window)
 	buildingSprite.setTextureRect(sf::IntRect(64, 32, 64, 64));
 
 	window.draw(buildingSprite);
-	//std::cout << "draw_drill" << '\n';
-	//std::cout << "draw_drill" << '\n';
 }

@@ -57,11 +57,11 @@ void Bridge::load(std::ifstream& fin)
 
 void Bridge::interact()
 {
-	placeResourceUnit('X');
+	transmitResourceUnit();
 }
 
 
-void Bridge::placeResourceUnit(int type)
+void Bridge::transmitResourceUnit()
 {
 	short comonResQuant = 0;
 

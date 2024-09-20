@@ -2,12 +2,12 @@
 #ifndef ROCKET_FACTORY_H
 #define ROCKET_FACTORY_H
 
-#include "../factory.h"
+#include "map_structures/buildings/building/building_types/factories/factory.h"
 
 #include "SFML/Graphics.hpp"
 
 
-class RocketFactory : public Factory
+class RocketFactory final : public Factory
 {
 protected:
 
@@ -21,7 +21,6 @@ public:
 	void produceResource() override;
 
 	bool canAccept(int resType) override;
-	bool isThisPositionFree(int position) override;
 
 	void animation();
 	void draw(sf::RenderWindow& window) override;

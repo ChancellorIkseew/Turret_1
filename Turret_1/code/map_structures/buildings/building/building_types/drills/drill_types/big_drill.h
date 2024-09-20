@@ -2,12 +2,12 @@
 #ifndef BIG_DRILL_H
 #define BIG_DRILL_H
 
-#include "../drill.h"
+#include "map_structures/buildings/building/building_types/drills/drill.h"
 
 #include "SFML/Graphics.hpp"
 
 
-class BigDrill : public Drill
+class BigDrill final : public Drill
 {
 public:
 
@@ -15,7 +15,7 @@ public:
 	BigDrill();
 	~BigDrill() = default;
 
-	void mineResource() override;
+	void interact() override final;
 
 	void animation() override;
 	void draw(sf::RenderWindow& window) override;

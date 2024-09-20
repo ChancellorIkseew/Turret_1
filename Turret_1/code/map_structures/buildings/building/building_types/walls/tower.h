@@ -25,11 +25,9 @@ public:
 	bool isThisPositionFree(int position) override;
 	bool canAccept(int resType) override;
 
-	void setTurret(int turretType);
-	void removeTurret();
-	bool isTurretOnTower();
-
-	virtual void draw(sf::RenderWindow& window) override = 0;
+	void setTurret(int turretType) override final;
+	void removeTurret() override final;
+	bool isTurretOnTower() override final;
 
 };
 

@@ -20,20 +20,17 @@ RocketFactory::RocketFactory() : Factory()
 
 void RocketFactory::interact()
 {
-
 	--timer;
 
 	if (timer%15 == 0)
 	{
-		placeResourceUnit(RES_ROCKET);
-		//std::cout << "t place" << '\n';
+		placeResourceUnitX9(RES_ROCKET);
 	}
 
 	if (timer == 0)
 	{
 		timer = 120;
 		produceResource();
-		//std::cout << "t prod" << '\n';
 	}
 
 	this->animation();
@@ -44,7 +41,6 @@ void RocketFactory::produceResource()
 {
 	if (isEnoughRes(RES_IRON, 3) && isEnoughRes(RES_COPPER, 2) && isEnoughRes(RES_SILICON, 1) && isEnoughRes(RES_SULFUR, 10) && !isEnoughRes(RES_ROCKET, 60))
 	{
-		//std::cout<< "rocket_created" << '\n';
 		wasteResorce(RES_IRON, 3);
 		wasteResorce(RES_COPPER, 2);
 		wasteResorce(RES_SILICON, 1);
@@ -52,24 +48,6 @@ void RocketFactory::produceResource()
 		addToInventory(RES_ROCKET, 1);
 	}
 }
-
-
-
-void RocketFactory::animation()
-{
-	if (true)
-	{
-
-	}
-}
-
-
-
-bool RocketFactory::isThisPositionFree(int position)
-{
-	return true;
-}
-
 
 
 bool RocketFactory::canAccept(int resType)
@@ -83,6 +61,13 @@ bool RocketFactory::canAccept(int resType)
 }
 
 
+void RocketFactory::animation()
+{
+	if (true)
+	{
+
+	}
+}
 
 void RocketFactory::draw(sf::RenderWindow& window)
 {

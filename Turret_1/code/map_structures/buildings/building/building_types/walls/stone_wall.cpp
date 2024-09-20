@@ -1,5 +1,5 @@
 
-#include "wall.h"
+#include "stone_wall.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 
 
@@ -7,7 +7,6 @@ StoneWall::StoneWall(char v_type, short v_durability, short v_size, int tileX, i
 {
 
 }
-
 
 StoneWall::StoneWall() : Building()
 {

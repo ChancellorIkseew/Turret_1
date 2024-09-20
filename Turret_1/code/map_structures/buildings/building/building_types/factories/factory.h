@@ -2,9 +2,7 @@
 #ifndef FACTORY_H
 #define FACTORY_H
 
-#include "../../building.h"
-
-#include "SFML/Graphics.hpp"
+#include "map_structures/buildings/building/building.h"
 
 
 class Factory : public Building
@@ -16,19 +14,13 @@ protected:
 public:
 
 	Factory(int v_type, short v_durability, short v_size, int tileX, int tileY);
-	Factory();
+	Factory() = default;
 	virtual ~Factory() = default;
 
-	void interact() override;
 	virtual void produceResource() = 0;
-	void placeResourceUnit(int type) override;
-
-	virtual bool canAccept(int resType) override = 0;
-
-	virtual void draw(sf::RenderWindow& window) override = 0;
+	bool isThisPositionFree(int position) override final;
 
 };
-
 
 
 #endif // SHELL_FACTORY_H

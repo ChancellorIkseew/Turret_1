@@ -17,7 +17,7 @@
 #include "map_structures/resources/resources.h"
 
 
-#include "building/building_types/walls/wall.h"
+#include "building/building_types/walls/stone_wall.h"
 #include "building/building_types/walls/tower_types/stone_tower.h"
 #include "building/building_types/drills/drill.h"
 #include "building/building_types/drills/drill_types/small_drill.h"
@@ -371,13 +371,9 @@ Building* BuildingsMap::setBuilding(int type, char direction,  short durability,
 		return new BigDrill(BIG_DRILL, durability, size, tileX, tileY);
 
 	case EFFECTIVE_DRILL:
-
-
 		break;
 
 	case REINFORCED_DRILL:
-
-
 		break;
 
 	case SHELL_FACTORY:
@@ -386,6 +382,8 @@ Building* BuildingsMap::setBuilding(int type, char direction,  short durability,
 	case ROCKET_FACTORY:
 		return new RocketFactory(ROCKET_FACTORY, durability, size, tileX, tileY);
 
+	default:
+		return nullptr;
 	}
 }
 
@@ -431,21 +429,22 @@ Building* BuildingsMap::createBuilding(int type)
 		return new SmallDrill;
 
 	case BIG_DRILL:
-
-
+		return new BigDrill;
+#ifdef A
 	case EFFECTIVE_DRILL:
-
-
+		return new EffectiveDrill;
 
 	case REINFORCED_DRILL:
-
-
-
+		return new ReinforcedDrill;
+#endif // A
 	case SHELL_FACTORY:
 		return new ShellFactory;
 
 	case ROCKET_FACTORY:
 		return new RocketFactory;
+
+	default:
+		return nullptr;
 	}
 }
 

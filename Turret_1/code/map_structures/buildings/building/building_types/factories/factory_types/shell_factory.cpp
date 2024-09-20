@@ -1,6 +1,4 @@
 
-#include <iostream>
-
 #include "shell_factory.h"
 #include "map_structures/resources/res_enum.h"
 #include "map_structures/buildings/building/buildings_enum.h"
@@ -11,66 +9,40 @@ ShellFactory::ShellFactory(int v_type, short v_durability, short v_size, int til
 	timer = 30;
 }
 
-
 ShellFactory::ShellFactory() : Factory()
 {
 	type = SHELL_FACTORY;
 	timer = 30;
-	std::cout << "shell_factory_load" << '\n';
 }
-
 
 void ShellFactory::interact()
 {
-
 	--timer;
 
 	if (timer == 0 || timer == 15)
 	{
-		placeResourceUnit(RES_AC_SHELLS);
-		//std::cout << "t place" << '\n';
+		placeResourceUnitX4(RES_AC_SHELLS);
 	}
 
 	if (timer == 0)
 	{
 		timer = 30;
 		produceResource();
-		//std::cout << "t prod" << '\n';
 	}
 
 	this->animation();
 }
 
 
-
 void ShellFactory::produceResource()
 {
 	if (isEnoughRes(RES_IRON, 1) && isEnoughRes(RES_SULFUR, 2) && !isEnoughRes(RES_AC_SHELLS, 20))
 	{
-		//std::cout<< "amoo_created" << '\n';
 		wasteResorce(RES_IRON, 1);
 		wasteResorce(RES_SULFUR, 2);
 		addToInventory(RES_AC_SHELLS, 1);
 	}
 }
-
-
-
-void ShellFactory::animation()
-{
-	if (true)
-	{
-
-	}
-}
-
-
-
-bool ShellFactory::isThisPositionFree(int position)
-{
-	return true;
-}
-
 
 
 bool ShellFactory::canAccept(int resType)
@@ -84,6 +56,13 @@ bool ShellFactory::canAccept(int resType)
 }
 
 
+void ShellFactory::animation()
+{
+	if (true)
+	{
+
+	}
+}
 
 void ShellFactory::draw(sf::RenderWindow& window)
 {
