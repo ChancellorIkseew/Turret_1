@@ -1,19 +1,18 @@
 
-#include <iostream>
 #include <SFML\Graphics.hpp>
-#include <cmath>
+
 
 #include "autocannon_turret.h"
 
-#include "../../buildings/building/buildings_enum.h"
+#include "map_structures/buildings/building/buildings_enum.h"
 
-#include "../entities.h"
-#include "../entities_util/entities_list.h"
+#include "map_structures/entities/entities.h"
+#include "map_structures/entities/entities_util/entities_list.h"
 
-#include "../../shells/shells.h"
-#include "../../shells/shell_types/rockets.h"
+#include "map_structures/shells/shells.h"
+#include "map_structures/shells/shell_types/rockets.h"
 
-#include "../../resources/res_enum.h"
+#include "map_structures/resources/res_enum.h"
 
 
 AutocannonTurret::AutocannonTurret(int turretType) : Turret()
@@ -21,15 +20,10 @@ AutocannonTurret::AutocannonTurret(int turretType) : Turret()
 	pixelRange = 11* _TILE_;
 }
 
-AutocannonTurret::AutocannonTurret(char turretType ,int tileX, int tileY, float curentAngle, short curentDurability) :
+AutocannonTurret::AutocannonTurret(int turretType ,int tileX, int tileY, float curentAngle, short curentDurability) :
 	Turret(AUTOCANNON_TURRET, tileX, tileY, curentAngle, curentDurability)
 {
 	pixelRange = 11 * _TILE_;
-}
-
-AutocannonTurret::~AutocannonTurret()
-{
-
 }
 
 		
@@ -91,5 +85,4 @@ void AutocannonTurret::draw(sf::RenderWindow& window)
 	turretSprite.setPosition(coordX, coordY);
 	turretSprite.setRotation(angleDeg);
 	window.draw(turretSprite);
-	//std::cout << coordX << " " << coordY << '\n';
 }

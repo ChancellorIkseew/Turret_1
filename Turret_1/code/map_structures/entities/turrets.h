@@ -35,9 +35,9 @@ class Turret
 
 	public:
 		
-		Turret(char turretType ,int tileX, int tileY, float curentAngle, short curentDurability);
+		Turret(int turretType ,int tileX, int tileY, float curentAngle, short curentDurability);
 		Turret();
-		~Turret();
+		~Turret() = default;
 
 		void save(std::ofstream& fout);
 		void load(std::ifstream& fin);

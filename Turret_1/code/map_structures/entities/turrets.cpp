@@ -14,7 +14,7 @@
 #include "turret_types/rocket_turret.h"
 
 		
-Turret::Turret(char v_turretType ,int tileX, int tileY, float curentAngle, short curentDurability)
+Turret::Turret(int v_turretType ,int tileX, int tileY, float curentAngle, short curentDurability)
 {
 	this->set0();
 	turretType = v_turretType;
@@ -41,11 +41,6 @@ Turret::Turret(char v_turretType ,int tileX, int tileY, float curentAngle, short
 Turret::Turret()
 {
 	this->set0();
-}
-
-Turret::~Turret()
-{
-
 }
 
 

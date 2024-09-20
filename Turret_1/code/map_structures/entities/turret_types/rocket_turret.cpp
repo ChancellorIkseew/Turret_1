@@ -1,41 +1,30 @@
 
-#include <iostream>
-#include <fstream>
-#include <string>
 #include <SFML\Graphics.hpp>
-#include <cmath>
-#include <list>
 
 
 #include "rocket_turret.h"
 
-#include "../../buildings/building/buildings_enum.h"
+#include "map_structures/buildings/building/buildings_enum.h"
 
-#include "../entities.h"
-#include "../entities_util/entities_list.h"
+#include "map_structures/entities/entities.h"
+#include "map_structures/entities/entities_util/entities_list.h"
 
-#include "../../shells/shells.h"
-#include "../../shells/shell_types/rockets.h"
+#include "map_structures/shells/shells.h"
+#include "map_structures/shells/shell_types/rockets.h"
 
-#include "../../resources/res_enum.h"
+#include "map_structures/resources/res_enum.h"
 
 
 RocketTurret::RocketTurret(int turretType) : Turret()
 {
-	pixelRange = 12* _TILE_;
+	pixelRange = 35 * _TILE_;
 }
 
-RocketTurret::RocketTurret(char turretType ,int tileX, int tileY, float curentAngle, short curentDurability) :
+RocketTurret::RocketTurret(int turretType ,int tileX, int tileY, float curentAngle, short curentDurability) :
 	Turret(ROCKET_TURRET, tileX, tileY, curentAngle, curentDurability)
 {
 	pixelRange = 35 * _TILE_;
 }
-
-RocketTurret::~RocketTurret()
-{
-
-}
-
 
 
 void RocketTurret::shooting()
@@ -83,5 +72,4 @@ void RocketTurret::draw(sf::RenderWindow& window)
 	turretSprite.setPosition(coordX, coordY);
 	turretSprite.setRotation(angleDeg);
 	window.draw(turretSprite);
-	//std::cout << coordX << " " << coordY << '\n';
 }

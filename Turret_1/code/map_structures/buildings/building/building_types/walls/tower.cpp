@@ -146,18 +146,16 @@ void Tower::load(std::ifstream& fin)
 	{
 		fin >> nextSymbol;
 
-		if (nextSymbol != '$')
-		{
-			fin.seekg(-1, std::ios::cur);
-			int resType;
-			fin >> resType;
-			short amount;
-			fin >> amount;
-			storedResourcesList.emplace_back(StoredResource{ resType, amount });
-		}
-		else
+		if (nextSymbol == '$')
 		{
 			break;
 		}
+
+		fin.seekg(-1, std::ios::cur);
+		int resType;
+		fin >> resType;
+		short amount;
+		fin >> amount;
+		storedResourcesList.push_back(StoredResource{ resType, amount });
 	}
 }

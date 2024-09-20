@@ -37,19 +37,20 @@ void Bridge::load(std::ifstream& fin)
 
 	while (true)
 	{
-		char resType;
-		fin >> resType;
+		char nextSymbol;
+		fin >> nextSymbol;
 
-		if (resType != '$')
-		{
-			short amount;
-			fin >> amount;
-			storedResourcesList.emplace_back(StoredResource{ resType, amount });
-		}
-		else
+		if (nextSymbol == '$')
 		{
 			break;
 		}
+
+		fin.seekg(-1, std::ios::cur);
+		int resType;
+		fin >> resType;
+		short amount;
+		fin >> amount;
+		storedResourcesList.push_back(StoredResource{ resType, amount });
 	}
 }
 

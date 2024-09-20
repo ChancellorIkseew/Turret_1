@@ -4,16 +4,16 @@
 
 #include <SFML\Graphics.hpp>
 
-#include "../turrets.h"
+#include "map_structures/entities/turrets.h"
 
 
 class AutocannonTurret : public Turret
 {
 	public:
 		
-		AutocannonTurret(char turretType ,int tileX, int tileY, float curentAngle, short curentDurability);
+		AutocannonTurret(int turretType ,int tileX, int tileY, float curentAngle, short curentDurability);
 		AutocannonTurret(int turretType);
-		~AutocannonTurret();
+		~AutocannonTurret() = default;
 
 		void shooting() override;
 		
