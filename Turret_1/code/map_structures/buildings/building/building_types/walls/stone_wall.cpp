@@ -3,7 +3,7 @@
 #include "map_structures/buildings/building/buildings_enum.h"
 
 
-StoneWall::StoneWall(char v_type, short v_durability, short v_size, int tileX, int tileY) : Building (v_type, v_durability, v_size, tileX, tileY)
+StoneWall::StoneWall(char type, short durability, short size, int tileX, int tileY) : Building (type, durability, size, tileX, tileY)
 {
 
 }

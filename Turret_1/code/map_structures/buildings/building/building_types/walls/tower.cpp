@@ -6,7 +6,7 @@
 #include "map_structures/entities/turret_types/rocket_turret.h"
 
 
-Tower::Tower(char v_type, short v_durability, short v_size, int tileX, int tileY) : Building (v_type, v_durability, v_size, tileX, tileY)
+Tower::Tower(char type, short durability, short size, int tileX, int tileY) : Building (type, durability, size, tileX, tileY)
 {
 	turret = nullptr;
 }

@@ -1,5 +1,5 @@
 
-#include "map_structures/entities/entities.h"
+#include "map_structures/entities/entity.h"
 #include "map_structures/entities/mob_enum.h"
 
 

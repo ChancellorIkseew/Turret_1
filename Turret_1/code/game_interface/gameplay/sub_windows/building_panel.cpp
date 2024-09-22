@@ -4,13 +4,13 @@
 
 #include "building_panel.h"
 
-#include "../sub_windows/sub_windows_util/sub_windows_list.h"
+#include "game_interface/gameplay/sub_windows/sub_windows_util/sub_windows_list.h"
 
-#include "../../../map_structures/terrain/terrain.h"
-#include "../../../map_structures/buildings/buildings_map.h"
-#include "../../../map_structures/buildings/building/buildings_enum.h"
-#include "../../../map_structures/base_engine/tile_coord.h"
-#include "../../../map_structures/base_engine/t1_mutex.h"
+#include "map_structures/terrain/terrain.h"
+#include "map_structures/buildings/buildings_map.h"
+#include "map_structures/buildings/building/buildings_enum.h"
+#include "map_structures/base_engine/tile_coord.h"
+#include "map_structures/base_engine/t1_mutex.h"
 
 
 BuildingPanel::BuildingPanel() : SubWindow('s', 144, 192, 0, 0)

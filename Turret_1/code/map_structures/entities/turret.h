@@ -10,7 +10,7 @@ class Turret
 {
 	protected:
 	
-	int turretType;	
+	int type;	
 	
 	int coordX;
 	int coordY;
@@ -35,7 +35,7 @@ class Turret
 
 	public:
 		
-		Turret(int turretType ,int tileX, int tileY, float curentAngle, short curentDurability);
+		Turret(int type ,int tileX, int tileY, float curentAngle, short curentDurability);
 		Turret();
 		~Turret() = default;
 
@@ -50,8 +50,8 @@ class Turret
 		virtual void takeAmoo(int resType);
 
 		int getType();
-		int getTileCoordX();
-		int getTileCoordY();
+		int getTileX();
+		int getTileY();
 		int getCoordX();
 		int getCoordY();
 		int getAngleDeg();
@@ -61,15 +61,14 @@ class Turret
 		short getAmooQuant();
 		virtual int getAmooType();
 		char getActivity();
-		void setCoord(int v_coordX, int v_coordY);
+		void setCoord(int coordX, int coordY);
 
-		static Turret* setTurret(int turretType, int tileX, int tileY);
+		static Turret* setTurret(int type, int tileX, int tileY);
 
 		// visual
 		static void prepareSprites();
 		virtual void draw(sf::RenderWindow& window);
 		
 };
-
 
 #endif // TURRETS_H

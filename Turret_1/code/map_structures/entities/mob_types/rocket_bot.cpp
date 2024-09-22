@@ -1,43 +1,29 @@
 
 #include "rocket_bot.h"
 
-#include "../../shells/shells.h"
-#include "../../shells/shell_types/rockets.h"
-#include "../../buildings/building/buildings_enum.h"
+#include "map_structures/shells/shell_types/rockets.h"
+#include "map_structures/shells/shell_enum.h"
+#include "map_structures/buildings/building/buildings_enum.h"
 
 
-RocketBot::RocketBot(int v_entityType) : Entity(v_entityType)
+RocketBot::RocketBot(int type, float coordX, float coordY, float curentAngleDeg, short curentDurability) :
+	Entity(type, coordX, coordY, curentAngleDeg, curentDurability)
 {
-	durability = 250;
-	loadCombatData();
-	++enemyMobsQuantity;
+	this->initCombatData();
 }
 
-RocketBot::RocketBot(int v_entityType, float v_coordX, float v_coordY, float curentAngleDeg, short curentDurability) :
-	Entity(v_entityType, v_coordX, v_coordY, curentAngleDeg, curentDurability)
+RocketBot::RocketBot(int entityType) : Entity(entityType)
 {
-	loadCombatData();
-	++enemyMobsQuantity;
+	this->initCombatData();
+	durability = 25;
 }
 
-RocketBot::~RocketBot()
+void RocketBot::initCombatData()
 {
-	--enemyMobsQuantity;
-}
-
-void RocketBot::loadCombatData()
-{
+	Entity::initCombatData();
 	range = 25;
 	spyralRange = 2109;
 	reload = 240;
-
-	isAimDetected = false;
-
-	aimCoordX = mapMaxX * _HALF_TILE_;
-	aimCoordY = mapMaxY * _HALF_TILE_;
-
-	destCoordX = aimCoordX;
-	destCoordY = aimCoordY;
 }
 
 
@@ -71,8 +57,6 @@ void RocketBot::findPath(BuildingsMap& buildingsMap1)
 		destCoordX = pixel(this->newTileCoordX + coordSpyralArr[nIt].x);
 		destCoordY = pixel(this->newTileCoordY + coordSpyralArr[nIt].y);
 	}
-
-	std::cout << "x:" << destCoordX << " y:" << destCoordY << '\n';
 }
 
 
@@ -106,7 +90,7 @@ void RocketBot::shooting(BuildingsMap& buildingsMap1, int time)
 			float correctionX = cos(shootingAngleRad) * 5;
 			float correctionY = sin(shootingAngleRad) * 5;
 
-			enemyShellsList.push_back(new Rocket('3', coordX - correctionX, coordY + correctionY, shootingAngleRad, shootingAngleDeg));
+			enemyShellsList.push_back(new Rocket(ROCKET, coordX - correctionX, coordY + correctionY, shootingAngleRad, shootingAngleDeg));
 		}
 	}
 }

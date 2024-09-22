@@ -2,10 +2,7 @@
 #include <iostream>
 #include <fstream>
 
-
 #include "pre-settings.h"
-
-
 
 
 PreSettings::PreSettings(std::string saveFolderName)
@@ -19,11 +16,15 @@ PreSettings::PreSettings(std::string saveFolderName)
 	worldSeed = 0;
 
 	//buildings:
-	buildingsMaxDurabilityModidier = 1;
-	buildingExpansesMidifier = 1;
-	buildingsConstructionSpeedModifier = 1;
-}
+	buildingsMaxDurabilityModidier = 1.0f;
+	buildingExpansesMidifier = 1.0f;
+	buildingsConstructionSpeedModifier = 1.0f;
 
+	// enemy_mobs:
+	enemyMobQuantityModifier = 1;
+	enemyMobMaxDurabilityModifier = 1.0f;
+	enemyMobVirtIntLevel = 0;
+}
 
 
 void PreSettings::loadPreSettings()
@@ -35,11 +36,11 @@ void PreSettings::loadPreSettings()
 	{
 		fin >> mapMaxX >> mapMaxY >> generationMetodth >> worldSeed;
 		fin >> buildingsMaxDurabilityModidier >> buildingExpansesMidifier >> buildingsConstructionSpeedModifier;
+		fin >> enemyMobQuantityModifier >> enemyMobMaxDurabilityModifier >> enemyMobVirtIntLevel;
 	}
 	fin.close();
 	std::cout << "mapMaxX: " << mapMaxX << " mapMaxY: " << mapMaxY << '\n';
 }
-
 
 
 void PreSettings::savePreSettings()
@@ -51,6 +52,7 @@ void PreSettings::savePreSettings()
 	{
 		fout << mapMaxX << " "<< mapMaxY << '\n' << generationMetodth << " " << worldSeed << '\n';
 		fout << buildingsMaxDurabilityModidier << " " << buildingExpansesMidifier << " " << buildingsConstructionSpeedModifier << '\n';
+		fout << enemyMobQuantityModifier << " " << enemyMobMaxDurabilityModifier << " " << enemyMobVirtIntLevel << '\n';
 	}
 	fout.close();
 
@@ -76,8 +78,3 @@ float PreSettings::getBuildingsConstructionSpeedModifier() { return buildingsCon
 void PreSettings::setBuildingsMaxDurabilityModidier(float value) { buildingsMaxDurabilityModidier = value; }
 void PreSettings::setBuildingExpansesMidifier(float value) { buildingExpansesMidifier = value; }
 void PreSettings::setBuildingsConstructionSpeedModifier(float value) { buildingsConstructionSpeedModifier = value; }
-
-PreSettings::~PreSettings()
-{
-
-}

@@ -1,42 +1,29 @@
 
 #include "heavy_bot.h"
 
-#include "../../shells/shells.h"
-#include "../../buildings/building/buildings_enum.h"
+#include "map_structures/shells/shells.h"
+#include "map_structures/shells/shell_enum.h"
+#include "map_structures/buildings/building/buildings_enum.h"
 
 
-HeavyBot::HeavyBot(int v_entityType, float v_coordX, float v_coordY, float curentAngleDeg, short curentDurability) :
-	Entity(v_entityType, v_coordX, v_coordY, curentAngleDeg, curentDurability)
+HeavyBot::HeavyBot(int type, float coordX, float coordY, float curentAngleDeg, short curentDurability) :
+	Entity(type, coordX, coordY, curentAngleDeg, curentDurability)
 {
-	++enemyMobsQuantity;
-	loadCombatData();
+	this->initCombatData();
 }
 
-HeavyBot::HeavyBot(int v_entityType) : Entity(v_entityType)
+HeavyBot::HeavyBot(int type) : Entity(type)
 {
-	++enemyMobsQuantity;
-	durability = 500;
-	loadCombatData();
+	this->initCombatData();
+	durability = 50;
 }
 
-HeavyBot::~HeavyBot()
+void HeavyBot::initCombatData()
 {
-	--enemyMobsQuantity;
-}
-
-void HeavyBot::loadCombatData()
-{
+	Entity::initCombatData();
 	range = 7;
 	spyralRange = 193;
 	reload = 15;
-	
-	isAimDetected = false;
-
-	aimCoordX = mapMaxX * _HALF_TILE_;
-	aimCoordY = mapMaxY * _HALF_TILE_;
-
-	destCoordX = aimCoordX;
-	destCoordY = aimCoordY;
 }
 
 
@@ -103,8 +90,8 @@ void HeavyBot::shooting(BuildingsMap& buildingsMap1, int time)
 			float correctionX = cos(shootingAngleRad) * 8;
 			float correctionY = sin(shootingAngleRad) * 8;
 
-			enemyShellsList.emplace_back(new Shell('1', coordX - correctionX, coordY + correctionY, shootingAngleRad, shootingAngleDeg));
-			enemyShellsList.emplace_back(new Shell('1', coordX + correctionX, coordY - correctionY, shootingAngleRad, shootingAngleDeg));
+			enemyShellsList.emplace_back(new Shell(AC_SHELL, coordX - correctionX, coordY + correctionY, shootingAngleRad, shootingAngleDeg));
+			enemyShellsList.emplace_back(new Shell(AC_SHELL, coordX + correctionX, coordY - correctionY, shootingAngleRad, shootingAngleDeg));
 		}
 	}
 }

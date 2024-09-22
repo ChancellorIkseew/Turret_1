@@ -34,11 +34,11 @@ public:
 		return self;
 	}
 	
-	void interactResourcesPanel(sf::RenderWindow &window);
-	void relocate(int windowSizeX, int windowSizeY) override;
+	void interact(sf::RenderWindow &window);
+	void relocate(int windowSizeX, int windowSizeY) override final;
 	
-	void prepareInterfaceSprites();
-	void drawResourcesPanel(sf::RenderWindow &window);
+	void prepareInterfaceSprites() override final;
+	void draw(sf::RenderWindow &window) override final;
 	
 };
 

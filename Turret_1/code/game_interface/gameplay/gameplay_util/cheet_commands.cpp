@@ -1,4 +1,4 @@
-#ifndef TURRET_NO_TEST_BUILD
+#ifndef TURRET_1_NO_TEST_BUILD
 
 #include <iostream>
 
@@ -8,7 +8,7 @@
 
 #include "map_structures/resources/resources.h"
 #include "map_structures/resources/res_enum.h"
-#include "map_structures/entities/entities.h"
+#include "map_structures/entities/entity.h"
 #include "map_structures/entities/mob_types/standard_bot.h"
 #include "map_structures/entities/entities_util/entities_list.h"
 
@@ -89,4 +89,4 @@ void acceptCheetCommand()
 	}
 }
 
-#endif // TURRET_NO_TEST_BUILD
+#endif // TURRET_1_NO_TEST_BUILD

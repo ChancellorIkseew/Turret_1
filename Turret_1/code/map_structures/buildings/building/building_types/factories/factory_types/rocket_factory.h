@@ -13,7 +13,7 @@ protected:
 
 public:
 
-	RocketFactory(int v_type, short v_durability, short v_size, int tileX, int tileY);
+	RocketFactory(int type, short durability, short size, int tileX, int tileY);
 	RocketFactory();
 	~RocketFactory() = default;
 

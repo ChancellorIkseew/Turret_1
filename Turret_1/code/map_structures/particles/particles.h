@@ -25,8 +25,8 @@ class Particle
 
 	public:
 		
-		Particle(int particleType);
-		Particle(int particleType ,float value_coordX, float value_coordY);
+		Particle(int type);
+		Particle(int type ,float value_coordX, float value_coordY);
 		~Particle() = default;
 
 		float getCoordX();

@@ -3,7 +3,8 @@
 
 #include "code/game_interface/main_window/main_window.h"
 
-//#define TURRET_NO_TEST_BUILD
+//#define TURRET_1_NO_TEST_BUILD
+//#define TURRET_1_MOB_TYPES_TEST
 
 
 int main()

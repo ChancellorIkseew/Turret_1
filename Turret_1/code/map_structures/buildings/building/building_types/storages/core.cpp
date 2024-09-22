@@ -3,7 +3,7 @@
 #include "map_structures/buildings/building/buildings_enum.h"
 
 
-Core::Core(int v_type, short v_durability, short v_size, int tileX, int tileY) : Building(v_type, v_durability, v_size, tileX, tileY)
+Core::Core(int type, short durability, short size, int tileX, int tileY) : Building(type, durability, size, tileX, tileY)
 {
 
 }
@@ -12,7 +12,6 @@ Core::Core()
 {
 	type = CORE_MK1;
 }
-
 
 
 void Core::interact()

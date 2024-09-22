@@ -6,73 +6,31 @@
 
 #include "shells.h"
 
+#include "shell_enum.h"
 #include "map_structures/buildings/buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"
-
-#include "map_structures/entities/entities.h"
+#include "map_structures/entities/entity.h"
 #include "map_structures/entities/entities_util/entities_list.h"
 
 		
-Shell::Shell(char v_shellType ,float v_coordX, float v_coordY, float v_angleRad, float v_angleDeg)
+Shell::Shell(int type ,float coordX, float coordY, float angleRad, float angleDeg)
 {
-	shellType = v_shellType;
+	this->type = type;
 	
 	isWasted = false;
 	
-	coordX = v_coordX; //+ sin(angleRad)*8;
-	coordY = v_coordY; //+ cos(angleRad)*8;
+	this->coordX = coordX;
+	this->coordY = coordY;
 	
-	angleRad = v_angleRad;
-	angleDeg = v_angleDeg;
+	this->angleRad = angleRad;
+	this->angleDeg = angleDeg;
 	
-	float speed = 0;
-
-	switch (shellType)
-	{
-		case '1':
-			speed = 1.6f;
-			maxShellsLifeTime = 200;	// basic_shell
-			break;
-		case '2':
-			speed = 1.6f;
-			maxShellsLifeTime = 500;	// explosive_shell
-			break;
-
-		case '3':
-			speed = 2.4f;
-			maxShellsLifeTime = 420;	// rocket
-			break;
-
-		case '4':
-			speed = 3.6f;
-			maxShellsLifeTime = 400;	// rail_bolt
-			break;
-
-		case '5':
-			speed = 1.2f;
-			maxShellsLifeTime = 100;	// gravity_pulse
-			break;
-
-		case '6':
-			speed = 0.8f;
-			maxShellsLifeTime = 120;	// flame
-			break;
-
-		case '7':
-			speed = 13.8f;
-			maxShellsLifeTime = 40;		// laser
-			break;
-
-		default:
-			speed = 0;
-			maxShellsLifeTime = 0;		// error_defence
-			break;
-	}
-
+	float speed = 1.6f;
 	lineMotionX = sin(angleRad)*speed;
 	lineMotionY = cos(angleRad)*speed;
 	
-	curentShellsLifeTime = 0;
+	maxLifeTime = 200;
+	curentLifeTime = 0;
 }
 
 
@@ -92,9 +50,9 @@ void Shell::motion()
 	coordX = coordX+lineMotionX;
 	coordY = coordY+lineMotionY;
 	
-	++curentShellsLifeTime;
+	++curentLifeTime;
 	
-	if(curentShellsLifeTime > maxShellsLifeTime)
+	if(curentLifeTime > maxLifeTime)
 	{
 		isWasted = true;
 	}
@@ -107,17 +65,8 @@ void Shell::explosion(BuildingsMap& buildingsMap1) { }
 
 void Shell::draw(sf::RenderWindow &window, int time)
 {
-	if(shellType == '1')
-	{
-		shellSprite.setTextureRect(sf::IntRect(0, 0, 1, 2));
-		shellSprite.setOrigin(0,1);
-	}
-	else
-	{
-		shellSprite.setTextureRect(sf::IntRect(2, 0, 3, 7));
-		shellSprite.setOrigin(2,1);
-	}
-	
+	shellSprite.setTextureRect(sf::IntRect(0, 0, 1, 2));
+	shellSprite.setOrigin(0,1);
 	shellSprite.setPosition(coordX, coordY);
 	shellSprite.setRotation(angleDeg);
 	window.draw(shellSprite);
@@ -131,18 +80,9 @@ void Shell::tryEnemyShellsHitting(BuildingsMap &buildingsMap1)
 	
 	if(buildingsMap1.getBuildingType(tileCoordX, tileCoordY) != VOID_)
 	{
-		if(shellType == '1')
-		{
-			buildingsMap1.setDamage(1, tileCoordX, tileCoordY);
-		}
-		else
-		{
-			buildingsMap1.setDamage(20, tileCoordX, tileCoordY);
-		}
-		
+		buildingsMap1.setDamage(1, tileCoordX, tileCoordY);
 		isWasted = true;
 	}
-	
 }
 
 
@@ -152,7 +92,8 @@ void Shell::tryPlayerShellsHitting(BuildingsMap& buildingsMap1)
 	{
 		if (abs((*it)->getCoordX() - coordX) < 7 && abs((*it)->getCoordY() - coordY) < 7)
 		{
-			(*it)->setDamage(10);
+			(*it)->setDamage(1);
+			isWasted = true;
 			return;
 		}
 	}

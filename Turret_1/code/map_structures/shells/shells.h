@@ -13,7 +13,7 @@ class Shell
 {
 	protected:
 		
-	char shellType;
+	char type;
 	
 	float angleRad;
 	float angleDeg;
@@ -24,8 +24,8 @@ class Shell
 	float lineMotionX;
 	float lineMotionY;
 	
-	int curentShellsLifeTime;
-	int maxShellsLifeTime;
+	int curentLifeTime;
+	int maxLifeTime;
 	
 	bool isWasted;
 
@@ -35,7 +35,7 @@ class Shell
 	
 	public:
 		
-		Shell(char v_shellType ,float v_coordX, float v_coordY, float v_angleRad, float v_angleDeg);
+		Shell(int type ,float coordX, float coordY, float angleRad, float angleDeg);
 		virtual ~Shell() = default;
 
 		virtual void motion();

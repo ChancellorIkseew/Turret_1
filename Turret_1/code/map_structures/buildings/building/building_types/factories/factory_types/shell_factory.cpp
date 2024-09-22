@@ -4,7 +4,7 @@
 #include "map_structures/buildings/building/buildings_enum.h"
 
 
-ShellFactory::ShellFactory(int v_type, short v_durability, short v_size, int tileX, int tileY) : Factory(v_type, v_durability, v_size, tileX, tileY)
+ShellFactory::ShellFactory(int type, short durability, short size, int tileX, int tileY) : Factory(type, durability, size, tileX, tileY)
 {
 	timer = 30;
 }

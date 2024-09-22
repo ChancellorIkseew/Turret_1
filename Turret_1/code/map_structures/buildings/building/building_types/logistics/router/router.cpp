@@ -6,7 +6,7 @@
 #include "map_structures/resources/res_enum.h"
 
 
-Router::Router(int v_type, short v_durability, short v_size, int tileX, int tileY) : Building(v_type, v_durability, v_size, tileX, tileY)
+Router::Router(int type, short durability, short size, int tileX, int tileY) : Building(type, durability, size, tileX, tileY)
 {
 
 }
@@ -23,7 +23,7 @@ void Router::interact()
 }
 
 
-void Router::placeResourceUnitX1(int type)
+void Router::placeResourceUnitX1(int resType)
 {
 	short comonResQuant = 0;
 

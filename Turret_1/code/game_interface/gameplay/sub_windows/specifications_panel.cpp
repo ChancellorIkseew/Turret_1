@@ -8,8 +8,8 @@
 #include "sub_windows_util/fonts.h"
 #include "sub_windows_util/res_info.h"
 
-#include "../../../map_structures/resources/res_enum.h"
-#include "../../../map_structures/buildings/building/buildings_info.h"
+#include "map_structures/resources/res_enum.h"
+#include "map_structures/buildings/building/buildings_info.h"
 
 
 SpecificationsPanel::SpecificationsPanel() : SubWindow('s', 260, 400, 0, 310)

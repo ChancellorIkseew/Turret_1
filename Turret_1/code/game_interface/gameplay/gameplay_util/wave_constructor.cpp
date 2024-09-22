@@ -6,7 +6,7 @@
 
 #include "wave_constructor.h"
 
-#include "map_structures/entities/entities.h"
+#include "map_structures/entities/entity.h"
 #include "map_structures/entities/mob_enum.h"
 #include "map_structures/entities/entities_util/entities_list.h"
 
@@ -47,12 +47,13 @@ void switchEntities(int waveNumber)
 			{
 			entitiesList.push_back(new StandardBot(STANDARD_BOT));
 			entitiesList.push_back(new StandardBot(STANDARD_BOT));
-			//entitiesList.push_back(new HeavyBot(HEAVY_BOT));
-			//entitiesList.push_back(new RocketBot(ROCKET_BOT));
-			//entitiesList.push_back(new LaserBot(LASER_BOT));
-			//entitiesList.push_back(new CannonBossBot(CANNON_BOSS));
-			//entitiesList.push_back(new RocketBossBot(ROCKET_BOSS));
-
+#ifdef TURRET_1_MOB_TYPES_TEST
+			entitiesList.push_back(new HeavyBot(HEAVY_BOT));
+			entitiesList.push_back(new RocketBot(ROCKET_BOT));
+			entitiesList.push_back(new LaserBot(LASER_BOT));
+			entitiesList.push_back(new CannonBossBot(CANNON_BOSS));
+			entitiesList.push_back(new RocketBossBot(ROCKET_BOSS));
+#endif // TURRET_1_MOB_TYPES_TEST
 				break;
 			}
 			

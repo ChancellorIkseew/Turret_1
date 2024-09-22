@@ -36,7 +36,7 @@ public:
 
 public:
 
-	Building(int v_type, short v_durability, short v_size, int tileCoordX, int tileCoordY);
+	Building(int type, short durability, short size, int tileX, int tileY);
 	Building() = default;
 	virtual ~Building();
 
@@ -52,14 +52,14 @@ public:
 	virtual void takePosition(int position);
 
 	void addToInventory(int resType, short amount);
-	virtual void placeResourceUnit(int type, int tileX, int tileY);
-	virtual void placeResourceUnitX1(int type);
-	virtual void placeResourceUnitX4(int type);
-	virtual void placeResourceUnitX9(int type);
+	virtual void placeResourceUnit(int resType, int tileX, int tileY);
+	virtual void placeResourceUnitX1(int resType);
+	virtual void placeResourceUnitX4(int resType);
+	virtual void placeResourceUnitX9(int resType);
 
 	int findResource();
-	bool isEnoughRes(int v_type, short amount);
-	void wasteResorce(int v_type, int amount);
+	bool isEnoughRes(int resType, short amount);
+	void wasteResorce(int resType, int amount);
 
 	bool hasCorrectConveyerUp(int tileX, int tileY);
 	bool hasCorrectConveyerLeft(int tileX, int tileY);

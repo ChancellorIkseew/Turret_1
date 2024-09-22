@@ -17,7 +17,7 @@ private:
 
 public:
 
-	ShieldedConveyer(char v_type, char v_direction, short v_durability, short v_size, int tileX, int tileY);
+	ShieldedConveyer(char type, char direction, short durability, short size, int tileX, int tileY);
 	ShieldedConveyer();
 	~ShieldedConveyer() = default;
 

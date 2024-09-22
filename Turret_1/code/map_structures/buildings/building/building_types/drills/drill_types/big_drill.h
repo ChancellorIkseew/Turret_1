@@ -11,7 +11,7 @@ class BigDrill final : public Drill
 {
 public:
 
-	BigDrill(int v_type, short v_durability, short v_size, int tileX, int tileY);
+	BigDrill(int type, short durability, short size, int tileX, int tileY);
 	BigDrill();
 	~BigDrill() = default;
 

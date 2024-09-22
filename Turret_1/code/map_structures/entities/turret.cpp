@@ -3,9 +3,9 @@
 #include <fstream>
 #include <SFML\Graphics.hpp>
 
-#include "turrets.h"
+#include "turret.h"
 
-#include "entities.h"
+#include "entity.h"
 #include "entities_util/entities_list.h"
 
 #include "map_structures/buildings/building/buildings_enum.h"
@@ -14,10 +14,10 @@
 #include "turret_types/rocket_turret.h"
 
 		
-Turret::Turret(int v_turretType ,int tileX, int tileY, float curentAngle, short curentDurability)
+Turret::Turret(int type ,int tileX, int tileY, float curentAngle, short curentDurability)
 {
 	this->set0();
-	turretType = v_turretType;
+	this->type = type;
 	
 	coordX = tileX * _TILE_ + _HALF_TILE_;
 	coordY = tileY * _TILE_ + _HALF_TILE_;
@@ -46,7 +46,7 @@ Turret::Turret()
 
 void Turret::save(std::ofstream& fout)
 {
-	fout << turretType << " " << durability << " " << int(angleDeg) << " " << amooQuant << '\n';
+	fout << type << " " << durability << " " << int(angleDeg) << " " << amooQuant << '\n';
 }
 
 void Turret::load(std::ifstream& fin)
@@ -94,17 +94,17 @@ void Turret::setCoord(int v_coordX, int v_coordY)
 
 int Turret::getType()
 {
-	return turretType;
+	return type;
 }
 
-int Turret::getTileCoordX()
+int Turret::getTileX()
 {
-	return (coordX-8)/16;
+	return tile(coordX);
 }
 
-int Turret::getTileCoordY()
+int Turret::getTileY()
 {
-	return (coordY-8)/16;
+	return tile(coordY);
 }
 
 int Turret::getCoordX()
@@ -164,7 +164,7 @@ char Turret::getActivity()
 
 void Turret::set0()
 {
-	turretType = 0;
+	type = 0;
 
 	coordX = 0;
 	coordY = 0;
@@ -192,9 +192,9 @@ void Turret::takeAmoo(int resType) { }
 
 
 
-Turret* Turret::setTurret(int turretType, int tileX, int tileY)
+Turret* Turret::setTurret(int type, int tileX, int tileY)
 {
-	switch (turretType)
+	switch (type)
 	{
 	case AUTOCANNON_TURRET:
 		return new AutocannonTurret(AUTOCANNON_TURRET, tileX, tileY, 0, 0);

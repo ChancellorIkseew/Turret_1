@@ -16,7 +16,7 @@ private:
 
 public:
 
-	Conveyer(char v_type, char v_direction, short v_durability, short v_size, int tileX, int tileY);
+	Conveyer(char type, char direction, short durability, short v_size, int tileX, int tileY);
 	Conveyer();
 	virtual ~Conveyer() = default;
 

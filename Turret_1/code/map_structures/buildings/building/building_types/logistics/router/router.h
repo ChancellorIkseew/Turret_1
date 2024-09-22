@@ -10,7 +10,7 @@ class Router : public Building
 {
 public:
 
-	Router(int v_type, short v_durability, short v_size, int tileX, int tileY);
+	Router(int type, short durability, short size, int tileX, int tileY);
 	Router();
 	~Router() = default;
 

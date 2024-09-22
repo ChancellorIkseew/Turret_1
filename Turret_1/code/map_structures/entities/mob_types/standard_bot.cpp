@@ -1,42 +1,29 @@
 
 #include "standard_bot.h"
 
-#include "../../shells/shells.h"
-#include "../../buildings/building/buildings_enum.h"
+#include "map_structures/shells/shells.h"
+#include "map_structures/shells/shell_enum.h"
+#include "map_structures/buildings/building/buildings_enum.h"
 
 
-StandardBot::StandardBot(int v_entityType, float v_coordX, float v_coordY, float curentAngleDeg, short curentDurability) :
-	Entity(v_entityType, v_coordX, v_coordY, curentAngleDeg, curentDurability)
+StandardBot::StandardBot(int type, float coordX, float coordY, float curentAngleDeg, short curentDurability) :
+	Entity(type, coordX, coordY, curentAngleDeg, curentDurability)
 {
-	++enemyMobsQuantity;
-	loadCombatData();
+	this->initCombatData();
 }
 
-StandardBot::StandardBot(int v_entityType) : Entity(v_entityType)
+StandardBot::StandardBot(int type) : Entity(type)
 {
-	++enemyMobsQuantity;
-	durability = 100;
-	loadCombatData();
+	this->initCombatData();
+	durability = 10;
 }
 
-StandardBot::~StandardBot()
+void StandardBot::initCombatData()
 {
-	--enemyMobsQuantity;
-}
-
-void StandardBot::loadCombatData()
-{
+	Entity::initCombatData();
 	range = 5;
 	spyralRange = 109;
 	reload = 30;
-	
-	isAimDetected = false;
-
-	aimCoordX = mapMaxX * _HALF_TILE_;
-	aimCoordY = mapMaxY * _HALF_TILE_;
-
-	destCoordX = aimCoordX;
-	destCoordY = aimCoordY;
 }
 
 
@@ -103,7 +90,7 @@ void StandardBot::shooting(BuildingsMap& buildingsMap1, int time)
 			float correctionX = cos(shootingAngleRad) * 4.5f;
 			float correctionY = sin(shootingAngleRad) * 4.5f;
 					
-			enemyShellsList.emplace_back(new Shell('1', coordX - correctionX, coordY + correctionY, shootingAngleRad, shootingAngleDeg));
+			enemyShellsList.emplace_back(new Shell(AC_SHELL, coordX - correctionX, coordY + correctionY, shootingAngleRad, shootingAngleDeg));
 		}
 	}
 }

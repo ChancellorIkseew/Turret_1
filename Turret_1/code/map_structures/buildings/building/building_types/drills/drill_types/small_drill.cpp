@@ -3,7 +3,7 @@
 #include "map_structures/buildings/building/buildings_enum.h"
 
 
-SmallDrill::SmallDrill(int v_type, short v_durability, short v_size, int tileX, int tileY) : Drill(v_type, v_durability, v_size, tileX, tileY)
+SmallDrill::SmallDrill(int type, short durability, short size, int tileX, int tileY) : Drill(type, durability, size, tileX, tileY)
 {
 
 }

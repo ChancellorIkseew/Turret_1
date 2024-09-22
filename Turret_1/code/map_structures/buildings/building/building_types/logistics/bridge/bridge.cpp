@@ -5,9 +5,9 @@
 #include "map_structures/resources/resource_units.h"
 
 
-Bridge::Bridge(int v_type, char v_direction, short v_durability, short v_size, int tileX, int tileY) : Building(v_type, v_durability, v_size, tileX, tileY)
+Bridge::Bridge(int type, char direction, short durability, short size, int tileX, int tileY) : Building(type, durability, size, tileX, tileY)
 {
-	direction = v_direction;
+	this->direction = direction;
 }
 
 Bridge::Bridge() : Building()

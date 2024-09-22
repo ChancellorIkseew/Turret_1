@@ -3,7 +3,7 @@
 #define TOWER_H
 
 #include "map_structures/buildings/building/building.h"
-#include "map_structures/entities/turrets.h"
+#include "map_structures/entities/turret.h"
 
 class Tower : public Building
 {
@@ -13,7 +13,7 @@ protected:
 
 public:
 
-	Tower(char v_type, short v_durability, short v_size, int tileX, int tileY);
+	Tower(char type, short durability, short size, int tileX, int tileY);
 	Tower();
 	virtual ~Tower();
 

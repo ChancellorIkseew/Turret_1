@@ -202,7 +202,7 @@
     <ClCompile Include="code\map_structures\buildings\building\building_types\walls\tower.cpp" />
     <ClCompile Include="code\map_structures\buildings\building\building_types\walls\tower_types\stone_tower.cpp" />
     <ClCompile Include="code\map_structures\buildings\building\building_types\walls\stone_wall.cpp" />
-    <ClCompile Include="code\map_structures\entities\entities.cpp" />
+    <ClCompile Include="code\map_structures\entities\entity.cpp" />
     <ClCompile Include="code\map_structures\entities\entities_util\create_entity.cpp" />
     <ClCompile Include="code\map_structures\entities\entities_util\entities_list.cpp" />
     <ClCompile Include="code\map_structures\entities\mob_types\cannon_boss_bot.cpp" />
@@ -212,7 +212,7 @@
     <ClCompile Include="code\map_structures\entities\mob_types\rocket_boss_bot.cpp" />
     <ClCompile Include="code\map_structures\entities\mob_types\rocket_bot.cpp" />
     <ClCompile Include="code\map_structures\entities\mob_types\standard_bot.cpp" />
-    <ClCompile Include="code\map_structures\entities\turrets.cpp" />
+    <ClCompile Include="code\map_structures\entities\turret.cpp" />
     <ClCompile Include="code\map_structures\entities\turret_types\autocannon_turret.cpp" />
     <ClCompile Include="code\map_structures\entities\turret_types\rocket_turret.cpp" />
     <ClCompile Include="code\map_structures\particles\laser.cpp" />
@@ -222,7 +222,7 @@
     <ClCompile Include="code\map_structures\resources\resources.cpp" />
     <ClCompile Include="code\map_structures\resources\resource_units.cpp" />
     <ClCompile Include="code\map_structures\shells\shells.cpp" />
-    <ClCompile Include="code\map_structures\shells\shell_types\explosive_shell.cpp" />
+    <ClCompile Include="code\map_structures\shells\shell_types\heavy_shell.cpp" />
     <ClCompile Include="code\map_structures\shells\shell_types\rail_bolt.cpp" />
     <ClCompile Include="code\map_structures\shells\shell_types\rockets.cpp" />
     <ClCompile Include="code\map_structures\terrain\terrain.cpp" />
@@ -297,7 +297,7 @@
     <ClInclude Include="code\map_structures\buildings\building\building_types\walls\tower.h" />
     <ClInclude Include="code\map_structures\buildings\building\building_types\walls\tower_types\stone_tower.h" />
     <ClInclude Include="code\map_structures\buildings\building\building_types\walls\stone_wall.h" />
-    <ClInclude Include="code\map_structures\entities\entities.h" />
+    <ClInclude Include="code\map_structures\entities\entity.h" />
     <ClInclude Include="code\map_structures\entities\entities_util\entities_list.h" />
     <ClInclude Include="code\map_structures\entities\mob_enum.h" />
     <ClInclude Include="code\map_structures\entities\mob_types\cannon_boss_bot.h" />
@@ -307,7 +307,7 @@
     <ClInclude Include="code\map_structures\entities\mob_types\rocket_boss_bot.h" />
     <ClInclude Include="code\map_structures\entities\mob_types\rocket_bot.h" />
     <ClInclude Include="code\map_structures\entities\mob_types\standard_bot.h" />
-    <ClInclude Include="code\map_structures\entities\turrets.h" />
+    <ClInclude Include="code\map_structures\entities\turret.h" />
     <ClInclude Include="code\map_structures\entities\turret_types\autocannon_turret.h" />
     <ClInclude Include="code\map_structures\entities\turret_types\rocket_turret.h" />
     <ClInclude Include="code\map_structures\particles\laser.h" />
@@ -317,7 +317,8 @@
     <ClInclude Include="code\map_structures\resources\resource_units.h" />
     <ClInclude Include="code\map_structures\resources\res_enum.h" />
     <ClInclude Include="code\map_structures\shells\shells.h" />
-    <ClInclude Include="code\map_structures\shells\shell_types\explosive_shell.h" />
+    <ClInclude Include="code\map_structures\shells\shell_enum.h" />
+    <ClInclude Include="code\map_structures\shells\shell_types\heavy_shell.h" />
     <ClInclude Include="code\map_structures\shells\shell_types\rail_bolt.h" />
     <ClInclude Include="code\map_structures\shells\shell_types\rockets.h" />
     <ClInclude Include="code\map_structures\terrain\terrain.h" />

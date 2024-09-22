@@ -4,26 +4,25 @@
 
 #include <SFML\Graphics.hpp>
 
-#include "map_structures/entities/turrets.h"
+#include "map_structures/entities/turret.h"
 
 
 class RocketTurret : public Turret
 {
 	public:
 		
-		RocketTurret(int turretType ,int tileX, int tileY, float curentAngle, short curentDurability);
-		RocketTurret(int turretType);
+		RocketTurret(int type ,int tileX, int tileY, float curentAngle, short curentDurability);
+		RocketTurret(int type);
 		~RocketTurret() = default;
 
-		void shooting() override;
+		void shooting() override final;
 		
-		bool needAmoo() override;
-		void takeAmoo(int resType) override;
-		int getAmooType() override;
+		bool needAmoo() override final;
+		void takeAmoo(int resType) override final;
+		int getAmooType() override final;
 		
-		void draw(sf::RenderWindow& window) override;
+		void draw(sf::RenderWindow& window) override final;
 
 };
-
 
 #endif // ROCKET_TURRET_H

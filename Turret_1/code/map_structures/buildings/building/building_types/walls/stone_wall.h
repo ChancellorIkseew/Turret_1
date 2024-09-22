@@ -9,7 +9,7 @@ class StoneWall : public Building
 
 public:
 
-	StoneWall(char v_type, short v_durability, short v_size, int tileX, int tileY);
+	StoneWall(char type, short durability, short size, int tileX, int tileY);
 	StoneWall();
 	~StoneWall() = default;
 

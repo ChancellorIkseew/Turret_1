@@ -6,9 +6,9 @@
 #include "settings_window.h"
 
 #include "sub_windows_util/fonts.h"
-#include "../../settings/settings_util/settings_save_system.h"
-#include "../../main_window/main_window_resize.h"
-#include "../../system/system.h"
+#include "game_interface/settings/settings_util/settings_save_system.h"
+#include "game_interface/main_window/main_window_resize.h"
+#include "game_interface/system/system.h"
 
 
 SettingsWindow::SettingsWindow() : SubWindow('s', 720, 480, 0, 0)

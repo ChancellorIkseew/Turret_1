@@ -11,7 +11,7 @@ class SmallDrill final : public Drill
 {
 public:
 
-	SmallDrill(int v_type, short v_durability, short v_size, int tileX, int tileY);
+	SmallDrill(int type, short durability, short size, int tileX, int tileY);
 	SmallDrill();
 	~SmallDrill() = default;
 

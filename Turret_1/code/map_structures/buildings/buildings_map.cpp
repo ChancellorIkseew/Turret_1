@@ -44,8 +44,6 @@ BuildingsMap::BuildingsMap(std::string saveFolderName)
 
 	saveFileName = "saves/" + saveFolderName + "/buildings.txt";
 	isMapChanged = false;
-	
-	//this->prepareSprites();
 }
 
 
@@ -193,11 +191,6 @@ void BuildingsMap::demolishBuilding(int tileX, int tileY)
 {
 	if (buildingsArr[tileX][tileY]->type != bType::AUXILARY)
 	{
-		if (/*isTurretOnTile(tileX, tileY) */ false)
-		{
-			//demolishTurret(tileX, tileY);
-		}
-
 		if (buildingsArr[tileX][tileY]->size != 1)
 		{
 			for (int i = 1; i < buildingsArr[tileX][tileY]->size; i++)
@@ -545,16 +538,11 @@ bool BuildingsMap::canAccept(int resType, int tileX, int tileY)
 
 int BuildingsMap::getBuildingMainTileType(int tileX, int tileY)
 {
-	//std::cout << "chek" << '\n';
-
 	for (int i = 1; i < buildingsArr[tileX][tileY]->size; ++i)
 	{
-		//std::cout << "chek_2" << '\n';
-
 		if (buildingsArr[tileX - coordSquareArr[i].x][tileY - coordSquareArr[i].y]->size == buildingsArr[tileX][tileY]->size &&
 			buildingsArr[tileX - coordSquareArr[i].x][tileY - coordSquareArr[i].y]->type != AUXILARY)
 		{
-			//std::cout << "arr[i]: " << buildingsArr[tileX - coordSquareArr[i].x][tileY - coordSquareArr[i].y].type << '\n';
 			return buildingsArr[tileX - coordSquareArr[i].x][tileY - coordSquareArr[i].y]->type;
 		}
 	}

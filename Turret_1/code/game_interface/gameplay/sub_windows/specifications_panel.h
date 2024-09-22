@@ -41,10 +41,10 @@ public:
 	}
 	
 	void interact(sf::RenderWindow& window, int index);
-	void relocate(int windowSizeX, int windowSizeY) override;
+	void relocate(int windowSizeX, int windowSizeY) override final;
 
-	void prepareInterfaceSprites() override;
-	void draw(sf::RenderWindow& window) override;
+	void prepareInterfaceSprites() override final;
+	void draw(sf::RenderWindow& window) override final;
 	
 };
 

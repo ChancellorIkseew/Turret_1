@@ -54,10 +54,10 @@ public:
 	
 	void interact(sf::Vector2i& mouseCoord, sf::Vector2f& mouseMapCoord, bool& isBuildingTypeSelected, int& buildingType);
 	void rotateBuilding(int &buildingType);
-	void relocate(int windowSizeX, int windowSizeY) override;
+	void relocate(int windowSizeX, int windowSizeY) override final;
 	
-	void prepareInterfaceSprites() override;
-	void draw(sf::RenderWindow &window) override;
+	void prepareInterfaceSprites() override final;
+	void draw(sf::RenderWindow &window) override final;
 	void drawBuildExample(sf::RenderWindow& window, sf::Vector2f mouseMapCoord, int buildingType);
 	
 };

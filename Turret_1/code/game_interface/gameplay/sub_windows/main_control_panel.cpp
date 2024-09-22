@@ -14,24 +14,18 @@
 #include "settings_window.h"
 #include "exit_confirmation.h"
 
-#include "../gameplay_util/wave_constructor.h"
+#include "game_interface/gameplay/gameplay_util/wave_constructor.h"
 
-#include "../../../map_structures/terrain/terrain.h"
-#include "../../../map_structures/buildings/buildings_map.h"
-
-#include "../../../map_structures/entities/entities.h"
-#include "../../../map_structures/entities/entities_util/entities_list.h"
-
-#include "../../../map_structures/shells/shells.h"
-
-#include "../../../map_structures/particles/particles.h"
-
-#include "../../../map_structures/resources/resources.h"
-#include "../../../map_structures/resources/resource_units.h"
-
-#include "../../../map_structures/pre-settings/pre-settings.h"
-
-#include "../../../map_structures/base_engine/t1_mutex.h"
+#include "map_structures/terrain/terrain.h"
+#include "map_structures/buildings/buildings_map.h"
+#include "map_structures/entities/entity.h"
+#include "map_structures/entities/entities_util/entities_list.h"
+#include "map_structures/shells/shells.h"
+#include "map_structures/particles/particles.h"
+#include "map_structures/resources/resources.h"
+#include "map_structures/resources/resource_units.h"
+#include "map_structures/pre-settings/pre-settings.h"
+#include "map_structures/base_engine/t1_mutex.h"
 
 
 MainControlPanel::MainControlPanel() : SubWindow('s', 312, 110, 0, 0)
@@ -127,7 +121,7 @@ void MainControlPanel::interact(sf::Vector2i& mouseCoord, int time, bool& isPaus
 		std::cout << "exit to menu button works" << std::endl;
 		ConfirmationWindow::getInstance().setVisible(true);
 		
-		if(ConfirmationWindow::getInstance().interactWindow(mouseCoord))
+		if(ConfirmationWindow::getInstance().interact(mouseCoord))
 		{
 			time = 0;
 			waveNumber = 0;

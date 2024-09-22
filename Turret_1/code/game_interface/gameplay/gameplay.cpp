@@ -31,8 +31,8 @@
 
 #include "map_structures/buildings/building/buildings_info.h"
 
-#include "map_structures/entities/turrets.h"
-#include "map_structures/entities/entities.h"
+#include "map_structures/entities/turret.h"
+#include "map_structures/entities/entity.h"
 #include "map_structures/entities/entities_util/entities_list.h"
 
 #include "map_structures/shells/shells.h"
@@ -163,13 +163,13 @@ char startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, std::string 
                     isMovingCamera = false;
                 }
 
-                #ifndef TURRET_NO_TEST_BUILD
+                #ifndef TURRET_1_NO_TEST_BUILD
                 if (LEFT_ALT_Pressed)
                 {
                     std::cout << "cheet_comands_panel_called" << '\n';
                     acceptCheetCommand();
                 }
-                #endif // TURRET_NO_TEST_BUILD
+                #endif // TURRET_1_NO_TEST_BUILD
 
                 Sleep(16);
             }
@@ -244,8 +244,8 @@ char startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, std::string 
         
         BuildingPanel::getInstance().draw(mainWindow);
 		
-		ResourcesPanel::getInstance().interactResourcesPanel(mainWindow); //Resourses_panel
-        ResourcesPanel::getInstance().drawResourcesPanel(mainWindow); 	//Resourses_panel
+		ResourcesPanel::getInstance().interact(mainWindow); //Resourses_panel
+        ResourcesPanel::getInstance().draw(mainWindow); 	//Resourses_panel
 		
 		if(isBuildingTypeSelected)
 		{

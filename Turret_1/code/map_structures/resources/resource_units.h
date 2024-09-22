@@ -39,8 +39,8 @@ private:
 		
 public:
 	
-	ResourceUnit(int v_type, int v_CoordX, int v_CoordY, char motionDirection);
-	ResourceUnit();
+	ResourceUnit(int type, int CoordX, int CoordY, char motionDirection);
+	ResourceUnit() = default;
 	~ResourceUnit() = default;
 
 	void save(std::ofstream& fout);

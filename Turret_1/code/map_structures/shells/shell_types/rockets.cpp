@@ -5,27 +5,28 @@
 
 #include "map_structures/buildings/buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"
-#include "map_structures/entities/entities.h"
+#include "map_structures/entities/entity.h"
 #include "map_structures/entities/entities_util/entities_list.h"
 #include "map_structures/particles/particles.h"
 
 
-Rocket::Rocket(char v_shellType ,float v_coordX, float v_coordY, float v_angleRad, float v_angleDeg) : 
-	Shell(v_shellType, v_coordX, v_coordY, v_angleRad, v_angleDeg)
+Rocket::Rocket(int type ,float coordX, float coordY, float angleRad, float angleDeg) : 
+	Shell(type, coordX, coordY, angleRad, angleDeg)
 {
-
+	float speed = 2.4f;
+	maxLifeTime = 420;
+	lineMotionX = sin(angleRad) * speed;
+	lineMotionY = cos(angleRad) * speed;
 }
 
 
 void Rocket::tryPlayerShellsHitting(BuildingsMap& buildingsMap1)
 {
-	for (std::list<Entity*>::iterator it = entitiesList.begin(); it != entitiesList.end(); ++it)	//Cheek distance_to_mob
+	for (std::list<Entity*>::iterator it = entitiesList.begin(); it != entitiesList.end(); ++it)
 	{
-		if (abs((*it)->getCoordX() - coordX) < 32 && abs((*it)->getCoordY() - coordY) < 32)
+		if (abs((*it)->getCoordX() - coordX) < 32 && abs((*it)->getCoordY() - coordY) < 32) //Cheek distance_to_mob
 		{
-			std::cout << "player missle activated" << '\n';
 			isWasted = true;
-			//this->explosion(buildingsMap1);
 			return;
 		}
 	}
@@ -36,26 +37,22 @@ void Rocket::tryEnemyShellsHitting(BuildingsMap& buildingsMap1)
 {
 	if (buildingsMap1.getBuildingType(tile(coordX), tile(coordY)) != VOID_)
 	{
-		std::cout << "enemy missle activated" << '\n';
 		isWasted = true;
-		//this->explosion(buildingsMap1);
 	}
 }
 
 
 void Rocket::explosion(BuildingsMap& buildingsMap1)
 {
-	for (std::list<Entity*>::iterator it = entitiesList.begin(); it != entitiesList.end(); ++it)	//Cheek damage
+	for (std::list<Entity*>::iterator it = entitiesList.begin(); it != entitiesList.end(); ++it)
 	{
 		int deltaX = coordX - (*it)->getCoordX();
 		int deltaY = coordY - (*it)->getCoordY();
 
 
-		if (sqrt(deltaX * deltaX + deltaY * deltaY) < 56)
+		if (sqrt(deltaX * deltaX + deltaY * deltaY) < 56) //Cheek distance_to_mob
 		{
-			(*it)->setDamage(200);
-
-			std::cout << "missle damage registred" << '\n';
+			(*it)->setDamage(20);
 		}
 
 	}
@@ -80,6 +77,4 @@ void Rocket::draw(sf::RenderWindow &window, int time)
 	shellSprite.setPosition(coordX, coordY);
 	shellSprite.setRotation(angleDeg);
 	window.draw(shellSprite);
-	
-	//std::cout << "rocket draw works" << '\n';
 }		

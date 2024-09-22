@@ -3,7 +3,7 @@
 #include "map_structures/buildings/building/buildings_enum.h"
 
 
-ShieldedConveyer::ShieldedConveyer(char v_type, char v_direction, short v_durability, short v_size, int tileX, int tileY) : Conveyer(v_type, v_direction, v_durability, v_size, tileX, tileY)
+ShieldedConveyer::ShieldedConveyer(char type, char direction, short durability, short size, int tileX, int tileY) : Conveyer(type, direction, durability, size, tileX, tileY)
 {
 	for (int i = 0; i < 5; ++i)
 	{

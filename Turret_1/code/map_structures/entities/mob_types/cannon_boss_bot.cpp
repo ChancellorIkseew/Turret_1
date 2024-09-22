@@ -1,42 +1,29 @@
 #include "cannon_boss_bot.h"
 
-#include "../../shells/shells.h"
-#include "../../shells/shell_types/rockets.h"
-#include "../../buildings/building/buildings_enum.h"
+#include "map_structures/shells/shell_types/heavy_shell.h"
+#include "map_structures/shells/shell_enum.h"
+#include "map_structures/buildings/building/buildings_enum.h"
 
 
-CannonBossBot::CannonBossBot(int v_entityType, float v_coordX, float v_coordY, float curentAngleDeg, short curentDurability) :
-	Entity(v_entityType, v_coordX, v_coordY, curentAngleDeg, curentDurability)
+CannonBossBot::CannonBossBot(int type, float coordX, float coordY, float curentAngleDeg, short curentDurability) :
+	Entity(type, coordX, coordY, curentAngleDeg, curentDurability)
 {
-	loadCombatData();
-	++enemyMobsQuantity;
+	this->initCombatData();
 }
 
-CannonBossBot::CannonBossBot(int v_entityType) : Entity(v_entityType)
+CannonBossBot::CannonBossBot(int type) : Entity(type)
 {
-	durability = 2700;
-	loadCombatData();
-	++enemyMobsQuantity;
+	this->initCombatData();
+	durability = 270;
 }
 
-CannonBossBot::~CannonBossBot()
-{
-	--enemyMobsQuantity;
-}
 
-void CannonBossBot::loadCombatData()
+void CannonBossBot::initCombatData()
 {
+	Entity::initCombatData();
 	range = 20;
 	spyralRange = 1369;
 	reload = 30;
-
-	isAimDetected = false;
-
-	aimCoordX = mapMaxX * _HALF_TILE_;
-	aimCoordY = mapMaxY * _HALF_TILE_;
-
-	destCoordX = aimCoordX;
-	destCoordY = aimCoordY;
 }
 
 
@@ -103,8 +90,8 @@ void CannonBossBot::shooting(BuildingsMap& buildingsMap1, int time)
 			float correctionX = cos(shootingAngleRad) * 15;
 			float correctionY = sin(shootingAngleRad) * 15;
 
-			enemyShellsList.push_back(new Shell('2', coordX - correctionX, coordY + correctionY, shootingAngleRad, shootingAngleDeg));
-			enemyShellsList.push_back(new Shell('2', coordX + correctionX, coordY - correctionY, shootingAngleRad, shootingAngleDeg));
+			enemyShellsList.push_back(new HeavyShell(HEAVY_SHELL, coordX - correctionX, coordY + correctionY, shootingAngleRad, shootingAngleDeg));
+			enemyShellsList.push_back(new HeavyShell(HEAVY_SHELL, coordX + correctionX, coordY - correctionY, shootingAngleRad, shootingAngleDeg));
 		}
 	}
 }
@@ -161,7 +148,7 @@ void CannonBossBot::draw(sf::RenderWindow& window)
 	entitySprite.setPosition(coordX, coordY);
 	window.draw(entitySprite);
 
-	if (durability > 1500)    //Boss_energy_shield
+	if (durability > 150)    //Boss_energy_shield
 	{
 		shieldSprite.setPosition(coordX, coordY);
 		window.draw(shieldSprite);

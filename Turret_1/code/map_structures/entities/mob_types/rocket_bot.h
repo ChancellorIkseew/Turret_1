@@ -2,31 +2,29 @@
 #ifndef SNIPER_BOT_H
 #define SNIPER_BOT_H
 
-#include <iostream>
-
 #include <SFML\Graphics.hpp>
 
-#include "../entities.h"
-#include "../../base_engine/tile_coord.h"
+#include "map_structures/entities/entity.h"
+#include "map_structures/base_engine/tile_coord.h"
 
 
 class RocketBot : public Entity
 {
 private:
 
-	void loadCombatData() override;
+	void initCombatData() override final;
 
 public:
 
-	RocketBot(int v_entityType);
-	RocketBot(int v_entityType, float v_coordX, float v_coordY, float curentAngleDeg, short curentDurability);
-	~RocketBot();
+	RocketBot(int type);
+	RocketBot(int type, float coordX, float coordY, float curentAngleDeg, short curentDurability);
+	~RocketBot() = default;
 
-	void findPath(BuildingsMap& buildingsMap1) override;
-	void shooting(BuildingsMap& buildingsMap1, int time) override;
-	TileCoord findShootingAim(BuildingsMap& buildingsMap1);
+	void findPath(BuildingsMap& buildingsMap1) override final;
+	void shooting(BuildingsMap& buildingsMap1, int time) override final;
+	TileCoord findShootingAim(BuildingsMap& buildingsMap1) override final;
 
-	void draw(sf::RenderWindow& window) override;
+	void draw(sf::RenderWindow& window) override final;
 
 };
 

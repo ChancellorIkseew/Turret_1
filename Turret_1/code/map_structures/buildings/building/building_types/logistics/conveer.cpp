@@ -3,9 +3,9 @@
 #include "map_structures/buildings/building/buildings_enum.h"
 
 
-Conveyer::Conveyer(char v_type, char v_direction, short v_durability, short v_size, int tileX, int tileY) : Building(v_type, v_durability, v_size, tileX, tileY)
+Conveyer::Conveyer(char type, char direction, short durability, short size, int tileX, int tileY) : Building(type, durability, size, tileX, tileY)
 {
-	direction = v_direction;
+	this->direction = direction;
 
 	for (int i = 0; i < 5; ++i)
 	{

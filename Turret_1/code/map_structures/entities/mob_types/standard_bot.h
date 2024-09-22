@@ -4,27 +4,27 @@
 
 #include <SFML\Graphics.hpp>
 
-#include "../entities.h"
-#include "../../base_engine/tile_coord.h"
+#include "map_structures/entities/entity.h"
+#include "map_structures/base_engine/tile_coord.h"
 
 
 class StandardBot : public Entity
 {
 private:
 
-	void loadCombatData() override;
+	void initCombatData() override final;
 
 public:
 
-	StandardBot(int v_entityType, float v_coordX, float v_coordY, float curentAngleDeg, short curentDurability);
-	StandardBot(int v_entityType);
-	~StandardBot();
+	StandardBot(int type, float coordX, float coordY, float curentAngleDeg, short curentDurability);
+	StandardBot(int type);
+	~StandardBot() = default;
 
-	void findPath(BuildingsMap& buildingsMap1) override;
-	void shooting(BuildingsMap& buildingsMap1, int time) override;
-	TileCoord findShootingAim(BuildingsMap& buildingsMap1);
+	void findPath(BuildingsMap& buildingsMap1) override  final;
+	void shooting(BuildingsMap& buildingsMap1, int time) override final;
+	TileCoord findShootingAim(BuildingsMap& buildingsMap1) override final;
 
-	void draw(sf::RenderWindow& window) override;
+	void draw(sf::RenderWindow& window) override final;
 
 };
 

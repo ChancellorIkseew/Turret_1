@@ -7,15 +7,14 @@
 #include "res_info.h"
 
 
-SubWindow::SubWindow(char v_type, int v_sizeX, int v_sizeY, int v_positionX, int v_positionY)
+SubWindow::SubWindow(char type, int sizeX, int sizeY, int positionX, int positionY)
 {
-	windowType = v_type;
+	this->windowType = type;
 
-	sizeX = v_sizeX;
-	sizeY = v_sizeY;
-	positionX = v_positionX;
-	positionY = v_positionY;
-
+	this->sizeX = sizeX;
+	this->sizeY = sizeY;
+	this->positionX = positionX;
+	this->positionY = positionY;
 
 	isSelected = false;
 	isVisible = true;

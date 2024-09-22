@@ -4,7 +4,7 @@
 
 #include <string>
 
-
+#include "map_structures/entities/entity.h"
 
 
 class PreSettings
@@ -20,13 +20,14 @@ private:
 	static inline int worldSeed = 0;
 
 	// buildings:
-	static inline float buildingsMaxDurabilityModidier = 1;
-	static inline float buildingExpansesMidifier = 1;
-	static inline float buildingsConstructionSpeedModifier = 1;
+	static inline float buildingsMaxDurabilityModidier = 1.0f;
+	static inline float buildingExpansesMidifier = 1.0f;
+	static inline float buildingsConstructionSpeedModifier = 1.0f;
 
 	// enemy_mobs:
-	//float enemyMobMaxDurabilityModifier;
-	//short enemyMobVirtIntLevel;
+	static inline int enemyMobQuantityModifier = 1;
+	static inline float enemyMobMaxDurabilityModifier = 1.0f;
+	static inline int enemyMobVirtIntLevel = 0;
 	//std::string enemyMobSpawnConfiguration;
 
 	// shells:
@@ -44,11 +45,10 @@ private:
 public:
 
 	PreSettings(std::string saveFolderName);
+	~PreSettings() = default;
 
 	static void loadPreSettings();
-
 	static void savePreSettings();
-
 
 	// terrain:
 	static int getMapMaxX();
@@ -70,8 +70,10 @@ public:
 	static void setBuildingExpansesMidifier(float value);
 	static void setBuildingsConstructionSpeedModifier(float value);
 
-	~PreSettings();
+
+	friend void Entity::initPreSettings();
+	
 };
 
 
-#endif // !PRE_SETTINGS
+#endif // PRE_SETTINGS

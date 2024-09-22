@@ -1,4 +1,4 @@
-#ifndef TURRET_NO_TEST_BUILD
+#ifndef TURRET_1_NO_TEST_BUILD
 
 #include "test.h"
 
@@ -15,4 +15,4 @@ void spiralTest()
 }
 
 
-#endif // TURRET_NO_TEST_BUILD
+#endif // TURRET_1_NO_TEST_BUILD

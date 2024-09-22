@@ -15,19 +15,19 @@ private:
 
 	sf::Text resQuantText;
 
-	int type;
-	int quant;
+	int resType;
+	int resQuantity;
 
 	//int subWinPositionX;
 	//int subWinPositionY;
 
 public:
 
-	ResInfo(int v_type, int v_quant);
+	ResInfo(int resType, int resQuantity);
 	ResInfo();
 	~ResInfo() = default;
 
-	void setResType(int v_type);
+	void setResType(int resType);
 	void update(int qurrentQuantity);
 
 	static void prepareSprites();

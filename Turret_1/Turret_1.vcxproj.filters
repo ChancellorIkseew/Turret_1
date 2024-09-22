@@ -177,10 +177,10 @@
     <ClCompile Include="code\map_structures\entities\mob_types\standard_bot.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="code\map_structures\entities\entities.cpp">
+    <ClCompile Include="code\map_structures\entities\entity.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="code\map_structures\entities\turrets.cpp">
+    <ClCompile Include="code\map_structures\entities\turret.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="code\map_structures\particles\laser.cpp">
@@ -201,7 +201,7 @@
     <ClCompile Include="code\map_structures\resources\resources.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="code\map_structures\shells\shell_types\explosive_shell.cpp">
+    <ClCompile Include="code\map_structures\shells\shell_types\heavy_shell.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="code\map_structures\shells\shell_types\rail_bolt.cpp">
@@ -434,10 +434,10 @@
     <ClInclude Include="code\map_structures\entities\mob_types\standard_bot.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="code\map_structures\entities\entities.h">
+    <ClInclude Include="code\map_structures\entities\entity.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="code\map_structures\entities\turrets.h">
+    <ClInclude Include="code\map_structures\entities\turret.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\map_structures\particles\laser.h">
@@ -455,7 +455,7 @@
     <ClInclude Include="code\map_structures\resources\resources.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="code\map_structures\shells\shell_types\explosive_shell.h">
+    <ClInclude Include="code\map_structures\shells\shell_types\heavy_shell.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\map_structures\shells\shell_types\rail_bolt.h">
@@ -558,6 +558,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\map_structures\base_engine\test.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\map_structures\shells\shell_enum.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

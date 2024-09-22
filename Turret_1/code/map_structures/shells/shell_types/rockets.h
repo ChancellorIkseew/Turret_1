@@ -1,6 +1,6 @@
 #pragma once
-#ifndef ROCKETS_H
-#define ROCKETS_H
+#ifndef ROCKET_H
+#define ROCKET_H
 
 #include <SFML\Graphics.hpp>
 
@@ -12,16 +12,15 @@ class Rocket : public Shell
 {
 	public:
 		
-		Rocket(char v_shellType ,float v_coordX, float v_coordY, float v_angleRad, float v_angleDeg);
+		Rocket(int type ,float coordX, float coordY, float angleRad, float angleDeg);
 		~Rocket() = default;
 
-		void tryPlayerShellsHitting(BuildingsMap& buildingsMap1) override;
-		void tryEnemyShellsHitting(BuildingsMap& buildingsMap1) override;
-		void explosion(BuildingsMap& buildingsMap1) override;
+		void tryPlayerShellsHitting(BuildingsMap& buildingsMap1) override final;
+		void tryEnemyShellsHitting(BuildingsMap& buildingsMap1) override final;
+		void explosion(BuildingsMap& buildingsMap1) override final;
 
-		void draw(sf::RenderWindow& window, int time) override;
+		void draw(sf::RenderWindow& window, int time) override final;
 		
 };
-
 
 #endif // ROCKETS_H

@@ -2,14 +2,14 @@
 #ifndef STONE_TOWER_H
 #define STONE_TOWER_H
 
-#include "../tower.h"
+#include "map_structures/buildings/building/building_types/walls/tower.h"
 
 class StoneTower : public Tower
 {
 
 public:
 
-	StoneTower(char v_type, short v_durability, short v_size, int tileX, int tileY);
+	StoneTower(char type, short durability, short size, int tileX, int tileY);
 	StoneTower();
 	~StoneTower() = default;
 

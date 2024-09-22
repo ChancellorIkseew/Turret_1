@@ -15,9 +15,10 @@ class Entity
 protected:
 
 	static inline int mapMaxX, mapMaxY;
+	static inline float enemyMobMaxDurabilityModifier;
 	static int enemyMobsQuantity;
 		
-	int entityType;
+	int type;
 	
 	float angleRad;
 	float angleDeg;
@@ -46,6 +47,7 @@ protected:
 	int range;
 	int spyralRange;
 	int reload;
+	float maxSpeed;
 
 	static inline sf::Image entityImage;
 	static inline sf::Texture entityTexture;
@@ -55,15 +57,15 @@ protected:
 	static inline sf::Texture shieldTexture;
 	static inline sf::Sprite shieldSprite;
 
-	virtual void loadCombatData() = 0;
+	virtual void initCombatData();
 
 	public:
 
 		static void initPreSettings();
 		static int getEnemyMobsQuantity();
 		
-		Entity(int v_entityType ,float v_oordX, float v_coordY, float curentAngleDeg, short curentDurability);
-		Entity(int v_entityType);
+		Entity(int type ,float coordX, float coordY, float curentAngleDeg, short curentDurability);
+		Entity(int type);
 		virtual ~Entity();
 
 		void save(std::ofstream& fout);
@@ -71,14 +73,15 @@ protected:
 		static Entity* createEntity(int type);
 
 		// combat
-		virtual void motion(BuildingsMap &buildingsMap1, int time, float maxSpeed);
+		virtual void motion(BuildingsMap &buildingsMap1, int time);
 		virtual void findPath(BuildingsMap& buildingsMap1) = 0;
 		virtual void shooting(BuildingsMap &buildingsMap1, int time) = 0;
+		virtual TileCoord findShootingAim(BuildingsMap& buildingsMap1) = 0;
 
 		// simple_utilites
-		void setDurability(int v_durability);
+		void setDurability(int durability);
 		void setDamage(int damage);
-		char getEntityType();
+		char getType();
 		int getCoordX();
 		int getCoordY();
 		int getAngleDeg(); 
@@ -89,6 +92,5 @@ protected:
 		virtual void draw(sf::RenderWindow& window) = 0;
 		
 };
-
 
 #endif // ENTITIES_H

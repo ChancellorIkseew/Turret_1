@@ -3,8 +3,8 @@
 #include <SFML/Graphics.hpp>
 
 #include "sub_windows_util/fonts.h"
-#include "../../main_window/main_window_resize.h"
-#include "../../system/system.h"
+#include "game_interface/main_window/main_window_resize.h"
+#include "game_interface/system/system.h"
 
 #include "exit_confirmation.h"
 
@@ -50,7 +50,7 @@ void ConfirmationWindow::draw(sf::RenderWindow& window)
 
 
 
-bool ConfirmationWindow::interactWindow(sf::Vector2i& mouseCoord)
+bool ConfirmationWindow::interact(sf::Vector2i& mouseCoord)
 {
     while (true)
     {

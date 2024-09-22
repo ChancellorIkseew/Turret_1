@@ -1,9 +1,8 @@
 
-#include <iostream>
 #include <fstream>
 #include <SFML\Graphics.hpp>
 
-#include "entities.h"
+#include "entity.h"
 #include "mob_enum.h"
 #include "map_structures/buildings/buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"
@@ -15,13 +14,15 @@ int Entity::enemyMobsQuantity = 0;
 
 void Entity::initPreSettings()
 {
-	mapMaxX = PreSettings::getMapMaxX();
-	mapMaxY = PreSettings::getMapMaxY();
+	Entity::mapMaxX = PreSettings::mapMaxX;
+	Entity::mapMaxY = PreSettings::mapMaxY;
+	Entity::enemyMobMaxDurabilityModifier = PreSettings::enemyMobMaxDurabilityModifier;
 }
 
-Entity::Entity(int v_entityType)		//1st spawn
+Entity::Entity(int type)		//1st spawn
 {
-	entityType = v_entityType;
+	initCombatData();
+	this->type = type;
 	
 	int x = rand() %4;
 	switch(x)
@@ -54,15 +55,14 @@ Entity::Entity(int v_entityType)		//1st spawn
 	
 }
 
-Entity::Entity(int v_entityType ,float v_coordX, float v_coordY, float curentAngleDeg, short curentDurability)
+Entity::Entity(int type ,float coordX, float coordY, float curentAngleDeg, short curentDurability)
 {
-	entityType = v_entityType;
-	coordX = v_coordX;
-	coordY = v_coordY;
+	initCombatData();
+	this->type = type;
+	this->coordX = coordX;
+	this->coordY = coordY;
 	angleDeg = curentAngleDeg;
 	durability = curentDurability;
-	
-	std::cout << "sucsessfull entity load" << '\n';
 }
 
 Entity::~Entity()
@@ -70,10 +70,23 @@ Entity::~Entity()
 	
 }
 
+void Entity::initCombatData()
+{
+	isAimDetected = false;
+
+	aimCoordX = mapMaxX * _HALF_TILE_;
+	aimCoordY = mapMaxY * _HALF_TILE_;
+
+	destCoordX = aimCoordX;
+	destCoordY = aimCoordY;
+
+	maxSpeed = 0.1f;
+}
+
 
 void Entity::save(std::ofstream& fout)
 {
-	fout << entityType << " " << coordX << " " << coordY << " " << angleDeg << " " << durability << '\n';
+	fout << type << " " << coordX << " " << coordY << " " << angleDeg << " " << durability << '\n';
 	fout << "$\n";
 }
 
@@ -85,7 +98,7 @@ void Entity::load(std::ifstream& fin)
 }
 
 
-void Entity::motion(BuildingsMap &buildingsMap1, int time, float maxSpeed)
+void Entity::motion(BuildingsMap &buildingsMap1, int time)
 {
 
 	angleRad = atan2f(destCoordX - coordX, destCoordY - coordY);
@@ -121,18 +134,18 @@ void Entity::motion(BuildingsMap &buildingsMap1, int time, float maxSpeed)
 
 
 
-void Entity::setDurability(int v_durability)
+void Entity::setDurability(int durability)
 {
-	durability = v_durability;
+	this->durability = durability;
 }
 
 void Entity::setDamage(int damage)
 {
-	durability = durability - damage;
+	durability -= damage;
 }
 
 
-char Entity::getEntityType() { return entityType; }
+char Entity::getType() { return type; }
 int Entity::getCoordX() { return int(coordX); }	
 int Entity::getCoordY() { return int(coordY); }
 int Entity::getAngleDeg() { return int(angleDeg); }

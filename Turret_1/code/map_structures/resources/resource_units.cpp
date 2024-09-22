@@ -17,26 +17,21 @@
 #include "resources.h"
 
 
-ResourceUnit::ResourceUnit(int v_type, int v_coordX, int v_coordY, char v_motionDirection)
+ResourceUnit::ResourceUnit(int type, int coordX, int coordY, char motionDirection)
 {
-	resType = v_type;
+	resType = type;
 	
-	coordX = v_coordX;
-	coordY = v_coordY;
+	this->coordX = coordX;
+	this->coordY = coordY;
 	
 	position = {0, 0, 0};
 	changePosition();
 
-	motionDirection = v_motionDirection;
-	currentTile = v_motionDirection;
+	this->motionDirection = motionDirection;
+	currentTile = motionDirection;
 	
 	isWasted = false;
 	isMotionAvailable = true;
-}
-
-ResourceUnit::ResourceUnit()
-{
-
 }
 
 

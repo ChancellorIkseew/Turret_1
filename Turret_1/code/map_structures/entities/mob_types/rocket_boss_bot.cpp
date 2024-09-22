@@ -1,42 +1,28 @@
 #include "rocket_boss_bot.h"
 
-#include "../../shells/shells.h"
-#include "../../shells/shell_types/rockets.h"
-#include "../../buildings/building/buildings_enum.h"
+#include "map_structures/shells/shell_types/rockets.h"
+#include "map_structures/shells/shell_enum.h"
+#include "map_structures/buildings/building/buildings_enum.h"
 
 
-RocketBossBot::RocketBossBot(int v_entityType, float v_coordX, float v_coordY, float curentAngleDeg, short curentDurability) :
-	Entity(v_entityType, v_coordX, v_coordY, curentAngleDeg, curentDurability)
+RocketBossBot::RocketBossBot(int type, float coordX, float coordY, float curentAngleDeg, short curentDurability) :
+	Entity(type, coordX, coordY, curentAngleDeg, curentDurability)
 {
-	loadCombatData();
-	++enemyMobsQuantity;
+	this->initCombatData();
 }
 
-RocketBossBot::RocketBossBot(int v_entityType) : Entity(v_entityType)
+RocketBossBot::RocketBossBot(int type) : Entity(type)
 {
-	durability = 2300;
-	loadCombatData();
-	++enemyMobsQuantity;
+	this->initCombatData();
+	durability = 230;
 }
 
-RocketBossBot::~RocketBossBot()
+void RocketBossBot::initCombatData()
 {
-	--enemyMobsQuantity;
-}
-
-void RocketBossBot::loadCombatData()
-{
+	Entity::initCombatData();
 	range = 28;
 	spyralRange = 2661;
 	reload = 60;
-
-	isAimDetected = false;
-
-	aimCoordX = mapMaxX * _HALF_TILE_;
-	aimCoordY = mapMaxY * _HALF_TILE_;
-
-	destCoordX = aimCoordX;
-	destCoordY = aimCoordY;
 }
 
 
@@ -103,16 +89,16 @@ void RocketBossBot::shooting(BuildingsMap& buildingsMap1, int time)
 			float correctionX = cos(shootingAngleRad) * 18;
 			float correctionY = sin(shootingAngleRad) * 18;
 
-			enemyShellsList.push_back(new Rocket('3', coordX - correctionX, coordY + correctionY, shootingAngleRad, shootingAngleDeg));
-			enemyShellsList.push_back(new Rocket('3', coordX + correctionX, coordY - correctionY, shootingAngleRad, shootingAngleDeg));
+			enemyShellsList.push_back(new Rocket(ROCKET, coordX - correctionX, coordY + correctionY, shootingAngleRad, shootingAngleDeg));
+			enemyShellsList.push_back(new Rocket(ROCKET, coordX + correctionX, coordY - correctionY, shootingAngleRad, shootingAngleDeg));
 		}
 		else if (time % reload == 30)
 		{
 			float correctionX = cos(shootingAngleRad) * 14;
 			float correctionY = sin(shootingAngleRad) * 14;
 
-			enemyShellsList.push_back(new Rocket('3', coordX - correctionX, coordY + correctionY, shootingAngleRad, shootingAngleDeg));
-			enemyShellsList.push_back(new Rocket('3', coordX + correctionX, coordY - correctionY, shootingAngleRad, shootingAngleDeg));
+			enemyShellsList.push_back(new Rocket(ROCKET, coordX - correctionX, coordY + correctionY, shootingAngleRad, shootingAngleDeg));
+			enemyShellsList.push_back(new Rocket(ROCKET, coordX + correctionX, coordY - correctionY, shootingAngleRad, shootingAngleDeg));
 		}
 	}
 }
@@ -169,7 +155,7 @@ void RocketBossBot::draw(sf::RenderWindow& window)
 	entitySprite.setPosition(coordX, coordY);
 	window.draw(entitySprite);
 
-	if (durability > 1100)    //Boss_energy_shield
+	if (durability > 110)    //Boss_energy_shield
 	{
 		shieldSprite.setPosition(coordX, coordY);
 		window.draw(shieldSprite);

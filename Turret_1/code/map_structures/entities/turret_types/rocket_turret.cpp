@@ -5,22 +5,18 @@
 #include "rocket_turret.h"
 
 #include "map_structures/buildings/building/buildings_enum.h"
-
-#include "map_structures/entities/entities.h"
-#include "map_structures/entities/entities_util/entities_list.h"
-
-#include "map_structures/shells/shells.h"
-#include "map_structures/shells/shell_types/rockets.h"
-
 #include "map_structures/resources/res_enum.h"
 
+#include "map_structures/entities/entities_util/entities_list.h"
+#include "map_structures/shells/shell_types/rockets.h"
 
-RocketTurret::RocketTurret(int turretType) : Turret()
+
+RocketTurret::RocketTurret(int type) : Turret()
 {
 	pixelRange = 35 * _TILE_;
 }
 
-RocketTurret::RocketTurret(int turretType ,int tileX, int tileY, float curentAngle, short curentDurability) :
+RocketTurret::RocketTurret(int type ,int tileX, int tileY, float curentAngle, short curentDurability) :
 	Turret(ROCKET_TURRET, tileX, tileY, curentAngle, curentDurability)
 {
 	pixelRange = 35 * _TILE_;

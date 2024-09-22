@@ -5,8 +5,6 @@
 #include <SFML/Graphics.hpp>
 
 
-
-
 class SubWindow
 {
 protected:
@@ -62,7 +60,7 @@ protected:
 
 public:
 
-	SubWindow(char v_type, int v_sizeX, int v_sizeY, int v_positionX, int v_positionY);
+	SubWindow(char type, int sizeX, int sizeY, int positionX, int positionY);
 	virtual ~SubWindow() = default;
 
 	static void init();

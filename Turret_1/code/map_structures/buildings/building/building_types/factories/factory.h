@@ -13,7 +13,7 @@ protected:
 
 public:
 
-	Factory(int v_type, short v_durability, short v_size, int tileX, int tileY);
+	Factory(int type, short durability, short size, int tileX, int tileY);
 	Factory() = default;
 	virtual ~Factory() = default;
 

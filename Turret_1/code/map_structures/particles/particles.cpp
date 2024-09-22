@@ -7,7 +7,7 @@
 #include "particles.h"
 
 		
-Particle::Particle(int particleType)
+Particle::Particle(int type)
 {
 	isWasted = true;
 
@@ -17,7 +17,7 @@ Particle::Particle(int particleType)
 	coordY = 0;
 }
 
-Particle::Particle(int particleType, float value_coordX, float value_coordY)
+Particle::Particle(int type, float value_coordX, float value_coordY)
 {
 	isWasted = false;
 	

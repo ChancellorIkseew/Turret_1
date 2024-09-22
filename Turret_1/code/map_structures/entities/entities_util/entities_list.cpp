@@ -2,34 +2,18 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <SFML\Graphics.hpp>
 #include <list>
 
 
 #include "entities_list.h"
 
-#include "../entities.h"
-#include "../mob_types/standard_bot.h"
-#include "../mob_types/rocket_bot.h"
-#include "../mob_types/cannon_boss_bot.h"
+#include "map_structures/entities/entity.h"
+#include "map_structures/entities/mob_types/standard_bot.h"
+#include "map_structures/entities/mob_types/rocket_bot.h"
+#include "map_structures/entities/mob_types/cannon_boss_bot.h"
 
 
 std::list<Entity*> entitiesList;
-
-
-void printEntitiesList()
-{
-	for (std::list<Entity*>::iterator it = entitiesList.begin(); it != entitiesList.end(); ++it)
-	{
-		
-		std::cout << "<T" << (*it)->getEntityType() << ">" << '\n';									//Type
-		std::cout << "<X" << (*it)->getCoordX() << "> <Y" << (*it)->getCoordY() << ">" << '\n';		//Coords
-		std::cout << "<A" << (*it)->getAngleDeg() << ">" << '\n';									//Angle in Deg.
-		std::cout << "<D" << (*it)->getDurability() << ">" << '\n';									//Durability											
-		std::cout << "$" << '\n'<< '\n';
-	}
-}
-
 
 
 void loadEntitiesList(std::string saveFolderName)
@@ -93,7 +77,7 @@ void moveEntitiesList(BuildingsMap& buildingsMap1, int time)
 {
 	for (std::list<Entity*>::iterator it = entitiesList.begin(); it != entitiesList.end();)
 	{
-		(*it)->motion(buildingsMap1, time, 0.1f);
+		(*it)->motion(buildingsMap1, time);
 
 		(*it)->shooting(buildingsMap1, time);
 
@@ -121,7 +105,7 @@ void drawEntitiesList(sf::RenderWindow& mainWindow)
 
 
 
-void cleanEntitiesList()
+void cleanEntitiesList() noexcept
 {
 	entitiesList.clear();
 }

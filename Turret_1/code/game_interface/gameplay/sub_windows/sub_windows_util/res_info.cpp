@@ -1,32 +1,28 @@
 
-#include <iostream>
 #include <sstream>
-#include <string>
 #include <SFML\Graphics.hpp>
 
 #include "res_info.h"
 
 #include "fonts.h"
-#include "../../../../map_structures/resources/res_enum.h"
+#include "map_structures/resources/res_enum.h"
 
-ResInfo::ResInfo(int v_type, int v_quant)
+ResInfo::ResInfo(int resType, int resQuantity)
 {
-	type = v_type;
-	quant = v_quant;
+	this->resType = resType;
+	this->resQuantity = resQuantity;
 
-	resQuantText.setFont(turretClassic);					//Text_stone_quantility
+	resQuantText.setFont(turretClassic);					//Text_stone_resQuantityility
 	resQuantText.setCharacterSize(16);
 	resQuantText.setFillColor(sf::Color(68, 52, 52));
 }
 
-
-
 ResInfo::ResInfo()
 {
-	type = 0;
-	quant = 0;
+	resType = 0;
+	resQuantity = 0;
 
-	resQuantText.setFont(turretClassic);					//Text_stone_quantility
+	resQuantText.setFont(turretClassic);					//Text_stone_resQuantityility
 	resQuantText.setCharacterSize(16);
 	resQuantText.setFillColor(sf::Color(68, 52, 52));
 }
@@ -47,10 +43,10 @@ void ResInfo::prepareSprites()
 
 void ResInfo::update(int qurrentQuantity)
 {
-	quant = qurrentQuantity;
+	resQuantity = qurrentQuantity;
 	
 	std::ostringstream strQuant;		//Resourses_panel
-	strQuant << quant;
+	strQuant << resQuantity;
 	resQuantText.setString(strQuant.str());
 }
 
@@ -58,9 +54,9 @@ void ResInfo::update(int qurrentQuantity)
 
 void ResInfo::draw(sf::RenderWindow& window, int positionX, int positionY)
 {
-	if (true) // there was "quant > 0"
+	if (true) // there was "resQuantity > 0"
 	{
-		switch (type)
+		switch (resType)
 		{
 		case RES_STONE:
 			resIcoSprite.setTextureRect(sf::IntRect(0, 0, 18, 18));
@@ -95,6 +91,7 @@ void ResInfo::draw(sf::RenderWindow& window, int positionX, int positionY)
 			break;
 
 		default:
+			resIcoSprite.setTextureRect(sf::IntRect(0, 0, 18, 18));
 			break;
 		}
 
@@ -108,7 +105,7 @@ void ResInfo::draw(sf::RenderWindow& window, int positionX, int positionY)
 
 
 
-void ResInfo::setResType(int v_type)
+void ResInfo::setResType(int resType)
 {
-	type = v_type;
+	this->resType = resType;
 }

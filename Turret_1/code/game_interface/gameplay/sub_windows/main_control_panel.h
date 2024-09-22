@@ -59,8 +59,8 @@ public:
 	void interact(sf::Vector2i& mouseCoord, int time, bool& isPaused, bool& isGameplayActive, std::string saveFolderName);
 	void interactWaveTimer(int time, bool isPaused);
 
-	void prepareInterfaceSprites() override;
-	void draw(sf::RenderWindow& window) override;
+	void prepareInterfaceSprites() override final;
+	void draw(sf::RenderWindow& window) override final;
 	
 };
 

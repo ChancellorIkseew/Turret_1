@@ -11,7 +11,7 @@
 #include "sub_windows_util/fonts.h"
 #include "sub_windows_util/res_info.h"
 
-#include "../../../map_structures/resources/res_enum.h"
+#include "map_structures/resources/res_enum.h"
 
 
 ResourcesPanel::ResourcesPanel() : SubWindow('s', 134, 219, 600, 600)
@@ -34,7 +34,7 @@ void ResourcesPanel::prepareInterfaceSprites()
 }
 
 
-void ResourcesPanel::interactResourcesPanel(sf::RenderWindow &window)
+void ResourcesPanel::interact(sf::RenderWindow &window)
 {
     stoneInfo.update(stoneQuantity);
     ironInfo.update(ironQuantity);
@@ -52,7 +52,7 @@ void ResourcesPanel::relocate(int windowSizeX, int windowSizeY)
 }
 
 
-void ResourcesPanel::drawResourcesPanel(sf::RenderWindow &window)
+void ResourcesPanel::draw(sf::RenderWindow &window)
 {
     this->drawSubWindowBase(window);
 
