@@ -45,7 +45,7 @@ void ShellFactory::produceResource()
 }
 
 
-bool ShellFactory::canAccept(int resType)
+bool ShellFactory::canAccept(int resType) const
 {
 	if (resType == RES_IRON || resType == RES_SULFUR)
 	{

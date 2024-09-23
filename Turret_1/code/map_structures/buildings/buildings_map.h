@@ -32,33 +32,33 @@ public:
 	static void intetractMap();
 
 	// Construction_process
-	static void constructBuilding(int buildingType, char direction, int tileX, int tileY);
-	static void demolishBuilding(int tileX, int tileY);
+	static void constructBuilding(const int type, const char direction, const int tileX, const int tileY);
+	static void demolishBuilding(const int tileX, const int tileY);
 		
 	// Simple_utilites
-	static bool buildingExists(int tileX, int tileY);
-	static void setBuildingType(char v_type, int tileX, int tileY);
-	static void setBuildingDurability(short durability, int tileX, int tileY);
-	static void setDamage(short damage, int tileX, int tileY);
-	static char getBuildingType(int tileX, int tileY);
-	static short getBuildingDurability(int tileX, int tileY);
-	static TileCoord getBuildingMainTileCoord(int x, int y);
-	static int getBuildingMainTileType(int tileX, int tileY);
+	static bool buildingExists(const int tileX, const int tileY);
+	static void setBuildingType(const int type, const int tileX, const int tileY);
+	static void setBuildingDurability(const short durability, const int tileX, const int tileY);
+	static void setDamage(const short damage, const int tileX, const int tileY);
+	static char getBuildingType(const int tileX, const int tileY);
+	static short getBuildingDurability(const int tileX, const int tileY);
+	static TileCoord getBuildingMainTileCoord(const int tileX, const int tileY);
+	static int getBuildingMainTileType(const int tileX, const int tileY);
 
 	static bool getIsMapChanged();
 	static void cleanMapChanged();
 	
 	// resources_and_inventory
-	static bool canAccept(int resType, int tileX, int tileY);
-	static bool isThisPositionFree(int tileX, int tileY, int position);
-	static void leavePosition(int tileX, int tileY, int position);
-	static void takePosition(int tileX, int tileY, int position);
-	static void addToInventory(int resType, int tileX, int tileY);
+	static bool canAccept(const int resType, const int tileX, const int tileY);
+	static bool isThisPositionFree(const int tileX, const int tileY, const int position);
+	static void leavePosition(const int tileX, const int tileY, const int position);
+	static void takePosition(const int tileX, const int tileY, const int position);
+	static void addToInventory(const int resType, const int tileX, const int tileY);
 
 	// turrets
-	static void setTurret(int turretType, int tileX, int tileY);
-	static void removeTurret(int tileX, int tileY);
-	static bool isTurretOnTile(int tileX, int tileY);
+	static void setTurret(const int turretType, const int tileX, const int tileY);
+	static void removeTurret(const int tileX, const int tileY);
+	static bool isTurretOnTile(const int tileX, const int tileY);
 		
 	// Visual
 	static void drawMap(sf::RenderWindow& window);

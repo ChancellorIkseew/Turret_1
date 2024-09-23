@@ -17,8 +17,8 @@ public:
 	void interact() override;
 	void placeResourceUnitX1(int type) override;
 
-	bool canAccept(int resType) override;
-	bool isThisPositionFree(int position) override;
+	bool canAccept(int resType) const override;
+	bool isThisPositionFree(int position) const override;
 
 	void draw(sf::RenderWindow& window) override;
 

@@ -41,14 +41,13 @@ void Tower::interact()
 }
 
 
-bool Tower::isThisPositionFree(int position)
+bool Tower::isThisPositionFree(int position) const
 {
 	short comonResQuant = 0;
 
-	for (std::list<StoredResource>::iterator it = storedResourcesList.begin(); it != storedResourcesList.end(); ++it)
+	for (auto it = storedResourcesList.cbegin(); it != storedResourcesList.cend(); ++it)
 	{
 		comonResQuant = comonResQuant + it->quant;
-			
 	}
 
 	if (comonResQuant < 21)
@@ -59,7 +58,7 @@ bool Tower::isThisPositionFree(int position)
 }
 
 
-bool Tower::canAccept(int resType)
+bool Tower::canAccept(int resType) const
 {
 	if (resType == RES_AC_SHELLS || resType == RES_ROCKET)
 	{
@@ -90,7 +89,7 @@ void Tower::removeTurret()
 	turret = nullptr;
 }
 
-bool Tower::isTurretOnTower()
+bool Tower::isTurretOnTower() const
 {
 	if (turret != nullptr)
 	{
@@ -101,7 +100,7 @@ bool Tower::isTurretOnTower()
 
 
 
-void Tower::save(std::ofstream& fout)
+void Tower::save(std::ofstream& fout) const
 {
 	fout << type << " " << size << " " << durability <<
 		" " << tileX << " " << tileY << '\n';
@@ -115,7 +114,7 @@ void Tower::save(std::ofstream& fout)
 		fout << "!\n";
 	}
 
-	for (std::list<StoredResource>::iterator it = storedResourcesList.begin(); it != storedResourcesList.end(); ++it)
+	for (auto it = storedResourcesList.cbegin(); it != storedResourcesList.cend(); ++it)
 	{
 		if (it->quant != 0)
 			fout << it->type << " " << it->quant << '\n';

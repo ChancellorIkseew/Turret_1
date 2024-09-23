@@ -40,7 +40,7 @@ public:
 	Building() = default;
 	virtual ~Building();
 
-	virtual void save(std::ofstream& fout);
+	virtual void save(std::ofstream& fout) const;
 	virtual void load(std::ifstream& fin);
 
 	static Building* setBuilding(int type, char direction, short durability, short v_size, int tileX, int tileY);
@@ -49,8 +49,8 @@ public:
 	virtual void interact();
 
 	// resouses_and_inventory
-	virtual bool canAccept(int resType);
-	virtual bool isThisPositionFree(int position);
+	virtual bool canAccept(int resType) const;
+	virtual bool isThisPositionFree(int position) const;
 	virtual void leavePosition(int position);
 	virtual void takePosition(int position);
 
@@ -60,19 +60,19 @@ public:
 	virtual void placeResourceUnitX4(int resType);
 	virtual void placeResourceUnitX9(int resType);
 
-	int findResource();
-	bool isEnoughRes(int resType, short amount);
+	int findResource() const;
+	bool isEnoughRes(int resType, short amount) const;
 	void wasteResorce(int resType, int amount);
 
-	bool hasCorrectConveyerUp(int tileX, int tileY);
-	bool hasCorrectConveyerLeft(int tileX, int tileY);
-	bool hasCorrectConveyerDown(int tileX, int tileY);
-	bool hasCorrectConveyerRight(int tileX, int tileY);
+	bool hasCorrectConveyerUp(int tileX, int tileY) const;
+	bool hasCorrectConveyerLeft(int tileX, int tileY) const;
+	bool hasCorrectConveyerDown(int tileX, int tileY) const;
+	bool hasCorrectConveyerRight(int tileX, int tileY) const;
 
 	// turrets
 	virtual void setTurret(int turretType);
 	virtual void removeTurret();
-	virtual bool isTurretOnTower();
+	virtual bool isTurretOnTower() const;
 
 	// visual
 	static void prepareSprites();

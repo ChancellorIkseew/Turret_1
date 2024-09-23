@@ -19,7 +19,7 @@ int pixel(int tileCoord)
 
 
 
-TileCoord coordSquareArr[16]
+const TileCoord coordSquareArr[16]
 {
 	{0,0},
 	{1,0},
@@ -40,7 +40,7 @@ TileCoord coordSquareArr[16]
 };
 
 
-TileCoord coordSpyralArr[4109]
+const TileCoord coordSpyralArr[4109]
 {
 	{ 0, 0 },	//0
 	{ -1, 0 }, 	//1

@@ -24,12 +24,12 @@ Building::~Building()
 
 
 
-void Building::save(std::ofstream& fout)
+void Building::save(std::ofstream& fout)const
 {
 	fout << type << " " << size << " " << durability <<
 		" " << tileX << " " << tileY << '\n';
 
-	for (std::list<StoredResource>::iterator it = storedResourcesList.begin(); it != storedResourcesList.end(); ++it)
+	for (auto it = storedResourcesList.cbegin(); it != storedResourcesList.cend(); ++it)
 	{
 		if (it->quant != 0)
 		{
@@ -71,7 +71,7 @@ void Building::interact() { }
 // resUnits_and_inventory
 void Building::addToInventory(int resType, short amount)
 {
-	for (std::list<StoredResource>::iterator it = storedResourcesList.begin(); it != storedResourcesList.end(); ++it)
+	for (auto it = storedResourcesList.begin(); it != storedResourcesList.end(); ++it)
 	{
 		if (it->type == resType)
 		{
@@ -85,9 +85,9 @@ void Building::addToInventory(int resType, short amount)
 
 
 
-int Building::findResource()
+int Building::findResource() const
 {
-	for (std::list<StoredResource>::iterator it = storedResourcesList.begin(); it != storedResourcesList.end(); ++it)
+	for (auto it = storedResourcesList.cbegin(); it != storedResourcesList.cend(); ++it)
 	{
 		if (it->quant > 0)
 		{
@@ -100,9 +100,9 @@ int Building::findResource()
 
 
 
-bool Building::isEnoughRes(int resType, short amount)
+bool Building::isEnoughRes(int resType, short amount) const
 {
-	for (std::list<StoredResource>::iterator it = storedResourcesList.begin(); it != storedResourcesList.end(); ++it)
+	for (auto it = storedResourcesList.cbegin(); it != storedResourcesList.cend(); ++it)
 	{
 		if (it->type == resType && it->quant >= amount)
 		{
@@ -117,7 +117,7 @@ bool Building::isEnoughRes(int resType, short amount)
 
 void Building::wasteResorce(int resType, int amount)
 {
-	for (std::list<StoredResource>::iterator it = storedResourcesList.begin(); it != storedResourcesList.end(); ++it)
+	for (auto it = storedResourcesList.begin(); it != storedResourcesList.end(); ++it)
 	{
 		if (it->type == resType)
 		{
@@ -129,7 +129,7 @@ void Building::wasteResorce(int resType, int amount)
 
 
 
-bool Building::hasCorrectConveyerUp(int tileX, int tileY)
+bool Building::hasCorrectConveyerUp(int tileX, int tileY) const
 {
 	return (BuildingsMap::getBuildingType(tileX, tileY - 1) == STANDARD_CONVEYER_UP || 
 		BuildingsMap::getBuildingType(tileX, tileY - 1) == STANDARD_CONVEYER_LEFT || 
@@ -137,7 +137,7 @@ bool Building::hasCorrectConveyerUp(int tileX, int tileY)
 		BuildingsMap::getBuildingType(tileX, tileY - 1) == SHIELDED_CONVEYER_UP);
 }
 
-bool Building::hasCorrectConveyerLeft(int tileX, int tileY)
+bool Building::hasCorrectConveyerLeft(int tileX, int tileY) const
 {
 	return (BuildingsMap::getBuildingType(tileX - 1, tileY) == STANDARD_CONVEYER_UP || 
 		BuildingsMap::getBuildingType(tileX - 1, tileY) == STANDARD_CONVEYER_LEFT || 
@@ -145,7 +145,7 @@ bool Building::hasCorrectConveyerLeft(int tileX, int tileY)
 		BuildingsMap::getBuildingType(tileX - 1, tileY) == SHIELDED_CONVEYER_LEFT);
 }
 
-bool Building::hasCorrectConveyerDown(int tileX, int tileY)
+bool Building::hasCorrectConveyerDown(int tileX, int tileY) const
 {
 	return (BuildingsMap::getBuildingType(tileX, tileY + 1) == STANDARD_CONVEYER_LEFT ||
 		BuildingsMap::getBuildingType(tileX, tileY + 1) == STANDARD_CONVEYER_DOWN ||
@@ -153,7 +153,7 @@ bool Building::hasCorrectConveyerDown(int tileX, int tileY)
 		BuildingsMap::getBuildingType(tileX, tileY + 1) == SHIELDED_CONVEYER_DOWN);
 }
 
-bool Building::hasCorrectConveyerRight(int tileX, int tileY)
+bool Building::hasCorrectConveyerRight(int tileX, int tileY) const
 {
 	return (BuildingsMap::getBuildingType(tileX + 1, tileY) == STANDARD_CONVEYER_UP || 
 		BuildingsMap::getBuildingType(tileX + 1, tileY) == STANDARD_CONVEYER_DOWN || 
@@ -163,8 +163,8 @@ bool Building::hasCorrectConveyerRight(int tileX, int tileY)
 
 
 // resUnits_and_inventory
-bool Building::canAccept(int resType) { return false; }
-bool Building::isThisPositionFree(int position) { return false; }
+bool Building::canAccept(int resType) const { return false; }
+bool Building::isThisPositionFree(int position) const { return false; }
 void Building::leavePosition(int position) { }
 void Building::takePosition(int position) { }
 
@@ -267,7 +267,7 @@ void Building::placeResourceUnitX9(int resType)
 // turrets
 void Building::setTurret(int turretType) { }
 void Building::removeTurret() { }
-bool Building::isTurretOnTower() { return false; }
+bool Building::isTurretOnTower() const { return false; }
 
 // visual
 void Building::prepareSprites()

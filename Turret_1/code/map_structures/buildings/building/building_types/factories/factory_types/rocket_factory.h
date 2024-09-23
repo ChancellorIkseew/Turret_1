@@ -20,7 +20,7 @@ public:
 	void interact() override;
 	void produceResource() override;
 
-	bool canAccept(int resType) override;
+	bool canAccept(int resType) const override;
 
 	void animation();
 	void draw(sf::RenderWindow& window) override;

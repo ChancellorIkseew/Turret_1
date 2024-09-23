@@ -18,7 +18,7 @@ public:
 	virtual ~Factory() = default;
 
 	virtual void produceResource() = 0;
-	bool isThisPositionFree(int position) override final;
+	bool isThisPositionFree(int position) const override final;
 
 };
 

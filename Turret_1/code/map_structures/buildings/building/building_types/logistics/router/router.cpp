@@ -45,11 +45,11 @@ void Router::placeResourceUnitX1(int resType)
 
 
 
-bool Router::isThisPositionFree(int position)
+bool Router::isThisPositionFree(int position) const
 {
 	short comonResQuant = 0;
 
-	for (std::list<StoredResource>::iterator it = storedResourcesList.begin(); it != storedResourcesList.end(); ++it)
+	for (auto it = storedResourcesList.cbegin(); it != storedResourcesList.cend(); ++it)
 	{
 		comonResQuant = comonResQuant + it->quant;
 
@@ -64,7 +64,7 @@ bool Router::isThisPositionFree(int position)
 
 
 
-bool Router::canAccept(int resType)
+bool Router::canAccept(int resType) const
 {
 	return true;
 }

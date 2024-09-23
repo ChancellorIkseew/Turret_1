@@ -13,9 +13,9 @@ struct TileCoord
 };
 
 
-extern TileCoord coordSquareArr[16];
+extern const TileCoord coordSquareArr[16];
 
-extern TileCoord coordSpyralArr[4109];
+extern const TileCoord coordSpyralArr[4109];
 
 
 

@@ -20,13 +20,13 @@ void Core::interact()
 }
 
 
-bool Core::isThisPositionFree(int position)
+bool Core::isThisPositionFree(int position) const
 {
 	return true;
 }
 
 
-bool Core::canAccept(int resType)
+bool Core::canAccept(int resType) const
 {
 	return true;
 }

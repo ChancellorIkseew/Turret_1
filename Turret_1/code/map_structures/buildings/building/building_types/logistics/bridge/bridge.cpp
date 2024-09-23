@@ -16,12 +16,12 @@ Bridge::Bridge() : Building()
 }
 
 
-void Bridge::save(std::ofstream& fout)
+void Bridge::save(std::ofstream& fout) const
 {
 	fout << type << " " << size << " " << durability <<
 		" " << tileX << " " << tileY << " " << direction << '\n';
 
-	for (std::list<StoredResource>::iterator it = storedResourcesList.begin(); it != storedResourcesList.end(); ++it)
+	for (auto it = storedResourcesList.cbegin(); it != storedResourcesList.cend(); ++it)
 	{
 		//fout << (*it)->type << " " << (*it)->quant << '\n';
 	}
@@ -65,7 +65,7 @@ void Bridge::transmitResourceUnit()
 {
 	short comonResQuant = 0;
 
-	for (std::list<StoredResource>::iterator it = storedResourcesList.begin(); it != storedResourcesList.end(); ++it)
+	for (auto it = storedResourcesList.begin(); it != storedResourcesList.end(); ++it)
 	{
 		comonResQuant = comonResQuant + it->quant;
 		if (it->quant != 0)
@@ -108,11 +108,11 @@ void Bridge::transmitResourceUnit()
 
 
 
-bool Bridge::isThisPositionFree(int position)
+bool Bridge::isThisPositionFree(int position) const
 {
 	short comonResQuant = 0;
 
-	for (std::list<StoredResource>::iterator it = storedResourcesList.begin(); it != storedResourcesList.end(); ++it)
+	for (auto it = storedResourcesList.cbegin(); it != storedResourcesList.cend(); ++it)
 	{
 		comonResQuant = comonResQuant + it->quant;
 
@@ -127,7 +127,7 @@ bool Bridge::isThisPositionFree(int position)
 
 
 
-bool Bridge::canAccept(int resType)
+bool Bridge::canAccept(int resType) const
 {
 	return true;
 }

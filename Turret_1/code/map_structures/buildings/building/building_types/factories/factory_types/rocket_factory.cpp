@@ -50,7 +50,7 @@ void RocketFactory::produceResource()
 }
 
 
-bool RocketFactory::canAccept(int resType)
+bool RocketFactory::canAccept(int resType) const
 {
 	if (resType == RES_IRON || resType == RES_COPPER || resType == RES_SILICON || resType == RES_SULFUR)
 	{

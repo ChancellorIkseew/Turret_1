@@ -24,7 +24,7 @@ Conveyer::Conveyer() : Building()
 }
 
 
-void Conveyer::save(std::ofstream& fout)
+void Conveyer::save(std::ofstream& fout) const
 {
 	fout << type << " " << size << " " << durability <<
 		" " << tileX << " " << tileY << " " << direction << '\n';
@@ -92,7 +92,7 @@ void Conveyer::draw(sf::RenderWindow& window)
 
 
 
-bool Conveyer::isThisPositionFree(int position)
+bool Conveyer::isThisPositionFree(int position) const
 {
 	return isPositionFree[position];
 }
@@ -107,7 +107,7 @@ void Conveyer::leavePosition(int position)
 	isPositionFree[position] = true;
 }
 
-bool Conveyer::canAccept(int resType)
+bool Conveyer::canAccept(int resType) const
 {
 	return true;
 }

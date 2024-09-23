@@ -8,7 +8,7 @@ Factory::Factory(int type, short durability, short size, int tileX, int tileY) :
 }
 
 
-bool Factory::isThisPositionFree(int position)
+bool Factory::isThisPositionFree(int position) const
 {
 	return true;
 }
