@@ -59,10 +59,6 @@ void ResourceUnit::interact(int time)
 		this->moveResourceUnit();
 
 		currentTile = BuildingsMap::getBuildingType(tile(coordX), tile(coordY));
-		if (currentTile == AUXILARY)
-		{
-			currentTile = BuildingsMap::getBuildingMainTileType(tile(coordX), tile(coordY));
-		}
 
 		switch(currentTile)
 		{
@@ -208,7 +204,6 @@ bool ResourceUnit::changePosition()
 		return true;
 	}
 
-	//std::cout << "change position = false" << '\n';
 	return false;
 }
 

@@ -52,7 +52,6 @@ bool Router::isThisPositionFree(int position) const
 	for (auto it = storedResourcesList.cbegin(); it != storedResourcesList.cend(); ++it)
 	{
 		comonResQuant = comonResQuant + it->quant;
-
 	}
 
 	if (comonResQuant < 11)

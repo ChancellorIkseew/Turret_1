@@ -67,6 +67,11 @@ void Building::load(std::ifstream& fin)
 
 void Building::interact() { }
 
+void Building::setDamage(const int damage)
+{
+	durability -= damage;
+}
+
 
 // resUnits_and_inventory
 void Building::addToInventory(int resType, short amount)

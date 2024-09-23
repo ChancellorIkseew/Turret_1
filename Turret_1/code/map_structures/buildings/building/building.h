@@ -47,6 +47,7 @@ public:
 	static Building* createBuilding(int type);
 
 	virtual void interact();
+	void setDamage(const int damage);
 
 	// resouses_and_inventory
 	virtual bool canAccept(int resType) const;

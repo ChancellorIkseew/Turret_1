@@ -91,7 +91,7 @@ void BuildingPanel::interact(sf::Vector2i& mouseCoord, sf::Vector2f& mouseMapCoo
 	{
 		if (noSubWindowSelected(mouseCoord))
 		{	
-			std::cout << '\n' << "building_place_works: " << buildingType << std::endl;
+			std::cout << "building_place_works: " << buildingType << '\n';
 			int tileX = tile(mouseMapCoord.x);
 			int tileY = tile(mouseMapCoord.y);
 

@@ -37,13 +37,12 @@ public:
 		
 	// Simple_utilites
 	static bool buildingExists(const int tileX, const int tileY);
-	static void setBuildingType(const int type, const int tileX, const int tileY);
 	static void setBuildingDurability(const short durability, const int tileX, const int tileY);
 	static void setDamage(const short damage, const int tileX, const int tileY);
-	static char getBuildingType(const int tileX, const int tileY);
+	static int getBuildingType(const int tileX, const int tileY);
 	static short getBuildingDurability(const int tileX, const int tileY);
 	static TileCoord getBuildingMainTileCoord(const int tileX, const int tileY);
-	static int getBuildingMainTileType(const int tileX, const int tileY);
+	//static int getBuildingMainTileType(const int tileX, const int tileY);
 
 	static bool getIsMapChanged();
 	static void cleanMapChanged();

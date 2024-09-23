@@ -119,13 +119,11 @@ void BuildingsMap::constructBuilding(const int type, const char direction, const
 
 	for (int i = 0; i < size; i++) // cheeck_square_for_building
 	{
-		if (tileX + coordSquareArr[i].x < 0 || tileX + coordSquareArr[i].x >= mapMaxX || 
-			tileY + coordSquareArr[i].y < 0 || tileY + coordSquareArr[i].y >= mapMaxY)
-		{
-			return;
-		}
+		int iTileX = tileX - coordSquareArr[i].x;
+		int iTileY = tileY - coordSquareArr[i].y;
 
-		if (buildingsMap[tileX + coordSquareArr[i].x][tileY + coordSquareArr[i].y] != nullptr)
+		if (iTileX < 0 || iTileX >= mapMaxX || iTileY < 0 || iTileY >= mapMaxY ||
+			buildingsMap[iTileX][iTileY] != nullptr)
 		{
 			return;
 		}
@@ -143,7 +141,6 @@ void BuildingsMap::constructBuilding(const int type, const char direction, const
 				buildingsMap[tileX + coordSquareArr[i].x][tileY + coordSquareArr[i].y] = Building::setBuilding(AUXILARY, 0, 0, size, tileX, tileY);
 			}
 		}
-
 		isMapChanged = true;
 	}
 }
@@ -153,27 +150,17 @@ void BuildingsMap::demolishBuilding(const int tileX, const int tileY)
 {
 	if (!buildingExists(tileX, tileY))
 		return;
-
-	if (buildingsMap[tileX][tileY]->type != bType::AUXILARY)
+	TileCoord mainBuilding = getBuildingMainTileCoord(tileX, tileY);
+	short size = buildingsMap[mainBuilding.x][mainBuilding.y]->size;
+	for (int i = 0; i < size; ++i)
 	{
-		if (buildingsMap[tileX][tileY]->size != 1)
-		{
-			for (int i = 1; i < buildingsMap[tileX][tileY]->size; i++)
-			{
-				buildingsMap[tileX + coordSquareArr[i].x][tileY + coordSquareArr[i].y] = nullptr;
-			}
-		}
+		int iTileX = mainBuilding.x - coordSquareArr[i].x;
+		int iTileY = mainBuilding.y - coordSquareArr[i].y;
 
-		delete buildingsMap[tileX][tileY];
-		buildingsMap[tileX][tileY] = nullptr;
-
-		isMapChanged = true;
+		delete buildingsMap[iTileX][iTileY];
+		buildingsMap[iTileX][iTileY] = nullptr;
 	}
-	else
-	{
-		TileCoord mainBuilding = getBuildingMainTileCoord(tileX, tileY);
-		demolishBuilding(mainBuilding.x, mainBuilding.y);
-	}
+	isMapChanged = true;
 }
 
 
@@ -188,22 +175,12 @@ void BuildingsMap::setDamage(const short damage, const int tileX, const int tile
 {
 	if (!buildingExists(tileX, tileY))
 		return;
-
-	if (buildingsMap[tileX][tileY]->type != AUXILARY)
+	TileCoord mainBuilding = getBuildingMainTileCoord(tileX, tileY);
+	buildingsMap[mainBuilding.x][mainBuilding.y]->setDamage(damage);
+	if (buildingsMap[mainBuilding.x][mainBuilding.y]->durability < 1)
 	{
-		buildingsMap[tileX][tileY]->durability = buildingsMap[tileX][tileY]->durability - damage;
-
-		if (buildingsMap[tileX][tileY]->durability < 1)
-		{
-			demolishBuilding(tileX, tileY);
-		}
+		demolishBuilding(mainBuilding.x, mainBuilding.y);
 	}
-	else
-	{
-		TileCoord mainBuilding = getBuildingMainTileCoord(tileX, tileY);
-		setDamage(damage, mainBuilding.x, mainBuilding.y);
-	}
-
 }
 
 
@@ -211,42 +188,33 @@ TileCoord BuildingsMap::getBuildingMainTileCoord(const int tileX, const int tile
 {
 	for (int i = 0; i < buildingsMap[tileX][tileY]->size; ++i)
 	{
-		if (buildingsMap[tileX - coordSquareArr[i].x][tileY - coordSquareArr[i].y]->size == buildingsMap[tileX][tileY]->size &&
-			buildingsMap[tileX - coordSquareArr[i].x][tileY - coordSquareArr[i].y]->type != AUXILARY)
+		int iTileX = tileX - coordSquareArr[i].x;
+		int iTileY = tileY - coordSquareArr[i].y;
+
+		if (buildingsMap[iTileX][iTileY] != nullptr && buildingsMap[iTileX][iTileY]->type != AUXILARY &&
+			buildingsMap[iTileX][iTileY]->size == buildingsMap[tileX][tileY]->size)
 		{
-			return { tileX - coordSquareArr[i].x , tileY - coordSquareArr[i].y };
+			return { tileX, tileY};
 		}
 	}
-	return {0,0};
+	return {-1,-1};
 }
 
 
 void BuildingsMap::setBuildingDurability(const short durability, const int tileX, const int tileY)
 {
-	if (buildingExists(tileX, tileY))
-		buildingsMap[tileX][tileY]->durability = durability;
-}
-
-void BuildingsMap::setBuildingType(const int type, const int tileX, const int tileY)
-{
-	if (buildingExists(tileX, tileY))
-		buildingsMap[tileX][tileY]->type = type;
-}
-
-char BuildingsMap::getBuildingType(const int tileX, const int tileY)
-{
 	if (!buildingExists(tileX, tileY))
-		return VOID_;
-
-	return buildingsMap[tileX][tileY]->type; 
+		return;
+	TileCoord mainTile = getBuildingMainTileCoord(tileX, tileY);
+	buildingsMap[mainTile.x][mainTile.y]->durability = durability;
 }
 
 short BuildingsMap::getBuildingDurability(const int tileX, const int tileY)
 { 
 	if (!buildingExists(tileX, tileY))
 		return 0;
-
-	return buildingsMap[tileX][tileY]->durability; 
+	TileCoord mainTile = getBuildingMainTileCoord(tileX, tileY);
+	return buildingsMap[mainTile.x][mainTile.y]->durability;
 }
 
 bool BuildingsMap::getIsMapChanged() { return isMapChanged; }
@@ -268,28 +236,19 @@ void BuildingsMap::intetractMap()
 }
 
 
-
 void BuildingsMap::addToInventory(const int resType, const int tileX, const int tileY)
 {
 	TileCoord mainTile = getBuildingMainTileCoord(tileX, tileY);
-
 	buildingsMap[mainTile.x][mainTile.y]->addToInventory(resType, 1);
 }
 
 
-
 bool BuildingsMap::isThisPositionFree(const int tileX, const int tileY, const int position)
 {
-	if (buildingsMap[tileX][tileY]->type != AUXILARY)
-	{
-		return buildingsMap[tileX][tileY]->isThisPositionFree(position);
-	}
-	else
-	{
-		TileCoord mainTile = getBuildingMainTileCoord(tileX, tileY);
-
-		return buildingsMap[mainTile.x][mainTile.y]->isThisPositionFree(position);
-	}
+	if (!buildingExists(tileX, tileY))
+		return false;
+	TileCoord mainTile = getBuildingMainTileCoord(tileX, tileY);
+	return buildingsMap[mainTile.x][mainTile.y]->isThisPositionFree(position);
 }
 
 void BuildingsMap::leavePosition(const int tileX, const int tileY, const int position)
@@ -306,36 +265,18 @@ bool BuildingsMap::canAccept(const int resType, const int tileX, const int tileY
 {
 	if (!buildingExists(tileX, tileY))
 		return false;
-
-	if (buildingsMap[tileX][tileY]->type != AUXILARY)
-	{
-		return buildingsMap[tileX][tileY]->canAccept(resType);
-	}
-	else
-	{
-		TileCoord mainTile = getBuildingMainTileCoord(tileX, tileY);
-
-		return buildingsMap[mainTile.x][mainTile.y]->canAccept(resType);
-	}
+	TileCoord mainTile = getBuildingMainTileCoord(tileX, tileY);
+	return buildingsMap[mainTile.x][mainTile.y]->canAccept(resType);
 }
 
 
-
-
-int BuildingsMap::getBuildingMainTileType(const int tileX, const int tileY)
+int BuildingsMap::getBuildingType(const int tileX, const int tileY)
 {
-	for (int i = 1; i < buildingsMap[tileX][tileY]->size; ++i)
-	{
-		if (buildingsMap[tileX - coordSquareArr[i].x][tileY - coordSquareArr[i].y]->size == buildingsMap[tileX][tileY]->size &&
-			buildingsMap[tileX - coordSquareArr[i].x][tileY - coordSquareArr[i].y]->type != AUXILARY)
-		{
-			return buildingsMap[tileX - coordSquareArr[i].x][tileY - coordSquareArr[i].y]->type;
-		}
-	}
-
-	return VOID_;
+	if (!buildingExists(tileX, tileY))
+		return VOID_;
+	TileCoord mainTile = getBuildingMainTileCoord(tileX, tileY);
+	return buildingsMap[mainTile.x][mainTile.y]->type;
 }
-
 
 
 void BuildingsMap::setTurret(const int turretType, const int tileX, const int tileY)
@@ -362,7 +303,6 @@ bool BuildingsMap::isTurretOnTile(const int tileX, const int tileY)
 {
 	if (!buildingExists(tileX, tileY))
 		return false;
-
 	return buildingsMap[tileX][tileY]->isTurretOnTower();
 }
 
