@@ -9,26 +9,11 @@
 #include "building/buildings_enum.h"
 #include "building/buildings_info.h"
 
-#include "map_structures/pre-settings/pre-settings.h"
-
 #include "game_interface/gameplay/gameplay_util/camera.h"
 
+#include "map_structures/pre-settings/pre-settings.h"
 #include "map_structures/base_engine/tile_coord.h"
 #include "map_structures/resources/resources.h"
-
-
-#include "building/building_types/walls/stone_wall.h"
-#include "building/building_types/walls/tower_types/stone_tower.h"
-#include "building/building_types/drills/drill.h"
-#include "building/building_types/drills/drill_types/small_drill.h"
-#include "building/building_types/drills/drill_types/big_drill.h"
-#include "building/building_types/logistics/conveer.h"
-#include "building/building_types/logistics/conveer_types/shielded_conveer.h"
-#include "building/building_types/logistics/bridge/bridge.h"
-#include "building/building_types/logistics/router/router.h"
-#include "building/building_types/storages/core.h"
-#include "building/building_types/factories/factory_types/shell_factory.h"
-#include "building/building_types/factories/factory_types/rocket_factory.h"
 
 
 BuildingsMap::BuildingsMap(std::string saveFolderName)
@@ -36,42 +21,50 @@ BuildingsMap::BuildingsMap(std::string saveFolderName)
 	mapMaxX = PreSettings::getMapMaxX();
 	mapMaxY = PreSettings::getMapMaxY();
 
-	buildingsArr = new Building** [mapMaxX];
+	buildingsMap.resize(mapMaxX);
+	buildingsMap.reserve(mapMaxX);
 	for (int x = 0; x < mapMaxX; ++x)
 	{
-		buildingsArr[x] = new Building* [mapMaxY];
+		buildingsMap[x].resize(mapMaxY);
+		buildingsMap[x].reserve(mapMaxY);
+		for (int y = 0; y < mapMaxY; ++y)
+		{
+			buildingsMap[x][y] = nullptr;
+		}
 	}
 
 	saveFileName = "saves/" + saveFolderName + "/buildings.txt";
 	isMapChanged = false;
 }
 
+BuildingsMap::~BuildingsMap()
+{
+	for (int x = 0; x < mapMaxX; ++x)
+	{
+		for (int y = 0; y < mapMaxY; ++y)
+		{
+			if (buildingsMap[x][y] != nullptr)
+			{
+				delete buildingsMap[x][y];
+				buildingsMap[x][y] = nullptr;
+			}
+		}
+	}
+}
 
 
 void BuildingsMap::generateMap()
 {
-	
-	for(int y=0; y < mapMaxY; y++)
-	{
-		for(int x=0; x < mapMaxX; x++)
-		{
-			buildingsArr[x][y] = new Building(bType::VOID_, 0, 1, x, y);
-		}
-	}
-
-	delete buildingsArr[48][48];
-	buildingsArr[48][48] = setBuilding(CORE_MK1, '0', 900, 16, 48, 48);
+	delete buildingsMap[48][48];
+	buildingsMap[48][48] = Building::setBuilding(CORE_MK1, '0', 900, 16, 48, 48);
 	
 	for (int i = 1; i < 16; i++)
 	{
-		buildingsArr[48 + coordSquareArr[i].x][48 + coordSquareArr[i].y]->type = AUXILARY;
-		buildingsArr[48 + coordSquareArr[i].x][48 + coordSquareArr[i].y]->size = 16;
+		buildingsMap[48 + coordSquareArr[i].x][48 + coordSquareArr[i].y] = Building::setBuilding(AUXILARY, 0, 0, 16, 0, 0);
 	}
-	
 
 	isMapChanged = true;
 }
-
 
 
 void BuildingsMap::loadMap()
@@ -86,15 +79,8 @@ void BuildingsMap::loadMap()
 			{
 				int bType;
 				fin >> bType;
-				if (bType == VOID_ || bType == AUXILARY)
-				{
-					buildingsArr[x][y] = new Building(bType, 0, 1, x, y);
-				}
-				else
-				{
-					buildingsArr[x][y] = createBuilding(bType);
-				}
-				buildingsArr[x][y]->load(fin);
+				buildingsMap[x][y] = Building::createBuilding(bType);
+				buildingsMap[x][y]->load(fin);
 			}
 		}
 	}
@@ -102,7 +88,6 @@ void BuildingsMap::loadMap()
 	isMapChanged = true;
 	std::cout << "sucñessfull_buildings_map_load" << '\n';
 }
-
 
 
 void BuildingsMap::saveMap()
@@ -115,7 +100,10 @@ void BuildingsMap::saveMap()
 		{
 			for (int x = 0; x < mapMaxX; x++)
 			{
-				buildingsArr[x][y]->save(fout);
+				if (buildingsMap[x][y] != nullptr)
+				{
+					buildingsMap[x][y]->save(fout);
+				}
 			}
 		}
 	}
@@ -124,31 +112,12 @@ void BuildingsMap::saveMap()
 }
 
 
-
-void BuildingsMap::Print()
-{
-	
-	for(int y=0; y<mapMaxY; y++)
-	{
-		for(int x=0; x<mapMaxX; x++)
-		{
-			std::cout<< buildingsArr[x][y]->type;
-			
-		}
-	
-		std::cout<<'\n';
-	}
-	std::cout<< "array end" <<'\n';
-}
-
-
-
 void BuildingsMap::constructBuilding(int buildingType, char direction, int tileX, int tileY)
 {
 	int size = g_BuildingsInfoArray[buildingType].size;
 	int durability = g_BuildingsInfoArray[buildingType].durability * PreSettings::getBuildingsMaxDurabilityModidier();
 
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < size; i++) // cheeck_square_for_building
 	{
 		if (tileX + coordSquareArr[i].x < 0 || tileX + coordSquareArr[i].x >= mapMaxX || 
 			tileY + coordSquareArr[i].y < 0 || tileY + coordSquareArr[i].y >= mapMaxY)
@@ -156,52 +125,44 @@ void BuildingsMap::constructBuilding(int buildingType, char direction, int tileX
 			return;
 		}
 
-		if (buildingsArr[tileX + coordSquareArr[i].x][tileY + coordSquareArr[i].y]->type != VOID_)
+		if (buildingsMap[tileX + coordSquareArr[i].x][tileY + coordSquareArr[i].y] != nullptr)
 		{
 			return;
 		}
-	}	// cheeck_square_for_building
+	}
 
 	if (isEnoughAllRes(g_BuildingsInfoArray[buildingType].costToBuild))
 	{
 		wasteRes(g_BuildingsInfoArray[buildingType].costToBuild);
-
-		delete buildingsArr[tileX][tileY];
-		buildingsArr[tileX][tileY] = setBuilding(buildingType, direction, durability, size, tileX, tileY);
+		buildingsMap[tileX][tileY] = Building::setBuilding(buildingType, direction, durability, size, tileX, tileY);
 
 		if (size > 1)
 		{
 			for (int i = 1; i < size; i++)
 			{
-				buildingsArr[tileX + coordSquareArr[i].x][tileY + coordSquareArr[i].y]->type = AUXILARY;
-				buildingsArr[tileX + coordSquareArr[i].x][tileY + coordSquareArr[i].y]->size = size;
+				buildingsMap[tileX + coordSquareArr[i].x][tileY + coordSquareArr[i].y] = Building::setBuilding(AUXILARY, 0, 0, size, tileX, tileY);
 			}
 		}
 
-	
-
 		isMapChanged = true;
 	}
-
 }
-
 
 
 void BuildingsMap::demolishBuilding(int tileX, int tileY)
 {
-	if (buildingsArr[tileX][tileY]->type != bType::AUXILARY)
+	if (buildingsMap[tileX][tileY]->type != bType::AUXILARY)
 	{
-		if (buildingsArr[tileX][tileY]->size != 1)
+		if (buildingsMap[tileX][tileY]->size != 1)
 		{
-			for (int i = 1; i < buildingsArr[tileX][tileY]->size; i++)
+			for (int i = 1; i < buildingsMap[tileX][tileY]->size; i++)
 			{
-				buildingsArr[tileX + coordSquareArr[i].x][tileY + coordSquareArr[i].y]->type = bType::VOID_;
-				buildingsArr[tileX + coordSquareArr[i].x][tileY + coordSquareArr[i].y]->size = 1;
+				buildingsMap[tileX + coordSquareArr[i].x][tileY + coordSquareArr[i].y] = nullptr;
 			}
 		}
 
-		delete buildingsArr[tileX][tileY];
-		buildingsArr[tileX][tileY] = new Building(VOID_, 0, 1, tileX, tileY);
+		delete buildingsMap[tileX][tileY];
+		buildingsMap[tileX][tileY] = nullptr;
 
 		isMapChanged = true;
 	}
@@ -213,43 +174,44 @@ void BuildingsMap::demolishBuilding(int tileX, int tileY)
 }
 
 
+bool BuildingsMap::buildingExists(int tileX, int tileY)
+{
+	return (tileX >= 0 && tileX < mapMaxX && tileY >= 0 && tileY < mapMaxY &&
+		buildingsMap[tileX][tileY] != nullptr);
+}
+
 
 void BuildingsMap::setDamage(short damage, int tileX, int tileY)
 {
-	if (tileX < 0 || tileX >= mapMaxX || tileY < 0 || tileY >= mapMaxY)
+	if (!buildingExists(tileX, tileY))
 	{
 		return;
 	}
 
-	if (buildingsArr[tileX][tileY]->type != VOID_)
+	if (buildingsMap[tileX][tileY]->type != AUXILARY)
 	{
-		if (buildingsArr[tileX][tileY]->type != AUXILARY)
-		{
-			buildingsArr[tileX][tileY]->durability = buildingsArr[tileX][tileY]->durability - damage;
+		buildingsMap[tileX][tileY]->durability = buildingsMap[tileX][tileY]->durability - damage;
 
-			if (buildingsArr[tileX][tileY]->durability < 1)
-			{
-				demolishBuilding(tileX, tileY);
-			}
-		}
-		else
+		if (buildingsMap[tileX][tileY]->durability < 1)
 		{
-			TileCoord mainBuilding = getBuildingMainTileCoord(tileX, tileY);
-			setDamage(damage ,mainBuilding.x, mainBuilding.y);
+			demolishBuilding(tileX, tileY);
 		}
-		
 	}
+	else
+	{
+		TileCoord mainBuilding = getBuildingMainTileCoord(tileX, tileY);
+		setDamage(damage, mainBuilding.x, mainBuilding.y);
+	}
+
 }
-
-
 
 
 TileCoord BuildingsMap::getBuildingMainTileCoord(int tileX, int tileY)
 {
-	for (int i = 0; i < buildingsArr[tileX][tileY]->size; ++i)
+	for (int i = 0; i < buildingsMap[tileX][tileY]->size; ++i)
 	{
-		if (buildingsArr[tileX - coordSquareArr[i].x][tileY - coordSquareArr[i].y]->size == buildingsArr[tileX][tileY]->size &&
-			buildingsArr[tileX - coordSquareArr[i].x][tileY - coordSquareArr[i].y]->type != AUXILARY)
+		if (buildingsMap[tileX - coordSquareArr[i].x][tileY - coordSquareArr[i].y]->size == buildingsMap[tileX][tileY]->size &&
+			buildingsMap[tileX - coordSquareArr[i].x][tileY - coordSquareArr[i].y]->type != AUXILARY)
 		{
 			return { tileX - coordSquareArr[i].x , tileY - coordSquareArr[i].y };
 		}
@@ -258,189 +220,151 @@ TileCoord BuildingsMap::getBuildingMainTileCoord(int tileX, int tileY)
 }
 
 
-
 void BuildingsMap::setBuildingDurability(short durability, int tileX, int tileY)
 {
-	buildingsArr[tileX][tileY]->durability = durability;
+	if (buildingExists(tileX, tileY))
+		buildingsMap[tileX][tileY]->durability = durability;
 }
-
-
 
 void BuildingsMap::setBuildingType(char type, int tileX, int tileY)
 {
-	buildingsArr[tileX][tileY]->type = type;
+	if (buildingExists(tileX, tileY))
+		buildingsMap[tileX][tileY]->type = type;
 }
-
-
 
 char BuildingsMap::getBuildingType(int tileX, int tileY) 
 {
-	if (tileX < 0 || tileX >= mapMaxX || tileY < 0 || tileY >= mapMaxY)
+	if (!buildingExists(tileX, tileY))
 	{
 		return VOID_;
 	}
-	return buildingsArr[tileX][tileY]->type; 
+	return buildingsMap[tileX][tileY]->type; 
 }
 
 short BuildingsMap::getBuildingDurability(int tileX, int tileY) 
 { 
-	if (tileX < 0 || tileX >= mapMaxX || tileY < 0 || tileY >= mapMaxY)
+	if (!buildingExists(tileX, tileY))
 	{
-		return VOID_;
+		return 0;
 	}
-	return buildingsArr[tileX][tileY]->durability; 
+	return buildingsMap[tileX][tileY]->durability; 
 }
 
 bool BuildingsMap::getIsMapChanged() { return isMapChanged; }
-
 void BuildingsMap::cleanMapChanged() { isMapChanged = false; }
 
 
-
-
-
-BuildingsMap::~BuildingsMap()
+void BuildingsMap::intetractMap()
 {
-	for (int x = 0; x < mapMaxX; ++x) 
+	for (int y = 0; y < mapMaxY; ++y)
 	{
-		for (int y = 0; y < mapMaxY; ++y) 
+		for (int x = 0; x < mapMaxX; ++x)
 		{
-			if (buildingsArr[x][y] != nullptr) 
+			if (buildingsMap[x][y] != nullptr && buildingsMap[x][y]->type != AUXILARY)
 			{
-				delete buildingsArr[x][y];
-				buildingsArr[x][y] = nullptr;
+				buildingsMap[x][y]->interact();
 			}
 		}
-		delete[] buildingsArr[x];
-		buildingsArr[x] = nullptr;
 	}
-	delete[] buildingsArr;
-	buildingsArr = nullptr;
 }
 
 
 
-Building* BuildingsMap::setBuilding(int type, char direction,  short durability, short size, int tileX, int tileY)
+void BuildingsMap::addToInventory(int resType, int tileX, int tileY)
 {
-	switch (type)
-	{
-	case CORE_MK1:
-		return new Core(CORE_MK1, durability, size, tileX, tileY);
+	TileCoord mainTile = getBuildingMainTileCoord(tileX, tileY);
 
-	case STONE_WALL:
-		return new StoneWall(STONE_WALL, durability, size, tileX, tileY);
-
-	case STONE_TOWER:
-		return new StoneTower(STONE_TOWER, durability, size, tileX, tileY);
-
-	case STANDARD_CONVEYER_UP:
-		return new Conveyer(STANDARD_CONVEYER_UP, 'w', durability, size, tileX, tileY);
-	case STANDARD_CONVEYER_LEFT:
-		return  new Conveyer(STANDARD_CONVEYER_LEFT, 'a', durability, size, tileX, tileY);	
-	case STANDARD_CONVEYER_DOWN:
-		return new Conveyer(STANDARD_CONVEYER_DOWN, 's', durability, size, tileX, tileY);
-	case STANDARD_CONVEYER_RIGHT:
-		return new Conveyer(STANDARD_CONVEYER_RIGHT, 'd', durability, size, tileX, tileY);
-
-	case SHIELDED_CONVEYER_UP:
-		return new ShieldedConveyer(SHIELDED_CONVEYER_UP, 'w', durability, size, tileX, tileY);
-	case SHIELDED_CONVEYER_LEFT:
-		return  new ShieldedConveyer(SHIELDED_CONVEYER_LEFT, 'a', durability, size, tileX, tileY);
-	case SHIELDED_CONVEYER_DOWN:
-		return new ShieldedConveyer(SHIELDED_CONVEYER_DOWN, 's', durability, size, tileX, tileY);
-	case SHIELDED_CONVEYER_RIGHT:
-		return new ShieldedConveyer(SHIELDED_CONVEYER_RIGHT, 'd', durability, size, tileX, tileY);
-
-	case BRIDGE:
-		return new Bridge(BRIDGE, direction, durability, size, tileX, tileY);
-
-	case ROUTER:
-		return new Router(ROUTER, durability, size, tileX, tileY);
-
-	case SMALL_DRILL:
-		return new SmallDrill(SMALL_DRILL, durability, size, tileX, tileY);
-
-	case BIG_DRILL:
-		return new BigDrill(BIG_DRILL, durability, size, tileX, tileY);
-
-	case EFFECTIVE_DRILL:
-		break;
-
-	case REINFORCED_DRILL:
-		break;
-
-	case SHELL_FACTORY:
-		return new ShellFactory(SHELL_FACTORY, durability, size, tileX, tileY);
-
-	case ROCKET_FACTORY:
-		return new RocketFactory(ROCKET_FACTORY, durability, size, tileX, tileY);
-
-	default:
-		return nullptr;
-	}
+	buildingsMap[mainTile.x][mainTile.y]->addToInventory(resType, 1);
 }
 
 
 
-Building* BuildingsMap::createBuilding(int type)
+bool BuildingsMap::isThisPositionFree(int tileX, int tileY, int position)
 {
-	switch (type)
+	if (buildingsMap[tileX][tileY]->type != AUXILARY)
 	{
-	case CORE_MK1:
-		return new Core;
+		return buildingsMap[tileX][tileY]->isThisPositionFree(position);
+	}
+	else
+	{
+		TileCoord mainTile = getBuildingMainTileCoord(tileX, tileY);
 
-	case STONE_WALL:
-		return new StoneWall;
-
-	case STONE_TOWER:
-		return new StoneTower;
-
-	case STANDARD_CONVEYER:
-	case STANDARD_CONVEYER_UP:
-	case STANDARD_CONVEYER_LEFT:
-	case STANDARD_CONVEYER_DOWN:
-	case STANDARD_CONVEYER_RIGHT:
-		return new Conveyer;
-
-	case SHIELDED_CONVEYER:
-	case SHIELDED_CONVEYER_UP:
-	case SHIELDED_CONVEYER_LEFT:
-	case SHIELDED_CONVEYER_DOWN:
-	case SHIELDED_CONVEYER_RIGHT:
-		return new ShieldedConveyer;
-
-	case BRIDGE:
-		return new Bridge;
-
-	case ROUTER:
-		return new Router;
-
-	//case SORTER:
-		//return new SORTER;
-
-	case SMALL_DRILL:
-		return new SmallDrill;
-
-	case BIG_DRILL:
-		return new BigDrill;
-#ifdef A
-	case EFFECTIVE_DRILL:
-		return new EffectiveDrill;
-
-	case REINFORCED_DRILL:
-		return new ReinforcedDrill;
-#endif // A
-	case SHELL_FACTORY:
-		return new ShellFactory;
-
-	case ROCKET_FACTORY:
-		return new RocketFactory;
-
-	default:
-		return nullptr;
+		return buildingsMap[mainTile.x][mainTile.y]->isThisPositionFree(position);
 	}
 }
 
+void BuildingsMap::leavePosition(int tileX, int tileY, int position)
+{
+	buildingsMap[tileX][tileY]->leavePosition(position);
+}
+
+void BuildingsMap::takePosition(int tileX, int tileY, int position)
+{
+	buildingsMap[tileX][tileY]->takePosition(position);
+}
+
+bool BuildingsMap::canAccept(int resType, int tileX, int tileY)
+{
+	if (!buildingExists(tileX, tileY))
+	{
+		return false;
+	}
+
+	if (buildingsMap[tileX][tileY]->type != AUXILARY)
+	{
+		return buildingsMap[tileX][tileY]->canAccept(resType);
+	}
+	else
+	{
+		TileCoord mainTile = getBuildingMainTileCoord(tileX, tileY);
+
+		return buildingsMap[mainTile.x][mainTile.y]->canAccept(resType);
+	}
+}
+
+
+
+
+int BuildingsMap::getBuildingMainTileType(int tileX, int tileY)
+{
+	for (int i = 1; i < buildingsMap[tileX][tileY]->size; ++i)
+	{
+		if (buildingsMap[tileX - coordSquareArr[i].x][tileY - coordSquareArr[i].y]->size == buildingsMap[tileX][tileY]->size &&
+			buildingsMap[tileX - coordSquareArr[i].x][tileY - coordSquareArr[i].y]->type != AUXILARY)
+		{
+			return buildingsMap[tileX - coordSquareArr[i].x][tileY - coordSquareArr[i].y]->type;
+		}
+	}
+
+	return VOID_;
+}
+
+
+
+void BuildingsMap::setTurret(int turretType, int tileX, int tileY)
+{
+	if (!buildingExists(tileX, tileY) ||
+		(buildingsMap[tileX][tileY]->type != STONE_TOWER && buildingsMap[tileX][tileY]->type != STEEL_TOWER))
+	{
+		return;
+	}
+
+	if (isEnoughAllRes(g_BuildingsInfoArray[turretType].costToBuild))
+	{
+		wasteRes(g_BuildingsInfoArray[turretType].costToBuild);
+		buildingsMap[tileX][tileY]->setTurret(turretType);
+	}
+}
+
+void BuildingsMap::removeTurret(int tileX, int tileY)
+{
+	buildingsMap[tileX][tileY]->removeTurret();
+}
+
+bool BuildingsMap::isTurretOnTile(int tileX, int tileY)
+{
+	return buildingsMap[tileX][tileY]->isTurretOnTower();
+}
 
 
 void BuildingsMap::drawMap(sf::RenderWindow& window)
@@ -455,124 +379,10 @@ void BuildingsMap::drawMap(sf::RenderWindow& window)
 	{
 		for (int x = startX; x < endX; ++x)
 		{
-			if (buildingsArr[x][y]->type != VOID_ && buildingsArr[x][y]->type != AUXILARY)
+			if (buildingsMap[x][y] != nullptr && buildingsMap[x][y]->type != AUXILARY)
 			{
-				buildingsArr[x][y]->draw(window);
+				buildingsMap[x][y]->draw(window);
 			}
 		}
 	}
-}
-
-
-
-void BuildingsMap::intetractMap()
-{
-	for (int y = 0; y < mapMaxY; ++y)
-	{
-		for (int x = 0; x < mapMaxX; ++x)
-		{
-			if (buildingsArr[x][y]->type != VOID_ && buildingsArr[x][y]->type != AUXILARY)
-			{
-				buildingsArr[x][y]->interact();
-			}
-		}
-	}
-}
-
-
-
-void BuildingsMap::addToInventory(int resType, int tileX, int tileY)
-{
-	TileCoord mainTile = getBuildingMainTileCoord(tileX, tileY);
-
-	buildingsArr[mainTile.x][mainTile.y]->addToInventory(resType, 1);
-}
-
-
-
-bool BuildingsMap::isThisPositionFree(int tileX, int tileY, int position)
-{
-	if (buildingsArr[tileX][tileY]->type != AUXILARY)
-	{
-		return buildingsArr[tileX][tileY]->isThisPositionFree(position);
-	}
-	else
-	{
-		TileCoord mainTile = getBuildingMainTileCoord(tileX, tileY);
-
-		return buildingsArr[mainTile.x][mainTile.y]->isThisPositionFree(position);
-	}
-}
-
-void BuildingsMap::leavePosition(int tileX, int tileY, int position)
-{
-	buildingsArr[tileX][tileY]->leavePosition(position);
-}
-
-void BuildingsMap::takePosition(int tileX, int tileY, int position)
-{
-	buildingsArr[tileX][tileY]->takePosition(position);
-}
-
-bool BuildingsMap::canAccept(int resType, int tileX, int tileY)
-{
-	if (tileX < 0 || tileX > mapMaxX || tileY < 0 || tileY > mapMaxY)
-	{
-		return false;
-	}
-
-	if (buildingsArr[tileX][tileY]->type != AUXILARY)
-	{
-		return buildingsArr[tileX][tileY]->canAccept(resType);
-	}
-	else
-	{
-		TileCoord mainTile = getBuildingMainTileCoord(tileX, tileY);
-
-		return buildingsArr[mainTile.x][mainTile.y]->canAccept(resType);
-	}
-}
-
-
-
-
-int BuildingsMap::getBuildingMainTileType(int tileX, int tileY)
-{
-	for (int i = 1; i < buildingsArr[tileX][tileY]->size; ++i)
-	{
-		if (buildingsArr[tileX - coordSquareArr[i].x][tileY - coordSquareArr[i].y]->size == buildingsArr[tileX][tileY]->size &&
-			buildingsArr[tileX - coordSquareArr[i].x][tileY - coordSquareArr[i].y]->type != AUXILARY)
-		{
-			return buildingsArr[tileX - coordSquareArr[i].x][tileY - coordSquareArr[i].y]->type;
-		}
-	}
-
-	return VOID_;
-}
-
-
-
-void BuildingsMap::setTurret(int turretType, int tileX, int tileY)
-{
-	if (buildingsArr[tileX][tileY]->type != STONE_TOWER &&
-		buildingsArr[tileX][tileY]->type != STEEL_TOWER)
-	{
-		return;
-	}
-
-	if (isEnoughAllRes(g_BuildingsInfoArray[turretType].costToBuild))
-	{
-		wasteRes(g_BuildingsInfoArray[turretType].costToBuild);
-		buildingsArr[tileX][tileY]->setTurret(turretType);
-	}
-}
-
-void BuildingsMap::removeTurret(int tileX, int tileY)
-{
-	buildingsArr[tileX][tileY]->removeTurret();
-}
-
-bool BuildingsMap::isTurretOnTile(int tileX, int tileY)
-{
-	return buildingsArr[tileX][tileY]->isTurretOnTower();
 }

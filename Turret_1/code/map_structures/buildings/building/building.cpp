@@ -279,4 +279,3 @@ void Building::prepareSprites()
 }
 
 void Building::animation() { }
-void Building::draw(sf::RenderWindow& window) { }

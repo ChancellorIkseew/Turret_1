@@ -183,6 +183,7 @@
     <ClCompile Include="code\map_structures\buildings\buildings_map.cpp" />
     <ClCompile Include="code\map_structures\buildings\building\building.cpp" />
     <ClCompile Include="code\map_structures\buildings\building\buildings_info.cpp" />
+    <ClCompile Include="code\map_structures\buildings\building\building_types\auxilary\auxilary.cpp" />
     <ClCompile Include="code\map_structures\buildings\building\building_types\drills\drill.cpp" />
     <ClCompile Include="code\map_structures\buildings\building\building_types\drills\drill_types\big_drill.cpp" />
     <ClCompile Include="code\map_structures\buildings\building\building_types\drills\drill_types\small_drill.cpp" />
@@ -202,6 +203,7 @@
     <ClCompile Include="code\map_structures\buildings\building\building_types\walls\tower.cpp" />
     <ClCompile Include="code\map_structures\buildings\building\building_types\walls\tower_types\stone_tower.cpp" />
     <ClCompile Include="code\map_structures\buildings\building\building_types\walls\stone_wall.cpp" />
+    <ClCompile Include="code\map_structures\buildings\building\create_building.cpp" />
     <ClCompile Include="code\map_structures\entities\entity.cpp" />
     <ClCompile Include="code\map_structures\entities\entities_util\create_entity.cpp" />
     <ClCompile Include="code\map_structures\entities\entities_util\entities_list.cpp" />
@@ -278,6 +280,7 @@
     <ClInclude Include="code\map_structures\buildings\building\building.h" />
     <ClInclude Include="code\map_structures\buildings\building\buildings_enum.h" />
     <ClInclude Include="code\map_structures\buildings\building\buildings_info.h" />
+    <ClInclude Include="code\map_structures\buildings\building\building_types\auxilary\auxilary.h" />
     <ClInclude Include="code\map_structures\buildings\building\building_types\drills\drill.h" />
     <ClInclude Include="code\map_structures\buildings\building\building_types\drills\drill_types\big_drill.h" />
     <ClInclude Include="code\map_structures\buildings\building\building_types\drills\drill_types\small_drill.h" />

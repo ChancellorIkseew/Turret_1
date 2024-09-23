@@ -43,6 +43,9 @@ public:
 	virtual void save(std::ofstream& fout);
 	virtual void load(std::ifstream& fin);
 
+	static Building* setBuilding(int type, char direction, short durability, short v_size, int tileX, int tileY);
+	static Building* createBuilding(int type);
+
 	virtual void interact();
 
 	// resouses_and_inventory
@@ -74,7 +77,7 @@ public:
 	// visual
 	static void prepareSprites();
 	virtual void animation();
-	virtual void draw(sf::RenderWindow& window);
+	virtual void draw(sf::RenderWindow& window) = 0;
 
 };
 

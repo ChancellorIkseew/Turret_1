@@ -3,6 +3,7 @@
 #define BUILDINGS_MAP_H
 
 #include <string>
+#include <vector>
 #include <SFML\Graphics.hpp>
 
 #include "map_structures/base_engine/tile_coord.h"
@@ -14,12 +15,10 @@ class BuildingsMap
 private:
 
 	static inline int mapMaxX, mapMaxY;
-	
-	static inline std::string saveFileName;
-	
-	static inline Building*** buildingsArr;	// Building_inventory
-
 	static inline bool isMapChanged;
+
+	static inline std::string saveFileName;
+	static inline std::vector<std::vector<Building*>> buildingsMap;
 	
 public:
 		
@@ -35,11 +34,9 @@ public:
 	// Construction_process
 	static void constructBuilding(int buildingType, char direction, int tileX, int tileY);
 	static void demolishBuilding(int tileX, int tileY);
-
-	static Building* setBuilding(int type, char direction, short durability, short v_size, int tileX, int tileY);
-	static Building* createBuilding(int type);
 		
 	// Simple_utilites
+	static bool buildingExists(int tileX, int tileY);
 	static void setBuildingType(char v_type, int tileX, int tileY);
 	static void setBuildingDurability(short durability, int tileX, int tileY);
 	static void setDamage(short damage, int tileX, int tileY);
@@ -47,7 +44,6 @@ public:
 	static short getBuildingDurability(int tileX, int tileY);
 	static TileCoord getBuildingMainTileCoord(int x, int y);
 	static int getBuildingMainTileType(int tileX, int tileY);
-	static void Print();
 
 	static bool getIsMapChanged();
 	static void cleanMapChanged();
