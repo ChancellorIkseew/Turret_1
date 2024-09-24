@@ -33,14 +33,15 @@ void RocketBossBot::findPath(BuildingsMap& buildingsMap1)
 
 	for (int i = 1; i < 8; i = i + 2)
 	{
-		int tileCoordX = this->newTileCoordX + coordSpyralArr[i].x;
-		int tileCoordY = this->newTileCoordY + coordSpyralArr[i].y;
+		int tileX = this->newTileCoordX + coordSpyralArr[i].x;
+		int tileY = this->newTileCoordY + coordSpyralArr[i].y;
+		TileCoord tileCoord{ tileX, tileY };
 
-		if (tileCoordX > -1 && tileCoordX < 100 && tileCoordY > -1 && tileCoordY < 100)
+		if (tileX > -1 && tileX < 100 && tileY > -1 && tileY < 100)
 		{
-			if (buildingsMap1.getBuildingType(tileCoordX, tileCoordY) == VOID_)
+			if (buildingsMap1.getBuildingType(tileCoord) == VOID_)
 			{
-				int distance = pow((tileCoordX - 50), 2) + pow((tileCoordY - 50), 2);
+				int distance = pow((tileX - 50), 2) + pow((tileY - 50), 2);
 				if (distance < minDistance)
 				{
 					minDistance = distance;
@@ -112,25 +113,27 @@ TileCoord RocketBossBot::findShootingAim(BuildingsMap& buildingsMap1)
 		for (int i = 1; i <= range; i++)
 		{
 
-			int tileCoordX = tile(coordX + sin(angleRad) * 16 * i);
-			int tileCoordY = tile(coordY + cos(angleRad) * 16 * i);
+			int tileX = tile(coordX + sin(angleRad) * 16 * i);
+			int tileY = tile(coordY + cos(angleRad) * 16 * i);
+			TileCoord tileCoord{ tileX, tileY };
 
-			if (buildingsMap1.getBuildingType(tileCoordX, tileCoordY) != VOID_)
+			if (buildingsMap1.getBuildingType(tileCoord) != VOID_)
 			{
-				return { tileCoordX, tileCoordY };
+				return tileCoord;
 			}
 		}
 
 		for (int i = 0; i < spyralRange; i++)
 		{
-			int tileCoordX = this->newTileCoordX + coordSpyralArr[i].x;
-			int tileCoordY = this->newTileCoordY + coordSpyralArr[i].y;
+			int tileX = this->newTileCoordX + coordSpyralArr[i].x;
+			int tileY = this->newTileCoordY + coordSpyralArr[i].y;
+			TileCoord tileCoord{ tileX, tileY };
 
-			if (tileCoordX > -1 && tileCoordX < 101 && tileCoordY > -1 && tileCoordY < 101)
+			if (tileX > -1 && tileX < 101 && tileY > -1 && tileY < 101)
 			{
-				if (buildingsMap1.getBuildingType(tileCoordX, tileCoordY) != VOID_)
+				if (buildingsMap1.getBuildingType(tileCoord) != VOID_)
 				{
-					return { tileCoordX, tileCoordY };
+					return tileCoord;
 				}
 			}
 		}

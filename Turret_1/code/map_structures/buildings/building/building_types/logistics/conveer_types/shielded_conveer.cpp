@@ -3,17 +3,9 @@
 #include "map_structures/buildings/building/buildings_enum.h"
 
 
-ShieldedConveyer::ShieldedConveyer(char type, char direction, short durability, short size, int tileX, int tileY) : Conveyer(type, direction, durability, size, tileX, tileY)
+ShieldedConveyer::ShieldedConveyer(char type, char direction, short durability, short size, const TileCoord tile) : Conveyer(type, direction, durability, size, tile)
 {
-	for (int i = 0; i < 5; ++i)
-	{
-		isPositionFree[i] = true;
-	}
-}
-
-ShieldedConveyer::ShieldedConveyer() : Conveyer()
-{
-	type = SHIELDED_CONVEYER_DOWN;
+	this->direction = direction;
 
 	for (int i = 0; i < 5; ++i)
 	{
@@ -24,7 +16,7 @@ ShieldedConveyer::ShieldedConveyer() : Conveyer()
 
 void ShieldedConveyer::load(std::ifstream& fin)
 {
-	fin >> size >> durability >> tileX >> tileY >> direction;
+	fin >> direction;
 
 	switch (direction)
 	{
@@ -45,14 +37,13 @@ void ShieldedConveyer::load(std::ifstream& fin)
 		break;
 	}
 
-	char specialSymbol;
-	fin >> specialSymbol;
+	Building::load(fin);
 }
 
 
 void ShieldedConveyer::draw(sf::RenderWindow& window)
 {
-	buildingSprite.setPosition(tileX * _TILE_ + _HALF_TILE_, tileY * _TILE_ + _HALF_TILE_);
+	buildingSprite.setPosition(tile.x * _TILE_ + _HALF_TILE_, tile.y * _TILE_ + _HALF_TILE_);
 	
 	buildingSprite.setTextureRect(sf::IntRect(160, 96, 32, 32));
 	buildingSprite.setOrigin(16, 16);

@@ -6,20 +6,45 @@
 #include "map_structures/entities/turret_types/rocket_turret.h"
 
 
-Tower::Tower(char type, short durability, short size, int tileX, int tileY) : Building (type, durability, size, tileX, tileY)
+Tower::Tower(char type, short durability, short size, const TileCoord tile) : Building (type, durability, size, tile)
 {
 	turret = nullptr;
 }
 
-Tower::Tower() : Building()
-{
-	turret = nullptr;
-}
 
 Tower::~Tower()
 {
 	delete turret;
 	turret = nullptr;
+}
+
+
+void Tower::save(std::ofstream& fout) const
+{
+	if (turret != nullptr)
+	{
+		turret->save(fout);
+	}
+	else
+	{
+		fout << "!\n";
+	}
+	Building::save(fout);
+}
+
+void Tower::load(std::ifstream& fin)
+{
+	char nextSymbol;
+	fin >> nextSymbol;
+	if (nextSymbol != '!')
+	{
+		fin.seekg(-1, std::ios::cur);
+		int turretType;
+		fin >> turretType;
+		turret = Turret::setTurret(turretType, tile.x, tile.y);
+		turret->load(fin);
+	}
+	Building::load(fin);
 }
 
 
@@ -41,14 +66,13 @@ void Tower::interact()
 }
 
 
-bool Tower::isThisPositionFree(int position)
+bool Tower::isThisPositionFree(int position) const
 {
 	short comonResQuant = 0;
 
-	for (std::list<StoredResource>::iterator it = storedResourcesList.begin(); it != storedResourcesList.end(); ++it)
+	for (auto it = storedResourcesList.cbegin(); it != storedResourcesList.cend(); ++it)
 	{
 		comonResQuant = comonResQuant + it->quant;
-			
 	}
 
 	if (comonResQuant < 21)
@@ -59,7 +83,7 @@ bool Tower::isThisPositionFree(int position)
 }
 
 
-bool Tower::canAccept(int resType)
+bool Tower::canAccept(int resType) const
 {
 	if (resType == RES_AC_SHELLS || resType == RES_ROCKET)
 	{
@@ -74,11 +98,11 @@ void Tower::setTurret(int turretType)
 	switch (turretType)
 	{
 	case AUTOCANNON_TURRET:
-		turret = new AutocannonTurret(AUTOCANNON_TURRET, tileX, tileY, 0, 0);
+		turret = new AutocannonTurret(AUTOCANNON_TURRET, tile.x, tile.y, 0, 0);
 		break;
 
 	case ROCKET_TURRET:
-		turret = new RocketTurret(ROCKET_TURRET, tileX, tileY, 0, 0);
+		turret = new RocketTurret(ROCKET_TURRET, tile.x, tile.y, 0, 0);
 		break;
 
 	}
@@ -90,72 +114,11 @@ void Tower::removeTurret()
 	turret = nullptr;
 }
 
-bool Tower::isTurretOnTower()
+bool Tower::isTurretOnTower() const
 {
 	if (turret != nullptr)
 	{
 		return true;
 	}
 	return false;
-}
-
-
-
-void Tower::save(std::ofstream& fout)
-{
-	fout << type << " " << size << " " << durability <<
-		" " << tileX << " " << tileY << '\n';
-
-	if (turret != nullptr)
-	{
-		turret->save(fout);
-	}
-	else
-	{
-		fout << "!\n";
-	}
-
-	for (std::list<StoredResource>::iterator it = storedResourcesList.begin(); it != storedResourcesList.end(); ++it)
-	{
-		if (it->quant != 0)
-			fout << it->type << " " << it->quant << '\n';
-	}
-
-	fout << "$\n";
-}
-
-
-
-void Tower::load(std::ifstream& fin)
-{
-	fin >> size >> durability >> tileX >> tileY;
-
-	char nextSymbol;
-	fin >> nextSymbol;
-
-	if (nextSymbol != '!')
-	{
-		fin.seekg(-1, std::ios::cur);
-		int turretType;
-		fin >> turretType;
-		turret = Turret::setTurret(turretType, tileX, tileY);
-		turret->load(fin);
-	}
-
-	while (true)
-	{
-		fin >> nextSymbol;
-
-		if (nextSymbol == '$')
-		{
-			break;
-		}
-
-		fin.seekg(-1, std::ios::cur);
-		int resType;
-		fin >> resType;
-		short amount;
-		fin >> amount;
-		storedResourcesList.push_back(StoredResource{ resType, amount });
-	}
 }

@@ -3,21 +3,15 @@
 #include "map_structures/buildings/building/buildings_enum.h"
 
 
-StoneTower::StoneTower(char type, short durability, short size, int tileX, int tileY) : Tower (type, durability, size, tileX, tileY)
+StoneTower::StoneTower(char type, short durability, short size, const TileCoord tile) : Tower (type, durability, size, tile)
 {
 
-}
-
-
-StoneTower::StoneTower() : Tower()
-{
-	type = STONE_TOWER;
 }
 
 
 void StoneTower::draw(sf::RenderWindow& window)
 {
-	buildingSprite.setPosition(tileX * _TILE_, tileY * _TILE_);
+	buildingSprite.setPosition(tile.x * _TILE_, tile.y * _TILE_);
 	buildingSprite.setTextureRect(sf::IntRect(0, 416, 32, 32));
 
 	window.draw(buildingSprite);

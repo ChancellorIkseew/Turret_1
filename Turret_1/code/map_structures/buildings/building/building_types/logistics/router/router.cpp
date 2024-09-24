@@ -1,58 +1,33 @@
 
 #include "router.h"
 #include "map_structures/buildings/buildings_map.h"
-#include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/resources/resource_units.h"
 #include "map_structures/resources/res_enum.h"
 
 
-Router::Router(int type, short durability, short size, int tileX, int tileY) : Building(type, durability, size, tileX, tileY)
+Router::Router(int type, short durability, short size, const TileCoord tile) : Building(type, durability, size, tile)
 {
 
-}
-
-Router::Router() : Building()
-{
-	type = ROUTER;
 }
 
 
 void Router::interact()
 {
-	placeResourceUnitX1(RES_ANY_RES);
-}
-
-
-void Router::placeResourceUnitX1(int resType)
-{
-	short comonResQuant = 0;
-
-	for (std::list<StoredResource>::iterator it = storedResourcesList.begin(); it != storedResourcesList.end(); ++it)
+	int resType = findResource();
+	if (resType != RES_NO_RESOURCES)
 	{
-		comonResQuant = comonResQuant + it->quant;
-		if (it->quant > 0)
-		{
-			type = it->type;
-			break;
-		}
-	}
-
-	if (comonResQuant > 0)
-	{
-		Building::placeResourceUnitX1(type);
+		placeResourceUnitX1(resType);
 	}
 }
 
 
-
-bool Router::isThisPositionFree(int position)
+bool Router::isThisPositionFree(int position) const
 {
 	short comonResQuant = 0;
 
-	for (std::list<StoredResource>::iterator it = storedResourcesList.begin(); it != storedResourcesList.end(); ++it)
+	for (auto it = storedResourcesList.cbegin(); it != storedResourcesList.cend(); ++it)
 	{
 		comonResQuant = comonResQuant + it->quant;
-
 	}
 
 	if (comonResQuant < 11)
@@ -63,8 +38,7 @@ bool Router::isThisPositionFree(int position)
 }
 
 
-
-bool Router::canAccept(int resType)
+bool Router::canAccept(int resType) const
 {
 	return true;
 }
@@ -72,7 +46,7 @@ bool Router::canAccept(int resType)
 
 void Router::draw(sf::RenderWindow& window)
 {
-	buildingSprite.setPosition(tileX * _TILE_, tileY * _TILE_);
+	buildingSprite.setPosition(tile.x * _TILE_, tile.y * _TILE_);
 	buildingSprite.setTextureRect(sf::IntRect(0, 256, 32, 32));
 	window.draw(buildingSprite);
 }

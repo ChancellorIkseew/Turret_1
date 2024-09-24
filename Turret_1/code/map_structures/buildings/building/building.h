@@ -19,15 +19,13 @@ struct StoredResource
 class Building
 {
 protected:
-
-	int tileX, tileY;
+	TileCoord tile;
 
 	static inline sf::Image buildingsImage;
 	static inline sf::Texture buildingsTexture;
 	static inline sf::Sprite buildingSprite;
 
 public:
-
 	int type;
 	short durability;
 	short size;
@@ -35,46 +33,51 @@ public:
 	std::list<StoredResource> storedResourcesList;
 
 public:
-
-	Building(int type, short durability, short size, int tileX, int tileY);
-	Building() = default;
+	Building(int type, short durability, short size, const TileCoord tile);
 	virtual ~Building();
 
-	virtual void save(std::ofstream& fout);
+	virtual void save(std::ofstream& fout) const;
 	virtual void load(std::ifstream& fin);
 
+	static std::shared_ptr<Building> createBuilding(int type, char direction, short durability, short v_size, const TileCoord tile);
+
 	virtual void interact();
+	void setDamage(const int damage);
+	TileCoord getTileCoord() const;
 
 	// resouses_and_inventory
-	virtual bool canAccept(int resType);
-	virtual bool isThisPositionFree(int position);
-	virtual void leavePosition(int position);
-	virtual void takePosition(int position);
+	virtual bool canAccept(const int resType) const;
+	virtual bool isThisPositionFree(const int position) const;
+	virtual void leavePosition(const int position);
+	virtual void takePosition(const int position);
 
-	void addToInventory(int resType, short amount);
-	virtual void placeResourceUnit(int resType, int tileX, int tileY);
-	virtual void placeResourceUnitX1(int resType);
-	virtual void placeResourceUnitX4(int resType);
-	virtual void placeResourceUnitX9(int resType);
+	void addToInventory(const int resType, const short amount);
 
-	int findResource();
-	bool isEnoughRes(int resType, short amount);
-	void wasteResorce(int resType, int amount);
+	int findResource() const;
+	bool isEnoughRes(const int resType, const short amount) const;
+	void wasteResorce(const int resType, const int amount);
 
-	bool hasCorrectConveyerUp(int tileX, int tileY);
-	bool hasCorrectConveyerLeft(int tileX, int tileY);
-	bool hasCorrectConveyerDown(int tileX, int tileY);
-	bool hasCorrectConveyerRight(int tileX, int tileY);
+	bool hasCorrectConveyerUp(const TileCoord tile) const;
+	bool hasCorrectConveyerLeft(const TileCoord tile) const;
+	bool hasCorrectConveyerDown(const TileCoord tile) const;
+	bool hasCorrectConveyerRight(const TileCoord tile) const;
 
 	// turrets
-	virtual void setTurret(int turretType);
+	virtual void setTurret(const int turretType);
 	virtual void removeTurret();
-	virtual bool isTurretOnTower();
+	virtual bool isTurretOnTower() const;
 
 	// visual
 	static void prepareSprites();
 	virtual void animation();
-	virtual void draw(sf::RenderWindow& window);
+	virtual void draw(sf::RenderWindow& window) = 0;
+
+private:
+	void placeResourceUnit(const int resType, const TileCoord tile);
+protected:
+	void placeResourceUnitX1(const int resType);
+	void placeResourceUnitX4(const int resType);
+	void placeResourceUnitX9(const int resType);
 
 };
 

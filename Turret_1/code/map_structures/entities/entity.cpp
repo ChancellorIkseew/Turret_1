@@ -21,7 +21,7 @@ void Entity::initPreSettings()
 
 Entity::Entity(int type)		//1st spawn
 {
-	initCombatData();
+	Entity::initCombatData();
 	this->type = type;
 	
 	int x = rand() %4;
@@ -57,7 +57,7 @@ Entity::Entity(int type)		//1st spawn
 
 Entity::Entity(int type ,float coordX, float coordY, float curentAngleDeg, short curentDurability)
 {
-	initCombatData();
+	Entity::initCombatData();
 	this->type = type;
 	this->coordX = coordX;
 	this->coordY = coordY;
@@ -104,10 +104,11 @@ void Entity::motion(BuildingsMap &buildingsMap1, int time)
 	angleRad = atan2f(destCoordX - coordX, destCoordY - coordY);
 	angleDeg = atan2f(destCoordY - coordY, destCoordX - coordX) * 57.3f + 90;
 
-	int tileCoordX = tile(coordX + sin(angleRad) * 30);
-	int tileCoordY = tile(coordY + cos(angleRad) * 30);
+	int tileX = tile(coordX + sin(angleRad) * 30);
+	int tileY = tile(coordY + cos(angleRad) * 30);
+	TileCoord tileCoord{ tileX, tileY };
 
-	if ((buildingsMap1.getBuildingType(tileCoordX, tileCoordY)) == VOID_)	// Cheek_next_tile
+	if ((buildingsMap1.getBuildingType(tileCoord)) == VOID_)	// Cheek_next_tile
 	{
 		coordX = coordX + sin(angleRad) * maxSpeed;
 		coordY = coordY + cos(angleRad) * maxSpeed;

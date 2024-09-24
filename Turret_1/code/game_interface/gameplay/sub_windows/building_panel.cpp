@@ -91,26 +91,27 @@ void BuildingPanel::interact(sf::Vector2i& mouseCoord, sf::Vector2f& mouseMapCoo
 	{
 		if (noSubWindowSelected(mouseCoord))
 		{	
-			std::cout << '\n' << "building_place_works: " << buildingType << std::endl;
+			std::cout << "building_place_works: " << buildingType << '\n';
 			int tileX = tile(mouseMapCoord.x);
 			int tileY = tile(mouseMapCoord.y);
+			TileCoord selectedTile{ tileX, tileY };
 
 			mtBuildings.lock();
 			if (buildingType == REMOVE)
 			{
-				if (BuildingsMap::isTurretOnTile(tileX, tileY))
-					BuildingsMap::removeTurret(tileX, tileY);
+				if (BuildingsMap::isTurretOnTile(selectedTile))
+					BuildingsMap::removeTurret(selectedTile);
 				else
-					BuildingsMap::demolishBuilding(tileX, tileY);
+					BuildingsMap::demolishBuilding(selectedTile);
 			}
 			else if (buildingType == AUTOCANNON_TURRET || buildingType == ROCKET_TURRET)
 			{
-				if (!BuildingsMap::isTurretOnTile(tileX, tileY))
-					BuildingsMap::setTurret(buildingType, tileX, tileY);
+				if (!BuildingsMap::isTurretOnTile(selectedTile))
+					BuildingsMap::setTurret(buildingType, selectedTile);
 			}
 			else
 			{
-				BuildingsMap::constructBuilding(buildingType, direction, tileX, tileY);
+				BuildingsMap::constructBuilding(buildingType, direction, selectedTile);
 			}
 			mtBuildings.unlock();
 		}

@@ -3,7 +3,7 @@
 #include "map_structures/buildings/building/buildings_enum.h"
 
 
-Conveyer::Conveyer(char type, char direction, short durability, short size, int tileX, int tileY) : Building(type, durability, size, tileX, tileY)
+Conveyer::Conveyer(char type, char direction, short durability, short size, const TileCoord tile) : Building(type, durability, size, tile)
 {
 	this->direction = direction;
 
@@ -13,29 +13,16 @@ Conveyer::Conveyer(char type, char direction, short durability, short size, int 
 	}
 }
 
-Conveyer::Conveyer() : Building()
+
+void Conveyer::save(std::ofstream& fout) const
 {
-	type = STANDARD_CONVEYER_DOWN;
-
-	for (int i = 0; i < 5; ++i)
-	{
-		isPositionFree[i] = true;
-	}
+	fout << direction << '\n';
+	Building::save(fout);
 }
-
-
-void Conveyer::save(std::ofstream& fout)
-{
-	fout << type << " " << size << " " << durability <<
-		" " << tileX << " " << tileY << " " << direction << '\n';
-
-	fout << "$\n";
-}
-
 
 void Conveyer::load(std::ifstream& fin)
 {
-	fin >> size >> durability >> tileX >> tileY >> direction;
+	fin >> direction;
 
 	switch (direction)
 	{
@@ -56,15 +43,14 @@ void Conveyer::load(std::ifstream& fin)
 		break;
 	}
 
-	char specialSymbol;
-	fin >> specialSymbol;
+	Building::load(fin);
 }
 
 
 
 void Conveyer::draw(sf::RenderWindow& window)
 {
-	buildingSprite.setPosition(tileX * _TILE_ + _HALF_TILE_, tileY * _TILE_ + _HALF_TILE_);
+	buildingSprite.setPosition(tile.x * _TILE_ + _HALF_TILE_, tile.y * _TILE_ + _HALF_TILE_);
 	
 	buildingSprite.setTextureRect(sf::IntRect(128, 96, 32, 32));
 	buildingSprite.setOrigin(16, 16);
@@ -92,7 +78,7 @@ void Conveyer::draw(sf::RenderWindow& window)
 
 
 
-bool Conveyer::isThisPositionFree(int position)
+bool Conveyer::isThisPositionFree(int position) const
 {
 	return isPositionFree[position];
 }
@@ -107,7 +93,7 @@ void Conveyer::leavePosition(int position)
 	isPositionFree[position] = true;
 }
 
-bool Conveyer::canAccept(int resType)
+bool Conveyer::canAccept(int resType) const
 {
 	return true;
 }

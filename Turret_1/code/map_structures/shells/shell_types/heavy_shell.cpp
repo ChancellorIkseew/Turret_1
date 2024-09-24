@@ -36,12 +36,11 @@ void HeavyShell::tryPlayerShellsHitting(BuildingsMap& buildingsMap1)
 
 void HeavyShell::tryEnemyShellsHitting(BuildingsMap& buildingsMap1)
 {
-	int tileCoordX = tile(coordX);
-	int tileCoordY = tile(coordY);
+	TileCoord tileCoord = tile(coordX, coordY);
 
-	if (buildingsMap1.getBuildingType(tileCoordX, tileCoordY) != VOID_)
+	if (buildingsMap1.getBuildingType(tileCoord) != VOID_)
 	{
-		buildingsMap1.setDamage(20, tileCoordX, tileCoordY);
+		buildingsMap1.setDamage(20, tileCoord);
 		isWasted = true;
 	}
 }
@@ -61,7 +60,7 @@ void HeavyShell::explosion(BuildingsMap& buildingsMap1)
 		}
 	}
 
-	buildingsMap1.setDamage(20, tile(coordX), tile(coordY));
+	buildingsMap1.setDamage(20, tile(coordX, coordY));
 
 	//particlesList.push_back(new Particle(1, coordX, coordY));
 }

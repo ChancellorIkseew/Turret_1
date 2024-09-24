@@ -1,15 +1,10 @@
+
 #include "big_drill.h"
-#include "map_structures/buildings/building/buildings_enum.h"
 
 
-BigDrill::BigDrill(int type, short durability, short size, int tileX, int tileY) : Drill(type, durability, size, tileX, tileY)
+BigDrill::BigDrill(int type, short durability, short size, const TileCoord tile) : Drill(type, durability, size, tile)
 {
 	
-}
-
-BigDrill::BigDrill() : Drill()
-{
-	type = BIG_DRILL;
 }
 
 
@@ -47,14 +42,14 @@ void BigDrill::draw(sf::RenderWindow& window)
 {
 	buildingSprite.setOrigin(32, 32);
 	buildingSprite.setRotation(rotorAngle);
-	buildingSprite.setPosition(tileX * _TILE_ + _TILE_, tileY * _TILE_ + _TILE_);
+	buildingSprite.setPosition(tile.x * _TILE_ + _TILE_, tile.y * _TILE_ + _TILE_);
 	buildingSprite.setTextureRect(sf::IntRect(0, 32, 64, 64));
 
 	window.draw(buildingSprite);
 
 	buildingSprite.setOrigin(0, 0);
 	buildingSprite.setRotation(0);
-	buildingSprite.setPosition(tileX * _TILE_, tileY * _TILE_);
+	buildingSprite.setPosition(tile.x * _TILE_, tile.y * _TILE_);
 	buildingSprite.setTextureRect(sf::IntRect(64, 32, 64, 64));
 
 	window.draw(buildingSprite);

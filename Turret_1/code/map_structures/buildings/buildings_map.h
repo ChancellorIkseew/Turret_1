@@ -3,6 +3,7 @@
 #define BUILDINGS_MAP_H
 
 #include <string>
+#include <vector>
 #include <SFML\Graphics.hpp>
 
 #include "map_structures/base_engine/tile_coord.h"
@@ -14,17 +15,17 @@ class BuildingsMap
 private:
 
 	static inline int mapMaxX, mapMaxY;
-	
-	static inline std::string saveFileName;
-	
-	static inline Building*** buildingsArr;	// Building_inventory
-
 	static inline bool isMapChanged;
+
+	static inline std::string saveFileName;
+	static inline std::vector<std::vector<std::shared_ptr<Building>>> buildingsMap;
 	
+	static void createAuxilary(const short size, const TileCoord tile);
+
 public:
 		
 	BuildingsMap(std::string saveFolderName);
-	~BuildingsMap();
+	~BuildingsMap() = default;
 		
 	static void generateMap();
 	static void loadMap();
@@ -33,36 +34,31 @@ public:
 	static void intetractMap();
 
 	// Construction_process
-	static void constructBuilding(int buildingType, char direction, int tileX, int tileY);
-	static void demolishBuilding(int tileX, int tileY);
-
-	static Building* setBuilding(int type, char direction, short durability, short v_size, int tileX, int tileY);
-	static Building* createBuilding(int type);
+	static void constructBuilding(const int type, const char direction, const TileCoord tile);
+	static void demolishBuilding(const TileCoord tile);
 		
 	// Simple_utilites
-	static void setBuildingType(char v_type, int tileX, int tileY);
-	static void setBuildingDurability(short durability, int tileX, int tileY);
-	static void setDamage(short damage, int tileX, int tileY);
-	static char getBuildingType(int tileX, int tileY);
-	static short getBuildingDurability(int tileX, int tileY);
-	static TileCoord getBuildingMainTileCoord(int x, int y);
-	static int getBuildingMainTileType(int tileX, int tileY);
-	static void Print();
+	static bool buildingExists(const TileCoord tile);
+	static void setBuildingDurability(const short durability, const TileCoord tile);
+	static void setDamage(const short damage, const TileCoord tile);
+	static int getBuildingType(const TileCoord tile);
+	static short getBuildingDurability(const TileCoord tile);
+	static TileCoord getBuildingMainTileCoord(const TileCoord tile);
 
 	static bool getIsMapChanged();
 	static void cleanMapChanged();
 	
 	// resources_and_inventory
-	static bool canAccept(int resType, int tileX, int tileY);
-	static bool isThisPositionFree(int tileX, int tileY, int position);
-	static void leavePosition(int tileX, int tileY, int position);
-	static void takePosition(int tileX, int tileY, int position);
-	static void addToInventory(int resType, int tileX, int tileY);
+	static bool canAccept(const int resType, const TileCoord tile);
+	static bool isThisPositionFree(const TileCoord tile, const int position);
+	static void leavePosition(const TileCoord tile, const int position);
+	static void takePosition(const TileCoord tile, const int position);
+	static void addToInventory(const int resType, const TileCoord tile);
 
 	// turrets
-	static void setTurret(int turretType, int tileX, int tileY);
-	static void removeTurret(int tileX, int tileY);
-	static bool isTurretOnTile(int tileX, int tileY);
+	static void setTurret(const int turretType, const TileCoord tile);
+	static void removeTurret(const TileCoord tile);
+	static bool isTurretOnTile(const TileCoord tile);
 		
 	// Visual
 	static void drawMap(sf::RenderWindow& window);

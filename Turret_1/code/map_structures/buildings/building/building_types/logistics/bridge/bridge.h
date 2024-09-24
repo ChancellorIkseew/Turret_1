@@ -15,22 +15,20 @@ private:
 
 public:
 
-	Bridge(int type, char direction, short durability, short size, int tileX, int tileY);
-	Bridge();
+	Bridge(int type, char direction, short durability, short size, const TileCoord tile);
 	~Bridge() = default;
 
-	void save(std::ofstream& fout) override;
+	void save(std::ofstream& fout) const override;
 	void load(std::ifstream& fin) override;
 
 	void interact() override;
 	void transmitResourceUnit();
 
-	bool canAccept(int resType) override;
-	bool isThisPositionFree(int position) override;
+	bool canAccept(int resType) const override;
+	bool isThisPositionFree(int position) const override;
 
 	void draw(sf::RenderWindow& window) override;
 
 };
-
 
 #endif // BRIDGE_H

@@ -300,6 +300,12 @@
     <ClCompile Include="code\map_structures\base_engine\test.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="code\map_structures\buildings\building\building_types\auxilary\auxilary.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\map_structures\buildings\building\create_building.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="libgcc_s_seh_64-1.dll" />
@@ -561,6 +567,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\map_structures\shells\shell_enum.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\map_structures\buildings\building\building_types\auxilary\auxilary.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

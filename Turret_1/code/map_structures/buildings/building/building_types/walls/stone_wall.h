@@ -9,13 +9,11 @@ class StoneWall : public Building
 
 public:
 
-	StoneWall(char type, short durability, short size, int tileX, int tileY);
-	StoneWall();
+	StoneWall(char type, short durability, short size, const TileCoord tile);
 	~StoneWall() = default;
 
 	void draw(sf::RenderWindow& window) override;
 
 };
-
 
 #endif // STONE_WALL_H

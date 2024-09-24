@@ -3,55 +3,25 @@
 #include "map_structures/buildings/buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/resources/resource_units.h"
+#include "map_structures/resources/res_enum.h"
 
 
-Bridge::Bridge(int type, char direction, short durability, short size, int tileX, int tileY) : Building(type, durability, size, tileX, tileY)
+Bridge::Bridge(int type, char direction, short durability, short size, const TileCoord tile) : Building(type, durability, size, tile)
 {
 	this->direction = direction;
 }
 
-Bridge::Bridge() : Building()
+
+void Bridge::save(std::ofstream& fout) const
 {
-	type = BRIDGE;
+	fout << direction << '\n';
+	Building::save(fout);
 }
-
-
-void Bridge::save(std::ofstream& fout)
-{
-	fout << type << " " << size << " " << durability <<
-		" " << tileX << " " << tileY << " " << direction << '\n';
-
-	for (std::list<StoredResource>::iterator it = storedResourcesList.begin(); it != storedResourcesList.end(); ++it)
-	{
-		//fout << (*it)->type << " " << (*it)->quant << '\n';
-	}
-
-	fout << "$\n";
-}
-
-
 
 void Bridge::load(std::ifstream& fin)
 {
-	fin >> size >> durability >> tileX >> tileY >> direction;
-
-	while (true)
-	{
-		char nextSymbol;
-		fin >> nextSymbol;
-
-		if (nextSymbol == '$')
-		{
-			break;
-		}
-
-		fin.seekg(-1, std::ios::cur);
-		int resType;
-		fin >> resType;
-		short amount;
-		fin >> amount;
-		storedResourcesList.push_back(StoredResource{ resType, amount });
-	}
+	fin >> direction;
+	Building::load(fin);
 }
 
 
@@ -63,43 +33,36 @@ void Bridge::interact()
 
 void Bridge::transmitResourceUnit()
 {
-	short comonResQuant = 0;
+	int resType = findResource();
+	if (resType == RES_NO_RESOURCES)
+		return;
 
-	for (std::list<StoredResource>::iterator it = storedResourcesList.begin(); it != storedResourcesList.end(); ++it)
-	{
-		comonResQuant = comonResQuant + it->quant;
-		if (it->quant != 0)
-			type = it->type;
-	}
+	TileCoord aimTile{ tile.x, tile.y };
 
-	int aimTileX = tileX;
-	int aimTileY = tileY;
-
-	if(comonResQuant > 0)
 	for (int i = 0; i < 5; ++i)
 	{
 		switch (direction)
 		{
 		case 'w':
-			--aimTileY;
+			--aimTile.y;
 			break;
 		case 'a':
-			--aimTileX;
+			--aimTile.x;
 			break;
 		case 's':
-			++aimTileY;
+			++aimTile.y;
 			break;
 		case 'd':
-			++aimTileX;
+			++aimTile.x;
 			break;
 		}
 
-		if (BuildingsMap::getBuildingType(aimTileX, aimTileY) == ROUTER)
+		if (BuildingsMap::getBuildingType(aimTile) == ROUTER)
 		{
-			if (BuildingsMap::isThisPositionFree(aimTileX, aimTileY, 0))
+			if (BuildingsMap::isThisPositionFree(aimTile, 0))
 			{
-				wasteResorce(type, 1);
-				BuildingsMap::addToInventory(type, aimTileX, aimTileY);
+				wasteResorce(resType, 1);
+				BuildingsMap::addToInventory(resType, aimTile);
 			}
 			return;
 		}
@@ -108,11 +71,11 @@ void Bridge::transmitResourceUnit()
 
 
 
-bool Bridge::isThisPositionFree(int position)
+bool Bridge::isThisPositionFree(int position) const
 {
 	short comonResQuant = 0;
 
-	for (std::list<StoredResource>::iterator it = storedResourcesList.begin(); it != storedResourcesList.end(); ++it)
+	for (auto it = storedResourcesList.cbegin(); it != storedResourcesList.cend(); ++it)
 	{
 		comonResQuant = comonResQuant + it->quant;
 
@@ -127,7 +90,7 @@ bool Bridge::isThisPositionFree(int position)
 
 
 
-bool Bridge::canAccept(int resType)
+bool Bridge::canAccept(int resType) const
 {
 	return true;
 }
@@ -135,7 +98,7 @@ bool Bridge::canAccept(int resType)
 
 void Bridge::draw(sf::RenderWindow& window)
 {
-	buildingSprite.setPosition(tileX * _TILE_ + _HALF_TILE_, tileY * _TILE_ + _HALF_TILE_);
+	buildingSprite.setPosition(tile.x * _TILE_ + _HALF_TILE_, tile.y * _TILE_ + _HALF_TILE_);
 	buildingSprite.setTextureRect(sf::IntRect(0, 224, 32, 32));
 	buildingSprite.setOrigin(16, 16);
 

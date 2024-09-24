@@ -2,13 +2,13 @@
 #include "factory.h"
 
 
-Factory::Factory(int type, short durability, short size, int tileX, int tileY) : Building(type, durability, size, tileX, tileY)
+Factory::Factory(int type, short durability, short size, const TileCoord tile) : Building(type, durability, size, tile)
 {
 	timer = 0;
 }
 
 
-bool Factory::isThisPositionFree(int position)
+bool Factory::isThisPositionFree(int position) const
 {
 	return true;
 }

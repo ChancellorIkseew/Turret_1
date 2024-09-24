@@ -10,19 +10,16 @@ class Router : public Building
 {
 public:
 
-	Router(int type, short durability, short size, int tileX, int tileY);
-	Router();
+	Router(int type, short durability, short size, const TileCoord tile);
 	~Router() = default;
 
 	void interact() override;
-	void placeResourceUnitX1(int type) override;
 
-	bool canAccept(int resType) override;
-	bool isThisPositionFree(int position) override;
+	bool canAccept(int resType) const override;
+	bool isThisPositionFree(int position) const override;
 
 	void draw(sf::RenderWindow& window) override;
 
 };
-
 
 #endif // BUILDING_ROUTER_H

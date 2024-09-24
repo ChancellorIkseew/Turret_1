@@ -2,18 +2,10 @@
 #include "rocket_factory.h"
 
 #include "map_structures/resources/res_enum.h"
-#include "map_structures/buildings/building/buildings_enum.h"
 
 
-RocketFactory::RocketFactory(int type, short durability, short size, int tileX, int tileY) : Factory(type, durability, size, tileX, tileY)
+RocketFactory::RocketFactory(int type, short durability, short size, const TileCoord tile) : Factory(type, durability, size, tile)
 {
-	timer = 120;
-}
-
-
-RocketFactory::RocketFactory() : Factory()
-{
-	type = ROCKET_FACTORY;
 	timer = 120;
 }
 
@@ -50,7 +42,7 @@ void RocketFactory::produceResource()
 }
 
 
-bool RocketFactory::canAccept(int resType)
+bool RocketFactory::canAccept(const int resType) const
 {
 	if (resType == RES_IRON || resType == RES_COPPER || resType == RES_SILICON || resType == RES_SULFUR)
 	{
@@ -71,7 +63,7 @@ void RocketFactory::animation()
 
 void RocketFactory::draw(sf::RenderWindow& window)
 {
-	buildingSprite.setPosition(tileX * _TILE_, tileY * _TILE_);
+	buildingSprite.setPosition(tile.x * _TILE_, tile.y * _TILE_);
 	buildingSprite.setTextureRect(sf::IntRect(256, 384, 96, 96));
 
 	window.draw(buildingSprite);

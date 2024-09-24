@@ -13,18 +13,16 @@ protected:
 
 public:
 
-	Core(int type, short durability, short size, int tileX, int tileY);
-	Core();
+	Core(int type, short durability, short size, const TileCoord tile);
 	virtual ~Core() = default;
 
 	void interact() override;
 
-	bool canAccept(int resType) override;
-	bool isThisPositionFree(int position) override;
+	bool canAccept(int resType) const override;
+	bool isThisPositionFree(int position) const override;
 
 	virtual void draw(sf::RenderWindow& window) override;
 	
 };
-
 
 #endif // CORE_H

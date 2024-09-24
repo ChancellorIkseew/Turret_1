@@ -13,23 +13,21 @@ protected:
 
 public:
 
-	Tower(char type, short durability, short size, int tileX, int tileY);
-	Tower();
+	Tower(char type, short durability, short size, const TileCoord tile);
 	virtual ~Tower();
 
-	void save(std::ofstream& fout) override;
+	void save(std::ofstream& fout) const override;
 	void load(std::ifstream& fin) override;
 
 	void interact() override;
 
-	bool isThisPositionFree(int position) override;
-	bool canAccept(int resType) override;
+	bool isThisPositionFree(int position) const override;
+	bool canAccept(int resType) const override;
 
 	void setTurret(int turretType) override final;
 	void removeTurret() override final;
-	bool isTurretOnTower() override final;
+	bool isTurretOnTower() const override final;
 
 };
-
 
 #endif // TOWER_H

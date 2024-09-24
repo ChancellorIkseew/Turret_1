@@ -13,12 +13,11 @@ protected:
 
 public:
 
-	Factory(int type, short durability, short size, int tileX, int tileY);
-	Factory() = default;
+	Factory(int type, short durability, short size, const TileCoord tile);
 	virtual ~Factory() = default;
 
 	virtual void produceResource() = 0;
-	bool isThisPositionFree(int position) override final;
+	bool isThisPositionFree(int position) const override final;
 
 };
 
