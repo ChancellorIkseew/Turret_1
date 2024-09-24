@@ -3,8 +3,10 @@
 #include "map_structures/resources/res_enum.h"
 
 
-Auxilary::Auxilary(int type, short durability, short size, int tileX, int tileY) : Building(type, durability, size, tileX, tileY)
+Auxilary::Auxilary(int type, short durability, short size, const TileCoord tile) : Building(type, durability, size, tile)
 
 {
 
 }
+
+void Auxilary::draw(sf::RenderWindow& window) { }

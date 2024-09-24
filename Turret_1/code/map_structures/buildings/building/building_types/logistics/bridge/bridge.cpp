@@ -6,7 +6,7 @@
 #include "map_structures/resources/res_enum.h"
 
 
-Bridge::Bridge(int type, char direction, short durability, short size, int tileX, int tileY) : Building(type, durability, size, tileX, tileY)
+Bridge::Bridge(int type, char direction, short durability, short size, const TileCoord tile) : Building(type, durability, size, tile)
 {
 	this->direction = direction;
 }
@@ -20,7 +20,7 @@ Bridge::Bridge() : Building()
 void Bridge::save(std::ofstream& fout) const
 {
 	fout << type << " " << size << " " << durability <<
-		" " << tileX << " " << tileY << " " << direction << '\n';
+		" " << tile.x << " " << tile.y << " " << direction << '\n';
 
 	for (auto it = storedResourcesList.cbegin(); it != storedResourcesList.cend(); ++it)
 	{
@@ -34,7 +34,7 @@ void Bridge::save(std::ofstream& fout) const
 
 void Bridge::load(std::ifstream& fin)
 {
-	fin >> size >> durability >> tileX >> tileY >> direction;
+	fin >> size >> durability >> tile.x >> tile.y >> direction;
 
 	while (true)
 	{
@@ -68,33 +68,32 @@ void Bridge::transmitResourceUnit()
 	if (resType == RES_NO_RESOURCES)
 		return;
 
-	int aimTileX = tileX;
-	int aimTileY = tileY;
+	TileCoord aimTile{ tile.x, tile.y };
 
 	for (int i = 0; i < 5; ++i)
 	{
 		switch (direction)
 		{
 		case 'w':
-			--aimTileY;
+			--aimTile.y;
 			break;
 		case 'a':
-			--aimTileX;
+			--aimTile.x;
 			break;
 		case 's':
-			++aimTileY;
+			++aimTile.y;
 			break;
 		case 'd':
-			++aimTileX;
+			++aimTile.x;
 			break;
 		}
 
-		if (BuildingsMap::getBuildingType(aimTileX, aimTileY) == ROUTER)
+		if (BuildingsMap::getBuildingType(aimTile) == ROUTER)
 		{
-			if (BuildingsMap::isThisPositionFree(aimTileX, aimTileY, 0))
+			if (BuildingsMap::isThisPositionFree(aimTile, 0))
 			{
 				wasteResorce(resType, 1);
-				BuildingsMap::addToInventory(resType, aimTileX, aimTileY);
+				BuildingsMap::addToInventory(resType, aimTile);
 			}
 			return;
 		}
@@ -130,7 +129,7 @@ bool Bridge::canAccept(int resType) const
 
 void Bridge::draw(sf::RenderWindow& window)
 {
-	buildingSprite.setPosition(tileX * _TILE_ + _HALF_TILE_, tileY * _TILE_ + _HALF_TILE_);
+	buildingSprite.setPosition(tile.x * _TILE_ + _HALF_TILE_, tile.y * _TILE_ + _HALF_TILE_);
 	buildingSprite.setTextureRect(sf::IntRect(0, 224, 32, 32));
 	buildingSprite.setOrigin(16, 16);
 

@@ -13,7 +13,7 @@ protected:
 
 public:
 
-	Factory(int type, short durability, short size, int tileX, int tileY);
+	Factory(int type, short durability, short size, const TileCoord tile);
 	Factory() = default;
 	virtual ~Factory() = default;
 

@@ -13,7 +13,7 @@ protected:
 
 public:
 
-	Core(int type, short durability, short size, int tileX, int tileY);
+	Core(int type, short durability, short size, const TileCoord tile);
 	Core();
 	virtual ~Core() = default;
 

@@ -12,6 +12,17 @@ int tile(int pixelCoord)
 	return int(pixelCoord / _TILE_);
 }
 
+TileCoord tile(float pixelCoordX, float pixelCoordY)
+{
+	return { int(pixelCoordX / _TILE_) , int(pixelCoordY / _TILE_) };
+}
+
+TileCoord tile(int pixelCoordX, int pixelCoordY)
+{
+	return { int(pixelCoordX / _TILE_) , int(pixelCoordY / _TILE_) };
+}
+
+
 int pixel(int tileCoord)
 {
 	return tileCoord * _TILE_ + _HALF_TILE_;

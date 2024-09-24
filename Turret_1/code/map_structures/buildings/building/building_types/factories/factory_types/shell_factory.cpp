@@ -4,7 +4,7 @@
 #include "map_structures/buildings/building/buildings_enum.h"
 
 
-ShellFactory::ShellFactory(int type, short durability, short size, int tileX, int tileY) : Factory(type, durability, size, tileX, tileY)
+ShellFactory::ShellFactory(int type, short durability, short size, const TileCoord tile) : Factory(type, durability, size, tile)
 {
 	timer = 30;
 }
@@ -45,12 +45,12 @@ void ShellFactory::produceResource()
 }
 
 
-bool ShellFactory::canAccept(int resType) const
+bool ShellFactory::canAccept(const int resType) const
 {
 	if (resType == RES_IRON || resType == RES_SULFUR)
 	{
 		if (!isEnoughRes(resType, 20))
-		return true;
+			return true;
 	}
 	return false;
 }
@@ -66,7 +66,7 @@ void ShellFactory::animation()
 
 void ShellFactory::draw(sf::RenderWindow& window)
 {
-	buildingSprite.setPosition(tileX * _TILE_, tileY * _TILE_);
+	buildingSprite.setPosition(tile.x * _TILE_, tile.y * _TILE_);
 	buildingSprite.setTextureRect(sf::IntRect(0, 320, 64, 64));
 
 	window.draw(buildingSprite);

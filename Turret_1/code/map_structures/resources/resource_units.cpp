@@ -58,7 +58,7 @@ void ResourceUnit::interact(int time)
 	{
 		this->moveResourceUnit();
 
-		currentTile = BuildingsMap::getBuildingType(tile(coordX), tile(coordY));
+		currentTile = BuildingsMap::getBuildingType({ tile(coordX), tile(coordY) });
 
 		switch(currentTile)
 		{
@@ -94,10 +94,10 @@ void ResourceUnit::interact(int time)
 				break;
 			
 			default: // factories_and_towers
-				if(BuildingsMap::canAccept(resType, tile(coordX), tile(coordY)))
+				if (BuildingsMap::canAccept(resType, { tile(coordX), tile(coordY) }))
 				{
 					isWasted = true;
-					BuildingsMap::addToInventory(resType, tile(coordX), tile(coordY));
+					BuildingsMap::addToInventory(resType, { tile(coordX), tile(coordY) });
 				}
 				break;
 
@@ -124,13 +124,13 @@ void ResourceUnit::moveResourceUnit()
 		//std::cout << "new: " << newPosition.tileX << " " << newPosition.tileY << " " << newPosition.position << '\n';
 		//std::cout << "old: " << tile(coordX) << " " << tile(coordY) << " " << position.position << '\n';
 
-		if (BuildingsMap::canAccept(resType, nextPosition.tileX, nextPosition.tileY) && 
-			BuildingsMap::isThisPositionFree(nextPosition.tileX, nextPosition.tileY, nextPosition.position))
+		if (BuildingsMap::canAccept(resType, { nextPosition.tileX, nextPosition.tileY }) && 
+			BuildingsMap::isThisPositionFree({ nextPosition.tileX, nextPosition.tileY }, nextPosition.position))
 		{
 			isMotionAvailable = true;
 
-			BuildingsMap::leavePosition(tile(coordX), tile(coordY), position.position);
-			BuildingsMap::takePosition(nextPosition.tileX, nextPosition.tileY, nextPosition.position);
+			BuildingsMap::leavePosition({ tile(coordX), tile(coordY) }, position.position);
+			BuildingsMap::takePosition({ nextPosition.tileX, nextPosition.tileY }, nextPosition.position);
 
 			position = nextPosition;
 			//std::cout << "motion enable" << '\n';
@@ -211,7 +211,7 @@ bool ResourceUnit::changePosition()
 
 ResPosition ResourceUnit::getNextPosition()
 {
-	int t = BuildingsMap::getBuildingType(tile(coordX), tile(coordY));
+	int t = BuildingsMap::getBuildingType({ tile(coordX), tile(coordY) });
 
 	switch (t)
 	{

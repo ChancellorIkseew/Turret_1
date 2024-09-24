@@ -13,7 +13,7 @@ protected:
 
 public:
 
-	Tower(char type, short durability, short size, int tileX, int tileY);
+	Tower(char type, short durability, short size, const TileCoord tile);
 	Tower();
 	virtual ~Tower();
 

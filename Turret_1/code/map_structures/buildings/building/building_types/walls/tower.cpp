@@ -6,7 +6,7 @@
 #include "map_structures/entities/turret_types/rocket_turret.h"
 
 
-Tower::Tower(char type, short durability, short size, int tileX, int tileY) : Building (type, durability, size, tileX, tileY)
+Tower::Tower(char type, short durability, short size, const TileCoord tile) : Building (type, durability, size, tile)
 {
 	turret = nullptr;
 }
@@ -73,11 +73,11 @@ void Tower::setTurret(int turretType)
 	switch (turretType)
 	{
 	case AUTOCANNON_TURRET:
-		turret = new AutocannonTurret(AUTOCANNON_TURRET, tileX, tileY, 0, 0);
+		turret = new AutocannonTurret(AUTOCANNON_TURRET, tile.x, tile.y, 0, 0);
 		break;
 
 	case ROCKET_TURRET:
-		turret = new RocketTurret(ROCKET_TURRET, tileX, tileY, 0, 0);
+		turret = new RocketTurret(ROCKET_TURRET, tile.x, tile.y, 0, 0);
 		break;
 
 	}
@@ -103,7 +103,7 @@ bool Tower::isTurretOnTower() const
 void Tower::save(std::ofstream& fout) const
 {
 	fout << type << " " << size << " " << durability <<
-		" " << tileX << " " << tileY << '\n';
+		" " << tile.x << " " << tile.y << '\n';
 
 	if (turret != nullptr)
 	{
@@ -127,7 +127,7 @@ void Tower::save(std::ofstream& fout) const
 
 void Tower::load(std::ifstream& fin)
 {
-	fin >> size >> durability >> tileX >> tileY;
+	fin >> size >> durability >> tile.x >> tile.y;
 
 	char nextSymbol;
 	fin >> nextSymbol;
@@ -137,7 +137,7 @@ void Tower::load(std::ifstream& fin)
 		fin.seekg(-1, std::ios::cur);
 		int turretType;
 		fin >> turretType;
-		turret = Turret::setTurret(turretType, tileX, tileY);
+		turret = Turret::setTurret(turretType, tile.x, tile.y);
 		turret->load(fin);
 	}
 

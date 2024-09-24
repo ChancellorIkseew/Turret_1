@@ -10,7 +10,7 @@ class Router : public Building
 {
 public:
 
-	Router(int type, short durability, short size, int tileX, int tileY);
+	Router(int type, short durability, short size, const TileCoord tile);
 	Router();
 	~Router() = default;
 

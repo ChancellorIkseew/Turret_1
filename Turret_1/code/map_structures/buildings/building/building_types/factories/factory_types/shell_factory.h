@@ -2,7 +2,7 @@
 #ifndef SHELL_FACTORY_H
 #define SHELL_FACTORY_H
 
-#include "../factory.h"
+#include "map_structures/buildings/building/building_types/factories/factory.h"
 
 #include "SFML/Graphics.hpp"
 
@@ -13,17 +13,17 @@ protected:
 
 public:
 
-	ShellFactory(int type, short durability, short size, int tileX, int tileY);
+	ShellFactory(int type, short durability, short size, const TileCoord tile);
 	ShellFactory();
 	~ShellFactory() = default;
 
-	void interact() override;
-	void produceResource() override;
+	void interact() override final;
+	void produceResource() override final;
 
-	bool canAccept(int resType) const override;
+	bool canAccept(const int resType) const override final;
 
-	void animation();
-	void draw(sf::RenderWindow& window) override;
+	void animation() override final;
+	void draw(sf::RenderWindow& window) override final;
 
 };
 

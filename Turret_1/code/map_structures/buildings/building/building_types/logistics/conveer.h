@@ -16,7 +16,7 @@ private:
 
 public:
 
-	Conveyer(char type, char direction, short durability, short v_size, int tileX, int tileY);
+	Conveyer(char type, char direction, short durability, short v_size, const TileCoord tile);
 	Conveyer();
 	virtual ~Conveyer() = default;
 

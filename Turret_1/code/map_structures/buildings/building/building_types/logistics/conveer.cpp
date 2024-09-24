@@ -3,7 +3,7 @@
 #include "map_structures/buildings/building/buildings_enum.h"
 
 
-Conveyer::Conveyer(char type, char direction, short durability, short size, int tileX, int tileY) : Building(type, durability, size, tileX, tileY)
+Conveyer::Conveyer(char type, char direction, short durability, short size, const TileCoord tile) : Building(type, durability, size, tile)
 {
 	this->direction = direction;
 
@@ -27,7 +27,7 @@ Conveyer::Conveyer() : Building()
 void Conveyer::save(std::ofstream& fout) const
 {
 	fout << type << " " << size << " " << durability <<
-		" " << tileX << " " << tileY << " " << direction << '\n';
+		" " << tile.x << " " << tile.y << " " << direction << '\n';
 
 	fout << "$\n";
 }
@@ -35,7 +35,7 @@ void Conveyer::save(std::ofstream& fout) const
 
 void Conveyer::load(std::ifstream& fin)
 {
-	fin >> size >> durability >> tileX >> tileY >> direction;
+	fin >> size >> durability >> tile.x >> tile.y >> direction;
 
 	switch (direction)
 	{
@@ -64,7 +64,7 @@ void Conveyer::load(std::ifstream& fin)
 
 void Conveyer::draw(sf::RenderWindow& window)
 {
-	buildingSprite.setPosition(tileX * _TILE_ + _HALF_TILE_, tileY * _TILE_ + _HALF_TILE_);
+	buildingSprite.setPosition(tile.x * _TILE_ + _HALF_TILE_, tile.y * _TILE_ + _HALF_TILE_);
 	
 	buildingSprite.setTextureRect(sf::IntRect(128, 96, 32, 32));
 	buildingSprite.setOrigin(16, 16);

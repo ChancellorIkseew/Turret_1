@@ -9,7 +9,7 @@ class StoneTower : public Tower
 
 public:
 
-	StoneTower(char type, short durability, short size, int tileX, int tileY);
+	StoneTower(char type, short durability, short size, const TileCoord tile);
 	StoneTower();
 	~StoneTower() = default;
 

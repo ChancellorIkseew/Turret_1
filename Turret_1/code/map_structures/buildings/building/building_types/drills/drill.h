@@ -15,7 +15,7 @@ protected:
 
 public:
 
-	Drill(int type, short durability, short size, int tileX, int tileY);
+	Drill(int type, short durability, short size, const TileCoord tile);
 	Drill();
 	virtual ~Drill() = default;
 

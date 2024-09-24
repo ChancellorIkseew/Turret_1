@@ -1,6 +1,7 @@
 
 #include "buildings_enum.h"
 
+#include "building_types/auxilary/auxilary.h"
 #include "building_types/walls/stone_wall.h"
 #include "building_types/walls/tower_types/stone_tower.h"
 #include "building_types/drills/drill.h"
@@ -15,48 +16,51 @@
 #include "building_types/factories/factory_types/rocket_factory.h"
 
 
-Building* Building::setBuilding(int type, char direction, short durability, short size, int tileX, int tileY)
+Building* Building::setBuilding(int type, char direction, short durability, short size, const TileCoord tile)
 {
 	switch (type)
 	{
+	case AUXILARY:
+		return new Auxilary(AUXILARY, durability, size, tile);
+
 	case CORE_MK1:
-		return new Core(CORE_MK1, durability, size, tileX, tileY);
+		return new Core(CORE_MK1, durability, size, tile);
 
 	case STONE_WALL:
-		return new StoneWall(STONE_WALL, durability, size, tileX, tileY);
+		return new StoneWall(STONE_WALL, durability, size, tile);
 
 	case STONE_TOWER:
-		return new StoneTower(STONE_TOWER, durability, size, tileX, tileY);
+		return new StoneTower(STONE_TOWER, durability, size, tile);
 
 	case STANDARD_CONVEYER_UP:
-		return new Conveyer(STANDARD_CONVEYER_UP, 'w', durability, size, tileX, tileY);
+		return new Conveyer(STANDARD_CONVEYER_UP, 'w', durability, size, tile);
 	case STANDARD_CONVEYER_LEFT:
-		return  new Conveyer(STANDARD_CONVEYER_LEFT, 'a', durability, size, tileX, tileY);
+		return  new Conveyer(STANDARD_CONVEYER_LEFT, 'a', durability, size, tile);
 	case STANDARD_CONVEYER_DOWN:
-		return new Conveyer(STANDARD_CONVEYER_DOWN, 's', durability, size, tileX, tileY);
+		return new Conveyer(STANDARD_CONVEYER_DOWN, 's', durability, size, tile);
 	case STANDARD_CONVEYER_RIGHT:
-		return new Conveyer(STANDARD_CONVEYER_RIGHT, 'd', durability, size, tileX, tileY);
+		return new Conveyer(STANDARD_CONVEYER_RIGHT, 'd', durability, size, tile);
 
 	case SHIELDED_CONVEYER_UP:
-		return new ShieldedConveyer(SHIELDED_CONVEYER_UP, 'w', durability, size, tileX, tileY);
+		return new ShieldedConveyer(SHIELDED_CONVEYER_UP, 'w', durability, size, tile);
 	case SHIELDED_CONVEYER_LEFT:
-		return  new ShieldedConveyer(SHIELDED_CONVEYER_LEFT, 'a', durability, size, tileX, tileY);
+		return  new ShieldedConveyer(SHIELDED_CONVEYER_LEFT, 'a', durability, size, tile);
 	case SHIELDED_CONVEYER_DOWN:
-		return new ShieldedConveyer(SHIELDED_CONVEYER_DOWN, 's', durability, size, tileX, tileY);
+		return new ShieldedConveyer(SHIELDED_CONVEYER_DOWN, 's', durability, size, tile);
 	case SHIELDED_CONVEYER_RIGHT:
-		return new ShieldedConveyer(SHIELDED_CONVEYER_RIGHT, 'd', durability, size, tileX, tileY);
+		return new ShieldedConveyer(SHIELDED_CONVEYER_RIGHT, 'd', durability, size, tile);
 
 	case BRIDGE:
-		return new Bridge(BRIDGE, direction, durability, size, tileX, tileY);
+		return new Bridge(BRIDGE, direction, durability, size, tile);
 
 	case ROUTER:
-		return new Router(ROUTER, durability, size, tileX, tileY);
+		return new Router(ROUTER, durability, size, tile);
 
 	case SMALL_DRILL:
-		return new SmallDrill(SMALL_DRILL, durability, size, tileX, tileY);
+		return new SmallDrill(SMALL_DRILL, durability, size, tile);
 
 	case BIG_DRILL:
-		return new BigDrill(BIG_DRILL, durability, size, tileX, tileY);
+		return new BigDrill(BIG_DRILL, durability, size, tile);
 
 	case EFFECTIVE_DRILL:
 		break;
@@ -65,10 +69,10 @@ Building* Building::setBuilding(int type, char direction, short durability, shor
 		break;
 
 	case SHELL_FACTORY:
-		return new ShellFactory(SHELL_FACTORY, durability, size, tileX, tileY);
+		return new ShellFactory(SHELL_FACTORY, durability, size, tile);
 
 	case ROCKET_FACTORY:
-		return new RocketFactory(ROCKET_FACTORY, durability, size, tileX, tileY);
+		return new RocketFactory(ROCKET_FACTORY, durability, size, tile);
 
 	default:
 		return nullptr;

@@ -3,7 +3,7 @@
 #include "map_structures/buildings/building/buildings_enum.h"
 
 
-SmallDrill::SmallDrill(int type, short durability, short size, int tileX, int tileY) : Drill(type, durability, size, tileX, tileY)
+SmallDrill::SmallDrill(int type, short durability, short size, const TileCoord tile) : Drill(type, durability, size, tile)
 {
 
 }
@@ -49,14 +49,14 @@ void SmallDrill::draw(sf::RenderWindow& window)
 {
 	buildingSprite.setOrigin(16, 16);
 	buildingSprite.setRotation(rotorAngle);
-	buildingSprite.setPosition(tileX * _TILE_ + _HALF_TILE_, tileY * _TILE_ + _HALF_TILE_);
+	buildingSprite.setPosition(tile.x * _TILE_ + _HALF_TILE_, tile.y * _TILE_ + _HALF_TILE_);
 	buildingSprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
 
 	window.draw(buildingSprite);
 
 	buildingSprite.setOrigin(0, 0);
 	buildingSprite.setRotation(0);
-	buildingSprite.setPosition(tileX * _TILE_, tileY * _TILE_);
+	buildingSprite.setPosition(tile.x * _TILE_, tile.y * _TILE_);
 	buildingSprite.setTextureRect(sf::IntRect(32, 0, 32, 32));
 
 	window.draw(buildingSprite);

@@ -6,7 +6,7 @@
 #include "map_structures/resources/res_enum.h"
 
 
-Router::Router(int type, short durability, short size, int tileX, int tileY) : Building(type, durability, size, tileX, tileY)
+Router::Router(int type, short durability, short size, const TileCoord tile) : Building(type, durability, size, tile)
 {
 
 }
@@ -52,7 +52,7 @@ bool Router::canAccept(int resType) const
 
 void Router::draw(sf::RenderWindow& window)
 {
-	buildingSprite.setPosition(tileX * _TILE_, tileY * _TILE_);
+	buildingSprite.setPosition(tile.x * _TILE_, tile.y * _TILE_);
 	buildingSprite.setTextureRect(sf::IntRect(0, 256, 32, 32));
 	window.draw(buildingSprite);
 }

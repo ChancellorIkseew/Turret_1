@@ -3,7 +3,7 @@
 #include "map_structures/buildings/building/buildings_enum.h"
 
 
-StoneWall::StoneWall(char type, short durability, short size, int tileX, int tileY) : Building (type, durability, size, tileX, tileY)
+StoneWall::StoneWall(char type, short durability, short size, const TileCoord tile) : Building (type, durability, size, tile)
 {
 
 }
@@ -16,7 +16,7 @@ StoneWall::StoneWall() : Building()
 
 void StoneWall::draw(sf::RenderWindow& window)
 {
-	buildingSprite.setPosition(tileX * _TILE_, tileY * _TILE_);
+	buildingSprite.setPosition(tile.x * _TILE_, tile.y * _TILE_);
 	buildingSprite.setTextureRect(sf::IntRect(0, 448, 32, 32));
 
 	window.draw(buildingSprite);

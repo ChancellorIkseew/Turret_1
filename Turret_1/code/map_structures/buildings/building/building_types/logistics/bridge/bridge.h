@@ -15,7 +15,7 @@ private:
 
 public:
 
-	Bridge(int type, char direction, short durability, short size, int tileX, int tileY);
+	Bridge(int type, char direction, short durability, short size, const TileCoord tile);
 	Bridge();
 	~Bridge() = default;
 

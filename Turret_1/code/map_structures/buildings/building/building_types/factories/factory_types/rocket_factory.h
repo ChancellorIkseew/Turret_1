@@ -13,17 +13,17 @@ protected:
 
 public:
 
-	RocketFactory(int type, short durability, short size, int tileX, int tileY);
+	RocketFactory(int type, short durability, short size, const TileCoord tile);
 	RocketFactory();
 	~RocketFactory() = default;
 
-	void interact() override;
-	void produceResource() override;
+	void interact() override final;
+	void produceResource() override final;
 
-	bool canAccept(int resType) const override;
+	bool canAccept(const int resType) const override final;
 
 	void animation();
-	void draw(sf::RenderWindow& window) override;
+	void draw(sf::RenderWindow& window) override final;
 
 };
 
