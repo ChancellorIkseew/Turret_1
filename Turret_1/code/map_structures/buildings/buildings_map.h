@@ -18,14 +18,14 @@ private:
 	static inline bool isMapChanged;
 
 	static inline std::string saveFileName;
-	static inline std::vector<std::vector<Building*>> buildingsMap;
+	static inline std::vector<std::vector<std::shared_ptr<Building>>> buildingsMap;
 	
 	static void createAuxilary(const short size, const TileCoord tile);
 
 public:
 		
 	BuildingsMap(std::string saveFolderName);
-	~BuildingsMap();
+	~BuildingsMap() = default;
 		
 	static void generateMap();
 	static void loadMap();

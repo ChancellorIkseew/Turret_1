@@ -39,7 +39,7 @@ public:
 	virtual void save(std::ofstream& fout) const;
 	virtual void load(std::ifstream& fin);
 
-	static Building* createBuilding(int type, char direction, short durability, short v_size, const TileCoord tile);
+	static std::shared_ptr<Building> createBuilding(int type, char direction, short durability, short v_size, const TileCoord tile);
 
 	virtual void interact();
 	void setDamage(const int damage);

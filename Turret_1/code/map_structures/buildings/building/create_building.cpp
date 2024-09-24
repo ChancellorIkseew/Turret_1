@@ -16,51 +16,51 @@
 #include "building_types/factories/factory_types/rocket_factory.h"
 
 
-Building* Building::createBuilding(int type, char direction, short durability, short size, const TileCoord tile)
+std::shared_ptr<Building> Building::createBuilding(int type, char direction, short durability, short size, const TileCoord tile)
 {
 	switch (type)
 	{
 	case AUXILARY:
-		return new Auxilary(AUXILARY, durability, size, tile);
+		return std::make_shared<Auxilary>(AUXILARY, durability, size, tile);
 
 	case CORE_MK1:
-		return new Core(CORE_MK1, durability, size, tile);
+		return std::make_shared<Core>(CORE_MK1, durability, size, tile);
 
 	case STONE_WALL:
-		return new StoneWall(STONE_WALL, durability, size, tile);
+		return std::make_shared<StoneWall>(STONE_WALL, durability, size, tile);
 
 	case STONE_TOWER:
-		return new StoneTower(STONE_TOWER, durability, size, tile);
+		return std::make_shared<StoneTower>(STONE_TOWER, durability, size, tile);
 
 	case STANDARD_CONVEYER_UP:
-		return new Conveyer(STANDARD_CONVEYER_UP, 'w', durability, size, tile);
+		return std::make_shared<Conveyer>(STANDARD_CONVEYER_UP, 'w', durability, size, tile);
 	case STANDARD_CONVEYER_LEFT:
-		return  new Conveyer(STANDARD_CONVEYER_LEFT, 'a', durability, size, tile);
+		return  std::make_shared<Conveyer>(STANDARD_CONVEYER_LEFT, 'a', durability, size, tile);
 	case STANDARD_CONVEYER_DOWN:
-		return new Conveyer(STANDARD_CONVEYER_DOWN, 's', durability, size, tile);
+		return std::make_shared<Conveyer>(STANDARD_CONVEYER_DOWN, 's', durability, size, tile);
 	case STANDARD_CONVEYER_RIGHT:
-		return new Conveyer(STANDARD_CONVEYER_RIGHT, 'd', durability, size, tile);
+		return std::make_shared<Conveyer>(STANDARD_CONVEYER_RIGHT, 'd', durability, size, tile);
 
 	case SHIELDED_CONVEYER_UP:
-		return new ShieldedConveyer(SHIELDED_CONVEYER_UP, 'w', durability, size, tile);
+		return std::make_shared<ShieldedConveyer>(SHIELDED_CONVEYER_UP, 'w', durability, size, tile);
 	case SHIELDED_CONVEYER_LEFT:
-		return  new ShieldedConveyer(SHIELDED_CONVEYER_LEFT, 'a', durability, size, tile);
+		return std::make_shared<ShieldedConveyer>(SHIELDED_CONVEYER_LEFT, 'a', durability, size, tile);
 	case SHIELDED_CONVEYER_DOWN:
-		return new ShieldedConveyer(SHIELDED_CONVEYER_DOWN, 's', durability, size, tile);
+		return std::make_shared<ShieldedConveyer>(SHIELDED_CONVEYER_DOWN, 's', durability, size, tile);
 	case SHIELDED_CONVEYER_RIGHT:
-		return new ShieldedConveyer(SHIELDED_CONVEYER_RIGHT, 'd', durability, size, tile);
+		return std::make_shared<ShieldedConveyer>(SHIELDED_CONVEYER_RIGHT, 'd', durability, size, tile);
 
 	case BRIDGE:
-		return new Bridge(BRIDGE, direction, durability, size, tile);
+		return std::make_shared<Bridge>(BRIDGE, direction, durability, size, tile);
 
 	case ROUTER:
-		return new Router(ROUTER, durability, size, tile);
+		return std::make_shared<Router>(ROUTER, durability, size, tile);
 
 	case SMALL_DRILL:
-		return new SmallDrill(SMALL_DRILL, durability, size, tile);
+		return std::make_shared<SmallDrill>(SMALL_DRILL, durability, size, tile);
 
 	case BIG_DRILL:
-		return new BigDrill(BIG_DRILL, durability, size, tile);
+		return std::make_shared<BigDrill>(BIG_DRILL, durability, size, tile);
 
 	case EFFECTIVE_DRILL:
 		break;
@@ -69,10 +69,10 @@ Building* Building::createBuilding(int type, char direction, short durability, s
 		break;
 
 	case SHELL_FACTORY:
-		return new ShellFactory(SHELL_FACTORY, durability, size, tile);
+		return std::make_shared<ShellFactory>(SHELL_FACTORY, durability, size, tile);
 
 	case ROCKET_FACTORY:
-		return new RocketFactory(ROCKET_FACTORY, durability, size, tile);
+		return std::make_shared<RocketFactory>(ROCKET_FACTORY, durability, size, tile);
 
 	default:
 		return nullptr;

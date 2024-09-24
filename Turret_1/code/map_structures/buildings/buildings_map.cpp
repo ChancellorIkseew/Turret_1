@@ -37,32 +37,11 @@ BuildingsMap::BuildingsMap(std::string saveFolderName)
 	isMapChanged = false;
 }
 
-BuildingsMap::~BuildingsMap()
-{
-	for (int x = 0; x < mapMaxX; ++x)
-	{
-		for (int y = 0; y < mapMaxY; ++y)
-		{
-			if (buildingsMap[x][y] != nullptr)
-			{
-				delete buildingsMap[x][y];
-				buildingsMap[x][y] = nullptr;
-			}
-		}
-	}
-}
-
 
 void BuildingsMap::generateMap()
 {
-	delete buildingsMap[48][48];
 	buildingsMap[48][48] = Building::createBuilding(CORE_MK1, '0', 900, 16, { 48, 48 });
-	
-	for (int i = 1; i < 16; i++)
-	{
-		buildingsMap[48 + coordSquareArr[i].x][48 + coordSquareArr[i].y] = Building::createBuilding(AUXILARY, 0, 0, 16, { 48, 48 });
-	}
-	
+	createAuxilary(16, { 48, 48 });
 	isMapChanged = true;
 }
 
@@ -168,7 +147,7 @@ void BuildingsMap::demolishBuilding(const TileCoord tile)
 		int iTileX = mainBuilding.x + coordSquareArr[i].x;
 		int iTileY = mainBuilding.y + coordSquareArr[i].y;
 
-		delete buildingsMap[iTileX][iTileY];
+		buildingsMap[iTileX][iTileY].reset();
 		buildingsMap[iTileX][iTileY] = nullptr;
 	}
 	isMapChanged = true;
