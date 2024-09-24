@@ -50,28 +50,28 @@ public:
 	void setDamage(const int damage);
 
 	// resouses_and_inventory
-	virtual bool canAccept(int resType) const;
-	virtual bool isThisPositionFree(int position) const;
-	virtual void leavePosition(int position);
-	virtual void takePosition(int position);
+	virtual bool canAccept(const int resType) const;
+	virtual bool isThisPositionFree(const int position) const;
+	virtual void leavePosition(const int position);
+	virtual void takePosition(const int position);
 
-	void addToInventory(int resType, short amount);
-	virtual void placeResourceUnit(int resType, int tileX, int tileY);
-	virtual void placeResourceUnitX1(int resType);
-	virtual void placeResourceUnitX4(int resType);
-	virtual void placeResourceUnitX9(int resType);
+	void addToInventory(const int resType, const short amount);
+	void placeResourceUnit(const int resType, const int tileX, const int tileY);
+	void placeResourceUnitX1(const int resType);
+	void placeResourceUnitX4(const int resType);
+	void placeResourceUnitX9(const int resType);
 
 	int findResource() const;
-	bool isEnoughRes(int resType, short amount) const;
-	void wasteResorce(int resType, int amount);
+	bool isEnoughRes(const int resType, const short amount) const;
+	void wasteResorce(const int resType, const int amount);
 
-	bool hasCorrectConveyerUp(int tileX, int tileY) const;
-	bool hasCorrectConveyerLeft(int tileX, int tileY) const;
-	bool hasCorrectConveyerDown(int tileX, int tileY) const;
-	bool hasCorrectConveyerRight(int tileX, int tileY) const;
+	bool hasCorrectConveyerUp(const int tileX, const int tileY) const;
+	bool hasCorrectConveyerLeft(const int tileX, const int tileY) const;
+	bool hasCorrectConveyerDown(const int tileX, const int tileY) const;
+	bool hasCorrectConveyerRight(const int tileX, const int tileY) const;
 
 	// turrets
-	virtual void setTurret(int turretType);
+	virtual void setTurret(const int turretType);
 	virtual void removeTurret();
 	virtual bool isTurretOnTower() const;
 

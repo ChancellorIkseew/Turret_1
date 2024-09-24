@@ -42,7 +42,6 @@ public:
 	static int getBuildingType(const int tileX, const int tileY);
 	static short getBuildingDurability(const int tileX, const int tileY);
 	static TileCoord getBuildingMainTileCoord(const int tileX, const int tileY);
-	//static int getBuildingMainTileType(const int tileX, const int tileY);
 
 	static bool getIsMapChanged();
 	static void cleanMapChanged();

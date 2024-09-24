@@ -1,5 +1,6 @@
 
 #include <iostream>
+#include <crtdbg.h>
 
 #include "code/game_interface/main_window/main_window.h"
 
@@ -20,6 +21,6 @@ int main()
 
 	std::cout << "return_to_main_works" << '\n';
 
-	
+	_CrtDumpMemoryLeaks();
     return 0;
 }

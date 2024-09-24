@@ -19,30 +19,12 @@ Router::Router() : Building()
 
 void Router::interact()
 {
-	placeResourceUnitX1(RES_ANY_RES);
-}
-
-
-void Router::placeResourceUnitX1(int resType)
-{
-	short comonResQuant = 0;
-
-	for (std::list<StoredResource>::iterator it = storedResourcesList.begin(); it != storedResourcesList.end(); ++it)
+	int resType = findResource();
+	if (resType != RES_NO_RESOURCES)
 	{
-		comonResQuant = comonResQuant + it->quant;
-		if (it->quant > 0)
-		{
-			type = it->type;
-			break;
-		}
-	}
-
-	if (comonResQuant > 0)
-	{
-		Building::placeResourceUnitX1(type);
+		placeResourceUnitX1(resType);
 	}
 }
-
 
 
 bool Router::isThisPositionFree(int position) const
@@ -60,7 +42,6 @@ bool Router::isThisPositionFree(int position) const
 	}
 	return false;
 }
-
 
 
 bool Router::canAccept(int resType) const

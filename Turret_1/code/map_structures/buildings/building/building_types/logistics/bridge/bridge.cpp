@@ -3,6 +3,7 @@
 #include "map_structures/buildings/buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/resources/resource_units.h"
+#include "map_structures/resources/res_enum.h"
 
 
 Bridge::Bridge(int type, char direction, short durability, short size, int tileX, int tileY) : Building(type, durability, size, tileX, tileY)
@@ -63,19 +64,13 @@ void Bridge::interact()
 
 void Bridge::transmitResourceUnit()
 {
-	short comonResQuant = 0;
-
-	for (auto it = storedResourcesList.begin(); it != storedResourcesList.end(); ++it)
-	{
-		comonResQuant = comonResQuant + it->quant;
-		if (it->quant != 0)
-			type = it->type;
-	}
+	int resType = findResource();
+	if (resType == RES_NO_RESOURCES)
+		return;
 
 	int aimTileX = tileX;
 	int aimTileY = tileY;
 
-	if(comonResQuant > 0)
 	for (int i = 0; i < 5; ++i)
 	{
 		switch (direction)
@@ -98,8 +93,8 @@ void Bridge::transmitResourceUnit()
 		{
 			if (BuildingsMap::isThisPositionFree(aimTileX, aimTileY, 0))
 			{
-				wasteResorce(type, 1);
-				BuildingsMap::addToInventory(type, aimTileX, aimTileY);
+				wasteResorce(resType, 1);
+				BuildingsMap::addToInventory(resType, aimTileX, aimTileY);
 			}
 			return;
 		}

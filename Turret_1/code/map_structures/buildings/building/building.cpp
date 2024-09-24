@@ -74,7 +74,7 @@ void Building::setDamage(const int damage)
 
 
 // resUnits_and_inventory
-void Building::addToInventory(int resType, short amount)
+void Building::addToInventory(const int resType, const short amount)
 {
 	for (auto it = storedResourcesList.begin(); it != storedResourcesList.end(); ++it)
 	{
@@ -105,7 +105,7 @@ int Building::findResource() const
 
 
 
-bool Building::isEnoughRes(int resType, short amount) const
+bool Building::isEnoughRes(const int resType, const short amount) const
 {
 	for (auto it = storedResourcesList.cbegin(); it != storedResourcesList.cend(); ++it)
 	{
@@ -120,7 +120,7 @@ bool Building::isEnoughRes(int resType, short amount) const
 
 
 
-void Building::wasteResorce(int resType, int amount)
+void Building::wasteResorce(const int resType, const int amount)
 {
 	for (auto it = storedResourcesList.begin(); it != storedResourcesList.end(); ++it)
 	{
@@ -134,7 +134,7 @@ void Building::wasteResorce(int resType, int amount)
 
 
 
-bool Building::hasCorrectConveyerUp(int tileX, int tileY) const
+bool Building::hasCorrectConveyerUp(const int tileX, const int tileY) const
 {
 	return (BuildingsMap::getBuildingType(tileX, tileY - 1) == STANDARD_CONVEYER_UP || 
 		BuildingsMap::getBuildingType(tileX, tileY - 1) == STANDARD_CONVEYER_LEFT || 
@@ -142,7 +142,7 @@ bool Building::hasCorrectConveyerUp(int tileX, int tileY) const
 		BuildingsMap::getBuildingType(tileX, tileY - 1) == SHIELDED_CONVEYER_UP);
 }
 
-bool Building::hasCorrectConveyerLeft(int tileX, int tileY) const
+bool Building::hasCorrectConveyerLeft(const int tileX, const int tileY) const
 {
 	return (BuildingsMap::getBuildingType(tileX - 1, tileY) == STANDARD_CONVEYER_UP || 
 		BuildingsMap::getBuildingType(tileX - 1, tileY) == STANDARD_CONVEYER_LEFT || 
@@ -150,7 +150,7 @@ bool Building::hasCorrectConveyerLeft(int tileX, int tileY) const
 		BuildingsMap::getBuildingType(tileX - 1, tileY) == SHIELDED_CONVEYER_LEFT);
 }
 
-bool Building::hasCorrectConveyerDown(int tileX, int tileY) const
+bool Building::hasCorrectConveyerDown(const int tileX, const int tileY) const
 {
 	return (BuildingsMap::getBuildingType(tileX, tileY + 1) == STANDARD_CONVEYER_LEFT ||
 		BuildingsMap::getBuildingType(tileX, tileY + 1) == STANDARD_CONVEYER_DOWN ||
@@ -158,7 +158,7 @@ bool Building::hasCorrectConveyerDown(int tileX, int tileY) const
 		BuildingsMap::getBuildingType(tileX, tileY + 1) == SHIELDED_CONVEYER_DOWN);
 }
 
-bool Building::hasCorrectConveyerRight(int tileX, int tileY) const
+bool Building::hasCorrectConveyerRight(const int tileX, const int tileY) const
 {
 	return (BuildingsMap::getBuildingType(tileX + 1, tileY) == STANDARD_CONVEYER_UP || 
 		BuildingsMap::getBuildingType(tileX + 1, tileY) == STANDARD_CONVEYER_DOWN || 
@@ -168,13 +168,13 @@ bool Building::hasCorrectConveyerRight(int tileX, int tileY) const
 
 
 // resUnits_and_inventory
-bool Building::canAccept(int resType) const { return false; }
-bool Building::isThisPositionFree(int position) const { return false; }
-void Building::leavePosition(int position) { }
-void Building::takePosition(int position) { }
+bool Building::canAccept(const int resType) const { return false; }
+bool Building::isThisPositionFree(const int position) const { return false; }
+void Building::leavePosition(const int position) { }
+void Building::takePosition(const int position) { }
 
 
-void Building::placeResourceUnit(int resType, int tileX, int tileY)
+void Building::placeResourceUnit(const int resType, const int tileX, const int tileY)
 {
 	if (!isEnoughRes(resType, 1))
 		return;
@@ -235,12 +235,12 @@ void Building::placeResourceUnit(int resType, int tileX, int tileY)
 	}
 }
 
-void Building::placeResourceUnitX1(int resType)
+void Building::placeResourceUnitX1(const int resType)
 {
 	placeResourceUnit(resType, this->tileX, this->tileY);
 }
 
-void Building::placeResourceUnitX4(int resType)
+void Building::placeResourceUnitX4(const int resType)
 {
 	if (!isEnoughRes(resType, 1))
 		return;
@@ -254,7 +254,7 @@ void Building::placeResourceUnitX4(int resType)
 	}
 }
 
-void Building::placeResourceUnitX9(int resType)
+void Building::placeResourceUnitX9(const int resType)
 {
 	if (!isEnoughRes(resType, 1))
 		return;
@@ -270,7 +270,7 @@ void Building::placeResourceUnitX9(int resType)
 
 
 // turrets
-void Building::setTurret(int turretType) { }
+void Building::setTurret(const int turretType) { }
 void Building::removeTurret() { }
 bool Building::isTurretOnTower() const { return false; }
 
