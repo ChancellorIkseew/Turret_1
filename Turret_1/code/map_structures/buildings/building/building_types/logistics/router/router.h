@@ -11,7 +11,6 @@ class Router : public Building
 public:
 
 	Router(int type, short durability, short size, const TileCoord tile);
-	Router();
 	~Router() = default;
 
 	void interact() override;
@@ -22,6 +21,5 @@ public:
 	void draw(sf::RenderWindow& window) override;
 
 };
-
 
 #endif // BUILDING_ROUTER_H

@@ -9,16 +9,9 @@
 
 class ShieldedConveyer : public Conveyer
 {
-private:
-
-	char direction;
-
-	bool isPositionFree[5];
-
 public:
 
 	ShieldedConveyer(char type, char direction, short durability, short size, const TileCoord tile);
-	ShieldedConveyer();
 	~ShieldedConveyer() = default;
 
 	void load(std::ifstream& fin) override;
@@ -26,6 +19,5 @@ public:
 	void draw(sf::RenderWindow& window) override;
 	
 };
-
 
 #endif // SHIELDED_CONVEYER_H

@@ -14,7 +14,6 @@ protected:
 public:
 
 	Tower(char type, short durability, short size, const TileCoord tile);
-	Tower();
 	virtual ~Tower();
 
 	void save(std::ofstream& fout) const override;
@@ -30,6 +29,5 @@ public:
 	bool isTurretOnTower() const override final;
 
 };
-
 
 #endif // TOWER_H

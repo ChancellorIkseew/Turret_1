@@ -11,15 +11,40 @@ Tower::Tower(char type, short durability, short size, const TileCoord tile) : Bu
 	turret = nullptr;
 }
 
-Tower::Tower() : Building()
-{
-	turret = nullptr;
-}
 
 Tower::~Tower()
 {
 	delete turret;
 	turret = nullptr;
+}
+
+
+void Tower::save(std::ofstream& fout) const
+{
+	if (turret != nullptr)
+	{
+		turret->save(fout);
+	}
+	else
+	{
+		fout << "!\n";
+	}
+	Building::save(fout);
+}
+
+void Tower::load(std::ifstream& fin)
+{
+	char nextSymbol;
+	fin >> nextSymbol;
+	if (nextSymbol != '!')
+	{
+		fin.seekg(-1, std::ios::cur);
+		int turretType;
+		fin >> turretType;
+		turret = Turret::setTurret(turretType, tile.x, tile.y);
+		turret->load(fin);
+	}
+	Building::load(fin);
 }
 
 
@@ -96,65 +121,4 @@ bool Tower::isTurretOnTower() const
 		return true;
 	}
 	return false;
-}
-
-
-
-void Tower::save(std::ofstream& fout) const
-{
-	fout << type << " " << size << " " << durability <<
-		" " << tile.x << " " << tile.y << '\n';
-
-	if (turret != nullptr)
-	{
-		turret->save(fout);
-	}
-	else
-	{
-		fout << "!\n";
-	}
-
-	for (auto it = storedResourcesList.cbegin(); it != storedResourcesList.cend(); ++it)
-	{
-		if (it->quant != 0)
-			fout << it->type << " " << it->quant << '\n';
-	}
-
-	fout << "$\n";
-}
-
-
-
-void Tower::load(std::ifstream& fin)
-{
-	fin >> size >> durability >> tile.x >> tile.y;
-
-	char nextSymbol;
-	fin >> nextSymbol;
-
-	if (nextSymbol != '!')
-	{
-		fin.seekg(-1, std::ios::cur);
-		int turretType;
-		fin >> turretType;
-		turret = Turret::setTurret(turretType, tile.x, tile.y);
-		turret->load(fin);
-	}
-
-	while (true)
-	{
-		fin >> nextSymbol;
-
-		if (nextSymbol == '$')
-		{
-			break;
-		}
-
-		fin.seekg(-1, std::ios::cur);
-		int resType;
-		fin >> resType;
-		short amount;
-		fin >> amount;
-		storedResourcesList.push_back(StoredResource{ resType, amount });
-	}
 }

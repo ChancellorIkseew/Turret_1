@@ -111,7 +111,7 @@ TileCoord HeavyBot::findShootingAim(BuildingsMap& buildingsMap1)
 
 			if (buildingsMap1.getBuildingType(tileCoord) != VOID_)
 			{
-				return { tileCoord};
+				return tileCoord;
 			}
 		}
 
@@ -125,7 +125,7 @@ TileCoord HeavyBot::findShootingAim(BuildingsMap& buildingsMap1)
 			{
 				if (buildingsMap1.getBuildingType(tileCoord) != VOID_)
 				{
-					return { tileCoord };
+					return tileCoord;
 				}
 			}
 		}

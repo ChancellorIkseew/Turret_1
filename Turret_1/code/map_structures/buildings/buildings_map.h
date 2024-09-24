@@ -20,6 +20,8 @@ private:
 	static inline std::string saveFileName;
 	static inline std::vector<std::vector<Building*>> buildingsMap;
 	
+	static void createAuxilary(const short size, const TileCoord tile);
+
 public:
 		
 	BuildingsMap(std::string saveFolderName);

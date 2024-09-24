@@ -1,16 +1,10 @@
 
 #include "small_drill.h"
-#include "map_structures/buildings/building/buildings_enum.h"
 
 
 SmallDrill::SmallDrill(int type, short durability, short size, const TileCoord tile) : Drill(type, durability, size, tile)
 {
 
-}
-
-SmallDrill::SmallDrill()
-{
-	type = SMALL_DRILL;
 }
 
 

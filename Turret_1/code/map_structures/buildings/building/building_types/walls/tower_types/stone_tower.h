@@ -10,12 +10,10 @@ class StoneTower : public Tower
 public:
 
 	StoneTower(char type, short durability, short size, const TileCoord tile);
-	StoneTower();
 	~StoneTower() = default;
 
 	void draw(sf::RenderWindow& window) override;
 
 };
-
 
 #endif // STONE_TOWER_H

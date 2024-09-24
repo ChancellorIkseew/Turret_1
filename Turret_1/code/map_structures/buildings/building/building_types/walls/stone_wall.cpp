@@ -8,11 +8,6 @@ StoneWall::StoneWall(char type, short durability, short size, const TileCoord ti
 
 }
 
-StoneWall::StoneWall() : Building()
-{
-	type = STONE_WALL;
-}
-
 
 void StoneWall::draw(sf::RenderWindow& window)
 {

@@ -8,7 +8,7 @@
 
 class Conveyer : public Building
 {
-private:
+protected:
 
 	char direction;
 
@@ -17,7 +17,6 @@ private:
 public:
 
 	Conveyer(char type, char direction, short durability, short v_size, const TileCoord tile);
-	Conveyer();
 	virtual ~Conveyer() = default;
 
 	void save(std::ofstream& fout) const override;
@@ -31,6 +30,5 @@ public:
 	virtual void draw(sf::RenderWindow& window) override;
 	
 };
-
 
 #endif // CONVEYER_H

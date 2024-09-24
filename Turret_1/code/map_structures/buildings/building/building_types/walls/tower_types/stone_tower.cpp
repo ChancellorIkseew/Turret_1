@@ -9,12 +9,6 @@ StoneTower::StoneTower(char type, short durability, short size, const TileCoord 
 }
 
 
-StoneTower::StoneTower() : Tower()
-{
-	type = STONE_TOWER;
-}
-
-
 void StoneTower::draw(sf::RenderWindow& window)
 {
 	buildingSprite.setPosition(tile.x * _TILE_, tile.y * _TILE_);

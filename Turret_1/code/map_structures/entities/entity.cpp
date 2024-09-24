@@ -21,7 +21,7 @@ void Entity::initPreSettings()
 
 Entity::Entity(int type)		//1st spawn
 {
-	initCombatData();
+	Entity::initCombatData();
 	this->type = type;
 	
 	int x = rand() %4;
@@ -57,7 +57,7 @@ Entity::Entity(int type)		//1st spawn
 
 Entity::Entity(int type ,float coordX, float coordY, float curentAngleDeg, short curentDurability)
 {
-	initCombatData();
+	Entity::initCombatData();
 	this->type = type;
 	this->coordX = coordX;
 	this->coordY = coordY;

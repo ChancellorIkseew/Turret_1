@@ -5,15 +5,7 @@
 
 ShieldedConveyer::ShieldedConveyer(char type, char direction, short durability, short size, const TileCoord tile) : Conveyer(type, direction, durability, size, tile)
 {
-	for (int i = 0; i < 5; ++i)
-	{
-		isPositionFree[i] = true;
-	}
-}
-
-ShieldedConveyer::ShieldedConveyer() : Conveyer()
-{
-	type = SHIELDED_CONVEYER_DOWN;
+	this->direction = direction;
 
 	for (int i = 0; i < 5; ++i)
 	{
@@ -24,7 +16,7 @@ ShieldedConveyer::ShieldedConveyer() : Conveyer()
 
 void ShieldedConveyer::load(std::ifstream& fin)
 {
-	fin >> size >> durability >> tile.x >> tile.y >> direction;
+	fin >> direction;
 
 	switch (direction)
 	{
@@ -45,8 +37,7 @@ void ShieldedConveyer::load(std::ifstream& fin)
 		break;
 	}
 
-	char specialSymbol;
-	fin >> specialSymbol;
+	Building::load(fin);
 }
 
 

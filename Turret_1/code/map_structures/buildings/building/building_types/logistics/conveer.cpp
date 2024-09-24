@@ -13,29 +13,16 @@ Conveyer::Conveyer(char type, char direction, short durability, short size, cons
 	}
 }
 
-Conveyer::Conveyer() : Building()
-{
-	type = STANDARD_CONVEYER_DOWN;
-
-	for (int i = 0; i < 5; ++i)
-	{
-		isPositionFree[i] = true;
-	}
-}
-
 
 void Conveyer::save(std::ofstream& fout) const
 {
-	fout << type << " " << size << " " << durability <<
-		" " << tile.x << " " << tile.y << " " << direction << '\n';
-
-	fout << "$\n";
+	fout << direction << '\n';
+	Building::save(fout);
 }
-
 
 void Conveyer::load(std::ifstream& fin)
 {
-	fin >> size >> durability >> tile.x >> tile.y >> direction;
+	fin >> direction;
 
 	switch (direction)
 	{
@@ -56,8 +43,7 @@ void Conveyer::load(std::ifstream& fin)
 		break;
 	}
 
-	char specialSymbol;
-	fin >> specialSymbol;
+	Building::load(fin);
 }
 
 

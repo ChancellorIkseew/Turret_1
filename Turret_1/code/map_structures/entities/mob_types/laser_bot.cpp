@@ -110,7 +110,7 @@ TileCoord LaserBot::findShootingAim(BuildingsMap& buildingsMap1)
 
 			if (buildingsMap1.getBuildingType(tileCoord) != VOID_)
 			{
-				return { tileCoord };
+				return tileCoord;
 			}
 		}
 
@@ -124,7 +124,7 @@ TileCoord LaserBot::findShootingAim(BuildingsMap& buildingsMap1)
 			{
 				if (buildingsMap1.getBuildingType(tileCoord) != VOID_)
 				{
-					return { tileCoord };
+					return tileCoord;
 				}
 			}
 		}

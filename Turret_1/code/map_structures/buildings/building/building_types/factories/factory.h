@@ -14,7 +14,6 @@ protected:
 public:
 
 	Factory(int type, short durability, short size, const TileCoord tile);
-	Factory() = default;
 	virtual ~Factory() = default;
 
 	virtual void produceResource() = 0;

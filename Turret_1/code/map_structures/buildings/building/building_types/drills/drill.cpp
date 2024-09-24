@@ -10,12 +10,6 @@ Drill::Drill(int type, short durability, short size, const TileCoord tile) : Bui
 	rotorAngle = 0;
 }
 
-Drill::Drill()
-{
-	timer = 0;
-	rotorAngle = 0;
-}
-
 
 void Drill::mineResource(int amountFromOneTile)
 {

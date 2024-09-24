@@ -16,7 +16,6 @@ private:
 public:
 
 	Bridge(int type, char direction, short durability, short size, const TileCoord tile);
-	Bridge();
 	~Bridge() = default;
 
 	void save(std::ofstream& fout) const override;
@@ -31,6 +30,5 @@ public:
 	void draw(sf::RenderWindow& window) override;
 
 };
-
 
 #endif // BRIDGE_H

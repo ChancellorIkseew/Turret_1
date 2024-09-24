@@ -8,11 +8,6 @@ Core::Core(int type, short durability, short size, const TileCoord tile) : Build
 
 }
 
-Core::Core()
-{
-	type = CORE_MK1;
-}
-
 
 void Core::interact()
 {

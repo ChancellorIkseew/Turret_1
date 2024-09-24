@@ -14,7 +14,6 @@ protected:
 public:
 
 	Core(int type, short durability, short size, const TileCoord tile);
-	Core();
 	virtual ~Core() = default;
 
 	void interact() override;
@@ -25,6 +24,5 @@ public:
 	virtual void draw(sf::RenderWindow& window) override;
 	
 };
-
 
 #endif // CORE_H

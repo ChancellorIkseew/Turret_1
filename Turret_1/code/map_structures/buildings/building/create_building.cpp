@@ -16,7 +16,7 @@
 #include "building_types/factories/factory_types/rocket_factory.h"
 
 
-Building* Building::setBuilding(int type, char direction, short durability, short size, const TileCoord tile)
+Building* Building::createBuilding(int type, char direction, short durability, short size, const TileCoord tile)
 {
 	switch (type)
 	{
@@ -73,67 +73,6 @@ Building* Building::setBuilding(int type, char direction, short durability, shor
 
 	case ROCKET_FACTORY:
 		return new RocketFactory(ROCKET_FACTORY, durability, size, tile);
-
-	default:
-		return nullptr;
-	}
-}
-
-
-
-Building* Building::createBuilding(int type)
-{
-	switch (type)
-	{
-	case CORE_MK1:
-		return new Core;
-
-	case STONE_WALL:
-		return new StoneWall;
-
-	case STONE_TOWER:
-		return new StoneTower;
-
-	case STANDARD_CONVEYER:
-	case STANDARD_CONVEYER_UP:
-	case STANDARD_CONVEYER_LEFT:
-	case STANDARD_CONVEYER_DOWN:
-	case STANDARD_CONVEYER_RIGHT:
-		return new Conveyer;
-
-	case SHIELDED_CONVEYER:
-	case SHIELDED_CONVEYER_UP:
-	case SHIELDED_CONVEYER_LEFT:
-	case SHIELDED_CONVEYER_DOWN:
-	case SHIELDED_CONVEYER_RIGHT:
-		return new ShieldedConveyer;
-
-	case BRIDGE:
-		return new Bridge;
-
-	case ROUTER:
-		return new Router;
-
-		//case SORTER:
-			//return new SORTER;
-
-	case SMALL_DRILL:
-		return new SmallDrill;
-
-	case BIG_DRILL:
-		return new BigDrill;
-#ifdef A
-	case EFFECTIVE_DRILL:
-		return new EffectiveDrill;
-
-	case REINFORCED_DRILL:
-		return new ReinforcedDrill;
-#endif // A
-	case SHELL_FACTORY:
-		return new ShellFactory;
-
-	case ROCKET_FACTORY:
-		return new RocketFactory;
 
 	default:
 		return nullptr;

@@ -12,7 +12,6 @@ class SmallDrill final : public Drill
 public:
 
 	SmallDrill(int type, short durability, short size, const TileCoord tile);
-	SmallDrill();
 	~SmallDrill() = default;
 
 	void interact() override final;

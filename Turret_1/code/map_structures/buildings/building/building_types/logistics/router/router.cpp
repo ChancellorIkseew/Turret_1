@@ -1,7 +1,6 @@
 
 #include "router.h"
 #include "map_structures/buildings/buildings_map.h"
-#include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/resources/resource_units.h"
 #include "map_structures/resources/res_enum.h"
 
@@ -9,11 +8,6 @@
 Router::Router(int type, short durability, short size, const TileCoord tile) : Building(type, durability, size, tile)
 {
 
-}
-
-Router::Router() : Building()
-{
-	type = ROUTER;
 }
 
 

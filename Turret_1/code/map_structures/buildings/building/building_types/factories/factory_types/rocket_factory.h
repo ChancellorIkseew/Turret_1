@@ -14,7 +14,6 @@ protected:
 public:
 
 	RocketFactory(int type, short durability, short size, const TileCoord tile);
-	RocketFactory();
 	~RocketFactory() = default;
 
 	void interact() override final;

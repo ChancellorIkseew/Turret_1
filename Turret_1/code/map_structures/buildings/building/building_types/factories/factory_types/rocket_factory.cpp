@@ -2,18 +2,10 @@
 #include "rocket_factory.h"
 
 #include "map_structures/resources/res_enum.h"
-#include "map_structures/buildings/building/buildings_enum.h"
 
 
 RocketFactory::RocketFactory(int type, short durability, short size, const TileCoord tile) : Factory(type, durability, size, tile)
 {
-	timer = 120;
-}
-
-
-RocketFactory::RocketFactory() : Factory()
-{
-	type = ROCKET_FACTORY;
 	timer = 120;
 }
 

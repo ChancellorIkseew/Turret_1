@@ -26,8 +26,7 @@ Building::~Building()
 
 void Building::save(std::ofstream& fout)const
 {
-	fout << type << " " << size << " " << durability <<
-		" " << tile.x << " " << tile.y << '\n';
+	fout << size << " " << durability << '\n';
 
 	for (auto it = storedResourcesList.cbegin(); it != storedResourcesList.cend(); ++it)
 	{
@@ -36,14 +35,13 @@ void Building::save(std::ofstream& fout)const
 			fout << it->type << " " << it->quant << '\n';
 		}	
 	}
-
 	fout << "$\n";
 }
 
 
 void Building::load(std::ifstream& fin)
 {
-	fin >> size >> durability >> tile.x >> tile.y;
+	fin >> size >> durability;
 
 	while (true)
 	{
@@ -51,15 +49,12 @@ void Building::load(std::ifstream& fin)
 		fin >> nextSymbol;
 		
 		if (nextSymbol == '$')
-		{
 			break;
-		}
 
 		fin.seekg(-1, std::ios::cur);
 		int resType;
-		fin >> resType;
 		short amount;
-		fin >> amount;
+		fin >> resType >> amount;
 		storedResourcesList.push_back(StoredResource{ resType, amount });	
 	}
 }

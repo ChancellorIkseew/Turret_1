@@ -14,7 +14,6 @@ protected:
 public:
 
 	ShellFactory(int type, short durability, short size, const TileCoord tile);
-	ShellFactory();
 	~ShellFactory() = default;
 
 	void interact() override final;

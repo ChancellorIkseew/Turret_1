@@ -1,15 +1,10 @@
+
 #include "big_drill.h"
-#include "map_structures/buildings/building/buildings_enum.h"
 
 
 BigDrill::BigDrill(int type, short durability, short size, const TileCoord tile) : Drill(type, durability, size, tile)
 {
 	
-}
-
-BigDrill::BigDrill() : Drill()
-{
-	type = BIG_DRILL;
 }
 
 

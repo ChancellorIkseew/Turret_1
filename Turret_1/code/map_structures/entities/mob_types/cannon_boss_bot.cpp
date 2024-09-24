@@ -112,7 +112,7 @@ TileCoord CannonBossBot::findShootingAim(BuildingsMap& buildingsMap1)
 
 			if (buildingsMap1.getBuildingType(tileCoord) != VOID_)
 			{
-				return { tileCoord };
+				return tileCoord;
 			}
 		}
 
@@ -126,7 +126,7 @@ TileCoord CannonBossBot::findShootingAim(BuildingsMap& buildingsMap1)
 			{
 				if (buildingsMap1.getBuildingType(tileCoord) != VOID_)
 				{
-					return { tileCoord };
+					return tileCoord;
 				}
 			}
 		}

@@ -1,7 +1,7 @@
 
 #include "shell_factory.h"
+
 #include "map_structures/resources/res_enum.h"
-#include "map_structures/buildings/building/buildings_enum.h"
 
 
 ShellFactory::ShellFactory(int type, short durability, short size, const TileCoord tile) : Factory(type, durability, size, tile)
@@ -9,11 +9,6 @@ ShellFactory::ShellFactory(int type, short durability, short size, const TileCoo
 	timer = 30;
 }
 
-ShellFactory::ShellFactory() : Factory()
-{
-	type = SHELL_FACTORY;
-	timer = 30;
-}
 
 void ShellFactory::interact()
 {

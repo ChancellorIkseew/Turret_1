@@ -16,7 +16,6 @@ protected:
 public:
 
 	Drill(int type, short durability, short size, const TileCoord tile);
-	Drill();
 	virtual ~Drill() = default;
 
 	void mineResource(int amountFromOneTile);

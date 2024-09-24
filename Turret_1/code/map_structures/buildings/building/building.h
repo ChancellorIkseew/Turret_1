@@ -34,14 +34,12 @@ public:
 
 public:
 	Building(int type, short durability, short size, const TileCoord tile);
-	Building() = default;
 	virtual ~Building();
 
 	virtual void save(std::ofstream& fout) const;
 	virtual void load(std::ifstream& fin);
 
-	static Building* setBuilding(int type, char direction, short durability, short v_size, const TileCoord tile);
-	static Building* createBuilding(int type);
+	static Building* createBuilding(int type, char direction, short durability, short v_size, const TileCoord tile);
 
 	virtual void interact();
 	void setDamage(const int damage);

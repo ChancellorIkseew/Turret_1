@@ -11,48 +11,17 @@ Bridge::Bridge(int type, char direction, short durability, short size, const Til
 	this->direction = direction;
 }
 
-Bridge::Bridge() : Building()
-{
-	type = BRIDGE;
-}
-
 
 void Bridge::save(std::ofstream& fout) const
 {
-	fout << type << " " << size << " " << durability <<
-		" " << tile.x << " " << tile.y << " " << direction << '\n';
-
-	for (auto it = storedResourcesList.cbegin(); it != storedResourcesList.cend(); ++it)
-	{
-		//fout << (*it)->type << " " << (*it)->quant << '\n';
-	}
-
-	fout << "$\n";
+	fout << direction << '\n';
+	Building::save(fout);
 }
-
-
 
 void Bridge::load(std::ifstream& fin)
 {
-	fin >> size >> durability >> tile.x >> tile.y >> direction;
-
-	while (true)
-	{
-		char nextSymbol;
-		fin >> nextSymbol;
-
-		if (nextSymbol == '$')
-		{
-			break;
-		}
-
-		fin.seekg(-1, std::ios::cur);
-		int resType;
-		fin >> resType;
-		short amount;
-		fin >> amount;
-		storedResourcesList.push_back(StoredResource{ resType, amount });
-	}
+	fin >> direction;
+	Building::load(fin);
 }
 
 

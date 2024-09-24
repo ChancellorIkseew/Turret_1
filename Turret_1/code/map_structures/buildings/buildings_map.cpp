@@ -56,11 +56,11 @@ BuildingsMap::~BuildingsMap()
 void BuildingsMap::generateMap()
 {
 	delete buildingsMap[48][48];
-	buildingsMap[48][48] = Building::setBuilding(CORE_MK1, '0', 900, 16, { 48, 48 });
+	buildingsMap[48][48] = Building::createBuilding(CORE_MK1, '0', 900, 16, { 48, 48 });
 	
 	for (int i = 1; i < 16; i++)
 	{
-		buildingsMap[48 + coordSquareArr[i].x][48 + coordSquareArr[i].y] = Building::setBuilding(AUXILARY, 0, 0, 16, { 0, 0 });
+		buildingsMap[48 + coordSquareArr[i].x][48 + coordSquareArr[i].y] = Building::createBuilding(AUXILARY, 0, 0, 16, { 48, 48 });
 	}
 	
 	isMapChanged = true;
@@ -73,15 +73,20 @@ void BuildingsMap::loadMap()
 	fin.open(saveFileName);
 	if (fin.is_open())
 	{
-		for (int y = 0; y < mapMaxY; y++)
+		while (true)
 		{
-			for (int x = 0; x < mapMaxX; x++)
-			{
-				int bType;
-				fin >> bType;
-				buildingsMap[x][y] = Building::createBuilding(bType);
-				buildingsMap[x][y]->load(fin);
-			}
+			char nextSymbol;
+			fin >> nextSymbol;
+			if (nextSymbol == '&')
+				break;
+			
+			fin.seekg(-1, std::ios::cur);
+			TileCoord tile;
+			int type;
+			fin >> tile.x >> tile.y >> type;
+			buildingsMap[tile.x][tile.y] = Building::createBuilding(type, 0, 0, 0, tile);
+			buildingsMap[tile.x][tile.y]->load(fin);
+			createAuxilary(buildingsMap[tile.x][tile.y]->size, tile);
 		}
 	}
 	fin.close();
@@ -96,19 +101,32 @@ void BuildingsMap::saveMap()
 	fout.open(saveFileName);
 	if (fout.is_open())
 	{
-		for (int y = 0; y < mapMaxY; y++)
+		for (int x = 0; x < mapMaxX; x++)
 		{
-			for (int x = 0; x < mapMaxX; x++)
+			for (int y = 0; y < mapMaxY; y++)
 			{
-				if (buildingsMap[x][y] != nullptr)
+				if (buildingsMap[x][y] != nullptr && buildingsMap[x][y]->type != AUXILARY)
 				{
+					fout << x << " " << y << " " << buildingsMap[x][y]->type << '\n';
 					buildingsMap[x][y]->save(fout);
 				}
 			}
 		}
+		fout << '&';
 	}
 	fout.close();
 	std::cout << "Save_buildings_map_works" <<'\n';
+}
+
+
+void BuildingsMap::createAuxilary(const short size, const TileCoord tile)
+{
+	for (int i = 1; i < size; i++)
+	{
+		int iTileX = tile.x + coordSquareArr[i].x;
+		int iTileY = tile.y + coordSquareArr[i].y;
+		buildingsMap[iTileX][iTileY] = Building::createBuilding(AUXILARY, 0, 0, size, tile);
+	}
 }
 
 
@@ -132,14 +150,8 @@ void BuildingsMap::constructBuilding(const int type, const char direction, const
 	if (isEnoughAllRes(g_BuildingsInfoArray[type].costToBuild))
 	{
 		wasteRes(g_BuildingsInfoArray[type].costToBuild);
-		buildingsMap[tile.x][tile.y] = Building::setBuilding(type, direction, durability, size, tile);
-
-		for (int i = 1; i < size; i++)
-		{
-			int iTileX = tile.x + coordSquareArr[i].x;
-			int iTileY = tile.y + coordSquareArr[i].y;
-			buildingsMap[iTileX][iTileY] = Building::setBuilding(AUXILARY, 0, 0, size, tile);
-		}
+		buildingsMap[tile.x][tile.y] = Building::createBuilding(type, direction, durability, size, tile);
+		createAuxilary(size, tile);
 		isMapChanged = true;
 	}
 }
