@@ -24,7 +24,7 @@ void Rocket::tryPlayerShellsHitting(BuildingsMap& buildingsMap1)
 {
 	for (std::list<Entity*>::iterator it = entitiesList.begin(); it != entitiesList.end(); ++it)
 	{
-		if (abs((*it)->getCoordX() - coordX) < 32 && abs((*it)->getCoordY() - coordY) < 32) //Cheek distance_to_mob
+		if (abs((*it)->getCoord().x - coordX) < 32 && abs((*it)->getCoord().y - coordY) < 32) //Cheek distance_to_mob
 		{
 			isWasted = true;
 			return;
@@ -46,19 +46,16 @@ void Rocket::explosion(BuildingsMap& buildingsMap1)
 {
 	for (std::list<Entity*>::iterator it = entitiesList.begin(); it != entitiesList.end(); ++it)
 	{
-		int deltaX = coordX - (*it)->getCoordX();
-		int deltaY = coordY - (*it)->getCoordY();
-
+		int deltaX = coordX - (*it)->getCoord().x;
+		int deltaY = coordY - (*it)->getCoord().y;
 
 		if (sqrt(deltaX * deltaX + deltaY * deltaY) < 56) //Cheek distance_to_mob
 		{
 			(*it)->setDamage(20);
 		}
-
 	}
 
 	buildingsMap1.setDamage(20, tile(coordX, coordY));
-
 	particlesList.push_back(new Particle(1, coordX, coordY));
 }
 

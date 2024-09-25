@@ -1,7 +1,7 @@
 
 #include "tile_coord.h"
 
-
+// pixel_to_tile
 int tile(float pixelCoord)
 {
 	return int(pixelCoord / _TILE_);
@@ -14,18 +14,38 @@ int tile(int pixelCoord)
 
 TileCoord tile(float pixelCoordX, float pixelCoordY)
 {
-	return { int(pixelCoordX / _TILE_) , int(pixelCoordY / _TILE_) };
+	return { tile(pixelCoordX) , tile(pixelCoordY) };
 }
 
 TileCoord tile(int pixelCoordX, int pixelCoordY)
 {
-	return { int(pixelCoordX / _TILE_) , int(pixelCoordY / _TILE_) };
+	return { tile(pixelCoordX) , tile(pixelCoordY) };
 }
 
+TileCoord tile(PixelCoord pixelCoord)
+{
+	return { tile(pixelCoord.x) , tile(pixelCoord.y) };
+}
 
+// tile_to_pixel
 int pixel(int tileCoord)
 {
 	return tileCoord * _TILE_ + _HALF_TILE_;
+}
+
+float pixelF(int tileCoord)
+{
+	return tileCoord * _TILE_ + _HALF_TILE_;
+}
+
+PixelCoord pixel(int tileCoordX, int tileCoordY)
+{
+	return { pixelF(tileCoordX),  pixelF(tileCoordY) };
+}
+
+PixelCoord pixel(TileCoord tileCoord)
+{
+	return { pixelF(tileCoord.x), pixelF(tileCoord.y) };
 }
 
 

@@ -9,6 +9,7 @@
 
 #include "map_structures/entities/entities_util/entities_list.h"
 #include "map_structures/shells/shells.h"
+#include "map_structures/shells/shell_enum.h"
 
 
 AutocannonTurret::AutocannonTurret(int type) : Turret()
@@ -28,7 +29,7 @@ void AutocannonTurret::shooting()
 	if(this->findAim())
 	{
 		angleRad = atan2f(aimCoordX - coordX, aimCoordY - coordY);
-		angleDeg = atan2f(aimCoordY - coordY, aimCoordX - coordX) * 57.3 + 90;
+		angleDeg = atan2f(aimCoordY - coordY, aimCoordX - coordX) * 57.3f + 90.0f;
 
 		if (reloadTimer % 15 == 0 && amooQuant > 0)		//shooting
 		{
@@ -37,12 +38,12 @@ void AutocannonTurret::shooting()
 
 			if (reloadTimer % 30 == 0)
 			{
-				playerShellsList.push_back(new Shell('1', coordX + correctionX, coordY - correctionY, angleRad, angleDeg));
+				playerShellsList.push_back(new Shell(AC_SHELL, coordX + correctionX, coordY - correctionY, angleRad, angleDeg));
 				reloadTimer = 0;
 			}
 			else
 			{
-				playerShellsList.push_back(new Shell('1', coordX - correctionX, coordY + correctionY, angleRad, angleDeg));
+				playerShellsList.push_back(new Shell(AC_SHELL, coordX - correctionX, coordY + correctionY, angleRad, angleDeg));
 			}
 
 			--amooQuant;

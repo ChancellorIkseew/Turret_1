@@ -9,6 +9,7 @@
 
 #include "map_structures/entities/entities_util/entities_list.h"
 #include "map_structures/shells/shell_types/rockets.h"
+#include "map_structures/shells/shell_enum.h"
 
 
 RocketTurret::RocketTurret(int type) : Turret()
@@ -28,11 +29,11 @@ void RocketTurret::shooting()
 	if(this->findAim())
 	{
 		angleRad = atan2f(aimCoordX - coordX, aimCoordY - coordY);
-		angleDeg = atan2f(aimCoordY - coordY, aimCoordX - coordX) * 57.3 + 90;
+		angleDeg = atan2f(aimCoordY - coordY, aimCoordX - coordX) * 57.3f + 90.0f;
 
 		if (reloadTimer > 120 && amooQuant > 0)		//shooting
 		{
-			playerShellsList.push_back(new Rocket('3', coordX, coordY, angleRad, angleDeg));
+			playerShellsList.push_back(new Rocket(ROCKET, coordX, coordY, angleRad, angleDeg));
 			reloadTimer = 0;
 			--amooQuant;
 		}

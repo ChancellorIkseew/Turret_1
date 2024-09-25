@@ -24,7 +24,7 @@ void HeavyShell::tryPlayerShellsHitting(BuildingsMap& buildingsMap1)
 {
 	for (std::list<Entity*>::iterator it = entitiesList.begin(); it != entitiesList.end(); ++it)	//Cheek distance_to_mob
 	{
-		if (abs((*it)->getCoordX() - coordX) < 7 && abs((*it)->getCoordY() - coordY) < 7)
+		if (abs((*it)->getCoord().x - coordX) < 7 && abs((*it)->getCoord().y - coordY) < 7)
 		{
 			(*it)->setDamage(20);
 			isWasted = true;
@@ -50,8 +50,8 @@ void HeavyShell::explosion(BuildingsMap& buildingsMap1)
 {
 	for (std::list<Entity*>::iterator it = entitiesList.begin(); it != entitiesList.end(); ++it)	//Cheek damage
 	{
-		int deltaX = coordX - (*it)->getCoordX();
-		int deltaY = coordY - (*it)->getCoordY();
+		int deltaX = coordX - (*it)->getCoord().x;
+		int deltaY = coordY - (*it)->getCoord().y;
 
 
 		if (sqrt(deltaX * deltaX + deltaY * deltaY) < 48)

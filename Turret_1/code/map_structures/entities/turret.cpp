@@ -59,18 +59,16 @@ bool Turret::findAim()
 {
 	for (std::list<Entity*>::iterator it = entitiesList.begin(); it != entitiesList.end(); ++it)
 	{
-		int deltaX = coordX - (*it)->getCoordX();
-		int deltaY = coordY - (*it)->getCoordY();
+		int deltaX = coordX - (*it)->getCoord().x;
+		int deltaY = coordY - (*it)->getCoord().y;
 
 		float angleRad = atan2f(deltaX, deltaY);
 
 		if (sqrt(deltaX * deltaX + deltaY * deltaY) < pixelRange)
 		{
-			aimCoordX = (*it)->getCoordX();
-			aimCoordY = (*it)->getCoordY();
-
+			aimCoordX = (*it)->getCoord().x;
+			aimCoordY = (*it)->getCoord().y;
 			return true;
-			break;
 		}
 	}
 	return false;

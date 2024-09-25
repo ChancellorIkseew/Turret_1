@@ -73,13 +73,12 @@ void saveEntitiesList(std::string saveFolderName)
 
 
 
-void moveEntitiesList(BuildingsMap& buildingsMap1, int time)
+void moveEntitiesList()
 {
 	for (std::list<Entity*>::iterator it = entitiesList.begin(); it != entitiesList.end();)
 	{
-		(*it)->motion(buildingsMap1, time);
-
-		(*it)->shooting(buildingsMap1, time);
+		(*it)->motion();
+		(*it)->shoot();
 
 		if ((*it)->getDurability() < 1)
 		{

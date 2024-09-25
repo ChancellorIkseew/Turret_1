@@ -38,7 +38,10 @@ public:
 	static void demolishBuilding(const TileCoord tile);
 		
 	// Simple_utilites
+	static inline bool buildingExists(const int tileX, const int tileY);
+	static inline bool isVoidBuilding(const int tileX, const int tileY);
 	static bool buildingExists(const TileCoord tile);
+	static bool isVoidBuilding(const TileCoord tile);
 	static void setBuildingDurability(const short durability, const TileCoord tile);
 	static void setDamage(const short damage, const TileCoord tile);
 	static int getBuildingType(const TileCoord tile);

@@ -118,12 +118,8 @@ void BuildingsMap::constructBuilding(const int type, const char direction, const
 	{
 		int iTileX = tile.x + coordSquareArr[i].x;
 		int iTileY = tile.y + coordSquareArr[i].y;
-
-		if (iTileX < 0 || iTileX >= mapMaxX || iTileY < 0 || iTileY >= mapMaxY ||
-			buildingsMap[iTileX][iTileY] != nullptr)
-		{
+		if (!isVoidBuilding(iTileX, iTileY))
 			return;
-		}
 	}
 
 	if (isEnoughAllRes(g_BuildingsInfoArray[type].costToBuild))
@@ -154,10 +150,26 @@ void BuildingsMap::demolishBuilding(const TileCoord tile)
 }
 
 
+inline bool BuildingsMap::buildingExists(const int tileX, const int tileY)
+{
+	return (tileX >= 0 && tileX < mapMaxX && tileY >= 0 && tileY < mapMaxY &&
+		buildingsMap[tileX][tileY] != nullptr);
+}
+
+inline bool BuildingsMap::isVoidBuilding(const int tileX, const int tileY)
+{
+	return (tileX >= 0 && tileX < mapMaxX && tileY >= 0 && tileY < mapMaxY &&
+		buildingsMap[tileX][tileY] == nullptr);
+}
+
 bool BuildingsMap::buildingExists(const TileCoord tile)
 {
-	return (tile.x >= 0 && tile.x < mapMaxX && tile.y >= 0 && tile.y < mapMaxY &&
-		buildingsMap[tile.x][tile.y] != nullptr);
+	return buildingExists(tile.x, tile.y);
+}
+
+bool BuildingsMap::isVoidBuilding(const TileCoord tile)
+{
+	return isVoidBuilding(tile.x, tile.y);
 }
 
 

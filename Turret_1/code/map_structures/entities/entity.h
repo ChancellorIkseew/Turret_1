@@ -20,33 +20,25 @@ protected:
 		
 	int type;
 	
-	float angleRad;
-	float angleDeg;
-	
-	float coordX;
-	float coordY;
+	PixelCoord coord;
+	PixelCoord aimCoord;
+	PixelCoord destCoord; // destination_point
 
-	int newTileCoordX;
-	int newTileCoordY;
-
-	int oldTileCoordX;
-	int oldTileCoordY;
+	TileCoord newTile, oldTile;
 	
 	bool isAimDetected;
 	
+	float motionAngleRad;
+	float motionAngleDeg;
+
 	float shootingAngleRad;
 	float shootingAngleDeg;
-	
-	float aimCoordX;
-	float aimCoordY;
-
-	float destCoordX; // destination_point
-	float destCoordY;
 
 	int durability;
 	int range;
 	int spyralRange;
 	int reload;
+	int reloadTimer;
 	float maxSpeed;
 
 	static inline sf::Image entityImage;
@@ -62,30 +54,33 @@ protected:
 	public:
 
 		static void initPreSettings();
-		static int getEnemyMobsQuantity();
 		
-		Entity(int type ,float coordX, float coordY, float curentAngleDeg, short curentDurability);
+		Entity(int type, PixelCoord coord, float curentAngleDeg, short curentDurability);
 		Entity(int type);
 		virtual ~Entity();
 
-		void save(std::ofstream& fout);
+		void save(std::ofstream& fout) const;
 		void load(std::ifstream& fin);
 		static Entity* createEntity(int type);
+		static [[nodiscard]] PixelCoord randomMapBorderSpawn();
 
 		// combat
-		virtual void motion(BuildingsMap &buildingsMap1, int time);
-		virtual void findPath(BuildingsMap& buildingsMap1) = 0;
-		virtual void shooting(BuildingsMap &buildingsMap1, int time) = 0;
-		virtual TileCoord findShootingAim(BuildingsMap& buildingsMap1) = 0;
+		virtual void motion();
+		virtual PixelCoord findDestinationCoord() const;
+		virtual void shoot() = 0;
+		virtual PixelCoord findShootingAim() const;
+		void detectAim();
+		void reloadWeapon();
 
 		// simple_utilites
 		void setDurability(int durability);
 		void setDamage(int damage);
-		char getType();
-		int getCoordX();
-		int getCoordY();
-		int getAngleDeg(); 
-		int getDurability();
+		char getType() const;
+		PixelCoord getCoord() const;
+		TileCoord getTile() const;
+		int getAngleDeg() const; 
+		int getDurability() const;
+		static int getEnemyMobsQuantity();
 
 		// visual
 		static void prepareSprites();

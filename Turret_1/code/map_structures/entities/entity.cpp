@@ -23,45 +23,15 @@ Entity::Entity(int type)		//1st spawn
 {
 	Entity::initCombatData();
 	this->type = type;
-	
-	int x = rand() %4;
-	switch(x)
-	{
-	case 0:
-		coordX = pixel(0);
-		coordY = pixel(rand() % (mapMaxY - 1));
-		break;
-
-	case 1:
-		coordX = pixel(rand() % (mapMaxX - 3) + 1);
-		coordY = pixel(0);
-		break;
-
-	case 2:
-		coordX = pixel(mapMaxX - 1);
-		coordY = pixel(rand() % (mapMaxY - 1));
-		break;
-
-	case 3:
-		coordX = pixel(rand() % (mapMaxX - 3) + 1);
-		coordY = pixel(mapMaxY - 1);
-		break;
-
-	default:
-		coordX = pixel(0);
-		coordY = pixel(0);
-		break;
-	}
-	
+	this->coord = Entity::randomMapBorderSpawn();
 }
 
-Entity::Entity(int type ,float coordX, float coordY, float curentAngleDeg, short curentDurability)
+Entity::Entity(int type, PixelCoord coord, float curentAngleDeg, short curentDurability)
 {
 	Entity::initCombatData();
 	this->type = type;
-	this->coordX = coordX;
-	this->coordY = coordY;
-	angleDeg = curentAngleDeg;
+	this->coord = coord;
+	motionAngleDeg = curentAngleDeg;
 	durability = curentDurability;
 }
 
@@ -73,66 +43,128 @@ Entity::~Entity()
 void Entity::initCombatData()
 {
 	isAimDetected = false;
-
-	aimCoordX = mapMaxX * _HALF_TILE_;
-	aimCoordY = mapMaxY * _HALF_TILE_;
-
-	destCoordX = aimCoordX;
-	destCoordY = aimCoordY;
-
+	aimCoord = pixel(mapMaxX / 2, mapMaxY / 2);
+	destCoord = aimCoord;
+	reloadTimer = 0;
 	maxSpeed = 0.1f;
 }
 
 
-void Entity::save(std::ofstream& fout)
+void Entity::save(std::ofstream& fout) const
 {
-	fout << type << " " << coordX << " " << coordY << " " << angleDeg << " " << durability << '\n';
+	fout << type << " " << coord.x << " " << coord.y << " " << motionAngleDeg << " " << durability << '\n';
 	fout << "$\n";
 }
 
 void Entity::load(std::ifstream& fin)
 {
-	fin >> coordX >> coordY >> angleDeg >> durability;
+	fin >> coord.x >> coord.y >> motionAngleDeg >> durability;
 	char specialSymbol;
 	fin >> specialSymbol;
 }
 
 
-void Entity::motion(BuildingsMap &buildingsMap1, int time)
+void Entity::motion()
 {
+	this->motionAngleRad = atan2f(destCoord.x - coord.x, destCoord.y - coord.y);
+	this->motionAngleDeg = atan2f(destCoord.y - coord.y, destCoord.x - coord.x) * 57.3f + 90;
 
-	angleRad = atan2f(destCoordX - coordX, destCoordY - coordY);
-	angleDeg = atan2f(destCoordY - coordY, destCoordX - coordX) * 57.3f + 90;
+	int nextTileX = tile(coord.x + sin(motionAngleRad) * 30);
+	int nextTileY = tile(coord.y + cos(motionAngleRad) * 30);
 
-	int tileX = tile(coordX + sin(angleRad) * 30);
-	int tileY = tile(coordY + cos(angleRad) * 30);
-	TileCoord tileCoord{ tileX, tileY };
-
-	if ((buildingsMap1.getBuildingType(tileCoord)) == VOID_)	// Cheek_next_tile
+	if ((BuildingsMap::isVoidBuilding(nextTileX, nextTileY)))
 	{
-		coordX = coordX + sin(angleRad) * maxSpeed;
-		coordY = coordY + cos(angleRad) * maxSpeed;
+		this->coord.x += sin(motionAngleRad) * maxSpeed;
+		this->coord.y += cos(motionAngleRad) * maxSpeed;
 	}
-	else	// find_path
+	else
 	{
-		findPath(buildingsMap1);
-	}
-	
-
-	if (newTileCoordX != oldTileCoordX || newTileCoordY != oldTileCoordY)
-	{
-		destCoordX = mapMaxX * _HALF_TILE_;
-		destCoordY = mapMaxY * _HALF_TILE_;
+		destCoord = this->findDestinationCoord();
 	}
 
+	if (newTile.x != oldTile.x || newTile.y != oldTile.y)
+	{
+		destCoord = pixel(mapMaxX / 2, mapMaxY / 2);
+	}
 
-	oldTileCoordX = newTileCoordX;
-	oldTileCoordY = newTileCoordY;
-
-	newTileCoordX = tile(coordX);
-	newTileCoordY = tile(coordY);
+	this->oldTile = this->newTile;
+	this->newTile = tile(coord);
 }
 
+
+PixelCoord Entity::findDestinationCoord() const
+{
+	int minDistance = pow((newTile.x - 50), 2) + pow((newTile.y - 50), 2);
+
+	for (int i = 1; i < 9; i += 2)
+	{
+		int tileX = this->newTile.x + coordSpyralArr[i].x;
+		int tileY = this->newTile.y + coordSpyralArr[i].y;
+
+		if (BuildingsMap::isVoidBuilding(tileX, tileY))
+		{
+			int distance = pow((tileX - mapMaxX / 2), 2) + pow((tileY - mapMaxX / 2), 2);
+			if (distance < minDistance)
+			{
+				return pixel(tileX, tileY);
+			}
+		}
+	}
+	return pixel(mapMaxX / 2, mapMaxY / 2);
+}
+
+
+PixelCoord Entity::findShootingAim() const
+{
+	for (int i = 1; i <= range; i++)
+	{
+		int tileX = tile(coord.x + sin(motionAngleRad) * _TILE_ * i);
+		int tileY = tile(coord.y + cos(motionAngleRad) * _TILE_ * i);
+		TileCoord tileCoord{ tileX, tileY };
+		if (BuildingsMap::buildingExists(tileCoord))
+		{
+			return pixel(tileCoord);
+		}
+	}
+
+	for (int i = 0; i < spyralRange; i++)
+	{
+		int tileX = this->newTile.x + coordSpyralArr[i].x;
+		int tileY = this->newTile.y + coordSpyralArr[i].y;
+		TileCoord tileCoord{ tileX, tileY };
+		if (BuildingsMap::buildingExists(tileCoord))
+		{
+			return pixel(tileCoord);
+		}
+	}
+
+	return { 0.0f, 0.0f };
+}
+
+
+void Entity::detectAim()
+{
+	if (newTile.x != oldTile.x || newTile.y != oldTile.y || BuildingsMap::getIsMapChanged())
+	{
+		PixelCoord newAimCoord = this->findShootingAim();
+		if (newAimCoord.x != 0)	// "0" - aim_was_not_detected
+		{
+			aimCoord = newAimCoord;
+			isAimDetected = true;
+		}
+		else
+		{
+			isAimDetected = false;
+		}
+	}
+}
+
+
+void Entity::reloadWeapon()
+{
+	if (reloadTimer > 0)
+		--reloadTimer;
+}
 
 
 void Entity::setDurability(int durability)
@@ -146,11 +178,11 @@ void Entity::setDamage(int damage)
 }
 
 
-char Entity::getType() { return type; }
-int Entity::getCoordX() { return int(coordX); }	
-int Entity::getCoordY() { return int(coordY); }
-int Entity::getAngleDeg() { return int(angleDeg); }
-int Entity::getDurability() { return durability; }
+char Entity::getType() const { return type; }
+PixelCoord Entity::getCoord() const { return coord; }
+TileCoord Entity::getTile() const { return tile(coord); }
+int Entity::getAngleDeg() const { return int(motionAngleDeg); }
+int Entity::getDurability() const { return durability; }
 int Entity::getEnemyMobsQuantity() { return enemyMobsQuantity; }
 
 

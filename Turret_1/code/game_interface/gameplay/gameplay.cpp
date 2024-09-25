@@ -116,7 +116,7 @@ char startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, std::string 
                     mtBuildings.lock();
                     buildingsMap1.intetractMap();
                     createWave(time);
-                    moveEntitiesList(buildingsMap1, time);
+                    moveEntitiesList();
                     buildingsMap1.cleanMapChanged();
                     moveShellsList(time);
                     checkShellsHitting(buildingsMap1);

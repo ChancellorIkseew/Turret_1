@@ -16,13 +16,12 @@ private:
 
 public:
 
-	LaserBot(int type, float coordX, float coordY, float curentAngleDeg, short curentDurability);
+	LaserBot(int type, PixelCoord coord, float curentAngleDeg, short curentDurability);
 	LaserBot(int type);
 	~LaserBot() = default;
 
-	void findPath(BuildingsMap& buildingsMap1) override final;
-	void shooting(BuildingsMap& buildingsMap1, int time) override final;
-	TileCoord findShootingAim(BuildingsMap& buildingsMap1) override final;
+	void shoot() override final;
+	PixelCoord findShootingAim() const override final;
 
 	void draw(sf::RenderWindow& window) override final;
 

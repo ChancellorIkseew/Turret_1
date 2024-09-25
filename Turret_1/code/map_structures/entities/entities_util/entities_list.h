@@ -11,12 +11,10 @@
 
 extern std::list<Entity*> entitiesList;
 
-void printEntitiesList();
-
 void loadEntitiesList(std::string saveFolderName);
 void saveEntitiesList(std::string saveFolderName);
 
-void moveEntitiesList(BuildingsMap& buildingsMap1, int time);
+void moveEntitiesList();
 
 void drawEntitiesList(sf::RenderWindow& mainWindow);
 

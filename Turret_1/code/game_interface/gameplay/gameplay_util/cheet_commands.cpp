@@ -63,7 +63,7 @@ void acceptCheetCommand()
 				}
 				if (act == 'n')
 				{
-					entitiesList.push_back(new StandardBot('1', 8, 8, 0, 100));
+					entitiesList.push_back(new StandardBot(1, { 8, 8 }, 0, 100));
 				}
 				break;
 			}

@@ -88,7 +88,7 @@ void Shell::tryPlayerShellsHitting(BuildingsMap& buildingsMap1)
 {
 	for (std::list<Entity*>::iterator it = entitiesList.begin(); it != entitiesList.end(); ++it)
 	{
-		if (abs((*it)->getCoordX() - coordX) < 7 && abs((*it)->getCoordY() - coordY) < 7)
+		if (abs((*it)->getCoord().x - coordX) < 7 && abs((*it)->getCoord().y - coordY) < 7)
 		{
 			(*it)->setDamage(1);
 			isWasted = true;

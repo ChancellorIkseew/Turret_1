@@ -1,4 +1,4 @@
-#pragma pnce
+#pragma once
 #ifndef T1_MUTEX
 #define T1_MUTEX
 

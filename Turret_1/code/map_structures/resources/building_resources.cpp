@@ -32,16 +32,16 @@ bool isEnoughAllRes(AllResources expenses)
 void wasteRes(AllResources expenses)
 {
 	
-	stoneQuantity = stoneQuantity - expenses.stoneQuant * PreSettings::getBuildingExpansesMidifier();
+	stoneQuantity -= expenses.stoneQuant * PreSettings::getBuildingExpansesMidifier();
 	
-	ironQuantity = ironQuantity - expenses.ironQuant * PreSettings::getBuildingExpansesMidifier();
+	ironQuantity -= expenses.ironQuant * PreSettings::getBuildingExpansesMidifier();
 	
-	copperQuantity = copperQuantity - expenses.copperQuant * PreSettings::getBuildingExpansesMidifier();
+	copperQuantity -= expenses.copperQuant * PreSettings::getBuildingExpansesMidifier();
 	
-	siliconQuantity = siliconQuantity - expenses.siliconQuant * PreSettings::getBuildingExpansesMidifier();
+	siliconQuantity -= expenses.siliconQuant * PreSettings::getBuildingExpansesMidifier();
 	
-	coalQuantity = coalQuantity - expenses.coalQuant * PreSettings::getBuildingExpansesMidifier();
+	coalQuantity -= expenses.coalQuant * PreSettings::getBuildingExpansesMidifier();
 	
-	sulfurQuantity = sulfurQuantity - expenses.sulfurQuant * PreSettings::getBuildingExpansesMidifier();
+	sulfurQuantity -= expenses.sulfurQuant * PreSettings::getBuildingExpansesMidifier();
 	
 }
