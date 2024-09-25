@@ -5,6 +5,7 @@
 #include "building_panel.h"
 
 #include "game_interface/gameplay/sub_windows/sub_windows_util/sub_windows_list.h"
+#include "specifications_panel.h"
 
 #include "map_structures/terrain/terrain.h"
 #include "map_structures/buildings/buildings_map.h"
@@ -15,8 +16,8 @@
 
 BuildingPanel::BuildingPanel() : SubWindow('s', 144, 192, 0, 0)
 {
-	//isBuildingTypeSelected = false;
-	//buildingType = VOID_;
+	isBuildingTypeSelected = false;
+	buildingType = VOID_;
 	direction = 'w';
 
 	this->prepareInterfaceSprites();
@@ -85,16 +86,16 @@ void BuildingPanel::prepareInterfaceSprites()
 
 
 
-void BuildingPanel::interact(sf::Vector2i& mouseCoord, sf::Vector2f& mouseMapCoord, bool& isBuildingTypeSelected, int& buildingType)
+void BuildingPanel::interact(const sf::Vector2i& mouseCoord, const sf::Vector2f& mouseMapCoord)
 {
 	if (isBuildingTypeSelected)
 	{
+		SpecificationsPanel::getInstance().interact(buildingType);
+
 		if (noSubWindowSelected(mouseCoord))
 		{	
 			std::cout << "building_place_works: " << buildingType << '\n';
-			int tileX = tile(mouseMapCoord.x);
-			int tileY = tile(mouseMapCoord.y);
-			TileCoord selectedTile{ tileX, tileY };
+			TileCoord selectedTile = t1::be::tile(mouseMapCoord.x, mouseMapCoord.y);
 
 			mtBuildings.lock();
 			if (buildingType == REMOVE)
@@ -211,7 +212,7 @@ void BuildingPanel::interact(sf::Vector2i& mouseCoord, sf::Vector2f& mouseMapCoo
 		std::cout << "conveyer select button works" << std::endl;
 		conveyerButtonSprite.setColor(sf::Color(0, 250, 0));
 		selectBuildingType(isBuildingTypeSelected);
-		buildingType =STANDARD_CONVEYER_UP;
+		buildingType =STANDARD_CONVEYER;
 	}
 	
 	if (shieldedConveyerButtonSprite.getGlobalBounds().contains(mouseCoord.x, mouseCoord.y))
@@ -219,7 +220,7 @@ void BuildingPanel::interact(sf::Vector2i& mouseCoord, sf::Vector2f& mouseMapCoo
 		std::cout << "shielded_conveyer select button works" << std::endl;
 		shieldedConveyerButtonSprite.setColor(sf::Color(0, 250, 0));
 		selectBuildingType(isBuildingTypeSelected);
-		buildingType =SHIELDED_CONVEYER_UP;
+		buildingType =SHIELDED_CONVEYER;
 	}
 	
 	if (intersectionButtonSprite.getGlobalBounds().contains(mouseCoord.x, mouseCoord.y))
@@ -275,8 +276,6 @@ void BuildingPanel::relocate(int windowSizeX, int windowSizeY)
 {
 	positionX = windowSizeX - sizeX;
 	positionY = windowSizeY - sizeY;
-
-	//std::cout << "BPX: " << positionX << " BPY:" << positionY << '\n';
     
     towerButtonSprite.setPosition(windowSizeX - 134, windowSizeY - 182);
     wallButtonSprite.setPosition(windowSizeX - 108, windowSizeY - 182);
@@ -299,7 +298,6 @@ void BuildingPanel::relocate(int windowSizeX, int windowSizeY)
     intersectionButtonSprite.setPosition(windowSizeX - 82, windowSizeY - 60);
     routerButtonSprite.setPosition(windowSizeX - 56, windowSizeY - 60);
     sorterButtonSprite.setPosition(windowSizeX - 30, windowSizeY - 60);
-    
 }
 
 
@@ -333,12 +331,14 @@ void BuildingPanel::draw(sf::RenderWindow& window)
 
 
 
-void BuildingPanel::drawBuildExample(sf::RenderWindow& window, sf::Vector2f mouseMapCoord, int buildingType)
+void BuildingPanel::drawBuildExample(sf::RenderWindow& window, const sf::Vector2f& mouseMapCoord)
 {
-	selectBuildingTexture(buildingType);
-
-	buildExampleSprite.setPosition(mouseMapCoord.x, mouseMapCoord.y);
-	window.draw(buildExampleSprite);
+	if (isBuildingTypeSelected)
+	{
+		selectBuildingTexture(buildingType);
+		buildExampleSprite.setPosition(mouseMapCoord);
+		window.draw(buildExampleSprite);
+	}
 }
 
 
@@ -356,49 +356,39 @@ void BuildingPanel::selectBuildingType(bool& isBuildingTypeSelected)
 }
 
 
-void BuildingPanel::rotateBuilding(int& buildingType)
+void BuildingPanel::rotateBuilding()
 {
 	switch (buildingType)
 	{
-	case STANDARD_CONVEYER_UP:
-		buildingType = STANDARD_CONVEYER_LEFT;
-		break;
-	case STANDARD_CONVEYER_LEFT:
-		buildingType = STANDARD_CONVEYER_DOWN;
-		break;
-	case STANDARD_CONVEYER_DOWN:
-		buildingType = STANDARD_CONVEYER_RIGHT;
-		break;
-	case STANDARD_CONVEYER_RIGHT:
-		buildingType = STANDARD_CONVEYER_UP;
-		break;
-
-	case SHIELDED_CONVEYER_UP:
-		buildingType = SHIELDED_CONVEYER_LEFT;
-		break;
-	case SHIELDED_CONVEYER_LEFT:
-		buildingType = SHIELDED_CONVEYER_DOWN;
-		break;
-	case SHIELDED_CONVEYER_DOWN:
-		buildingType = SHIELDED_CONVEYER_RIGHT;
-		break;
-	case SHIELDED_CONVEYER_RIGHT:
-		buildingType = SHIELDED_CONVEYER_UP;
-		break;
-
+	case STANDARD_CONVEYER:
+	case SHIELDED_CONVEYER:
 	case BRIDGE:
 	case SORTER:
 		if (direction == 'w')
+		{
 			direction = 'a';
+			buildExampleSprite.setRotation(270);
+		}
 		else if (direction == 'a')
+		{
 			direction = 's';
+			buildExampleSprite.setRotation(180);
+		}
 		else if (direction == 's')
+		{
 			direction = 'd';
+			buildExampleSprite.setRotation(90);
+		}
 		else if (direction == 'd')
+		{
 			direction = 'w';
+			buildExampleSprite.setRotation(0);
+		}
 		break;
 
 	default:
+		direction = 'w';
+		buildExampleSprite.setRotation(0);
 		break;
 	}
 }
@@ -427,7 +417,6 @@ void BuildingPanel::selectBuildingTexture(int buildingType)
 	case SMALL_DRILL:
 		buildExampleSprite.setTextureRect(sf::IntRect(64, 0, 16, 16));	//small_drill
 		break;
-
 	case BIG_DRILL:
 		buildExampleSprite.setTextureRect(sf::IntRect(0, 80, 32, 32));	//big_drill
 		break;
@@ -435,13 +424,8 @@ void BuildingPanel::selectBuildingTexture(int buildingType)
 	case SHELL_FACTORY:
 		buildExampleSprite.setTextureRect(sf::IntRect(32, 112, 32, 32));	//shell_factory
 		break;
-
 	case ROCKET_FACTORY:
 		buildExampleSprite.setTextureRect(sf::IntRect(96, 0, 48, 48));	//rocket_factory
-		break;
-
-	case '6':
-		buildExampleSprite.setTextureRect(sf::IntRect(80, 0, 16, 16));	//allocation_node
 		break;
 
 	case COAL_GENERATOR:
@@ -451,72 +435,25 @@ void BuildingPanel::selectBuildingTexture(int buildingType)
 	case AUTOCANNON_TURRET:
 		buildExampleSprite.setTextureRect(sf::IntRect(34, 18, 12, 20));	//autocannon_turret
 		break;
-
 	case ROCKET_TURRET:
 		buildExampleSprite.setTextureRect(sf::IntRect(48, 16, 16, 18));	//rocket_turret
 		break;
 
-	case STANDARD_CONVEYER_UP:
+	case STANDARD_CONVEYER:
 		buildExampleSprite.setTextureRect(sf::IntRect(0, 144, 16, 16));	//conveyer
 		break;
-
-	case STANDARD_CONVEYER_LEFT:
-		buildExampleSprite.setTextureRect(sf::IntRect(16, 144, 16, 16));	//conveyer
-		break;
-
-	case STANDARD_CONVEYER_DOWN:
-		buildExampleSprite.setTextureRect(sf::IntRect(32, 144, 16, 16));	//conveyer
-		break;
-
-	case STANDARD_CONVEYER_RIGHT:
-		buildExampleSprite.setTextureRect(sf::IntRect(48, 144, 16, 16));	//conveyer
-		break;
-
-	case SHIELDED_CONVEYER_UP:
+	case SHIELDED_CONVEYER:
 		buildExampleSprite.setTextureRect(sf::IntRect(64, 144, 16, 16));	//shielded_conveyer
-		break;
-
-	case SHIELDED_CONVEYER_LEFT:
-		buildExampleSprite.setTextureRect(sf::IntRect(80, 144, 16, 16));	//shielded_conveyer
-		break;
-
-	case SHIELDED_CONVEYER_DOWN:
-		buildExampleSprite.setTextureRect(sf::IntRect(96, 144, 16, 16));	//shielded_conveyer
-		break;
-
-	case SHIELDED_CONVEYER_RIGHT:
-		buildExampleSprite.setTextureRect(sf::IntRect(112, 144, 16, 16));	//shielded_conveyer
 		break;
 
 	case BRIDGE:
 		buildExampleSprite.setTextureRect(sf::IntRect(32, 64, 16, 16));		//intersection
 		break;
-
 	case ROUTER:
 		buildExampleSprite.setTextureRect(sf::IntRect(32, 48, 16, 16));		//router
 		break;
-
 	case SORTER:
 		buildExampleSprite.setTextureRect(sf::IntRect(48, 48, 16, 16));		//sorter
-		break;
-	}
-
-	switch (buildingType)
-	{
-	default:
-		buildExampleSprite.setRotation(0);
-		break;
-
-	case BRIDGE:
-	case SORTER:
-		if (direction == 'w')
-			buildExampleSprite.setRotation(0);
-		else if (direction == 'a')
-			buildExampleSprite.setRotation(270);
-		else if (direction == 's')
-			buildExampleSprite.setRotation(180);
-		else if (direction == 'd')
-			buildExampleSprite.setRotation(90);
 		break;
 	}
 }

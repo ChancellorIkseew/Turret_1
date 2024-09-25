@@ -8,10 +8,9 @@
 class Drill : public Building
 {
 protected:
-
-	float rotorAngle;
-
 	int timer;
+	int storageCapacity;
+	float rotorAngle;
 
 public:
 

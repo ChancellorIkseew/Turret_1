@@ -8,6 +8,7 @@
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/pre-settings/pre-settings.h"
 
+using namespace t1::be;
 
 int Entity::enemyMobsQuantity = 0;
 

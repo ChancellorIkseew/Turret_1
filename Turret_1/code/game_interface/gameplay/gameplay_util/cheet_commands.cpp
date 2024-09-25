@@ -32,7 +32,7 @@ void acceptCheetCommand()
 				std::cin >> resType >> resAmount;
 				if (resType > 0 && resType < 7)
 				{
-					sendToBalance(resType, resAmount);
+					t1::res::sendToBalance(resType, resAmount);
 				}
 				else
 				{
@@ -43,6 +43,7 @@ void acceptCheetCommand()
 
 			case 'u':
 			{
+				using namespace t1::res;
 				sendToBalance(RES_STONE, 10000);
 				sendToBalance(RES_IRON, 10000);
 				sendToBalance(RES_COPPER, 10000);

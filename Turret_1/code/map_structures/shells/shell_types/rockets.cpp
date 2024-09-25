@@ -35,7 +35,7 @@ void Rocket::tryPlayerShellsHitting(BuildingsMap& buildingsMap1)
 
 void Rocket::tryEnemyShellsHitting(BuildingsMap& buildingsMap1)
 {
-	if (buildingsMap1.getBuildingType(tile(coordX, coordY)) != VOID_)
+	if (buildingsMap1.getBuildingType(t1::be::tile(coordX, coordY)) != VOID_)
 	{
 		isWasted = true;
 	}
@@ -55,7 +55,7 @@ void Rocket::explosion(BuildingsMap& buildingsMap1)
 		}
 	}
 
-	buildingsMap1.setDamage(20, tile(coordX, coordY));
+	buildingsMap1.setDamage(20, t1::be::tile(coordX, coordY));
 	particlesList.push_back(new Particle(1, coordX, coordY));
 }
 

@@ -45,7 +45,7 @@ void SpecificationsPanel::prepareInterfaceSprites()
 
 
 
-void SpecificationsPanel::interact(sf::RenderWindow& window, int index)
+void SpecificationsPanel::interact(const int index)
 {
     this->index = index;
 

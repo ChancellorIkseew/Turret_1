@@ -32,45 +32,27 @@ std::shared_ptr<Building> Building::createBuilding(int type, char direction, sho
 	case STONE_TOWER:
 		return std::make_shared<StoneTower>(STONE_TOWER, durability, size, tile);
 
-	case STANDARD_CONVEYER_UP:
-		return std::make_shared<Conveyer>(STANDARD_CONVEYER_UP, 'w', durability, size, tile);
-	case STANDARD_CONVEYER_LEFT:
-		return  std::make_shared<Conveyer>(STANDARD_CONVEYER_LEFT, 'a', durability, size, tile);
-	case STANDARD_CONVEYER_DOWN:
-		return std::make_shared<Conveyer>(STANDARD_CONVEYER_DOWN, 's', durability, size, tile);
-	case STANDARD_CONVEYER_RIGHT:
-		return std::make_shared<Conveyer>(STANDARD_CONVEYER_RIGHT, 'd', durability, size, tile);
-
-	case SHIELDED_CONVEYER_UP:
-		return std::make_shared<ShieldedConveyer>(SHIELDED_CONVEYER_UP, 'w', durability, size, tile);
-	case SHIELDED_CONVEYER_LEFT:
-		return std::make_shared<ShieldedConveyer>(SHIELDED_CONVEYER_LEFT, 'a', durability, size, tile);
-	case SHIELDED_CONVEYER_DOWN:
-		return std::make_shared<ShieldedConveyer>(SHIELDED_CONVEYER_DOWN, 's', durability, size, tile);
-	case SHIELDED_CONVEYER_RIGHT:
-		return std::make_shared<ShieldedConveyer>(SHIELDED_CONVEYER_RIGHT, 'd', durability, size, tile);
+	case STANDARD_CONVEYER:
+		return std::make_shared<Conveyer>(STANDARD_CONVEYER, direction, durability, size, tile);
+	case SHIELDED_CONVEYER:
+		return std::make_shared<ShieldedConveyer>(SHIELDED_CONVEYER, direction, durability, size, tile);
 
 	case BRIDGE:
 		return std::make_shared<Bridge>(BRIDGE, direction, durability, size, tile);
-
 	case ROUTER:
 		return std::make_shared<Router>(ROUTER, durability, size, tile);
 
 	case SMALL_DRILL:
 		return std::make_shared<SmallDrill>(SMALL_DRILL, durability, size, tile);
-
 	case BIG_DRILL:
 		return std::make_shared<BigDrill>(BIG_DRILL, durability, size, tile);
-
 	case EFFECTIVE_DRILL:
 		break;
-
 	case REINFORCED_DRILL:
 		break;
 
 	case SHELL_FACTORY:
 		return std::make_shared<ShellFactory>(SHELL_FACTORY, durability, size, tile);
-
 	case ROCKET_FACTORY:
 		return std::make_shared<RocketFactory>(ROCKET_FACTORY, durability, size, tile);
 

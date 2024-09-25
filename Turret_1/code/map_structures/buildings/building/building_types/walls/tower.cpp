@@ -11,7 +11,6 @@ Tower::Tower(char type, short durability, short size, const TileCoord tile) : Bu
 	turret = nullptr;
 }
 
-
 Tower::~Tower()
 {
 	delete turret;
@@ -22,13 +21,9 @@ Tower::~Tower()
 void Tower::save(std::ofstream& fout) const
 {
 	if (turret != nullptr)
-	{
 		turret->save(fout);
-	}
 	else
-	{
 		fout << "!\n";
-	}
 	Building::save(fout);
 }
 
@@ -68,20 +63,10 @@ void Tower::interact()
 
 bool Tower::isThisPositionFree(int position) const
 {
-	short comonResQuant = 0;
-
-	for (auto it = storedResourcesList.cbegin(); it != storedResourcesList.cend(); ++it)
-	{
-		comonResQuant = comonResQuant + it->quant;
-	}
-
-	if (comonResQuant < 21)
-	{
-		return true;
-	}
-	return false;
+	if (Building::isStorageFull(20))
+		return false;
+	return true;
 }
-
 
 bool Tower::canAccept(int resType) const
 {

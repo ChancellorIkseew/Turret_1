@@ -23,18 +23,9 @@ void Router::interact()
 
 bool Router::isThisPositionFree(int position) const
 {
-	short comonResQuant = 0;
-
-	for (auto it = storedResourcesList.cbegin(); it != storedResourcesList.cend(); ++it)
-	{
-		comonResQuant = comonResQuant + it->quant;
-	}
-
-	if (comonResQuant < 11)
-	{
-		return true;
-	}
-	return false;
+	if (Building::isStorageFull(10))
+		return false;
+	return true;
 }
 
 

@@ -1,8 +1,6 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include <cmath>
-#include <list>
 
 #include "choise_save_folder.h"
 

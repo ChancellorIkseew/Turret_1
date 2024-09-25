@@ -97,12 +97,12 @@ int Turret::getType()
 
 int Turret::getTileX()
 {
-	return tile(coordX);
+	return t1::be::tile(coordX);
 }
 
 int Turret::getTileY()
 {
-	return tile(coordY);
+	return t1::be::tile(coordY);
 }
 
 int Turret::getCoordX()

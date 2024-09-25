@@ -14,33 +14,6 @@ ShieldedConveyer::ShieldedConveyer(char type, char direction, short durability, 
 }
 
 
-void ShieldedConveyer::load(std::ifstream& fin)
-{
-	fin >> direction;
-
-	switch (direction)
-	{
-	case 'w':
-		type = SHIELDED_CONVEYER_UP;
-		break;
-
-	case 'a':
-		type = SHIELDED_CONVEYER_LEFT;
-		break;
-
-	case 's':
-		type = SHIELDED_CONVEYER_DOWN;
-		break;
-
-	case 'd':
-		type = SHIELDED_CONVEYER_RIGHT;
-		break;
-	}
-
-	Building::load(fin);
-}
-
-
 void ShieldedConveyer::draw(sf::RenderWindow& window)
 {
 	buildingSprite.setPosition(tile.x * _TILE_ + _HALF_TILE_, tile.y * _TILE_ + _HALF_TILE_);

@@ -34,7 +34,7 @@ public:
 		return self;
 	}
 	
-	void interact(sf::RenderWindow &window);
+	void interact();
 	void relocate(int windowSizeX, int windowSizeY) override final;
 	
 	void prepareInterfaceSprites() override final;

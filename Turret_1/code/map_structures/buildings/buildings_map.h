@@ -46,6 +46,7 @@ public:
 	static void setDamage(const short damage, const TileCoord tile);
 	static int getBuildingType(const TileCoord tile);
 	static short getBuildingDurability(const TileCoord tile);
+	static char getBuildingDirection(const TileCoord tile);
 	static TileCoord getBuildingMainTileCoord(const TileCoord tile);
 
 	static bool getIsMapChanged();

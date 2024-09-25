@@ -12,9 +12,9 @@ Building::Building(int type, short durability, short size, const TileCoord tile)
 	this->type = type;
 	this->durability = durability;
 	this->size = size;
+	this->direction = 0;
 
-	this->tile.x = tile.x;
-	this->tile.y = tile.y;
+	this->tile = tile;
 }
 
 Building::~Building()
@@ -23,21 +23,19 @@ Building::~Building()
 }
 
 
-
 void Building::save(std::ofstream& fout)const
 {
 	fout << size << " " << durability << '\n';
 
 	for (auto it = storedResourcesList.cbegin(); it != storedResourcesList.cend(); ++it)
 	{
-		if (it->quant != 0)
+		if (it->quantity != 0)
 		{
-			fout << it->type << " " << it->quant << '\n';
+			fout << it->type << " " << it->quantity << '\n';
 		}	
 	}
 	fout << "$\n";
 }
-
 
 void Building::load(std::ifstream& fin)
 {
@@ -64,107 +62,19 @@ void Building::interact() { }
 
 void Building::setDamage(const int damage)
 {
-	durability -= damage;
+	this->durability -= damage;
 }
 
-TileCoord Building::getTileCoord() const
+void Building::setDurability(const int durability)
 {
-	return tile;
+	this->durability = durability;
 }
 
-
-// resUnits_and_inventory
-void Building::addToInventory(const int resType, const short amount)
-{
-	for (auto it = storedResourcesList.begin(); it != storedResourcesList.end(); ++it)
-	{
-		if (it->type == resType)
-		{
-			it->quant = it->quant + amount;
-			return;
-		}
-	}
-
-	storedResourcesList.emplace_back(StoredResource{ resType, amount });
-}
-
-
-
-int Building::findResource() const
-{
-	for (auto it = storedResourcesList.cbegin(); it != storedResourcesList.cend(); ++it)
-	{
-		if (it->quant > 0)
-		{
-			return it->type;
-		}
-	}
-
-	return RES_NO_RESOURCES;
-}
-
-
-
-bool Building::isEnoughRes(const int resType, const short amount) const
-{
-	for (auto it = storedResourcesList.cbegin(); it != storedResourcesList.cend(); ++it)
-	{
-		if (it->type == resType && it->quant >= amount)
-		{
-			return true;
-		}
-	}
-
-	return false;
-}
-
-
-
-void Building::wasteResorce(const int resType, const int amount)
-{
-	for (auto it = storedResourcesList.begin(); it != storedResourcesList.end(); ++it)
-	{
-		if (it->type == resType)
-		{
-			it->quant = it->quant - amount;
-			return;
-		}
-	}
-}
-
-
-
-bool Building::hasCorrectConveyerUp(const TileCoord tile) const
-{
-	return (BuildingsMap::getBuildingType({ tile.x, tile.y - 1 }) == STANDARD_CONVEYER_UP ||
-		BuildingsMap::getBuildingType({ tile.x, tile.y - 1 }) == STANDARD_CONVEYER_LEFT ||
-		BuildingsMap::getBuildingType({ tile.x, tile.y - 1 }) == STANDARD_CONVEYER_RIGHT ||
-		BuildingsMap::getBuildingType({ tile.x, tile.y - 1 }) == SHIELDED_CONVEYER_UP);
-}
-
-bool Building::hasCorrectConveyerLeft(const TileCoord tile) const
-{
-	return (BuildingsMap::getBuildingType({ tile.x - 1, tile.y }) == STANDARD_CONVEYER_UP ||
-		BuildingsMap::getBuildingType({ tile.x - 1, tile.y }) == STANDARD_CONVEYER_LEFT ||
-		BuildingsMap::getBuildingType({ tile.x - 1, tile.y }) == STANDARD_CONVEYER_DOWN ||
-		BuildingsMap::getBuildingType({ tile.x - 1, tile.y }) == SHIELDED_CONVEYER_LEFT);
-}
-
-bool Building::hasCorrectConveyerDown(const TileCoord tile) const
-{
-	return (BuildingsMap::getBuildingType({ tile.x, tile.y + 1 }) == STANDARD_CONVEYER_LEFT ||
-		BuildingsMap::getBuildingType({ tile.x, tile.y + 1 }) == STANDARD_CONVEYER_DOWN ||
-		BuildingsMap::getBuildingType({ tile.x, tile.y + 1 }) == STANDARD_CONVEYER_RIGHT ||
-		BuildingsMap::getBuildingType({ tile.x, tile.y + 1 }) == SHIELDED_CONVEYER_DOWN);
-}
-
-bool Building::hasCorrectConveyerRight(const TileCoord tile) const
-{
-	return (BuildingsMap::getBuildingType({ tile.x + 1, tile.y }) == STANDARD_CONVEYER_UP ||
-		BuildingsMap::getBuildingType({ tile.x + 1, tile.y }) == STANDARD_CONVEYER_DOWN ||
-		BuildingsMap::getBuildingType({ tile.x + 1, tile.y }) == STANDARD_CONVEYER_RIGHT ||
-		BuildingsMap::getBuildingType({ tile.x + 1, tile.y }) == SHIELDED_CONVEYER_RIGHT);
-}
+TileCoord Building::getTileCoord() const { return tile; }
+int Building::getType() const { return type; }
+short Building::getSize() const { return size; }
+short Building::getDurability() const { return durability; }
+char Building::getDirection() const { return direction;  }
 
 
 // resUnits_and_inventory
@@ -173,7 +83,97 @@ bool Building::isThisPositionFree(const int position) const { return false; }
 void Building::leavePosition(const int position) { }
 void Building::takePosition(const int position) { }
 
+bool Building::isStorageFull(const short capacity) const
+{
+	short comonResQuant = 0;
 
+	for (auto it = storedResourcesList.cbegin(); it != storedResourcesList.cend(); ++it)
+	{
+		comonResQuant += it->quantity;
+	}
+
+	if (comonResQuant < capacity)
+		return false;
+	return true;
+}
+
+int Building::findResource() const
+{
+	for (auto it = storedResourcesList.cbegin(); it != storedResourcesList.cend(); ++it)
+	{
+		if (it->quantity > 0)
+			return it->type;
+	}
+	return RES_NO_RESOURCES;
+}
+
+bool Building::isEnoughRes(const int resType, const short amount) const
+{
+	for (auto it = storedResourcesList.cbegin(); it != storedResourcesList.cend(); ++it)
+	{
+		if (it->type == resType && it->quantity >= amount)
+			return true;
+	}
+	return false;
+}
+
+void Building::wasteResorce(const int resType, const short amount)
+{
+	for (auto it = storedResourcesList.begin(); it != storedResourcesList.end(); ++it)
+	{
+		if (it->type == resType)
+		{
+			it->quantity -= amount;
+			return;
+		}
+	}
+}
+
+void Building::addToInventory(const int resType, const short amount)
+{
+	for (auto it = storedResourcesList.begin(); it != storedResourcesList.end(); ++it)
+	{
+		if (it->type == resType)
+		{
+			it->quantity += amount;
+			return;
+		}
+	}
+	storedResourcesList.emplace_back(StoredResource{ resType, amount });
+}
+
+
+
+bool Building::hasCorrectConveyerUp(const TileCoord tile) const
+{
+	const TileCoord checkTile = { tile.x, tile.y - 1 };
+	return ((BuildingsMap::getBuildingType(checkTile) == STANDARD_CONVEYER && BuildingsMap::getBuildingDirection(checkTile) != 's') ||
+		BuildingsMap::getBuildingDirection(checkTile) == 'w');
+}
+
+bool Building::hasCorrectConveyerLeft(const TileCoord tile) const
+{
+	const TileCoord checkTile = { tile.x - 1, tile.y };
+	return ((BuildingsMap::getBuildingType(checkTile) == STANDARD_CONVEYER && BuildingsMap::getBuildingDirection(checkTile) != 'd') ||
+		BuildingsMap::getBuildingDirection(checkTile) == 'a');
+}
+
+bool Building::hasCorrectConveyerDown(const TileCoord tile) const
+{
+	const TileCoord checkTile = { tile.x, tile.y + 1 };
+	return ((BuildingsMap::getBuildingType(checkTile) == STANDARD_CONVEYER && BuildingsMap::getBuildingDirection(checkTile) != 'w') ||
+		BuildingsMap::getBuildingDirection(checkTile) == 's');
+}
+
+bool Building::hasCorrectConveyerRight(const TileCoord tile) const
+{
+	const TileCoord checkTile = { tile.x + 1, tile.y };
+	return ((BuildingsMap::getBuildingType(checkTile) == STANDARD_CONVEYER && BuildingsMap::getBuildingDirection(checkTile) != 'a') ||
+		BuildingsMap::getBuildingDirection(checkTile) == 'd');
+}
+
+
+// resUnits_and_inventory
 void Building::placeResourceUnit(const int resType, const TileCoord tile)
 {
 	if (!isEnoughRes(resType, 1))
@@ -247,8 +247,8 @@ void Building::placeResourceUnitX4(const int resType)
 
 	for (int i = 0; i < 4; ++i)
 	{
-		int tileX = this->tile.x + coordSquareArr[i].x;
-		int tileY = this->tile.y + coordSquareArr[i].y;
+		int tileX = this->tile.x + t1::be::coordSquareArr[i].x;
+		int tileY = this->tile.y + t1::be::coordSquareArr[i].y;
 
 		placeResourceUnit(resType, { tileX, tileY });
 	}
@@ -261,8 +261,8 @@ void Building::placeResourceUnitX9(const int resType)
 
 	for (int i = 0; i < 9; (i != 3 ? ++i : i += 2))
 	{
-		int tileX = this->tile.x + coordSquareArr[i].x;
-		int tileY = this->tile.y + coordSquareArr[i].y;
+		int tileX = this->tile.x + t1::be::coordSquareArr[i].x;
+		int tileY = this->tile.y + t1::be::coordSquareArr[i].y;
 
 		placeResourceUnit(resType, { tileX, tileY });
 	}

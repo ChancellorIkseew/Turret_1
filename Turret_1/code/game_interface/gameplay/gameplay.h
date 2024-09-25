@@ -2,8 +2,9 @@
 #ifndef GAMEPLAY_H
 #define GAMEPLAY_H
 
-
-char startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, std::string saveFolderName);
-
+namespace t1::gamepl
+{
+	char startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, std::string saveFolderName);
+};
 
 #endif // GAMEPLAY_H

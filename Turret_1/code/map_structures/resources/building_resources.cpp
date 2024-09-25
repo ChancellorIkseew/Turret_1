@@ -3,9 +3,8 @@
 #include "map_structures/pre-settings/pre-settings.h"
 
 
-bool isEnoughAllRes(AllResources expenses)
+bool t1::res::isEnoughAllRes(AllResources expenses)
 {
-	
 	if(stoneQuantity < expenses.stoneQuant * PreSettings::getBuildingExpansesMidifier())
 		return false;
 	
@@ -29,19 +28,12 @@ bool isEnoughAllRes(AllResources expenses)
 
 
 
-void wasteRes(AllResources expenses)
+void t1::res::wasteRes(AllResources expenses)
 {
-	
 	stoneQuantity -= expenses.stoneQuant * PreSettings::getBuildingExpansesMidifier();
-	
 	ironQuantity -= expenses.ironQuant * PreSettings::getBuildingExpansesMidifier();
-	
 	copperQuantity -= expenses.copperQuant * PreSettings::getBuildingExpansesMidifier();
-	
 	siliconQuantity -= expenses.siliconQuant * PreSettings::getBuildingExpansesMidifier();
-	
 	coalQuantity -= expenses.coalQuant * PreSettings::getBuildingExpansesMidifier();
-	
 	sulfurQuantity -= expenses.sulfurQuant * PreSettings::getBuildingExpansesMidifier();
-	
 }

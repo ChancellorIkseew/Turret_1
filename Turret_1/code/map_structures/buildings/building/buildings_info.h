@@ -13,7 +13,7 @@ struct BuildingInfo
 	int size;
 	int durability;
 
-	AllResources costToBuild;
+	t1::res::AllResources costToBuild;
 
 	sf::String description;
 };

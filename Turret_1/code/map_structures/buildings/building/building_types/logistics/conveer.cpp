@@ -23,35 +23,35 @@ void Conveyer::save(std::ofstream& fout) const
 void Conveyer::load(std::ifstream& fin)
 {
 	fin >> direction;
-
-	switch (direction)
-	{
-	case 'w':
-		type = STANDARD_CONVEYER_UP;
-		break;
-
-	case 'a':
-		type = STANDARD_CONVEYER_LEFT;
-		break;
-
-	case 's':
-		type = STANDARD_CONVEYER_DOWN;
-		break;
-
-	case 'd':
-		type = STANDARD_CONVEYER_RIGHT;
-		break;
-	}
-
 	Building::load(fin);
 }
 
+
+bool Conveyer::canAccept(int resType) const
+{
+	return true;
+}
+
+bool Conveyer::isThisPositionFree(int position) const
+{
+	return isPositionFree[position];
+}
+
+void Conveyer::leavePosition(int position)
+{
+	isPositionFree[position] = true;
+}
+
+void Conveyer::takePosition(int position)
+{
+	isPositionFree[position] = false;
+}
 
 
 void Conveyer::draw(sf::RenderWindow& window)
 {
 	buildingSprite.setPosition(tile.x * _TILE_ + _HALF_TILE_, tile.y * _TILE_ + _HALF_TILE_);
-	
+
 	buildingSprite.setTextureRect(sf::IntRect(128, 96, 32, 32));
 	buildingSprite.setOrigin(16, 16);
 
@@ -74,26 +74,4 @@ void Conveyer::draw(sf::RenderWindow& window)
 
 	buildingSprite.setRotation(0);
 	buildingSprite.setOrigin(0, 0);
-}
-
-
-
-bool Conveyer::isThisPositionFree(int position) const
-{
-	return isPositionFree[position];
-}
-
-void Conveyer::takePosition(int position)
-{
-	isPositionFree[position] = false;
-}
-
-void Conveyer::leavePosition(int position)
-{
-	isPositionFree[position] = true;
-}
-
-bool Conveyer::canAccept(int resType) const
-{
-	return true;
 }

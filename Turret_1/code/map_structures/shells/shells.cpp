@@ -75,7 +75,7 @@ void Shell::draw(sf::RenderWindow &window, int time)
 
 void Shell::tryEnemyShellsHitting(BuildingsMap &buildingsMap1)
 {
-	TileCoord tileCoord = tile(coordX, coordY);
+	TileCoord tileCoord = t1::be::tile(coordX, coordY);
 	if(buildingsMap1.getBuildingType(tileCoord) != VOID_)
 	{
 		buildingsMap1.setDamage(1, tileCoord);

@@ -4,7 +4,7 @@
 
 BigDrill::BigDrill(int type, short durability, short size, const TileCoord tile) : Drill(type, durability, size, tile)
 {
-	
+	storageCapacity = 20;
 }
 
 
@@ -28,7 +28,7 @@ void BigDrill::interact()
 
 void BigDrill::animation()
 {
-	if (true)
+	if (!isStorageFull(storageCapacity))
 	{
 		rotorAngle += 0.5;
 		if (rotorAngle >= 360)

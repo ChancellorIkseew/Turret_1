@@ -43,7 +43,7 @@
 #include "map_structures/resources/resource_units.h"
 
 
-char startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, std::string saveFolderName)
+char t1::gamepl::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, std::string saveFolderName)
 {
     oldWinSizeX = 0;
 
@@ -75,7 +75,6 @@ char startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, std::string 
 
     initBuildingsInfo();
 
-	//startNewGame
 	if (startNewGame)
 	{
 		std::cout << "create new works" << std::endl;
@@ -83,7 +82,7 @@ char startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, std::string 
 		map1.mapGeneration();
 		buildingsMap1.generateMap();
 
-		giveStartResources();
+        t1::res::giveStartResources();
 	}
 	else
 	{
@@ -94,15 +93,12 @@ char startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, std::string 
         loadResUnitsList(saveFolderName);
 
 		time = loadTime(saveFolderName);
-		loadResources(saveFolderName);
+        t1::res::loadResources(saveFolderName);
 	}
 	
 
     
     bool isPaused = true;
-    bool isBuildingTypeSelected = false;		//from select_building_button
-    int buildingType = 0;					//from select_building_button
-
 	bool isGameplayActive = true;
 
     std::thread simulation([&]()
@@ -111,7 +107,7 @@ char startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, std::string 
             {
                 if (!isPaused)			//Begin action_block
                 {
-                    useEnergy(time);
+                    t1::res::useEnergy(time);
 
                     mtBuildings.lock();
                     buildingsMap1.intetractMap();
@@ -138,14 +134,14 @@ char startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, std::string 
                 if (LMB_Pressed)
                 {
                     MainControlPanel::getInstance().interact(mouseCoord, time, isPaused, isGameplayActive, saveFolderName);
-                    BuildingPanel::getInstance().interact(mouseCoord, mouseMapCoord, isBuildingTypeSelected, buildingType);
+                    BuildingPanel::getInstance().interact(mouseCoord, mouseMapCoord);
 
                     Sleep(150);
                 }
 
                 if (RMB_Pressed)
                 {
-                    BuildingPanel::getInstance().rotateBuilding(buildingType);
+                    BuildingPanel::getInstance().rotateBuilding();
                     Sleep(150);
                 }
 
@@ -229,30 +225,14 @@ char startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, std::string 
 		drawEntitiesList(mainWindow);
 		drawShellsList(mainWindow, time);
         mtBuildings.unlock();
-	    
-        if(isBuildingTypeSelected)
-		{   
-            BuildingPanel::getInstance().drawBuildExample(mainWindow ,mouseMapCoord, buildingType);
-           	SpecificationsPanel::getInstance().interact(mainWindow, buildingType);
-		}
-        
-        
+
+        BuildingPanel::getInstance().drawBuildExample(mainWindow ,mouseMapCoord);
+
         mainWindow.setView(overlay);						//	Draw_inteface block
-        
+        BuildingPanel::getInstance().draw(mainWindow); // Draw it first because of building_example, that should be "under" sub_windows.
         MainControlPanel::getInstance().draw(mainWindow);
         MainControlPanel::getInstance().interactWaveTimer(time, isPaused);
-        
-        BuildingPanel::getInstance().draw(mainWindow);
-		
-		ResourcesPanel::getInstance().interact(mainWindow); //Resourses_panel
-        ResourcesPanel::getInstance().draw(mainWindow); 	//Resourses_panel
-		
-		if(isBuildingTypeSelected)
-		{
-			SpecificationsPanel::getInstance().draw(mainWindow);	//Specification_panel
-		}
-
-		
+        ResourcesPanel::getInstance().draw(mainWindow);
         ConfirmationWindow::getInstance().draw(mainWindow);
         SettingsWindow::getInstance().draw(mainWindow);
 

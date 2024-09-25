@@ -14,9 +14,7 @@ public:
 	ShieldedConveyer(char type, char direction, short durability, short size, const TileCoord tile);
 	~ShieldedConveyer() = default;
 
-	void load(std::ifstream& fin) override;
-
-	void draw(sf::RenderWindow& window) override;
+	void draw(sf::RenderWindow& window) override final;
 	
 };
 

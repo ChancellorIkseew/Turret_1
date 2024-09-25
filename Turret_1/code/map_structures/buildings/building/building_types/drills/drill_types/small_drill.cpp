@@ -4,7 +4,7 @@
 
 SmallDrill::SmallDrill(int type, short durability, short size, const TileCoord tile) : Drill(type, durability, size, tile)
 {
-
+	storageCapacity = 5;
 }
 
 
@@ -29,7 +29,7 @@ void SmallDrill::interact()
 
 void SmallDrill::animation()
 {
-	if (true)
+	if (!isStorageFull(storageCapacity))
 	{
 		rotorAngle += 0.5;
 		if (rotorAngle >= 360)

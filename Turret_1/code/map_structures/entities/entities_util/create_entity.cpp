@@ -37,6 +37,8 @@ Entity* Entity::createEntity(int type)
 
 [[nodiscard]] PixelCoord Entity::randomMapBorderSpawn()
 {
+	using namespace t1::be;
+
 	float coordX, coordY;
 	int x = rand() % 4;
 	switch (x)

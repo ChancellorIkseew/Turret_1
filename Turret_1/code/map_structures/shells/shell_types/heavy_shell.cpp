@@ -36,7 +36,7 @@ void HeavyShell::tryPlayerShellsHitting(BuildingsMap& buildingsMap1)
 
 void HeavyShell::tryEnemyShellsHitting(BuildingsMap& buildingsMap1)
 {
-	TileCoord tileCoord = tile(coordX, coordY);
+	TileCoord tileCoord = t1::be::tile(coordX, coordY);
 
 	if (buildingsMap1.getBuildingType(tileCoord) != VOID_)
 	{
@@ -60,7 +60,7 @@ void HeavyShell::explosion(BuildingsMap& buildingsMap1)
 		}
 	}
 
-	buildingsMap1.setDamage(20, tile(coordX, coordY));
+	buildingsMap1.setDamage(20, t1::be::tile(coordX, coordY));
 
 	//particlesList.push_back(new Particle(1, coordX, coordY));
 }

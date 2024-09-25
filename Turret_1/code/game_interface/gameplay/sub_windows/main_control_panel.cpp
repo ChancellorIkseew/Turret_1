@@ -113,7 +113,7 @@ void MainControlPanel::interact(sf::Vector2i& mouseCoord, int time, bool& isPaus
 		mtBuildings.unlock();
 
 		saveTime(saveFolderName, time);
-		saveResources(saveFolderName);
+		t1::res::saveResources(saveFolderName);
 	}
 	
 	if (etmButtonSprite.getGlobalBounds().contains(mouseCoord.x, mouseCoord.y))

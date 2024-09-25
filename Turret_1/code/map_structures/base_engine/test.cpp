@@ -10,7 +10,7 @@ void spiralTest()
 {
 	for (int i = 0; i < 4109; ++i)
 	{
-		BuildingsMap::constructBuilding(8, '0', { coordSpyralArr[i].x + 50, coordSpyralArr[i].y + 50 });
+		BuildingsMap::constructBuilding(8, '0', { t1::be::coordSpyralArr[i].x + 50, t1::be::coordSpyralArr[i].y + 50 });
 	}
 }
 

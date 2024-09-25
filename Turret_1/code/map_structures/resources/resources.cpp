@@ -1,9 +1,7 @@
 
 #include <iostream>
-#include <sstream>
 #include <fstream>
 #include <string>
-#include <list>
 
 
 #include "map_structures/terrain/terrain.h"
@@ -13,18 +11,18 @@
 #include "res_enum.h"
 
 
-int stoneQuantity = 0;
-int ironQuantity = 0;
-int copperQuantity = 0;
-int siliconQuantity = 0;
-int coalQuantity = 0;
-int oilQuantity = 0;
-int sulfurQuantity = 0;
+int t1::res::stoneQuantity = 0;
+int t1::res::ironQuantity = 0;
+int t1::res::copperQuantity = 0;
+int t1::res::siliconQuantity = 0;
+int t1::res::coalQuantity = 0;
+int t1::res::oilQuantity = 0;
+int t1::res::sulfurQuantity = 0;
 
-int newEnergy = 0;
-int oldEnergy = 0;
+int t1::res::newEnergy = 0;
+int t1::res::oldEnergy = 0;
 
-void giveStartResources()
+void t1::res::giveStartResources()
 {
 	stoneQuantity = 1000;
 	ironQuantity = 1000;
@@ -37,7 +35,7 @@ void giveStartResources()
 
 
 
-void useEnergy(int time)
+void t1::res::useEnergy(int time)
 {
 	if(time%60 == 0)
 	{
@@ -51,7 +49,7 @@ void useEnergy(int time)
 
 
 
-void loadResources(std::string saveFolderName)
+void t1::res::loadResources(std::string saveFolderName)
 {
 	std::string saveFileName = "saves/" + saveFolderName + "/resources.txt";
 	
@@ -68,7 +66,7 @@ void loadResources(std::string saveFolderName)
 
 
 
-void saveResources(std::string saveFolderName)
+void t1::res::saveResources(std::string saveFolderName)
 {
 	std::string saveFileName = "saves/" + saveFolderName + "/resources.txt";
 	
@@ -167,7 +165,7 @@ void saveResources(std::string saveFolderName)
 
 
 
-void sendToBalance(int type, short amount)
+void t1::res::sendToBalance(int type, short amount)
 {
 
 
