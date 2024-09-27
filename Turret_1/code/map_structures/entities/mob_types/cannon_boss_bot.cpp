@@ -1,26 +1,14 @@
 #include "cannon_boss_bot.h"
 
-#include "map_structures/shells/shell_types/heavy_shell.h"
-#include "map_structures/shells/shell_enum.h"
+#include "map_structures/shells/shell/shell.h"
+#include "map_structures/shells/shell/shell_enum.h"
+#include "map_structures/shells/shells_list/shells_list.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 
 
-CannonBossBot::CannonBossBot(int type, PixelCoord coord, float curentAngleDeg, short curentDurability) :
-	Entity(type, coord, curentAngleDeg, curentDurability)
-{
-	this->initCombatData();
-}
-
 CannonBossBot::CannonBossBot(int type) : Entity(type)
 {
-	this->initCombatData();
-	durability = 270;
-}
-
-
-void CannonBossBot::initCombatData()
-{
-	Entity::initCombatData();
+	durability = 270 * enemyMobMaxDurabilityModifier;
 	range = 20;
 	spyralRange = 1369;
 	reload = 30;
@@ -42,15 +30,15 @@ void CannonBossBot::shoot()
 	if (isAimDetected)
 	{
 		shootingAngleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
-		shootingAngleDeg = atan2f(aimCoord.y - coord.y, aimCoord.x - coord.x) * 57.3f + 90;
+		shootingAngleDeg = atan2f(aimCoord.y - coord.y, aimCoord.x - coord.x) * 57.3f + 90.0f;
 
 		if (reloadTimer <= 0)
 		{
 			float correctionX = cos(shootingAngleRad) * 15;
 			float correctionY = sin(shootingAngleRad) * 15;
 
-			enemyShellsList.push_back(new HeavyShell(HEAVY_SHELL, coord.x - correctionX, coord.y + correctionY, shootingAngleRad, shootingAngleDeg));
-			enemyShellsList.push_back(new HeavyShell(HEAVY_SHELL, coord.x + correctionX, coord.y - correctionY, shootingAngleRad, shootingAngleDeg));
+			t1::sh::enemyShellsList.push_back(Shell::createShell(HEAVY_SHELL, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg));
+			t1::sh::enemyShellsList.push_back(Shell::createShell(HEAVY_SHELL, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg));
 			reloadTimer = reload;
 		}
 	}

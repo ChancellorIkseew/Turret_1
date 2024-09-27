@@ -1,26 +1,15 @@
 
 #include "laser_bot.h"
 
-#include "map_structures/shells/shells.h"
-#include "map_structures/shells/shell_enum.h"
+#include "map_structures/shells/shell/shell.h"
+#include "map_structures/shells/shell/shell_enum.h"
+#include "map_structures/shells/shells_list/shells_list.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 
 
-LaserBot::LaserBot(int type, PixelCoord coord, float curentAngleDeg, short curentDurability) :
-	Entity(type, coord, curentAngleDeg, curentDurability)
-{
-	this->initCombatData();
-}
-
 LaserBot::LaserBot(int type) : Entity(type)
 {
-	this->initCombatData();
-	durability = 10;
-}
-
-void LaserBot::initCombatData()
-{
-	Entity::initCombatData();
+	durability = 10 * enemyMobMaxDurabilityModifier;
 	range = 8;
 	spyralRange = 249;
 	reload = 60;
@@ -35,13 +24,13 @@ void LaserBot::shoot()
 	if (isAimDetected)
 	{
 		shootingAngleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
-		shootingAngleDeg = atan2f(aimCoord.y - coord.y, aimCoord.x - coord.x) * 57.3f + 90;
+		shootingAngleDeg = atan2f(aimCoord.y - coord.y, aimCoord.x - coord.x) * 57.3f + 90.0f;
 
 		if (reloadTimer <= 0)
 		{
 			float correctionX = cos(shootingAngleRad) * 4.5f;
 			float correctionY = sin(shootingAngleRad) * 4.5f;	
-			enemyShellsList.emplace_back(new Shell(AC_SHELL, coord.x - correctionX, coord.y + correctionY, shootingAngleRad, shootingAngleDeg));
+			t1::sh::enemyShellsList.emplace_back(Shell::createShell(AC_SHELL, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg));
 			reloadTimer = reload;
 		}
 	}

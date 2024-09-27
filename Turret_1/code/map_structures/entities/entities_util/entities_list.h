@@ -6,10 +6,10 @@
 #include <SFML\Graphics.hpp>
 #include <list>
 
-#include "map_structures/entities/entity.h"
+#include "map_structures/entities/entity/entity.h"
 
 
-extern std::list<Entity*> entitiesList;
+extern std::list<std::unique_ptr<Entity>> entitiesList;
 
 void loadEntitiesList(std::string saveFolderName);
 void saveEntitiesList(std::string saveFolderName);

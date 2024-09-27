@@ -8,7 +8,7 @@
 #include "specifications_panel.h"
 
 #include "map_structures/terrain/terrain.h"
-#include "map_structures/buildings/buildings_map.h"
+#include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/base_engine/tile_coord.h"
 #include "map_structures/base_engine/t1_mutex.h"
@@ -90,8 +90,6 @@ void BuildingPanel::interact(const sf::Vector2i& mouseCoord, const sf::Vector2f&
 {
 	if (isBuildingTypeSelected)
 	{
-		SpecificationsPanel::getInstance().interact(buildingType);
-
 		if (noSubWindowSelected(mouseCoord))
 		{	
 			std::cout << "building_place_works: " << buildingType << '\n';
@@ -304,6 +302,12 @@ void BuildingPanel::relocate(int windowSizeX, int windowSizeY)
 
 void BuildingPanel::draw(sf::RenderWindow& window)
 {
+	if (isBuildingTypeSelected)
+	{
+		SpecificationsPanel::getInstance().interact(buildingType);
+		SpecificationsPanel::getInstance().draw(window);
+	}
+
 	this->drawSubWindowBase(window);
 
 	window.draw(towerButtonSprite);

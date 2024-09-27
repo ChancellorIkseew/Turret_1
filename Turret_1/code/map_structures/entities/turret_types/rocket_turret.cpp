@@ -8,8 +8,9 @@
 #include "map_structures/resources/res_enum.h"
 
 #include "map_structures/entities/entities_util/entities_list.h"
-#include "map_structures/shells/shell_types/rockets.h"
-#include "map_structures/shells/shell_enum.h"
+#include "map_structures/shells/shells_list/shells_list.h"
+#include "map_structures/shells/shell/shell.h"
+#include "map_structures/shells/shell/shell_enum.h"
 
 
 RocketTurret::RocketTurret(int type) : Turret()
@@ -33,7 +34,7 @@ void RocketTurret::shooting()
 
 		if (reloadTimer > 120 && amooQuant > 0)		//shooting
 		{
-			playerShellsList.push_back(new Rocket(ROCKET, coordX, coordY, angleRad, angleDeg));
+			t1::sh::playerShellsList.push_back(Shell::createShell(ROCKET, { float(coordX), float(coordY) }, angleRad, angleDeg));
 			reloadTimer = 0;
 			--amooQuant;
 		}

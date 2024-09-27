@@ -4,13 +4,10 @@
 
 #include "resources_panel.h"
 
-#include "../../../map_structures/resources/resources.h"
-#include "../../../map_structures/terrain/terrain.h"
-#include "../../../map_structures/buildings/buildings_map.h"
-
 #include "sub_windows_util/fonts.h"
 #include "sub_windows_util/res_info.h"
 
+#include "map_structures/resources/resources.h"
 #include "map_structures/resources/res_enum.h"
 
 

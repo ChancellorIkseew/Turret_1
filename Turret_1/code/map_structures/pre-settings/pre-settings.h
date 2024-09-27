@@ -4,7 +4,7 @@
 
 #include <string>
 
-#include "map_structures/entities/entity.h"
+#include "map_structures/entities/entity/entity.h"
 
 
 class PreSettings

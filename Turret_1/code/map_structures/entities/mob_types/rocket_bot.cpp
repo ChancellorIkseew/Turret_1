@@ -1,26 +1,15 @@
 
 #include "rocket_bot.h"
 
-#include "map_structures/shells/shell_types/rockets.h"
-#include "map_structures/shells/shell_enum.h"
+#include "map_structures/shells/shell/shell.h"
+#include "map_structures/shells/shell/shell_enum.h"
+#include "map_structures/shells/shells_list/shells_list.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 
 
-RocketBot::RocketBot(int type, PixelCoord coord, float curentAngleDeg, short curentDurability) :
-	Entity(type, coord, curentAngleDeg, curentDurability)
-{
-	this->initCombatData();
-}
-
 RocketBot::RocketBot(int entityType) : Entity(entityType)
 {
-	this->initCombatData();
-	durability = 25;
-}
-
-void RocketBot::initCombatData()
-{
-	Entity::initCombatData();
+	durability = 25 * enemyMobMaxDurabilityModifier;
 	range = 25;
 	spyralRange = 2109;
 	reload = 240;
@@ -41,13 +30,13 @@ void RocketBot::shoot()
 	if (isAimDetected)
 	{
 		shootingAngleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
-		shootingAngleDeg = atan2f(aimCoord.y - coord.y, aimCoord.x - coord.x) * 57.3f + 90;
+		shootingAngleDeg = atan2f(aimCoord.y - coord.y, aimCoord.x - coord.x) * 57.3f + 90.0f;
 
 		if (reloadTimer <= 0)
 		{
 			float correctionX = cos(shootingAngleRad) * 5;
 			float correctionY = sin(shootingAngleRad) * 5;
-			enemyShellsList.push_back(new Rocket(ROCKET, coord.x - correctionX, coord.y + correctionY, shootingAngleRad, shootingAngleDeg));
+			t1::sh::enemyShellsList.push_back(Shell::createShell(ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg));
 			reloadTimer = reload;
 		}
 	}

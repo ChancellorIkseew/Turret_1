@@ -2,7 +2,7 @@
 #include "building.h"
 #include "buildings_enum.h"
 
-#include "map_structures/buildings/buildings_map.h"
+#include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/resources/res_enum.h"
 #include "map_structures/resources/resource_units.h"
 

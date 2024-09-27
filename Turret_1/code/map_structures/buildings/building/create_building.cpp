@@ -1,19 +1,19 @@
 
 #include "buildings_enum.h"
 
-#include "building_types/auxilary/auxilary.h"
-#include "building_types/walls/stone_wall.h"
-#include "building_types/walls/tower_types/stone_tower.h"
-#include "building_types/drills/drill.h"
-#include "building_types/drills/drill_types/small_drill.h"
-#include "building_types/drills/drill_types/big_drill.h"
-#include "building_types/logistics/conveer.h"
-#include "building_types/logistics/conveer_types/shielded_conveer.h"
-#include "building_types/logistics/bridge/bridge.h"
-#include "building_types/logistics/router/router.h"
-#include "building_types/storages/core.h"
-#include "building_types/factories/factory_types/shell_factory.h"
-#include "building_types/factories/factory_types/rocket_factory.h"
+#include "map_structures/buildings/building_types/auxilary/auxilary.h"
+#include "map_structures/buildings/building_types/walls/stone_wall.h"
+#include "map_structures/buildings/building_types/walls/tower_types/stone_tower.h"
+#include "map_structures/buildings/building_types/drills/drill.h"
+#include "map_structures/buildings/building_types/drills/drill_types/small_drill.h"
+#include "map_structures/buildings/building_types/drills/drill_types/big_drill.h"
+#include "map_structures/buildings/building_types/logistics/conveer.h"
+#include "map_structures/buildings/building_types/logistics/conveer_types/shielded_conveer.h"
+#include "map_structures/buildings/building_types/logistics/bridge/bridge.h"
+#include "map_structures/buildings/building_types/logistics/router/router.h"
+#include "map_structures/buildings/building_types/storages/core.h"
+#include "map_structures/buildings/building_types/factories/factory_types/shell_factory.h"
+#include "map_structures/buildings/building_types/factories/factory_types/rocket_factory.h"
 
 
 std::shared_ptr<Building> Building::createBuilding(int type, char direction, short durability, short size, const TileCoord tile)

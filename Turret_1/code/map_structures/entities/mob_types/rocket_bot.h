@@ -4,20 +4,14 @@
 
 #include <SFML\Graphics.hpp>
 
-#include "map_structures/entities/entity.h"
+#include "map_structures/entities/entity/entity.h"
 #include "map_structures/base_engine/tile_coord.h"
 
 
 class RocketBot : public Entity
 {
-private:
-
-	void initCombatData() override final;
-
 public:
-
 	RocketBot(int type);
-	RocketBot(int type, PixelCoord coord, float curentAngleDeg, short curentDurability);
 	~RocketBot() = default;
 
 	PixelCoord findDestinationCoord() const override final;

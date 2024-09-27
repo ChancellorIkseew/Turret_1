@@ -1,26 +1,15 @@
 
 #include "rocket_boss_bot.h"
 
-#include "map_structures/shells/shell_types/rockets.h"
-#include "map_structures/shells/shell_enum.h"
+#include "map_structures/shells/shell/shell.h"
+#include "map_structures/shells/shell/shell_enum.h"
+#include "map_structures/shells/shells_list/shells_list.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 
 
-RocketBossBot::RocketBossBot(int type, PixelCoord coord, float curentAngleDeg, short curentDurability) :
-	Entity(type, coord, curentAngleDeg, curentDurability)
-{
-	this->initCombatData();
-}
-
 RocketBossBot::RocketBossBot(int type) : Entity(type)
 {
-	this->initCombatData();
-	durability = 230;
-}
-
-void RocketBossBot::initCombatData()
-{
-	Entity::initCombatData();
+	durability = 230 * enemyMobMaxDurabilityModifier;
 	range = 28;
 	spyralRange = 2661;
 	reload = 60;
@@ -41,15 +30,15 @@ void RocketBossBot::shoot()
 	if (isAimDetected)
 	{
 		shootingAngleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
-		shootingAngleDeg = atan2f(aimCoord.y - coord.y, aimCoord.x - coord.x) * 57.3f + 90;
+		shootingAngleDeg = atan2f(aimCoord.y - coord.y, aimCoord.x - coord.x) * 57.3f + 90.0f;
 
 		if (reloadTimer <= 0)
 		{
 			float correctionX = cos(shootingAngleRad) * 18;
 			float correctionY = sin(shootingAngleRad) * 18;
 
-			enemyShellsList.push_back(new Rocket(ROCKET, coord.x - correctionX, coord.y + correctionY, shootingAngleRad, shootingAngleDeg));
-			enemyShellsList.push_back(new Rocket(ROCKET, coord.x + correctionX, coord.y - correctionY, shootingAngleRad, shootingAngleDeg));
+			t1::sh::enemyShellsList.push_back(Shell::createShell(ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg));
+			t1::sh::enemyShellsList.push_back(Shell::createShell(ROCKET, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg));
 			reloadTimer = reload;
 		}
 		else if (reloadTimer == (reload / 2))
@@ -57,8 +46,8 @@ void RocketBossBot::shoot()
 			float correctionX = cos(shootingAngleRad) * 14;
 			float correctionY = sin(shootingAngleRad) * 14;
 
-			enemyShellsList.push_back(new Rocket(ROCKET, coord.x - correctionX, coord.y + correctionY, shootingAngleRad, shootingAngleDeg));
-			enemyShellsList.push_back(new Rocket(ROCKET, coord.x + correctionX, coord.y - correctionY, shootingAngleRad, shootingAngleDeg));
+			t1::sh::enemyShellsList.push_back(Shell::createShell(ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg));
+			t1::sh::enemyShellsList.push_back(Shell::createShell(ROCKET, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg));
 		}
 	}
 }

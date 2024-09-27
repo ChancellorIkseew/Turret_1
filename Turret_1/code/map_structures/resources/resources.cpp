@@ -3,10 +3,6 @@
 #include <fstream>
 #include <string>
 
-
-#include "map_structures/terrain/terrain.h"
-#include "map_structures/buildings/buildings_map.h"
-
 #include "resources.h"
 #include "res_enum.h"
 

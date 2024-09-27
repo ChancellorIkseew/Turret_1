@@ -1,19 +1,17 @@
 
 #include <iostream>
-#include <fstream>
 #include <string>
-#include <list>
 
 
 #include "entities_list.h"
 
-#include "map_structures/entities/entity.h"
+#include "map_structures/entities/entity/entity.h"
 #include "map_structures/entities/mob_types/standard_bot.h"
 #include "map_structures/entities/mob_types/rocket_bot.h"
 #include "map_structures/entities/mob_types/cannon_boss_bot.h"
 
 
-std::list<Entity*> entitiesList;
+std::list<std::unique_ptr<Entity>> entitiesList;
 
 
 void loadEntitiesList(std::string saveFolderName)
@@ -22,29 +20,21 @@ void loadEntitiesList(std::string saveFolderName)
 
 	std::ifstream fin;
 	fin.open(saveFileName);
-	
-	char nextSymbol = '&';
-
 	if(fin.is_open())
 	{
 		while (true)
 		{
+			char nextSymbol;
 			fin >> nextSymbol;
-			if (nextSymbol != '&')
-			{
-				fin.seekg(-1, std::ios::cur);
 
-				int entityType;
-				fin >> entityType;
-
-				Entity* entity = Entity::createEntity(entityType);
-				entity->load(fin);
-				entitiesList.push_back(entity);
-			}
-			else
-			{
+			if (nextSymbol == '&')
 				break;
-			}
+
+			fin.seekg(-1, std::ios::cur);
+			int entityType;
+			fin >> entityType;
+			entitiesList.push_back(Entity::createEntity(entityType));
+			entitiesList.back()->load(fin);
 		}
 	}
 	fin.close();
@@ -60,8 +50,7 @@ void saveEntitiesList(std::string saveFolderName)
 
 	std::ofstream fout;
 	fout.open(saveFileName);
-	
-	for (std::list<Entity*>::iterator it = entitiesList.begin(); it != entitiesList.end(); ++it)
+	for (auto it = entitiesList.cbegin(); it != entitiesList.cend(); ++it)
 	{
 		(*it)->save(fout);
 	}
@@ -75,14 +64,13 @@ void saveEntitiesList(std::string saveFolderName)
 
 void moveEntitiesList()
 {
-	for (std::list<Entity*>::iterator it = entitiesList.begin(); it != entitiesList.end();)
+	for (auto it = entitiesList.begin(); it != entitiesList.end();)
 	{
 		(*it)->motion();
 		(*it)->shoot();
 
 		if ((*it)->getDurability() < 1)
 		{
-			delete* it;
 			it = entitiesList.erase(it);
 		}
 		else
@@ -93,15 +81,13 @@ void moveEntitiesList()
 }
 
 
-
 void drawEntitiesList(sf::RenderWindow& mainWindow)
 {
-	for (std::list<Entity*>::iterator it = entitiesList.begin(); it != entitiesList.end(); ++it)	//Draw_entities
+	for (auto it = entitiesList.begin(); it != entitiesList.end(); ++it)	//Draw_entities
 	{
 		(*it)->draw(mainWindow);
 	}
 }
-
 
 
 void cleanEntitiesList() noexcept

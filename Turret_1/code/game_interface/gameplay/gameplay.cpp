@@ -31,12 +31,13 @@
 
 #include "map_structures/buildings/building/buildings_info.h"
 
-#include "map_structures/entities/turret.h"
-#include "map_structures/entities/entity.h"
+#include "map_structures/terrain/terrain.h"
+#include "map_structures/buildings/buildings_map/buildings_map.h"
+#include "map_structures/entities/turret/turret.h"
+#include "map_structures/entities/entity/entity.h"
 #include "map_structures/entities/entities_util/entities_list.h"
-
-#include "map_structures/shells/shells.h"
-#include "map_structures/shells/shell_types/rockets.h"
+#include "map_structures/shells/shell/shell.h"
+#include "map_structures/shells/shells_list/shells_list.h"
 
 #include "map_structures/particles/particles.h"
 
@@ -114,8 +115,8 @@ char t1::gamepl::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, 
                     createWave(time);
                     moveEntitiesList();
                     buildingsMap1.cleanMapChanged();
-                    moveShellsList(time);
-                    checkShellsHitting(buildingsMap1);
+                    t1::sh::moveShellsList(time);
+                    t1::sh::checkShellsHitting();
                     moveParticlesList();
                     moveResUnitsList(time);
                     mtBuildings.unlock();
@@ -223,15 +224,15 @@ char t1::gamepl::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, 
         drawResUnitsList(mainWindow);
         drawParticlesList(mainWindow, time);
 		drawEntitiesList(mainWindow);
-		drawShellsList(mainWindow, time);
+        t1::sh::drawShellsList(mainWindow, time);
         mtBuildings.unlock();
 
         BuildingPanel::getInstance().drawBuildExample(mainWindow ,mouseMapCoord);
 
         mainWindow.setView(overlay);						//	Draw_inteface block
-        BuildingPanel::getInstance().draw(mainWindow); // Draw it first because of building_example, that should be "under" sub_windows.
         MainControlPanel::getInstance().draw(mainWindow);
         MainControlPanel::getInstance().interactWaveTimer(time, isPaused);
+        BuildingPanel::getInstance().draw(mainWindow);
         ResourcesPanel::getInstance().draw(mainWindow);
         ConfirmationWindow::getInstance().draw(mainWindow);
         SettingsWindow::getInstance().draw(mainWindow);

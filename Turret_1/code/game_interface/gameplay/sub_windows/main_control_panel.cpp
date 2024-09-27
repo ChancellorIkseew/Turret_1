@@ -17,10 +17,9 @@
 #include "game_interface/gameplay/gameplay_util/wave_constructor.h"
 
 #include "map_structures/terrain/terrain.h"
-#include "map_structures/buildings/buildings_map.h"
-#include "map_structures/entities/entity.h"
+#include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/entities/entities_util/entities_list.h"
-#include "map_structures/shells/shells.h"
+#include "map_structures/shells/shells_list/shells_list.h"
 #include "map_structures/particles/particles.h"
 #include "map_structures/resources/resources.h"
 #include "map_structures/resources/resource_units.h"
@@ -128,7 +127,7 @@ void MainControlPanel::interact(sf::Vector2i& mouseCoord, int time, bool& isPaus
 			
 			mtBuildings.lock();
 			cleanEntitiesList();
-			cleanShellsList();
+			t1::sh::cleanShellsList();
 			cleanParticlesList();
 			cleanResUnitsList();
 			mtBuildings.unlock();

@@ -8,6 +8,8 @@ BuildingInfo g_BuildingsInfoArray[1100];
 
 void initBuildingsInfo()
 {
+	g_BuildingsInfoArray[REMOVE] = { L"Снести здание", 0, 0, {0, 0, 0, 0, 0, 0}, L"Будьте осторожны. Ресурсы, \nзатраченные на строительство \nпри сносе не возвращаются." };
+
 	g_BuildingsInfoArray[STONE_WALL] = { L"Каменная стена", 1, 100, {20, 0, 0, 0, 0, 0}, L"Защищает другие постройки." };
 	g_BuildingsInfoArray[STEEL_WALL] = { L"Железная стена", 1, 300, {0, 32, 0, 0, 0, 0}, L"Защищает другие постройки." };
 

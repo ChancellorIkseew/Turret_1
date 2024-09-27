@@ -4,19 +4,13 @@
 
 #include <SFML\Graphics.hpp>
 
-#include "map_structures/entities/entity.h"
+#include "map_structures/entities/entity/entity.h"
 #include "map_structures/base_engine/tile_coord.h"
 
 
 class StandardBot : public Entity
 {
-private:
-
-	void initCombatData() override final;
-
 public:
-
-	StandardBot(int type, PixelCoord coord, float curentAngleDeg, short curentDurability);
 	StandardBot(int type);
 	~StandardBot() = default;
 

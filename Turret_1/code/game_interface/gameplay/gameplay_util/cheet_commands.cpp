@@ -8,7 +8,7 @@
 
 #include "map_structures/resources/resources.h"
 #include "map_structures/resources/res_enum.h"
-#include "map_structures/entities/entity.h"
+#include "map_structures/entities/entity/entity.h"
 #include "map_structures/entities/mob_types/standard_bot.h"
 #include "map_structures/entities/entities_util/entities_list.h"
 
@@ -64,7 +64,7 @@ void acceptCheetCommand()
 				}
 				if (act == 'n')
 				{
-					entitiesList.push_back(new StandardBot(1, { 8, 8 }, 0, 100));
+					//entitiesList.push_back(Entity::createEntity(1, { 8, 8 }, 0, 100));
 				}
 				break;
 			}

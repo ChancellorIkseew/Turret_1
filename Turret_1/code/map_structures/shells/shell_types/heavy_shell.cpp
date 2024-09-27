@@ -3,56 +3,30 @@
 
 #include "heavy_shell.h"
 
-#include "map_structures/buildings/buildings_map.h"
+#include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"
-#include "map_structures/entities/entity.h"
+#include "map_structures/entities/entity/entity.h"
 #include "map_structures/entities/entities_util/entities_list.h"
 #include "map_structures/particles/particles.h"
 
 
-HeavyShell::HeavyShell(int type, float coordX, float coordY, float angleRad, float angleDeg) :
-	Shell(type, coordX, coordY, angleRad, angleDeg)
+HeavyShell::HeavyShell(short type, PixelCoord coord, float angleRad, float angleDeg) :
+	Shell(type, coord, angleRad, angleDeg)
 {
+	damage = 20;
 	float speed = 1.6f;
 	maxLifeTime = 500;
-	lineMotionX = sin(angleRad) * speed;
-	lineMotionY = cos(angleRad) * speed;
+	lineMotion.x = sin(angleRad) * speed;
+	lineMotion.y = cos(angleRad) * speed;
 }
 
 
-void HeavyShell::tryPlayerShellsHitting(BuildingsMap& buildingsMap1)
+void HeavyShell::explosion()
 {
-	for (std::list<Entity*>::iterator it = entitiesList.begin(); it != entitiesList.end(); ++it)	//Cheek distance_to_mob
+	for (auto it = entitiesList.begin(); it != entitiesList.end(); ++it)	//Cheek damage
 	{
-		if (abs((*it)->getCoord().x - coordX) < 7 && abs((*it)->getCoord().y - coordY) < 7)
-		{
-			(*it)->setDamage(20);
-			isWasted = true;
-			return;
-		}
-	}
-}
-
-
-void HeavyShell::tryEnemyShellsHitting(BuildingsMap& buildingsMap1)
-{
-	TileCoord tileCoord = t1::be::tile(coordX, coordY);
-
-	if (buildingsMap1.getBuildingType(tileCoord) != VOID_)
-	{
-		buildingsMap1.setDamage(20, tileCoord);
-		isWasted = true;
-	}
-}
-
-
-void HeavyShell::explosion(BuildingsMap& buildingsMap1)
-{
-	for (std::list<Entity*>::iterator it = entitiesList.begin(); it != entitiesList.end(); ++it)	//Cheek damage
-	{
-		int deltaX = coordX - (*it)->getCoord().x;
-		int deltaY = coordY - (*it)->getCoord().y;
-
+		int deltaX = coord.x - (*it)->getCoord().x;
+		int deltaY = coord.y - (*it)->getCoord().y;
 
 		if (sqrt(deltaX * deltaX + deltaY * deltaY) < 48)
 		{
@@ -60,7 +34,7 @@ void HeavyShell::explosion(BuildingsMap& buildingsMap1)
 		}
 	}
 
-	buildingsMap1.setDamage(20, t1::be::tile(coordX, coordY));
+	BuildingsMap::setDamage(20, t1::be::tile(coord));
 
 	//particlesList.push_back(new Particle(1, coordX, coordY));
 }
@@ -70,7 +44,7 @@ void HeavyShell::draw(sf::RenderWindow& window, int time)
 {
 	shellSprite.setTextureRect(sf::IntRect(2, 0, 3, 7));
 	shellSprite.setOrigin(2, 1);
-	shellSprite.setPosition(coordX, coordY);
+	shellSprite.setPosition(coord.x, coord.y);
 	shellSprite.setRotation(angleDeg);
 	window.draw(shellSprite);
 }

@@ -4,7 +4,7 @@
 
 #include <SFML\Graphics.hpp>
 
-#include "map_structures/entities/turret.h"
+#include "map_structures/entities/turret/turret.h"
 
 
 class AutocannonTurret : public Turret
