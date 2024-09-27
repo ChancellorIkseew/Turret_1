@@ -10,17 +10,17 @@
 
 int main()
 {
-	//setlocale(LC_ALL, "Russian");
-	//system("chcp 1251");
-	//SetConsoleCP(1251);
-	//SetConsoleOutputCP(1251);
+    //setlocale(LC_ALL, "Russian");
+    //system("chcp 1251");
+    //SetConsoleCP(1251);
+    //SetConsoleOutputCP(1251);
 
-	
+    
 
-	openMainWindow();
+    openMainWindow();
 
-	std::cout << "return_to_main_works" << '\n';
+    std::cout << "return_to_main_works" << '\n';
 
-	_CrtDumpMemoryLeaks();
+    _CrtDumpMemoryLeaks();
     return 0;
 }

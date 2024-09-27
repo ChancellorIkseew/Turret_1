@@ -33,6 +33,9 @@ private:
 	sf::Sprite routerButtonSprite;
 	sf::Sprite sorterButtonSprite;
 
+	sf::Vector2i mouseCoord;
+	bool isBuildingTypeSelected;
+	int buildingType;
 	char direction;
 
 	void selectBuildingType(bool& isBuildingTypeSelected);
@@ -52,15 +55,14 @@ public:
 		return self;
 	}
 	
-	void interact(sf::Vector2i& mouseCoord, sf::Vector2f& mouseMapCoord, bool& isBuildingTypeSelected, int& buildingType);
-	void rotateBuilding(int &buildingType);
+	void interact(const sf::Vector2i& mouseCoord, const sf::Vector2f& mouseMapCoord);
+	void rotateBuilding();
 	void relocate(int windowSizeX, int windowSizeY) override final;
 	
 	void prepareInterfaceSprites() override final;
-	void draw(sf::RenderWindow &window) override final;
-	void drawBuildExample(sf::RenderWindow& window, sf::Vector2f mouseMapCoord, int buildingType);
+	void draw(sf::RenderWindow& window) override final;
+	void drawBuildExample(sf::RenderWindow& window, const sf::Vector2f& mouseMapCoord);
 	
 };
-
 
 #endif // BUILDING_PANEL_H

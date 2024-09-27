@@ -7,45 +7,41 @@
 #include <SFML\Graphics.hpp>
 #include <list>
 
+#include "map_structures/base_engine/tile_coord.h"
+
 
 class Particle
 {
-	private:
-	
-	float coordX;
-	float coordY;
+private:
+	PixelCoord coord;
 	
 	int particlesLifeTime;
-	
 	bool isWasted;
 	
 	static inline sf::Image burstImage;
 	static inline sf::Texture burstTexture;
 	static inline sf::Sprite burstSprite;
 
-	public:
-		
-		Particle(int type);
-		Particle(int type ,float value_coordX, float value_coordY);
-		~Particle() = default;
+public:
+	Particle(const int type, const PixelCoord coord);
+	~Particle() = default;
 
-		float getCoordX();
-		float getCoordY();
-		bool getIsWasted();
+	PixelCoord getCoord() const;
+	bool getIsWasted() const;
 
-		static void prepareSprites();
-		void animate();
-		void draw(sf::RenderWindow& window, int time);
+	static void prepareSprites();
+	void animate();
+	void draw(sf::RenderWindow& window);
 		
 };
 
 
-extern std::list<Particle*> particlesList;
+extern std::list<std::unique_ptr<Particle>> particlesList;
 
 
 void moveParticlesList();
 
-void drawParticlesList(sf::RenderWindow &window, int time);
+void drawParticlesList(sf::RenderWindow& window);
 
 void saveParticlesList(int saveFileNumber);
 

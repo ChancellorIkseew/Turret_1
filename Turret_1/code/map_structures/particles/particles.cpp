@@ -7,30 +7,16 @@
 #include "particles.h"
 
 		
-Particle::Particle(int type)
+Particle::Particle(const int type, const PixelCoord coord)
 {
-	isWasted = true;
-
+	this->coord = coord;
 	particlesLifeTime = 0;
-
-	coordX = 0;
-	coordY = 0;
-}
-
-Particle::Particle(int type, float value_coordX, float value_coordY)
-{
 	isWasted = false;
-	
-	particlesLifeTime = 0;
-	
-	coordX = value_coordX;
-	coordY = value_coordY;
 }
 
 
-float Particle::getCoordX() { return coordX; }
-float Particle::getCoordY() { return coordY; }
-bool Particle::getIsWasted() { return isWasted; }
+PixelCoord Particle::getCoord() const { return coord; }
+bool Particle::getIsWasted() const { return isWasted; }
 
 
 void Particle::prepareSprites()
@@ -54,23 +40,22 @@ void Particle::animate()
 	}
 }
 
-void Particle::draw(sf::RenderWindow &window, int time)
+void Particle::draw(sf::RenderWindow& window)
 {
-	burstSprite.setPosition(coordX, coordY);
+	burstSprite.setPosition(coord.x, coord.y);
 	window.draw(burstSprite);
 }
 
 
-std::list<Particle*> particlesList;
+std::list<std::unique_ptr<Particle>> particlesList;
 
 
 void moveParticlesList()
 {
-	for (std::list<Particle*>::iterator it = particlesList.begin(); it != particlesList.end();)
+	for (auto it = particlesList.begin(); it != particlesList.end();)
 	{
 		if((*it)->getIsWasted() == true)
 		{
-			delete *it;
 			it = particlesList.erase(it);
 		}
 		else
@@ -82,11 +67,11 @@ void moveParticlesList()
 }
 
 
-void drawParticlesList(sf::RenderWindow &window, int time)
+void drawParticlesList(sf::RenderWindow& window)
 {
-	for (std::list<Particle*>::iterator it = particlesList.begin(); it != particlesList.end(); ++it)
+	for (auto it = particlesList.begin(); it != particlesList.end(); ++it)
 	{
-		(*it)->draw(window, time);
+		(*it)->draw(window);
 	}
 }
 

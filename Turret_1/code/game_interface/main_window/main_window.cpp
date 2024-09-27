@@ -50,7 +50,7 @@ void openMainWindow()
 			currentFunction = openMenu(mainWindow, startNewGame, saveFolderName);
 		
 		if (currentFunction == GAMEPLAY)
-			currentFunction = startGameplay(mainWindow, startNewGame, saveFolderName);
+			currentFunction = t1::gamepl::startGameplay(mainWindow, startNewGame, saveFolderName);
 
 		//if (currentFunction == EXIT)
 			

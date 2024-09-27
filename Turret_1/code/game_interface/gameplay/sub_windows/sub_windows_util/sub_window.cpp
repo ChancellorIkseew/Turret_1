@@ -21,7 +21,6 @@ SubWindow::SubWindow(char type, int sizeX, int sizeY, int positionX, int positio
 }
 
 
-
 void SubWindow::init()
 {
 	prepareWindowBaseSprites();
@@ -29,7 +28,6 @@ void SubWindow::init()
 	ResInfo::prepareSprites();
 	initFonts();
 }
-
 
 
 void SubWindow::prepareWindowBaseSprites()
@@ -80,14 +78,6 @@ void SubWindow::prepareWindowBaseSprites()
 	lowerRightCornerSprite.setTexture(lowerRightCornerTexture);
 	lowerRightCornerSprite.setTextureRect(sf::IntRect(0, 0, 5, 5));
 }
-
-
-
-void SubWindow::prepareInterfaceSprites()
-{
-
-}
-
 
 
 void SubWindow::drawSubWindowBase(sf::RenderWindow& window)

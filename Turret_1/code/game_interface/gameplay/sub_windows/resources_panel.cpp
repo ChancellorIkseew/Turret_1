@@ -4,13 +4,10 @@
 
 #include "resources_panel.h"
 
-#include "../../../map_structures/resources/resources.h"
-#include "../../../map_structures/terrain/terrain.h"
-#include "../../../map_structures/buildings/buildings_map.h"
-
 #include "sub_windows_util/fonts.h"
 #include "sub_windows_util/res_info.h"
 
+#include "map_structures/resources/resources.h"
 #include "map_structures/resources/res_enum.h"
 
 
@@ -34,8 +31,9 @@ void ResourcesPanel::prepareInterfaceSprites()
 }
 
 
-void ResourcesPanel::interact(sf::RenderWindow &window)
+void ResourcesPanel::interact()
 {
+    using namespace t1::res;
     stoneInfo.update(stoneQuantity);
     ironInfo.update(ironQuantity);
     copperInfo.update(copperQuantity);
@@ -55,6 +53,7 @@ void ResourcesPanel::relocate(int windowSizeX, int windowSizeY)
 void ResourcesPanel::draw(sf::RenderWindow &window)
 {
     this->drawSubWindowBase(window);
+    this->interact();
 
     stoneInfo.draw(window, positionX+16, positionY+16);
     ironInfo.draw(window, positionX + 16, positionY + 46);
@@ -62,5 +61,4 @@ void ResourcesPanel::draw(sf::RenderWindow &window)
     siliconInfo.draw(window, positionX + 16, positionY + 106);
     coalInfo.draw(window, positionX + 16, positionY + 136);
     sulfurInfo.draw(window, positionX + 16, positionY + 166);
-
 }

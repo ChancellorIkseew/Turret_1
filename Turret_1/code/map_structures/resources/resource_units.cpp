@@ -9,13 +9,14 @@
 
 #include "game_interface/gameplay/gameplay_util/camera.h"
 
-#include "map_structures/buildings/buildings_map.h"
+#include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/base_engine/tile_coord.h"
 
 #include "res_enum.h"
 #include "resources.h"
 
+using namespace t1::be;
 
 ResourceUnit::ResourceUnit(int type, int coordX, int coordY, char motionDirection)
 {
@@ -58,39 +59,27 @@ void ResourceUnit::interact(int time)
 	{
 		this->moveResourceUnit();
 
-		currentTile = BuildingsMap::getBuildingType({ tile(coordX), tile(coordY) });
+		currentTile = BuildingsMap::getBuildingType(tile(coordX, coordY));
 
 		switch(currentTile)
 		{
-			case STANDARD_CONVEYER_UP:
-			case SHIELDED_CONVEYER_UP:
-				if (int(coordX) % _TILE_ == _HALF_TILE_)
-					motionDirection = 'w';
+			case STANDARD_CONVEYER:
+			case SHIELDED_CONVEYER:
+			{
+				char dir = BuildingsMap::getBuildingDirection(tile(coordX, coordY));
+
+				if ((dir == 'w' || dir == 's') && int(coordX) % _TILE_ == _HALF_TILE_)
+					motionDirection = dir;
+				else if ((dir == 'a' || dir == 'd') && int(coordY) % _TILE_ == _HALF_TILE_)
+					motionDirection = dir;
 				break;
-				
-			case STANDARD_CONVEYER_LEFT:
-			case SHIELDED_CONVEYER_LEFT:
-				if(int(coordY) % _TILE_ == _HALF_TILE_)
-					motionDirection = 'a';
-				break;
-			
-			case STANDARD_CONVEYER_DOWN:
-			case SHIELDED_CONVEYER_DOWN:
-				if(int(coordX) % _TILE_ == _HALF_TILE_)
-					motionDirection = 's';
-				break;
-			
-			case STANDARD_CONVEYER_RIGHT:
-			case SHIELDED_CONVEYER_RIGHT:
-				if(int(coordY) % _TILE_ == _HALF_TILE_)
-					motionDirection = 'd';
-				break;
+			}
 			
 			case CORE_MK1:
 			case CORE_MK2:
 			case CORE_MK3:
 				isWasted = true;
-				sendToBalance(resType, 1);
+				t1::res::sendToBalance(resType, 1);
 				break;
 			
 			default: // factories_and_towers
@@ -105,9 +94,6 @@ void ResourceUnit::interact(int time)
 				isWasted = true;
 				break;
 		}
-		
-		
-		resourceSprite.setPosition(coordX, coordY);
 	}
 }
 
@@ -211,88 +197,55 @@ bool ResourceUnit::changePosition()
 
 ResPosition ResourceUnit::getNextPosition()
 {
-	int t = BuildingsMap::getBuildingType({ tile(coordX), tile(coordY) });
+	int t = BuildingsMap::getBuildingType(tile(coordX, coordY));
 
 	switch (t)
 	{
-	case STANDARD_CONVEYER_UP:
-	case SHIELDED_CONVEYER_UP:
-		if (position.position == 2 || position.position == 3 || position.position == 4)
+	case STANDARD_CONVEYER:
+	case SHIELDED_CONVEYER:
+		switch (BuildingsMap::getBuildingDirection(tile(coordX, coordY)))
 		{
-			return { tile(coordX), tile(coordY), 1 };
+		case 'w':
+			if (position.position == 2 || position.position == 3 || position.position == 4)
+				return { tile(coordX), tile(coordY), 1 };
+			if (position.position == 1)
+				return { tile(coordX), tile(coordY), 0 };
+			if (position.position == 0)
+				return { tile(coordX), tile(coordY) - 1, 2 };
+			break;
+
+		case 'a':
+			if (position.position == 0 || position.position == 2 || position.position == 4)
+				return { tile(coordX), tile(coordY), 1 };
+			if (position.position == 1)
+				return { tile(coordX), tile(coordY), 3 };
+			if (position.position == 3)
+				return { tile(coordX) - 1, tile(coordY), 4 };
+			break;
+
+		case 's':
+			if (position.position == 0 || position.position == 3 || position.position == 4)
+				return { tile(coordX), tile(coordY), 1 };
+			if (position.position == 1)
+				return { tile(coordX), tile(coordY), 2 };
+			if (position.position == 2)
+				return { tile(coordX), tile(coordY) + 1, 0 };
+			break;
+
+		case 'd':
+			if (position.position == 0 || position.position == 2 || position.position == 3)
+				return { tile(coordX), tile(coordY), 1 };
+			if (position.position == 1)
+				return { tile(coordX), tile(coordY), 4 };
+			if (position.position == 4)
+				return { tile(coordX) + 1, tile(coordY), 3 };
+			break;
 		}
-
-		if (position.position == 1)
-		{
-			return { tile(coordX), tile(coordY), 0 };
-		}
-
-		if (position.position == 0)
-		{
-			return { tile(coordX), tile(coordY) - 1, 2 };
-		}
-
-		break;
-
-	case STANDARD_CONVEYER_LEFT:
-	case SHIELDED_CONVEYER_LEFT:
-		if (position.position == 0 || position.position == 2 || position.position == 4)
-		{
-			return { tile(coordX), tile(coordY), 1 };
-		}
-
-		if (position.position == 1)
-		{
-			return { tile(coordX), tile(coordY), 3 };
-		}
-
-		if (position.position == 3)
-		{
-			return { tile(coordX) - 1, tile(coordY), 4 };
-		}
-
-		break;
-
-	case STANDARD_CONVEYER_DOWN:
-	case SHIELDED_CONVEYER_DOWN:
-		if (position.position == 0 || position.position == 3 || position.position == 4)
-		{
-			return { tile(coordX), tile(coordY), 1 };
-		}
-
-		if (position.position == 1)
-		{
-			return { tile(coordX), tile(coordY), 2 };
-		}
-
-		if (position.position == 2)
-		{
-			return { tile(coordX), tile(coordY) + 1, 0 };
-		}
-
-		break;
-
-	case STANDARD_CONVEYER_RIGHT:
-	case SHIELDED_CONVEYER_RIGHT:
-		if (position.position == 0 || position.position == 2 || position.position == 3)
-		{
-			return { tile(coordX), tile(coordY), 1 };
-		}
-
-		if (position.position == 1)
-		{
-			return { tile(coordX), tile(coordY), 4 };
-		}
-
-		if (position.position == 4)
-		{
-			return { tile(coordX) + 1, tile(coordY), 3 };
-		}
-
 		break;
 
 	default:
 		return { 0,0,0 };
+		
 	}
 }
 

@@ -56,7 +56,7 @@ protected:
 	static inline sf::Texture lowerRightCornerTexture;
 	static inline sf::Sprite lowerRightCornerSprite;
 
-
+	void drawSubWindowBase(sf::RenderWindow& window);
 
 public:
 
@@ -76,8 +76,7 @@ public:
 	bool containsCoursor(sf::Vector2i& mouseCoord);
 
 	static void prepareWindowBaseSprites();
-	virtual void prepareInterfaceSprites();
-	void drawSubWindowBase(sf::RenderWindow& window);
+	virtual void prepareInterfaceSprites() = 0;
 	virtual void draw(sf::RenderWindow& window);
 
 };

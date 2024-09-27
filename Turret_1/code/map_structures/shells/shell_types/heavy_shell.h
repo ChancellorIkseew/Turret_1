@@ -4,20 +4,16 @@
 
 #include <SFML\Graphics.hpp>
 
-#include "map_structures/buildings/buildings_map.h"
-#include "map_structures/shells/shells.h"
+#include "map_structures/shells/shell/shell.h"
 
 
 class HeavyShell : public Shell
 {
 public:
-
-	HeavyShell(int type, float coordX, float coordY, float angleRad, float angleDeg);
+	HeavyShell(short type, PixelCoord coord, float angleRad, float angleDeg);
 	~HeavyShell() = default;
 
-	void tryPlayerShellsHitting(BuildingsMap& buildingsMap1) override final;
-	void tryEnemyShellsHitting(BuildingsMap& buildingsMap1) override final;
-	void explosion(BuildingsMap& buildingsMap1) override final;
+	void explosion() override final;
 
 	void draw(sf::RenderWindow& window, int time) override final;
 

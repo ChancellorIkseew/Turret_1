@@ -79,6 +79,8 @@ void Camera::resize(sf::RenderWindow& window)
 
 void Camera::updateMapRegion(sf::RenderWindow& window)
 {
+	using namespace t1::be;
+
 	sf::Vector2f startTile = window.mapPixelToCoords(sf::Vector2i(0, 0));
 	this->startTile = { tile(startTile.x) - 6, tile(startTile.y) - 6 }; // 6_is_max_building_line_size needed_to_correct_big_buildings_drawing
 	std::cout << "startX: " << this->startTile.x << " startY: " << this->startTile.y << '\n';

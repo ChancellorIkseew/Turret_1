@@ -7,17 +7,14 @@
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/resources/res_enum.h"
 
-#include "map_structures/entities/entities_util/entities_list.h"
-#include "map_structures/shells/shells.h"
+#include "map_structures/entities/entities_list/entities_list.h"
+#include "map_structures/shells/shell/shell.h"
+#include "map_structures/shells/shell/shell_enum.h"
+#include "map_structures/shells/shells_list/shells_list.h"
 
 
-AutocannonTurret::AutocannonTurret(int type) : Turret()
-{
-	pixelRange = 11* _TILE_;
-}
-
-AutocannonTurret::AutocannonTurret(int type ,int tileX, int tileY, float curentAngle, short curentDurability) :
-	Turret(AUTOCANNON_TURRET, tileX, tileY, curentAngle, curentDurability)
+AutocannonTurret::AutocannonTurret(int type, TileCoord tile) :
+	Turret(AUTOCANNON_TURRET, tile)
 {
 	pixelRange = 11 * _TILE_;
 }
@@ -25,52 +22,35 @@ AutocannonTurret::AutocannonTurret(int type ,int tileX, int tileY, float curentA
 		
 void AutocannonTurret::shooting()
 {
-	if(this->findAim())
+	Turret::reloadWeapon();
+	PixelCoord aim = Turret::findShootingAim();
+	if(aim.x != 0)
 	{
-		angleRad = atan2f(aimCoordX - coordX, aimCoordY - coordY);
-		angleDeg = atan2f(aimCoordY - coordY, aimCoordX - coordX) * 57.3 + 90;
+		angleRad = atan2f(aim.x - coord.x, aim.y - coord.y);
+		angleDeg = atan2f(aim.y - coord.y, aim.x - coord.x) * 57.3f + 90.0f;
 
-		if (reloadTimer % 15 == 0 && amooQuant > 0)		//shooting
+		if (reloadTimer % 15 == 0 && amooQuantity > 0)
 		{
 			float correctionX = cos(angleRad) * 1.5f;
 			float correctionY = sin(angleRad) * 1.5f;
 
-			if (reloadTimer % 30 == 0)
+			if (reloadTimer <= 0)
 			{
-				playerShellsList.push_back(new Shell('1', coordX + correctionX, coordY - correctionY, angleRad, angleDeg));
-				reloadTimer = 0;
+				t1::sh::playerShellsList.push_back(Shell::createShell(AC_SHELL, { coord.x + correctionX, coord.y - correctionY }, angleRad, angleDeg));
+				reloadTimer = 30;
 			}
 			else
 			{
-				playerShellsList.push_back(new Shell('1', coordX - correctionX, coordY + correctionY, angleRad, angleDeg));
+				t1::sh::playerShellsList.push_back(Shell::createShell(AC_SHELL, { coord.x - correctionX, coord.y + correctionY }, angleRad, angleDeg));
 			}
-
-			--amooQuant;
+			--amooQuantity;
 		}
-		++reloadTimer;
 	}
 }
 
 
-
-bool AutocannonTurret::needAmoo()
-{
-	if (amooQuant < 200)
-	{
-		return true;
-	}
-	return false;
-}
-
-void AutocannonTurret::takeAmoo(int resType)
-{
-	amooQuant = amooQuant + 20;
-}
-
-int AutocannonTurret::getAmooType() 
-{
-	return RES_AC_SHELLS;
-}
+void AutocannonTurret::takeAmoo(int resType) { amooQuantity += 20; }
+int AutocannonTurret::getAmooType() const { return RES_AC_SHELLS; }
 
 
 void AutocannonTurret::draw(sf::RenderWindow& window)
@@ -78,7 +58,7 @@ void AutocannonTurret::draw(sf::RenderWindow& window)
 	turretSprite.setTextureRect(sf::IntRect(4, 5, 12, 20));
 	turretSprite.setOrigin(5.5, 12);
 
-	turretSprite.setPosition(coordX, coordY);
+	turretSprite.setPosition(coord.x, coord.y);
 	turretSprite.setRotation(angleDeg);
 	window.draw(turretSprite);
 }
