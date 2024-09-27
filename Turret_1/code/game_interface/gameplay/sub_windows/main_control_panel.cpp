@@ -18,7 +18,7 @@
 
 #include "map_structures/terrain/terrain.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
-#include "map_structures/entities/entities_util/entities_list.h"
+#include "map_structures/entities/entities_list/entities_list.h"
 #include "map_structures/shells/shells_list/shells_list.h"
 #include "map_structures/particles/particles.h"
 #include "map_structures/resources/resources.h"

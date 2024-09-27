@@ -117,7 +117,7 @@
     <ClCompile Include="code\map_structures\buildings\building\building.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="code\map_structures\entities\entities_util\entities_list.cpp">
+    <ClCompile Include="code\map_structures\entities\entities_list\entities_list.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="code\map_structures\entities\mob_types\cannon_boss_bot.cpp">
@@ -288,12 +288,6 @@
     <ClCompile Include="code\map_structures\buildings\building_types\walls\tower_types\stone_tower.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="code\map_structures\buildings\building_types\walls\wall_types\stone_wall.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="code\map_structures\buildings\building_types\walls\stone_wall.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="code\map_structures\buildings\building_types\walls\tower.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -310,6 +304,12 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="code\map_structures\entities\turret\turret.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\map_structures\buildings\building_types\walls\wall_types\stone_wall.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\map_structures\entities\turret\ctreate_turret.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -386,7 +386,7 @@
     <ClInclude Include="code\map_structures\buildings\building\building.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="code\map_structures\entities\entities_util\entities_list.h">
+    <ClInclude Include="code\map_structures\entities\entities_list\entities_list.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\map_structures\entities\mob_types\cannon_boss_bot.h">
@@ -560,12 +560,6 @@
     <ClInclude Include="code\map_structures\buildings\building_types\walls\tower_types\stone_tower.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="code\map_structures\buildings\building_types\walls\wall_types\stone_wall.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="code\map_structures\buildings\building_types\walls\stone_wall.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="code\map_structures\buildings\building_types\walls\tower.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -579,6 +573,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\map_structures\entities\turret\turret.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\map_structures\buildings\building_types\walls\wall_types\stone_wall.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

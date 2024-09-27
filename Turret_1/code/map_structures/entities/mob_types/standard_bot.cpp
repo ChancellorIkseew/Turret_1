@@ -12,7 +12,6 @@ StandardBot::StandardBot(int type) : Entity(type)
 	durability = 10 * enemyMobMaxDurabilityModifier;
 	range = 5;
 	spyralRange = 109;
-	reload = 30;
 }
 
 
@@ -31,7 +30,7 @@ void StandardBot::shoot()
 			float correctionX = cos(shootingAngleRad) * 4.5f;
 			float correctionY = sin(shootingAngleRad) * 4.5f;	
 			t1::sh::enemyShellsList.emplace_back(Shell::createShell(AC_SHELL, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg));
-			reloadTimer = reload;
+			reloadTimer = 30;
 		}
 	}
 }

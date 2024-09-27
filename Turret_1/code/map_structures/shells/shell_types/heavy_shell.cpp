@@ -6,7 +6,7 @@
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/entities/entity/entity.h"
-#include "map_structures/entities/entities_util/entities_list.h"
+#include "map_structures/entities/entities_list/entities_list.h"
 #include "map_structures/particles/particles.h"
 
 
@@ -23,7 +23,7 @@ HeavyShell::HeavyShell(short type, PixelCoord coord, float angleRad, float angle
 
 void HeavyShell::explosion()
 {
-	for (auto it = entitiesList.begin(); it != entitiesList.end(); ++it)	//Cheek damage
+	for (auto it = entitiesList.begin(); it != entitiesList.end(); ++it)
 	{
 		int deltaX = coord.x - (*it)->getCoord().x;
 		int deltaY = coord.y - (*it)->getCoord().y;
@@ -36,7 +36,7 @@ void HeavyShell::explosion()
 
 	BuildingsMap::setDamage(20, t1::be::tile(coord));
 
-	//particlesList.push_back(new Particle(1, coordX, coordY));
+	//particlesList.push_back(std::make_unique<Particle>(1, coord));
 }
 
 

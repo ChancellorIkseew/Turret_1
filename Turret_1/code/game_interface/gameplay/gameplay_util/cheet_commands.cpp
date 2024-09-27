@@ -10,7 +10,7 @@
 #include "map_structures/resources/res_enum.h"
 #include "map_structures/entities/entity/entity.h"
 #include "map_structures/entities/mob_types/standard_bot.h"
-#include "map_structures/entities/entities_util/entities_list.h"
+#include "map_structures/entities/entities_list/entities_list.h"
 
 
 void acceptCheetCommand()

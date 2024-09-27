@@ -41,7 +41,7 @@ protected:
 
 public:
 	Building(int type, short durability, short size, const TileCoord tile);
-	virtual ~Building();
+	virtual ~Building() = default;
 
 	virtual void save(std::ofstream& fout) const;
 	virtual void load(std::ifstream& fin);

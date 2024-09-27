@@ -17,11 +17,6 @@ Building::Building(int type, short durability, short size, const TileCoord tile)
 	this->tile = tile;
 }
 
-Building::~Building()
-{
-	storedResourcesList.clear();
-}
-
 
 void Building::save(std::ofstream& fout)const
 {

@@ -7,19 +7,14 @@
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/resources/res_enum.h"
 
-#include "map_structures/entities/entities_util/entities_list.h"
+#include "map_structures/entities/entities_list/entities_list.h"
 #include "map_structures/shells/shells_list/shells_list.h"
 #include "map_structures/shells/shell/shell.h"
 #include "map_structures/shells/shell/shell_enum.h"
 
 
-RocketTurret::RocketTurret(int type) : Turret()
-{
-	pixelRange = 35 * _TILE_;
-}
-
-RocketTurret::RocketTurret(int type ,int tileX, int tileY, float curentAngle, short curentDurability) :
-	Turret(ROCKET_TURRET, tileX, tileY, curentAngle, curentDurability)
+RocketTurret::RocketTurret(int type, TileCoord tile) :
+	Turret(ROCKET_TURRET, tile)
 {
 	pixelRange = 35 * _TILE_;
 }
@@ -27,39 +22,25 @@ RocketTurret::RocketTurret(int type ,int tileX, int tileY, float curentAngle, sh
 
 void RocketTurret::shooting()
 {
-	if(this->findAim())
+	Turret::reloadWeapon();
+	PixelCoord aim = Turret::findShootingAim();
+	if (aim.x != 0)
 	{
-		angleRad = atan2f(aimCoordX - coordX, aimCoordY - coordY);
-		angleDeg = atan2f(aimCoordY - coordY, aimCoordX - coordX) * 57.3f + 90.0f;
+		angleRad = atan2f(aim.x - coord.x, aim.y - coord.y);
+		angleDeg = atan2f(aim.y - coord.y, aim.x - coord.x) * 57.3f + 90.0f;
 
-		if (reloadTimer > 120 && amooQuant > 0)		//shooting
+		if (reloadTimer <= 0 && amooQuantity > 0)
 		{
-			t1::sh::playerShellsList.push_back(Shell::createShell(ROCKET, { float(coordX), float(coordY) }, angleRad, angleDeg));
-			reloadTimer = 0;
-			--amooQuant;
+			t1::sh::playerShellsList.push_back(Shell::createShell(ROCKET, { float(coord.x), float(coord.y) }, angleRad, angleDeg));
+			reloadTimer = 120;
+			--amooQuantity;
 		}
-		++reloadTimer;
 	}
 }
 
-bool RocketTurret::needAmoo()
-{
-	if (amooQuant < 2)
-	{
-		return true;
-	}
-	return false;
-}
 
-void RocketTurret::takeAmoo(int resType)
-{
-	amooQuant = amooQuant + 1;
-}
-
-int RocketTurret::getAmooType()
-{
-	return RES_ROCKET;
-}
+void RocketTurret::takeAmoo(int resType) { amooQuantity += 1; }
+int RocketTurret::getAmooType() const { return RES_ROCKET; }
 
 
 void RocketTurret::draw(sf::RenderWindow& window)
@@ -67,7 +48,7 @@ void RocketTurret::draw(sf::RenderWindow& window)
 	turretSprite.setTextureRect(sf::IntRect(4, 23, 12, 20));
 	turretSprite.setOrigin(5.5, 12);
 
-	turretSprite.setPosition(coordX, coordY);
+	turretSprite.setPosition(coord.x, coord.y);
 	turretSprite.setRotation(angleDeg);
 	window.draw(turretSprite);
 }

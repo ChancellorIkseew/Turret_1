@@ -11,7 +11,6 @@ CannonBossBot::CannonBossBot(int type) : Entity(type)
 	durability = 270 * enemyMobMaxDurabilityModifier;
 	range = 20;
 	spyralRange = 1369;
-	reload = 30;
 }
 
 
@@ -19,7 +18,6 @@ PixelCoord CannonBossBot::findDestinationCoord() const
 {
 	return Entity::findDestinationCoord();
 }
-
 
 
 void CannonBossBot::shoot()
@@ -39,7 +37,7 @@ void CannonBossBot::shoot()
 
 			t1::sh::enemyShellsList.push_back(Shell::createShell(HEAVY_SHELL, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg));
 			t1::sh::enemyShellsList.push_back(Shell::createShell(HEAVY_SHELL, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg));
-			reloadTimer = reload;
+			reloadTimer = 30;
 		}
 	}
 }

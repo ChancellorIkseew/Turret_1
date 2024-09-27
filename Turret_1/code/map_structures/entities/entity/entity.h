@@ -10,9 +10,6 @@
 
 class Entity
 {
-private:
-	virtual void initCombatData();
-
 protected:
 	static inline int mapMaxX, mapMaxY;
 	static inline float enemyMobMaxDurabilityModifier;
@@ -36,7 +33,6 @@ protected:
 	int durability;
 	int range;
 	int spyralRange;
-	int reload;
 	int reloadTimer;
 	float maxSpeed;
 
@@ -47,6 +43,11 @@ protected:
 	static inline sf::Image shieldImage;
 	static inline sf::Texture shieldTexture;
 	static inline sf::Sprite shieldSprite;
+
+	void reloadWeapon();
+	virtual PixelCoord findDestinationCoord() const;
+	virtual PixelCoord findShootingAim() const;
+	void detectAim();
 
 public:
 	static void initPreSettings();
@@ -62,11 +63,7 @@ public:
 
 	// combat
 	virtual void motion();
-	virtual PixelCoord findDestinationCoord() const;
 	virtual void shoot() = 0;
-	virtual PixelCoord findShootingAim() const;
-	void detectAim();
-	void reloadWeapon();
 
 	// simple_utilites
 	void setDurability(const int durability);

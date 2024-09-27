@@ -10,16 +10,13 @@
 class RocketTurret : public Turret
 {
 	public:
-		
-		RocketTurret(int type ,int tileX, int tileY, float curentAngle, short curentDurability);
-		RocketTurret(int type);
+		RocketTurret(const int type, const TileCoord tile);
 		~RocketTurret() = default;
 
 		void shooting() override final;
 		
-		bool needAmoo() override final;
-		void takeAmoo(int resType) override final;
-		int getAmooType() override final;
+		void takeAmoo(const int resType) override final;
+		int getAmooType() const override final;
 		
 		void draw(sf::RenderWindow& window) override final;
 

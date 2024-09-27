@@ -9,12 +9,12 @@ class Tower : public Building
 {
 protected:
 
-	Turret* turret;
+	std::unique_ptr<Turret> turret;
 
 public:
 
 	Tower(char type, short durability, short size, const TileCoord tile);
-	virtual ~Tower();
+	virtual ~Tower() = default;
 
 	void save(std::ofstream& fout) const override;
 	void load(std::ifstream& fin) override;

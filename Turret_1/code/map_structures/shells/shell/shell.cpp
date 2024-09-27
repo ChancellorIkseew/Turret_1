@@ -11,7 +11,7 @@
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/entities/entity/entity.h"
-#include "map_structures/entities/entities_util/entities_list.h"
+#include "map_structures/entities/entities_list/entities_list.h"
 
 		
 Shell::Shell(short type, const PixelCoord coord, float angleRad, float angleDeg)

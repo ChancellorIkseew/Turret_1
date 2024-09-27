@@ -2,13 +2,9 @@
 #include <iostream>
 #include <string>
 
-
 #include "entities_list.h"
 
 #include "map_structures/entities/entity/entity.h"
-#include "map_structures/entities/mob_types/standard_bot.h"
-#include "map_structures/entities/mob_types/rocket_bot.h"
-#include "map_structures/entities/mob_types/cannon_boss_bot.h"
 
 
 std::list<std::unique_ptr<Entity>> entitiesList;

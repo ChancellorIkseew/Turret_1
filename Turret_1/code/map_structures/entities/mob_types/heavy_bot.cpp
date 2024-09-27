@@ -12,7 +12,6 @@ HeavyBot::HeavyBot(int type) : Entity(type)
 	durability = 50 * enemyMobMaxDurabilityModifier;
 	range = 7;
 	spyralRange = 193;
-	reload = 15;
 }
 
 
@@ -33,7 +32,7 @@ void HeavyBot::shoot()
 
 			t1::sh::enemyShellsList.emplace_back(Shell::createShell(AC_SHELL, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg));
 			t1::sh::enemyShellsList.emplace_back(Shell::createShell(AC_SHELL, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg));
-			reloadTimer = reload;
+			reloadTimer = 15;
 		}
 	}
 }

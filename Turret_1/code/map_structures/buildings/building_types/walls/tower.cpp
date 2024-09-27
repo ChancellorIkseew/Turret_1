@@ -11,12 +11,6 @@ Tower::Tower(char type, short durability, short size, const TileCoord tile) : Bu
 	turret = nullptr;
 }
 
-Tower::~Tower()
-{
-	delete turret;
-	turret = nullptr;
-}
-
 
 void Tower::save(std::ofstream& fout) const
 {
@@ -36,7 +30,7 @@ void Tower::load(std::ifstream& fin)
 		fin.seekg(-1, std::ios::cur);
 		int turretType;
 		fin >> turretType;
-		turret = Turret::setTurret(turretType, tile.x, tile.y);
+		turret = std::move(Turret::createTurret(turretType, tile));
 		turret->load(fin);
 	}
 	Building::load(fin);
@@ -80,22 +74,12 @@ bool Tower::canAccept(int resType) const
 
 void Tower::setTurret(int turretType)
 {
-	switch (turretType)
-	{
-	case AUTOCANNON_TURRET:
-		turret = new AutocannonTurret(AUTOCANNON_TURRET, tile.x, tile.y, 0, 0);
-		break;
-
-	case ROCKET_TURRET:
-		turret = new RocketTurret(ROCKET_TURRET, tile.x, tile.y, 0, 0);
-		break;
-
-	}
+	turret = std::move(Turret::createTurret(turretType, tile));
 }
 
 void Tower::removeTurret()
 {
-	delete turret;
+	turret.reset();
 	turret = nullptr;
 }
 

@@ -5,26 +5,21 @@
 #include <fstream>
 #include <SFML\Graphics.hpp>
 
+#include "map_structures/base_engine/tile_coord.h"
+
 
 class Turret
 {
-	protected:
-	
+protected:
 	int type;	
-	
-	int coordX;
-	int coordY;
+	PixelCoord coord;
 	
 	float angleRad;
 	float angleDeg;
 	
-	float aimCoordX;
-	float aimCoordY;
-	
 	int durability;
-	short amooQuant;
+	short amooQuantity;
 	short maxAmoo;
-	bool activity;
 
 	int reloadTimer;
 	int pixelRange;
@@ -33,41 +28,34 @@ class Turret
 	static inline sf::Texture turretTexture;
 	static inline sf::Sprite turretSprite;
 
-	public:
-		
-		Turret(int type ,int tileX, int tileY, float curentAngle, short curentDurability);
-		Turret();
-		~Turret() = default;
+	void reloadWeapon();
+	PixelCoord findShootingAim() const;
 
-		void save(std::ofstream& fout);
-		void load(std::ifstream& fin);
-		void set0();
-		
-		bool findAim();
-		virtual void shooting();
-		
-		virtual bool needAmoo();
-		virtual void takeAmoo(int resType);
+public:
+	Turret(const int type, const TileCoord tile);
+	~Turret() = default;
 
-		int getType();
-		int getTileX();
-		int getTileY();
-		int getCoordX();
-		int getCoordY();
-		int getAngleDeg();
-		int getAimCoordX();
-		int getAimCoordY();
-		int getDurability();
-		short getAmooQuant();
-		virtual int getAmooType();
-		char getActivity();
-		void setCoord(int coordX, int coordY);
+	void save(std::ofstream& fout) const;
+	void load(std::ifstream& fin);
+	static std::unique_ptr<Turret> createTurret(const int type, const TileCoord tile);
 
-		static Turret* setTurret(int type, int tileX, int tileY);
+	virtual void shooting() = 0;
 
-		// visual
-		static void prepareSprites();
-		virtual void draw(sf::RenderWindow& window);
+	bool needAmoo() const;
+	virtual void takeAmoo(const int resType) = 0;
+
+	int getType() const;
+	TileCoord getTile() const;
+	PixelCoord getCoord() const;
+	int getAngleDeg() const;
+	int getDurability() const;
+	short getAmooQuantity() const;
+	virtual int getAmooType() const = 0;
+	void setCoord(const PixelCoord coord);
+
+	// visual
+	static void prepareSprites();
+	virtual void draw(sf::RenderWindow& window) = 0;
 		
 };
 

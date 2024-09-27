@@ -2,7 +2,7 @@
 #include "buildings_enum.h"
 
 #include "map_structures/buildings/building_types/auxilary/auxilary.h"
-#include "map_structures/buildings/building_types/walls/stone_wall.h"
+#include "map_structures/buildings/building_types/walls/wall_types/stone_wall.h"
 #include "map_structures/buildings/building_types/walls/tower_types/stone_tower.h"
 #include "map_structures/buildings/building_types/drills/drill.h"
 #include "map_structures/buildings/building_types/drills/drill_types/small_drill.h"

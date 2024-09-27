@@ -12,7 +12,6 @@ RocketBossBot::RocketBossBot(int type) : Entity(type)
 	durability = 230 * enemyMobMaxDurabilityModifier;
 	range = 28;
 	spyralRange = 2661;
-	reload = 60;
 }
 
 
@@ -39,9 +38,9 @@ void RocketBossBot::shoot()
 
 			t1::sh::enemyShellsList.push_back(Shell::createShell(ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg));
 			t1::sh::enemyShellsList.push_back(Shell::createShell(ROCKET, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg));
-			reloadTimer = reload;
+			reloadTimer = 60;
 		}
-		else if (reloadTimer == (reload / 2))
+		else if (reloadTimer == 30)
 		{
 			float correctionX = cos(shootingAngleRad) * 14;
 			float correctionY = sin(shootingAngleRad) * 14;

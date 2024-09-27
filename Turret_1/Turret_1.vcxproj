@@ -201,11 +201,10 @@
     <ClCompile Include="code\map_structures\buildings\building_types\logistics\conveer_types\shielded_conveer.cpp" />
     <ClCompile Include="code\map_structures\buildings\building_types\logistics\router\router.cpp" />
     <ClCompile Include="code\map_structures\buildings\building_types\storages\core.cpp" />
-    <ClCompile Include="code\map_structures\buildings\building_types\walls\stone_wall.cpp" />
     <ClCompile Include="code\map_structures\buildings\building_types\walls\tower.cpp" />
     <ClCompile Include="code\map_structures\buildings\building_types\walls\tower_types\stone_tower.cpp" />
     <ClCompile Include="code\map_structures\buildings\building_types\walls\wall_types\stone_wall.cpp" />
-    <ClCompile Include="code\map_structures\entities\entities_util\entities_list.cpp" />
+    <ClCompile Include="code\map_structures\entities\entities_list\entities_list.cpp" />
     <ClCompile Include="code\map_structures\entities\entity\create_entity.cpp" />
     <ClCompile Include="code\map_structures\entities\entity\entity.cpp" />
     <ClCompile Include="code\map_structures\entities\mob_types\cannon_boss_bot.cpp" />
@@ -215,6 +214,7 @@
     <ClCompile Include="code\map_structures\entities\mob_types\rocket_boss_bot.cpp" />
     <ClCompile Include="code\map_structures\entities\mob_types\rocket_bot.cpp" />
     <ClCompile Include="code\map_structures\entities\mob_types\standard_bot.cpp" />
+    <ClCompile Include="code\map_structures\entities\turret\ctreate_turret.cpp" />
     <ClCompile Include="code\map_structures\entities\turret\turret.cpp" />
     <ClCompile Include="code\map_structures\entities\turret_types\autocannon_turret.cpp" />
     <ClCompile Include="code\map_structures\entities\turret_types\rocket_turret.cpp" />
@@ -299,11 +299,10 @@
     <ClInclude Include="code\map_structures\buildings\building_types\logistics\conveer_types\shielded_conveer.h" />
     <ClInclude Include="code\map_structures\buildings\building_types\logistics\router\router.h" />
     <ClInclude Include="code\map_structures\buildings\building_types\storages\core.h" />
-    <ClInclude Include="code\map_structures\buildings\building_types\walls\stone_wall.h" />
     <ClInclude Include="code\map_structures\buildings\building_types\walls\tower.h" />
     <ClInclude Include="code\map_structures\buildings\building_types\walls\tower_types\stone_tower.h" />
     <ClInclude Include="code\map_structures\buildings\building_types\walls\wall_types\stone_wall.h" />
-    <ClInclude Include="code\map_structures\entities\entities_util\entities_list.h" />
+    <ClInclude Include="code\map_structures\entities\entities_list\entities_list.h" />
     <ClInclude Include="code\map_structures\entities\entity\entity.h" />
     <ClInclude Include="code\map_structures\entities\entity\mob_enum.h" />
     <ClInclude Include="code\map_structures\entities\mob_types\cannon_boss_bot.h" />

@@ -6,7 +6,7 @@
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/entities/entity/entity.h"
-#include "map_structures/entities/entities_util/entities_list.h"
+#include "map_structures/entities/entities_list/entities_list.h"
 #include "map_structures/particles/particles.h"
 
 
@@ -57,7 +57,7 @@ void Rocket::explosion()
 	}
 
 	BuildingsMap::setDamage(20, t1::be::tile(coord));
-	particlesList.push_back(new Particle(1, coord.x, coord.y));
+	particlesList.emplace_back(std::make_unique<Particle>(1, coord));
 }
 
 

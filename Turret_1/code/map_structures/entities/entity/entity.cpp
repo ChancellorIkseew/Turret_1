@@ -19,12 +19,7 @@ void Entity::initPreSettings()
 
 Entity::Entity(const int type)		//1st spawn
 {
-	Entity::initCombatData();
 	this->type = type;
-}
-
-void Entity::initCombatData()
-{
 	isAimDetected = false;
 	aimCoord = pixel(mapMaxX / 2, mapMaxY / 2);
 	destCoord = aimCoord;
