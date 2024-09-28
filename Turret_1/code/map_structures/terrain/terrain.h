@@ -5,34 +5,29 @@
 #include <string>
 #include <SFML\Graphics.hpp>
 
+#include "map_structures/base_engine/tile_coord.h"
+
 
 class TerrainMap
 {
 private:	
-
-	static inline int mapMaxX, mapMaxY;
-	
-	static inline std::string saveFileName;
-
-	static inline int** arr;
+	static inline int mapSizeX, mapSizeY;
+	static inline std::vector<std::vector<std::unique_ptr<int>>> terrainMap;
 	
 	static inline sf::Image terrainImage;
 	static inline sf::Texture terrainTexture;
 	static inline sf::Sprite mapSprite;
 	
 public:
-	
-	TerrainMap(std::string saveFolderName);
+	TerrainMap(const TileCoord mapSize);
 	~TerrainMap();
 	
-	static void saveMap();
-	static void loadMap();
+	static void saveMap(const std::string& folder);
+	static void loadMap(const std::string& folder);
 
-	static void mapGeneration(); //empty constructor
+	static void generateMap(); //empty constructor
 	
-	static char getTileType(int tileX, int tileY);
-
-	static void Print();
+	static int getTileType(int tileX, int tileY);
 	
 	static void prepareSprites();
 	static void drawMap(sf::RenderWindow& window);

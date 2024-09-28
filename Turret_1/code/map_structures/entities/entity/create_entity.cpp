@@ -11,10 +11,13 @@
 #include "map_structures/entities/mob_types/rocket_boss_bot.h"
 
 
-void Entity::spawnEntity(const int type)
+void Entity::spawnEntity(const int amount, const int type)
 {
-	entitiesList.emplace_back(createEntity(type));
-	entitiesList.back()->setCoord(randomMapBorderSpawn());
+	for (int i = 0; i < amount; ++i)
+	{
+		entitiesList.emplace_back(createEntity(type));
+		entitiesList.back()->setCoord(randomMapBorderSpawn());
+	}
 }
 
 
@@ -48,22 +51,22 @@ PixelCoord Entity::randomMapBorderSpawn()
 	{
 	case 0:
 		coordX = pixelF(0);
-		coordY = pixelF(rand() % (mapMaxY - 1));
+		coordY = pixelF(rand() % (mapSizeY - 1));
 		break;
 
 	case 1:
-		coordX = pixelF(rand() % (mapMaxX - 3) + 1);
+		coordX = pixelF(rand() % (mapSizeX - 3) + 1);
 		coordY = pixelF(0);
 		break;
 
 	case 2:
-		coordX = pixelF(mapMaxX - 1);
-		coordY = pixelF(rand() % (mapMaxY - 1));
+		coordX = pixelF(mapSizeX - 1);
+		coordY = pixelF(rand() % (mapSizeY - 1));
 		break;
 
 	case 3:
-		coordX = pixelF(rand() % (mapMaxX - 3) + 1);
-		coordY = pixelF(mapMaxY - 1);
+		coordX = pixelF(rand() % (mapSizeX - 3) + 1);
+		coordY = pixelF(mapSizeY - 1);
 		break;
 
 	default:

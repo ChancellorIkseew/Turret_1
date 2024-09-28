@@ -24,68 +24,63 @@ void acceptCheetCommand()
 
 		switch (command)
 		{
-			case 'r':
+		case 'r':
+		{
+			std::cout << "enter_res_type_and_amount example : 1 1000" << '\n';
+			int resType;
+			int resAmount;
+			std::cin >> resType >> resAmount;
+			if (resType > 0 && resType < 7)
 			{
-				std::cout << "enter_res_type_and_amount example : 1 1000" << '\n';
-				int resType;
-				int resAmount;
-				std::cin >> resType >> resAmount;
-				if (resType > 0 && resType < 7)
-				{
-					t1::res::sendToBalance(resType, resAmount);
-				}
-				else
-				{
-					std::cout << "command_was_not_identified : this_resource_type_does_not_exist" << '\n';
-				}
-				break;
+				t1::res::sendToBalance(resType, resAmount);
 			}
+			else
+			{
+				std::cout << "command_was_not_identified : this_resource_type_does_not_exist" << '\n';
+			}
+			break;
+		}
 
-			case 'u':
-			{
-				using namespace t1::res;
-				sendToBalance(RES_STONE, 10000);
-				sendToBalance(RES_IRON, 10000);
-				sendToBalance(RES_COPPER, 10000);
-				sendToBalance(RES_SILICON, 10000);
-				sendToBalance(RES_COAL, 10000);
-				sendToBalance(RES_SULFUR, 10000);
-				break;
-			}
-			
-			case 'm':
-			{
-				std::cout << "enter_'k'_to_kill_all_enemy_mobs" << '\n';
-				char act;
-				std::cin >> act;
-				if (act == 'k')
-				{
-					cleanEntitiesList();
-				}
-				if (act == 'n')
-				{
-					//entitiesList.push_back(Entity::createEntity(1, { 8, 8 }, 0, 100));
-				}
-				break;
-			}
+		case 'u':
+		{
+			using namespace t1::res;
+			sendToBalance(RES_STONE, 10000);
+			sendToBalance(RES_IRON, 10000);
+			sendToBalance(RES_COPPER, 10000);
+			sendToBalance(RES_SILICON, 10000);
+			sendToBalance(RES_COAL, 10000);
+			sendToBalance(RES_SULFUR, 10000);
+			break;
+		}
 
-			case 't':
+		case 'm':
+		{
+			std::cout << "enter_'k'_to_kill_all_enemy_mobs" << '\n';
+			char act;
+			std::cin >> act;
+			if (act == 'k')
 			{
-				spiralTest();
-				break;
+				cleanEntitiesList();
 			}
-			
-			case 'c':
+			if (act == 'n')
 			{
-				std::cout << "cheet_comands_panel_closed" << '\n';
-				return;
+				entitiesList.push_back(std::move(Entity::createEntity(1)));
+				entitiesList.back()->setCoord({ 8.0f, 8.0f });
 			}
+			break;
+		}
 
-			default:
-			{
-				std::cout << "command_was_not_identified" << '\n';
-				break;
-			}
+		case 't':
+			spiralTest();
+			break;
+
+		case 'c':
+			std::cout << "cheet_comands_panel_closed" << '\n';
+			return;
+
+		default:
+			std::cout << "command_was_not_identified" << '\n';
+			break;
 		}
 	}
 }

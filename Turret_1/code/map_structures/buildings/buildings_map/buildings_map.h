@@ -13,23 +13,19 @@
 class BuildingsMap
 {
 private:
-
-	static inline int mapMaxX, mapMaxY;
+	static inline int mapSizeX, mapSizeY;
 	static inline bool isMapChanged;
-
-	static inline std::string saveFileName;
 	static inline std::vector<std::vector<std::shared_ptr<Building>>> buildingsMap;
 	
 	static void createAuxilary(const short size, const TileCoord tile);
 
 public:
-		
-	BuildingsMap(std::string saveFolderName);
-	~BuildingsMap() = default;
+	BuildingsMap(const TileCoord mapSize);
+	~BuildingsMap();
 		
 	static void generateMap();
-	static void loadMap();
-	static void saveMap();
+	static void loadMap(const std::string& folder);
+	static void saveMap(const std::string& folder);
 		
 	static void intetractMap();
 

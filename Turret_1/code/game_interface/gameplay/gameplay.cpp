@@ -18,7 +18,6 @@
 #include "map_structures/base_engine/t1_mutex.h"
 
 
-#include "sub_windows/sub_windows_util/sub_windows_list.h"
 #include "sub_windows/exit_confirmation.h"
 #include "sub_windows/settings_window.h"
 #include "sub_windows/resources_panel.h"
@@ -34,9 +33,7 @@
 #include "map_structures/terrain/terrain.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/entities/turret/turret.h"
-#include "map_structures/entities/entity/entity.h"
 #include "map_structures/entities/entities_list/entities_list.h"
-#include "map_structures/shells/shell/shell.h"
 #include "map_structures/shells/shells_list/shells_list.h"
 
 #include "map_structures/particles/particles.h"
@@ -47,24 +44,15 @@
 char t1::gamepl::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, std::string saveFolderName)
 {
     oldWinSizeX = 0;
-
 	int time = 0;
-
-    Camera t1camera;
-
-    bool isMovingCamera = false;
-    sf::Vector2f lastMousePosition;
-    
-    sf::Vector2i mouseCoord;
-    sf::Vector2f mouseMapCoord;
     
     if (!startNewGame)
     {
         PreSettings::loadPreSettings();
     }
 
-	TerrainMap map1(saveFolderName);
-	BuildingsMap buildingsMap1(saveFolderName);
+	TerrainMap terrainMap(PreSettings::getMapSize());
+	BuildingsMap buildingsMap(PreSettings::getMapSize());
     Entity::initPreSettings();
 
     Building::prepareSprites();
@@ -80,16 +68,16 @@ char t1::gamepl::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, 
 	{
 		std::cout << "create new works" << std::endl;
 
-		map1.mapGeneration();
-		buildingsMap1.generateMap();
+        TerrainMap::generateMap();
+        BuildingsMap::generateMap();
 
         t1::res::giveStartResources();
 	}
 	else
 	{
 		std::cout << "save open works" << std::endl;
-		map1.loadMap();
-		buildingsMap1.loadMap();
+        TerrainMap::loadMap(saveFolderName);
+		BuildingsMap::loadMap(saveFolderName);
 		loadEntitiesList(saveFolderName);
         loadResUnitsList(saveFolderName);
 
@@ -97,7 +85,12 @@ char t1::gamepl::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, 
         t1::res::loadResources(saveFolderName);
 	}
 	
+    Camera t1camera;
+    bool isMovingCamera = false;
+    sf::Vector2f lastMousePosition;
 
+    sf::Vector2i mouseCoord;
+    sf::Vector2f mouseMapCoord;
     
     bool isPaused = true;
 	bool isGameplayActive = true;
@@ -111,16 +104,14 @@ char t1::gamepl::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, 
                     t1::res::useEnergy(time);
 
                     mtBuildings.lock();
-                    buildingsMap1.intetractMap();
+                    BuildingsMap::intetractMap();
                     createWave(time);
                     moveEntitiesList();
-                    buildingsMap1.cleanMapChanged();
-                    t1::sh::moveShellsList(time);
-                    t1::sh::checkShellsHitting();
+                    BuildingsMap::cleanMapChanged();
+                    t1::sh::moveShellsList();
                     moveParticlesList();
                     moveResUnitsList(time);
                     mtBuildings.unlock();
-
                     time++;
                 }						//End action_block
                 Sleep(16);
@@ -160,13 +151,13 @@ char t1::gamepl::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, 
                     isMovingCamera = false;
                 }
 
-                #ifndef TURRET_1_NO_TEST_BUILD
+#ifndef TURRET_1_NO_TEST_BUILD
                 if (LEFT_ALT_Pressed)
                 {
                     std::cout << "cheet_comands_panel_called" << '\n';
                     acceptCheetCommand();
                 }
-                #endif // TURRET_1_NO_TEST_BUILD
+#endif // TURRET_1_NO_TEST_BUILD
 
                 Sleep(16);
             }
@@ -219,8 +210,8 @@ char t1::gamepl::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, 
 		mainWindow.clear(sf::Color::Black);		//Begin draw_block
         
         mtBuildings.lock();
-        map1.drawMap(mainWindow);
-        buildingsMap1.drawMap(mainWindow);
+        TerrainMap::drawMap(mainWindow);
+        BuildingsMap::drawMap(mainWindow);
         drawResUnitsList(mainWindow);
         drawParticlesList(mainWindow);
 		drawEntitiesList(mainWindow);

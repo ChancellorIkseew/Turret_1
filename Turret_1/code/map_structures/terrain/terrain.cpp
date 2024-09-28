@@ -12,21 +12,20 @@
 #include "game_interface/gameplay/gameplay_util/camera.h"
 
 
-TerrainMap::TerrainMap(std::string saveFolderName)
+TerrainMap::TerrainMap(const TileCoord mapSize)
 {
-	saveFileName = "saves/" + saveFolderName + "/terrain.txt";
+	mapSizeX = mapSize.x;
+	mapSizeY = mapSize.y;
 
-	mapMaxX = PreSettings::getMapMaxX();
-	mapMaxY = PreSettings::getMapMaxY();
-
-	arr = new int* [mapMaxX];
-	for (int x = 0; x < mapMaxX; ++x)
+	terrainMap.resize(mapSizeX);
+	terrainMap.reserve(mapSizeX);
+	for (int x = 0; x < mapSizeX; ++x)
 	{
-		arr[x] = new int[mapMaxY];
-
-		for (int y = 0; y < mapMaxY; ++y)
+		terrainMap[x].resize(mapSizeY);
+		terrainMap[x].reserve(mapSizeY);
+		for (int y = 0; y < mapSizeY; ++y)
 		{
-			arr[x][y] = TILE_GROUND;
+			terrainMap[x][y] = std::make_unique<int>(0);
 		}
 	}
 
@@ -35,94 +34,70 @@ TerrainMap::TerrainMap(std::string saveFolderName)
 
 TerrainMap::~TerrainMap()
 {
-	for (int x = 0; x < mapMaxX; ++x)
-	{
-		delete[] arr[x];
-		arr[x] = nullptr;
-	}
-	delete[] arr;
-	arr = nullptr;
+	terrainMap.clear();
 }
 
 
-void TerrainMap::mapGeneration() //empty constructor
+void TerrainMap::generateMap() //empty constructor
 {
-	
-
-	for(int y = 0; y < mapMaxY; ++y)
+	for(int y = 0; y < mapSizeY; ++y)
 	{
-		for(int x = 0; x < mapMaxX; ++x)
+		for(int x = 0; x < mapSizeX; ++x)
 		{
-			arr[x][y] = TILE_GROUND;
+			terrainMap[x][y] = std::move(std::make_unique<int>(TILE_GROUND));
 		
 			int allRes = rand() %10;
 		
 			if(allRes == 9)
 			{
 				int oneRes = rand() %7;
-			
-				arr[x][y] = int(oneRes+ TILE_GROUND);
+				*terrainMap[x][y] = int(oneRes);
 			}
 		}
 	}
 	
-	
 	for(int k = 0; k < 2; ++k)
 	{
-		for(int y = 1; y < mapMaxY-2; ++y)
+		for(int y = 1; y < mapSizeY-2; ++y)
 		{
-			for(int x = 1; x < mapMaxX-2; ++x)
+			for(int x = 1; x < mapSizeX-2; ++x)
 			{
-				if(arr[x][y] != TILE_GROUND)
+				if(*terrainMap[x][y] != TILE_GROUND)
 				{
-					int i = rand() %4;
-					if(i == 3)
-					{
-						arr[x][y+1] = arr[x][y];
-					}
-					
-					if(i == 2)
-					{
-						arr[x][y-1] = arr[x][y];
-					}
-				
-					if(i == 1)
-					{
-						arr[x+1][y] = arr[x][y];
-					}
-				
-					if(i == 0)
-					{
-						arr[x-1][y] = arr[x][y];
-					}
+					int dir = rand() %4;
+					if(dir == 3)
+						*terrainMap[x][y+1] = *terrainMap[x][y];
+					else if(dir == 2)
+						*terrainMap[x][y-1] = *terrainMap[x][y];
+					else if(dir == 1)
+						*terrainMap[x+1][y] = *terrainMap[x][y];
+					else if(dir == 0)
+						*terrainMap[x-1][y] = *terrainMap[x][y];
 				}
 			}
 		}
 	}
-	
 }
 
 
 
-void TerrainMap::loadMap()
+void TerrainMap::loadMap(const std::string& folder)
 {
+	std::string file = "saves/" + folder + "/terrain.txt";
 	std::ifstream fin;
-	fin.open(saveFileName);
-	
+	fin.open(file);
 	if(fin.is_open())
 	{
-		for(int y=0; y < mapMaxY; ++y)
+		for(int y=0; y < mapSizeY; ++y)
 		{
-			for(int x=0; x < mapMaxX+1; ++x)
+			for(int x=0; x < mapSizeX; ++x)
 			{
 				char c; 
 				fin.get(c);
-				
-				if(x != mapMaxX)
-				{
-					arr[x][y] = int(c - 48);
-				}
+				terrainMap[x][y] = std::move(std::make_unique<int>(c - 48));
 			}
+			char c;
+			fin.get(c);
 		}	
 	}
 	fin.close();
@@ -131,47 +106,31 @@ void TerrainMap::loadMap()
 
 
 
-char TerrainMap::getTileType(int tileX, int tileY)
+int TerrainMap::getTileType(int tileX, int tileY)
 {
-	return arr[tileX][tileY];
+	return *terrainMap[tileX][tileY];
 }
 
 
-
-void TerrainMap::Print()
+void TerrainMap::saveMap(const std::string& folder)
 {
-	for(int y = 0; y < mapMaxY; ++y)
-	{
-		for(int x = 0; x < mapMaxX; ++x)
-		{
-			std::cout<< arr[x][y];
-		}
-	
-		std::cout<<'\n';
-	}
-	std::cout<< "array end" <<'\n';
-}
-
-
-
-void TerrainMap::saveMap()
-{
+	std::string file = "saves/" + folder + "/terrain.txt";
 	std::ofstream fout;
-	fout.open(saveFileName);
-	
-	for(int y = 0; y < mapMaxY; ++y)
+	fout.open(file);
+	if (fout.is_open())
 	{
-		for(int x = 0; x < mapMaxX; ++x)
+		for (int y = 0; y < mapSizeY; ++y)
 		{
-			fout<< arr[x][y];
+			for (int x = 0; x < mapSizeX; ++x)
+			{
+				fout << *terrainMap[x][y];
+			}
+			fout << '\n';
 		}
-		fout<<'\n';
 	}
-	fout<< "array end" <<'\n';
 	fout.close();
 	std::cout << "Save map terrain works" <<'\n';
 }
-
 
 
 void TerrainMap::prepareSprites()
@@ -193,8 +152,7 @@ void TerrainMap::drawMap(sf::RenderWindow& window)
 	{
 		for (int x = startX; x < endX; ++x)
 		{
-
-			switch (arr[x][y])
+			switch (*terrainMap[x][y])
 			{
 			case TILE_GROUND:
 			{
@@ -247,7 +205,7 @@ void TerrainMap::drawMap(sf::RenderWindow& window)
 			/*
 			case '7':
 				{
-					arr[i][j] = 0;
+					terrainMap[i][j] = 0;
 					//mapSprite.setTextureRect(sf::IntRect(48, 16, 16, 16));	//leaf
 
 					break;
@@ -260,5 +218,4 @@ void TerrainMap::drawMap(sf::RenderWindow& window)
 			window.draw(mapSprite);
 		}
 	}
-
 }

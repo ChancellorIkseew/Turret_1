@@ -13,15 +13,14 @@ namespace t1::sh
 	extern std::list<std::unique_ptr<Shell>> playerShellsList;
 	extern std::list<std::unique_ptr<Shell>> enemyShellsList;
 
-	void cleanShellsList();
+	void saveShellsList(const std::string& folder);
+	void loadShellsList(const std::string& folder);
 
-	void moveShellsList(int time);
-	void checkShellsHitting();
-
-	void loadShellsList(int saveFileNumber);
-	void saveShellsList(int saveFileNumber);
+	void moveShellsList();
 
 	void drawShellsList(sf::RenderWindow& window, int time);
+
+	void cleanShellsList();
 }
 
 #endif // SHELLS_LIST_H

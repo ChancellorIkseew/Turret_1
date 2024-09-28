@@ -11,7 +11,7 @@
 class Entity
 {
 protected:
-	static inline int mapMaxX, mapMaxY;
+	static inline int mapSizeX, mapSizeY;
 	static inline float enemyMobMaxDurabilityModifier;
 		
 	int type;
@@ -58,7 +58,7 @@ public:
 	void save(std::ofstream& fout) const;
 	void load(std::ifstream& fin);
 	static std::unique_ptr<Entity> createEntity(const int type);
-	static void spawnEntity(const int type);
+	static void spawnEntity(const int amount, const int type);
 	static PixelCoord randomMapBorderSpawn();
 
 	// combat

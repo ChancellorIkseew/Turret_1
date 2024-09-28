@@ -105,8 +105,8 @@ void MainControlPanel::interact(sf::Vector2i& mouseCoord, int time, bool& isPaus
 		PreSettings::savePreSettings();
 
 		mtBuildings.lock();
-		TerrainMap::saveMap();
-		BuildingsMap::saveMap();
+		TerrainMap::saveMap(saveFolderName);
+		BuildingsMap::saveMap(saveFolderName);
 		saveEntitiesList(saveFolderName);
 		saveResUnitsList(saveFolderName);
 		mtBuildings.unlock();
@@ -177,7 +177,6 @@ void MainControlPanel::interactWaveTimer(int time, bool isPaused)
 		strWaveNumber << waveNumber;
 		waveNumberText2.setString(strWaveNumber.str());
 
-		//std::cout << time << std::endl;
     	std::ostringstream strSeconds;
 		strSeconds << (59 - ((time / 60) % 60));
 
@@ -186,7 +185,6 @@ void MainControlPanel::interactWaveTimer(int time, bool isPaused)
 
     	waveTimerText2.setString(strMinutes.str() + " : " + strSeconds.str());
 	}
-	
 }
 
 
@@ -204,7 +202,6 @@ void MainControlPanel::draw(sf::RenderWindow& window)
     {
     	remPauseButtonSprite.setPosition(250, 10);
     	window.draw(remPauseButtonSprite);
-    	//std::cout << "pause chek works" << std::endl;
     	setPauseButtonSprite.setPosition(-50, -50);
 	}
     else

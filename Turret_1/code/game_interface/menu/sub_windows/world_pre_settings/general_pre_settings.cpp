@@ -53,9 +53,7 @@ void GeneralPreSettingsWindow::draw(sf::RenderWindow& window)
 }
 
 
-
 void GeneralPreSettingsWindow::enterSettings()
 {
-	PreSettings::setMapMaxX(mapMaxX.getIntValue());
-	PreSettings::setMapMaxY(mapMaxY.getIntValue());
+	PreSettings::setMapSize({ mapMaxX.getIntValue(), mapMaxY.getIntValue() });
 }

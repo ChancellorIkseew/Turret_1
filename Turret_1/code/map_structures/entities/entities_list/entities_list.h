@@ -11,8 +11,8 @@
 
 extern std::list<std::unique_ptr<Entity>> entitiesList;
 
-void loadEntitiesList(std::string saveFolderName);
-void saveEntitiesList(std::string saveFolderName);
+void saveEntitiesList(const std::string& folder);
+void loadEntitiesList(const std::string& folder);
 
 void moveEntitiesList();
 

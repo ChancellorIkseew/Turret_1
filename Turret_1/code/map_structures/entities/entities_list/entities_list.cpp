@@ -10,12 +10,29 @@
 std::list<std::unique_ptr<Entity>> entitiesList;
 
 
-void loadEntitiesList(std::string saveFolderName)
+void saveEntitiesList(const std::string& folder)
 {
-	std::string saveFileName = "saves/" + saveFolderName + "/entities.txt";
+	std::string file = "saves/" + folder + "/entities.txt";
 
+	std::ofstream fout;
+	fout.open(file);
+	if (fout.is_open())
+	{
+		for (auto it = entitiesList.cbegin(); it != entitiesList.cend(); ++it)
+		{
+			(*it)->save(fout);
+		}
+	}
+	fout << '&';
+	fout.close();
+	std::cout << "Save entities list works" << '\n';
+}
+
+void loadEntitiesList(const std::string& folder)
+{
+	std::string file = "saves/" + folder + "/entities.txt";
 	std::ifstream fin;
-	fin.open(saveFileName);
+	fin.open(file);
 	if(fin.is_open())
 	{
 		while (true)
@@ -34,28 +51,8 @@ void loadEntitiesList(std::string saveFolderName)
 		}
 	}
 	fin.close();
-	
 	std::cout << "Load entities list works" <<'\n';
 }
-
-
-
-void saveEntitiesList(std::string saveFolderName)
-{
-	std::string saveFileName = "saves/" + saveFolderName + "/entities.txt";
-
-	std::ofstream fout;
-	fout.open(saveFileName);
-	for (auto it = entitiesList.cbegin(); it != entitiesList.cend(); ++it)
-	{
-		(*it)->save(fout);
-	}
-	fout << '&';
-	fout.close();
-	
-	std::cout << "Save entities list works" <<'\n';
-}
-
 
 
 void moveEntitiesList()
@@ -66,13 +63,9 @@ void moveEntitiesList()
 		(*it)->shoot();
 
 		if ((*it)->getDurability() < 1)
-		{
 			it = entitiesList.erase(it);
-		}
 		else
-		{
 			++it;
-		}
 	}
 }
 

@@ -21,6 +21,8 @@ Camera::Camera()
 
 	startTile = { 0, 0 };
 	endTile = { 50, 50 };
+
+	mapSize = PreSettings::getMapSize();
 }
 
 
@@ -56,22 +58,11 @@ void Camera::resize(sf::RenderWindow& window)
 {
 	if (sizeX != window.getSize().x || sizeY != window.getSize().y)	// mainWindow_scaling block
 	{
-
 		sizeX = window.getSize().x;
 		sizeY = window.getSize().y;
 
-
-		//std::cout << cameraSizeX << " " << cameraSizeY << '\n';
-		//mainWindow.setView(overlay);
-
-
-
 		camera.setSize(sf::Vector2f(sizeX * mapScale, sizeY * mapScale));
 		window.setView(camera);
-
-
-		//mouseCoord = sf::Mouse::getPosition(mainWindow); 
-		
 	}
 }
 
@@ -90,30 +81,12 @@ void Camera::updateMapRegion(sf::RenderWindow& window)
 	std::cout << "endX: " << this->endTile.x << " endY: " << this->endTile.y << '\n';
 
 	if (this->startTile.x < 0)
-	{
 		this->startTile.x = 0;
-	}
-
 	if (this->startTile.y < 0)
-	{
 		this->startTile.y = 0;
-	}
 
-
-	if (this->endTile.x > PreSettings::getMapMaxX())
-	{
-		this->endTile.x = PreSettings::getMapMaxX();
-	}
-
-	if (this->endTile.y > PreSettings::getMapMaxY())
-	{
-		this->endTile.y = PreSettings::getMapMaxY();
-	}
-
-}
-
-
-Camera::~Camera()
-{
-
+	if (this->endTile.x > mapSize.x)
+		this->endTile.x = mapSize.x;
+	if (this->endTile.y > mapSize.y)
+		this->endTile.y = mapSize.y;
 }

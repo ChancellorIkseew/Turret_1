@@ -25,9 +25,7 @@ void Building::save(std::ofstream& fout)const
 	for (auto it = storedResourcesList.cbegin(); it != storedResourcesList.cend(); ++it)
 	{
 		if (it->quantity != 0)
-		{
 			fout << it->type << " " << it->quantity << '\n';
-		}	
 	}
 	fout << "$\n";
 }
@@ -175,14 +173,14 @@ void Building::placeResourceUnit(const int resType, const TileCoord tile)
 		return;
 
 	int side = rand() % 4;
-	int j = 0;
+	int i = 0;
 
 	while (true)
 	{
 		switch (side)
 		{
 		case 0:
-			if (++j > 4)
+			if (++i > 4)
 				return;
 			if (side == 0 && hasCorrectConveyerUp(tile) &&
 				BuildingsMap::isThisPositionFree({ tile.x, tile.y - 1 }, 2) && isEnoughRes(resType, 1))
@@ -193,7 +191,7 @@ void Building::placeResourceUnit(const int resType, const TileCoord tile)
 			}
 
 		case 1:
-			if (++j > 4)
+			if (++i > 4)
 				return;
 			if (side == 1 && hasCorrectConveyerLeft(tile) &&
 				BuildingsMap::isThisPositionFree({ tile.x - 1, tile.y }, 4) && isEnoughRes(resType, 1))
@@ -204,7 +202,7 @@ void Building::placeResourceUnit(const int resType, const TileCoord tile)
 			}
 
 		case 2:
-			if (++j > 4)
+			if (++i > 4)
 				return;
 			if (side == 2 && hasCorrectConveyerDown(tile) &&
 				BuildingsMap::isThisPositionFree({ tile.x, tile.y + 1 }, 0) && isEnoughRes(resType, 1))
@@ -215,7 +213,7 @@ void Building::placeResourceUnit(const int resType, const TileCoord tile)
 			}
 
 		case 3:
-			if (++j > 4)
+			if (++i > 4)
 				return;
 			if (side == 3 && hasCorrectConveyerRight(tile) &&
 				BuildingsMap::isThisPositionFree({ tile.x + 1, tile.y }, 3) && isEnoughRes(resType, 1))

@@ -16,25 +16,29 @@
 #include "map_structures/resources/resources.h"
 
 
-BuildingsMap::BuildingsMap(std::string saveFolderName)
+BuildingsMap::BuildingsMap(const TileCoord mapSize)
 {
-	mapMaxX = PreSettings::getMapMaxX();
-	mapMaxY = PreSettings::getMapMaxY();
+	mapSizeX = mapSize.x;
+	mapSizeY = mapSize.y;
 
-	buildingsMap.resize(mapMaxX);
-	buildingsMap.reserve(mapMaxX);
-	for (int x = 0; x < mapMaxX; ++x)
+	buildingsMap.resize(mapSizeX);
+	buildingsMap.reserve(mapSizeX);
+	for (int x = 0; x < mapSizeX; ++x)
 	{
-		buildingsMap[x].resize(mapMaxY);
-		buildingsMap[x].reserve(mapMaxY);
-		for (int y = 0; y < mapMaxY; ++y)
+		buildingsMap[x].resize(mapSizeY);
+		buildingsMap[x].reserve(mapSizeY);
+		for (int y = 0; y < mapSizeY; ++y)
 		{
 			buildingsMap[x][y] = nullptr;
 		}
 	}
 
-	saveFileName = "saves/" + saveFolderName + "/buildings.txt";
 	isMapChanged = false;
+}
+
+BuildingsMap::~BuildingsMap()
+{
+	buildingsMap.clear();
 }
 
 
@@ -46,10 +50,11 @@ void BuildingsMap::generateMap()
 }
 
 
-void BuildingsMap::loadMap()
+void BuildingsMap::loadMap(const std::string& folder)
 {
+	std::string file = "saves/" + folder + "/buildings.txt";
 	std::ifstream fin;
-	fin.open(saveFileName);
+	fin.open(file);
 	if (fin.is_open())
 	{
 		while (true)
@@ -74,15 +79,16 @@ void BuildingsMap::loadMap()
 }
 
 
-void BuildingsMap::saveMap()
+void BuildingsMap::saveMap(const std::string& folder)
 {
+	std::string file = "saves/" + folder + "/buildings.txt";
 	std::ofstream fout;
-	fout.open(saveFileName);
+	fout.open(file);
 	if (fout.is_open())
 	{
-		for (int x = 0; x < mapMaxX; x++)
+		for (int x = 0; x < mapSizeX; x++)
 		{
-			for (int y = 0; y < mapMaxY; y++)
+			for (int y = 0; y < mapSizeY; y++)
 			{
 				if (buildingsMap[x][y] != nullptr && buildingsMap[x][y]->getType() != AUXILARY)
 				{
@@ -152,13 +158,13 @@ void BuildingsMap::demolishBuilding(const TileCoord tile)
 
 inline bool BuildingsMap::buildingExists(const int tileX, const int tileY)
 {
-	return (tileX >= 0 && tileX < mapMaxX && tileY >= 0 && tileY < mapMaxY &&
+	return (tileX >= 0 && tileX < mapSizeX && tileY >= 0 && tileY < mapSizeY &&
 		buildingsMap[tileX][tileY] != nullptr);
 }
 
 inline bool BuildingsMap::isVoidBuilding(const int tileX, const int tileY)
 {
-	return (tileX >= 0 && tileX < mapMaxX && tileY >= 0 && tileY < mapMaxY &&
+	return (tileX >= 0 && tileX < mapSizeX && tileY >= 0 && tileY < mapSizeY &&
 		buildingsMap[tileX][tileY] == nullptr);
 }
 
@@ -223,9 +229,9 @@ void BuildingsMap::cleanMapChanged() { isMapChanged = false; }
 
 void BuildingsMap::intetractMap()
 {
-	for (int y = 0; y < mapMaxY; ++y)
+	for (int x = 0; x < mapSizeX; ++x)
 	{
-		for (int x = 0; x < mapMaxX; ++x)
+		for (int y = 0; y < mapSizeY; ++y)
 		{
 			if (buildingsMap[x][y] != nullptr && buildingsMap[x][y]->getType() != AUXILARY)
 			{
@@ -315,9 +321,9 @@ void BuildingsMap::drawMap(sf::RenderWindow& window)
 	int endX = Camera::endTile.x;
 	int endY = Camera::endTile.y;
 
-	for (int y = startY; y < endY; ++y)
+	for (int x = startX; x < endX; ++x)
 	{
-		for (int x = startX; x < endX; ++x)
+		for (int y = startY; y < endY; ++y)
 		{
 			if (buildingsMap[x][y] != nullptr && buildingsMap[x][y]->getType() != AUXILARY)
 			{

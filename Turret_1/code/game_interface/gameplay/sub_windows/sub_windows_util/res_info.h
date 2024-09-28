@@ -8,7 +8,6 @@
 class ResInfo
 {
 private:
-
 	static inline sf::Image resIcoImage;
 	static inline sf::Texture resIcoTexture;
 	static inline sf::Sprite resIcoSprite;
@@ -18,11 +17,7 @@ private:
 	int resType;
 	int resQuantity;
 
-	//int subWinPositionX;
-	//int subWinPositionY;
-
 public:
-
 	ResInfo(int resType, int resQuantity);
 	ResInfo();
 	~ResInfo() = default;

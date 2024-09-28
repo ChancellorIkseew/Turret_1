@@ -5,6 +5,7 @@
 #include <string>
 
 #include "map_structures/entities/entity/entity.h"
+#include "map_structures/base_engine/tile_coord.h"
 
 
 class PreSettings
@@ -15,7 +16,7 @@ private:
 	static inline std::string saveFileName = "0";
 
 	// terrain:
-	static inline int mapMaxX = 0, mapMaxY = 0;
+	static inline TileCoord mapSize = { 0, 0 };
 	static inline short generationMetodth = 0;
 	static inline int worldSeed = 0;
 
@@ -51,15 +52,13 @@ public:
 	static void savePreSettings();
 
 	// terrain:
-	static int getMapMaxX();
-	static int getMapMaxY();
+	static TileCoord getMapSize();
 	static short getGenerationMetodth();
 	static int getWorldSeed();
 
-	static void setMapMaxX(int v_mapMaxX);
-	static void setMapMaxY(int v_mapMaxY);
-	static void setGenerationMetod(short v_generatinMetodth);
-	static void setWorldSeed(int V_worldSeed);
+	static void setMapSize(const TileCoord mapSize);
+	static void setGenerationMetod(const short metodth);
+	static void setWorldSeed(const int seed);
 
 	// buildings
 	static float getBuildingsMaxDurabilityModidier();

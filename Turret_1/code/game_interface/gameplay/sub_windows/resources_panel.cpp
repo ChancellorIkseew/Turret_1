@@ -1,5 +1,4 @@
 
-#include <sstream>
 #include <SFML\Graphics.hpp>
 
 #include "resources_panel.h"

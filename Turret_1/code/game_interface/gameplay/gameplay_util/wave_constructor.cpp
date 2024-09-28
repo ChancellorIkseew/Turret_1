@@ -26,230 +26,109 @@ void createWave(int &time)
 }
 
 
-
-void switchEntities(int waveNumber)
+void switchEntities(const int waveNumber)
 {
-	
 	switch(waveNumber)
 	{
-		case 1:
-			{
-			Entity::spawnEntity(STANDARD_BOT);
-			Entity::spawnEntity(STANDARD_BOT);
+	case 1:
+		Entity::spawnEntity(2, STANDARD_BOT);
 #ifdef TURRET_1_MOB_TYPES_TEST
-			Entity::spawnEntityHeavyBot(HEAVY_BOT);
-			Entity::spawnEntityRocketBot(ROCKET_BOT);
-			Entity::spawnEntityLaserBot(LASER_BOT);
-			Entity::spawnEntityCannonBossBot(CANNON_BOSS);
-			Entity::spawnEntityRocketBossBot(ROCKET_BOSS);
+		Entity::spawnEntityHeavyBot(HEAVY_BOT);
+		Entity::spawnEntityRocketBot(ROCKET_BOT);
+		Entity::spawnEntityLaserBot(LASER_BOT);
+		Entity::spawnEntityCannonBossBot(CANNON_BOSS);
+		Entity::spawnEntityRocketBossBot(ROCKET_BOSS);
 #endif // TURRET_1_MOB_TYPES_TEST
-				break;
-			}
-			
-		case 2:
-			{
-				for(int i=0; i<5; i++)
-				{
-					Entity::spawnEntity(STANDARD_BOT);
-				}
-				break;
-			}
-			
-		case 3:
-			{
-				for(int i=0; i<5; i++)
-				{
-					Entity::spawnEntity(STANDARD_BOT);
-				}
-				Entity::spawnEntity(HEAVY_BOT);
-				Entity::spawnEntity(HEAVY_BOT);
-				break;
-			}
-			
-		case 4:
-			{
-				for(int i=0; i<7; i++)
-				{
-					Entity::spawnEntity(STANDARD_BOT);
-				}
-				for(int i=0; i<3; i++)
-				{
-					Entity::spawnEntity(HEAVY_BOT);
-				}
-				break;
-			}
-			
-		case 5:
-			{
-				for(int i=0; i<4; i++)
-				{
-					Entity::spawnEntity(STANDARD_BOT);
-				}
-				Entity::spawnEntity(CANNON_BOSS);
-				break;
-			}
-			
-		case 6:
-			{
-				for(int i=0; i<5; i++)
-				{
-					Entity::spawnEntity(STANDARD_BOT);
-				}
-				Entity::spawnEntity(ROCKET_BOT);
-				Entity::spawnEntity(ROCKET_BOT);
-				break;
-			}
-			
-		case 7:
-			{
-				for(int i=0; i<7; i++)
-				{
-					Entity::spawnEntity(STANDARD_BOT);
-				}
-				for(int i=0; i<4; i++)
-				{
-					Entity::spawnEntity(HEAVY_BOT);
-				}
-				Entity::spawnEntity(ROCKET_BOT);
-				Entity::spawnEntity(ROCKET_BOT);
-				break;
-			}
-			
-		case 8:
-			{
-				for(int i=0; i<7; i++)
-				{
-					Entity::spawnEntity(STANDARD_BOT);
-				}
-				Entity::spawnEntity(HEAVY_BOT);
-				Entity::spawnEntity(HEAVY_BOT);
-				for(int i=0; i<5; i++)
-				{
-					Entity::spawnEntity(ROCKET_BOT);
-				}
-				break;
-			}
-			
-		case 9:
-			{
-				for(int i=0; i<11; i++)
-				{
-					Entity::spawnEntity(STANDARD_BOT);
-				}
-				for(int i=0; i<7; i++)
-				{
-					Entity::spawnEntity(HEAVY_BOT);
-				}
-				for(int i=0; i<5; i++)
-				{
-					Entity::spawnEntity(ROCKET_BOT);
-				}
-				break;
-			}
-		
-		case 10:
-			{
-				for(int i=0; i<11; i++)
-				{
-					Entity::spawnEntity(STANDARD_BOT);
-				}
-				for(int i=0; i<5; i++)
-				{
-					Entity::spawnEntity(HEAVY_BOT);
-				}
-				for(int i=0; i<2; i++)
-				{
-					Entity::spawnEntity(ROCKET_BOT);
-					Entity::spawnEntity(ROCKET_BOT);
-				}
-				break;
-			}
-			
-			
-			
+		break;
+
+	case 2:
+		Entity::spawnEntity(5, STANDARD_BOT);
+		break;
+
+	case 3:
+		Entity::spawnEntity(5, STANDARD_BOT);
+		Entity::spawnEntity(2, HEAVY_BOT);
+		break;
+
+	case 4:
+		Entity::spawnEntity(7, STANDARD_BOT);
+		Entity::spawnEntity(3, HEAVY_BOT);
+		break;
+
+	case 5:
+		Entity::spawnEntity(4, STANDARD_BOT);
+		Entity::spawnEntity(1, CANNON_BOSS);
+		break;
+
+	case 6:
+		Entity::spawnEntity(5, STANDARD_BOT);
+		Entity::spawnEntity(2, ROCKET_BOT);
+		break;
+
+	case 7:
+		Entity::spawnEntity(7, STANDARD_BOT);
+		Entity::spawnEntity(4, HEAVY_BOT);
+		Entity::spawnEntity(2, ROCKET_BOT);
+		break;
+
+	case 8:
+		Entity::spawnEntity(7, STANDARD_BOT);
+		Entity::spawnEntity(2, HEAVY_BOT);
+		Entity::spawnEntity(5, ROCKET_BOT);
+		break;
+
+	case 9:
+		Entity::spawnEntity(11, STANDARD_BOT);
+		Entity::spawnEntity(7, HEAVY_BOT);
+		Entity::spawnEntity(5, ROCKET_BOT);
+		break;
+
+
+	case 10:
+		Entity::spawnEntity(11, STANDARD_BOT);
+		Entity::spawnEntity(5, HEAVY_BOT);
+		Entity::spawnEntity(2, ROCKET_BOT);
+		Entity::spawnEntity(2, CANNON_BOSS);
+		break;
 	}
 	
 	if(waveNumber > 10 && waveNumber < 20)
 	{
-		for(int i=0; i<15; i++)
-		{
-			Entity::spawnEntity(STANDARD_BOT);
-		}
-		for(int i=0; i<9; i++)
-		{
-			Entity::spawnEntity(HEAVY_BOT);
-		}
-		for(int i=0; i<7; i++)
-		{
-			Entity::spawnEntity(ROCKET_BOT);
-		}
+		Entity::spawnEntity(15, STANDARD_BOT);
+		Entity::spawnEntity(9, HEAVY_BOT);
+		Entity::spawnEntity(7, ROCKET_BOT);
 		
 		if(waveNumber%5 == 0)
-		{
-			for(int i=0; i<3; i++)
-			{
-				Entity::spawnEntity(CANNON_BOSS);
-			}
-		}
-		
+			Entity::spawnEntity(3, CANNON_BOSS);
 	}
-	
 	
 	if(waveNumber > 19 && waveNumber < 30)
 	{
-		for(int i=0; i<15; i++)
-		{
-			Entity::spawnEntity(STANDARD_BOT);
-		}
-		for(int i=0; i<9; i++)
-		{
-			Entity::spawnEntity(HEAVY_BOT);
-		}
-		for(int i=0; i<7; i++)
-		{
-			Entity::spawnEntity(ROCKET_BOT);
-		}
-		
+		Entity::spawnEntity(15, STANDARD_BOT);
+		Entity::spawnEntity(9, HEAVY_BOT);
+		Entity::spawnEntity(7, ROCKET_BOT);
+
 		if(waveNumber%5 == 0)
 		{
-			for(int i=0; i<2; i++)
-			{
-				Entity::spawnEntity(CANNON_BOSS);
-				Entity::spawnEntity(ROCKET_BOSS);
-			}
+			Entity::spawnEntity(2, CANNON_BOSS);
+			Entity::spawnEntity(2, ROCKET_BOSS);
 		}
-		
 	}
 	
 	if(waveNumber > 29 && waveNumber < 40)
 	{
-		for(int i=0; i<15; i++)
-		{
-			Entity::spawnEntity(STANDARD_BOT);
-		}
-		for(int i=0; i<9; i++)
-		{
-			Entity::spawnEntity(HEAVY_BOT);
-		}
-		for(int i=0; i<7; i++)
-		{
-			Entity::spawnEntity(ROCKET_BOT);
-			Entity::spawnEntity(LASER_BOT);
-		}
+		Entity::spawnEntity(15, STANDARD_BOT);
+		Entity::spawnEntity(9, HEAVY_BOT);
+		Entity::spawnEntity(7, ROCKET_BOT);
+		Entity::spawnEntity(7, LASER_BOT);
 		
 		if(waveNumber%5 == 0)
 		{
-			for(int i=0; i<2; i++)
-			{
-				Entity::spawnEntity(CANNON_BOSS);
-				Entity::spawnEntity(ROCKET_BOSS);
-			}
-		}
-		
+			Entity::spawnEntity(2, CANNON_BOSS);
+			Entity::spawnEntity(2, ROCKET_BOSS);
+		}	
 	}
-	
 }
-
 
 
 int loadTime(std::string saveFolderName)
@@ -258,105 +137,26 @@ int loadTime(std::string saveFolderName)
 
 	std::ifstream fin;
 	fin.open(saveFileName);
-	
-	int t = 0;
-	
+	int time = 0;
 	if(fin.is_open())
 	{
-		for(int i=0; i<3; i++)
-		{
-			char c;
-			fin.get(c);
-			int num = 0;
-			num = c - '0';
-			waveNumber = waveNumber * 10 + num;
-		}
-		
-		for(int i=0; i<5; i++)
-		{
-			char c;
-			fin.get(c);
-			int num = 0;
-			num = c - '0';
-			t = t * 10 + num;
-		}
+		fin >> waveNumber >> time;
 	}
-	
 	fin.close();
 	
 	std::cout << "Load time and wave_num works" <<'\n';
-	
-	return t;
+	return time;
 }
 
 
-
-void saveTime(std::string saveFolderName, int v_time)
+void saveTime(std::string saveFolderName, const int v_time)
 {
 	std::string saveFileName = "saves/" + saveFolderName + "/time.txt";
 
 	std::ofstream fout;
 	fout.open(saveFileName);
-	
-	if(fout.is_open())
-	{
-		
-		if(waveNumber < 10)
-		{
-			fout << "00" << waveNumber;
-		}
-		else
-		{
-			if(waveNumber < 100)
-			{
-				fout << "0" << waveNumber;
-			}
-			else
-			{
-				fout << waveNumber;
-			}
-		}
-		
-		
-		
-		if(v_time < 10)
-		{
-			fout << "0000" << v_time;
-		}
-		else
-		{
-			if(v_time < 100)
-			{
-				fout << "000" << v_time;
-			}
-			else
-			{
-				if(v_time < 1000)
-				{
-					fout << "00" << v_time;
-				}
-				else
-				{
-					if(v_time < 10000)
-					{
-						fout << "0" << v_time;
-					}
-					else
-					{
-						fout << v_time;
-					}
-				}
-			}
-		}
-		
-	}
-	
+	fout << waveNumber << " " << v_time;
 	fout.close();
 	
 	std::cout << "Save time and wave_num works" <<'\n';
 }
-
-
-
-
-
