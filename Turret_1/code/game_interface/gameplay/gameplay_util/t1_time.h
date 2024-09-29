@@ -11,6 +11,9 @@ namespace t1::time
 
 	void loadTime(const std::string& folder);
 	void saveTime(const std::string& folder);
+
+	void resetTime();
+	void setTime(const int time, const int wave);
 }
 
 #endif // T1_TIME

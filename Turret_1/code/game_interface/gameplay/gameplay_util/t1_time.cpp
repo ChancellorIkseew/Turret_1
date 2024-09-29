@@ -35,3 +35,15 @@ void t1::time::saveTime(const std::string& folder)
 
 	std::cout << "Save time and wave_num works" << '\n';
 }
+
+void t1::time::resetTime()
+{
+	time = 0;
+	waveNumber = 0;
+}
+
+void t1::time::setTime(const int time, const int wave)
+{
+	t1::time::time = time;
+	t1::time::waveNumber = wave;
+}

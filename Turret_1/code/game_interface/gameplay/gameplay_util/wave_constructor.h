@@ -4,6 +4,6 @@
 
 
 void createWave();
-void switchEntities(const int value_waveNumber);
+void switchEntities(const int wave);
 
 #endif // WAVE_CONSTRUCTOR_H

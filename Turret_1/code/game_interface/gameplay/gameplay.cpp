@@ -61,7 +61,7 @@ char t1::gamepl::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, 
         TerrainMap::generateMap();
         BuildingsMap::generateMap();
 
-        t1::time::time = 0;
+        t1::time::resetTime();
         t1::res::giveStartResources();
 	}
 	else
