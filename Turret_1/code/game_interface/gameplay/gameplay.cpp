@@ -7,16 +7,13 @@
 
 #include "game_interface/main_window/main_window.h"
 #include "game_interface/main_window/main_window_resize.h"
-#include "game_interface/settings/settings_util/settings_save_system.h"
 
+#include "game_interface/gameplay/gameplay_streams/simulation.h"
+#include "game_interface/gameplay/gameplay_streams/input.h"
 
 #include "gameplay_util/camera.h"
-#include "gameplay_util/wave_constructor.h"
-#include "gameplay_util/cheet_commands.h"
-
-#include "game_interface/system/system.h"
+#include "gameplay_util/t1_time.h"
 #include "map_structures/base_engine/t1_mutex.h"
-
 
 #include "sub_windows/exit_confirmation.h"
 #include "sub_windows/settings_window.h"
@@ -25,26 +22,21 @@
 #include "sub_windows/specifications_panel.h"
 #include "sub_windows/building_panel.h"
 
-
 #include "map_structures/pre-settings/pre-settings.h"
-
-#include "map_structures/buildings/building/buildings_info.h"
-
 #include "map_structures/terrain/terrain.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/entities/turret/turret.h"
 #include "map_structures/entities/entities_list/entities_list.h"
 #include "map_structures/shells/shells_list/shells_list.h"
-
-#include "map_structures/particles/particles.h"
-
 #include "map_structures/resources/resource_units.h"
+#include "map_structures/resources/resources.h"
+#include "map_structures/particles/particles.h"
 
 
 char t1::gamepl::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, std::string saveFolderName)
 {
     oldWinSizeX = 0;
-	int time = 0;
+	
     
     if (!startNewGame)
     {
@@ -62,8 +54,6 @@ char t1::gamepl::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, 
 	Shell::prepareSprites();
 	Particle::prepareSprites();
 
-    initBuildingsInfo();
-
 	if (startNewGame)
 	{
 		std::cout << "create new works" << std::endl;
@@ -71,6 +61,7 @@ char t1::gamepl::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, 
         TerrainMap::generateMap();
         BuildingsMap::generateMap();
 
+        t1::time::time = 0;
         t1::res::giveStartResources();
 	}
 	else
@@ -81,7 +72,7 @@ char t1::gamepl::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, 
 		loadEntitiesList(saveFolderName);
         loadResUnitsList(saveFolderName);
 
-		time = loadTime(saveFolderName);
+        t1::time::loadTime(saveFolderName);
         t1::res::loadResources(saveFolderName);
 	}
 	
@@ -95,75 +86,10 @@ char t1::gamepl::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, 
     bool isPaused = true;
 	bool isGameplayActive = true;
 
-    std::thread simulation([&]()
-        {
-            while (isGameplayActive)
-            {
-                if (!isPaused)			//Begin action_block
-                {
-                    t1::res::useEnergy(time);
+    std::thread simulation([&]() { t1::gamepl::simulation(isGameplayActive, isPaused); });
+    std::thread input([&]() { t1::gamepl::input(isGameplayActive, isPaused, mainWindow, mouseCoord, mouseMapCoord,
+        lastMousePosition, isMovingCamera, saveFolderName); });
 
-                    mtBuildings.lock();
-                    BuildingsMap::intetractMap();
-                    createWave(time);
-                    moveEntitiesList();
-                    BuildingsMap::cleanMapChanged();
-                    t1::sh::moveShellsList();
-                    moveParticlesList();
-                    moveResUnitsList(time);
-                    mtBuildings.unlock();
-                    time++;
-                }						//End action_block
-                Sleep(16);
-            }
-        }
-    );
-
-    std::thread input([&]()
-        {
-            while (isGameplayActive)
-            {
-                if (LMB_Pressed)
-                {
-                    MainControlPanel::getInstance().interact(mouseCoord, time, isPaused, isGameplayActive, saveFolderName);
-                    BuildingPanel::getInstance().interact(mouseCoord, mouseMapCoord);
-
-                    Sleep(150);
-                }
-
-                if (RMB_Pressed)
-                {
-                    BuildingPanel::getInstance().rotateBuilding();
-                    Sleep(150);
-                }
-
-                if (MidMB_Pressed)
-                {
-                    if (!isMovingCamera)
-                    {
-                        isMovingCamera = true;
-                        lastMousePosition = mainWindow.mapPixelToCoords(sf::Mouse::getPosition(mainWindow));
-                    }
-                }
-
-                if (MidMB_Free)
-                {
-                    isMovingCamera = false;
-                }
-
-#ifndef TURRET_1_NO_TEST_BUILD
-                if (LEFT_ALT_Pressed)
-                {
-                    std::cout << "cheet_comands_panel_called" << '\n';
-                    acceptCheetCommand();
-                }
-#endif // TURRET_1_NO_TEST_BUILD
-
-                Sleep(16);
-            }
-        }
-
-    );
 
     while (isGameplayActive)
     {
@@ -215,14 +141,14 @@ char t1::gamepl::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, 
         drawResUnitsList(mainWindow);
         drawParticlesList(mainWindow);
 		drawEntitiesList(mainWindow);
-        t1::sh::drawShellsList(mainWindow, time);
+        t1::sh::drawShellsList(mainWindow);
         mtBuildings.unlock();
 
         BuildingPanel::getInstance().drawBuildExample(mainWindow ,mouseMapCoord);
 
         mainWindow.setView(overlay);						//	Draw_inteface block
         MainControlPanel::getInstance().draw(mainWindow);
-        MainControlPanel::getInstance().interactWaveTimer(time, isPaused);
+        MainControlPanel::getInstance().interactWaveTimer(isPaused);
         BuildingPanel::getInstance().draw(mainWindow);
         ResourcesPanel::getInstance().draw(mainWindow);
         ConfirmationWindow::getInstance().draw(mainWindow);

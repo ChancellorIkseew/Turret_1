@@ -1,32 +1,32 @@
 
 #include <iostream>
-//#include <Windows.h>
 
 #include "input.h"
 
-//#include "../../system/system.h" //
+#include "game_interface/system/system.h"
 
-#include "../sub_windows/sub_windows_util/sub_windows_list.h" //
-#include "../gameplay_util/select_building_button.h"
-#include "../gameplay_util/cheet_commands.h"
+#include "game_interface/gameplay/gameplay_util/cheet_commands.h"
+#include "game_interface/gameplay/sub_windows/main_control_panel.h"
+#include "game_interface/gameplay/sub_windows/building_panel.h"
 
 
-void input(bool& isGameplayActive)
+void t1::gamepl::input(bool& isGameplayActive, bool& isPaused, sf::RenderWindow& mainWindow,
+    sf::Vector2i& mouseCoord, sf::Vector2f& mouseMapCoord, sf::Vector2f& lastMousePosition,
+    bool& isMovingCamera, const std::string& saveFolderName)
 {
-    
     while (isGameplayActive)
     {
         if (LMB_Pressed)
         {
-            mainControlPanel.interact(mouseCoord, map1, buildingsMap1, time, isPaused, isGameplayActive, saveFolderName);
-            buildingPanel.interact(mouseCoord, mouseMapCoord, map1, buildingsMap1, index);
+            MainControlPanel::getInstance().interact(mouseCoord, isPaused, isGameplayActive, saveFolderName);
+            BuildingPanel::getInstance().interact(mouseCoord, mouseMapCoord);
 
             Sleep(150);
         }
 
         if (RMB_Pressed)
         {
-            rotateBuilding();
+            BuildingPanel::getInstance().rotateBuilding();
             Sleep(150);
         }
 
@@ -44,13 +44,14 @@ void input(bool& isGameplayActive)
             isMovingCamera = false;
         }
 
+#ifndef TURRET_1_NO_TEST_BUILD
         if (LEFT_ALT_Pressed)
         {
             std::cout << "cheet_comands_panel_called" << '\n';
             acceptCheetCommand();
         }
+#endif // TURRET_1_NO_TEST_BUILD
 
         Sleep(16);
     }
-    
 }

@@ -2,7 +2,7 @@
 #ifndef T1_SYSTEM_H
 #define T1_SYSTEM_H
 
-#include <Windows.h>
+#include <windows.h>
 
 
 #define LMB_Pressed (GetKeyState(VK_LBUTTON) < 0)
@@ -37,4 +37,4 @@
 bool numKeyPressed();
 
 
-#endif // !T1_SYSTEM_H
+#endif // T1_SYSTEM_H

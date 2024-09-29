@@ -49,17 +49,17 @@ void t1::sh::moveShellsList()
 }
 
 
-void t1::sh::drawShellsList(sf::RenderWindow& window, int time)
+void t1::sh::drawShellsList(sf::RenderWindow& window)
 {
 	for (auto it = playerShellsList.begin(); it != playerShellsList.end(); ++it)
 	{
-		(*it)->draw(window, time);
+		(*it)->draw(window);
 
 	}
 
 	for (auto it = enemyShellsList.begin(); it != enemyShellsList.end(); ++it)
 	{
-		(*it)->draw(window, time);
+		(*it)->draw(window);
 	}
 }
 

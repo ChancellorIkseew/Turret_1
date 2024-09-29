@@ -1,43 +1,38 @@
 
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <SFML\Graphics.hpp>
-
 #include "wave_constructor.h"
+
+#include "t1_time.h"
 
 #include "map_structures/entities/entity/entity.h"
 #include "map_structures/entities/entity/mob_enum.h"
 #include "map_structures/entities/entities_list/entities_list.h"
 
 
-int waveNumber = 0;
-
-
-void createWave(int &time)
+void createWave()
 {
-	if(time%10800 == 0)
+	if(t1::time::time%10800 == 0)
 	{
-		waveNumber = waveNumber + 1;
+		t1::time::waveNumber += 1;
 		
-		switchEntities(waveNumber);
-		time = 0;
+		switchEntities(t1::time::waveNumber);
+		t1::time::time = 0;
 	}
 }
 
 
-void switchEntities(const int waveNumber)
+void switchEntities(const int wave)
 {
-	switch(waveNumber)
+	switch(wave)
 	{
 	case 1:
 		Entity::spawnEntity(2, STANDARD_BOT);
 #ifdef TURRET_1_MOB_TYPES_TEST
-		Entity::spawnEntityHeavyBot(HEAVY_BOT);
-		Entity::spawnEntityRocketBot(ROCKET_BOT);
-		Entity::spawnEntityLaserBot(LASER_BOT);
-		Entity::spawnEntityCannonBossBot(CANNON_BOSS);
-		Entity::spawnEntityRocketBossBot(ROCKET_BOSS);
+		Entity::spawnEntity(1, HEAVY_BOT);
+		Entity::spawnEntity(1, ROCKET_BOT);
+		Entity::spawnEntity(1, LASER_BOT);
+		Entity::spawnEntity(1, CANNON_BOSS);
+		Entity::spawnEntity(1, ROCKET_BOSS);
+		Entity::spawnEntity(1, 999);
 #endif // TURRET_1_MOB_TYPES_TEST
 		break;
 
@@ -92,71 +87,40 @@ void switchEntities(const int waveNumber)
 		break;
 	}
 	
-	if(waveNumber > 10 && waveNumber < 20)
+	if(wave > 10 && wave < 20)
 	{
 		Entity::spawnEntity(15, STANDARD_BOT);
 		Entity::spawnEntity(9, HEAVY_BOT);
 		Entity::spawnEntity(7, ROCKET_BOT);
 		
-		if(waveNumber%5 == 0)
+		if(wave % 5 == 0)
 			Entity::spawnEntity(3, CANNON_BOSS);
 	}
 	
-	if(waveNumber > 19 && waveNumber < 30)
+	if(wave > 19 && wave < 30)
 	{
 		Entity::spawnEntity(15, STANDARD_BOT);
 		Entity::spawnEntity(9, HEAVY_BOT);
 		Entity::spawnEntity(7, ROCKET_BOT);
 
-		if(waveNumber%5 == 0)
+		if(wave % 5 == 0)
 		{
 			Entity::spawnEntity(2, CANNON_BOSS);
 			Entity::spawnEntity(2, ROCKET_BOSS);
 		}
 	}
 	
-	if(waveNumber > 29 && waveNumber < 40)
+	if(wave > 29 && wave < 40)
 	{
 		Entity::spawnEntity(15, STANDARD_BOT);
 		Entity::spawnEntity(9, HEAVY_BOT);
 		Entity::spawnEntity(7, ROCKET_BOT);
 		Entity::spawnEntity(7, LASER_BOT);
 		
-		if(waveNumber%5 == 0)
+		if(wave % 5 == 0)
 		{
 			Entity::spawnEntity(2, CANNON_BOSS);
 			Entity::spawnEntity(2, ROCKET_BOSS);
 		}	
 	}
-}
-
-
-int loadTime(std::string saveFolderName)
-{
-	std::string saveFileName = "saves/" + saveFolderName + "/time.txt";
-
-	std::ifstream fin;
-	fin.open(saveFileName);
-	int time = 0;
-	if(fin.is_open())
-	{
-		fin >> waveNumber >> time;
-	}
-	fin.close();
-	
-	std::cout << "Load time and wave_num works" <<'\n';
-	return time;
-}
-
-
-void saveTime(std::string saveFolderName, const int v_time)
-{
-	std::string saveFileName = "saves/" + saveFolderName + "/time.txt";
-
-	std::ofstream fout;
-	fout.open(saveFileName);
-	fout << waveNumber << " " << v_time;
-	fout.close();
-	
-	std::cout << "Save time and wave_num works" <<'\n';
 }

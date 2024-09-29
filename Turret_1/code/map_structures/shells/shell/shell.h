@@ -45,7 +45,7 @@ public:
 	bool getIsWasted();
 
 	static void prepareSprites();
-	virtual void draw(sf::RenderWindow& window, int time);
+	virtual void draw(sf::RenderWindow& window);
 
 };
 

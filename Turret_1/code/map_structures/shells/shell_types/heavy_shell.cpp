@@ -40,7 +40,7 @@ void HeavyShell::explosion()
 }
 
 
-void HeavyShell::draw(sf::RenderWindow& window, int time)
+void HeavyShell::draw(sf::RenderWindow& window)
 {
 	shellSprite.setTextureRect(sf::IntRect(2, 0, 3, 7));
 	shellSprite.setOrigin(2, 1);

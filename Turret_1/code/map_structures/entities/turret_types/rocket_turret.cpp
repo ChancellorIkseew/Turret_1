@@ -31,7 +31,7 @@ void RocketTurret::shooting()
 
 		if (reloadTimer <= 0 && amooQuantity > 0)
 		{
-			t1::sh::playerShellsList.push_back(Shell::createShell(ROCKET, { float(coord.x), float(coord.y) }, angleRad, angleDeg));
+			t1::sh::playerShellsList.emplace_back(Shell::createShell(ROCKET, { float(coord.x), float(coord.y) }, angleRad, angleDeg));
 			reloadTimer = 120;
 			--amooQuantity;
 		}

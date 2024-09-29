@@ -17,7 +17,7 @@ class Rocket : public Shell
 		void tryEnemyShellsHitting() override final;
 		void explosion() override final;
 
-		void draw(sf::RenderWindow& window, int time) override final;
+		void draw(sf::RenderWindow& window) override final;
 		
 };
 

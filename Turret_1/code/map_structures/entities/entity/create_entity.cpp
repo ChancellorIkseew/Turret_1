@@ -1,4 +1,6 @@
 
+#include <iostream>
+
 #include "map_structures/entities/entity/entity.h"
 #include "map_structures/entities/entity/mob_enum.h"
 #include "map_structures/entities/entities_list/entities_list.h"
@@ -6,6 +8,7 @@
 #include "map_structures/entities/mob_types/standard_bot.h"
 #include "map_structures/entities/mob_types/heavy_bot.h"
 #include "map_structures/entities/mob_types/rocket_bot.h"
+#include "map_structures/entities/mob_types/laser_bot.h"
 
 #include "map_structures/entities/mob_types/cannon_boss_bot.h"
 #include "map_structures/entities/mob_types/rocket_boss_bot.h"
@@ -15,8 +18,15 @@ void Entity::spawnEntity(const int amount, const int type)
 {
 	for (int i = 0; i < amount; ++i)
 	{
-		entitiesList.emplace_back(createEntity(type));
-		entitiesList.back()->setCoord(randomMapBorderSpawn());
+		try
+		{
+			entitiesList.emplace_back(createEntity(type));
+			entitiesList.back()->setCoord(randomMapBorderSpawn());
+		}
+		catch (std::exception)
+		{
+			std::cout << "mob_type does not exist. type: " << type << '\n';
+		}
 	}
 }
 
@@ -31,12 +41,14 @@ std::unique_ptr<Entity> Entity::createEntity(const int type)
 		return std::make_unique<HeavyBot>(HEAVY_BOT);
 	case ROCKET_BOT:
 		return std::make_unique<RocketBot>(ROCKET_BOT);
+	case LASER_BOT:
+		return std::make_unique<LaserBot>(LASER_BOT);
 	case CANNON_BOSS:
 		return std::make_unique<CannonBossBot>(CANNON_BOSS);
 	case ROCKET_BOSS:
 		return std::make_unique<RocketBossBot>(ROCKET_BOSS);
 	default:
-		return nullptr;
+		throw std::exception("mob_type does not exist");
 	}
 }
 

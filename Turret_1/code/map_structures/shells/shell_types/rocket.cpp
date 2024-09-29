@@ -61,16 +61,12 @@ void Rocket::explosion()
 }
 
 
-void Rocket::draw(sf::RenderWindow &window, int time)
+void Rocket::draw(sf::RenderWindow &window)
 {
-	if(time%20 < 10)
-	{
+	if(curentLifeTime % 20 < 10)
 		shellSprite.setTextureRect(sf::IntRect(5, 0, 10, 30));
-	}
 	else
-	{
 		shellSprite.setTextureRect(sf::IntRect(15, 0, 10, 30));
-	}
 	
 	shellSprite.setPosition(coord.x, coord.y);
 	shellSprite.setRotation(angleDeg);

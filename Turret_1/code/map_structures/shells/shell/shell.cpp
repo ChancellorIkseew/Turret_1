@@ -81,7 +81,7 @@ void Shell::prepareSprites()
 	shellSprite.setOrigin(1, 1);
 }
 
-void Shell::draw(sf::RenderWindow& window, int time)
+void Shell::draw(sf::RenderWindow& window)
 {
 	shellSprite.setTextureRect(sf::IntRect(0, 0, 1, 2));
 	shellSprite.setOrigin(0, 1);

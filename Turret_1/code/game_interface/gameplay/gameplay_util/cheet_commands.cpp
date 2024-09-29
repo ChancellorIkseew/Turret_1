@@ -5,7 +5,6 @@
 #include "cheet_commands.h"
 
 #include "map_structures/base_engine/test.h"
-
 #include "map_structures/resources/resources.h"
 #include "map_structures/resources/res_enum.h"
 #include "map_structures/entities/entity/entity.h"

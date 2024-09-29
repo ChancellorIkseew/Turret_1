@@ -168,9 +168,6 @@
     <ClCompile Include="code\game_interface\system\system.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="code\game_interface\gameplay\gameplay_streams\simulation.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="code\game_interface\gameplay\gameplay_util\camera.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -312,6 +309,18 @@
     <ClCompile Include="code\map_structures\entities\turret\ctreate_turret.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="code\game_interface\gameplay\gameplay_util\t1_time.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game_interface\gameplay\gameplay_streams\input.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game_interface\gameplay\gameplay_streams\simulation.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game_interface\system\sleep.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="libgcc_s_seh_64-1.dll" />
@@ -429,12 +438,6 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\game_interface\system\system.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="code\game_interface\gameplay\gameplay_streams\simulation.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="code\game_interface\gameplay\gameplay_streams\input.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\game_interface\gameplay\gameplay_util\camera.h">
@@ -576,6 +579,18 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\map_structures\buildings\building_types\walls\wall_types\stone_wall.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\game_interface\gameplay\gameplay_util\t1_time.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\game_interface\gameplay\gameplay_streams\input.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\game_interface\gameplay\gameplay_streams\simulation.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\game_interface\system\sleep.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

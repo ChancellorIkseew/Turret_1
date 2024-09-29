@@ -65,7 +65,7 @@ void BuildingsMap::loadMap(const std::string& folder)
 				break;
 			
 			fin.seekg(-1, std::ios::cur);
-			TileCoord tile;
+			TileCoord tile = { 0, 0 };
 			int type;
 			fin >> tile.x >> tile.y >> type;
 			buildingsMap[tile.x][tile.y] = Building::createBuilding(type, 0, 0, 0, tile);

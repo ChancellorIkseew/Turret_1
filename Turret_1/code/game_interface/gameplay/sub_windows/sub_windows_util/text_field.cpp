@@ -4,8 +4,8 @@
 
 #include "text_field.h"
 
-#include "../../../system/system.h"
-#include "../../../system/text_enter.h"
+#include "game_interface/system/system.h"
+#include "game_interface/system/text_enter.h"
 #include "fonts.h"
 
 

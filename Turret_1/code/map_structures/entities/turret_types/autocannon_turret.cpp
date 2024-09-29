@@ -36,12 +36,12 @@ void AutocannonTurret::shooting()
 
 			if (reloadTimer <= 0)
 			{
-				t1::sh::playerShellsList.push_back(Shell::createShell(AC_SHELL, { coord.x + correctionX, coord.y - correctionY }, angleRad, angleDeg));
+				t1::sh::playerShellsList.emplace_back(Shell::createShell(AC_SHELL, { coord.x + correctionX, coord.y - correctionY }, angleRad, angleDeg));
 				reloadTimer = 30;
 			}
 			else
 			{
-				t1::sh::playerShellsList.push_back(Shell::createShell(AC_SHELL, { coord.x - correctionX, coord.y + correctionY }, angleRad, angleDeg));
+				t1::sh::playerShellsList.emplace_back(Shell::createShell(AC_SHELL, { coord.x - correctionX, coord.y + correctionY }, angleRad, angleDeg));
 			}
 			--amooQuantity;
 		}

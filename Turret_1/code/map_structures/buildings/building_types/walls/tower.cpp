@@ -1,6 +1,5 @@
 
 #include "tower.h"
-#include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/resources/res_enum.h"
 #include "map_structures/entities/turret_types/autocannon_turret.h"
 #include "map_structures/entities/turret_types/rocket_turret.h"

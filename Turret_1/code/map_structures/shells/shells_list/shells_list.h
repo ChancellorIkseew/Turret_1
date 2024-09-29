@@ -18,7 +18,7 @@ namespace t1::sh
 
 	void moveShellsList();
 
-	void drawShellsList(sf::RenderWindow& window, int time);
+	void drawShellsList(sf::RenderWindow& window);
 
 	void cleanShellsList();
 }

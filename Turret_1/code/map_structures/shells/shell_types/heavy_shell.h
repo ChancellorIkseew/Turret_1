@@ -15,7 +15,7 @@ public:
 
 	void explosion() override final;
 
-	void draw(sf::RenderWindow& window, int time) override final;
+	void draw(sf::RenderWindow& window) override final;
 
 };
 

@@ -14,6 +14,7 @@
 #include "settings_window.h"
 #include "exit_confirmation.h"
 
+#include "game_interface/gameplay/gameplay_util/t1_time.h"
 #include "game_interface/gameplay/gameplay_util/wave_constructor.h"
 
 #include "map_structures/terrain/terrain.h"
@@ -96,7 +97,7 @@ void MainControlPanel::prepareInterfaceSprites()
 
 
 
-void MainControlPanel::interact(sf::Vector2i& mouseCoord, int time, bool& isPaused, bool& isGameplayActive, std::string saveFolderName)
+void MainControlPanel::interact(sf::Vector2i& mouseCoord, bool& isPaused, bool& isGameplayActive, const std::string& saveFolderName)
 {
 	if (saveButtonSprite.getGlobalBounds().contains(mouseCoord.x, mouseCoord.y))
 	{
@@ -109,10 +110,9 @@ void MainControlPanel::interact(sf::Vector2i& mouseCoord, int time, bool& isPaus
 		BuildingsMap::saveMap(saveFolderName);
 		saveEntitiesList(saveFolderName);
 		saveResUnitsList(saveFolderName);
-		mtBuildings.unlock();
-
-		saveTime(saveFolderName, time);
+		t1::time::saveTime(saveFolderName);
 		t1::res::saveResources(saveFolderName);
+		mtBuildings.unlock();
 	}
 	
 	if (etmButtonSprite.getGlobalBounds().contains(mouseCoord.x, mouseCoord.y))
@@ -122,9 +122,6 @@ void MainControlPanel::interact(sf::Vector2i& mouseCoord, int time, bool& isPaus
 		
 		if(ConfirmationWindow::getInstance().interact(mouseCoord))
 		{
-			time = 0;
-			waveNumber = 0;
-			
 			mtBuildings.lock();
 			cleanEntitiesList();
 			t1::sh::cleanShellsList();
@@ -169,19 +166,19 @@ void MainControlPanel::interact(sf::Vector2i& mouseCoord, int time, bool& isPaus
 
 
 
-void MainControlPanel::interactWaveTimer(int time, bool isPaused)
+void MainControlPanel::interactWaveTimer(const bool isPaused)
 {
 	if(!isPaused)
 	{
 		std::ostringstream strWaveNumber;
-		strWaveNumber << waveNumber;
+		strWaveNumber << t1::time::waveNumber;
 		waveNumberText2.setString(strWaveNumber.str());
 
     	std::ostringstream strSeconds;
-		strSeconds << (59 - ((time / 60) % 60));
+		strSeconds << (59 - ((t1::time::time / 60) % 60));
 
     	std::ostringstream strMinutes;
-		strMinutes << int(2 - (time / 3600));
+		strMinutes << int(2 - (t1::time::time / 3600));
 
     	waveTimerText2.setString(strMinutes.str() + " : " + strSeconds.str());
 	}

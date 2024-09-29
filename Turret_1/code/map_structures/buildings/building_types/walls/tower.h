@@ -8,11 +8,9 @@
 class Tower : public Building
 {
 protected:
-
 	std::unique_ptr<Turret> turret;
 
 public:
-
 	Tower(char type, short durability, short size, const TileCoord tile);
 	virtual ~Tower() = default;
 
