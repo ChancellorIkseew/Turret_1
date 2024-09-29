@@ -17,6 +17,7 @@ RocketTurret::RocketTurret(int type, TileCoord tile) :
 	Turret(ROCKET_TURRET, tile)
 {
 	pixelRange = 35 * _TILE_;
+	maxAmoo = 2;
 }
 
 
