@@ -117,8 +117,11 @@ void BuildingsMap::createAuxilary(const short size, const TileCoord tile)
 
 void BuildingsMap::constructBuilding(const int type, const char direction, const TileCoord tile)
 {
-	int size = g_BuildingsInfoArray[type].size;
-	int durability = g_BuildingsInfoArray[type].durability * PreSettings::getBuildingsMaxDurabilityModidier();
+	if (t1::bc::buildingsInfoTable.find(type) == t1::bc::buildingsInfoTable.end())
+		return;
+
+	int size = t1::bc::buildingsInfoTable[type].size;
+	int durability = t1::bc::buildingsInfoTable[type].durability * PreSettings::getBuildingsMaxDurabilityModidier();
 
 	for (int i = 0; i < size; i++) // cheeck_square_for_building
 	{
@@ -128,9 +131,9 @@ void BuildingsMap::constructBuilding(const int type, const char direction, const
 			return;
 	}
 
-	if (t1::res::isEnoughAllRes(g_BuildingsInfoArray[type].costToBuild))
+	if (t1::res::isEnoughAllRes(t1::bc::buildingsInfoTable[type].costToBuild))
 	{
-		t1::res::wasteRes(g_BuildingsInfoArray[type].costToBuild);
+		t1::res::wasteRes(t1::bc::buildingsInfoTable[type].costToBuild);
 		buildingsMap[tile.x][tile.y] = Building::createBuilding(type, direction, durability, size, tile);
 		createAuxilary(size, tile);
 		isMapChanged = true;
@@ -156,13 +159,13 @@ void BuildingsMap::demolishBuilding(const TileCoord tile)
 }
 
 
-inline bool BuildingsMap::buildingExists(const int tileX, const int tileY)
+bool BuildingsMap::buildingExists(const int tileX, const int tileY)
 {
 	return (tileX >= 0 && tileX < mapSizeX && tileY >= 0 && tileY < mapSizeY &&
 		buildingsMap[tileX][tileY] != nullptr);
 }
 
-inline bool BuildingsMap::isVoidBuilding(const int tileX, const int tileY)
+bool BuildingsMap::isVoidBuilding(const int tileX, const int tileY)
 {
 	return (tileX >= 0 && tileX < mapSizeX && tileY >= 0 && tileY < mapSizeY &&
 		buildingsMap[tileX][tileY] == nullptr);
@@ -287,15 +290,15 @@ int BuildingsMap::getBuildingType(const TileCoord tile)
 
 void BuildingsMap::setTurret(const int turretType, const TileCoord tile)
 {
-	if (!buildingExists(tile) ||
+	if (t1::bc::buildingsInfoTable.find(turretType) == t1::bc::buildingsInfoTable.end() || !buildingExists(tile) ||
 		(buildingsMap[tile.x][tile.y]->getType() != STONE_TOWER && buildingsMap[tile.x][tile.y]->getType() != STEEL_TOWER))
 	{
 		return;
 	}
 
-	if (t1::res::isEnoughAllRes(g_BuildingsInfoArray[turretType].costToBuild))
+	if (t1::res::isEnoughAllRes(t1::bc::buildingsInfoTable[turretType].costToBuild))
 	{
-		t1::res::wasteRes(g_BuildingsInfoArray[turretType].costToBuild);
+		t1::res::wasteRes(t1::bc::buildingsInfoTable[turretType].costToBuild);
 		buildingsMap[tile.x][tile.y]->setTurret(turretType);
 	}
 }

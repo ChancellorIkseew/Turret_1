@@ -14,12 +14,9 @@
 #include "map_structures/resources/resource_units.h"
 #include "map_structures/particles/particles.h"
 
-#include "map_structures/buildings/building/buildings_info.h"
-
 
 void t1::gamepl::simulation(const bool& isGameplayActive, const bool& isPaused)
 {
-    initBuildingsInfo();
     while (isGameplayActive)
     {
         if (!isPaused)

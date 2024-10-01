@@ -6,13 +6,14 @@
 
 #include "sub_windows_util/sub_window.h"
 #include "sub_windows_util/res_info.h"
+#include "map_structures/buildings/building/buildings_info.h"
 
 
 class SpecificationsPanel : public SubWindow
 {
 private:
-	
-	int index;
+	static BuildingInfo nullInfo;
+	BuildingInfo& buildingInfo = nullInfo;
 	
 	sf::Text titleText;
 	sf::Text durabilityText;

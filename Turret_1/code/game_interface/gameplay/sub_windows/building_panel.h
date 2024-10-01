@@ -2,6 +2,7 @@
 #ifndef BUILDING_PANEL_H
 #define BUILDING_PANEL_H
 
+#include <map>
 #include <SFML\Graphics.hpp>
 
 #include "sub_windows_util/sub_window.h"
@@ -11,36 +12,13 @@ class BuildingPanel : public SubWindow
 {
 private:	
 	
-	sf::Image buildingsImage;
-	sf::Texture buildingsTexture;
+	static inline sf::Image buildingsImage;
+	static inline sf::Texture buildingsTexture;
+	static inline sf::Sprite buildExampleSprite;
 
-	sf::Sprite buildExampleSprite;
-	
-	sf::Sprite towerButtonSprite;
-	sf::Sprite wallButtonSprite;
-	sf::Sprite smallDrillButtonSprite;
-	sf::Sprite bigDrillButtonSprite;
-	sf::Sprite shellFactoryButtonSprite;
-	sf::Sprite rocketFactoryButtonSprite;
-	sf::Sprite allocationNodeButtonSprite;
-	sf::Sprite generatorButtonSprite;
-	sf::Sprite turretButtonSprite;
-	sf::Sprite rocketTurretButtonSprite;
-	sf::Sprite removeBuildingButtonSprite;
-	sf::Sprite conveyerButtonSprite;
-	sf::Sprite shieldedConveyerButtonSprite;
-	sf::Sprite intersectionButtonSprite;
-	sf::Sprite routerButtonSprite;
-	sf::Sprite sorterButtonSprite;
-
-	sf::Vector2i mouseCoord;
 	bool isBuildingTypeSelected;
-	int buildingType;
+	int oldBuildingType, newBuildingType;
 	char direction;
-
-	void selectBuildingType(bool& isBuildingTypeSelected);
-
-	void selectBuildingTexture(int buildingType);
 
 	BuildingPanel();
 	BuildingPanel(const BuildingPanel&) = delete;

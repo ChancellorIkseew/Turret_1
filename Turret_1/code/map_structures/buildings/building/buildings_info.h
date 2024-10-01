@@ -2,6 +2,7 @@
 #ifndef BUILDINGS_INFO
 #define BUILDINGS_INFO
 
+#include <map>
 #include <SFML/Graphics.hpp>
 
 #include "map_structures/resources/resources.h"
@@ -18,8 +19,11 @@ struct BuildingInfo
 	sf::String description;
 };
 
-extern BuildingInfo g_BuildingsInfoArray[1100];
+namespace t1::bc
+{
+	extern std::map<int, const BuildingInfo> buildingsInfoTable;
 
-void initBuildingsInfo();
+	void addBuildingsInfo(int type, const BuildingInfo info);
+}
 
 #endif // BUILDINGS_INFO

@@ -185,6 +185,7 @@
     <ClCompile Include="code\map_structures\base_engine\tile_coord.cpp" />
     <ClCompile Include="code\map_structures\buildings\buildings_map\buildings_map.cpp" />
     <ClCompile Include="code\map_structures\buildings\building\building.cpp" />
+    <ClCompile Include="code\map_structures\buildings\building\buildings_ico.cpp" />
     <ClCompile Include="code\map_structures\buildings\building\buildings_info.cpp" />
     <ClCompile Include="code\map_structures\buildings\building\create_building.cpp" />
     <ClCompile Include="code\map_structures\buildings\building_types\auxilary\auxilary.cpp" />
@@ -286,6 +287,7 @@
     <ClInclude Include="code\map_structures\buildings\buildings_map\buildings_map.h" />
     <ClInclude Include="code\map_structures\buildings\building\building.h" />
     <ClInclude Include="code\map_structures\buildings\building\buildings_enum.h" />
+    <ClInclude Include="code\map_structures\buildings\building\buildings_ico.h" />
     <ClInclude Include="code\map_structures\buildings\building\buildings_info.h" />
     <ClInclude Include="code\map_structures\buildings\building_types\auxilary\auxilary.h" />
     <ClInclude Include="code\map_structures\buildings\building_types\drills\drill.h" />

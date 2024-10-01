@@ -1,4 +1,5 @@
 #pragma once
+#include <array>
 
 #ifndef T1_BE_TILE_COORD_H
 #define T1_BE_TILE_COORD_H
@@ -19,9 +20,7 @@ struct PixelCoord
 namespace t1::be
 {
 	extern const TileCoord coordSquareArr[16];
-
 	extern const TileCoord coordSpyralArr[4109];
-
 
 	inline int tile(float pixelCoord);
 	inline int tile(int pixelCoord);
@@ -33,7 +32,6 @@ namespace t1::be
 	inline float pixelF(int tileCoord);
 	PixelCoord pixel(int tileCoordX, int tileCoordY);
 	PixelCoord pixel(TileCoord tileCoord);
-
 };
 
 #endif // T1_BE_TILE_COORD_H

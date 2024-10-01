@@ -1,58 +1,57 @@
 
 #include "tile_coord.h"
 
-namespace be = t1::be;
 
 // pixel_to_tile
-int be::tile(float pixelCoord)
+int t1::be::tile(float pixelCoord)
 {
 	return int(pixelCoord / _TILE_);
 }
 
-int be::tile(int pixelCoord)
+int t1::be::tile(int pixelCoord)
 {
 	return int(pixelCoord / _TILE_);
 }
 
-TileCoord be::tile(float pixelCoordX, float pixelCoordY)
+TileCoord t1::be::tile(float pixelCoordX, float pixelCoordY)
 {
 	return { tile(pixelCoordX) , tile(pixelCoordY) };
 }
 
-TileCoord be::tile(int pixelCoordX, int pixelCoordY)
+TileCoord t1::be::tile(int pixelCoordX, int pixelCoordY)
 {
 	return { tile(pixelCoordX) , tile(pixelCoordY) };
 }
 
-TileCoord be::tile(PixelCoord pixelCoord)
+TileCoord t1::be::tile(PixelCoord pixelCoord)
 {
 	return { tile(pixelCoord.x) , tile(pixelCoord.y) };
 }
 
 // tile_to_pixel
-int be::pixel(int tileCoord)
+int t1::be::pixel(int tileCoord)
 {
 	return tileCoord * _TILE_ + _HALF_TILE_;
 }
 
-float be::pixelF(int tileCoord)
+float t1::be::pixelF(int tileCoord)
 {
 	return tileCoord * _TILE_ + _HALF_TILE_;
 }
 
-PixelCoord be::pixel(int tileCoordX, int tileCoordY)
+PixelCoord t1::be::pixel(int tileCoordX, int tileCoordY)
 {
 	return { pixelF(tileCoordX),  pixelF(tileCoordY) };
 }
 
-PixelCoord be::pixel(TileCoord tileCoord)
+PixelCoord t1::be::pixel(TileCoord tileCoord)
 {
 	return { pixelF(tileCoord.x), pixelF(tileCoord.y) };
 }
 
 
 
-const TileCoord be::coordSquareArr[16]
+const TileCoord t1::be::coordSquareArr[16]
 {
 	{0,0},
 	{1,0},
@@ -73,7 +72,7 @@ const TileCoord be::coordSquareArr[16]
 };
 
 
-const TileCoord be::coordSpyralArr[4109]
+const TileCoord t1::be::coordSpyralArr[4109]
 {
 	{ 0, 0 },	//0
 	{ -1, 0 }, 	//1

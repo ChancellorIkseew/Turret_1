@@ -73,7 +73,7 @@ public:
 	void setPosition(int v_positionX, int v_positionY);
 	virtual void relocate(int windowSizeX, int windowSizeY);
 
-	bool containsCoursor(sf::Vector2i& mouseCoord);
+	bool containsCoursor(const sf::Vector2i& mouseCoord);
 
 	static void prepareWindowBaseSprites();
 	virtual void prepareInterfaceSprites() = 0;

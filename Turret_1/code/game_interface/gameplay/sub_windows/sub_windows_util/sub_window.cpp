@@ -156,7 +156,7 @@ void SubWindow::setPosition(int v_positionX, int v_positionY)
 
 
 
-bool SubWindow::containsCoursor(sf::Vector2i& mouseCoord)
+bool SubWindow::containsCoursor(const sf::Vector2i& mouseCoord)
 {
 	if (isVisible && 
 		positionX <= mouseCoord.x && (positionX + sizeX) >= mouseCoord.x && 

@@ -7,10 +7,10 @@
 
 #include "sub_windows_util/fonts.h"
 #include "sub_windows_util/res_info.h"
-
 #include "map_structures/resources/res_enum.h"
-#include "map_structures/buildings/building/buildings_info.h"
 
+
+BuildingInfo SpecificationsPanel::nullInfo = { L" ", 0, 0, {0, 0, 0, 0, 0, 0}, L" " };
 
 SpecificationsPanel::SpecificationsPanel() : SubWindow('s', 260, 400, 0, 310)
 {
@@ -47,23 +47,23 @@ void SpecificationsPanel::prepareInterfaceSprites()
 
 void SpecificationsPanel::interact(const int index)
 {
-    this->index = index;
+    buildingInfo = t1::bc::buildingsInfoTable[index];
 
-    titleText.setString(g_BuildingsInfoArray[index].buildingTitle);  //Title
+    titleText.setString(buildingInfo.buildingTitle);  //Title
 
     std::ostringstream strDurability;                               //Durability
-    strDurability << g_BuildingsInfoArray[index].durability;
+    strDurability << buildingInfo.durability;
     sf::String durb = strDurability.str();
     durabilityText.setString(L"прочность " + durb);
 
-    stoneInfo.update(g_BuildingsInfoArray[index].costToBuild.stoneQuant);
-    ironInfo.update(g_BuildingsInfoArray[index].costToBuild.ironQuant);
-    copperInfo.update(g_BuildingsInfoArray[index].costToBuild.copperQuant);
-    siliconInfo.update(g_BuildingsInfoArray[index].costToBuild.siliconQuant);
-    coalInfo.update(g_BuildingsInfoArray[index].costToBuild.coalQuant);
-    sulfurInfo.update(g_BuildingsInfoArray[index].costToBuild.sulfurQuant);
+    stoneInfo.update(buildingInfo.costToBuild.stoneQuant);
+    ironInfo.update(buildingInfo.costToBuild.ironQuant);
+    copperInfo.update(buildingInfo.costToBuild.copperQuant);
+    siliconInfo.update(buildingInfo.costToBuild.siliconQuant);
+    coalInfo.update(buildingInfo.costToBuild.coalQuant);
+    sulfurInfo.update(buildingInfo.costToBuild.sulfurQuant);
     
-    descriptionText.setString(g_BuildingsInfoArray[index].description);  //Description
+    descriptionText.setString(buildingInfo.description);  //Description
 }
 
 
@@ -83,43 +83,43 @@ void SpecificationsPanel::draw(sf::RenderWindow& window)
 
     int deltaY = 340;
 
-	if(g_BuildingsInfoArray[index].costToBuild.stoneQuant != 0)
+	if(buildingInfo.costToBuild.stoneQuant != 0)
     {
         stoneInfo.draw(window, 20, deltaY);
         deltaY = deltaY + 20;
 	}
     
-    if(g_BuildingsInfoArray[index].costToBuild.ironQuant != 0)
+    if(buildingInfo.costToBuild.ironQuant != 0)
     {
         ironInfo.draw(window, 20, deltaY);
         deltaY = deltaY + 20;
 	}
     
-    if(g_BuildingsInfoArray[index].costToBuild.copperQuant != 0)
+    if(buildingInfo.costToBuild.copperQuant != 0)
     {
         copperInfo.draw(window, 20, deltaY);
         deltaY = deltaY + 20;
 	}
     
-    if(g_BuildingsInfoArray[index].costToBuild.siliconQuant != 0)
+    if(buildingInfo.costToBuild.siliconQuant != 0)
     {
         siliconInfo.draw(window, 20, deltaY);
         deltaY = deltaY + 20;
 	}
     
-    if(g_BuildingsInfoArray[index].costToBuild.coalQuant != 0)
+    if(buildingInfo.costToBuild.coalQuant != 0)
     {
         coalInfo.draw(window, 20, deltaY);
         deltaY = deltaY + 20;
 	}
     
-    if(g_BuildingsInfoArray[index].costToBuild.sulfurQuant != 0)
+    if(buildingInfo.costToBuild.sulfurQuant != 0)
     {
         sulfurInfo.draw(window, 20, deltaY);
         deltaY = deltaY + 20;
 	}
 	
-    if(g_BuildingsInfoArray[index].durability != 0)
+    if(buildingInfo.durability != 0)
     {
         durabilityText.setPosition(10, deltaY);
         window.draw(durabilityText);
