@@ -33,13 +33,12 @@ public:
 	virtual ~Shell() = default;
 
 	static std::unique_ptr<Shell> createShell(short type, const PixelCoord coord, float angleRad, float angleDeg);
-	static void spawnEnemyShell(short type, const PixelCoord coord, float angleRad, float angleDeg);
-	static void spawnPlayerShell(short type, const PixelCoord coord, float angleRad, float angleDeg);
 
 	virtual void motion();
 	virtual void explosion();
 	virtual void tryPlayerShellsHitting();
 	virtual void tryEnemyShellsHitting();
+	virtual void tryShellsHitting();
 
 	PixelCoord getCoord();
 	bool getIsWasted();

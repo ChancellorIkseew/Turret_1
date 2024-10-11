@@ -1,19 +1,13 @@
 
-#include <fstream>
-#include <string>
 #include <SFML\Graphics.hpp>
-#include <list>
 
 #include "shell.h"
 
 #include "shell_enum.h"
-#include "map_structures/base_engine/tile_coord.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"
-#include "map_structures/entities/entity/entity.h"
-#include "map_structures/entities/entities_list/entities_list.h"
 
-		
+
 Shell::Shell(short type, const PixelCoord coord, float angleRad, float angleDeg)
 {
 	this->type = type;
@@ -55,6 +49,7 @@ void Shell::tryEnemyShellsHitting()
 
 void Shell::tryPlayerShellsHitting()
 {
+	/*
 	for (auto it = entitiesList.begin(); it != entitiesList.end(); ++it)
 	{
 		if (abs((*it)->getCoord().x - coord.x) < 7 && abs((*it)->getCoord().y - coord.y) < 7)
@@ -64,6 +59,12 @@ void Shell::tryPlayerShellsHitting()
 			return;
 		}
 	}
+	*/
+}
+
+void Shell::tryShellsHitting()
+{
+
 }
 
 

@@ -8,9 +8,7 @@
 #include "map_structures/resources/res_enum.h"
 
 #include "map_structures/entities/entities_list/entities_list.h"
-#include "map_structures/shells/shell/shell.h"
 #include "map_structures/shells/shell/shell_enum.h"
-#include "map_structures/shells/shells_list/shells_list.h"
 
 
 AutocannonTurret::AutocannonTurret(int type, TileCoord tile) :
@@ -37,12 +35,12 @@ void AutocannonTurret::shooting()
 
 			if (reloadTimer <= 0)
 			{
-				t1::sh::playerShellsList.emplace_back(Shell::createShell(AC_SHELL, { coord.x + correctionX, coord.y - correctionY }, angleRad, angleDeg));
+				//t1::sh::playerShellsList.emplace_back(Shell::createShell(AC_SHELL, { coord.x + correctionX, coord.y - correctionY }, angleRad, angleDeg));
 				reloadTimer = 30;
 			}
 			else
 			{
-				t1::sh::playerShellsList.emplace_back(Shell::createShell(AC_SHELL, { coord.x - correctionX, coord.y + correctionY }, angleRad, angleDeg));
+				//t1::sh::playerShellsList.emplace_back(Shell::createShell(AC_SHELL, { coord.x - correctionX, coord.y + correctionY }, angleRad, angleDeg));
 			}
 			--amooQuantity;
 		}

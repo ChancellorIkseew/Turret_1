@@ -6,7 +6,6 @@
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/entities/entity/entity.h"
-#include "map_structures/entities/entities_list/entities_list.h"
 #include "map_structures/particles/particles.h"
 
 
@@ -23,6 +22,7 @@ Rocket::Rocket(short type, PixelCoord coord, float angleRad, float angleDeg) :
 
 void Rocket::tryPlayerShellsHitting()
 {
+	/*
 	for (auto it = entitiesList.cbegin(); it != entitiesList.cend(); ++it)
 	{
 		if (abs((*it)->getCoord().x - coord.x) < 32 && abs((*it)->getCoord().y - coord.y) < 32) //Cheek distance_to_mob
@@ -31,6 +31,7 @@ void Rocket::tryPlayerShellsHitting()
 			return;
 		}
 	}
+	*/
 }
 
 
@@ -45,6 +46,7 @@ void Rocket::tryEnemyShellsHitting()
 
 void Rocket::explosion()
 {
+	/*
 	for (auto it = entitiesList.begin(); it != entitiesList.end(); ++it)
 	{
 		int deltaX = coord.x - (*it)->getCoord().x;
@@ -58,6 +60,7 @@ void Rocket::explosion()
 
 	BuildingsMap::setDamage(20, t1::be::tile(coord));
 	particlesList.emplace_back(std::make_unique<Particle>(1, coord));
+	*/
 }
 
 

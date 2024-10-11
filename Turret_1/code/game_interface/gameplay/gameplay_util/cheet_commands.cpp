@@ -59,12 +59,12 @@ void acceptCheetCommand()
 			std::cin >> act;
 			if (act == 'k')
 			{
-				cleanEntitiesList();
+				//cleanEntitiesList();
 			}
 			if (act == 'n')
 			{
-				entitiesList.push_back(std::move(Entity::createEntity(1)));
-				entitiesList.back()->setCoord({ 8.0f, 8.0f });
+				//entitiesList.push_back(std::move(Entity::createEntity(1)));
+				//entitiesList.back()->setCoord({ 8.0f, 8.0f });
 			}
 			break;
 		}

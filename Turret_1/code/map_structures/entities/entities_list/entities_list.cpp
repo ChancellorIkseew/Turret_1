@@ -1,16 +1,12 @@
 
 #include <iostream>
-#include <string>
 
 #include "entities_list.h"
 
 #include "map_structures/entities/entity/entity.h"
 
 
-std::list<std::unique_ptr<Entity>> entitiesList;
-
-
-void saveEntitiesList(const std::string& folder)
+void EntitiesList::save(const std::string& folder)
 {
 	std::string file = "saves/" + folder + "/entities.txt";
 
@@ -28,7 +24,7 @@ void saveEntitiesList(const std::string& folder)
 	std::cout << "Save entities list works" << '\n';
 }
 
-void loadEntitiesList(const std::string& folder)
+void EntitiesList::load(const std::string& folder)
 {
 	std::string file = "saves/" + folder + "/entities.txt";
 	std::ifstream fin;
@@ -55,7 +51,24 @@ void loadEntitiesList(const std::string& folder)
 }
 
 
-void moveEntitiesList()
+void EntitiesList::spawnEntity(const int amount, const int type)
+{
+	for (int i = 0; i < amount; ++i)
+	{
+		try
+		{
+			entitiesList.emplace_back(Entity::createEntity(type));
+			entitiesList.back()->setCoord(Entity::randomMapBorderSpawn());
+		}
+		catch (std::exception)
+		{
+			std::cout << "mob_type does not exist. type: " << type << '\n';
+		}
+	}
+}
+
+
+void EntitiesList::move()
 {
 	for (auto it = entitiesList.begin(); it != entitiesList.end();)
 	{
@@ -70,16 +83,16 @@ void moveEntitiesList()
 }
 
 
-void drawEntitiesList(sf::RenderWindow& mainWindow)
+void EntitiesList::draw(sf::RenderWindow& mainWindow)
 {
-	for (auto it = entitiesList.begin(); it != entitiesList.end(); ++it)	//Draw_entities
+	for (auto it = entitiesList.begin(); it != entitiesList.end(); ++it)
 	{
 		(*it)->draw(mainWindow);
 	}
 }
 
 
-void cleanEntitiesList() noexcept
+void EntitiesList::clean() noexcept
 {
 	entitiesList.clear();
 }

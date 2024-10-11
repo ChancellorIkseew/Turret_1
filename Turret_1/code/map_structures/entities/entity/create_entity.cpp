@@ -1,9 +1,6 @@
 
-#include <iostream>
-
 #include "map_structures/entities/entity/entity.h"
 #include "map_structures/entities/entity/mob_enum.h"
-#include "map_structures/entities/entities_list/entities_list.h"
 
 #include "map_structures/entities/mob_types/standard_bot.h"
 #include "map_structures/entities/mob_types/heavy_bot.h"
@@ -12,23 +9,6 @@
 
 #include "map_structures/entities/mob_types/cannon_boss_bot.h"
 #include "map_structures/entities/mob_types/rocket_boss_bot.h"
-
-
-void Entity::spawnEntity(const int amount, const int type)
-{
-	for (int i = 0; i < amount; ++i)
-	{
-		try
-		{
-			entitiesList.emplace_back(createEntity(type));
-			entitiesList.back()->setCoord(randomMapBorderSpawn());
-		}
-		catch (std::exception)
-		{
-			std::cout << "mob_type does not exist. type: " << type << '\n';
-		}
-	}
-}
 
 
 std::unique_ptr<Entity> Entity::createEntity(const int type)

@@ -1,9 +1,8 @@
 
 #include "rocket_bot.h"
 
-#include "map_structures/shells/shell/shell.h"
+#include "map_structures/team/team.h"
 #include "map_structures/shells/shell/shell_enum.h"
-#include "map_structures/shells/shells_list/shells_list.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 
 
@@ -35,7 +34,7 @@ void RocketBot::shoot()
 		{
 			float correctionX = cos(shootingAngleRad) * 5;
 			float correctionY = sin(shootingAngleRad) * 5;
-			t1::sh::enemyShellsList.push_back(Shell::createShell(ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg));
+			//team.spawnShell(ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
 			reloadTimer = 240;
 		}
 	}

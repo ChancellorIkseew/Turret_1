@@ -86,7 +86,7 @@ void MainControlPanel::interact(sf::Vector2i& mouseCoord, bool& isPaused, bool& 
 		mtBuildings.lock();
 		TerrainMap::saveMap(saveFolderName);
 		BuildingsMap::saveMap(saveFolderName);
-		saveEntitiesList(saveFolderName);
+		//saveEntitiesList(saveFolderName);
 		saveResUnitsList(saveFolderName);
 		t1::time::saveTime(saveFolderName);
 		t1::res::saveResources(saveFolderName);
@@ -100,8 +100,8 @@ void MainControlPanel::interact(sf::Vector2i& mouseCoord, bool& isPaused, bool& 
 		if(ConfirmationWindow::getInstance().interact(mouseCoord))
 		{
 			mtBuildings.lock();
-			cleanEntitiesList();
-			t1::sh::cleanShellsList();
+			//shells, entities clan
+
 			cleanParticlesList();
 			cleanResUnitsList();
 			mtBuildings.unlock();

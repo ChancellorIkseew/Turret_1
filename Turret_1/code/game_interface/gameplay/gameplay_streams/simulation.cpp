@@ -25,9 +25,9 @@ void t1::gamepl::simulation(const bool& isGameplayActive, const bool& isPaused)
             mtBuildings.lock();
             BuildingsMap::intetractMap();
             createWave();
-            moveEntitiesList();
+            //moveEntitiesList();
             BuildingsMap::cleanMapChanged();
-            t1::sh::moveShellsList();
+            //t1::sh::moveShellsList();
             moveParticlesList();
             moveResUnitsList(t1::time::time);
             mtBuildings.unlock();

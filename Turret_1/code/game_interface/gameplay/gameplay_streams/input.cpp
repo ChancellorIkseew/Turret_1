@@ -4,6 +4,7 @@
 #include "input.h"
 
 #include "game_interface/system/system.h"
+#include "game_interface/system/sleep.h"
 
 #include "game_interface/gameplay/gameplay_util/cheet_commands.h"
 #include "game_interface/gameplay/sub_windows/main_control_panel.h"
@@ -55,6 +56,6 @@ void t1::gamepl::input(bool& isGameplayActive, bool& isPaused, sf::RenderWindow&
         }
 #endif // TURRET_1_NO_TEST_BUILD
 
-        Sleep(16);
+        t1::system::sleep(16);
     }
 }

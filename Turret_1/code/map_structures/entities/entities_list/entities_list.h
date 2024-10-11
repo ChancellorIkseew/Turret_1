@@ -9,15 +9,24 @@
 #include "map_structures/entities/entity/entity.h"
 
 
-extern std::list<std::unique_ptr<Entity>> entitiesList;
+class EntitiesList
+{
+private:
+	std::list<std::unique_ptr<Entity>> entitiesList;
 
-void saveEntitiesList(const std::string& folder);
-void loadEntitiesList(const std::string& folder);
+public:
+	EntitiesList() = default;
+	~EntitiesList() = default;
+	
+	void save(const std::string& folder);
+	void load(const std::string& folder);
 
-void moveEntitiesList();
+	void spawnEntity(const int amount, const int type);
+	void clean() noexcept;
 
-void drawEntitiesList(sf::RenderWindow& mainWindow);
-
-void cleanEntitiesList() noexcept;
+	void move();
+	void draw(sf::RenderWindow& mainWindow);
+	
+};
 
 #endif // ENTITIES_LIST_H

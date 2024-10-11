@@ -1,47 +1,36 @@
 
 #include "shells_list.h"
 
-
-std::list<std::unique_ptr<Shell>> t1::sh::playerShellsList;		//Player's shels
-std::list<std::unique_ptr<Shell>> t1::sh::enemyShellsList;	//Enemie's shels
+#include "map_structures/shells/shell/shell.h"
 
 
-void t1::sh::saveShellsList(const std::string& folder)
+void ShellsList::save(const std::string& folder)
 {
 
 }
 
-void t1::sh::loadShellsList(const std::string& folder)
+void ShellsList::load(const std::string& folder)
 {
 
 }
 
-
-void t1::sh::moveShellsList()
+void ShellsList::spawnShell(short type, const PixelCoord coord, float angleRad, float angleDeg)
 {
-	for (auto it = playerShellsList.begin(); it != playerShellsList.end();)
+	shellsList.emplace_back(Shell::createShell(type, coord, angleRad, angleDeg));
+}
+
+
+void ShellsList::move()
+{
+	for (auto it = shellsList.begin(); it != shellsList.end();)
 	{
 		(*it)->motion();
-		(*it)->tryPlayerShellsHitting();
+		(*it)->tryShellsHitting();
 
 		if ((*it)->getIsWasted())
 		{
 			(*it)->explosion();
-			it = playerShellsList.erase(it);
-		}
-		else
-			++it;
-	}
-
-	for (auto it = enemyShellsList.begin(); it != enemyShellsList.end();)
-	{
-		(*it)->motion();
-		(*it)->tryEnemyShellsHitting();
-
-		if ((*it)->getIsWasted())
-		{
-			(*it)->explosion();
-			it = enemyShellsList.erase(it);
+			it = shellsList.erase(it);
 		}
 		else
 			++it;
@@ -49,23 +38,17 @@ void t1::sh::moveShellsList()
 }
 
 
-void t1::sh::drawShellsList(sf::RenderWindow& window)
+void ShellsList::draw(sf::RenderWindow& window)
 {
-	for (auto it = playerShellsList.begin(); it != playerShellsList.end(); ++it)
+	for (auto it = shellsList.begin(); it != shellsList.end(); ++it)
 	{
 		(*it)->draw(window);
 
-	}
-
-	for (auto it = enemyShellsList.begin(); it != enemyShellsList.end(); ++it)
-	{
-		(*it)->draw(window);
 	}
 }
 
 
-void t1::sh::cleanShellsList()
+void ShellsList::clean() noexcept
 {
-	playerShellsList.clear();
-	enemyShellsList.clear();
+	shellsList.clear();
 }

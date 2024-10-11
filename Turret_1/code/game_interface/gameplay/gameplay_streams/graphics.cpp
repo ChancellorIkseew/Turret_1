@@ -18,8 +18,8 @@
 #include "map_structures/terrain/terrain.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/entities/turret/turret.h"
-#include "map_structures/entities/entities_list/entities_list.h"
-#include "map_structures/shells/shells_list/shells_list.h"
+#include "map_structures/entities/entity/entity.h"
+#include "map_structures/shells/shell/shell.h"
 #include "map_structures/resources/resource_units.h"
 #include "map_structures/resources/resources.h"
 #include "map_structures/particles/particles.h"
@@ -88,8 +88,8 @@ void t1::gamepl::graphics(bool& isGameplayActive, const bool& isPaused, sf::Rend
         BuildingsMap::drawMap(mainWindow);
         drawResUnitsList(mainWindow);
         drawParticlesList(mainWindow);
-        drawEntitiesList(mainWindow);
-        t1::sh::drawShellsList(mainWindow);
+        //drawEntitiesList(mainWindow);
+        //t1::sh::drawShellsList(mainWindow);
         mtBuildings.unlock();
 
         BuildingPanel::getInstance().drawBuildExample(mainWindow, mouseMapCoord);

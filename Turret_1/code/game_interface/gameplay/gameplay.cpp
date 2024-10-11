@@ -47,7 +47,7 @@ char t1::gamepl::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, 
 		std::cout << "save open works" << std::endl;
         TerrainMap::loadMap(saveFolderName);
 		BuildingsMap::loadMap(saveFolderName);
-		loadEntitiesList(saveFolderName);
+		//loadEntitiesList(saveFolderName);
         loadResUnitsList(saveFolderName);
 
         t1::time::loadTime(saveFolderName);

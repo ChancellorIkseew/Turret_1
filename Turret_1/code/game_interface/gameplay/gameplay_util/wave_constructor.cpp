@@ -22,6 +22,7 @@ void createWave()
 
 void switchEntities(const int wave)
 {
+	/*
 	switch(wave)
 	{
 	case 1:
@@ -123,4 +124,5 @@ void switchEntities(const int wave)
 			Entity::spawnEntity(2, ROCKET_BOSS);
 		}	
 	}
+	*/
 }

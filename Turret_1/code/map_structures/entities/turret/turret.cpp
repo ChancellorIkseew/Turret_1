@@ -38,6 +38,7 @@ void Turret::load(std::ifstream& fin)
 
 PixelCoord Turret::findShootingAim() const
 {
+	/*
 	for (auto it = entitiesList.cbegin(); it != entitiesList.cend(); ++it)
 	{
 		float deltaX = coord.x - (*it)->getCoord().x;
@@ -50,6 +51,7 @@ PixelCoord Turret::findShootingAim() const
 			return (*it)->getCoord();
 		}
 	}
+	*/
 	return { 0.0f, 0.0f };
 }
 
