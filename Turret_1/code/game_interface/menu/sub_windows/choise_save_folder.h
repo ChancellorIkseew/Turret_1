@@ -4,33 +4,22 @@
 
 #include <SFML/Graphics.hpp>
 #include "game_interface/gameplay/sub_windows/sub_windows_util/sub_window.h"
+#include "game_interface/gameplay/sub_windows/sub_windows_util/button/button.h"
 
 
 class ChoiseFolderMenu : public SubWindow
 {
 private:
 
-	sf::Image clButtonImage;
-	sf::Texture clButtonTexture;
+	Button newGame;
+	Button loadGame;
+	Button exitToMenu;
 
-	sf::Sprite cl1ButtonSprite;
-	sf::Sprite cl2ButtonSprite;
-	sf::Sprite cl3ButtonSprite;
-	sf::Sprite cl4ButtonSprite;
-	sf::Sprite cl5ButtonSprite;
-
-
-	sf::Image ngButtonImage;
-	sf::Texture ngButtonTexture;
-	sf::Sprite ngButtonSprite;
-
-	sf::Image lgButtonImage;
-	sf::Texture lgButtonTexture;
-	sf::Sprite lgButtonSprite;
-
-	sf::Image etmButtonImage;
-	sf::Texture etmButtonTexture;
-	sf::Sprite etmButtonSprite;
+	Button load1;
+	Button load2;
+	Button load3;
+	Button load4;
+	Button load5;
 
 	sf::Text helpText;
 
@@ -40,18 +29,14 @@ private:
 	std::string selectFolder(std::string v_saveFolderName, bool& isSaveSelected);
 
 public:
-
 	ChoiseFolderMenu();
-
-	void prepareInterfaceSprites() override;
+	~ChoiseFolderMenu() = default;
 
 	int interact(sf::Vector2i& mouseCoord, bool& isMenuOpen, bool& startNewGame, std::string& saveFolderName);
+	void relocate(int windowSizeX, int windowSizeY) override final;
 
-	void relocate(int windowSizeX, int windowSizeY) override;
-
-	void draw(sf::RenderWindow& window) override;
-
-	~ChoiseFolderMenu();
+	void prepareInterfaceSprites() override final;
+	void draw(sf::RenderWindow& window) override final;
 
 };
 

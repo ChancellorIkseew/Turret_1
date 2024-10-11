@@ -29,7 +29,7 @@ void openMainWindow()
 	//initFonts();
 
 
-	sf::RenderWindow mainWindow(sf::VideoMode(800, 600), L"Турельница. Версия альфа_0.5.2", sf::Style::Default);
+	sf::RenderWindow mainWindow(sf::VideoMode(800, 600), L"Турельница. Версия альфа_0.5.6", sf::Style::Default);
 
 	mainWindow.setFramerateLimit(60);
 	

@@ -37,39 +37,19 @@ MainControlPanel::MainControlPanel() : SubWindow('s', 312, 110, 0, 0)
 
 void MainControlPanel::prepareInterfaceSprites()
 {
-	saveButtonImage.loadFromFile("images/buttons/save.bmp");						//Button_save
-	saveButtonTexture.loadFromImage(saveButtonImage);
-	saveButtonSprite.setTexture(saveButtonTexture);
-	saveButtonSprite.setTextureRect(sf::IntRect(0,0,48,48));
-	saveButtonSprite.setPosition(130, 10);
-	
-	helpButtonImage.loadFromFile("images/buttons/help.bmp");						//Button_help
-	helpButtonTexture.loadFromImage(helpButtonImage);
-	helpButtonSprite.setTexture(helpButtonTexture);
-	helpButtonSprite.setTextureRect(sf::IntRect(0,0,48,48));
-	helpButtonSprite.setPosition(190, 10);
-	
-	etmButtonImage.loadFromFile("images/buttons/exit_to_menu.bmp");				//Button_exit_to_menu
-	etmButtonTexture.loadFromImage(etmButtonImage);
-	etmButtonSprite.setTexture(etmButtonTexture);
-	etmButtonSprite.setTextureRect(sf::IntRect(0,0,48,48));
-	etmButtonSprite.setPosition(70, 10);
-	
-	settingButtonImage.loadFromFile("images/buttons/setting.bmp");				//Button_open_setting
-	settingButtonTexture.loadFromImage(settingButtonImage);
-	settingButtonSprite.setTexture(settingButtonTexture);
-	settingButtonSprite.setTextureRect(sf::IntRect(0,0,48,48));
-	settingButtonSprite.setPosition(10, 10);
-	
-	remPauseButtonImage.loadFromFile("images/buttons/remove_pause.bmp");			//Button_remove_pause
-	remPauseButtonTexture.loadFromImage(remPauseButtonImage);
-	remPauseButtonSprite.setTexture(remPauseButtonTexture);
-	remPauseButtonSprite.setTextureRect(sf::IntRect(0,0,48,48));
+	save = Button("save.bmp", sf::Vector2i(48, 48), sf::Vector2i(130, 10));
+	help = Button("help.bmp", sf::Vector2i(48, 48), sf::Vector2i(190, 10));
+	exitToMenu = Button("exit_to_menu.bmp", sf::Vector2i(48, 48), sf::Vector2i(70, 10));
+	settings = Button("settings.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 10));
+	setPause = Button("set_pause.bmp", sf::Vector2i(48, 48), sf::Vector2i(250, 10));
+	removePause = Button("remove_pause.bmp", sf::Vector2i(48, 48), sf::Vector2i(250, 10));
 
-	setPauseButtonImage.loadFromFile("images/buttons/set_pause.bmp");			//Button_set_pause
-	setPauseButtonTexture.loadFromImage(setPauseButtonImage);
-	setPauseButtonSprite.setTexture(setPauseButtonTexture);
-	setPauseButtonSprite.setTextureRect(sf::IntRect(0,0,48,48));
+	save.relocate(sf::Vector2i(positionX, positionY));
+	help.relocate(sf::Vector2i(positionX, positionY));
+	exitToMenu.relocate(sf::Vector2i(positionX, positionY));
+	settings.relocate(sf::Vector2i(positionX, positionY));
+	setPause.relocate(sf::Vector2i(positionX, positionY));
+	removePause.relocate(sf::Vector2i(positionX, positionY));
 	
 
 	waveNumberText.setFont(turretClassic);											//Text_wave_number
@@ -99,10 +79,8 @@ void MainControlPanel::prepareInterfaceSprites()
 
 void MainControlPanel::interact(sf::Vector2i& mouseCoord, bool& isPaused, bool& isGameplayActive, const std::string& saveFolderName)
 {
-	if (saveButtonSprite.getGlobalBounds().contains(mouseCoord.x, mouseCoord.y))
+	if (save.press(mouseCoord))
 	{
-		std::cout << "save button works" << std::endl;
-		
 		PreSettings::savePreSettings();
 
 		mtBuildings.lock();
@@ -115,9 +93,8 @@ void MainControlPanel::interact(sf::Vector2i& mouseCoord, bool& isPaused, bool& 
 		mtBuildings.unlock();
 	}
 	
-	if (etmButtonSprite.getGlobalBounds().contains(mouseCoord.x, mouseCoord.y))
+	if (exitToMenu.press(mouseCoord))
 	{
-		std::cout << "exit to menu button works" << std::endl;
 		ConfirmationWindow::getInstance().setVisible(true);
 		
 		if(ConfirmationWindow::getInstance().interact(mouseCoord))
@@ -135,31 +112,34 @@ void MainControlPanel::interact(sf::Vector2i& mouseCoord, bool& isPaused, bool& 
 		ConfirmationWindow::getInstance().setVisible(false);
 	}
 	
-	if (settingButtonSprite.getGlobalBounds().contains(mouseCoord.x, mouseCoord.y))
+	if (settings.press(mouseCoord))
 	{
-		std::cout << "setting button works" << std::endl;
 		SettingsWindow::getInstance().setVisible(true);
 		SettingsWindow::getInstance().interact(mouseCoord);
 		SettingsWindow::getInstance().setVisible(false);
 	}
 	
-	if (helpButtonSprite.getGlobalBounds().contains(mouseCoord.x, mouseCoord.y))
+	if (help.press(mouseCoord))
 	{
 		std::cout << "help button works" << std::endl;
 	}
 	
-	if (setPauseButtonSprite.getGlobalBounds().contains(mouseCoord.x, mouseCoord.y))
+	if (setPause.press(mouseCoord))
 	{
 		std::cout << "set pause button works" << std::endl;
 		isPaused = true;
 		this->isPaused = isPaused;
+		setPause.setVisible(false);
+		removePause.setVisible(true);
 	}
 	
-	if (remPauseButtonSprite.getGlobalBounds().contains(mouseCoord.x, mouseCoord.y))
+	if (removePause.press(mouseCoord))
 	{
 		std::cout << "remove pause button works" << std::endl;
 		isPaused = false;
 		this->isPaused = isPaused;
+		removePause.setVisible(false);
+		setPause.setVisible(true);
 	}
 	
 }
@@ -190,24 +170,12 @@ void MainControlPanel::draw(sf::RenderWindow& window)
 {
 	this->drawSubWindowBase(window);
     
-    window.draw(settingButtonSprite);
-    window.draw(etmButtonSprite);
-    window.draw(saveButtonSprite);
-    window.draw(helpButtonSprite);
-    
-    if(isPaused)
-    {
-    	remPauseButtonSprite.setPosition(250, 10);
-    	window.draw(remPauseButtonSprite);
-    	setPauseButtonSprite.setPosition(-50, -50);
-	}
-    else
-    {
-    	setPauseButtonSprite.setPosition(250, 10);
-		window.draw(setPauseButtonSprite);
-		
-		remPauseButtonSprite.setPosition(-50, -50);
-	}
+    settings.draw(window);
+	exitToMenu.draw(window);
+    save.draw(window);
+    help.draw(window);
+	setPause.draw(window);
+	removePause.draw(window);
     
 	window.draw(waveNumberText);
 	window.draw(waveNumberText2);

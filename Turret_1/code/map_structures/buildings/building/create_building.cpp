@@ -25,12 +25,24 @@ std::shared_ptr<Building> Building::createBuilding(int type, char direction, sho
 
 	case CORE_MK1:
 		return std::make_shared<Core>(CORE_MK1, durability, size, tile);
+	case CORE_MK2:
+		break;
+	case CORE_MK3:
+		break;
 
 	case STONE_WALL:
 		return std::make_shared<StoneWall>(STONE_WALL, durability, size, tile);
+	case CONCRETE_WALL:
+		break;
+	case URANIUM_WALL:
+		break;
 
 	case STONE_TOWER:
 		return std::make_shared<StoneTower>(STONE_TOWER, durability, size, tile);
+	case CONCRETE_TOWER:
+		break;
+	case URANIUM_TOWER:
+		break;
 
 	case STANDARD_CONVEYER:
 		return std::make_shared<Conveyer>(STANDARD_CONVEYER, direction, durability, size, tile);
@@ -41,6 +53,8 @@ std::shared_ptr<Building> Building::createBuilding(int type, char direction, sho
 		return std::make_shared<Bridge>(BRIDGE, direction, durability, size, tile);
 	case ROUTER:
 		return std::make_shared<Router>(ROUTER, durability, size, tile);
+	case SORTER:
+		break;
 
 	case SMALL_DRILL:
 		return std::make_shared<SmallDrill>(SMALL_DRILL, durability, size, tile);

@@ -11,25 +11,6 @@ class TerrainPreSettingsWindow : public SubWindow
 {
 private:
 
-	sf::Image etmButtonImage;
-	sf::Texture etmButtonTexture;
-	sf::Sprite etmButtonSprite;
-
-	sf::Image generalButtonImage;
-	sf::Texture generalButtonTexture;
-	sf::Sprite generalButtonSprite;
-
-	sf::Image terrainButtonImage;
-	sf::Texture terrainButtonTexture;
-	sf::Sprite terrainButtonSprite;
-
-	sf::Image buildingsButtonImage;
-	sf::Texture buildingsButtonTexture;
-	sf::Sprite buildingsButtonSprite;
-
-	sf::Image mobsButtonImage;
-	sf::Texture mobsButtonTexture;
-	sf::Sprite mobsButtonSprite;
 
 public:
 

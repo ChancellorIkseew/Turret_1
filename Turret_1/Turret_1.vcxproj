@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="code\game_interface\gameplay\gameplay.cpp" />
+    <ClCompile Include="code\game_interface\gameplay\gameplay_streams\graphics.cpp" />
     <ClCompile Include="code\game_interface\gameplay\gameplay_streams\input.cpp" />
     <ClCompile Include="code\game_interface\gameplay\gameplay_streams\simulation.cpp" />
     <ClCompile Include="code\game_interface\gameplay\gameplay_util\camera.cpp" />
@@ -160,7 +161,7 @@
     <ClCompile Include="code\game_interface\gameplay\sub_windows\resources_panel.cpp" />
     <ClCompile Include="code\game_interface\gameplay\sub_windows\settings_window.cpp" />
     <ClCompile Include="code\game_interface\gameplay\sub_windows\specifications_panel.cpp" />
-    <ClCompile Include="code\game_interface\gameplay\sub_windows\sub_windows_util\buttons.cpp" />
+    <ClCompile Include="code\game_interface\gameplay\sub_windows\sub_windows_util\button\button.cpp" />
     <ClCompile Include="code\game_interface\gameplay\sub_windows\sub_windows_util\fonts.cpp" />
     <ClCompile Include="code\game_interface\gameplay\sub_windows\sub_windows_util\res_info.cpp" />
     <ClCompile Include="code\game_interface\gameplay\sub_windows\sub_windows_util\sub_window.cpp" />
@@ -247,6 +248,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\game_interface\gameplay\gameplay.h" />
+    <ClInclude Include="code\game_interface\gameplay\gameplay_streams\graphics.h" />
     <ClInclude Include="code\game_interface\gameplay\gameplay_streams\input.h" />
     <ClInclude Include="code\game_interface\gameplay\gameplay_streams\simulation.h" />
     <ClInclude Include="code\game_interface\gameplay\gameplay_util\camera.h" />
@@ -259,7 +261,7 @@
     <ClInclude Include="code\game_interface\gameplay\sub_windows\resources_panel.h" />
     <ClInclude Include="code\game_interface\gameplay\sub_windows\settings_window.h" />
     <ClInclude Include="code\game_interface\gameplay\sub_windows\specifications_panel.h" />
-    <ClInclude Include="code\game_interface\gameplay\sub_windows\sub_windows_util\buttons.h" />
+    <ClInclude Include="code\game_interface\gameplay\sub_windows\sub_windows_util\button\button.h" />
     <ClInclude Include="code\game_interface\gameplay\sub_windows\sub_windows_util\fonts.h" />
     <ClInclude Include="code\game_interface\gameplay\sub_windows\sub_windows_util\res_info.h" />
     <ClInclude Include="code\game_interface\gameplay\sub_windows\sub_windows_util\sub_window.h" />

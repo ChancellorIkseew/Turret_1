@@ -156,6 +156,12 @@ void BuildingPanel::drawBuildExample(sf::RenderWindow& window, const sf::Vector2
 {
 	if (isBuildingTypeSelected)
 	{
+		if (newBuildingType != STANDARD_CONVEYER && newBuildingType != SHIELDED_CONVEYER &&
+			newBuildingType != BRIDGE && newBuildingType != SORTER)
+		{
+			direction = 'w';
+			buildExampleSprite.setRotation(0);
+		}
 		buildExampleSprite.setPosition(mouseMapCoord);
 		window.draw(buildExampleSprite);
 	}

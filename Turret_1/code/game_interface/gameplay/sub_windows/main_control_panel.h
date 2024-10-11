@@ -5,6 +5,7 @@
 #include <SFML\Graphics.hpp>
 
 #include "sub_windows_util/sub_window.h"
+#include "sub_windows_util/button/button.h"
 
 
 class MainControlPanel : public SubWindow
@@ -13,29 +14,12 @@ private:
 
 	bool isPaused;
 	
-	sf::Image saveButtonImage;
-	sf::Texture saveButtonTexture;
-	sf::Sprite saveButtonSprite;
-	
-	sf::Image helpButtonImage;
-	sf::Texture helpButtonTexture;
-	sf::Sprite helpButtonSprite;
-	
-	sf::Image etmButtonImage;
-	sf::Texture etmButtonTexture;
-	sf::Sprite etmButtonSprite;
-	
-	sf::Image settingButtonImage;
-	sf::Texture settingButtonTexture;
-	sf::Sprite settingButtonSprite;
-	
-	sf::Image remPauseButtonImage;
-	sf::Texture remPauseButtonTexture;
-	sf::Sprite remPauseButtonSprite;
-	
-	sf::Image setPauseButtonImage;
-	sf::Texture setPauseButtonTexture;
-	sf::Sprite setPauseButtonSprite;
+	Button save;
+	Button help;
+	Button exitToMenu;
+	Button settings;
+	Button setPause;
+	Button removePause;
 	
 	sf::Text waveNumberText;
 	sf::Text waveNumberText2;

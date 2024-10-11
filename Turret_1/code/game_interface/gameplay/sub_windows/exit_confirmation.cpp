@@ -5,6 +5,7 @@
 #include "sub_windows_util/fonts.h"
 #include "game_interface/main_window/main_window_resize.h"
 #include "game_interface/system/system.h"
+#include "game_interface/system/sleep.h"
 
 #include "exit_confirmation.h"
 
@@ -19,15 +20,8 @@ ConfirmationWindow::ConfirmationWindow() : SubWindow('s', 128, 100, 0, 0)
 
 void ConfirmationWindow::prepareInterfaceSprites()
 {
-	confirmButtonImage.loadFromFile("images/buttons/confirm.bmp");
-	confirmButtonTexture.loadFromImage(confirmButtonImage);
-	confirmButtonSprite.setTexture(confirmButtonTexture);
-	confirmButtonSprite.setTextureRect(sf::IntRect(0, 0, 48, 48));
-
-	rejectButtonImage.loadFromFile("images/buttons/reject.bmp");
-	rejectButtonTexture.loadFromImage(rejectButtonImage);
-	rejectButtonSprite.setTexture(rejectButtonTexture);
-	rejectButtonSprite.setTextureRect(sf::IntRect(0, 0, 48, 48));
+    confirm = Button("confirm.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 10));
+    reject = Button("reject.bmp", sf::Vector2i(48, 48), sf::Vector2i(70, 10));
 
     confirmationText.setFont(turretClassic);
     confirmationText.setString(sf::String(L"Выйти без\nсохранения?"));
@@ -42,8 +36,8 @@ void ConfirmationWindow::draw(sf::RenderWindow& window)
     if (isVisible)
     {
         this->drawSubWindowBase(window);
-        window.draw(confirmButtonSprite);
-        window.draw(rejectButtonSprite);
+        confirm.draw(window);
+        reject.draw(window);
         window.draw(confirmationText);
     }
 }
@@ -54,21 +48,13 @@ bool ConfirmationWindow::interact(sf::Vector2i& mouseCoord)
 {
     while (true)
     {
-        if (LMB_Pressed)
-        {
+        if (confirm.press(mouseCoord))
+            return true;
 
-            if (confirmButtonSprite.getGlobalBounds().contains(mouseCoord.x, mouseCoord.y))
-            {
-                std::cout << "exit_confirmed" << std::endl;
-                return true;
-            }
+        if (reject.press(mouseCoord))
+            return false;
 
-            if (rejectButtonSprite.getGlobalBounds().contains(mouseCoord.x, mouseCoord.y))
-            {
-                std::cout << "exit_was_rejected" << std::endl;
-                return false;
-            }
-        }
+        t1::system::sleep(16);
     }
 }
 
@@ -80,7 +66,7 @@ void ConfirmationWindow::relocate(int windowSizeX, int windowSizeY)
     positionY = (windowSizeY - sizeY) / 2;
     std::cout << " win x:" << positionX << " win y:" << positionY << '\n';
 
-    confirmButtonSprite.setPosition(positionX + 10, positionY + 10);
-    rejectButtonSprite.setPosition(positionX + 70, positionY + 10);
+    confirm.relocate(sf::Vector2i(positionX, positionY));
+    reject.relocate(sf::Vector2i(positionX, positionY));
     confirmationText.setPosition(positionX + 10, positionY + 60);
 }

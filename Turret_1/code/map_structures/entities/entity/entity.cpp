@@ -175,8 +175,6 @@ void Entity::prepareSprites()
 	entityImage.createMaskFromColor(sf::Color(0, 255, 0));
 	entityTexture.loadFromImage(entityImage);
 	entitySprite.setTexture(entityTexture);
-	entitySprite.setTextureRect(sf::IntRect(1, 1, 15, 13));
-	entitySprite.setOrigin(8, 7);
 
 	shieldImage.loadFromFile("images/shield.bmp");
 	shieldImage.createMaskFromColor(sf::Color(0, 255, 0));

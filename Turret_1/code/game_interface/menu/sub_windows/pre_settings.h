@@ -3,8 +3,8 @@
 #define PRE1
 
 #include <SFML/Graphics.hpp>
-
 #include "game_interface/gameplay/sub_windows/sub_windows_util/sub_window.h"
+#include "game_interface/gameplay/sub_windows/sub_windows_util/button/button.h"
 
 #include "world_pre_settings/general_pre_settings.h"
 
@@ -12,30 +12,13 @@
 class PreSettingsWindow : public SubWindow
 {
 private:
+	Button startGame;
+	Button exitToMenu;
 
-	sf::Image etmButtonImage;
-	sf::Texture etmButtonTexture;
-	sf::Sprite etmButtonSprite;
-
-	sf::Image generalButtonImage;
-	sf::Texture generalButtonTexture;
-	sf::Sprite generalButtonSprite;
-
-	sf::Image terrainButtonImage;
-	sf::Texture terrainButtonTexture;
-	sf::Sprite terrainButtonSprite;
-
-	sf::Image buildingsButtonImage;
-	sf::Texture buildingsButtonTexture;
-	sf::Sprite buildingsButtonSprite;
-
-	sf::Image mobsButtonImage;
-	sf::Texture mobsButtonTexture;
-	sf::Sprite mobsButtonSprite;
-
-	sf::Image startGameButtonImage;
-	sf::Texture startGameButtonTexture;
-	sf::Sprite startGameButtonSprite;
+	Button generalPreSettings;
+	Button terrainPreSettings;
+	Button buildingsPreSettings;
+	Button mobsPreSettings;
 
 	GeneralPreSettingsWindow generalPreSettingsWindow;
 

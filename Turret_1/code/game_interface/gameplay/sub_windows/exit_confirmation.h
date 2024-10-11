@@ -3,19 +3,15 @@
 #define CONFIRMATION_H
 
 #include "sub_windows_util/sub_window.h"
+#include "sub_windows_util/button/button.h"
 
 
 class ConfirmationWindow : public SubWindow
 {
 private:
 
-	sf::Image confirmButtonImage;
-	sf::Texture confirmButtonTexture;
-	sf::Sprite confirmButtonSprite;
-
-	sf::Image rejectButtonImage;
-	sf::Texture rejectButtonTexture;
-	sf::Sprite rejectButtonSprite;
+	Button confirm;
+	Button reject;
 
 	sf::Text confirmationText;
 

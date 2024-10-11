@@ -5,7 +5,7 @@
 #include "choise_save_folder.h"
 
 #include "game_interface/gameplay/sub_windows/sub_windows_util/fonts.h"
-#include "game_interface/system/system.h"
+#include "game_interface/system/sleep.h"
 #include "game_interface/main_window/main_window.h"
 
 #include "map_structures/pre-settings/pre-settings.h"
@@ -42,38 +42,15 @@ ChoiseFolderMenu::ChoiseFolderMenu() : SubWindow('s', 720, 480, 100, 100)
 
 void ChoiseFolderMenu::prepareInterfaceSprites()
 {
-	ngButtonImage.loadFromFile("images/buttons/new_game.bmp");
-	ngButtonTexture.loadFromImage(ngButtonImage);
-	ngButtonSprite.setTexture(ngButtonTexture);
-	ngButtonSprite.setTextureRect(sf::IntRect(0, 0, 242, 48));
-	
-	lgButtonImage.loadFromFile("images/buttons/load_game.bmp");
-	lgButtonTexture.loadFromImage(lgButtonImage);
-	lgButtonSprite.setTexture(lgButtonTexture);
-	lgButtonSprite.setTextureRect(sf::IntRect(0, 0, 364, 48));
-	
-	etmButtonImage.loadFromFile("images/buttons/exit_to_menu.bmp");
-	etmButtonTexture.loadFromImage(etmButtonImage);
-	etmButtonSprite.setTexture(etmButtonTexture);
-	etmButtonSprite.setTextureRect(sf::IntRect(0, 0, 48, 48));
+	newGame = Button("new_game.bmp", sf::Vector2i(242, 48), sf::Vector2i(10, 100));
+	loadGame = Button("load_game.bmp", sf::Vector2i(364, 48), sf::Vector2i(10, 170));
+	exitToMenu = Button("exit_to_menu.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 10));
 
-	clButtonImage.loadFromFile("images/buttons/choise_load.bmp");
-	clButtonTexture.loadFromImage(clButtonImage);
-
-	cl1ButtonSprite.setTexture(clButtonTexture);
-	cl1ButtonSprite.setTextureRect(sf::IntRect(0, 0, 48, 48));
-
-	cl2ButtonSprite.setTexture(clButtonTexture);
-	cl2ButtonSprite.setTextureRect(sf::IntRect(0, 0, 48, 48));
-
-	cl3ButtonSprite.setTexture(clButtonTexture);
-	cl3ButtonSprite.setTextureRect(sf::IntRect(0, 0, 48, 48));
-
-	cl4ButtonSprite.setTexture(clButtonTexture);
-	cl4ButtonSprite.setTextureRect(sf::IntRect(0, 0, 48, 48));
-
-	cl5ButtonSprite.setTexture(clButtonTexture);
-	cl5ButtonSprite.setTextureRect(sf::IntRect(0, 0, 48, 48));
+	load1 = Button("choise_load.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 240));
+	load2 = Button("choise_load.bmp", sf::Vector2i(48, 48), sf::Vector2i(70, 240));
+	load3 = Button("choise_load.bmp", sf::Vector2i(48, 48), sf::Vector2i(130, 240));
+	load4 = Button("choise_load.bmp", sf::Vector2i(48, 48), sf::Vector2i(190, 240));
+	load5 = Button("choise_load.bmp", sf::Vector2i(48, 48), sf::Vector2i(250, 240));
 
 	helpText.setFont(turretClassic);
 	helpText.setString(sf::String(L"„тобы начать игру, нужно выбрать сохранение,\nв которое будет записыватьс€ игровой прогресс."));
@@ -87,101 +64,69 @@ int ChoiseFolderMenu::interact(sf::Vector2i& mouseCoord, bool& isMenuOpen, bool&
 {
 	while (isMenuOpen)
 	{
-		if (LMB_Pressed)
+		if (load1.press(mouseCoord))
 		{
-			if (cl1ButtonSprite.getGlobalBounds().contains(mouseCoord.x, mouseCoord.y))
-			{
-				std::cout << "load button 1 works" << std::endl;
-				cl1ButtonSprite.setColor(sf::Color(239, 228, 176));
-				saveFolderName = selectFolder("save1", isFolderSelected);
-				isTextVisible = false;
-			}
-
-			if (cl2ButtonSprite.getGlobalBounds().contains(mouseCoord.x, mouseCoord.y))
-			{
-				std::cout << "load button 2 works" << std::endl;
-				cl2ButtonSprite.setColor(sf::Color(239, 228, 176));
-				saveFolderName = selectFolder("save2", isFolderSelected);
-				isTextVisible = false;
-			}
-
-			if (cl3ButtonSprite.getGlobalBounds().contains(mouseCoord.x, mouseCoord.y))
-			{
-				std::cout << "load button 3 works" << std::endl;
-				cl3ButtonSprite.setColor(sf::Color(239, 228, 176));
-				saveFolderName = selectFolder("save3", isFolderSelected);
-				isTextVisible = false;
-			}
-
-			if (cl4ButtonSprite.getGlobalBounds().contains(mouseCoord.x, mouseCoord.y))
-			{
-				std::cout << "load button 4 works" << std::endl;
-				cl4ButtonSprite.setColor(sf::Color(239, 228, 176));
-				saveFolderName = selectFolder("save4", isFolderSelected);
-				isTextVisible = false;
-			}
-
-			if (cl5ButtonSprite.getGlobalBounds().contains(mouseCoord.x, mouseCoord.y))
-			{
-				std::cout << "load button 5 works" << std::endl;
-				cl5ButtonSprite.setColor(sf::Color(239, 228, 176));
-				saveFolderName = selectFolder("save5", isFolderSelected);
-				isTextVisible = false;
-			}
-
-
-
-			if (lgButtonSprite.getGlobalBounds().contains(mouseCoord.x, mouseCoord.y))
-			{
-				if (isFolderSelected)
-				{
-					std::cout << "load_game button works" << std::endl;
-					PreSettings preSettings1(saveFolderName);
-					startNewGame = false;
-					return GameCondition::GAMEPLAY;
-				}
-				else
-				{
-					isTextVisible = true;
-				}
-			}
-
-
-			if (ngButtonSprite.getGlobalBounds().contains(mouseCoord.x, mouseCoord.y))
-			{
-				if (isFolderSelected)
-				{
-					std::cout << "new_game button works" << std::endl;
-					PreSettings preSettings1(saveFolderName);
-					startNewGame = true;
-					return PRE_SETTINGS_MENU;
-				}
-				else
-				{
-					isTextVisible = true;
-				}
-			}
-
-
-			if (etmButtonSprite.getGlobalBounds().contains(mouseCoord.x, mouseCoord.y))
-			{
-				std::cout << "exit to menu button works" << std::endl;
-				return MAIN_MENU;
-			}
-
-			Sleep(150);
+			saveFolderName = selectFolder("save1", isFolderSelected);
+			isTextVisible = false;
 		}
 
-		if (!isFolderSelected)
+		if (load2.press(mouseCoord))
 		{
-			cl1ButtonSprite.setColor(sf::Color::White);
-			cl2ButtonSprite.setColor(sf::Color::White);
-			cl3ButtonSprite.setColor(sf::Color::White);
-			cl4ButtonSprite.setColor(sf::Color::White);
-			cl5ButtonSprite.setColor(sf::Color::White);
+			saveFolderName = selectFolder("save2", isFolderSelected);
+			isTextVisible = false;
 		}
 
-		Sleep(16);
+		if (load3.press(mouseCoord))
+		{
+			saveFolderName = selectFolder("save3", isFolderSelected);
+			isTextVisible = false;
+		}
+
+		if (load4.press(mouseCoord))
+		{
+			saveFolderName = selectFolder("save4", isFolderSelected);
+			isTextVisible = false;
+		}
+
+		if (load5.press(mouseCoord))
+		{
+			saveFolderName = selectFolder("save5", isFolderSelected);
+			isTextVisible = false;
+		}
+
+
+		if (loadGame.press(mouseCoord))
+		{
+			if (isFolderSelected)
+			{
+				PreSettings preSettings1(saveFolderName);
+				startNewGame = false;
+				return GameCondition::GAMEPLAY;
+			}
+			else
+			{
+				isTextVisible = true;
+			}
+		}
+
+		if (newGame.press(mouseCoord))
+		{
+			if (isFolderSelected)
+			{
+				PreSettings preSettings1(saveFolderName);
+				startNewGame = true;
+				return PRE_SETTINGS_MENU;
+			}
+			else
+			{
+				isTextVisible = true;
+			}
+		}
+
+		if (exitToMenu.press(mouseCoord))
+			return MAIN_MENU;
+
+		t1::system::sleep(16);
 	}
 
 	return CHOISE_FOLDER_MENU;
@@ -193,17 +138,16 @@ void ChoiseFolderMenu::relocate(int windowSizeX, int windowSizeY)
 {
 	positionX = (windowSizeX - sizeX) / 2;
 	positionY = (windowSizeY - sizeY) / 2;
-	//std::cout << " win x:" << positionX << " win y:" << positionY << '\n';
 
-	ngButtonSprite.setPosition(positionX + 10, positionY + 100);
-	lgButtonSprite.setPosition(positionX + 10, positionY + 170);
-	etmButtonSprite.setPosition(positionX + sizeX - 58, positionY + 10);
+	newGame.relocate(sf::Vector2i(positionX, positionY));
+	loadGame.relocate(sf::Vector2i(positionX, positionY));
+	exitToMenu.relocate(sf::Vector2i(positionX, positionY));
 
-	cl1ButtonSprite.setPosition(positionX + 10, positionY + 240);
-	cl2ButtonSprite.setPosition(positionX + 70, positionY + 240);
-	cl3ButtonSprite.setPosition(positionX + 130, positionY + 240);
-	cl4ButtonSprite.setPosition(positionX + 190, positionY + 240);
-	cl5ButtonSprite.setPosition(positionX + 250, positionY + 240);
+	load1.relocate(sf::Vector2i(positionX, positionY));
+	load2.relocate(sf::Vector2i(positionX, positionY));
+	load3.relocate(sf::Vector2i(positionX, positionY));
+	load4.relocate(sf::Vector2i(positionX, positionY));
+	load5.relocate(sf::Vector2i(positionX, positionY));
 
 	helpText.setPosition(positionX + 70, positionY + 350);
 }
@@ -220,21 +164,14 @@ void ChoiseFolderMenu::draw(sf::RenderWindow& window)
 			window.draw(helpText);
 		}
 
-		window.draw(cl1ButtonSprite);
-		window.draw(cl2ButtonSprite);
-		window.draw(cl3ButtonSprite);
-		window.draw(cl4ButtonSprite);
-		window.draw(cl5ButtonSprite);
+		newGame.draw(window);
+		loadGame.draw(window);
+		exitToMenu.draw(window);
 
-		window.draw(etmButtonSprite);
-		window.draw(ngButtonSprite);
-		window.draw(lgButtonSprite);
+		load1.draw(window);
+		load2.draw(window);
+		load3.draw(window);
+		load4.draw(window);
+		load5.draw(window);
 	}
-}
-
-
-
-ChoiseFolderMenu::~ChoiseFolderMenu()
-{
-
 }

@@ -69,9 +69,6 @@
     <ClCompile Include="code\game_interface\gameplay\gameplay_util\wave_constructor.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="code\game_interface\gameplay\sub_windows\sub_windows_util\buttons.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="code\game_interface\gameplay\sub_windows\sub_windows_util\fonts.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -324,6 +321,12 @@
     <ClCompile Include="code\map_structures\buildings\building\buildings_ico.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="code\game_interface\gameplay\gameplay_streams\graphics.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game_interface\gameplay\sub_windows\sub_windows_util\button\button.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="libgcc_s_seh_64-1.dll" />
@@ -339,9 +342,6 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\game_interface\gameplay\gameplay_util\wave_constructor.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="code\game_interface\gameplay\sub_windows\sub_windows_util\buttons.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\game_interface\gameplay\sub_windows\sub_windows_util\fonts.h">
@@ -597,6 +597,12 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\map_structures\buildings\building\buildings_ico.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\game_interface\gameplay\gameplay_streams\graphics.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\game_interface\gameplay\sub_windows\sub_windows_util\button\button.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

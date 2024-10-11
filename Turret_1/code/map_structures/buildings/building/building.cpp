@@ -189,7 +189,7 @@ void Building::placeResourceUnit(const int resType, const TileCoord tile)
 				BuildingsMap::takePosition({ tile.x, tile.y - 1 }, 2);
 				wasteResorce(resType, 1);
 			}
-
+			[[fallthrough]];
 		case 1:
 			if (++i > 4)
 				return;
@@ -200,7 +200,7 @@ void Building::placeResourceUnit(const int resType, const TileCoord tile)
 				BuildingsMap::takePosition({ tile.x - 1, tile.y }, 4);
 				wasteResorce(resType, 1);
 			}
-
+			[[fallthrough]];
 		case 2:
 			if (++i > 4)
 				return;
@@ -211,7 +211,7 @@ void Building::placeResourceUnit(const int resType, const TileCoord tile)
 				BuildingsMap::takePosition({ tile.x, tile.y + 1 }, 0);
 				wasteResorce(resType, 1);
 			}
-
+			[[fallthrough]];
 		case 3:
 			if (++i > 4)
 				return;

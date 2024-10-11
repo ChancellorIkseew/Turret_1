@@ -4,22 +4,16 @@
 
 #include <SFML/Graphics.hpp>
 #include "game_interface/gameplay/sub_windows/sub_windows_util/sub_window.h"
+#include "game_interface/gameplay/sub_windows/sub_windows_util/button/button.h"
 
 
 class MainMenu : public SubWindow
 {
 private:
-
-	sf::Image playButtonImage;
-	sf::Texture playButtonTexture;
-	sf::Sprite playButtonSprite;
-
-	sf::Image optionsButtonImage;
-	sf::Texture optionsButtonTexture;
-	sf::Sprite optionsButtonSprite;
+	Button play;
+	Button settings;
 
 public:
-
 	MainMenu();
 	~MainMenu() = default;
 

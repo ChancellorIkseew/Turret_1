@@ -1,4 +1,4 @@
-
+ 
 #include <iostream>
 
 #include "terrain_pre_settings.h"
@@ -29,11 +29,6 @@ void TerrainPreSettingsWindow::interact(sf::Vector2i& mouseCoord, bool& isMenuOp
 
 
 
-	//if (generalButtonSprite.getGlobalBounds().contains(mouseCoord.x, mouseCoord.y))
-	//{
-		//std::cout << "general" << std::endl;
-		//Sleep(150);
-	//}
 }
 
 
