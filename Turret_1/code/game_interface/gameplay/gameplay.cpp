@@ -47,7 +47,7 @@ char t1::gamepl::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, 
         BuildingsMap::constructBuilding(CORE_MK1, 0, { 48, 48 }, player.get());
 
         t1::time::resetTime();
-        t1::res::giveStartResources();
+        //t1::res::giveStartResources();
 	}
 	else
 	{
@@ -58,7 +58,7 @@ char t1::gamepl::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, 
         loadResUnitsList(saveFolderName);
 
         t1::time::loadTime(saveFolderName);
-        t1::res::loadResources(saveFolderName);
+        //t1::res::loadResources(saveFolderName);
 	}
 	
     bool isMovingCamera = false;
@@ -70,7 +70,7 @@ char t1::gamepl::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, 
     bool isPaused = true;
 	bool isGameplayActive = true;
 
-    std::thread simulation([&]() { t1::gamepl::simulation(isGameplayActive, isPaused, *enemy); });
+    std::thread simulation([&]() { t1::gamepl::simulation(isGameplayActive, isPaused, *enemy, *player); });
     std::thread input([&]() { t1::gamepl::input(isGameplayActive, isPaused, mainWindow, mouseCoord, mouseMapCoord,
         lastMousePosition, isMovingCamera, saveFolderName, player.get()); });
     graphics(isGameplayActive, isPaused, mainWindow, mouseCoord, mouseMapCoord,

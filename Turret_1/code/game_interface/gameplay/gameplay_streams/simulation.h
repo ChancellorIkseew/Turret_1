@@ -6,7 +6,7 @@ class Team;
 
 namespace t1::gamepl
 {
-	void simulation(const bool& isGameplayActive, const bool& isPaused, Team& enemy);
+	void simulation(const bool& isGameplayActive, const bool& isPaused, Team& enemy, Team& player);
 }
 
 

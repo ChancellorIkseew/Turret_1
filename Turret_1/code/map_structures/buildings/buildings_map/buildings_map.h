@@ -57,7 +57,7 @@ public:
 	static void addToInventory(const int resType, const TileCoord tile);
 
 	// turrets
-	static void setTurret(const int turretType, const TileCoord tile);
+	static void setTurret(const int turretType, const TileCoord tile, Team* team);
 	static void removeTurret(const TileCoord tile);
 	static bool isTurretOnTile(const TileCoord tile);
 	

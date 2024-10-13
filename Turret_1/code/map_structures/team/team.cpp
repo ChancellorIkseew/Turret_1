@@ -62,4 +62,5 @@ void Team::drawAll(sf::RenderWindow& window)
 
 
 int Team::getID() { return ID; }
+Balance& Team::getBalance() { return balance; }
 

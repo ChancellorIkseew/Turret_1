@@ -1,6 +1,4 @@
 
-#include <SFML\Graphics.hpp>
-
 #include "resources_panel.h"
 
 #include "sub_windows_util/fonts.h"
@@ -8,6 +6,7 @@
 
 #include "map_structures/resources/resources.h"
 #include "map_structures/resources/res_enum.h"
+#include "map_structures/team/team.h"
 
 
 ResourcesPanel::ResourcesPanel() : SubWindow('s', 134, 219, 600, 600)
@@ -30,15 +29,17 @@ void ResourcesPanel::prepareInterfaceSprites()
 }
 
 
-void ResourcesPanel::interact()
+void ResourcesPanel::interact(Team& team)
 {
-    using namespace t1::res;
-    stoneInfo.update(stoneQuantity);
-    ironInfo.update(ironQuantity);
-    copperInfo.update(copperQuantity);
-    siliconInfo.update(siliconQuantity);
-    coalInfo.update(coalQuantity);
-    sulfurInfo.update(sulfurQuantity);
+    mutex.lock();
+    t1::res::AllResources balance = team.getBalance().balance;
+    stoneInfo.update(balance.stone);
+    ironInfo.update(balance.iron);
+    copperInfo.update(balance.copper);
+    siliconInfo.update(balance.silicon);
+    coalInfo.update(balance.coal);
+    sulfurInfo.update(balance.sulfur);
+    mutex.unlock();
 }
 
 
@@ -52,12 +53,12 @@ void ResourcesPanel::relocate(int windowSizeX, int windowSizeY)
 void ResourcesPanel::draw(sf::RenderWindow &window)
 {
     this->drawSubWindowBase(window);
-    this->interact();
-
+    mutex.lock();
     stoneInfo.draw(window, positionX+16, positionY+16);
     ironInfo.draw(window, positionX + 16, positionY + 46);
     copperInfo.draw(window, positionX + 16, positionY + 76);
     siliconInfo.draw(window, positionX + 16, positionY + 106);
     coalInfo.draw(window, positionX + 16, positionY + 136);
     sulfurInfo.draw(window, positionX + 16, positionY + 166);
+    mutex.unlock();
 }

@@ -3,14 +3,17 @@
 #define RESOURCES_PANEL_H
 
 #include <SFML\Graphics.hpp>
+#include <mutex>
 
 #include "sub_windows_util/sub_window.h"
 #include "sub_windows_util/res_info.h"
 
+class Team;
 
 class ResourcesPanel : public SubWindow
 {
-private:	
+private:
+	static inline std::mutex mutex;
 
 	ResInfo stoneInfo;
 	ResInfo ironInfo;
@@ -34,7 +37,7 @@ public:
 		return self;
 	}
 	
-	void interact();
+	void interact(Team& team);
 	void relocate(int windowSizeX, int windowSizeY) override final;
 	
 	void prepareInterfaceSprites() override final;

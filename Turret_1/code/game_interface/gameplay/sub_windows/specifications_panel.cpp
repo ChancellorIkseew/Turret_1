@@ -56,12 +56,12 @@ void SpecificationsPanel::interact(const int index)
     sf::String durb = strDurability.str();
     durabilityText.setString(L"прочность " + durb);
 
-    stoneInfo.update(buildingInfo.costToBuild.stoneQuant);
-    ironInfo.update(buildingInfo.costToBuild.ironQuant);
-    copperInfo.update(buildingInfo.costToBuild.copperQuant);
-    siliconInfo.update(buildingInfo.costToBuild.siliconQuant);
-    coalInfo.update(buildingInfo.costToBuild.coalQuant);
-    sulfurInfo.update(buildingInfo.costToBuild.sulfurQuant);
+    stoneInfo.update(buildingInfo.costToBuild.stone);
+    ironInfo.update(buildingInfo.costToBuild.iron);
+    copperInfo.update(buildingInfo.costToBuild.copper);
+    siliconInfo.update(buildingInfo.costToBuild.silicon);
+    coalInfo.update(buildingInfo.costToBuild.coal);
+    sulfurInfo.update(buildingInfo.costToBuild.sulfur);
     
     descriptionText.setString(buildingInfo.description);  //Description
 }
@@ -83,37 +83,37 @@ void SpecificationsPanel::draw(sf::RenderWindow& window)
 
     int deltaY = 340;
 
-	if(buildingInfo.costToBuild.stoneQuant != 0)
+	if(buildingInfo.costToBuild.stone != 0)
     {
         stoneInfo.draw(window, 20, deltaY);
         deltaY = deltaY + 20;
 	}
     
-    if(buildingInfo.costToBuild.ironQuant != 0)
+    if(buildingInfo.costToBuild.iron != 0)
     {
         ironInfo.draw(window, 20, deltaY);
         deltaY = deltaY + 20;
 	}
     
-    if(buildingInfo.costToBuild.copperQuant != 0)
+    if(buildingInfo.costToBuild.copper != 0)
     {
         copperInfo.draw(window, 20, deltaY);
         deltaY = deltaY + 20;
 	}
     
-    if(buildingInfo.costToBuild.siliconQuant != 0)
+    if(buildingInfo.costToBuild.silicon != 0)
     {
         siliconInfo.draw(window, 20, deltaY);
         deltaY = deltaY + 20;
 	}
     
-    if(buildingInfo.costToBuild.coalQuant != 0)
+    if(buildingInfo.costToBuild.coal != 0)
     {
         coalInfo.draw(window, 20, deltaY);
         deltaY = deltaY + 20;
 	}
     
-    if(buildingInfo.costToBuild.sulfurQuant != 0)
+    if(buildingInfo.costToBuild.sulfur != 0)
     {
         sulfurInfo.draw(window, 20, deltaY);
         deltaY = deltaY + 20;

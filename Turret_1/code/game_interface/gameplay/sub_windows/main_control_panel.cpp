@@ -87,7 +87,7 @@ void MainControlPanel::interact(sf::Vector2i& mouseCoord, bool& isPaused, bool& 
 		//saveEntitiesList(saveFolderName);
 		//saveResUnitsList(saveFolderName);
 		t1::time::saveTime(saveFolderName);
-		t1::res::saveResources(saveFolderName);
+		//t1::res::saveResources(saveFolderName);
 		mtBuildings.unlock();
 	}
 	

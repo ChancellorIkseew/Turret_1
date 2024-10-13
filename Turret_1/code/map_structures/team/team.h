@@ -10,7 +10,10 @@
 
 #include "map_structures/entities/entities_list/entities_list.h"
 #include "map_structures/shells/shells_list/shells_list.h"
+#include "map_structures/resources/resources.h"
 #include "map_structures/base_engine/tile_coord.h"
+
+#include "balance/balance.h"
 
 
 class Team
@@ -27,6 +30,7 @@ public:
 	static inline std::unordered_set<std::shared_ptr<Team>> teams;
 	EntitiesList entities;
 	ShellsList shells;
+	Balance balance;
 
 	Team(sf::String name);
 	~Team() = default;
@@ -40,6 +44,7 @@ public:
 	void spawnEntity(const int amount, const int type);
 
 	int getID();
+	Balance& getBalance();
 
 };
 

@@ -13,7 +13,7 @@
 
 #include "map_structures/pre-settings/pre-settings.h"
 #include "map_structures/base_engine/tile_coord.h"
-#include "map_structures/resources/resources.h"
+#include "map_structures/team/team.h"
 
 
 BuildingsMap::BuildingsMap(const TileCoord mapSize)
@@ -125,9 +125,9 @@ void BuildingsMap::constructBuilding(const int type, const char direction, const
 			return;
 	}
 
-	if (t1::res::isEnoughAllRes(t1::bc::buildingsInfoTable[type].costToBuild))
+	if (team->getBalance().isEnough(t1::bc::buildingsInfoTable[type].costToBuild))
 	{
-		t1::res::wasteRes(t1::bc::buildingsInfoTable[type].costToBuild);
+		team->getBalance().waste(t1::bc::buildingsInfoTable[type].costToBuild);
 		buildingsMap[tile.x][tile.y] = Building::createBuilding(type, direction, durability, size, tile, team);
 		createAuxilary(size, tile, team);
 		isMapChanged = true;
@@ -296,7 +296,7 @@ int BuildingsMap::getBuildingType(const TileCoord tile)
 }
 
 
-void BuildingsMap::setTurret(const int turretType, const TileCoord tile)
+void BuildingsMap::setTurret(const int turretType, const TileCoord tile, Team* team)
 {
 	if (t1::bc::buildingsInfoTable.find(turretType) == t1::bc::buildingsInfoTable.end() || !buildingExists(tile) ||
 		(buildingsMap[tile.x][tile.y]->getType() != STONE_TOWER && buildingsMap[tile.x][tile.y]->getType() != STEEL_TOWER))
@@ -304,9 +304,9 @@ void BuildingsMap::setTurret(const int turretType, const TileCoord tile)
 		return;
 	}
 
-	if (t1::res::isEnoughAllRes(t1::bc::buildingsInfoTable[turretType].costToBuild))
+	if (team->getBalance().isEnough(t1::bc::buildingsInfoTable[turretType].costToBuild))
 	{
-		t1::res::wasteRes(t1::bc::buildingsInfoTable[turretType].costToBuild);
+		team->getBalance().waste(t1::bc::buildingsInfoTable[turretType].costToBuild);
 		buildingsMap[tile.x][tile.y]->setTurret(turretType);
 	}
 }

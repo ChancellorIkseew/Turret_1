@@ -135,13 +135,7 @@
     <ClCompile Include="code\map_structures\pre-settings\pre-settings.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="code\map_structures\resources\building_resources.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="code\map_structures\resources\resource_units.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="code\map_structures\resources\resources.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="code\map_structures\shells\shell_types\heavy_shell.cpp">
@@ -328,6 +322,9 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="code\map_structures\shells\shells_list\shells_list.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\map_structures\team\balance\balance.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -609,6 +606,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\map_structures\shells\shells_list\shells_list.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\map_structures\team\balance\balance.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

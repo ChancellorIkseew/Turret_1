@@ -79,7 +79,7 @@ void ResourceUnit::interact(int time)
 			case CORE_MK2:
 			case CORE_MK3:
 				isWasted = true;
-				t1::res::sendToBalance(resType, 1);
+				//t1::res::sendToBalance(resType, 1);
 				break;
 			
 			default: // factories_and_towers

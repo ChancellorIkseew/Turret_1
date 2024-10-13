@@ -57,7 +57,7 @@ void BuildingPanel::interact(const sf::Vector2i& mouseCoord, const sf::Vector2f&
 		else if (newBuildingType == AUTOCANNON_TURRET || newBuildingType == ROCKET_TURRET)
 		{
 			if (!BuildingsMap::isTurretOnTile(selectedTile))
-				BuildingsMap::setTurret(newBuildingType, selectedTile);
+				BuildingsMap::setTurret(newBuildingType, selectedTile, team);
 		}
 		else
 		{

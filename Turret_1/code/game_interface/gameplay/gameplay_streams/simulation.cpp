@@ -12,8 +12,10 @@
 #include "map_structures/resources/resource_units.h"
 #include "map_structures/particles/particles.h"
 
+#include "game_interface/gameplay/sub_windows/resources_panel.h"
 
-void t1::gamepl::simulation(const bool& isGameplayActive, const bool& isPaused, Team& enemy)
+
+void t1::gamepl::simulation(const bool& isGameplayActive, const bool& isPaused, Team& enemy, Team& player)
 {
     while (isGameplayActive)
     {
@@ -29,6 +31,8 @@ void t1::gamepl::simulation(const bool& isGameplayActive, const bool& isPaused, 
             mtBuildings.unlock();
             t1::time::time++;
         }
+        ResourcesPanel::getInstance().interact(player);
+
         t1::system::sleep(16);
     }
 }

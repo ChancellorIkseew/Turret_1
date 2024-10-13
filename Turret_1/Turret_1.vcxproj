@@ -225,8 +225,6 @@
     <ClCompile Include="code\map_structures\entities\turret_types\rocket_turret.cpp" />
     <ClCompile Include="code\map_structures\particles\particles.cpp" />
     <ClCompile Include="code\map_structures\pre-settings\pre-settings.cpp" />
-    <ClCompile Include="code\map_structures\resources\building_resources.cpp" />
-    <ClCompile Include="code\map_structures\resources\resources.cpp" />
     <ClCompile Include="code\map_structures\resources\resource_units.cpp" />
     <ClCompile Include="code\map_structures\shells\shells_list\shells_list.cpp" />
     <ClCompile Include="code\map_structures\shells\shell\create_shell.cpp" />
@@ -234,6 +232,7 @@
     <ClCompile Include="code\map_structures\shells\shell_types\heavy_shell.cpp" />
     <ClCompile Include="code\map_structures\shells\shell_types\rail_bolt.cpp" />
     <ClCompile Include="code\map_structures\shells\shell_types\rocket.cpp" />
+    <ClCompile Include="code\map_structures\team\balance\balance.cpp" />
     <ClCompile Include="code\map_structures\team\team.cpp" />
     <ClCompile Include="code\map_structures\terrain\terrain.cpp" />
     <ClCompile Include="main.cpp" />
@@ -336,6 +335,7 @@
     <ClInclude Include="code\map_structures\shells\shell_types\heavy_shell.h" />
     <ClInclude Include="code\map_structures\shells\shell_types\rail_bolt.h" />
     <ClInclude Include="code\map_structures\shells\shell_types\rocket.h" />
+    <ClInclude Include="code\map_structures\team\balance\balance.h" />
     <ClInclude Include="code\map_structures\team\team.h" />
     <ClInclude Include="code\map_structures\terrain\terrain.h" />
   </ItemGroup>
