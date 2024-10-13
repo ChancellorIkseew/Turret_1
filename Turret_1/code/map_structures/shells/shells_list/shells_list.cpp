@@ -3,36 +3,14 @@
 
 #include "shells_list.h"
 
-<<<<<<< Updated upstream
 #include "map_structures/shells/shell/shell.h"
 
 
-void ShellsList::save(const std::string& folder)
-{
-
-}
-
-void ShellsList::load(const std::string& folder)
-=======
-
 ShellsList::ShellsList()
->>>>>>> Stashed changes
 {
 
 }
 
-<<<<<<< Updated upstream
-void ShellsList::spawnShell(short type, const PixelCoord coord, float angleRad, float angleDeg)
-{
-	shellsList.emplace_back(Shell::createShell(type, coord, angleRad, angleDeg));
-}
-
-
-void ShellsList::move()
-{
-	for (auto it = shellsList.begin(); it != shellsList.end();)
-	{
-=======
 
 void ShellsList::save(const std::string& folder)
 {
@@ -43,6 +21,7 @@ void ShellsList::load(const std::string& folder)
 {
 
 }
+
 
 void ShellsList::spawnShell(short type, const PixelCoord coord, float angleRad, float angleDeg, Team* team)
 {
@@ -61,7 +40,6 @@ void ShellsList::move()
 {
 	for (auto it = shellsList.begin(); it != shellsList.end();)
 	{
->>>>>>> Stashed changes
 		(*it)->motion();
 		(*it)->tryShellsHitting();
 

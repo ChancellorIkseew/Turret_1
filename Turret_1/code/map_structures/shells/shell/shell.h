@@ -34,19 +34,10 @@ public:
 	Shell(short type, const PixelCoord coord, float angleRad, float angleDeg, Team* team);
 	virtual ~Shell() = default;
 
-<<<<<<< Updated upstream
-	static std::unique_ptr<Shell> createShell(short type, const PixelCoord coord, float angleRad, float angleDeg);
-
-	virtual void motion();
-	virtual void explosion();
-	virtual void tryPlayerShellsHitting();
-	virtual void tryEnemyShellsHitting();
-=======
 	static std::unique_ptr<Shell> createShell(short type, const PixelCoord coord, float angleRad, float angleDeg, Team* team);
 
 	virtual void motion();
 	virtual void explosion();
->>>>>>> Stashed changes
 	virtual void tryShellsHitting();
 
 	PixelCoord getCoord();

@@ -5,11 +5,7 @@
 #include "map_structures/shells/shell_types/rocket.h"
 
 
-<<<<<<< Updated upstream
-std::unique_ptr<Shell> Shell::createShell(short type, const PixelCoord coord, float angleRad, float angleDeg)
-=======
 std::unique_ptr<Shell> Shell::createShell(short type, const PixelCoord coord, float angleRad, float angleDeg, Team* team)
->>>>>>> Stashed changes
 {
 	switch (type)
 	{

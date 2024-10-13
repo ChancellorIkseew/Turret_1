@@ -85,11 +85,7 @@ void MainControlPanel::interact(sf::Vector2i& mouseCoord, bool& isPaused, bool& 
 		TerrainMap::saveMap(saveFolderName);
 		BuildingsMap::saveMap(saveFolderName);
 		//saveEntitiesList(saveFolderName);
-<<<<<<< Updated upstream
-		saveResUnitsList(saveFolderName);
-=======
 		//saveResUnitsList(saveFolderName);
->>>>>>> Stashed changes
 		t1::time::saveTime(saveFolderName);
 		t1::res::saveResources(saveFolderName);
 		mtBuildings.unlock();
@@ -102,13 +98,6 @@ void MainControlPanel::interact(sf::Vector2i& mouseCoord, bool& isPaused, bool& 
 		if(ConfirmationWindow::getInstance().interact(mouseCoord))
 		{
 			mtBuildings.lock();
-<<<<<<< Updated upstream
-			//shells, entities clan
-
-=======
-			//cleanEntitiesList();
-			//t1::sh::cleanShellsList();
->>>>>>> Stashed changes
 			cleanParticlesList();
 			cleanResUnitsList();
 			mtBuildings.unlock();

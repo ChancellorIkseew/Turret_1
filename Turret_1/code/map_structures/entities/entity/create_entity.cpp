@@ -11,11 +11,7 @@
 #include "map_structures/entities/mob_types/rocket_boss_bot.h"
 
 
-<<<<<<< Updated upstream
-std::unique_ptr<Entity> Entity::createEntity(const int type)
-=======
 std::unique_ptr<Entity> Entity::createEntity(const int type, Team* team)
->>>>>>> Stashed changes
 {
 	switch (type)
 	{

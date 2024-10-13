@@ -16,11 +16,7 @@ protected:
 	static inline float enemyMobMaxDurabilityModifier;
 	
 	int type;
-<<<<<<< Updated upstream
-	//class Team& team;
-=======
 	Team* team;
->>>>>>> Stashed changes
 	
 	PixelCoord coord;
 	PixelCoord aimCoord;
@@ -59,16 +55,12 @@ public:
 	static void initPreSettings();
 
 	Entity(int type, Team* team);
-	Entity() = default;
 	virtual ~Entity() = default;
 
 	void save(std::ofstream& fout) const;
 	void load(std::ifstream& fin);
-<<<<<<< Updated upstream
-	static std::unique_ptr<Entity> createEntity(const int type);
-=======
+
 	static std::unique_ptr<Entity> createEntity(const int type, Team* team);
->>>>>>> Stashed changes
 	static PixelCoord randomMapBorderSpawn();
 
 	// combat

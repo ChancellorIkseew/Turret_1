@@ -1,10 +1,7 @@
 
 #include "rocket_boss_bot.h"
 
-<<<<<<< Updated upstream
 #include "map_structures/team/team.h"
-=======
->>>>>>> Stashed changes
 #include "map_structures/shells/shell/shell_enum.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/team/team.h"
@@ -39,13 +36,8 @@ void RocketBossBot::shoot()
 			float correctionX = cos(shootingAngleRad) * 18;
 			float correctionY = sin(shootingAngleRad) * 18;
 
-<<<<<<< Updated upstream
-			//team.spawnShell(ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
-			//team.spawnShell(ROCKET, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg);
-=======
 			team->spawnShell(ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
 			team->spawnShell(ROCKET, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg);
->>>>>>> Stashed changes
 			reloadTimer = 60;
 		}
 		else if (reloadTimer == 30)
@@ -53,13 +45,8 @@ void RocketBossBot::shoot()
 			float correctionX = cos(shootingAngleRad) * 14;
 			float correctionY = sin(shootingAngleRad) * 14;
 
-<<<<<<< Updated upstream
-			//team.spawnShell(ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
-			//team.spawnShell(ROCKET, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg);
-=======
 			team->spawnShell(ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
 			team->spawnShell(ROCKET, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg);
->>>>>>> Stashed changes
 		}
 	}
 }

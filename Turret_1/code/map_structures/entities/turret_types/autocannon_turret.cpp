@@ -6,11 +6,6 @@
 
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/resources/res_enum.h"
-<<<<<<< Updated upstream
-
-#include "map_structures/entities/entities_list/entities_list.h"
-=======
->>>>>>> Stashed changes
 #include "map_structures/shells/shell/shell_enum.h"
 
 

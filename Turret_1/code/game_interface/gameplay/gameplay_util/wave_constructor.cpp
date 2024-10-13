@@ -23,7 +23,6 @@ void createWave(Team& team)
 
 void switchEntities(const int wave, Team& enemy)
 {
-	/*
 	switch(wave)
 	{
 	case 1:
@@ -125,5 +124,4 @@ void switchEntities(const int wave, Team& enemy)
 			enemy.spawnEntity(2, ROCKET_BOSS);
 		}	
 	}
-	*/
 }

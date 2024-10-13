@@ -22,16 +22,8 @@ void t1::gamepl::simulation(const bool& isGameplayActive, const bool& isPaused, 
             //t1::res::useEnergy(time);
             mtBuildings.lock();
             BuildingsMap::intetractMap();
-<<<<<<< Updated upstream
-            createWave();
-            //moveEntitiesList();
-            BuildingsMap::cleanMapChanged();
-            //t1::sh::moveShellsList();
-=======
             createWave(enemy);
             Team::interactAll();
-            //BuildingsMap::cleanMapChanged();
->>>>>>> Stashed changes
             moveParticlesList();
             moveResUnitsList(t1::time::time);
             mtBuildings.unlock();

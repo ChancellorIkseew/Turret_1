@@ -1,10 +1,7 @@
 
 #include "rocket_bot.h"
 
-<<<<<<< Updated upstream
 #include "map_structures/team/team.h"
-=======
->>>>>>> Stashed changes
 #include "map_structures/shells/shell/shell_enum.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/team/team.h"
@@ -38,11 +35,8 @@ void RocketBot::shoot()
 		{
 			float correctionX = cos(shootingAngleRad) * 5;
 			float correctionY = sin(shootingAngleRad) * 5;
-<<<<<<< Updated upstream
-			//team.spawnShell(ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
-=======
+
 			team->spawnShell(ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
->>>>>>> Stashed changes
 			reloadTimer = 240;
 		}
 	}

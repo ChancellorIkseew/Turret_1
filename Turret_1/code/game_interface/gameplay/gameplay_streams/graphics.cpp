@@ -89,12 +89,7 @@ void t1::gamepl::graphics(bool& isGameplayActive, const bool& isPaused, sf::Rend
         BuildingsMap::drawMap(mainWindow);
         drawResUnitsList(mainWindow);
         drawParticlesList(mainWindow);
-        //drawEntitiesList(mainWindow);
-        //t1::sh::drawShellsList(mainWindow);
-<<<<<<< Updated upstream
-=======
         Team::drawAll(mainWindow);
->>>>>>> Stashed changes
         mtBuildings.unlock();
 
         BuildingPanel::getInstance().drawBuildExample(mainWindow, mouseMapCoord);
