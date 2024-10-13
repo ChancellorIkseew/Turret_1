@@ -6,8 +6,19 @@
 #include "map_structures/entities/entity/entity.h"
 
 
+<<<<<<< Updated upstream
+void EntitiesList::save(const std::string& folder)
+=======
+EntitiesList::EntitiesList()
+>>>>>>> Stashed changes
+{
+
+}
+
+
 void EntitiesList::save(const std::string& folder)
 {
+	/*
 	std::string file = "saves/" + folder + "/entities.txt";
 
 	std::ofstream fout;
@@ -22,14 +33,16 @@ void EntitiesList::save(const std::string& folder)
 	fout << '&';
 	fout.close();
 	std::cout << "Save entities list works" << '\n';
+	*/
 }
 
 void EntitiesList::load(const std::string& folder)
 {
+	/*
 	std::string file = "saves/" + folder + "/entities.txt";
 	std::ifstream fin;
 	fin.open(file);
-	if(fin.is_open())
+	if (fin.is_open())
 	{
 		while (true)
 		{
@@ -47,17 +60,26 @@ void EntitiesList::load(const std::string& folder)
 		}
 	}
 	fin.close();
-	std::cout << "Load entities list works" <<'\n';
+	std::cout << "Load entities list works" << '\n';
+	*/
 }
 
 
+<<<<<<< Updated upstream
 void EntitiesList::spawnEntity(const int amount, const int type)
+=======
+void EntitiesList::spawnEntity(const int amount, const int type, Team* team)
+>>>>>>> Stashed changes
 {
 	for (int i = 0; i < amount; ++i)
 	{
 		try
 		{
+<<<<<<< Updated upstream
 			entitiesList.emplace_back(Entity::createEntity(type));
+=======
+			entitiesList.emplace_back(Entity::createEntity(type, team));
+>>>>>>> Stashed changes
 			entitiesList.back()->setCoord(Entity::randomMapBorderSpawn());
 		}
 		catch (std::exception)
@@ -68,7 +90,11 @@ void EntitiesList::spawnEntity(const int amount, const int type)
 }
 
 
+<<<<<<< Updated upstream
 void EntitiesList::move()
+=======
+void EntitiesList::interact()
+>>>>>>> Stashed changes
 {
 	for (auto it = entitiesList.begin(); it != entitiesList.end();)
 	{

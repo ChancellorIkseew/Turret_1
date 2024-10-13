@@ -234,6 +234,7 @@
     <ClCompile Include="code\map_structures\shells\shell_types\heavy_shell.cpp" />
     <ClCompile Include="code\map_structures\shells\shell_types\rail_bolt.cpp" />
     <ClCompile Include="code\map_structures\shells\shell_types\rocket.cpp" />
+    <ClCompile Include="code\map_structures\team\team.cpp" />
     <ClCompile Include="code\map_structures\terrain\terrain.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -335,6 +336,7 @@
     <ClInclude Include="code\map_structures\shells\shell_types\heavy_shell.h" />
     <ClInclude Include="code\map_structures\shells\shell_types\rail_bolt.h" />
     <ClInclude Include="code\map_structures\shells\shell_types\rocket.h" />
+    <ClInclude Include="code\map_structures\team\team.h" />
     <ClInclude Include="code\map_structures\terrain\terrain.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

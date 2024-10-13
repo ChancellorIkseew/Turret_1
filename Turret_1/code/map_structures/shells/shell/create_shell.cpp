@@ -5,18 +5,22 @@
 #include "map_structures/shells/shell_types/rocket.h"
 
 
+<<<<<<< Updated upstream
 std::unique_ptr<Shell> Shell::createShell(short type, const PixelCoord coord, float angleRad, float angleDeg)
+=======
+std::unique_ptr<Shell> Shell::createShell(short type, const PixelCoord coord, float angleRad, float angleDeg, Team* team)
+>>>>>>> Stashed changes
 {
 	switch (type)
 	{
 	case AC_SHELL:
-		return std::make_unique<Shell>(type, coord, angleRad, angleDeg);
+		return std::make_unique<Shell>(type, coord, angleRad, angleDeg, team);
 	case HEAVY_SHELL:
-		return std::make_unique<HeavyShell>(type, coord, angleRad, angleDeg);
+		return std::make_unique<HeavyShell>(type, coord, angleRad, angleDeg, team);
 	case ROCKET:
-		return std::make_unique<Rocket>(type, coord, angleRad, angleDeg);
+		return std::make_unique<Rocket>(type, coord, angleRad, angleDeg, team);
 
 	default:
-		return nullptr;
+		throw std::exception("shell_type does not exist");
 	}
 }

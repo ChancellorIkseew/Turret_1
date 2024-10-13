@@ -11,22 +11,26 @@
 #include "map_structures/entities/mob_types/rocket_boss_bot.h"
 
 
+<<<<<<< Updated upstream
 std::unique_ptr<Entity> Entity::createEntity(const int type)
+=======
+std::unique_ptr<Entity> Entity::createEntity(const int type, Team* team)
+>>>>>>> Stashed changes
 {
 	switch (type)
 	{
 	case STANDARD_BOT:
-		return std::make_unique<StandardBot>(STANDARD_BOT);
+		return std::make_unique<StandardBot>(STANDARD_BOT, team);
 	case HEAVY_BOT:
-		return std::make_unique<HeavyBot>(HEAVY_BOT);
+		return std::make_unique<HeavyBot>(HEAVY_BOT, team);
 	case ROCKET_BOT:
-		return std::make_unique<RocketBot>(ROCKET_BOT);
+		return std::make_unique<RocketBot>(ROCKET_BOT, team);
 	case LASER_BOT:
-		return std::make_unique<LaserBot>(LASER_BOT);
+		return std::make_unique<LaserBot>(LASER_BOT, team);
 	case CANNON_BOSS:
-		return std::make_unique<CannonBossBot>(CANNON_BOSS);
+		return std::make_unique<CannonBossBot>(CANNON_BOSS, team);
 	case ROCKET_BOSS:
-		return std::make_unique<RocketBossBot>(ROCKET_BOSS);
+		return std::make_unique<RocketBossBot>(ROCKET_BOSS, team);
 	default:
 		throw std::exception("mob_type does not exist");
 	}

@@ -11,7 +11,7 @@
 class HeavyBot : public Entity
 {
 public:
-	HeavyBot(int type);
+	HeavyBot(int type, Team* team);
 	~HeavyBot() = default;
 
 	void shoot() override final;

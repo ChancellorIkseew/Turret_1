@@ -4,9 +4,6 @@
 
 #include "turret.h"
 
-#include "map_structures/entities/entity/entity.h"
-#include "map_structures/entities/entities_list/entities_list.h"
-
 #include "map_structures/buildings/building/buildings_enum.h"
 
 		

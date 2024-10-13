@@ -11,7 +11,7 @@
 class LaserBot : public Entity
 {
 public:
-	LaserBot(int type);
+	LaserBot(int type, Team* team);
 	~LaserBot() = default;
 
 	void shoot() override final;

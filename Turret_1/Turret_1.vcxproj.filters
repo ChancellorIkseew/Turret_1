@@ -222,9 +222,6 @@
     <ClCompile Include="code\map_structures\buildings\building\create_building.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="code\map_structures\shells\shells_list\shells_list.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="code\map_structures\shells\shell\shell.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -325,6 +322,12 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="code\game_interface\gameplay\sub_windows\sub_windows_util\button\button.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\map_structures\team\team.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\map_structures\shells\shells_list\shells_list.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -503,9 +506,6 @@
     <ClInclude Include="code\map_structures\base_engine\test.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="code\map_structures\shells\shells_list\shells_list.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="code\map_structures\shells\shell\shell_enum.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -603,6 +603,12 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\game_interface\gameplay\sub_windows\sub_windows_util\button\button.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\map_structures\team\team.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\map_structures\shells\shells_list\shells_list.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

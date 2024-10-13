@@ -11,7 +11,7 @@
 class CannonBossBot : public Entity
 {
 public:
-	CannonBossBot(int type);
+	CannonBossBot(int type, Team* team);
 	~CannonBossBot() = default;
 
 	PixelCoord findDestinationCoord() const override final;

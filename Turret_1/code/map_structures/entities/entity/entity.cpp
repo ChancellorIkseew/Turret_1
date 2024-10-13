@@ -1,9 +1,7 @@
 
-#include <fstream>
-#include <SFML\Graphics.hpp>
-
 #include "entity.h"
 
+#include "map_structures/team/team.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/pre-settings/pre-settings.h"
@@ -17,9 +15,10 @@ void Entity::initPreSettings()
 	Entity::enemyMobMaxDurabilityModifier = PreSettings::enemyMobMaxDurabilityModifier;
 }
 
-Entity::Entity(const int type)		//1st spawn
+Entity::Entity(const int type, Team* team)		//1st spawn
 {
 	this->type = type;
+	this->team = team;
 	isAimDetected = false;
 	aimCoord = pixel(mapSizeX / 2, mapSizeY / 2);
 	destCoord = aimCoord;

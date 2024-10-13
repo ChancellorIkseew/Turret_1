@@ -23,6 +23,7 @@
 #include "map_structures/resources/resource_units.h"
 #include "map_structures/resources/resources.h"
 #include "map_structures/particles/particles.h"
+#include "map_structures/team/team.h"
 
 
 void t1::gamepl::graphics(bool& isGameplayActive, const bool& isPaused, sf::RenderWindow& mainWindow,
@@ -90,6 +91,10 @@ void t1::gamepl::graphics(bool& isGameplayActive, const bool& isPaused, sf::Rend
         drawParticlesList(mainWindow);
         //drawEntitiesList(mainWindow);
         //t1::sh::drawShellsList(mainWindow);
+<<<<<<< Updated upstream
+=======
+        Team::drawAll(mainWindow);
+>>>>>>> Stashed changes
         mtBuildings.unlock();
 
         BuildingPanel::getInstance().drawBuildExample(mainWindow, mouseMapCoord);

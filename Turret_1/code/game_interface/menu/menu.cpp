@@ -6,7 +6,7 @@
 #include "game_interface/main_window/main_window_resize.h"
 #include "game_interface/main_window/main_window.h"
 
-#include "game_interface/system/system.h"
+#include "game_interface/system/sleep.h"
 
 #include "sub_windows/main_menu.h"
 #include "sub_windows/choise_save_folder.h"
@@ -74,7 +74,7 @@ char openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string& sav
 					exit = true;
 				}
 
-				Sleep(16);
+				t1::system::sleep(16);
 			}
 		}
 	);

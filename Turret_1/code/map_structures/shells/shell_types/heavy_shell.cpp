@@ -5,12 +5,17 @@
 
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"
+<<<<<<< Updated upstream
 #include "map_structures/entities/entity/entity.h"
+=======
+//#include "map_structures/entities/entity/entity.h"
+//#include "map_structures/entities/entities_list/entities_list.h"
+>>>>>>> Stashed changes
 #include "map_structures/particles/particles.h"
 
 
-HeavyShell::HeavyShell(short type, PixelCoord coord, float angleRad, float angleDeg) :
-	Shell(type, coord, angleRad, angleDeg)
+HeavyShell::HeavyShell(short type, PixelCoord coord, float angleRad, float angleDeg, Team* team) :
+	Shell(type, coord, angleRad, angleDeg, team)
 {
 	damage = 20;
 	float speed = 1.6f;

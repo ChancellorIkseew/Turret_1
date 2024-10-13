@@ -1,12 +1,13 @@
 #pragma once
-#ifndef ENTITIES_H
-#define ENTITIES_H
+#ifndef ENTITY_H
+#define ENTITY_H
 
 #include <fstream>
 #include <SFML\Graphics.hpp>
 
 #include "map_structures/base_engine/tile_coord.h"
 
+class Team;
 
 class Entity
 {
@@ -15,7 +16,11 @@ protected:
 	static inline float enemyMobMaxDurabilityModifier;
 	
 	int type;
+<<<<<<< Updated upstream
 	//class Team& team;
+=======
+	Team* team;
+>>>>>>> Stashed changes
 	
 	PixelCoord coord;
 	PixelCoord aimCoord;
@@ -53,12 +58,17 @@ protected:
 public:
 	static void initPreSettings();
 
-	Entity(int type);
+	Entity(int type, Team* team);
+	Entity() = default;
 	virtual ~Entity() = default;
 
 	void save(std::ofstream& fout) const;
 	void load(std::ifstream& fin);
+<<<<<<< Updated upstream
 	static std::unique_ptr<Entity> createEntity(const int type);
+=======
+	static std::unique_ptr<Entity> createEntity(const int type, Team* team);
+>>>>>>> Stashed changes
 	static PixelCoord randomMapBorderSpawn();
 
 	// combat
@@ -81,4 +91,4 @@ public:
 		
 };
 
-#endif // ENTITIES_H
+#endif // ENTITY_H

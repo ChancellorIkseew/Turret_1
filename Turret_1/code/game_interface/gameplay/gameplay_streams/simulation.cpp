@@ -8,14 +8,12 @@
 
 #include "map_structures/terrain/terrain.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
-#include "map_structures/entities/turret/turret.h"
-#include "map_structures/entities/entities_list/entities_list.h"
-#include "map_structures/shells/shells_list/shells_list.h"
+#include "map_structures/team/team.h"
 #include "map_structures/resources/resource_units.h"
 #include "map_structures/particles/particles.h"
 
 
-void t1::gamepl::simulation(const bool& isGameplayActive, const bool& isPaused)
+void t1::gamepl::simulation(const bool& isGameplayActive, const bool& isPaused, Team& enemy)
 {
     while (isGameplayActive)
     {
@@ -24,10 +22,16 @@ void t1::gamepl::simulation(const bool& isGameplayActive, const bool& isPaused)
             //t1::res::useEnergy(time);
             mtBuildings.lock();
             BuildingsMap::intetractMap();
+<<<<<<< Updated upstream
             createWave();
             //moveEntitiesList();
             BuildingsMap::cleanMapChanged();
             //t1::sh::moveShellsList();
+=======
+            createWave(enemy);
+            Team::interactAll();
+            //BuildingsMap::cleanMapChanged();
+>>>>>>> Stashed changes
             moveParticlesList();
             moveResUnitsList(t1::time::time);
             mtBuildings.unlock();

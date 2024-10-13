@@ -1,12 +1,16 @@
 
 #include "laser_bot.h"
 
+<<<<<<< Updated upstream
 #include "map_structures/team/team.h"
+=======
+>>>>>>> Stashed changes
 #include "map_structures/shells/shell/shell_enum.h"
 #include "map_structures/buildings/building/buildings_enum.h"
+#include "map_structures/team/team.h"
 
 
-LaserBot::LaserBot(int type) : Entity(type)
+LaserBot::LaserBot(int type, Team* team) : Entity(type, team)
 {
 	durability = 10 * enemyMobMaxDurabilityModifier;
 	range = 8;
@@ -28,7 +32,11 @@ void LaserBot::shoot()
 		{
 			float correctionX = cos(shootingAngleRad) * 4.5f;
 			float correctionY = sin(shootingAngleRad) * 4.5f;	
+<<<<<<< Updated upstream
 			//team.spawnShell(AC_SHELL, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
+=======
+			team->spawnShell(AC_SHELL, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
+>>>>>>> Stashed changes
 			reloadTimer = 60;
 		}
 	}

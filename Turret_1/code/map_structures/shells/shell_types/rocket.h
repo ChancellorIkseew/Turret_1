@@ -10,11 +10,10 @@
 class Rocket : public Shell
 {
 	public:
-		Rocket(short type, PixelCoord coord, float angleRad, float angleDeg);
+		Rocket(short type, PixelCoord coord, float angleRad, float angleDeg, Team* team);
 		~Rocket() = default;
 
-		void tryPlayerShellsHitting() override final;
-		void tryEnemyShellsHitting() override final;
+		void tryShellsHitting() override final;
 		void explosion() override final;
 
 		void draw(sf::RenderWindow& window) override final;

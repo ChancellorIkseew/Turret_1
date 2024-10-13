@@ -11,7 +11,7 @@
 class RocketBossBot : public Entity
 {
 public:
-	RocketBossBot(int type);
+	RocketBossBot(int type, Team* team);
 	~RocketBossBot() = default;
 
 	PixelCoord findDestinationCoord() const override final;

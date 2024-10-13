@@ -5,12 +5,17 @@
 
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"
+<<<<<<< Updated upstream
 #include "map_structures/entities/entity/entity.h"
+=======
+//#include "map_structures/entities/entity/entity.h"
+//#include "map_structures/entities/entities_list/entities_list.h"
+>>>>>>> Stashed changes
 #include "map_structures/particles/particles.h"
 
 
-Rocket::Rocket(short type, PixelCoord coord, float angleRad, float angleDeg) : 
-	Shell(type, coord, angleRad, angleDeg)
+Rocket::Rocket(short type, PixelCoord coord, float angleRad, float angleDeg, Team* team) :
+	Shell(type, coord, angleRad, angleDeg, team)
 {
 	damage = 0;
 	float speed = 2.4f;
@@ -20,9 +25,17 @@ Rocket::Rocket(short type, PixelCoord coord, float angleRad, float angleDeg) :
 }
 
 
-void Rocket::tryPlayerShellsHitting()
+void Rocket::tryShellsHitting()
 {
 	/*
+<<<<<<< Updated upstream
+=======
+	if (BuildingsMap::getBuildingType(t1::be::tile(coord)) != VOID_)
+	{
+		isWasted = true;
+	}
+	
+>>>>>>> Stashed changes
 	for (auto it = entitiesList.cbegin(); it != entitiesList.cend(); ++it)
 	{
 		if (abs((*it)->getCoord().x - coord.x) < 32 && abs((*it)->getCoord().y - coord.y) < 32) //Cheek distance_to_mob
@@ -32,6 +45,7 @@ void Rocket::tryPlayerShellsHitting()
 		}
 	}
 	*/
+<<<<<<< Updated upstream
 }
 
 
@@ -41,6 +55,8 @@ void Rocket::tryEnemyShellsHitting()
 	{
 		isWasted = true;
 	}
+=======
+>>>>>>> Stashed changes
 }
 
 
@@ -57,6 +73,7 @@ void Rocket::explosion()
 			(*it)->setDamage(20);
 		}
 	}
+	*/
 
 	BuildingsMap::setDamage(20, t1::be::tile(coord));
 	particlesList.emplace_back(std::make_unique<Particle>(1, coord));

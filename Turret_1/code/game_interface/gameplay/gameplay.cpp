@@ -15,10 +15,10 @@
 #include "map_structures/pre-settings/pre-settings.h"
 #include "map_structures/terrain/terrain.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
-#include "map_structures/entities/entities_list/entities_list.h"
 #include "map_structures/resources/resource_units.h"
 #include "map_structures/resources/resources.h"
 #include "map_structures/particles/particles.h"
+#include "map_structures/team/team.h"
 
 
 char t1::gamepl::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, std::string saveFolderName)
@@ -31,6 +31,12 @@ char t1::gamepl::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, 
 	TerrainMap terrainMap(PreSettings::getMapSize());
 	BuildingsMap buildingsMap(PreSettings::getMapSize());
     Entity::initPreSettings();
+
+    std::shared_ptr<Team> player = std::make_shared<Team>("player");
+    std::shared_ptr<Team> enemy = std::make_shared<Team>("enemy");
+
+    Team::addTeam(player);
+    Team::addTeam(enemy);
 
 	if (startNewGame)
 	{
@@ -63,7 +69,7 @@ char t1::gamepl::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, 
     bool isPaused = true;
 	bool isGameplayActive = true;
 
-    std::thread simulation([&]() { t1::gamepl::simulation(isGameplayActive, isPaused); });
+    std::thread simulation([&]() { t1::gamepl::simulation(isGameplayActive, isPaused, *enemy); });
     std::thread input([&]() { t1::gamepl::input(isGameplayActive, isPaused, mainWindow, mouseCoord, mouseMapCoord,
         lastMousePosition, isMovingCamera, saveFolderName); });
     graphics(isGameplayActive, isPaused, mainWindow, mouseCoord, mouseMapCoord,

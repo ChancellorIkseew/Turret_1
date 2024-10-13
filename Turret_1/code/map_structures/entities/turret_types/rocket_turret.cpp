@@ -1,15 +1,10 @@
 
 #include <SFML\Graphics.hpp>
 
-
 #include "rocket_turret.h"
 
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/resources/res_enum.h"
-
-#include "map_structures/entities/entities_list/entities_list.h"
-#include "map_structures/shells/shells_list/shells_list.h"
-#include "map_structures/shells/shell/shell.h"
 #include "map_structures/shells/shell/shell_enum.h"
 
 

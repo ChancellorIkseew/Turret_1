@@ -6,14 +6,23 @@
 #include "shell_enum.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"
+<<<<<<< Updated upstream
 
 
 Shell::Shell(short type, const PixelCoord coord, float angleRad, float angleDeg)
+=======
+//#include "map_structures/entities/entity/entity.h"
+//#include "map_structures/entities/entities_list/entities_list.h"
+
+
+Shell::Shell(short type, const PixelCoord coord, float angleRad, float angleDeg, Team* team)
+>>>>>>> Stashed changes
 {
 	this->type = type;
 	this->coord = coord;
 	this->angleRad = angleRad;
 	this->angleDeg = angleDeg;
+	this->team = team;
 	
 	damage = 1;
 	float speed = 1.6f;
@@ -37,17 +46,7 @@ void Shell::motion()
 
 void Shell::explosion() { }
 
-void Shell::tryEnemyShellsHitting()
-{
-	TileCoord tileCoord = t1::be::tile(coord);
-	if(BuildingsMap::getBuildingType(tileCoord) != VOID_)
-	{
-		BuildingsMap::setDamage(this->damage, tileCoord);
-		isWasted = true;
-	}
-}
-
-void Shell::tryPlayerShellsHitting()
+void Shell::tryShellsHitting()
 {
 	/*
 	for (auto it = entitiesList.begin(); it != entitiesList.end(); ++it)
@@ -59,12 +58,24 @@ void Shell::tryPlayerShellsHitting()
 			return;
 		}
 	}
+<<<<<<< Updated upstream
 	*/
 }
 
 void Shell::tryShellsHitting()
 {
 
+=======
+
+
+	TileCoord tileCoord = t1::be::tile(coord);
+	if(BuildingsMap::getBuildingType(tileCoord) != VOID_)
+	{
+		BuildingsMap::setDamage(this->damage, tileCoord);
+		isWasted = true;
+	}
+	*/
+>>>>>>> Stashed changes
 }
 
 

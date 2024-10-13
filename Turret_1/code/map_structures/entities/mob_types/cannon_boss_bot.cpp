@@ -1,11 +1,15 @@
 #include "cannon_boss_bot.h"
 
+<<<<<<< Updated upstream
 #include "map_structures/team/team.h"
+=======
+>>>>>>> Stashed changes
 #include "map_structures/shells/shell/shell_enum.h"
 #include "map_structures/buildings/building/buildings_enum.h"
+#include "map_structures/team/team.h"
 
 
-CannonBossBot::CannonBossBot(int type) : Entity(type)
+CannonBossBot::CannonBossBot(int type, Team* team) : Entity(type, team)
 {
 	durability = 270 * enemyMobMaxDurabilityModifier;
 	range = 20;
@@ -34,8 +38,13 @@ void CannonBossBot::shoot()
 			float correctionX = cos(shootingAngleRad) * 15;
 			float correctionY = sin(shootingAngleRad) * 15;
 
+<<<<<<< Updated upstream
 			//team.spawnShell(HEAVY_SHELL, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
 			//team.spawnShell(HEAVY_SHELL, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg);
+=======
+			team->spawnShell(HEAVY_SHELL, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
+			team->spawnShell(HEAVY_SHELL, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg);
+>>>>>>> Stashed changes
 			reloadTimer = 30;
 		}
 	}

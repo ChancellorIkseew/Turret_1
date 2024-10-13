@@ -19,8 +19,6 @@
 
 #include "map_structures/terrain/terrain.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
-#include "map_structures/entities/entities_list/entities_list.h"
-#include "map_structures/shells/shells_list/shells_list.h"
 #include "map_structures/particles/particles.h"
 #include "map_structures/resources/resources.h"
 #include "map_structures/resources/resource_units.h"
@@ -87,7 +85,11 @@ void MainControlPanel::interact(sf::Vector2i& mouseCoord, bool& isPaused, bool& 
 		TerrainMap::saveMap(saveFolderName);
 		BuildingsMap::saveMap(saveFolderName);
 		//saveEntitiesList(saveFolderName);
+<<<<<<< Updated upstream
 		saveResUnitsList(saveFolderName);
+=======
+		//saveResUnitsList(saveFolderName);
+>>>>>>> Stashed changes
 		t1::time::saveTime(saveFolderName);
 		t1::res::saveResources(saveFolderName);
 		mtBuildings.unlock();
@@ -100,8 +102,13 @@ void MainControlPanel::interact(sf::Vector2i& mouseCoord, bool& isPaused, bool& 
 		if(ConfirmationWindow::getInstance().interact(mouseCoord))
 		{
 			mtBuildings.lock();
+<<<<<<< Updated upstream
 			//shells, entities clan
 
+=======
+			//cleanEntitiesList();
+			//t1::sh::cleanShellsList();
+>>>>>>> Stashed changes
 			cleanParticlesList();
 			cleanResUnitsList();
 			mtBuildings.unlock();
