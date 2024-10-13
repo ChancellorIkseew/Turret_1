@@ -5,14 +5,16 @@
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/resources/res_enum.h"
 #include "map_structures/resources/resource_units.h"
+#include "map_structures/team/team.h"
 
 
-Building::Building(int type, short durability, short size, const TileCoord tile)
+Building::Building(int type, short durability, short size, const TileCoord tile, Team* team)
 {
 	this->type = type;
 	this->durability = durability;
 	this->size = size;
 	this->direction = 0;
+	this->team = team;
 
 	this->tile = tile;
 }
@@ -68,6 +70,8 @@ int Building::getType() const { return type; }
 short Building::getSize() const { return size; }
 short Building::getDurability() const { return durability; }
 char Building::getDirection() const { return direction;  }
+Team* Building::getTeam() const { return team; }
+int Building::getTeamID() const { return team->getID(); }
 
 
 // resUnits_and_inventory

@@ -41,7 +41,7 @@ void ShellsList::move()
 	for (auto it = shellsList.begin(); it != shellsList.end();)
 	{
 		(*it)->motion();
-		(*it)->tryShellsHitting();
+		(*it)->tryHitting();
 
 		if ((*it)->getIsWasted())
 		{

@@ -9,6 +9,7 @@
 #include "map_structures/base_engine/tile_coord.h"
 #include "map_structures/terrain/terrain.h"
 
+class Team;
 
 struct StoredResource
 {
@@ -22,6 +23,7 @@ private:
 	int type;
 	short durability;
 	short size;
+	Team* team;
 	std::list<StoredResource> storedResourcesList;
 
 	void placeResourceUnit(const int resType, const TileCoord tile);
@@ -40,13 +42,13 @@ protected:
 	bool isStorageFull(const short capacity) const;
 
 public:
-	Building(int type, short durability, short size, const TileCoord tile);
+	Building(int type, short durability, short size, const TileCoord tile, Team* team);
 	virtual ~Building() = default;
 
 	virtual void save(std::ofstream& fout) const;
 	virtual void load(std::ifstream& fin);
 
-	static std::shared_ptr<Building> createBuilding(int type, char direction, short durability, short v_size, const TileCoord tile);
+	static std::shared_ptr<Building> createBuilding(int type, char direction, short durability, short v_size, const TileCoord tile, Team* team);
 
 	virtual void interact();
 	void setDamage(const int damage);
@@ -56,6 +58,8 @@ public:
 	short getDurability() const;
 	short getSize() const;
 	char getDirection() const;
+	Team* getTeam() const;
+	int getTeamID() const;
 
 	// resouses_and_inventory
 	virtual bool canAccept(const int resType) const;

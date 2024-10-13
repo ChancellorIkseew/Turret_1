@@ -13,7 +13,7 @@ protected:
 
 public:
 
-	ShellFactory(int type, short durability, short size, const TileCoord tile);
+	ShellFactory(int type, short durability, short size, const TileCoord tile, Team* team);
 	~ShellFactory() = default;
 
 	void interact() override final;

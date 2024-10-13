@@ -2,7 +2,7 @@
 #include "big_drill.h"
 
 
-BigDrill::BigDrill(int type, short durability, short size, const TileCoord tile) : Drill(type, durability, size, tile)
+BigDrill::BigDrill(int type, short durability, short size, const TileCoord tile, Team* team) : Drill(type, durability, size, tile, team)
 {
 	storageCapacity = 20;
 }

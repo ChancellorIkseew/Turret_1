@@ -12,9 +12,11 @@
 class EntitiesList
 {
 private:
-	std::list<std::unique_ptr<Entity>> entitiesList;
+	
 
 public:
+	std::list<std::unique_ptr<Entity>> entitiesList;
+
 	EntitiesList();
 	~EntitiesList() = default;
 	
@@ -26,6 +28,9 @@ public:
 
 	void interact();
 	void draw(sf::RenderWindow& mainWindow);
+
+	std::list<std::unique_ptr<Entity>>::iterator begin() noexcept;
+	std::list<std::unique_ptr<Entity>>::iterator end() noexcept;
 	
 };
 

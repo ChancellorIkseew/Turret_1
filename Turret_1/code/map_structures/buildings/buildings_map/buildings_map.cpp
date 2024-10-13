@@ -42,16 +42,9 @@ BuildingsMap::~BuildingsMap()
 }
 
 
-void BuildingsMap::generateMap()
-{
-	buildingsMap[48][48] = Building::createBuilding(CORE_MK1, '0', 900, 16, { 48, 48 });
-	createAuxilary(16, { 48, 48 });
-	isMapChanged = true;
-}
-
-
 void BuildingsMap::loadMap(const std::string& folder)
 {
+	/*
 	std::string file = "saves/" + folder + "/buildings.txt";
 	std::ifstream fin;
 	fin.open(file);
@@ -68,14 +61,15 @@ void BuildingsMap::loadMap(const std::string& folder)
 			TileCoord tile = { 0, 0 };
 			int type;
 			fin >> tile.x >> tile.y >> type;
-			buildingsMap[tile.x][tile.y] = Building::createBuilding(type, 0, 0, 0, tile);
+			buildingsMap[tile.x][tile.y] = Building::createBuilding(type, 0, 0, 0, tile, team);
 			buildingsMap[tile.x][tile.y]->load(fin);
-			createAuxilary(buildingsMap[tile.x][tile.y]->getSize(), tile);
+			createAuxilary(buildingsMap[tile.x][tile.y]->getSize(), tile, team);
 		}
 	}
 	fin.close();
 	isMapChanged = true;
 	std::cout << "sucñessfull_buildings_map_load" << '\n';
+	*/
 }
 
 
@@ -104,18 +98,18 @@ void BuildingsMap::saveMap(const std::string& folder)
 }
 
 
-void BuildingsMap::createAuxilary(const short size, const TileCoord tile)
+void BuildingsMap::createAuxilary(const short size, const TileCoord tile, Team* team)
 {
 	for (int i = 1; i < size; i++)
 	{
 		int iTileX = tile.x + t1::be::coordSquareArr[i].x;
 		int iTileY = tile.y + t1::be::coordSquareArr[i].y;
-		buildingsMap[iTileX][iTileY] = Building::createBuilding(AUXILARY, 0, 0, size, tile);
+		buildingsMap[iTileX][iTileY] = Building::createBuilding(AUXILARY, 0, 0, size, tile, team);
 	}
 }
 
 
-void BuildingsMap::constructBuilding(const int type, const char direction, const TileCoord tile)
+void BuildingsMap::constructBuilding(const int type, const char direction, const TileCoord tile, Team* team)
 {
 	if (t1::bc::buildingsInfoTable.find(type) == t1::bc::buildingsInfoTable.end())
 		return;
@@ -134,8 +128,8 @@ void BuildingsMap::constructBuilding(const int type, const char direction, const
 	if (t1::res::isEnoughAllRes(t1::bc::buildingsInfoTable[type].costToBuild))
 	{
 		t1::res::wasteRes(t1::bc::buildingsInfoTable[type].costToBuild);
-		buildingsMap[tile.x][tile.y] = Building::createBuilding(type, direction, durability, size, tile);
-		createAuxilary(size, tile);
+		buildingsMap[tile.x][tile.y] = Building::createBuilding(type, direction, durability, size, tile, team);
+		createAuxilary(size, tile, team);
 		isMapChanged = true;
 	}
 }
@@ -224,6 +218,20 @@ char BuildingsMap::getBuildingDirection(const TileCoord tile)
 	if (buildingExists(tile))
 		return buildingsMap[tile.x][tile.y]->getDirection();
 	return 0;
+}
+
+Team* BuildingsMap::getTeam(const TileCoord tile)
+{
+	if (buildingExists(tile))
+		return buildingsMap[tile.x][tile.y]->getTeam();
+	return nullptr;
+}
+
+int BuildingsMap::getTeamID(const TileCoord tile)
+{
+	if (buildingExists(tile))
+		return buildingsMap[tile.x][tile.y]->getTeamID();
+	return 199999;
 }
 
 bool BuildingsMap::getIsMapChanged() { return isMapChanged; }

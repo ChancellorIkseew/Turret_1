@@ -2,7 +2,7 @@
 #include "small_drill.h"
 
 
-SmallDrill::SmallDrill(int type, short durability, short size, const TileCoord tile) : Drill(type, durability, size, tile)
+SmallDrill::SmallDrill(int type, short durability, short size, const TileCoord tile, Team* team) : Drill(type, durability, size, tile, team)
 {
 	storageCapacity = 5;
 }

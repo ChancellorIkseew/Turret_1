@@ -13,7 +13,7 @@ protected:
 
 public:
 
-	RocketFactory(int type, short durability, short size, const TileCoord tile);
+	RocketFactory(int type, short durability, short size, const TileCoord tile, Team* team);
 	~RocketFactory() = default;
 
 	void interact() override final;

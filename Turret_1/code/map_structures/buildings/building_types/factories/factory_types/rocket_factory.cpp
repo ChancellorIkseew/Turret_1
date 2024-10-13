@@ -4,7 +4,7 @@
 #include "map_structures/resources/res_enum.h"
 
 
-RocketFactory::RocketFactory(int type, short durability, short size, const TileCoord tile) : Factory(type, durability, size, tile)
+RocketFactory::RocketFactory(int type, short durability, short size, const TileCoord tile, Team* team) : Factory(type, durability, size, tile, team)
 {
 	timer = 120;
 }

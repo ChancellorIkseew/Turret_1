@@ -5,11 +5,15 @@
 #include "turret.h"
 
 #include "map_structures/buildings/building/buildings_enum.h"
+#include "map_structures/buildings/buildings_map/buildings_map.h"
+
+#include "map_structures/team/team.h"
 
 		
-Turret::Turret(const int type, const TileCoord tile)
+Turret::Turret(const int type, const TileCoord tile, Team* team)
 {
 	this->type = type;
+	this->team = team;
 	
 	coord = t1::be::pixel(tile) ;
 	
@@ -35,20 +39,37 @@ void Turret::load(std::ifstream& fin)
 
 PixelCoord Turret::findShootingAim() const
 {
-	/*
-	for (auto it = entitiesList.cbegin(); it != entitiesList.cend(); ++it)
+	for (auto it = Team::teams.begin(); it != Team::teams.end(); ++it)
 	{
-		float deltaX = coord.x - (*it)->getCoord().x;
-		float deltaY = coord.y - (*it)->getCoord().y;
-
-		float angleRad = atan2f(deltaX, deltaY);
-
-		if (sqrt(deltaX * deltaX + deltaY * deltaY) < pixelRange)
+		if (this->team->getID() != (*it)->getID())
 		{
-			return (*it)->getCoord();
+			for (auto entity = (*it)->entities.begin(); entity != (*it)->entities.end(); ++entity)
+			{
+				float deltaX = coord.x - (*entity)->getCoord().x;
+				float deltaY = coord.y - (*entity)->getCoord().y;
+
+				float angleRad = atan2f(deltaX, deltaY);
+
+				if (sqrt(deltaX * deltaX + deltaY * deltaY) < pixelRange)
+				{
+					return (*entity)->getCoord();
+				}
+			}
 		}
 	}
-	*/
+
+	TileCoord tile = t1::be::tile(coord);
+	for (int i = 0; i <= spyralRange; i++)
+	{
+		int tileX = tile.x + t1::be::coordSpyralArr[i].x;
+		int tileY = tile.y + t1::be::coordSpyralArr[i].y;
+		TileCoord aimTile{ tileX, tileY };
+		if (BuildingsMap::buildingExists(aimTile) && BuildingsMap::getTeamID(aimTile) != team->getID())
+		{
+			return t1::be::pixel(aimTile);
+		}
+	}
+	
 	return { 0.0f, 0.0f };
 }
 

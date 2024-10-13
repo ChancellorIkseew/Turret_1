@@ -97,10 +97,10 @@ PixelCoord Entity::findShootingAim() const
 	{
 		int tileX = tile(coord.x + sin(motionAngleRad) * _TILE_ * i);
 		int tileY = tile(coord.y + cos(motionAngleRad) * _TILE_ * i);
-		TileCoord tileCoord{ tileX, tileY };
-		if (BuildingsMap::buildingExists(tileCoord))
+		TileCoord tile{ tileX, tileY };
+		if (BuildingsMap::buildingExists(tile) && BuildingsMap::getTeamID(tile) != team->getID())
 		{
-			return pixel(tileCoord);
+			return pixel(tile);
 		}
 	}
 
@@ -108,10 +108,10 @@ PixelCoord Entity::findShootingAim() const
 	{
 		int tileX = this->newTile.x + coordSpyralArr[i].x;
 		int tileY = this->newTile.y + coordSpyralArr[i].y;
-		TileCoord tileCoord{ tileX, tileY };
-		if (BuildingsMap::buildingExists(tileCoord))
+		TileCoord tile{ tileX, tileY };
+		if (BuildingsMap::buildingExists(tile) && BuildingsMap::getTeamID(tile) != team->getID())
 		{
-			return pixel(tileCoord);
+			return pixel(tile);
 		}
 	}
 

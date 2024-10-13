@@ -3,7 +3,7 @@
 #include "map_structures/buildings/building/buildings_enum.h"
 
 
-Conveyer::Conveyer(char type, char direction, short durability, short size, const TileCoord tile) : Building(type, durability, size, tile)
+Conveyer::Conveyer(char type, char direction, short durability, short size, const TileCoord tile, Team* team) : Building(type, durability, size, tile, team)
 {
 	this->direction = direction;
 

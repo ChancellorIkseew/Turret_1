@@ -11,7 +11,7 @@ class BigDrill final : public Drill
 {
 public:
 
-	BigDrill(int type, short durability, short size, const TileCoord tile);
+	BigDrill(int type, short durability, short size, const TileCoord tile, Team* team);
 	~BigDrill() = default;
 
 	void interact() override final;

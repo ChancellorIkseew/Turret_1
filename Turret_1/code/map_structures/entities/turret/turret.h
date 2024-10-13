@@ -7,12 +7,14 @@
 
 #include "map_structures/base_engine/tile_coord.h"
 
+class Team;
 
 class Turret
 {
 protected:
-	int type;	
+	int type;
 	PixelCoord coord;
+	Team* team;
 	
 	float angleRad;
 	float angleDeg;
@@ -22,7 +24,8 @@ protected:
 	short maxAmoo;
 
 	int reloadTimer;
-	int pixelRange;
+	short spyralRange;
+	short pixelRange;
 	
 	static inline sf::Image turretImage;
 	static inline sf::Texture turretTexture;
@@ -32,12 +35,12 @@ protected:
 	PixelCoord findShootingAim() const;
 
 public:
-	Turret(const int type, const TileCoord tile);
+	Turret(const int type, const TileCoord tile, Team* team);
 	~Turret() = default;
 
 	void save(std::ofstream& fout) const;
 	void load(std::ifstream& fin);
-	static std::unique_ptr<Turret> createTurret(const int type, const TileCoord tile);
+	static std::unique_ptr<Turret> createTurret(const int type, const TileCoord tile, Team* team);
 
 	virtual void shooting() = 0;
 

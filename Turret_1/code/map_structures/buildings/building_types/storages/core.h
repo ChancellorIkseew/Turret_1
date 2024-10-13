@@ -12,7 +12,7 @@ protected:
 
 public:
 
-	Core(int type, short durability, short size, const TileCoord tile);
+	Core(int type, short durability, short size, const TileCoord tile, Team* team);
 	virtual ~Core() = default;
 
 	void interact() override;

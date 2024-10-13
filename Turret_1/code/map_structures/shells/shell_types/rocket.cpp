@@ -6,12 +6,13 @@
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/particles/particles.h"
+#include "map_structures/team/team.h"
 
 
 Rocket::Rocket(short type, PixelCoord coord, float angleRad, float angleDeg, Team* team) :
 	Shell(type, coord, angleRad, angleDeg, team)
 {
-	damage = 0;
+	damage = 0; // only_burst_damage
 	float speed = 2.4f;
 	maxLifeTime = 420;
 	lineMotion.x = sin(angleRad) * speed;
@@ -19,43 +20,61 @@ Rocket::Rocket(short type, PixelCoord coord, float angleRad, float angleDeg, Tea
 }
 
 
-void Rocket::tryShellsHitting()
+void Rocket::tryHitting()
 {
-	/*
-	if (BuildingsMap::getBuildingType(t1::be::tile(coord)) != VOID_)
+	TileCoord tile = t1::be::tile(coord);
+	if (!BuildingsMap::isVoidBuilding(tile) && BuildingsMap::getTeamID(tile) != team->getID())
 	{
 		isWasted = true;
+		return;
 	}
 	
-
-	for (auto it = entitiesList.cbegin(); it != entitiesList.cend(); ++it)
+	for (auto it = Team::teams.begin(); it != Team::teams.end(); ++it)
 	{
-		if (abs((*it)->getCoord().x - coord.x) < 32 && abs((*it)->getCoord().y - coord.y) < 32) //Cheek distance_to_mob
+		if (this->team->getID() != (*it)->getID())
 		{
-			isWasted = true;
-			return;
+			for (auto entity = (*it)->entities.begin(); entity != (*it)->entities.end(); ++entity)
+			{
+				float deltaX = coord.x - (*entity)->getCoord().x;
+				float deltaY = coord.y - (*entity)->getCoord().y;
+				if (abs(deltaX) < 32 && abs(deltaY) < 32)
+				{
+					isWasted = true;
+					return;
+				}
+			}
 		}
 	}
-	*/
 }
 
 
 void Rocket::explosion()
 {
-	/*
-	for (auto it = entitiesList.begin(); it != entitiesList.end(); ++it)
+	TileCoord tile = t1::be::tile(coord);
+	for (int i = 0; i < 9; ++i)
 	{
-		int deltaX = coord.x - (*it)->getCoord().x;
-		int deltaY = coord.y - (*it)->getCoord().y;
-
-		if (sqrt(deltaX * deltaX + deltaY * deltaY) < 56) //Cheek distance_to_mob
+		tile.x += t1::be::coordSpyralArr[i].x;
+		tile.y += t1::be::coordSpyralArr[i].y;
+		if (!BuildingsMap::isVoidBuilding(tile))
 		{
-			(*it)->setDamage(20);
+			BuildingsMap::setDamage(20, tile);
 		}
 	}
-	*/
 
-	BuildingsMap::setDamage(20, t1::be::tile(coord));
+	for (auto it = Team::teams.begin(); it != Team::teams.end(); ++it)
+	{
+		for (auto entity = (*it)->entities.begin(); entity != (*it)->entities.end(); ++entity)
+		{
+			float deltaX = coord.x - (*entity)->getCoord().x;
+			float deltaY = coord.y - (*entity)->getCoord().y;
+			float deltaS = sqrt(deltaX * deltaX + deltaY * deltaY);
+			if (deltaS < 56)
+			{
+				(*entity)->setDamage(20);
+			}
+		}	
+	}
+
 	particlesList.emplace_back(std::make_unique<Particle>(1, coord));
 }
 

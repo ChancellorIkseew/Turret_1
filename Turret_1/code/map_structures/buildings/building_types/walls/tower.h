@@ -11,7 +11,7 @@ protected:
 	std::unique_ptr<Turret> turret;
 
 public:
-	Tower(char type, short durability, short size, const TileCoord tile);
+	Tower(char type, short durability, short size, const TileCoord tile, Team* team);
 	virtual ~Tower() = default;
 
 	void save(std::ofstream& fout) const override;

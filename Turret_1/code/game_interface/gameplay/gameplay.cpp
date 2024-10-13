@@ -19,6 +19,7 @@
 #include "map_structures/resources/resources.h"
 #include "map_structures/particles/particles.h"
 #include "map_structures/team/team.h"
+#include "map_structures/buildings/building/buildings_enum.h"
 
 
 char t1::gamepl::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, std::string saveFolderName)
@@ -43,7 +44,7 @@ char t1::gamepl::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, 
 		std::cout << "create new works" << std::endl;
 
         TerrainMap::generateMap();
-        BuildingsMap::generateMap();
+        BuildingsMap::constructBuilding(CORE_MK1, 0, { 48, 48 }, player.get());
 
         t1::time::resetTime();
         t1::res::giveStartResources();
@@ -71,7 +72,7 @@ char t1::gamepl::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, 
 
     std::thread simulation([&]() { t1::gamepl::simulation(isGameplayActive, isPaused, *enemy); });
     std::thread input([&]() { t1::gamepl::input(isGameplayActive, isPaused, mainWindow, mouseCoord, mouseMapCoord,
-        lastMousePosition, isMovingCamera, saveFolderName); });
+        lastMousePosition, isMovingCamera, saveFolderName, player.get()); });
     graphics(isGameplayActive, isPaused, mainWindow, mouseCoord, mouseMapCoord,
         lastMousePosition, isMovingCamera);
     if (false)

@@ -5,7 +5,7 @@
 #include "map_structures/entities/turret_types/rocket_turret.h"
 
 
-Tower::Tower(char type, short durability, short size, const TileCoord tile) : Building (type, durability, size, tile)
+Tower::Tower(char type, short durability, short size, const TileCoord tile, Team* team) : Building (type, durability, size, tile, team)
 {
 	turret = nullptr;
 }
@@ -29,7 +29,7 @@ void Tower::load(std::ifstream& fin)
 		fin.seekg(-1, std::ios::cur);
 		int turretType;
 		fin >> turretType;
-		turret = std::move(Turret::createTurret(turretType, tile));
+		turret = std::move(Turret::createTurret(turretType, tile, this->getTeam()));
 		turret->load(fin);
 	}
 	Building::load(fin);
@@ -73,7 +73,7 @@ bool Tower::canAccept(int resType) const
 
 void Tower::setTurret(int turretType)
 {
-	turret = std::move(Turret::createTurret(turretType, tile));
+	turret = std::move(Turret::createTurret(turretType, tile, this->getTeam()));
 }
 
 void Tower::removeTurret()

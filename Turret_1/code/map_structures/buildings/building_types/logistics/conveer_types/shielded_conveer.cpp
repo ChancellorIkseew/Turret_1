@@ -3,7 +3,8 @@
 #include "map_structures/buildings/building/buildings_enum.h"
 
 
-ShieldedConveyer::ShieldedConveyer(char type, char direction, short durability, short size, const TileCoord tile) : Conveyer(type, direction, durability, size, tile)
+ShieldedConveyer::ShieldedConveyer(char type, char direction, short durability, short size, const TileCoord tile, Team* team) :
+	Conveyer(type, direction, durability, size, tile, team)
 {
 	this->direction = direction;
 

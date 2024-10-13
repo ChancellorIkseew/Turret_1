@@ -7,12 +7,14 @@
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/resources/res_enum.h"
 #include "map_structures/shells/shell/shell_enum.h"
+#include "map_structures/team/team.h"
 
 
-AutocannonTurret::AutocannonTurret(int type, TileCoord tile) :
-	Turret(AUTOCANNON_TURRET, tile)
+AutocannonTurret::AutocannonTurret(int type, TileCoord tile, Team* team) :
+	Turret(AUTOCANNON_TURRET, tile, team)
 {
 	pixelRange = 11 * _TILE_;
+	spyralRange = 436;
 	maxAmoo = 181;
 }
 
@@ -33,12 +35,12 @@ void AutocannonTurret::shooting()
 
 			if (reloadTimer <= 0)
 			{
-				//t1::sh::playerShellsList.emplace_back(Shell::createShell(AC_SHELL, { coord.x + correctionX, coord.y - correctionY }, angleRad, angleDeg));
+				team->spawnShell(AC_SHELL, { coord.x + correctionX, coord.y - correctionY }, angleRad, angleDeg);
 				reloadTimer = 30;
 			}
 			else
 			{
-				//t1::sh::playerShellsList.emplace_back(Shell::createShell(AC_SHELL, { coord.x - correctionX, coord.y + correctionY }, angleRad, angleDeg));
+				team->spawnShell(AC_SHELL, { coord.x - correctionX, coord.y + correctionY }, angleRad, angleDeg);
 			}
 			--amooQuantity;
 		}

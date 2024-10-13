@@ -9,7 +9,7 @@ class StoneWall : public Building
 
 public:
 
-	StoneWall(char type, short durability, short size, const TileCoord tile);
+	StoneWall(char type, short durability, short size, const TileCoord tile, Team* team);
 	~StoneWall() = default;
 
 	void draw(sf::RenderWindow& window) override;

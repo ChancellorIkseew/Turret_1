@@ -1,17 +1,17 @@
 
-#include <SFML\Graphics.hpp>
-
 #include "rocket_turret.h"
 
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/resources/res_enum.h"
 #include "map_structures/shells/shell/shell_enum.h"
+#include "map_structures/team/team.h"
 
 
-RocketTurret::RocketTurret(int type, TileCoord tile) :
-	Turret(ROCKET_TURRET, tile)
+RocketTurret::RocketTurret(int type, TileCoord tile, Team* team) :
+	Turret(ROCKET_TURRET, tile, team)
 {
-	pixelRange = 35 * _TILE_;
+	spyralRange = 4108;
+	pixelRange = 34 * _TILE_;
 	maxAmoo = 2;
 }
 
@@ -27,7 +27,7 @@ void RocketTurret::shooting()
 
 		if (reloadTimer <= 0 && amooQuantity > 0)
 		{
-			//t1::sh::playerShellsList.emplace_back(Shell::createShell(ROCKET, { float(coord.x), float(coord.y) }, angleRad, angleDeg));
+			team->spawnShell(ROCKET, { float(coord.x), float(coord.y) }, angleRad, angleDeg);
 			reloadTimer = 120;
 			--amooQuantity;
 		}

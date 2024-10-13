@@ -13,7 +13,7 @@ protected:
 
 public:
 
-	Conveyer(char type, char direction, short durability, short v_size, const TileCoord tile);
+	Conveyer(char type, char direction, short durability, short v_size, const TileCoord tile, Team* team);
 	virtual ~Conveyer() = default;
 
 	void save(std::ofstream& fout) const override final;

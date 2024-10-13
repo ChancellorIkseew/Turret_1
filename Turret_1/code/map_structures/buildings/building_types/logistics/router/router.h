@@ -10,7 +10,7 @@ class Router : public Building
 {
 public:
 
-	Router(int type, short durability, short size, const TileCoord tile);
+	Router(int type, short durability, short size, const TileCoord tile, Team* team);
 	~Router() = default;
 
 	void interact() override;

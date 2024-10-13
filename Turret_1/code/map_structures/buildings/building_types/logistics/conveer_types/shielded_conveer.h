@@ -11,7 +11,7 @@ class ShieldedConveyer : public Conveyer
 {
 public:
 
-	ShieldedConveyer(char type, char direction, short durability, short size, const TileCoord tile);
+	ShieldedConveyer(char type, char direction, short durability, short size, const TileCoord tile, Team* team);
 	~ShieldedConveyer() = default;
 
 	void draw(sf::RenderWindow& window) override final;

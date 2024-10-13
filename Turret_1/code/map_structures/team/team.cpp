@@ -4,7 +4,10 @@
 
 Team::Team(sf::String name)
 {
-    
+    static int newID = 0;
+
+    ID = newID;
+    ++newID;
 }
 
 void Team::addTeam(const sf::String& name)
@@ -56,3 +59,7 @@ void Team::drawAll(sf::RenderWindow& window)
         (*it)->draw(window);
     }
 }
+
+
+int Team::getID() { return ID; }
+

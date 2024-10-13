@@ -16,16 +16,18 @@
 class Team
 {
 private:
-	static inline std::unordered_set<std::shared_ptr<Team>> teams;
-	EntitiesList entities;
-	ShellsList shells;
-
+	
+	int ID;
 	sf::String name;
 
 	void interact();
 	void draw(sf::RenderWindow& window);
 
 public:
+	static inline std::unordered_set<std::shared_ptr<Team>> teams;
+	EntitiesList entities;
+	ShellsList shells;
+
 	Team(sf::String name);
 	~Team() = default;
 
@@ -36,6 +38,8 @@ public:
 
 	void spawnShell(short type, const PixelCoord coord, float angleRad, float angleDeg);
 	void spawnEntity(const int amount, const int type);
+
+	int getID();
 
 };
 

@@ -39,7 +39,7 @@ void BuildingPanel::prepareInterfaceSprites()
 
 
 
-void BuildingPanel::interact(const sf::Vector2i& mouseCoord, const sf::Vector2f& mouseMapCoord)
+void BuildingPanel::interact(const sf::Vector2i& mouseCoord, const sf::Vector2f& mouseMapCoord, Team* team)
 {
 	if (isBuildingTypeSelected && noSubWindowSelected(mouseCoord))
 	{
@@ -61,7 +61,7 @@ void BuildingPanel::interact(const sf::Vector2i& mouseCoord, const sf::Vector2f&
 		}
 		else
 		{
-			BuildingsMap::constructBuilding(newBuildingType, direction, selectedTile);
+			BuildingsMap::constructBuilding(newBuildingType, direction, selectedTile, team);
 		}
 		mtBuildings.unlock();
 	}

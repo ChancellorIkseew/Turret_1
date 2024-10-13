@@ -6,6 +6,7 @@
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/particles/particles.h"
+#include "map_structures/team/team.h"
 
 
 HeavyShell::HeavyShell(short type, PixelCoord coord, float angleRad, float angleDeg, Team* team) :
@@ -21,20 +22,30 @@ HeavyShell::HeavyShell(short type, PixelCoord coord, float angleRad, float angle
 
 void HeavyShell::explosion()
 {
-	/*
-	for (auto it = entitiesList.begin(); it != entitiesList.end(); ++it)
+	TileCoord tile = t1::be::tile(coord);
+	for (int i = 0; i < 9; ++i)
 	{
-		int deltaX = coord.x - (*it)->getCoord().x;
-		int deltaY = coord.y - (*it)->getCoord().y;
-
-		if (sqrt(deltaX * deltaX + deltaY * deltaY) < 48)
+		tile.x += t1::be::coordSpyralArr[i].x;
+		tile.y += t1::be::coordSpyralArr[i].y;
+		if (!BuildingsMap::isVoidBuilding(tile))
 		{
-			(*it)->setDamage(10);
+			BuildingsMap::setDamage(10, tile);
 		}
 	}
 
-	BuildingsMap::setDamage(20, t1::be::tile(coord));
-	*/
+	for (auto it = Team::teams.begin(); it != Team::teams.end(); ++it)
+	{
+		for (auto entity = (*it)->entities.begin(); entity != (*it)->entities.end(); ++entity)
+		{
+			float deltaX = coord.x - (*entity)->getCoord().x;
+			float deltaY = coord.y - (*entity)->getCoord().y;
+			float deltaS = sqrt(deltaX * deltaX + deltaY * deltaY);
+			if (deltaS < 48)
+			{
+				(*entity)->setDamage(10);
+			}
+		}
+	}
 	//particlesList.push_back(std::make_unique<Particle>(1, coord));
 }
 

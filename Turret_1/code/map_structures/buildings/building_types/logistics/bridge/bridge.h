@@ -11,7 +11,7 @@ class Bridge : public Building
 {
 public:
 
-	Bridge(int type, char direction, short durability, short size, const TileCoord tile);
+	Bridge(int type, char direction, short durability, short size, const TileCoord tile, Team* team);
 	~Bridge() = default;
 
 	void save(std::ofstream& fout) const override final;

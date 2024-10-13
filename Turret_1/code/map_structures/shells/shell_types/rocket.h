@@ -13,7 +13,7 @@ class Rocket : public Shell
 		Rocket(short type, PixelCoord coord, float angleRad, float angleDeg, Team* team);
 		~Rocket() = default;
 
-		void tryShellsHitting() override final;
+		void tryHitting() override final;
 		void explosion() override final;
 
 		void draw(sf::RenderWindow& window) override final;

@@ -38,7 +38,7 @@ public:
 
 	virtual void motion();
 	virtual void explosion();
-	virtual void tryShellsHitting();
+	virtual void tryHitting();
 
 	PixelCoord getCoord();
 	bool getIsWasted();

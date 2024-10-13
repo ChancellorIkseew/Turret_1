@@ -3,7 +3,7 @@
 #include "map_structures/resources/res_enum.h"
 
 
-Drill::Drill(int type, short durability, short size, const TileCoord tile) : Building(type, durability, size, tile)
+Drill::Drill(int type, short durability, short size, const TileCoord tile, Team* team) : Building(type, durability, size, tile, team)
 {
 	timer = 0;
 	rotorAngle = 0;

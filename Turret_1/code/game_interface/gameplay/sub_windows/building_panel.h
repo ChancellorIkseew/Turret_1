@@ -7,6 +7,7 @@
 
 #include "sub_windows_util/sub_window.h"
 
+class Team;
 
 class BuildingPanel : public SubWindow
 {
@@ -33,7 +34,7 @@ public:
 		return self;
 	}
 	
-	void interact(const sf::Vector2i& mouseCoord, const sf::Vector2f& mouseMapCoord);
+	void interact(const sf::Vector2i& mouseCoord, const sf::Vector2f& mouseMapCoord, Team* team);
 	void rotateBuilding();
 	void relocate(int windowSizeX, int windowSizeY) override final;
 	

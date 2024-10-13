@@ -102,6 +102,15 @@ void EntitiesList::draw(sf::RenderWindow& mainWindow)
 	}
 }
 
+std::list<std::unique_ptr<Entity>>::iterator EntitiesList::begin() noexcept
+{
+	return entitiesList.begin();
+}
+
+std::list<std::unique_ptr<Entity>>::iterator EntitiesList::end() noexcept
+{
+	return entitiesList.end();
+}
 
 void EntitiesList::clean() noexcept
 {

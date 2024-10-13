@@ -13,7 +13,7 @@
 
 void t1::gamepl::input(bool& isGameplayActive, bool& isPaused, sf::RenderWindow& mainWindow,
     sf::Vector2i& mouseCoord, sf::Vector2f& mouseMapCoord, sf::Vector2f& lastMousePosition,
-    bool& isMovingCamera, const std::string& saveFolderName)
+    bool& isMovingCamera, const std::string& saveFolderName, Team* team)
 {
     while (isGameplayActive)
     {
@@ -23,7 +23,7 @@ void t1::gamepl::input(bool& isGameplayActive, bool& isPaused, sf::RenderWindow&
         if (LMB_Pressed)
         {
             
-            BuildingPanel::getInstance().interact(mouseCoord, mouseMapCoord);
+            BuildingPanel::getInstance().interact(mouseCoord, mouseMapCoord, team);
 
             Sleep(150);
         }

@@ -17,22 +17,21 @@ private:
 	static inline bool isMapChanged;
 	static inline std::vector<std::vector<std::shared_ptr<Building>>> buildingsMap;
 	
-	static void createAuxilary(const short size, const TileCoord tile);
+	static void createAuxilary(const short size, const TileCoord tile, Team* team);
 
 public:
 	BuildingsMap(const TileCoord mapSize);
 	~BuildingsMap();
-		
-	static void generateMap();
+	
 	static void loadMap(const std::string& folder);
 	static void saveMap(const std::string& folder);
-		
+	
 	static void intetractMap();
 
 	// Construction_process
-	static void constructBuilding(const int type, const char direction, const TileCoord tile);
+	static void constructBuilding(const int type, const char direction, const TileCoord tile, Team* team);
 	static void demolishBuilding(const TileCoord tile);
-		
+	
 	// Simple_utilites
 	static inline bool buildingExists(const int tileX, const int tileY);
 	static inline bool isVoidBuilding(const int tileX, const int tileY);
@@ -44,6 +43,8 @@ public:
 	static short getBuildingDurability(const TileCoord tile);
 	static char getBuildingDirection(const TileCoord tile);
 	static TileCoord getBuildingMainTileCoord(const TileCoord tile);
+	static Team* getTeam(const TileCoord tile);
+	static int getTeamID(const TileCoord tile);
 
 	static bool getIsMapChanged();
 	static void cleanMapChanged();
@@ -59,10 +60,10 @@ public:
 	static void setTurret(const int turretType, const TileCoord tile);
 	static void removeTurret(const TileCoord tile);
 	static bool isTurretOnTile(const TileCoord tile);
-		
+	
 	// Visual
 	static void drawMap(sf::RenderWindow& window);
-		
+	
 };
 
 
