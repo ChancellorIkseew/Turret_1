@@ -3,12 +3,7 @@
 #define SUB_WINDOWS_LIST
 
 #include <SFML/Graphics.hpp>
-#include <list>
 
-#include "sub_window.h"
-
-
-extern std::list<SubWindow*> SubWindowsList;
 
 void initSubWindows();
 

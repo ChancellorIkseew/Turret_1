@@ -3,7 +3,7 @@
 #include "map_structures/pre-settings/pre-settings.h"
 
 
-GeneralPreSettingsWindow::GeneralPreSettingsWindow() : Page(sf::Vector2u(700, 350), sf::Vector2u(100, 100))
+GeneralPreSettingsWindow::GeneralPreSettingsWindow(const sf::Vector2u position) : Page(sf::Vector2u(700, 350), position)
 {
 	this->prepareInterfaceSprites();
 	isVisible = false;
@@ -23,8 +23,8 @@ void GeneralPreSettingsWindow::interact(const sf::Vector2i& mouseCoord, bool& is
 {
 	if (isVisible)
 	{
-		//mapMaxX.interact(mouseCoord);
-		//mapMaxY.interact(mouseCoord);
+		mapMaxX.interact(mouseCoord);
+		mapMaxY.interact(mouseCoord);
 	}
 }
 

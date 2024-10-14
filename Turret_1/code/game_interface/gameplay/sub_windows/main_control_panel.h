@@ -2,10 +2,8 @@
 #ifndef MAIN_CONTROL_PANEL_H
 #define MAIN_CONTROL_PANEL_H
 
-#include <SFML\Graphics.hpp>
-
-#include "sub_windows_util/sub_window.h"
-#include "sub_windows_util/button/button.h"
+#include "game_interface/sub_window/sub_window/sub_window.h"
+#include "game_interface/sub_window/elements/button/button.h"
 
 
 class MainControlPanel : public SubWindow
@@ -47,6 +45,5 @@ public:
 	void draw(sf::RenderWindow& window) override final;
 	
 };
-
 
 #endif // MAIN_CONTROL_PANEL_H

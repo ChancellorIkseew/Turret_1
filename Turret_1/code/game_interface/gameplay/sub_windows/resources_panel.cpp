@@ -1,10 +1,9 @@
 
 #include "resources_panel.h"
 
-#include "sub_windows_util/fonts.h"
-#include "sub_windows_util/res_info.h"
+#include "game_interface/sub_window/sub_win_util/fonts.h"
+#include "game_interface/sub_window/elements/res_info/res_info.h"
 
-#include "map_structures/resources/resources.h"
 #include "map_structures/resources/res_enum.h"
 #include "map_structures/team/team.h"
 

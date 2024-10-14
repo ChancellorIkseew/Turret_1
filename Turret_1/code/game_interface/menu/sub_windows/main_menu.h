@@ -5,8 +5,8 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
-#include "game_interface/gameplay/sub_windows/sub_windows_util/sub_window.h"
-#include "game_interface/gameplay/sub_windows/sub_windows_util/button/button.h"
+#include "game_interface/sub_window/sub_window/sub_window.h"
+#include "game_interface/sub_window/elements/button/button.h"
 
 
 class MainMenu : public SubWindow

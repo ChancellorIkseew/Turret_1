@@ -7,8 +7,8 @@
 
 #include "main_control_panel.h"
 
-#include "sub_windows_util/sub_windows_list.h"
-#include "sub_windows_util/fonts.h"
+#include "game_interface/sub_window/sub_win_util/sub_windows_list.h"
+#include "game_interface/sub_window/sub_win_util/fonts.h"
 
 
 #include "settings_window.h"

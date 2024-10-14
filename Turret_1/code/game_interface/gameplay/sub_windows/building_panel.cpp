@@ -4,7 +4,7 @@
 
 #include "building_panel.h"
 
-#include "game_interface/gameplay/sub_windows/sub_windows_util/sub_windows_list.h"
+#include "game_interface/sub_window/sub_win_util/sub_windows_list.h"
 #include "specifications_panel.h"
 
 #include "map_structures/buildings/building/buildings_ico.h"

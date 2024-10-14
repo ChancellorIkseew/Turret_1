@@ -4,8 +4,7 @@
 #define TEXT_FIELD_H
 
 #include <SFML\Graphics.hpp>
-
-#include "sub_window.h"
+#include "game_interface/sub_window/sub_window/sub_window.h"
 
 
 class TextField : public SubWindow
@@ -20,7 +19,7 @@ public:
 	TextField();
 	~TextField() = default;
 
-	void interact(sf::Vector2i& mouseCoord);
+	void interact(const sf::Vector2i& mouseCoord);
 	void relocate(const sf::Vector2u windowSizeY) override;
 
 	void setText(sf::String v_text);

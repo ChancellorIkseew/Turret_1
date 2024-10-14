@@ -4,7 +4,7 @@
 #include "game_interface/system/system.h"
 
 
-TerrainPreSettingsWindow::TerrainPreSettingsWindow() : Page(sf::Vector2u(400, 700), sf::Vector2u(100, 100))
+TerrainPreSettingsWindow::TerrainPreSettingsWindow(const sf::Vector2u position) : Page(sf::Vector2u(400, 700), position)
 {
 	this->prepareInterfaceSprites();
 }

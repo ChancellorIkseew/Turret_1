@@ -3,8 +3,8 @@
 
 #include "sub_window.h"
 
-#include "fonts.h"
-#include "res_info.h"
+#include "game_interface/sub_window/sub_win_util/fonts.h"
+#include "game_interface/sub_window/elements/res_info/res_info.h"
 
 
 SubWindow::SubWindow(char type, const sf::Vector2u size, const sf::Vector2u position)

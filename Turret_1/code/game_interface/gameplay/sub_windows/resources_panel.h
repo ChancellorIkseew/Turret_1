@@ -2,11 +2,9 @@
 #ifndef RESOURCES_PANEL_H
 #define RESOURCES_PANEL_H
 
-#include <SFML\Graphics.hpp>
 #include <mutex>
-
-#include "sub_windows_util/sub_window.h"
-#include "sub_windows_util/res_info.h"
+#include "game_interface/sub_window/sub_window/sub_window.h"
+#include "game_interface/sub_window/elements/res_info/res_info.h"
 
 class Team;
 
@@ -44,6 +42,5 @@ public:
 	void draw(sf::RenderWindow &window) override final;
 	
 };
-
 
 #endif // RESOURCES_PANEL_H

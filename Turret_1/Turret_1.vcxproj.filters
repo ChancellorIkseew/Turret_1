@@ -69,15 +69,6 @@
     <ClCompile Include="code\game_interface\gameplay\gameplay_util\wave_constructor.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="code\game_interface\gameplay\sub_windows\sub_windows_util\fonts.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="code\game_interface\gameplay\sub_windows\sub_windows_util\sub_window.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="code\game_interface\gameplay\sub_windows\sub_windows_util\sub_windows_list.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="code\game_interface\gameplay\sub_windows\building_panel.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -150,9 +141,6 @@
     <ClCompile Include="code\map_structures\terrain\terrain.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="code\game_interface\gameplay\sub_windows\sub_windows_util\res_info.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="code\game_interface\gameplay\gameplay.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -160,9 +148,6 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="code\game_interface\gameplay\gameplay_util\camera.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="code\game_interface\menu\sub_windows\sub_windows_util\menu_windows_list.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="code\game_interface\menu\menu.cpp">
@@ -181,9 +166,6 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="code\game_interface\menu\sub_windows\world_pre_settings\general_pre_settings.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="code\game_interface\gameplay\sub_windows\sub_windows_util\text_field.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="code\game_interface\system\text_enter.cpp">
@@ -315,9 +297,6 @@
     <ClCompile Include="code\game_interface\gameplay\gameplay_streams\graphics.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="code\game_interface\gameplay\sub_windows\sub_windows_util\button\button.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="code\map_structures\team\team.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -327,7 +306,25 @@
     <ClCompile Include="code\map_structures\team\balance\balance.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="code\game_interface\gameplay\sub_windows\sub_windows_util\page\page.cpp">
+    <ClCompile Include="code\game_interface\sub_window\elements\button\button.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game_interface\sub_window\elements\res_info\res_info.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game_interface\sub_window\sub_win_types\page\page.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game_interface\sub_window\sub_win_types\text_field\text_field.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game_interface\sub_window\sub_win_util\sub_windows_list.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game_interface\sub_window\sub_window\sub_window.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game_interface\sub_window\sub_win_util\fonts.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -345,15 +342,6 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\game_interface\gameplay\gameplay_util\wave_constructor.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="code\game_interface\gameplay\sub_windows\sub_windows_util\fonts.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="code\game_interface\gameplay\sub_windows\sub_windows_util\sub_window.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="code\game_interface\gameplay\sub_windows\sub_windows_util\sub_windows_list.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\game_interface\gameplay\sub_windows\building_panel.h">
@@ -440,16 +428,10 @@
     <ClInclude Include="code\map_structures\terrain\terrain.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="code\game_interface\gameplay\sub_windows\sub_windows_util\res_info.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="code\game_interface\system\system.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\game_interface\gameplay\gameplay_util\camera.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="code\game_interface\menu\sub_windows\sub_windows_util\menu_windows_list.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\game_interface\menu\sub_windows\main_menu.h">
@@ -468,9 +450,6 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\game_interface\menu\sub_windows\world_pre_settings\general_pre_settings.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="code\game_interface\gameplay\sub_windows\sub_windows_util\text_field.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\game_interface\system\text_enter.h">
@@ -602,9 +581,6 @@
     <ClInclude Include="code\game_interface\gameplay\gameplay_streams\graphics.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="code\game_interface\gameplay\sub_windows\sub_windows_util\button\button.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="code\map_structures\team\team.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -614,7 +590,25 @@
     <ClInclude Include="code\map_structures\team\balance\balance.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="code\game_interface\gameplay\sub_windows\sub_windows_util\page\page.h">
+    <ClInclude Include="code\game_interface\sub_window\elements\button\button.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\game_interface\sub_window\elements\res_info\res_info.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\game_interface\sub_window\sub_win_types\page\page.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\game_interface\sub_window\sub_win_types\text_field\text_field.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\game_interface\sub_window\sub_win_util\sub_windows_list.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\game_interface\sub_window\sub_window\sub_window.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\game_interface\sub_window\sub_win_util\fonts.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

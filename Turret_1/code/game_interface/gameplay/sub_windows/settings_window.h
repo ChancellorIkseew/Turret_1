@@ -2,9 +2,7 @@
 #ifndef SETTINGS_WINDOW_H
 #define SETTINGS_WINDOW_H
 
-#include <SFML\Graphics.hpp>
-
-#include "sub_windows_util/sub_window.h"
+#include "game_interface/sub_window/sub_window/sub_window.h"
 
 
 class SettingsWindow : public SubWindow
@@ -41,6 +39,5 @@ public:
 	void draw(sf::RenderWindow& window) override final;
 
 };
-
 
 #endif // SETTINGS_H

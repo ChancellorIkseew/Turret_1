@@ -24,8 +24,8 @@ PreSettingsWindow::PreSettingsWindow(): SubWindow('s', sf::Vector2u(720, 480), s
 	this->prepareInterfaceSprites();
 	this->relocate({ 0, 0 });
 
-	pages.emplace(GENERAL, std::make_unique<GeneralPreSettingsWindow>());
-	pages.emplace(TERRAIN, std::make_unique<TerrainPreSettingsWindow>());
+	pages.emplace(GENERAL, std::make_unique<GeneralPreSettingsWindow>(sf::Vector2u(10, 70)));
+	pages.emplace(TERRAIN, std::make_unique<TerrainPreSettingsWindow>(sf::Vector2u(10, 70)));
 	//pages.emplace(BUILDINGS, std::make_unique<GeneralPreSettingsWindow>());
 	//pages.emplace(MOBS, std::make_unique<GeneralPreSettingsWindow>());
 }
@@ -33,7 +33,7 @@ PreSettingsWindow::PreSettingsWindow(): SubWindow('s', sf::Vector2u(720, 480), s
 void PreSettingsWindow::prepareInterfaceSprites()
 {
 	buttons.resize(6);
-	buttons[START_GAME] = Button("start_game.bmp", sf::Vector2i(266, 48), sf::Vector2i(70, 100));
+	buttons[START_GAME] = Button("start_game.bmp", sf::Vector2i(266, 48), sf::Vector2i(310, 10));
 	buttons[EXIT_TO_MENU] = Button("exit_to_menu.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 10));
 
 	buttons[GENERAL] = Button("general.bmp", sf::Vector2i(48, 48), sf::Vector2i(70, 10));
@@ -50,14 +50,17 @@ int PreSettingsWindow::interact(sf::Vector2i& mouseCoord, bool& isMenuOpen)
 	{
 		if (buttons[START_GAME].press(mouseCoord))
 		{
-			//generalPreSettingsWindow.enterSettings();
+			for (auto it = pages.begin(); it != pages.end(); ++it)
+			{
+				it->second->enter();
+			}
 			return GAMEPLAY;
 		}
 
 		if (buttons[EXIT_TO_MENU].press(mouseCoord))
 			return MAIN_MENU;
 
-		for (int i = 2; i < 6; ++i)
+		for (int i = 2; i < 4; ++i)
 		{
 			if (buttons[i].press(mouseCoord))
 			{
@@ -70,7 +73,11 @@ int PreSettingsWindow::interact(sf::Vector2i& mouseCoord, bool& isMenuOpen)
 			}
 		}
 
-		pages[GENERAL]->interact(mouseCoord, isMenuOpen);
+
+		for (auto it = pages.begin(); it != pages.end(); ++it)
+		{
+			it->second->interact(mouseCoord, isMenuOpen);
+		}
 
 		t1::system::sleep(16);
 	}
@@ -89,7 +96,7 @@ void PreSettingsWindow::relocate(const sf::Vector2u windowSize)
 
 	for (auto it = pages.begin(); it !=pages.end(); ++it)
 	{
-		it->second->relocate(windowSize);
+		it->second->relocate(position);
 	}
 }
 

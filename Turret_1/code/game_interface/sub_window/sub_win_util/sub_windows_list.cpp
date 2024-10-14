@@ -1,15 +1,15 @@
 
 #include "sub_windows_list.h"
 
-#include "../exit_confirmation.h"
-#include "../settings_window.h"
-#include "../resources_panel.h"
-#include "../main_control_panel.h"
-#include "../specifications_panel.h"
-#include "../building_panel.h"
+#include "game_interface/gameplay/sub_windows/exit_confirmation.h"
+#include "game_interface/gameplay/sub_windows/settings_window.h"
+#include "game_interface/gameplay/sub_windows/resources_panel.h"
+#include "game_interface/gameplay/sub_windows/main_control_panel.h"
+#include "game_interface/gameplay/sub_windows/specifications_panel.h"
+#include "game_interface/gameplay/sub_windows/building_panel.h"
 
 
-std::list<SubWindow*> SubWindowsList;
+
 
 
 void initSubWindows()
@@ -23,7 +23,6 @@ void relocateSubWindows(const sf::Vector2u windowSize)
 	ConfirmationWindow::getInstance().relocate(windowSize);
 	SettingsWindow::getInstance().relocate(windowSize);
 	ResourcesPanel::getInstance().relocate(windowSize);
-	SpecificationsPanel::getInstance().relocate(windowSize);
 	BuildingPanel::getInstance().relocate(windowSize);
 
 }

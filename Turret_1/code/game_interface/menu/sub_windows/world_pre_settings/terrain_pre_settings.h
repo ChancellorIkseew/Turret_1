@@ -3,14 +3,13 @@
 #define TERRAIN_PRE_SETTINGS
 
 #include <SFML/Graphics.hpp>
-
-#include "game_interface/gameplay/sub_windows/sub_windows_util/page/page.h"
+#include "game_interface/sub_window/sub_win_types/page/page.h"
 
 
 class TerrainPreSettingsWindow : public Page
 {
 public:
-	TerrainPreSettingsWindow();
+	TerrainPreSettingsWindow(const sf::Vector2u position);
 	~TerrainPreSettingsWindow() = default;
 
 	void interact(const sf::Vector2i& mouseCoord, bool& isMenuOpen);

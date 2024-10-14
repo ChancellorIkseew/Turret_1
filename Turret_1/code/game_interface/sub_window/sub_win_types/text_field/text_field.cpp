@@ -6,7 +6,7 @@
 
 #include "game_interface/system/system.h"
 #include "game_interface/system/text_enter.h"
-#include "fonts.h"
+#include "game_interface/sub_window/sub_win_util/fonts.h"
 
 
 TextField::TextField(const sf::Vector2u size, const sf::Vector2u  position) : SubWindow('t', size, position)
@@ -28,7 +28,7 @@ void TextField::prepareInterfaceSprites()
 }
 
 
-void TextField::interact(sf::Vector2i& mouseCoord)
+void TextField::interact(const sf::Vector2i& mouseCoord)
 {
 	if (containsCoursor(mouseCoord) && LMB_Pressed)
 	{
@@ -68,7 +68,7 @@ void TextField::draw(sf::RenderWindow& window)
 	drawSubWindowBase(window);
 	text.setPosition(position.x + 5, position.y + 1);
 	window.draw(text);
-	baseSprite.setColor(sf::Color::White); // set_normal_color
+	baseSprite.setColor(sf::Color(255, 255, 255, 210)); // set_normal_color
 }
 
 

@@ -2,10 +2,7 @@
 #ifndef BUILDING_PANEL_H
 #define BUILDING_PANEL_H
 
-#include <map>
-#include <SFML\Graphics.hpp>
-
-#include "sub_windows_util/sub_window.h"
+#include "game_interface/sub_window/sub_window/sub_window.h"
 
 class Team;
 

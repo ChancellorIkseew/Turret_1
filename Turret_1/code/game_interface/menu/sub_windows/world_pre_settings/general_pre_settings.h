@@ -4,8 +4,8 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "game_interface/gameplay/sub_windows/sub_windows_util/page/page.h"
-#include "game_interface/gameplay/sub_windows/sub_windows_util/text_field.h"
+#include "game_interface/sub_window/sub_win_types/page/page.h"
+#include "game_interface/sub_window/sub_win_types/text_field/text_field.h"
 
 
 class GeneralPreSettingsWindow : public Page
@@ -14,7 +14,7 @@ private:
 	TextField mapMaxX, mapMaxY;
 
 public:
-	GeneralPreSettingsWindow();
+	GeneralPreSettingsWindow(const sf::Vector2u position);
 	~GeneralPreSettingsWindow() = default;
 
 	void interact(const sf::Vector2i& mouseCoord, bool& isMenuOpen);
