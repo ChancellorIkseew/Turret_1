@@ -10,10 +10,10 @@
 #include "exit_confirmation.h"
 
 
-ConfirmationWindow::ConfirmationWindow() : SubWindow('s', 128, 100, 0, 0)
+ConfirmationWindow::ConfirmationWindow() : SubWindow('s', sf::Vector2u(128, 100), sf::Vector2u(0, 0))
 {
     this->prepareInterfaceSprites();
-    this->relocate(1200, 1200);
+    this->relocate({ 0, 0 });
     isVisible = false;
 }
 
@@ -59,14 +59,10 @@ bool ConfirmationWindow::interact(sf::Vector2i& mouseCoord)
 }
 
 
-
-void ConfirmationWindow::relocate(int windowSizeX, int windowSizeY)
+void ConfirmationWindow::relocate(const sf::Vector2u windowSize)
 {
-    positionX = (windowSizeX - sizeX) / 2;
-    positionY = (windowSizeY - sizeY) / 2;
-    std::cout << " win x:" << positionX << " win y:" << positionY << '\n';
-
-    confirm.relocate(sf::Vector2i(positionX, positionY));
-    reject.relocate(sf::Vector2i(positionX, positionY));
-    confirmationText.setPosition(positionX + 10, positionY + 60);
+    SubWindow::relocateCentral(windowSize);
+    confirm.relocate(position);
+    reject.relocate(position);
+    confirmationText.setPosition(position.x + 10, position.y + 60);
 }

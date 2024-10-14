@@ -9,20 +9,15 @@
 #include "fonts.h"
 
 
-TextField::TextField(int v_sizeX, int v_sizeY, int v_positionX, int v_positionY) : SubWindow('t', v_sizeX, v_sizeY, v_positionX, v_positionY)
+TextField::TextField(const sf::Vector2u size, const sf::Vector2u  position) : SubWindow('t', size, position)
 {
 	this->prepareInterfaceSprites();
-	this->relocate(0, 0);
 }
 
-
-
-TextField::TextField() : SubWindow('t', 100, 23, 100, 100)
+TextField::TextField() : SubWindow('t', sf::Vector2u(100, 23), sf::Vector2u(100, 100))
 {
 	this->prepareInterfaceSprites();
-	this->relocate(0, 0);
 }
-
 
 
 void TextField::prepareInterfaceSprites()
@@ -31,7 +26,6 @@ void TextField::prepareInterfaceSprites()
 	text.setCharacterSize(16);
 	text.setFillColor(sf::Color(68, 52, 52));
 }
-
 
 
 void TextField::interact(sf::Vector2i& mouseCoord)
@@ -58,12 +52,10 @@ void TextField::interact(sf::Vector2i& mouseCoord)
 }
 
 
-
-void TextField::relocate(int windowSizeX, int windowSizeY)
+void TextField::relocate(const sf::Vector2u windowSize)
 {
 
 }
-
 
 
 void TextField::draw(sf::RenderWindow& window)
@@ -74,11 +66,10 @@ void TextField::draw(sf::RenderWindow& window)
 	}
 
 	drawSubWindowBase(window);
-	text.setPosition(positionX + 5, positionY + 1);
+	text.setPosition(position.x + 5, position.y + 1);
 	window.draw(text);
 	baseSprite.setColor(sf::Color::White); // set_normal_color
 }
-
 
 
 void TextField::setText(sf::String v_text)
@@ -87,16 +78,8 @@ void TextField::setText(sf::String v_text)
 }
 
 
-
 int TextField::getIntValue()
 {
 	std::string str = text.getString();
 	return std::stoi(str);
-}
-
-
-
-TextField::~TextField()
-{
-
 }

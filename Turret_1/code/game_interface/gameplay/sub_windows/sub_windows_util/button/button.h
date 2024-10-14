@@ -35,7 +35,7 @@ public:
     bool press(const sf::Vector2i& mouseCoord);
     void setVisible(const bool visible);
 
-    void relocate(const sf::Vector2i subWinPosition);
+    void relocate(const sf::Vector2u subWinPosition);
     void draw(sf::RenderWindow& window);
 
 };

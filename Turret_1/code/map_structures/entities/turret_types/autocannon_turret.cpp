@@ -14,7 +14,7 @@ AutocannonTurret::AutocannonTurret(int type, TileCoord tile, Team* team) :
 	Turret(AUTOCANNON_TURRET, tile, team)
 {
 	pixelRange = 11 * _TILE_;
-	spyralRange = 436;
+	spyralRange = 437;
 	maxAmoo = 181;
 }
 

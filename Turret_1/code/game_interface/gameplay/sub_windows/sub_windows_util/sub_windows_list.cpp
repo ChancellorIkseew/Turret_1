@@ -18,13 +18,13 @@ void initSubWindows()
 }
 
 
-void relocateSubWindows(int windowSizeX, int windowSizeY)
+void relocateSubWindows(const sf::Vector2u windowSize)
 {
-	ConfirmationWindow::getInstance().relocate(windowSizeX, windowSizeY);
-	SettingsWindow::getInstance().relocate(windowSizeX, windowSizeY);
-	ResourcesPanel::getInstance().relocate(windowSizeX, windowSizeY);
-	SpecificationsPanel::getInstance().relocate(windowSizeX, windowSizeY);
-	BuildingPanel::getInstance().relocate(windowSizeX, windowSizeY);
+	ConfirmationWindow::getInstance().relocate(windowSize);
+	SettingsWindow::getInstance().relocate(windowSize);
+	ResourcesPanel::getInstance().relocate(windowSize);
+	SpecificationsPanel::getInstance().relocate(windowSize);
+	BuildingPanel::getInstance().relocate(windowSize);
 
 }
 

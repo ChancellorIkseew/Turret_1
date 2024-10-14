@@ -9,7 +9,7 @@
 #include "map_structures/team/team.h"
 
 
-ResourcesPanel::ResourcesPanel() : SubWindow('s', 134, 219, 600, 600)
+ResourcesPanel::ResourcesPanel() : SubWindow('s', sf::Vector2u(134, 219), sf::Vector2u(600, 600))
 {
     stoneInfo.setResType(RES_STONE);
     ironInfo.setResType(RES_IRON);
@@ -19,7 +19,7 @@ ResourcesPanel::ResourcesPanel() : SubWindow('s', 134, 219, 600, 600)
     sulfurInfo.setResType(RES_SULFUR);
 
     this->prepareInterfaceSprites();
-    this->relocate(1200, 1200);
+    this->relocate({ 0, 0 });
 }
 
 
@@ -43,10 +43,10 @@ void ResourcesPanel::interact(Team& team)
 }
 
 
-void ResourcesPanel::relocate(int windowSizeX, int windowSizeY)
+void ResourcesPanel::relocate(const sf::Vector2u windowSize)
 {
-    positionX = windowSizeX - sizeX;
-    positionY = windowSizeY - 450;
+    position.x = windowSize.x - size.x;
+    position.y = windowSize.y - 450;
 }
 
 
@@ -54,11 +54,11 @@ void ResourcesPanel::draw(sf::RenderWindow &window)
 {
     this->drawSubWindowBase(window);
     mutex.lock();
-    stoneInfo.draw(window, positionX+16, positionY+16);
-    ironInfo.draw(window, positionX + 16, positionY + 46);
-    copperInfo.draw(window, positionX + 16, positionY + 76);
-    siliconInfo.draw(window, positionX + 16, positionY + 106);
-    coalInfo.draw(window, positionX + 16, positionY + 136);
-    sulfurInfo.draw(window, positionX + 16, positionY + 166);
+    stoneInfo.draw(window, position.x +16, position.y +16);
+    ironInfo.draw(window, position.x + 16, position.y + 46);
+    copperInfo.draw(window, position.x + 16, position.y + 76);
+    siliconInfo.draw(window, position.x + 16, position.y + 106);
+    coalInfo.draw(window, position.x + 16, position.y + 136);
+    sulfurInfo.draw(window, position.x + 16, position.y + 166);
     mutex.unlock();
 }

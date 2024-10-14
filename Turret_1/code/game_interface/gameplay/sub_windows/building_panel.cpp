@@ -16,14 +16,14 @@
 
 using namespace t1::bc;
 
-BuildingPanel::BuildingPanel() : SubWindow('s', 144, 192, 0, 0)
+BuildingPanel::BuildingPanel() : SubWindow('s', sf::Vector2u (144, 192), sf::Vector2u(0, 0))
 {
 	isBuildingTypeSelected = false;
 	newBuildingType = VOID_;
 	direction = 'w';
 
 	this->prepareInterfaceSprites();
-	this->relocate(1000, 1000);
+	this->relocate({ 0, 0 });
 }
 
 
@@ -102,34 +102,32 @@ void BuildingPanel::interact(const sf::Vector2i& mouseCoord, const sf::Vector2f&
 
 
 
-void BuildingPanel::relocate(int windowSizeX, int windowSizeY)
+void BuildingPanel::relocate(const sf::Vector2u windowSize)
 {
-	positionX = windowSizeX - sizeX;
-	positionY = windowSizeY - sizeY;
-    
+	position = windowSize - size;
 
-	buildingsIcoTable[REMOVE].icoSprite.setPosition(windowSizeX - 82, windowSizeY - 182);
+	buildingsIcoTable[REMOVE].icoSprite.setPosition(windowSize.x - 82, windowSize.y - 182);
 
-	buildingsIcoTable[STONE_TOWER].icoSprite.setPosition(windowSizeX - 134, windowSizeY - 182);
-	buildingsIcoTable[STONE_WALL].icoSprite.setPosition(windowSizeX - 108, windowSizeY - 182);
+	buildingsIcoTable[STONE_TOWER].icoSprite.setPosition(windowSize.x - 134, windowSize.y - 182);
+	buildingsIcoTable[STONE_WALL].icoSprite.setPosition(windowSize.x - 108, windowSize.y - 182);
 	
-	buildingsIcoTable[SMALL_DRILL].icoSprite.setPosition(windowSizeX - 134, windowSizeY - 156);
-	buildingsIcoTable[BIG_DRILL].icoSprite.setPosition(windowSizeX - 108, windowSizeY - 156);
+	buildingsIcoTable[SMALL_DRILL].icoSprite.setPosition(windowSize.x - 134, windowSize.y - 156);
+	buildingsIcoTable[BIG_DRILL].icoSprite.setPosition(windowSize.x - 108, windowSize.y - 156);
     
-	buildingsIcoTable[SHELL_FACTORY].icoSprite.setPosition(windowSizeX - 134, windowSizeY - 104);
-	buildingsIcoTable[ROCKET_FACTORY].icoSprite.setPosition(windowSizeX - 92, windowSizeY - 104);
+	buildingsIcoTable[SHELL_FACTORY].icoSprite.setPosition(windowSize.x - 134, windowSize.y - 104);
+	buildingsIcoTable[ROCKET_FACTORY].icoSprite.setPosition(windowSize.x - 92, windowSize.y - 104);
     
-	buildingsIcoTable[COAL_GENERATOR].icoSprite.setPosition(windowSizeX - 50, windowSizeY - 156);
+	buildingsIcoTable[COAL_GENERATOR].icoSprite.setPosition(windowSize.x - 50, windowSize.y - 156);
     
-	buildingsIcoTable[STANDARD_CONVEYER].icoSprite.setPosition(windowSizeX - 134, windowSizeY - 60);
-	buildingsIcoTable[SHIELDED_CONVEYER].icoSprite.setPosition(windowSizeX - 108, windowSizeY - 60);
+	buildingsIcoTable[STANDARD_CONVEYER].icoSprite.setPosition(windowSize.x - 134, windowSize.y - 60);
+	buildingsIcoTable[SHIELDED_CONVEYER].icoSprite.setPosition(windowSize.x - 108, windowSize.y - 60);
 
-	buildingsIcoTable[BRIDGE].icoSprite.setPosition(windowSizeX - 82, windowSizeY - 60);
-	buildingsIcoTable[ROUTER].icoSprite.setPosition(windowSizeX - 56, windowSizeY - 60);
-	buildingsIcoTable[SORTER].icoSprite.setPosition(windowSizeX - 30, windowSizeY - 60);
+	buildingsIcoTable[BRIDGE].icoSprite.setPosition(windowSize.x - 82, windowSize.y - 60);
+	buildingsIcoTable[ROUTER].icoSprite.setPosition(windowSize.x - 56, windowSize.y - 60);
+	buildingsIcoTable[SORTER].icoSprite.setPosition(windowSize.x - 30, windowSize.y - 60);
 
-	buildingsIcoTable[AUTOCANNON_TURRET].icoSprite.setPosition(windowSizeX - 56, windowSizeY - 182);
-	buildingsIcoTable[ROCKET_TURRET].icoSprite.setPosition(windowSizeX - 30, windowSizeY - 182);
+	buildingsIcoTable[AUTOCANNON_TURRET].icoSprite.setPosition(windowSize.x - 56, windowSize.y - 182);
+	buildingsIcoTable[ROCKET_TURRET].icoSprite.setPosition(windowSize.x - 30, windowSize.y - 182);
 }
 
 

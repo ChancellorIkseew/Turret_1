@@ -1,38 +1,42 @@
 
-#include <iostream>
-#include <SFML/Graphics.hpp>
-
-
 #include "main_menu.h"
 
-#include "game_interface/system/system.h"
 #include "game_interface/system/sleep.h"
 #include "game_interface/main_window/main_window.h"
 
-MainMenu::MainMenu() : SubWindow('s', 720, 480, 100, 100)
+enum buttonsEnum
+{
+	PLAY = 0,
+	EXIT_GAME = 1,
+	SETTINGS = 2
+};
+
+
+MainMenu::MainMenu() : SubWindow('s', sf::Vector2u(720, 480), sf::Vector2u(100, 100))
 {
 	this->prepareInterfaceSprites();
-	this->relocate(0, 0);
+	this->relocate({ 0, 0 });
 }
-
-
 
 void MainMenu::prepareInterfaceSprites()
 {
-	play = Button("play.bmp", sf::Vector2i(162, 48), sf::Vector2i(10, 10));
-	settings = Button("settings.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 60));
+	buttons.resize(3);
+	buttons[PLAY] = Button("play.bmp", sf::Vector2i(162, 48), sf::Vector2i(10, 10));
+	buttons[EXIT_GAME] = Button("exit_to_menu.bmp", sf::Vector2i(48, 48), sf::Vector2i(70, 70));
+	buttons[SETTINGS] = Button("settings.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 70));
 }
-
-
 
 int MainMenu::interact(sf::Vector2i& mouseCoord, bool& isMenuOpen)
 {
 	while (isMenuOpen)
 	{
-		if (play.press(mouseCoord))
+		if (buttons[PLAY].press(mouseCoord))
 			return CHOISE_FOLDER_MENU;
 
-		if (settings.press(mouseCoord))
+		if (buttons[EXIT_GAME].press(mouseCoord))
+			return EXIT;
+
+		if (buttons[SETTINGS].press(mouseCoord))
 			return OPTIONS;
 
 		t1::system::sleep(16);
@@ -42,16 +46,14 @@ int MainMenu::interact(sf::Vector2i& mouseCoord, bool& isMenuOpen)
 }
 
 
-
-void MainMenu::relocate(int windowSizeX, int windowSizeY)
+void MainMenu::relocate(const sf::Vector2u windowSize)
 {
-	positionX = (windowSizeX - sizeX) / 2;
-	positionY = (windowSizeY - sizeY) / 2;
-
-	play.relocate(sf::Vector2i(positionX, positionY));
-	settings.relocate(sf::Vector2i(positionX, positionY));
+	SubWindow::relocateCentral(windowSize);
+	for (auto& btn : buttons)
+	{
+		btn.relocate(position);
+	}
 }
-
 
 
 void MainMenu::draw(sf::RenderWindow& window)
@@ -59,7 +61,9 @@ void MainMenu::draw(sf::RenderWindow& window)
 	if (isVisible)
 	{
 		this->drawSubWindowBase(window);
-		play.draw(window);
-		settings.draw(window);
+		for (auto& btn : buttons)
+		{
+			btn.draw(window);
+		}
 	}
 }

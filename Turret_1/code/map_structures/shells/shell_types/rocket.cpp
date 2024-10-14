@@ -8,6 +8,7 @@
 #include "map_structures/particles/particles.h"
 #include "map_structures/team/team.h"
 
+const int EXP_RADIUS = _TILE_ * 3 + _HALF_TILE_;
 
 Rocket::Rocket(short type, PixelCoord coord, float angleRad, float angleDeg, Team* team) :
 	Shell(type, coord, angleRad, angleDeg, team)
@@ -23,7 +24,7 @@ Rocket::Rocket(short type, PixelCoord coord, float angleRad, float angleDeg, Tea
 void Rocket::tryHitting()
 {
 	TileCoord tile = t1::be::tile(coord);
-	if (!BuildingsMap::isVoidBuilding(tile) && BuildingsMap::getTeamID(tile) != team->getID())
+	if (BuildingsMap::buildingExists(tile) && BuildingsMap::getTeamID(tile) != team->getID())
 	{
 		isWasted = true;
 		return;
@@ -50,12 +51,13 @@ void Rocket::tryHitting()
 
 void Rocket::explosion()
 {
-	TileCoord tile = t1::be::tile(coord);
-	for (int i = 0; i < 9; ++i)
+	TileCoord centreTile = t1::be::tile(coord);
+	TileCoord tile{0, 0};
+	for (int i = 0; i < 45; ++i)
 	{
-		tile.x += t1::be::coordSpyralArr[i].x;
-		tile.y += t1::be::coordSpyralArr[i].y;
-		if (!BuildingsMap::isVoidBuilding(tile))
+		tile.x = centreTile.x + t1::be::coordSpyralArr[i].x;
+		tile.y = centreTile.y + t1::be::coordSpyralArr[i].y;
+		if (BuildingsMap::buildingExists(tile))
 		{
 			BuildingsMap::setDamage(20, tile);
 		}
@@ -68,14 +70,14 @@ void Rocket::explosion()
 			float deltaX = coord.x - (*entity)->getCoord().x;
 			float deltaY = coord.y - (*entity)->getCoord().y;
 			float deltaS = sqrt(deltaX * deltaX + deltaY * deltaY);
-			if (deltaS < 56)
+			if (deltaS < EXP_RADIUS)
 			{
 				(*entity)->setDamage(20);
 			}
 		}	
 	}
 
-	particlesList.emplace_back(std::make_unique<Particle>(1, coord));
+	particlesList.emplace_back(std::make_unique<Particle>(2, coord));
 }
 
 

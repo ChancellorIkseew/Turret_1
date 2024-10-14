@@ -52,10 +52,9 @@ void openMainWindow()
 		if (currentFunction == GAMEPLAY)
 			currentFunction = t1::gamepl::startGameplay(mainWindow, startNewGame, saveFolderName);
 
-		//if (currentFunction == EXIT)
-			
+		if (currentFunction == EXIT)
+			mainWindow.close();
 	}
 
-	//mainWindow.close();
 	return;
 }

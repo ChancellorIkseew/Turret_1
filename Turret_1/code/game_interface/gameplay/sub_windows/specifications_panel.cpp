@@ -12,7 +12,7 @@
 
 BuildingInfo SpecificationsPanel::nullInfo = { L" ", 0, 0, {0, 0, 0, 0, 0, 0}, L" " };
 
-SpecificationsPanel::SpecificationsPanel() : SubWindow('s', 260, 400, 0, 310)
+SpecificationsPanel::SpecificationsPanel() : SubWindow('s', sf::Vector2u(260, 400), sf::Vector2u(0, 310))
 {
     stoneInfo.setResType(RES_STONE);
     ironInfo.setResType(RES_IRON);
@@ -65,14 +65,6 @@ void SpecificationsPanel::interact(const int index)
     
     descriptionText.setString(buildingInfo.description);  //Description
 }
-
-
-
-void SpecificationsPanel::relocate(int windowSizeX, int windowSizeY)
-{
-	
-}
-
 
 
 void SpecificationsPanel::draw(sf::RenderWindow& window)

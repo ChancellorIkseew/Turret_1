@@ -10,7 +10,7 @@
 RocketTurret::RocketTurret(int type, TileCoord tile, Team* team) :
 	Turret(ROCKET_TURRET, tile, team)
 {
-	spyralRange = 4108;
+	spyralRange = 4109;
 	pixelRange = 34 * _TILE_;
 	maxAmoo = 2;
 }

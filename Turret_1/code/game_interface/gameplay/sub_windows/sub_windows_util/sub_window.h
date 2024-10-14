@@ -11,9 +11,8 @@ protected:
 	
 	char windowType;
 
-	int sizeX, sizeY;
-	int positionX, positionY;
-
+	sf::Vector2u size;
+	sf::Vector2u position;
 
 	bool isSelected;
 	bool isVisible;
@@ -60,26 +59,25 @@ protected:
 
 public:
 
-	SubWindow(char type, int sizeX, int sizeY, int positionX, int positionY);
+	SubWindow(char type, const sf::Vector2u size, const sf::Vector2u position);
 	virtual ~SubWindow() = default;
 
 	static void init();
 
-	void setVisible(bool trueOrFalse);
+	void setVisible(bool value);
 	void SetSize();
-	int getSizeX();
-	int getSizeY();
+	sf::Vector2i getSize() const;
 
-	void setPosition(int v_positionX, int v_positionY);
-	virtual void relocate(int windowSizeX, int windowSizeY);
+	void setPosition(const sf::Vector2u position);
+	void relocateCentral(const sf::Vector2u wndowSize);
+	virtual void relocate(const sf::Vector2u wndowSize);
 
-	bool containsCoursor(const sf::Vector2i& mouseCoord);
+	bool containsCoursor(const sf::Vector2i& mouseCoord) const;
 
 	static void prepareWindowBaseSprites();
 	virtual void prepareInterfaceSprites() = 0;
 	virtual void draw(sf::RenderWindow& window);
 
 };
-
 
 #endif // SUB_WINDOW

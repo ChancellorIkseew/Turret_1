@@ -59,11 +59,11 @@ PixelCoord Turret::findShootingAim() const
 	}
 
 	TileCoord tile = t1::be::tile(coord);
-	for (int i = 0; i <= spyralRange; i++)
+	TileCoord aimTile{ 0, 0 };
+	for (int i = 0; i < spyralRange; i++)
 	{
-		int tileX = tile.x + t1::be::coordSpyralArr[i].x;
-		int tileY = tile.y + t1::be::coordSpyralArr[i].y;
-		TileCoord aimTile{ tileX, tileY };
+		aimTile.x = tile.x + t1::be::coordSpyralArr[i].x;
+		aimTile.y = tile.y + t1::be::coordSpyralArr[i].y;
 		if (BuildingsMap::buildingExists(aimTile) && BuildingsMap::getTeamID(aimTile) != team->getID())
 		{
 			return t1::be::pixel(aimTile);

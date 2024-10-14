@@ -38,7 +38,7 @@ public:
 	}
 	
 	void interact(Team& team);
-	void relocate(int windowSizeX, int windowSizeY) override final;
+	void relocate(const sf::Vector2u windowSizeY) override final;
 	
 	void prepareInterfaceSprites() override final;
 	void draw(sf::RenderWindow &window) override final;

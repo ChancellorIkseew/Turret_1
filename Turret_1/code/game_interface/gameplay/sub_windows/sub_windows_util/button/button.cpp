@@ -72,7 +72,7 @@ void Button::setVisible(const bool visible)
 
 
 
-void Button::relocate(const sf::Vector2i subWinPosition)
+void Button::relocate(const sf::Vector2u subWinPosition)
 {
 	button.setPosition(float(subWinPosition.x + position.x), float(subWinPosition.y + position.y));
 }

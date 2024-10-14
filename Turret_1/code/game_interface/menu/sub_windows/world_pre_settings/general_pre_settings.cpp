@@ -3,7 +3,7 @@
 #include "map_structures/pre-settings/pre-settings.h"
 
 
-GeneralPreSettingsWindow::GeneralPreSettingsWindow() : SubWindow('s', 700, 350, 100, 100)
+GeneralPreSettingsWindow::GeneralPreSettingsWindow() : Page(sf::Vector2u(700, 350), sf::Vector2u(100, 100))
 {
 	this->prepareInterfaceSprites();
 	isVisible = false;
@@ -19,24 +19,22 @@ void GeneralPreSettingsWindow::prepareInterfaceSprites()
 
 
 
-void GeneralPreSettingsWindow::interact(sf::Vector2i& mouseCoord, bool& isMenuOpen)
+void GeneralPreSettingsWindow::interact(const sf::Vector2i& mouseCoord, bool& isMenuOpen)
 {
 	if (isVisible)
 	{
-		mapMaxX.interact(mouseCoord);
-		mapMaxY.interact(mouseCoord);
+		//mapMaxX.interact(mouseCoord);
+		//mapMaxY.interact(mouseCoord);
 	}
 }
 
 
 
-void GeneralPreSettingsWindow::relocate(int windowSizeX, int windowSizeY)
+void GeneralPreSettingsWindow::relocate(const sf::Vector2u ownerPosition)
 {
-	positionX = (windowSizeX - sizeX) / 2;
-	positionY = (windowSizeY - sizeY) / 2 ;
-
-	mapMaxX.setPosition(positionX + 10, positionY + 40);
-	mapMaxY.setPosition(positionX + 10, positionY + 65);
+	Page::relocate(ownerPosition);
+	mapMaxX.setPosition(sf::Vector2u(position.x + 10, position.y + 40));
+	mapMaxY.setPosition(sf::Vector2u(position.x + 10, position.y + 65));
 }
 
 

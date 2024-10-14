@@ -7,14 +7,11 @@
 #include "res_info.h"
 
 
-SubWindow::SubWindow(char type, int sizeX, int sizeY, int positionX, int positionY)
+SubWindow::SubWindow(char type, const sf::Vector2u size, const sf::Vector2u position)
 {
 	this->windowType = type;
-
-	this->sizeX = sizeX;
-	this->sizeY = sizeY;
-	this->positionX = positionX;
-	this->positionY = positionY;
+	this->size = size;
+	this->position = position;
 
 	isSelected = false;
 	isVisible = true;
@@ -83,45 +80,45 @@ void SubWindow::prepareWindowBaseSprites()
 void SubWindow::drawSubWindowBase(sf::RenderWindow& window)
 {
 	//Base
-	baseSprite.setTextureRect(sf::IntRect(0, 0, sizeX-10, sizeY-10));
-	baseSprite.setPosition(positionX+5, positionY + 5);
+	baseSprite.setTextureRect(sf::IntRect(0, 0, size.x - 10, size.y - 10));
+	baseSprite.setPosition(position.x + 5, position.y + 5);
 	window.draw(baseSprite);
 
 	//Borders
 
 	//Upper_border
-	upperBorderSprite.setTextureRect(sf::IntRect(0, 0, sizeX-10, 5));
-	upperBorderSprite.setPosition(positionX + 5, positionY);
+	upperBorderSprite.setTextureRect(sf::IntRect(0, 0, size.x - 10, 5));
+	upperBorderSprite.setPosition(position.x + 5, position.y);
 	window.draw(upperBorderSprite);
 	
 	//Lower_border
-	lowerBorderSprite.setTextureRect(sf::IntRect(0, 0, sizeX - 10, 5));
-	lowerBorderSprite.setPosition(positionX + 5, positionY + sizeY - 5);
+	lowerBorderSprite.setTextureRect(sf::IntRect(0, 0, size.x - 10, 5));
+	lowerBorderSprite.setPosition(position.x + 5, position.y + size.y - 5);
 	window.draw(lowerBorderSprite);
 	
 	//Left_border
-	leftBorderSprite.setTextureRect(sf::IntRect(0, 0, 5, sizeY -10));
-	leftBorderSprite.setPosition(positionX, positionY + 5);
+	leftBorderSprite.setTextureRect(sf::IntRect(0, 0, 5, size.y -10));
+	leftBorderSprite.setPosition(position.x, position.y + 5);
 	window.draw(leftBorderSprite);
 
 	//Right_border
-	rightBorderSprite.setTextureRect(sf::IntRect(0, 0, 5, sizeY - 10));
-	rightBorderSprite.setPosition(positionX + sizeX - 5, positionY + 5);
+	rightBorderSprite.setTextureRect(sf::IntRect(0, 0, 5, size.y - 10));
+	rightBorderSprite.setPosition(position.x + size.x - 5, position.y + 5);
 	window.draw(rightBorderSprite);
 	
 	//Corners
 
 	//Upper_left_corner
-	upperLeftCornerSprite.setPosition(positionX, positionY);
+	upperLeftCornerSprite.setPosition(position.x, position.y);
 	window.draw(upperLeftCornerSprite);
 
-	lowerLeftCornerSprite.setPosition(positionX, positionY + sizeY - 5);
+	lowerLeftCornerSprite.setPosition(position.x, position.y + size.y - 5);
 	window.draw(lowerLeftCornerSprite);
 
-	upperRightCornerSprite.setPosition(positionX + sizeX - 5, positionY);
+	upperRightCornerSprite.setPosition(position.x + size.x - 5, position.y);
 	window.draw(upperRightCornerSprite);
 
-	lowerRightCornerSprite.setPosition(positionX + sizeX - 5, positionY + sizeY - 5);
+	lowerRightCornerSprite.setPosition(position.x + size.x - 5, position.y + size.y - 5);
 	window.draw(lowerRightCornerSprite);
 
 	return;
@@ -134,33 +131,33 @@ void SubWindow::draw(sf::RenderWindow& window)
 }
 
 
-void SubWindow::relocate(int windowSizeX, int windowSizeY)
+void SubWindow::relocateCentral(const sf::Vector2u windowSize)
 {
+	position = sf::Vector2u((windowSize.x - size.x) / 2, (windowSize.y - size.y) / 2);
+}
 
+void SubWindow::relocate(const sf::Vector2u windowSize) { }
+
+
+void SubWindow::setVisible(bool value)
+{
+	isVisible = value;
 }
 
 
 
-void SubWindow::setVisible(bool trueOrFalse)
+void SubWindow::setPosition(const sf::Vector2u position)
 {
-	isVisible = trueOrFalse;
+	this->position = position;
 }
 
 
 
-void SubWindow::setPosition(int v_positionX, int v_positionY)
-{
-	positionX = v_positionX;
-	positionY = v_positionY;
-}
-
-
-
-bool SubWindow::containsCoursor(const sf::Vector2i& mouseCoord)
+bool SubWindow::containsCoursor(const sf::Vector2i& mouseCoord) const
 {
 	if (isVisible && 
-		positionX <= mouseCoord.x && (positionX + sizeX) >= mouseCoord.x && 
-		positionY <= mouseCoord.y && (positionY + sizeY) >= mouseCoord.y)
+		position.x <= mouseCoord.x && (position.x + size.x) >= mouseCoord.x && 
+		position.y <= mouseCoord.y && (position.y + size.y) >= mouseCoord.y)
 	{
 		return true;
 	}

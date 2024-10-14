@@ -4,28 +4,21 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../../../gameplay/sub_windows/sub_windows_util/sub_window.h"
+#include "game_interface/gameplay/sub_windows/sub_windows_util/page/page.h"
 
 
-class TerrainPreSettingsWindow : public SubWindow
+class TerrainPreSettingsWindow : public Page
 {
-private:
-
-
 public:
-
 	TerrainPreSettingsWindow();
 	~TerrainPreSettingsWindow() = default;
 
-	void interact(sf::Vector2i& mouseCoord, bool& isMenuOpen);
-	void relocate(int windowSizeX, int windowSizeY) override;
+	void interact(const sf::Vector2i& mouseCoord, bool& isMenuOpen);
+	void relocate(const sf::Vector2u windowSizeY) override;
 
 	void prepareInterfaceSprites() override;
 	void draw(sf::RenderWindow& window) override;
 
 };
-
-extern TerrainPreSettingsWindow terrainPreSettingsWindow;
-
 
 #endif // TERRAIN_PRE_SETTINGS

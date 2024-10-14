@@ -97,9 +97,9 @@ char openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string& sav
 			{
 				//std::cout << "resize_works_0" << '\n';
 				overlayResize(mainWindow);
-				mainMenu.relocate(mainWindow.getSize().x, mainWindow.getSize().y);
-				choiseFolderMenu.relocate(mainWindow.getSize().x, mainWindow.getSize().y);
-				preSettingsWindow.relocate(mainWindow.getSize().x, mainWindow.getSize().y);
+				mainMenu.relocate(mainWindow.getSize());
+				choiseFolderMenu.relocate(mainWindow.getSize());
+				preSettingsWindow.relocate(mainWindow.getSize());
 			}
 		}
 

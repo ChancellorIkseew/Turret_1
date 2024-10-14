@@ -3,8 +3,6 @@
 #ifndef TEXT_FIELD_H
 #define TEXT_FIELD_H
 
-#include <iostream>
-#include <string>
 #include <SFML\Graphics.hpp>
 
 #include "sub_window.h"
@@ -18,25 +16,19 @@ private:
 
 public:
 
-	TextField(int v_sizeX, int v_sizeY, int v_positionX, int v_positionY);
-
+	TextField(const sf::Vector2u size, const sf::Vector2u position);
 	TextField();
-
-	void prepareInterfaceSprites() override;
+	~TextField() = default;
 
 	void interact(sf::Vector2i& mouseCoord);
-
-	void relocate(int windowSizeX, int windowSizeY) override;
-
-	void draw(sf::RenderWindow& window) override;
+	void relocate(const sf::Vector2u windowSizeY) override;
 
 	void setText(sf::String v_text);
-
 	int getIntValue();
 
-	~TextField();
+	void prepareInterfaceSprites() override;
+	void draw(sf::RenderWindow& window) override;
 
 };
-
 
 #endif // TEXT_FIELD_H

@@ -42,7 +42,6 @@ public:
 	}
 	
 	void interact(const int index);
-	void relocate(int windowSizeX, int windowSizeY) override final;
 
 	void prepareInterfaceSprites() override final;
 	void draw(sf::RenderWindow& window) override final;

@@ -163,6 +163,7 @@
     <ClCompile Include="code\game_interface\gameplay\sub_windows\specifications_panel.cpp" />
     <ClCompile Include="code\game_interface\gameplay\sub_windows\sub_windows_util\button\button.cpp" />
     <ClCompile Include="code\game_interface\gameplay\sub_windows\sub_windows_util\fonts.cpp" />
+    <ClCompile Include="code\game_interface\gameplay\sub_windows\sub_windows_util\page\page.cpp" />
     <ClCompile Include="code\game_interface\gameplay\sub_windows\sub_windows_util\res_info.cpp" />
     <ClCompile Include="code\game_interface\gameplay\sub_windows\sub_windows_util\sub_window.cpp" />
     <ClCompile Include="code\game_interface\gameplay\sub_windows\sub_windows_util\sub_windows_list.cpp" />
@@ -263,6 +264,7 @@
     <ClInclude Include="code\game_interface\gameplay\sub_windows\specifications_panel.h" />
     <ClInclude Include="code\game_interface\gameplay\sub_windows\sub_windows_util\button\button.h" />
     <ClInclude Include="code\game_interface\gameplay\sub_windows\sub_windows_util\fonts.h" />
+    <ClInclude Include="code\game_interface\gameplay\sub_windows\sub_windows_util\page\page.h" />
     <ClInclude Include="code\game_interface\gameplay\sub_windows\sub_windows_util\res_info.h" />
     <ClInclude Include="code\game_interface\gameplay\sub_windows\sub_windows_util\sub_window.h" />
     <ClInclude Include="code\game_interface\gameplay\sub_windows\sub_windows_util\sub_windows_list.h" />

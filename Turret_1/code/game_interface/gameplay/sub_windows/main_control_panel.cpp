@@ -26,7 +26,7 @@
 #include "map_structures/base_engine/t1_mutex.h"
 
 
-MainControlPanel::MainControlPanel() : SubWindow('s', 312, 110, 0, 0)
+MainControlPanel::MainControlPanel() : SubWindow('s', sf::Vector2u(312, 110), sf::Vector2u(0, 0))
 {
 	isPaused = true;
 	this->prepareInterfaceSprites();
@@ -42,12 +42,12 @@ void MainControlPanel::prepareInterfaceSprites()
 	setPause = Button("set_pause.bmp", sf::Vector2i(48, 48), sf::Vector2i(250, 10));
 	removePause = Button("remove_pause.bmp", sf::Vector2i(48, 48), sf::Vector2i(250, 10));
 
-	save.relocate(sf::Vector2i(positionX, positionY));
-	help.relocate(sf::Vector2i(positionX, positionY));
-	exitToMenu.relocate(sf::Vector2i(positionX, positionY));
-	settings.relocate(sf::Vector2i(positionX, positionY));
-	setPause.relocate(sf::Vector2i(positionX, positionY));
-	removePause.relocate(sf::Vector2i(positionX, positionY));
+	//save.relocate(position);
+	//help.relocate(position);
+	//exitToMenu.relocate(position);
+	//settings.relocate(position);
+	//setPause.relocate(position);
+	//removePause.relocate(position);
 	
 
 	waveNumberText.setFont(turretClassic);											//Text_wave_number

@@ -36,7 +36,7 @@ void overlayResize(sf::RenderWindow& mainWindow)
 
 		mainWindow.setView(overlay);
 
-		relocateSubWindows(mainWindow.getSize().x, mainWindow.getSize().y);
+		relocateSubWindows(mainWindow.getSize());
 	}
 	
 }

@@ -10,6 +10,14 @@
 
 #include "map_structures/pre-settings/pre-settings.h"
 
+enum buttonsEnum
+{
+	NEW_GAME = 0,
+	LOAD_GAME = 1,
+	EXIT_TO_MENU = 2,
+	LOAD_1 = 3,
+};
+
 std::string ChoiseFolderMenu::selectFolder(std::string v_saveFileName, bool& isFolderSelected)
 {
 	std::string saveFolderName;
@@ -29,12 +37,12 @@ std::string ChoiseFolderMenu::selectFolder(std::string v_saveFileName, bool& isF
 }
 
 
-ChoiseFolderMenu::ChoiseFolderMenu() : SubWindow('s', 720, 480, 100, 100)
+ChoiseFolderMenu::ChoiseFolderMenu() : SubWindow('s', sf::Vector2u(720, 480), sf::Vector2u(100, 100))
 {
 	isFolderSelected = false;
 	isTextVisible = false;
 	this->prepareInterfaceSprites();
-	this->relocate(1920, 1080);
+	this->relocate(sf::Vector2u(1920, 1080));
 	isVisible = false;
 }
 
@@ -42,15 +50,11 @@ ChoiseFolderMenu::ChoiseFolderMenu() : SubWindow('s', 720, 480, 100, 100)
 
 void ChoiseFolderMenu::prepareInterfaceSprites()
 {
-	newGame = Button("new_game.bmp", sf::Vector2i(242, 48), sf::Vector2i(10, 100));
-	loadGame = Button("load_game.bmp", sf::Vector2i(364, 48), sf::Vector2i(10, 170));
-	exitToMenu = Button("exit_to_menu.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 10));
-
-	load1 = Button("choise_load.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 240));
-	load2 = Button("choise_load.bmp", sf::Vector2i(48, 48), sf::Vector2i(70, 240));
-	load3 = Button("choise_load.bmp", sf::Vector2i(48, 48), sf::Vector2i(130, 240));
-	load4 = Button("choise_load.bmp", sf::Vector2i(48, 48), sf::Vector2i(190, 240));
-	load5 = Button("choise_load.bmp", sf::Vector2i(48, 48), sf::Vector2i(250, 240));
+	buttons.resize(4);
+	buttons[NEW_GAME] = Button("new_game.bmp", sf::Vector2i(242, 48), sf::Vector2i(10, 100));
+	buttons[LOAD_GAME] = Button("load_game.bmp", sf::Vector2i(364, 48), sf::Vector2i(10, 170));
+	buttons[EXIT_TO_MENU] = Button("exit_to_menu.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 10));
+	buttons[LOAD_1] = Button("choise_load.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 240));
 
 	helpText.setFont(turretClassic);
 	helpText.setString(sf::String(L"„тобы начать игру, нужно выбрать сохранение,\nв которое будет записыватьс€ игровой прогресс."));
@@ -64,38 +68,13 @@ int ChoiseFolderMenu::interact(sf::Vector2i& mouseCoord, bool& isMenuOpen, bool&
 {
 	while (isMenuOpen)
 	{
-		if (load1.press(mouseCoord))
+		if (buttons[LOAD_1].press(mouseCoord))
 		{
 			saveFolderName = selectFolder("save1", isFolderSelected);
 			isTextVisible = false;
 		}
 
-		if (load2.press(mouseCoord))
-		{
-			saveFolderName = selectFolder("save2", isFolderSelected);
-			isTextVisible = false;
-		}
-
-		if (load3.press(mouseCoord))
-		{
-			saveFolderName = selectFolder("save3", isFolderSelected);
-			isTextVisible = false;
-		}
-
-		if (load4.press(mouseCoord))
-		{
-			saveFolderName = selectFolder("save4", isFolderSelected);
-			isTextVisible = false;
-		}
-
-		if (load5.press(mouseCoord))
-		{
-			saveFolderName = selectFolder("save5", isFolderSelected);
-			isTextVisible = false;
-		}
-
-
-		if (loadGame.press(mouseCoord))
+		if (buttons[LOAD_GAME].press(mouseCoord))
 		{
 			if (isFolderSelected)
 			{
@@ -109,7 +88,7 @@ int ChoiseFolderMenu::interact(sf::Vector2i& mouseCoord, bool& isMenuOpen, bool&
 			}
 		}
 
-		if (newGame.press(mouseCoord))
+		if (buttons[NEW_GAME].press(mouseCoord))
 		{
 			if (isFolderSelected)
 			{
@@ -123,7 +102,7 @@ int ChoiseFolderMenu::interact(sf::Vector2i& mouseCoord, bool& isMenuOpen, bool&
 			}
 		}
 
-		if (exitToMenu.press(mouseCoord))
+		if (buttons[EXIT_TO_MENU].press(mouseCoord))
 			return MAIN_MENU;
 
 		t1::system::sleep(16);
@@ -134,22 +113,15 @@ int ChoiseFolderMenu::interact(sf::Vector2i& mouseCoord, bool& isMenuOpen, bool&
 
 
 
-void ChoiseFolderMenu::relocate(int windowSizeX, int windowSizeY)
+void ChoiseFolderMenu::relocate(const sf::Vector2u windowSize)
 {
-	positionX = (windowSizeX - sizeX) / 2;
-	positionY = (windowSizeY - sizeY) / 2;
+	SubWindow::relocateCentral(windowSize);
+	for (auto& btn : buttons)
+	{
+		btn.relocate(position);
+	}
 
-	newGame.relocate(sf::Vector2i(positionX, positionY));
-	loadGame.relocate(sf::Vector2i(positionX, positionY));
-	exitToMenu.relocate(sf::Vector2i(positionX, positionY));
-
-	load1.relocate(sf::Vector2i(positionX, positionY));
-	load2.relocate(sf::Vector2i(positionX, positionY));
-	load3.relocate(sf::Vector2i(positionX, positionY));
-	load4.relocate(sf::Vector2i(positionX, positionY));
-	load5.relocate(sf::Vector2i(positionX, positionY));
-
-	helpText.setPosition(positionX + 70, positionY + 350);
+	helpText.setPosition(position.x + 70, position.y + 350);
 }
 
 
@@ -159,19 +131,12 @@ void ChoiseFolderMenu::draw(sf::RenderWindow& window)
 	if (isVisible)
 	{
 		this->drawSubWindowBase(window);
-		if (isTextVisible)
+		for (auto& btn : buttons)
 		{
-			window.draw(helpText);
+			btn.draw(window);
 		}
 
-		newGame.draw(window);
-		loadGame.draw(window);
-		exitToMenu.draw(window);
-
-		load1.draw(window);
-		load2.draw(window);
-		load3.draw(window);
-		load4.draw(window);
-		load5.draw(window);
+		if (isTextVisible)
+			window.draw(helpText);
 	}
 }

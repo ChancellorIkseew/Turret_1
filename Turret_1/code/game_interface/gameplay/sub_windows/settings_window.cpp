@@ -11,10 +11,10 @@
 #include "game_interface/system/system.h"
 
 
-SettingsWindow::SettingsWindow() : SubWindow('s', 720, 480, 0, 0)
+SettingsWindow::SettingsWindow() : SubWindow('s', sf::Vector2u(720, 4800), sf::Vector2u(0, 0))
 {
 	this->prepareInterfaceSprites();
-	this->relocate(1200, 1200);
+	this->relocate({ 0, 0 });
 	isVisible = false;
 }
 
@@ -60,15 +60,12 @@ bool SettingsWindow::interact(sf::Vector2i& mouseCoord)
 }
 
 
-void SettingsWindow::relocate(int windowSizeX, int windowSizeY)
+void SettingsWindow::relocate(const sf::Vector2u windowSize)
 {
-	positionX = (windowSizeX - sizeX) / 2;
-	positionY = (windowSizeY - sizeY) / 2;
-	std::cout << " win x:" << positionX << " win y:" << positionY << '\n';
-
-	confirmButtonSprite.setPosition(positionX + 10, positionY + 10);
-	rejectButtonSprite.setPosition(positionX + 70, positionY + 10);
-	confirmationText.setPosition(positionX + 10, positionY + 60);
+	SubWindow::relocateCentral(windowSize);
+	confirmButtonSprite.setPosition(position.x + 10, position.y + 10);
+	rejectButtonSprite.setPosition(position.x + 70, position.y + 10);
+	confirmationText.setPosition(position.x + 10, position.y + 60);
 }
 
 

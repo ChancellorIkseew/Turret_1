@@ -5,7 +5,7 @@
 
 Balance::Balance()
 {
-	balance.stone = 0;
+	balance.stone = 1000;
 	balance.iron = 0;
 	balance.copper = 0;
 	balance.silicon = 0;

@@ -12,7 +12,7 @@ extern std::list<SubWindow*> SubWindowsList;
 
 void initSubWindows();
 
-void relocateSubWindows(int windowSizeX, int windowSizeY);
+void relocateSubWindows(const sf::Vector2u);
 
 bool noSubWindowSelected(sf::Vector2i mouseCoord);
 

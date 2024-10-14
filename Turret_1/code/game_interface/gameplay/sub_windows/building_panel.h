@@ -36,7 +36,7 @@ public:
 	
 	void interact(const sf::Vector2i& mouseCoord, const sf::Vector2f& mouseMapCoord, Team* team);
 	void rotateBuilding();
-	void relocate(int windowSizeX, int windowSizeY) override final;
+	void relocate(const sf::Vector2u windowSize) override final;
 	
 	void prepareInterfaceSprites() override final;
 	void draw(sf::RenderWindow& window) override final;
