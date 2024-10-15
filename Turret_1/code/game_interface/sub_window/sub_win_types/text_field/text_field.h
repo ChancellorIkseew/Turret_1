@@ -10,19 +10,18 @@
 class TextField : public SubWindow
 {
 private:
-
 	sf::Text text;
+	sf::Vector2u ownerPosition;
 
 public:
-
-	TextField(const sf::Vector2u size, const sf::Vector2u position);
+	TextField(const sf::String& value, const sf::Vector2u size, const sf::Vector2u position);
 	TextField();
 	~TextField() = default;
 
 	void interact(const sf::Vector2i& mouseCoord);
-	void relocate(const sf::Vector2u windowSizeY) override;
+	void relocate(const sf::Vector2u ownerPosition) override;
 
-	void setText(sf::String v_text);
+	void setText(const sf::String& value);
 	int getIntValue();
 
 	void prepareInterfaceSprites() override;

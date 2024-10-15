@@ -4,7 +4,7 @@
 
 #include "res_info.h"
 
-#include "fonts.h"
+#include "game_interface/sub_window/sub_win_util/fonts.h"
 #include "map_structures/resources/res_enum.h"
 
 ResInfo::ResInfo(int resType, int resQuantity)
@@ -35,8 +35,6 @@ void ResInfo::prepareSprites()
 	resIcoImage.createMaskFromColor(sf::Color(0, 255, 0));
 	resIcoTexture.loadFromImage(resIcoImage);
 	resIcoSprite.setTexture(resIcoTexture);
-
-	
 }
 
 
@@ -49,6 +47,8 @@ void ResInfo::update(int qurrentQuantity)
 	strQuant << resQuantity;
 	resQuantText.setString(strQuant.str());
 }
+
+int ResInfo::getQuantity() const { return resQuantity; }
 
 
 

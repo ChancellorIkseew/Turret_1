@@ -2,6 +2,8 @@
 #ifndef SPECIFICATIONS_PANEL_H
 #define SPECIFICATIONS_PANEL_H
 
+#include <map>
+
 #include "game_interface/sub_window/sub_window/sub_window.h"
 #include "game_interface/sub_window/elements/res_info/res_info.h"
 #include "map_structures/buildings/building/buildings_info.h"
@@ -13,18 +15,11 @@ private:
 	static BuildingInfo nullInfo;
 	BuildingInfo& buildingInfo = nullInfo;
 	
-	sf::Text titleText;
-	sf::Text durabilityText;
-	sf::Text descriptionText;
+	sf::Text title;
+	sf::Text durability;
+	sf::Text description;
 	
-	ResInfo stoneInfo;
-	ResInfo ironInfo;
-	ResInfo copperInfo;
-	ResInfo siliconInfo;
-	ResInfo coalInfo;
-	ResInfo sulfurInfo;
-	ResInfo ACShellsInfo;
-	ResInfo rocketInfo;
+	std::map<int, ResInfo> resInfo;
 
 	SpecificationsPanel();
 	SpecificationsPanel(const SpecificationsPanel&) = delete;

@@ -2,6 +2,8 @@
 #ifndef MAIN_CONTROL_PANEL_H
 #define MAIN_CONTROL_PANEL_H
 
+#include <map>
+
 #include "game_interface/sub_window/sub_window/sub_window.h"
 #include "game_interface/sub_window/elements/button/button.h"
 
@@ -9,19 +11,12 @@
 class MainControlPanel : public SubWindow
 {
 private:
-
 	bool isPaused;
 	
-	Button save;
-	Button help;
-	Button exitToMenu;
-	Button settings;
-	Button setPause;
-	Button removePause;
+	std::map<int, Button> buttons;
 	
 	sf::Text waveNumberText;
 	sf::Text waveNumberText2;
-
 	sf::Text waveTimerText;
 	sf::Text waveTimerText2;
 

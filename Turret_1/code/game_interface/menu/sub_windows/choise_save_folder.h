@@ -2,7 +2,7 @@
 #ifndef CHOISE_FOLDER_MENU_H
 #define CHOISE_FOLDER_MENU_H
 
-#include<vector>
+#include <map>
 #include <SFML/Graphics.hpp>
 
 #include "game_interface/sub_window/sub_window/sub_window.h"
@@ -12,7 +12,7 @@
 class ChoiseFolderMenu : public SubWindow
 {
 private:
-	std::vector<Button> buttons;
+	std::map<int, Button> buttons;
 	sf::Text helpText;
 
 	bool isFolderSelected;

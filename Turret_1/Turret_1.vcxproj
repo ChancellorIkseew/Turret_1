@@ -225,6 +225,7 @@
     <ClCompile Include="code\map_structures\entities\turret_types\rocket_turret.cpp" />
     <ClCompile Include="code\map_structures\particles\particles.cpp" />
     <ClCompile Include="code\map_structures\pre-settings\pre-settings.cpp" />
+    <ClCompile Include="code\map_structures\resources\all_resources.cpp" />
     <ClCompile Include="code\map_structures\resources\resource_units.cpp" />
     <ClCompile Include="code\map_structures\shells\shells_list\shells_list.cpp" />
     <ClCompile Include="code\map_structures\shells\shell\create_shell.cpp" />
@@ -326,7 +327,7 @@
     <ClInclude Include="code\map_structures\entities\turret_types\rocket_turret.h" />
     <ClInclude Include="code\map_structures\particles\particles.h" />
     <ClInclude Include="code\map_structures\pre-settings\pre-settings.h" />
-    <ClInclude Include="code\map_structures\resources\resources.h" />
+    <ClInclude Include="code\map_structures\resources\all_resources.h" />
     <ClInclude Include="code\map_structures\resources\resource_units.h" />
     <ClInclude Include="code\map_structures\resources\res_enum.h" />
     <ClInclude Include="code\map_structures\shells\shells_list\shells_list.h" />

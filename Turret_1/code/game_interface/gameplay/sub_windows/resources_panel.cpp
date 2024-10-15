@@ -2,20 +2,18 @@
 #include "resources_panel.h"
 
 #include "game_interface/sub_window/sub_win_util/fonts.h"
-#include "game_interface/sub_window/elements/res_info/res_info.h"
-
 #include "map_structures/resources/res_enum.h"
 #include "map_structures/team/team.h"
 
 
 ResourcesPanel::ResourcesPanel() : SubWindow('s', sf::Vector2u(134, 219), sf::Vector2u(600, 600))
 {
-    stoneInfo.setResType(RES_STONE);
-    ironInfo.setResType(RES_IRON);
-    copperInfo.setResType(RES_COPPER);
-    siliconInfo.setResType(RES_SILICON);
-    coalInfo.setResType(RES_COAL);
-    sulfurInfo.setResType(RES_SULFUR);
+    resInfo[RES_STONE] = ResInfo(RES_STONE, 0);
+    resInfo[RES_IRON] = ResInfo(RES_IRON, 0);
+    resInfo[RES_COPPER] = ResInfo(RES_COPPER, 0);
+    resInfo[RES_SILICON] = ResInfo(RES_SILICON, 0);
+    resInfo[RES_COAL] = ResInfo(RES_COAL, 0);
+    resInfo[RES_SULFUR] = ResInfo(RES_SULFUR, 0);
 
     this->prepareInterfaceSprites();
     this->relocate({ 0, 0 });
@@ -31,13 +29,10 @@ void ResourcesPanel::prepareInterfaceSprites()
 void ResourcesPanel::interact(Team& team)
 {
     mutex.lock();
-    t1::res::AllResources balance = team.getBalance().balance;
-    stoneInfo.update(balance.stone);
-    ironInfo.update(balance.iron);
-    copperInfo.update(balance.copper);
-    siliconInfo.update(balance.silicon);
-    coalInfo.update(balance.coal);
-    sulfurInfo.update(balance.sulfur);
+    for (auto& resI : resInfo)
+    {
+        resI.second.update(team.getBalance().balance.allResources[resI.first]);
+    }
     mutex.unlock();
 }
 
@@ -53,11 +48,11 @@ void ResourcesPanel::draw(sf::RenderWindow &window)
 {
     this->drawSubWindowBase(window);
     mutex.lock();
-    stoneInfo.draw(window, position.x +16, position.y +16);
-    ironInfo.draw(window, position.x + 16, position.y + 46);
-    copperInfo.draw(window, position.x + 16, position.y + 76);
-    siliconInfo.draw(window, position.x + 16, position.y + 106);
-    coalInfo.draw(window, position.x + 16, position.y + 136);
-    sulfurInfo.draw(window, position.x + 16, position.y + 166);
+    int deltaY = 16;
+    for (auto& resI : resInfo)
+    {
+        resI.second.draw(window, position.x + 16, position.y + deltaY);
+        deltaY += 30;
+    }
     mutex.unlock();
 }

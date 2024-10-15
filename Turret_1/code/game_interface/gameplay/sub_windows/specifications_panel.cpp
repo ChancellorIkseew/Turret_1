@@ -13,33 +13,34 @@ BuildingInfo SpecificationsPanel::nullInfo = { L" ", 0, 0, {0, 0, 0, 0, 0, 0}, L
 
 SpecificationsPanel::SpecificationsPanel() : SubWindow('s', sf::Vector2u(260, 400), sf::Vector2u(0, 310))
 {
-    stoneInfo.setResType(RES_STONE);
-    ironInfo.setResType(RES_IRON);
-    copperInfo.setResType(RES_COPPER);
-    siliconInfo.setResType(RES_SILICON);
-    coalInfo.setResType(RES_COAL);
-    sulfurInfo.setResType(RES_SULFUR);
+    resInfo.emplace(RES_STONE, ResInfo(RES_STONE, 0));
+    resInfo.emplace(RES_IRON, ResInfo(RES_IRON, 0));
+    resInfo.emplace(RES_COPPER, ResInfo(RES_COPPER, 0));
+    resInfo.emplace(RES_SILICON, ResInfo(RES_SILICON, 0));
+    resInfo.emplace(RES_COAL, ResInfo(RES_COAL, 0));
+    resInfo.emplace(RES_SULFUR, ResInfo(RES_SULFUR, 0));
 
     this->prepareInterfaceSprites();
+    this->relocate({ 0, 0 });
 }
 
 
 void SpecificationsPanel::prepareInterfaceSprites()
 {
-	titleText.setFont(turretClassic);						//Text_title
-    titleText.setPosition(40, 320);
-    titleText.setCharacterSize(16);
-    titleText.setFillColor(sf::Color(68, 52, 52));
+	title.setFont(turretClassic);
+    title.setPosition(40, 320);
+    title.setCharacterSize(16);
+    title.setFillColor(sf::Color(68, 52, 52));
 	
-    durabilityText.setFont(turretClassic);					//Text_durability
-    durabilityText.setPosition(20, 340);
-    durabilityText.setCharacterSize(16);
-    durabilityText.setFillColor(sf::Color(68, 52, 52));
+    durability.setFont(turretClassic);
+    durability.setPosition(20, 340);
+    durability.setCharacterSize(16);
+    durability.setFillColor(sf::Color(68, 52, 52));
 
-    descriptionText.setFont(turretClassic);					//Text_description
-    descriptionText.setPosition(20, 400);
-    descriptionText.setCharacterSize(16);
-    descriptionText.setFillColor(sf::Color(68, 52, 52));
+    description.setFont(turretClassic);
+    description.setPosition(20, 400);
+    description.setCharacterSize(16);
+    description.setFillColor(sf::Color(68, 52, 52));
 }
 
 
@@ -48,75 +49,45 @@ void SpecificationsPanel::interact(const int index)
 {
     buildingInfo = t1::bc::buildingsInfoTable[index];
 
-    titleText.setString(buildingInfo.buildingTitle);  //Title
+    title.setString(buildingInfo.buildingTitle);
 
-    std::ostringstream strDurability;                               //Durability
+    std::ostringstream strDurability;
     strDurability << buildingInfo.durability;
     sf::String durb = strDurability.str();
-    durabilityText.setString(L"прочность " + durb);
+    durability.setString(L"прочность " + durb);
 
-    stoneInfo.update(buildingInfo.costToBuild.stone);
-    ironInfo.update(buildingInfo.costToBuild.iron);
-    copperInfo.update(buildingInfo.costToBuild.copper);
-    siliconInfo.update(buildingInfo.costToBuild.silicon);
-    coalInfo.update(buildingInfo.costToBuild.coal);
-    sulfurInfo.update(buildingInfo.costToBuild.sulfur);
-    
-    descriptionText.setString(buildingInfo.description);  //Description
+    for (auto& resI : resInfo)
+    {
+        resI.second.update(buildingInfo.costToBuild.allResources[resI.first]);
+    }
+
+    description.setString(buildingInfo.description);
 }
 
 
 void SpecificationsPanel::draw(sf::RenderWindow& window)
 {
     this->drawSubWindowBase(window);
-	
-	window.draw(titleText);
+    title.setPosition(40, position.y + 10);
+	window.draw(title);
 
-    int deltaY = 340;
-
-	if(buildingInfo.costToBuild.stone != 0)
+    unsigned int posY = position.y + 30;
+    for (auto& resI : resInfo)
     {
-        stoneInfo.draw(window, 20, deltaY);
-        deltaY = deltaY + 20;
-	}
-    
-    if(buildingInfo.costToBuild.iron != 0)
-    {
-        ironInfo.draw(window, 20, deltaY);
-        deltaY = deltaY + 20;
-	}
-    
-    if(buildingInfo.costToBuild.copper != 0)
-    {
-        copperInfo.draw(window, 20, deltaY);
-        deltaY = deltaY + 20;
-	}
-    
-    if(buildingInfo.costToBuild.silicon != 0)
-    {
-        siliconInfo.draw(window, 20, deltaY);
-        deltaY = deltaY + 20;
-	}
-    
-    if(buildingInfo.costToBuild.coal != 0)
-    {
-        coalInfo.draw(window, 20, deltaY);
-        deltaY = deltaY + 20;
-	}
-    
-    if(buildingInfo.costToBuild.sulfur != 0)
-    {
-        sulfurInfo.draw(window, 20, deltaY);
-        deltaY = deltaY + 20;
-	}
-	
+        if (resI.second.getQuantity() != 0)
+        {
+            resI.second.draw(window, position.x + 16, posY);
+            posY += 20;
+        }
+    }
+   
     if(buildingInfo.durability != 0)
     {
-        durabilityText.setPosition(10, deltaY);
-        window.draw(durabilityText);
-        deltaY = deltaY + 20;
+        durability.setPosition(10, posY);
+        window.draw(durability);
+        posY += 20;
     }
 
-    descriptionText.setPosition(10, deltaY);
-	window.draw(descriptionText);
+    description.setPosition(10, posY);
+	window.draw(description);
 }

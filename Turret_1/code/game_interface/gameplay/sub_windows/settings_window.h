@@ -33,7 +33,7 @@ public:
 	}
 
 	bool interact(sf::Vector2i& mouseCoord);
-	void relocate(const sf::Vector2u wndowSize) override final;
+	void relocate(const sf::Vector2u windowSize) override final;
 
 	void prepareInterfaceSprites() override final;
 	void draw(sf::RenderWindow& window) override final;

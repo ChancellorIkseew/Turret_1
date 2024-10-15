@@ -9,9 +9,10 @@
 #include "game_interface/sub_window/sub_win_util/fonts.h"
 
 
-TextField::TextField(const sf::Vector2u size, const sf::Vector2u  position) : SubWindow('t', size, position)
+TextField::TextField(const sf::String& value, const sf::Vector2u size, const sf::Vector2u  position) : SubWindow('t', size, position)
 {
 	this->prepareInterfaceSprites();
+	this->text.setString(value);
 }
 
 TextField::TextField() : SubWindow('t', sf::Vector2u(100, 23), sf::Vector2u(100, 100))
@@ -52,9 +53,11 @@ void TextField::interact(const sf::Vector2i& mouseCoord)
 }
 
 
-void TextField::relocate(const sf::Vector2u windowSize)
+void TextField::relocate(const sf::Vector2u ownerPosition)
 {
-
+	position -= this->ownerPosition;
+	this->ownerPosition = ownerPosition;
+	position += this->ownerPosition;
 }
 
 
@@ -72,9 +75,9 @@ void TextField::draw(sf::RenderWindow& window)
 }
 
 
-void TextField::setText(sf::String v_text)
+void TextField::setText(const sf::String& value)
 {
-	text.setString(v_text);
+	text.setString(value);
 }
 
 

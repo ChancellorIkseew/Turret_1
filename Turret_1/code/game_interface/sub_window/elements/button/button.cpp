@@ -17,7 +17,7 @@ Button::Button(const std::string& imageFile, const sf::Vector2i size, const sf::
 	button.setOrigin(0.0f, 0.0f);
 }
 
-Button& Button::operator=(const Button& other)
+Button& Button::operator=(const Button&& other) noexcept
 {
 	size = other.size;
 	position = other.position;
@@ -35,6 +35,21 @@ Button& Button::operator=(const Button& other)
 	return *this;
 }
 
+Button::Button(const Button&& other) noexcept
+{
+	size = other.size;
+	position = other.position;
+	image = other.image;
+	name = other.name;
+
+	texture.loadFromImage(image);
+	button.setTexture(texture);
+	button.setTextureRect(sf::IntRect(0, 0, size.x, size.y));
+
+	isVisible = true;
+	isSelected = false;
+	isPressed = false;
+}
 
 bool Button::select(const sf::Vector2i& mouseCoord)
 {

@@ -21,7 +21,6 @@
 #include "map_structures/entities/entity/entity.h"
 #include "map_structures/shells/shell/shell.h"
 #include "map_structures/resources/resource_units.h"
-#include "map_structures/resources/resources.h"
 #include "map_structures/particles/particles.h"
 #include "map_structures/team/team.h"
 

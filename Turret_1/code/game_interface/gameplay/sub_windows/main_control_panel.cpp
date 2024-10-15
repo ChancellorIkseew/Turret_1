@@ -20,11 +20,19 @@
 #include "map_structures/terrain/terrain.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/particles/particles.h"
-#include "map_structures/resources/resources.h"
 #include "map_structures/resources/resource_units.h"
 #include "map_structures/pre-settings/pre-settings.h"
 #include "map_structures/base_engine/t1_mutex.h"
 
+enum buttonsEnum
+{
+	SAVE = 0,
+	HELP = 1,
+	EXIT_TO_MENU = 2,
+	SETTINGS = 3,
+	SET_PAUSE = 4,
+	REMOVE_PAUSE = 5
+};
 
 MainControlPanel::MainControlPanel() : SubWindow('s', sf::Vector2u(312, 110), sf::Vector2u(0, 0))
 {
@@ -35,20 +43,17 @@ MainControlPanel::MainControlPanel() : SubWindow('s', sf::Vector2u(312, 110), sf
 
 void MainControlPanel::prepareInterfaceSprites()
 {
-	save = Button("save.bmp", sf::Vector2i(48, 48), sf::Vector2i(130, 10));
-	help = Button("help.bmp", sf::Vector2i(48, 48), sf::Vector2i(190, 10));
-	exitToMenu = Button("exit_to_menu.bmp", sf::Vector2i(48, 48), sf::Vector2i(70, 10));
-	settings = Button("settings.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 10));
-	setPause = Button("set_pause.bmp", sf::Vector2i(48, 48), sf::Vector2i(250, 10));
-	removePause = Button("remove_pause.bmp", sf::Vector2i(48, 48), sf::Vector2i(250, 10));
+	buttons[SAVE] = Button("save.bmp", sf::Vector2i(48, 48), sf::Vector2i(130, 10));
+	buttons[HELP] = Button("help.bmp", sf::Vector2i(48, 48), sf::Vector2i(190, 10));
+	buttons[EXIT_TO_MENU] = Button("exit_to_menu.bmp", sf::Vector2i(48, 48), sf::Vector2i(70, 10));
+	buttons[SETTINGS] = Button("settings.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 10));
+	buttons[SET_PAUSE] = Button("set_pause.bmp", sf::Vector2i(48, 48), sf::Vector2i(250, 10));
+	buttons[REMOVE_PAUSE] = Button("remove_pause.bmp", sf::Vector2i(48, 48), sf::Vector2i(250, 10));
 
-	//save.relocate(position);
-	//help.relocate(position);
-	//exitToMenu.relocate(position);
-	//settings.relocate(position);
-	//setPause.relocate(position);
-	//removePause.relocate(position);
-	
+	for (auto& btn : buttons)
+	{
+		btn.second.relocate(position);
+	}
 
 	waveNumberText.setFont(turretClassic);											//Text_wave_number
 	waveNumberText.setString(sf::String(L"волна: "));
@@ -77,7 +82,7 @@ void MainControlPanel::prepareInterfaceSprites()
 
 void MainControlPanel::interact(sf::Vector2i& mouseCoord, bool& isPaused, bool& isGameplayActive, const std::string& saveFolderName)
 {
-	if (save.press(mouseCoord))
+	if (buttons[SAVE].press(mouseCoord))
 	{
 		PreSettings::savePreSettings();
 
@@ -91,7 +96,7 @@ void MainControlPanel::interact(sf::Vector2i& mouseCoord, bool& isPaused, bool& 
 		mtBuildings.unlock();
 	}
 	
-	if (exitToMenu.press(mouseCoord))
+	if (buttons[EXIT_TO_MENU].press(mouseCoord))
 	{
 		ConfirmationWindow::getInstance().setVisible(true);
 		
@@ -108,34 +113,34 @@ void MainControlPanel::interact(sf::Vector2i& mouseCoord, bool& isPaused, bool& 
 		ConfirmationWindow::getInstance().setVisible(false);
 	}
 	
-	if (settings.press(mouseCoord))
+	if (buttons[SETTINGS].press(mouseCoord))
 	{
 		SettingsWindow::getInstance().setVisible(true);
 		SettingsWindow::getInstance().interact(mouseCoord);
 		SettingsWindow::getInstance().setVisible(false);
 	}
 	
-	if (help.press(mouseCoord))
+	if (buttons[HELP].press(mouseCoord))
 	{
 		std::cout << "help button works" << std::endl;
 	}
 	
-	if (setPause.press(mouseCoord))
+	if (buttons[SET_PAUSE].press(mouseCoord))
 	{
 		std::cout << "set pause button works" << std::endl;
 		isPaused = true;
 		this->isPaused = isPaused;
-		setPause.setVisible(false);
-		removePause.setVisible(true);
+		buttons[SET_PAUSE].setVisible(false);
+		buttons[REMOVE_PAUSE].setVisible(true);
 	}
 	
-	if (removePause.press(mouseCoord))
+	if (buttons[REMOVE_PAUSE].press(mouseCoord))
 	{
 		std::cout << "remove pause button works" << std::endl;
 		isPaused = false;
 		this->isPaused = isPaused;
-		removePause.setVisible(false);
-		setPause.setVisible(true);
+		buttons[REMOVE_PAUSE].setVisible(false);
+		buttons[SET_PAUSE].setVisible(true);
 	}
 	
 }
@@ -165,13 +170,10 @@ void MainControlPanel::interactWaveTimer(const bool isPaused)
 void MainControlPanel::draw(sf::RenderWindow& window)
 {
 	this->drawSubWindowBase(window);
-    
-    settings.draw(window);
-	exitToMenu.draw(window);
-    save.draw(window);
-    help.draw(window);
-	setPause.draw(window);
-	removePause.draw(window);
+	for (auto& btn : buttons)
+	{
+		btn.second.draw(window);
+	}
     
 	window.draw(waveNumberText);
 	window.draw(waveNumberText2);

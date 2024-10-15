@@ -24,6 +24,7 @@ public:
 
 	void setResType(int resType);
 	void update(int qurrentQuantity);
+	int getQuantity() const;
 
 	static void prepareSprites();
 	void draw(sf::RenderWindow& window, int positionX, int powitionY);

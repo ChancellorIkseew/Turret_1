@@ -16,7 +16,7 @@ public:
 	~Page() = default;
 
 	virtual void interact(const sf::Vector2i& mouseCoord, bool& isMenuOpen) = 0;
-	virtual void enter();
+	virtual void enter() = 0;
 	virtual void relocate(const sf::Vector2u ownerPosition);
 
 };

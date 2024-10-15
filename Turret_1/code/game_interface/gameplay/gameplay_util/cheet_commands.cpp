@@ -5,7 +5,6 @@
 #include "cheet_commands.h"
 
 #include "map_structures/base_engine/test.h"
-#include "map_structures/resources/resources.h"
 #include "map_structures/resources/res_enum.h"
 #include "map_structures/entities/entity/entity.h"
 #include "map_structures/entities/mob_types/standard_bot.h"
@@ -42,7 +41,6 @@ void acceptCheetCommand()
 
 		case 'u':
 		{
-			using namespace t1::res;
 			//sendToBalance(RES_STONE, 10000);
 			//sendToBalance(RES_IRON, 10000);
 			//sendToBalance(RES_COPPER, 10000);

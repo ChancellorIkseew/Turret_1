@@ -9,14 +9,10 @@ TerrainPreSettingsWindow::TerrainPreSettingsWindow(const sf::Vector2u position) 
 	this->prepareInterfaceSprites();
 }
 
-
-
 void TerrainPreSettingsWindow::prepareInterfaceSprites()
 {
 
 }
-
-
 
 void TerrainPreSettingsWindow::interact(const sf::Vector2i& mouseCoord, bool& isMenuOpen)
 {
@@ -29,7 +25,10 @@ void TerrainPreSettingsWindow::interact(const sf::Vector2i& mouseCoord, bool& is
 
 }
 
+void TerrainPreSettingsWindow::enter()
+{
 
+}
 
 void TerrainPreSettingsWindow::relocate(const sf::Vector2u ownerPosition)
 {
@@ -37,8 +36,6 @@ void TerrainPreSettingsWindow::relocate(const sf::Vector2u ownerPosition)
 
 
 }
-
-
 
 void TerrainPreSettingsWindow::draw(sf::RenderWindow& window)
 {

@@ -2,7 +2,6 @@
 #ifndef TERRAIN_PRE_SETTINGS
 #define TERRAIN_PRE_SETTINGS
 
-#include <SFML/Graphics.hpp>
 #include "game_interface/sub_window/sub_win_types/page/page.h"
 
 
@@ -12,11 +11,12 @@ public:
 	TerrainPreSettingsWindow(const sf::Vector2u position);
 	~TerrainPreSettingsWindow() = default;
 
-	void interact(const sf::Vector2i& mouseCoord, bool& isMenuOpen);
-	void relocate(const sf::Vector2u windowSizeY) override;
+	void interact(const sf::Vector2i& mouseCoord, bool& isMenuOpen) override final;
+	void enter() override final;
+	void relocate(const sf::Vector2u windowSizeY) override final;
 
-	void prepareInterfaceSprites() override;
-	void draw(sf::RenderWindow& window) override;
+	void prepareInterfaceSprites() override final;
+	void draw(sf::RenderWindow& window) override final;
 
 };
 

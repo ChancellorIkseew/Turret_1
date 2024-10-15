@@ -1,6 +1,5 @@
 
 #include "pre_settings.h"
-#include "iostream"
 
 #include "game_interface/system/sleep.h"
 #include "game_interface/main_window/main_window.h"
@@ -24,15 +23,14 @@ PreSettingsWindow::PreSettingsWindow(): SubWindow('s', sf::Vector2u(720, 480), s
 	this->prepareInterfaceSprites();
 	this->relocate({ 0, 0 });
 
-	pages.emplace(GENERAL, std::make_unique<GeneralPreSettingsWindow>(sf::Vector2u(10, 70)));
-	pages.emplace(TERRAIN, std::make_unique<TerrainPreSettingsWindow>(sf::Vector2u(10, 70)));
+	pages[GENERAL] = std::make_unique<GeneralPreSettingsWindow>(sf::Vector2u(10, 70));
+	pages[TERRAIN] = std::make_unique<TerrainPreSettingsWindow>(sf::Vector2u(10, 70));
 	//pages.emplace(BUILDINGS, std::make_unique<GeneralPreSettingsWindow>());
 	//pages.emplace(MOBS, std::make_unique<GeneralPreSettingsWindow>());
 }
 
 void PreSettingsWindow::prepareInterfaceSprites()
 {
-	buttons.resize(6);
 	buttons[START_GAME] = Button("start_game.bmp", sf::Vector2i(266, 48), sf::Vector2i(310, 10));
 	buttons[EXIT_TO_MENU] = Button("exit_to_menu.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 10));
 
@@ -40,7 +38,6 @@ void PreSettingsWindow::prepareInterfaceSprites()
 	buttons[TERRAIN] = Button("terrain.bmp", sf::Vector2i(48, 48), sf::Vector2i(130, 10));
 	buttons[BUILDINGS] = Button("buildings.bmp", sf::Vector2i(48, 48), sf::Vector2i(190, 10));
 	buttons[MOBS] = Button("mobs.bmp", sf::Vector2i(48, 48), sf::Vector2i(250, 10));
-	buttons.reserve(6);
 }
 
 
@@ -50,9 +47,9 @@ int PreSettingsWindow::interact(sf::Vector2i& mouseCoord, bool& isMenuOpen)
 	{
 		if (buttons[START_GAME].press(mouseCoord))
 		{
-			for (auto it = pages.begin(); it != pages.end(); ++it)
+			for (auto& pg : pages)
 			{
-				it->second->enter();
+				pg.second->enter();
 			}
 			return GAMEPLAY;
 		}
@@ -60,24 +57,18 @@ int PreSettingsWindow::interact(sf::Vector2i& mouseCoord, bool& isMenuOpen)
 		if (buttons[EXIT_TO_MENU].press(mouseCoord))
 			return MAIN_MENU;
 
-		for (int i = 2; i < 4; ++i)
+		for (auto& pg : pages)
 		{
-			if (buttons[i].press(mouseCoord))
+			if (buttons[pg.first].press(mouseCoord))
 			{
-				for (auto it = pages.begin(); it != pages.end(); ++it)
+				for (auto& pg2 : pages)
 				{
-					bool val = (i == it->first);
-
-					it->second->setVisible(val);
+					pg2.second->setVisible(pg2.first == pg.first);
 				}
 			}
-		}
-
-
-		for (auto it = pages.begin(); it != pages.end(); ++it)
-		{
-			it->second->interact(mouseCoord, isMenuOpen);
-		}
+			
+			pg.second->interact(mouseCoord, isMenuOpen);
+		}	
 
 		t1::system::sleep(16);
 	}
@@ -91,12 +82,12 @@ void PreSettingsWindow::relocate(const sf::Vector2u windowSize)
 	
 	for (auto& btn : buttons)
 	{
-		btn.relocate(position);
+		btn.second.relocate(position);
 	}
 
-	for (auto it = pages.begin(); it !=pages.end(); ++it)
+	for (auto& pg : pages)
 	{
-		it->second->relocate(position);
+		pg.second->relocate(position);
 	}
 }
 
@@ -108,12 +99,12 @@ void PreSettingsWindow::draw(sf::RenderWindow& window)
 		this->drawSubWindowBase(window);
 		for (auto& btn : buttons)
 		{
-			btn.draw(window);
+			btn.second.draw(window);
 		}
 
-		for (auto it = pages.begin(); it != pages.end(); ++it)
+		for (auto& pg : pages)
 		{
-			it->second->draw(window);
+			pg.second->draw(window);
 		}
 	}
 }

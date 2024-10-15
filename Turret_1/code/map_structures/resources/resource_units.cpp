@@ -14,7 +14,6 @@
 #include "map_structures/base_engine/tile_coord.h"
 
 #include "res_enum.h"
-#include "resources.h"
 
 using namespace t1::be;
 

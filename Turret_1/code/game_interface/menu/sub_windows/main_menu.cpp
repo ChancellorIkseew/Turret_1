@@ -20,7 +20,6 @@ MainMenu::MainMenu() : SubWindow('s', sf::Vector2u(720, 480), sf::Vector2u(100, 
 
 void MainMenu::prepareInterfaceSprites()
 {
-	buttons.resize(3);
 	buttons[PLAY] = Button("play.bmp", sf::Vector2i(162, 48), sf::Vector2i(10, 10));
 	buttons[EXIT_GAME] = Button("exit_to_menu.bmp", sf::Vector2i(48, 48), sf::Vector2i(70, 70));
 	buttons[SETTINGS] = Button("settings.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 70));
@@ -51,7 +50,7 @@ void MainMenu::relocate(const sf::Vector2u windowSize)
 	SubWindow::relocateCentral(windowSize);
 	for (auto& btn : buttons)
 	{
-		btn.relocate(position);
+		btn.second.relocate(position);
 	}
 }
 
@@ -63,7 +62,7 @@ void MainMenu::draw(sf::RenderWindow& window)
 		this->drawSubWindowBase(window);
 		for (auto& btn : buttons)
 		{
-			btn.draw(window);
+			btn.second.draw(window);
 		}
 	}
 }

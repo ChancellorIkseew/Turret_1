@@ -16,7 +16,6 @@
 #include "map_structures/terrain/terrain.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/resources/resource_units.h"
-#include "map_structures/resources/resources.h"
 #include "map_structures/particles/particles.h"
 #include "map_structures/team/team.h"
 #include "map_structures/buildings/building/buildings_enum.h"

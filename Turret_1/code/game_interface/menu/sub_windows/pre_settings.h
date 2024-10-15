@@ -3,7 +3,6 @@
 #define PRE1
 
 #include <map>
-#include <vector>
 #include <SFML/Graphics.hpp>
 
 #include "game_interface/sub_window/sub_window/sub_window.h"
@@ -14,7 +13,7 @@
 class PreSettingsWindow : public SubWindow
 {
 private:
-	std::vector<Button> buttons;
+	std::map<int, Button> buttons;
 	std::map<int, std::unique_ptr<Page>> pages;
 
 public:

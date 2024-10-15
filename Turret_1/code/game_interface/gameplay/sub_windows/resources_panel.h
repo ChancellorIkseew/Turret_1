@@ -3,6 +3,7 @@
 #define RESOURCES_PANEL_H
 
 #include <mutex>
+#include <map>
 #include "game_interface/sub_window/sub_window/sub_window.h"
 #include "game_interface/sub_window/elements/res_info/res_info.h"
 
@@ -12,15 +13,7 @@ class ResourcesPanel : public SubWindow
 {
 private:
 	static inline std::mutex mutex;
-
-	ResInfo stoneInfo;
-	ResInfo ironInfo;
-	ResInfo copperInfo;
-	ResInfo siliconInfo;
-	ResInfo coalInfo;
-	ResInfo sulfurInfo;
-	ResInfo ACShellsInfo;
-	ResInfo rocketInfo;
+	std::map<int, ResInfo> resInfo;
 
 	ResourcesPanel();
 	ResourcesPanel(const ResourcesPanel&) = delete;

@@ -13,5 +13,3 @@ void Page::relocate(const sf::Vector2u ownerPosition)
 	this->ownerPosition = ownerPosition;
 	position += this->ownerPosition;
 }
-
-void Page::enter() { }

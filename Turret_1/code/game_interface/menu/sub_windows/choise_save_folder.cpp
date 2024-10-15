@@ -47,10 +47,8 @@ ChoiseFolderMenu::ChoiseFolderMenu() : SubWindow('s', sf::Vector2u(720, 480), sf
 }
 
 
-
 void ChoiseFolderMenu::prepareInterfaceSprites()
 {
-	buttons.resize(4);
 	buttons[NEW_GAME] = Button("new_game.bmp", sf::Vector2i(242, 48), sf::Vector2i(10, 100));
 	buttons[LOAD_GAME] = Button("load_game.bmp", sf::Vector2i(364, 48), sf::Vector2i(10, 170));
 	buttons[EXIT_TO_MENU] = Button("exit_to_menu.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 10));
@@ -61,7 +59,6 @@ void ChoiseFolderMenu::prepareInterfaceSprites()
 	helpText.setCharacterSize(16);
 	helpText.setFillColor(sf::Color(68, 52, 52));
 }
-
 
 
 int ChoiseFolderMenu::interact(sf::Vector2i& mouseCoord, bool& isMenuOpen, bool& startNewGame, std::string& saveFolderName)
@@ -112,18 +109,16 @@ int ChoiseFolderMenu::interact(sf::Vector2i& mouseCoord, bool& isMenuOpen, bool&
 }
 
 
-
 void ChoiseFolderMenu::relocate(const sf::Vector2u windowSize)
 {
 	SubWindow::relocateCentral(windowSize);
 	for (auto& btn : buttons)
 	{
-		btn.relocate(position);
+		btn.second.relocate(position);
 	}
 
 	helpText.setPosition(position.x + 70, position.y + 350);
 }
-
 
 
 void ChoiseFolderMenu::draw(sf::RenderWindow& window)
@@ -133,7 +128,7 @@ void ChoiseFolderMenu::draw(sf::RenderWindow& window)
 		this->drawSubWindowBase(window);
 		for (auto& btn : buttons)
 		{
-			btn.draw(window);
+			btn.second.draw(window);
 		}
 
 		if (isTextVisible)
