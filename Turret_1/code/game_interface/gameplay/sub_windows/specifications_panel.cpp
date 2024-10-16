@@ -30,17 +30,17 @@ void SpecificationsPanel::prepareInterfaceSprites()
 	title.setFont(turretClassic);
     title.setPosition(40, 320);
     title.setCharacterSize(16);
-    title.setFillColor(sf::Color(68, 52, 52));
+    title.setFillColor(standardColor);
 	
     durability.setFont(turretClassic);
     durability.setPosition(20, 340);
     durability.setCharacterSize(16);
-    durability.setFillColor(sf::Color(68, 52, 52));
+    durability.setFillColor(standardColor);
 
     description.setFont(turretClassic);
     description.setPosition(20, 400);
     description.setCharacterSize(16);
-    description.setFillColor(sf::Color(68, 52, 52));
+    description.setFillColor(standardColor);
 }
 
 

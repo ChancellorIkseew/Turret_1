@@ -3,9 +3,13 @@
 #define PRE_SETTINGS
 
 #include <string>
+#include <map>
 
 #include "map_structures/entities/entity/entity.h"
 #include "map_structures/base_engine/tile_coord.h"
+
+#include "pre_settings/general_pre.h"
+#include "pre_settings/terrain_pre.h"
 
 
 class PreSettings
@@ -43,6 +47,9 @@ private:
 	// technologies_tree:
 	//bool areAllTechnologiesAvaluable;
 
+	static inline GeneralPre general;
+	static inline TerrainPre terrain;
+
 public:
 
 	PreSettings(std::string saveFolderName);
@@ -69,9 +76,13 @@ public:
 	static void setBuildingExpansesMidifier(float value);
 	static void setBuildingsConstructionSpeedModifier(float value);
 
+	static void setStartBalance(std::map<int, int> startRes);
 
 	friend void Entity::initPreSettings();
 	
+	static GeneralPre getGeneral() { return general; }
+	static TerrainPre getTerrain() { return terrain; }
+
 };
 
 

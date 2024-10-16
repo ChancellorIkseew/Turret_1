@@ -10,7 +10,7 @@
 RocketBot::RocketBot(int entityType, Team* team) : Entity(entityType, team)
 {
 	durability = 25 * enemyMobMaxDurabilityModifier;
-	range = 25;
+	pixelRange = 25;
 	spyralRange = 2109;
 }
 

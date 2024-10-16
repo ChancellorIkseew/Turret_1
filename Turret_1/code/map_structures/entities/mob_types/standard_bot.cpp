@@ -10,7 +10,7 @@
 StandardBot::StandardBot(int type, Team* team) : Entity(type, team)
 {
 	durability = 10 * enemyMobMaxDurabilityModifier;
-	range = 5;
+	pixelRange = 5;
 	spyralRange = 109;
 }
 

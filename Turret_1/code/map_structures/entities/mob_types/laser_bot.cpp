@@ -10,7 +10,7 @@
 LaserBot::LaserBot(int type, Team* team) : Entity(type, team)
 {
 	durability = 10 * enemyMobMaxDurabilityModifier;
-	range = 8;
+	pixelRange = 8;
 	spyralRange = 249;
 }
 

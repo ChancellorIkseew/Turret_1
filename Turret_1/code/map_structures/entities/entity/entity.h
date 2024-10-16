@@ -33,7 +33,7 @@ protected:
 	float shootingAngleDeg;
 
 	int durability;
-	int range;
+	int pixelRange;
 	int spyralRange;
 	int reloadTimer;
 	float maxSpeed;

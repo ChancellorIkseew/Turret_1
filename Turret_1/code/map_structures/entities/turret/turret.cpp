@@ -39,16 +39,14 @@ void Turret::load(std::ifstream& fin)
 
 PixelCoord Turret::findShootingAim() const
 {
-	for (auto it = Team::teams.begin(); it != Team::teams.end(); ++it)
+	for (auto& tm : Team::teams)
 	{
-		if (this->team->getID() != (*it)->getID())
+		if (this->team->getID() != tm->getID())
 		{
-			for (auto entity = (*it)->entities.begin(); entity != (*it)->entities.end(); ++entity)
+			for (auto entity = tm->entities.begin(); entity != tm->entities.end(); ++entity)
 			{
 				float deltaX = coord.x - (*entity)->getCoord().x;
 				float deltaY = coord.y - (*entity)->getCoord().y;
-
-				float angleRad = atan2f(deltaX, deltaY);
 
 				if (sqrt(deltaX * deltaX + deltaY * deltaY) < pixelRange)
 				{

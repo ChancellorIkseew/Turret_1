@@ -46,7 +46,7 @@ char t1::gamepl::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, 
         BuildingsMap::constructBuilding(CORE_MK1, 0, { 48, 48 }, player.get());
 
         t1::time::resetTime();
-        //t1::res::giveStartResources();
+        player->balance.giveStartRes(PreSettings::getGeneral().startBalance);
 	}
 	else
 	{

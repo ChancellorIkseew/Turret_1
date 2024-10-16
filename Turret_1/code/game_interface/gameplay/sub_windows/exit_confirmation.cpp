@@ -20,10 +20,8 @@ void ConfirmationWindow::prepareInterfaceSprites()
     confirm = Button("confirm.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 10));
     reject = Button("reject.bmp", sf::Vector2i(48, 48), sf::Vector2i(70, 10));
 
-    confirmationText.setFont(turretClassic);
-    confirmationText.setString(sf::String(L"Выйти без\nсохранения?"));
-    confirmationText.setCharacterSize(16);
-    confirmationText.setFillColor(sf::Color(180, 52, 52));
+    confirmationText = sf::Text(sf::String(L"Выйти без\nсохранения?"), turretClassic, 16);
+    confirmationText.setFillColor(darkRed);
 }
 
 

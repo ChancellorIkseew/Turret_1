@@ -9,7 +9,7 @@
 CannonBossBot::CannonBossBot(int type, Team* team) : Entity(type, team)
 {
 	durability = 270 * enemyMobMaxDurabilityModifier;
-	range = 20;
+	pixelRange = 20;
 	spyralRange = 1369;
 }
 

@@ -54,10 +54,9 @@ void ChoiseFolderMenu::prepareInterfaceSprites()
 	buttons[EXIT_TO_MENU] = Button("exit_to_menu.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 10));
 	buttons[LOAD_1] = Button("choise_load.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 240));
 
-	helpText.setFont(turretClassic);
+	helpText = sf::Text(sf::String(L" "), turretClassic,16);
 	helpText.setString(sf::String(L"„тобы начать игру, нужно выбрать сохранение,\nв которое будет записыватьс€ игровой прогресс."));
-	helpText.setCharacterSize(16);
-	helpText.setFillColor(sf::Color(68, 52, 52));
+	helpText.setFillColor(darkRed);
 }
 
 

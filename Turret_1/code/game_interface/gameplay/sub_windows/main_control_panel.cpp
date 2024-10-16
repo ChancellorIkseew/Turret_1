@@ -2,20 +2,16 @@
 #include <iostream>
 #include <sstream>
 #include <string>
-#include <SFML\Graphics.hpp>
-
 
 #include "main_control_panel.h"
 
 #include "game_interface/sub_window/sub_win_util/sub_windows_list.h"
 #include "game_interface/sub_window/sub_win_util/fonts.h"
 
-
 #include "settings_window.h"
 #include "exit_confirmation.h"
 
 #include "game_interface/gameplay/gameplay_util/t1_time.h"
-#include "game_interface/gameplay/gameplay_util/wave_constructor.h"
 
 #include "map_structures/terrain/terrain.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
@@ -55,27 +51,22 @@ void MainControlPanel::prepareInterfaceSprites()
 		btn.second.relocate(position);
 	}
 
-	waveNumberText.setFont(turretClassic);											//Text_wave_number
-	waveNumberText.setString(sf::String(L"волна: "));
+	waveNumberText = sf::Text(sf::String(L"волна: "), turretClassic, 16);
+	waveNumberText.setFillColor(standardColor);
 	waveNumberText.setPosition(10, 60);
-	waveNumberText.setCharacterSize(16);
-	waveNumberText.setFillColor(sf::Color(68, 52, 52));
 
-	waveNumberText2.setFont(turretClassic);
+	waveNumberText2 = sf::Text(sf::String(L" "), turretClassic, 16);
+	waveNumberText2.setFillColor(standardColor);
 	waveNumberText2.setPosition(65, 60);
-	waveNumberText2.setCharacterSize(16);
-	waveNumberText2.setFillColor(sf::Color(68, 52, 52));
-
-    waveTimerText.setFont(turretClassic);											//Text_wave_timer
-    waveTimerText.setString(sf::String(L"до следующей волны: "));
-    waveTimerText.setPosition(10, 80);
-    waveTimerText.setCharacterSize(16);
-    waveTimerText.setFillColor(sf::Color(68, 52, 52));
 	
-    waveTimerText2.setFont(turretClassic);					//Text_wave_timer_time
-    waveTimerText2.setPosition(200, 80);
-    waveTimerText2.setCharacterSize(16);
-    waveTimerText2.setFillColor(sf::Color(68, 52, 52));	
+
+    waveTimerText = sf::Text(sf::String(L"до следующей волны: "), turretClassic, 16);
+    waveTimerText.setFillColor(standardColor);
+	waveTimerText.setPosition(10, 80);
+	
+	waveTimerText2 = sf::Text(sf::String(L" "), turretClassic, 16);
+    waveTimerText2.setFillColor(standardColor);
+	waveTimerText2.setPosition(200, 80);
 }
 
 

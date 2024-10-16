@@ -14,7 +14,7 @@ ResInfo::ResInfo(int resType, int resQuantity)
 
 	resQuantText.setFont(turretClassic);					//Text_stone_resQuantityility
 	resQuantText.setCharacterSize(16);
-	resQuantText.setFillColor(sf::Color(68, 52, 52));
+	resQuantText.setFillColor(standardColor);
 }
 
 ResInfo::ResInfo()
@@ -24,7 +24,7 @@ ResInfo::ResInfo()
 
 	resQuantText.setFont(turretClassic);					//Text_stone_resQuantityility
 	resQuantText.setCharacterSize(16);
-	resQuantText.setFillColor(sf::Color(68, 52, 52));
+	resQuantText.setFillColor(standardColor);
 }
 
 

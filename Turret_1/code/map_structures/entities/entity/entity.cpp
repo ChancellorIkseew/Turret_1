@@ -93,7 +93,24 @@ PixelCoord Entity::findDestinationCoord() const
 
 PixelCoord Entity::findShootingAim() const
 {
-	for (int i = 1; i <= range; i++)
+	for (auto& tm : Team::teams)
+	{
+		if (this->team->getID() != tm->getID())
+		{
+			for (auto entity = tm->entities.begin(); entity != tm->entities.end(); ++entity)
+			{
+				float deltaX = coord.x - (*entity)->getCoord().x;
+				float deltaY = coord.y - (*entity)->getCoord().y;
+
+				if (sqrt(deltaX * deltaX + deltaY * deltaY) < pixelRange)
+				{
+					return (*entity)->getCoord();
+				}
+			}
+		}
+	}
+
+	for (int i = 1; i <= pixelRange; i++)
 	{
 		int tileX = tile(coord.x + sin(motionAngleRad) * _TILE_ * i);
 		int tileY = tile(coord.y + cos(motionAngleRad) * _TILE_ * i);

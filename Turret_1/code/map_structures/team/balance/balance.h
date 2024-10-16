@@ -14,7 +14,7 @@ public:
 
 	Balance();
 
-	void giveStartResources();
+	void giveStartRes(const std::map<int, int>& startRes);
 
 	//void loadResources(std::string saveFolderName);
 	//void saveResources(std::string saveFolderName);

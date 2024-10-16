@@ -5,12 +5,17 @@
 
 Balance::Balance()
 {
-	balance = AllResources(1000, 0, 0, 0, 0, 0);
+	balance = AllResources(0, 0, 0, 0, 0, 0);
 }
 
 void Balance::accept(int type, short amount)
 {
 	balance.allResources[type] += amount;
+}
+
+void Balance::giveStartRes(const std::map<int, int>& startRes)
+{
+	balance = startRes;
 }
 
 

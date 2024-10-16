@@ -236,6 +236,7 @@
     <ClCompile Include="code\map_structures\team\balance\balance.cpp" />
     <ClCompile Include="code\map_structures\team\team.cpp" />
     <ClCompile Include="code\map_structures\terrain\terrain.cpp" />
+    <ClCompile Include="code\map_structures\terrain\terrain_generator.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -327,6 +328,8 @@
     <ClInclude Include="code\map_structures\entities\turret_types\rocket_turret.h" />
     <ClInclude Include="code\map_structures\particles\particles.h" />
     <ClInclude Include="code\map_structures\pre-settings\pre-settings.h" />
+    <ClInclude Include="code\map_structures\pre-settings\pre_settings\general_pre.h" />
+    <ClInclude Include="code\map_structures\pre-settings\pre_settings\terrain_pre.h" />
     <ClInclude Include="code\map_structures\resources\all_resources.h" />
     <ClInclude Include="code\map_structures\resources\resource_units.h" />
     <ClInclude Include="code\map_structures\resources\res_enum.h" />
@@ -339,6 +342,7 @@
     <ClInclude Include="code\map_structures\team\balance\balance.h" />
     <ClInclude Include="code\map_structures\team\team.h" />
     <ClInclude Include="code\map_structures\terrain\terrain.h" />
+    <ClInclude Include="code\map_structures\terrain\terrain_generator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -75,3 +75,11 @@ float PreSettings::getBuildingsConstructionSpeedModifier() { return buildingsCon
 void PreSettings::setBuildingsMaxDurabilityModidier(float value) { buildingsMaxDurabilityModidier = value; }
 void PreSettings::setBuildingExpansesMidifier(float value) { buildingExpansesMidifier = value; }
 void PreSettings::setBuildingsConstructionSpeedModifier(float value) { buildingsConstructionSpeedModifier = value; }
+
+
+
+void PreSettings::setStartBalance(std::map<int, int> startRes)
+{
+	GeneralPre::startBalance = startRes;
+}
+

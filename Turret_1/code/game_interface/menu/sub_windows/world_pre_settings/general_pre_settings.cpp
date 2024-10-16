@@ -43,7 +43,15 @@ void GeneralPreSettingsWindow::interact(const sf::Vector2i& mouseCoord, bool& is
 void GeneralPreSettingsWindow::enter()
 {
 	PreSettings::setMapSize({ fields[MAP_MAX_X].getIntValue(), fields[MAP_MAX_Y].getIntValue()});
-	//PreSettings::setStartResources();
+
+	std::map<int, int> startRes;
+	startRes[RES_STONE] = fields[RES_STONE].getIntValue();
+	startRes[RES_IRON] = fields[RES_IRON].getIntValue();
+	startRes[RES_COPPER] = fields[RES_COPPER].getIntValue();
+	startRes[RES_SILICON] = fields[RES_SILICON].getIntValue();
+	startRes[RES_COAL] = fields[RES_COAL].getIntValue();
+	startRes[RES_SULFUR] = fields[RES_SULFUR].getIntValue();
+	PreSettings::setStartBalance(startRes);
 }
 
 void GeneralPreSettingsWindow::relocate(const sf::Vector2u ownerPosition)

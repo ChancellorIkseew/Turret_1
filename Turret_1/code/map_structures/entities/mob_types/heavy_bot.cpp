@@ -10,7 +10,7 @@
 HeavyBot::HeavyBot(int type, Team* team) : Entity(type, team)
 {
 	durability = 50 * enemyMobMaxDurabilityModifier;
-	range = 7;
+	pixelRange = 7;
 	spyralRange = 193;
 }
 
