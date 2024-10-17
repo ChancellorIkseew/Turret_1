@@ -1,7 +1,7 @@
 
 #include "main_menu.h"
 
-#include "game_interface/system/sleep.h"
+#include "t1_system/sleep.h"
 #include "game_interface/main_window/main_window.h"
 
 enum buttonsEnum
@@ -12,10 +12,10 @@ enum buttonsEnum
 };
 
 
-MainMenu::MainMenu() : SubWindow('s', sf::Vector2u(720, 480), sf::Vector2u(100, 100))
+MainMenu::MainMenu() : SubWindow('s', sf::Vector2u(720, 480), sf::Vector2u(0, 0))
 {
 	this->prepareInterfaceSprites();
-	this->relocate({ 0, 0 });
+	this->relocate(sf::Vector2u(800, 600));
 }
 
 void MainMenu::prepareInterfaceSprites()

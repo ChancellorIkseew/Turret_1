@@ -144,9 +144,6 @@
     <ClCompile Include="code\game_interface\gameplay\gameplay.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="code\game_interface\system\system.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="code\game_interface\gameplay\gameplay_util\camera.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -166,12 +163,6 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="code\game_interface\menu\sub_windows\world_pre_settings\general_pre_settings.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="code\game_interface\system\text_enter.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="code\map_structures\base_engine\t1_mutex.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="code\map_structures\buildings\building\buildings_info.cpp">
@@ -288,9 +279,6 @@
     <ClCompile Include="code\game_interface\gameplay\gameplay_streams\simulation.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="code\game_interface\system\sleep.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="code\map_structures\buildings\building\buildings_ico.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -331,6 +319,15 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="code\map_structures\terrain\terrain_generator.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game_interface\sub_window\elements\res_ico\res_ico.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\t1_system\sleep.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\t1_system\system.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -434,9 +431,6 @@
     <ClInclude Include="code\map_structures\terrain\terrain.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="code\game_interface\system\system.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="code\game_interface\gameplay\gameplay_util\camera.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -458,16 +452,10 @@
     <ClInclude Include="code\game_interface\menu\sub_windows\world_pre_settings\general_pre_settings.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="code\game_interface\system\text_enter.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="code\map_structures\resources\res_enum.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\map_structures\buildings\building\buildings_enum.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="code\map_structures\base_engine\t1_mutex.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\map_structures\buildings\building\buildings_info.h">
@@ -578,9 +566,6 @@
     <ClInclude Include="code\game_interface\gameplay\gameplay_streams\simulation.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="code\game_interface\system\sleep.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="code\map_structures\buildings\building\buildings_ico.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -624,6 +609,18 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\map_structures\terrain\terrain_generator.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\game_interface\sub_window\elements\res_ico\res_ico.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\t1_system\sleep.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\t1_system\system.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\t1_system\t1_mutex.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

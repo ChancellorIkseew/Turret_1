@@ -5,41 +5,26 @@
 #include "main_window_resize.h"
 
 #include "game_interface/settings/settings_util/settings_save_system.h"
-#include "game_interface/gameplay/sub_windows/sub_windows_util/sub_windows_list.h"
+#include "game_interface/sub_window/sub_win_util/sub_windows_list.h"
 
-
-sf::View overlay;
-
-int overlaySizeX = 800;
-int overlaySizeY = 600;
-
-int oldWinSizeX = 0;
-int oldWinSizeY = 0;
 
 void overlayResize(sf::RenderWindow& mainWindow)
 {
-	if (mainWindow.getSize().x != oldWinSizeX || mainWindow.getSize().y != oldWinSizeY)
-	{
-		mainWindowResize(mainWindow);
+	std::cout << "resize_works_1" << '\n';
+	mainWindowResize(mainWindow);
 
-		std::cout << "resize_works_2" << '\n';
-		overlaySizeX = mainWindow.getSize().x;
-		overlaySizeY = mainWindow.getSize().y;
+	sf::Vector2u overlaySize = mainWindow.getSize();
 
-		oldWinSizeX = mainWindow.getSize().x;
-		oldWinSizeY = mainWindow.getSize().y;
+	std::cout << overlaySize.x << " " << overlaySize.y << '\n';
 
-		//std::cout << overlaySizeX << " " << overlaySizeY << '\n';
+	overlay.setSize(sf::Vector2f(overlaySize.x, overlaySize.y));
+	overlay.setCenter(sf::Vector2f(overlaySize.x / 2, overlaySize.y / 2));
 
-		overlay.setSize(sf::Vector2f(overlaySizeX, overlaySizeY));
-		overlay.setCenter(sf::Vector2f(overlaySizeX / 2, overlaySizeY / 2));
+	mainWindow.setView(overlay);
 
-		mainWindow.setView(overlay);
-
-		relocateSubWindows(mainWindow.getSize());
-	}
-	
+	relocateSubWindows(mainWindow.getSize());
 }
+		
 
 
 void mainWindowResize(sf::RenderWindow& mainWindow)

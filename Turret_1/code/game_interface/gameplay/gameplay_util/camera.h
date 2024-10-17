@@ -11,8 +11,7 @@ class Camera
 private:
 	//sf::View camera;
 
-	int sizeX, sizeY;
-	int centerX, centerY;
+	sf::Vector2i size, center;
 	TileCoord mapSize;
 
 	float mapScale;

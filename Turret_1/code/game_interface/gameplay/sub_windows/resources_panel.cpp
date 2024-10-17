@@ -28,12 +28,11 @@ void ResourcesPanel::prepareInterfaceSprites()
 
 void ResourcesPanel::interact(Team& team)
 {
-    mutex.lock();
+    std::lock_guard<std::mutex> guard(mutex);
     for (auto& resI : resInfo)
     {
         resI.second.update(team.getBalance().balance.allResources[resI.first]);
     }
-    mutex.unlock();
 }
 
 
@@ -47,12 +46,11 @@ void ResourcesPanel::relocate(const sf::Vector2u windowSize)
 void ResourcesPanel::draw(sf::RenderWindow &window)
 {
     this->drawSubWindowBase(window);
-    mutex.lock();
+    std::lock_guard<std::mutex> guard(mutex);
     int deltaY = 16;
     for (auto& resI : resInfo)
     {
         resI.second.draw(window, position.x + 16, position.y + deltaY);
         deltaY += 30;
     }
-    mutex.unlock();
 }

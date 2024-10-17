@@ -1,7 +1,7 @@
 
 #include "button.h"
-#include "game_interface/system/sleep.h"
-#include "game_interface/system/system.h"
+#include "t1_system/sleep.h"
+#include "t1_system/system.h"
 
 
 Button::Button(const std::string& imageFile, const sf::Vector2i size, const sf::Vector2i position)

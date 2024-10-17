@@ -5,7 +5,7 @@
 #include "choise_save_folder.h"
 
 #include "game_interface/sub_window/sub_win_util/fonts.h"
-#include "game_interface/system/sleep.h"
+#include "t1_system/sleep.h"
 #include "game_interface/main_window/main_window.h"
 
 #include "map_structures/pre-settings/pre-settings.h"
@@ -37,13 +37,14 @@ std::string ChoiseFolderMenu::selectFolder(std::string v_saveFileName, bool& isF
 }
 
 
-ChoiseFolderMenu::ChoiseFolderMenu() : SubWindow('s', sf::Vector2u(720, 480), sf::Vector2u(100, 100))
+ChoiseFolderMenu::ChoiseFolderMenu() : SubWindow('s', sf::Vector2u(720, 480), sf::Vector2u(0, 0))
 {
+	this->prepareInterfaceSprites();
+	this->relocate(sf::Vector2u(800, 600));
+	isVisible = false;
+
 	isFolderSelected = false;
 	isTextVisible = false;
-	this->prepareInterfaceSprites();
-	this->relocate(sf::Vector2u(1920, 1080));
-	isVisible = false;
 }
 
 

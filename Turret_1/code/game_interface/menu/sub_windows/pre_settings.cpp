@@ -1,7 +1,7 @@
 
 #include "pre_settings.h"
 
-#include "game_interface/system/sleep.h"
+#include "t1_system/sleep.h"
 #include "game_interface/main_window/main_window.h"
 
 #include "world_pre_settings/general_pre_settings.h"
@@ -17,11 +17,11 @@ enum pageTypes
 	MOBS = 5
 };
 
-PreSettingsWindow::PreSettingsWindow(): SubWindow('s', sf::Vector2u(720, 480), sf::Vector2u(100, 100))
+PreSettingsWindow::PreSettingsWindow(): SubWindow('s', sf::Vector2u(720, 480), sf::Vector2u(0, 0))
 {
-	isVisible = false;
 	this->prepareInterfaceSprites();
-	this->relocate({ 0, 0 });
+	this->relocate(sf::Vector2u(800, 600));
+	isVisible = false;
 
 	pages[GENERAL] = std::make_unique<GeneralPreSettingsWindow>(sf::Vector2u(10, 70));
 	pages[TERRAIN] = std::make_unique<TerrainPreSettingsWindow>(sf::Vector2u(10, 70));
@@ -48,9 +48,7 @@ int PreSettingsWindow::interact(sf::Vector2i& mouseCoord, bool& isMenuOpen)
 		if (buttons[START_GAME].press(mouseCoord))
 		{
 			for (auto& pg : pages)
-			{
 				pg.second->enter();
-			}
 			return GAMEPLAY;
 		}
 
@@ -79,16 +77,10 @@ int PreSettingsWindow::interact(sf::Vector2i& mouseCoord, bool& isMenuOpen)
 void PreSettingsWindow::relocate(const sf::Vector2u windowSize)
 {
 	SubWindow::relocateCentral(windowSize);
-	
 	for (auto& btn : buttons)
-	{
 		btn.second.relocate(position);
-	}
-
 	for (auto& pg : pages)
-	{
 		pg.second->relocate(position);
-	}
 }
 
 
@@ -98,13 +90,8 @@ void PreSettingsWindow::draw(sf::RenderWindow& window)
 	{
 		this->drawSubWindowBase(window);
 		for (auto& btn : buttons)
-		{
 			btn.second.draw(window);
-		}
-
 		for (auto& pg : pages)
-		{
 			pg.second->draw(window);
-		}
 	}
 }

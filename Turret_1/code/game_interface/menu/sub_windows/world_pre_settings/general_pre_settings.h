@@ -6,12 +6,14 @@
 
 #include "game_interface/sub_window/sub_win_types/page/page.h"
 #include "game_interface/sub_window/sub_win_types/text_field/text_field.h"
+#include "game_interface/sub_window/elements/res_ico/res_ico.h"
 
 
 class GeneralPreSettingsWindow : public Page
 {
 private:
 	std::map<int, TextField> fields;
+	std::map<int, ResIco> resIco;
 
 public:
 	GeneralPreSettingsWindow(const sf::Vector2u position);

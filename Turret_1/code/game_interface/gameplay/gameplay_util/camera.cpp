@@ -1,18 +1,12 @@
 
-#include <iostream>
-
 #include "camera.h"
 #include "map_structures/pre-settings/pre-settings.h"
 
 
-
 Camera::Camera()
 {
-	sizeX = 1024;
-	sizeY = 720;
-
-	centerX = int(sizeX / 2);
-	centerY = int(sizeY / 2);
+	size = sf::Vector2i(1024, 720);
+	center = size / 2;
 
 	mapScale = 1;
 
@@ -26,12 +20,10 @@ Camera::Camera()
 }
 
 
-
 void Camera::move()
 {
 
 }
-
 
 
 void Camera::scale(sf::Event event)
@@ -49,44 +41,40 @@ void Camera::scale(sf::Event event)
 		mapScale = mapScale * 1.2f;
 	}
 
-	camera.setSize(sf::Vector2f(sizeX * mapScale / 4, sizeY * mapScale / 4));
+	camera.setSize(sf::Vector2f(size.x * mapScale / 4, size.y * mapScale / 4));
 }
-
 
 
 void Camera::resize(sf::RenderWindow& window)
 {
-	if (sizeX != window.getSize().x || sizeY != window.getSize().y)	// mainWindow_scaling block
+	if (size.x != window.getSize().x || size.y != window.getSize().y)	// mainWindow_scaling block
 	{
-		sizeX = window.getSize().x;
-		sizeY = window.getSize().y;
+		size.x = window.getSize().x;
+		size.y = window.getSize().y;
 
-		camera.setSize(sf::Vector2f(sizeX * mapScale, sizeY * mapScale));
+		camera.setSize(sf::Vector2f(size.x * mapScale, size.y * mapScale));
 		window.setView(camera);
 	}
 }
-
 
 
 void Camera::updateMapRegion(sf::RenderWindow& window)
 {
 	using namespace t1::be;
 
-	sf::Vector2f startTile = window.mapPixelToCoords(sf::Vector2i(0, 0));
-	this->startTile = { tile(startTile.x) - 6, tile(startTile.y) - 6 }; // 6_is_max_building_line_size needed_to_correct_big_buildings_drawing
-	std::cout << "startX: " << this->startTile.x << " startY: " << this->startTile.y << '\n';
+	sf::Vector2f startPixel = window.mapPixelToCoords(sf::Vector2i(0, 0));
+	startTile = { tile(startPixel.x) - 6, tile(startPixel.y) - 6 }; // 6_is_max_building_line_size needed_to_correct_big_buildings_drawing
 
-	sf::Vector2f endTile = window.mapPixelToCoords(sf::Vector2i(window.getSize().x, window.getSize().y));
-	this->endTile = { tile(endTile.x) + 1, tile(endTile.y) + 1 };
-	std::cout << "endX: " << this->endTile.x << " endY: " << this->endTile.y << '\n';
+	sf::Vector2f endPixel = window.mapPixelToCoords(sf::Vector2i(window.getSize().x, window.getSize().y));
+	endTile = { tile(endPixel.x) + 1, tile(endPixel.y) + 1 };
 
-	if (this->startTile.x < 0)
-		this->startTile.x = 0;
-	if (this->startTile.y < 0)
-		this->startTile.y = 0;
+	if (startTile.x < 0)
+		startTile.x = 0;
+	if (startTile.y < 0)
+		startTile.y = 0;
 
-	if (this->endTile.x > mapSize.x)
-		this->endTile.x = mapSize.x;
-	if (this->endTile.y > mapSize.y)
-		this->endTile.y = mapSize.y;
+	if (endTile.x > mapSize.x)
+		endTile.x = mapSize.x;
+	if (endTile.y > mapSize.y)
+		endTile.y = mapSize.y;
 }

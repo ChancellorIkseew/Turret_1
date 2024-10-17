@@ -3,8 +3,8 @@
 
 #include "input.h"
 
-#include "game_interface/system/system.h"
-#include "game_interface/system/sleep.h"
+#include "t1_system/system.h"
+#include "t1_system/sleep.h"
 
 #include "game_interface/gameplay/gameplay_util/cheet_commands.h"
 #include "game_interface/gameplay/sub_windows/main_control_panel.h"

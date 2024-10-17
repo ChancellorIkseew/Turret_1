@@ -7,7 +7,7 @@
 #include "game_interface/sub_window/sub_win_util/fonts.h"
 #include "game_interface/settings/settings_util/settings_save_system.h"
 #include "game_interface/main_window/main_window_resize.h"
-#include "game_interface/system/system.h"
+#include "t1_system/system.h"
 
 
 SettingsWindow::SettingsWindow() : SubWindow('s', sf::Vector2u(720, 4800), sf::Vector2u(0, 0))

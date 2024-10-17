@@ -1,8 +1,8 @@
 
 #include "game_interface/sub_window/sub_win_util/fonts.h"
 #include "game_interface/main_window/main_window_resize.h"
-#include "game_interface/system/system.h"
-#include "game_interface/system/sleep.h"
+#include "t1_system/system.h"
+#include "t1_system/sleep.h"
 
 #include "exit_confirmation.h"
 

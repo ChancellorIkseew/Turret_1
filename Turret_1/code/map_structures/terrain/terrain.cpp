@@ -6,6 +6,7 @@
 
 #include "terrain.h"
 
+#include "terrain_generator.h"
 #include "map_structures/pre-settings/pre-settings.h"
 #include "map_structures/base_engine/tile_coord.h"
 
@@ -40,43 +41,7 @@ TerrainMap::~TerrainMap()
 
 void TerrainMap::generateMap() //empty constructor
 {
-	for(int y = 0; y < mapSizeY; ++y)
-	{
-		for(int x = 0; x < mapSizeX; ++x)
-		{
-			terrainMap[x][y] = std::move(std::make_unique<int>(TILE_GROUND));
-		
-			int allRes = rand() %10;
-		
-			if(allRes == 9)
-			{
-				int oneRes = rand() %7;
-				*terrainMap[x][y] = int(oneRes);
-			}
-		}
-	}
-	
-	for(int k = 0; k < 2; ++k)
-	{
-		for(int y = 1; y < mapSizeY-2; ++y)
-		{
-			for(int x = 1; x < mapSizeX-2; ++x)
-			{
-				if(*terrainMap[x][y] != TILE_GROUND)
-				{
-					int dir = rand() %4;
-					if(dir == 3)
-						*terrainMap[x][y+1] = *terrainMap[x][y];
-					else if(dir == 2)
-						*terrainMap[x][y-1] = *terrainMap[x][y];
-					else if(dir == 1)
-						*terrainMap[x+1][y] = *terrainMap[x][y];
-					else if(dir == 0)
-						*terrainMap[x-1][y] = *terrainMap[x][y];
-				}
-			}
-		}
-	}
+	terrainMap = std::move(generateTerrain(PreSettings::getTerrain()));
 }
 
 

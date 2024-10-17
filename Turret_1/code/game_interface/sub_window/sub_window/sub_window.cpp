@@ -4,6 +4,7 @@
 #include "sub_window.h"
 
 #include "game_interface/sub_window/sub_win_util/fonts.h"
+#include "game_interface/sub_window/elements/res_ico/res_ico.h"
 #include "game_interface/sub_window/elements/res_info/res_info.h"
 
 
@@ -22,6 +23,7 @@ void SubWindow::init()
 {
 	prepareWindowBaseSprites();
 
+	ResIco::prepareSprites();
 	ResInfo::prepareSprites();
 	initFonts();
 }

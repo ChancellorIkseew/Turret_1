@@ -12,9 +12,9 @@
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/base_engine/tile_coord.h"
-#include "map_structures/base_engine/t1_mutex.h"
+#include "t1_system/t1_mutex.h"
 
-using namespace t1::bc;
+//using namespace t1::bc;
 
 BuildingPanel::BuildingPanel() : SubWindow('s', sf::Vector2u (144, 192), sf::Vector2u(0, 0))
 {
@@ -46,7 +46,7 @@ void BuildingPanel::interact(const sf::Vector2i& mouseCoord, const sf::Vector2f&
 		std::cout << "building_place_works: " << newBuildingType << '\n';
 		TileCoord selectedTile = t1::be::tile(mouseMapCoord.x, mouseMapCoord.y);
 
-		mtBuildings.lock();
+		t1::system::mt::buildings.lock();
 		if (newBuildingType == REMOVE)
 		{
 			if (BuildingsMap::isTurretOnTile(selectedTile))
@@ -63,33 +63,33 @@ void BuildingPanel::interact(const sf::Vector2i& mouseCoord, const sf::Vector2f&
 		{
 			BuildingsMap::constructBuilding(newBuildingType, direction, selectedTile, team);
 		}
-		mtBuildings.unlock();
+		t1::system::mt::buildings.unlock();
 	}
 	
 	
 	if (BuildingPanel::getInstance().containsCoursor(mouseCoord))
 	{
-		for (auto it = buildingsIcoTable.begin(); it != buildingsIcoTable.end(); ++it)
+		for (auto& ico : t1::bc::buildingsIcoTable)
 		{
-			it->second.icoSprite.setColor(sf::Color::White);
+			ico.second.icoSprite.setColor(sf::Color::White);
 		}
 
-		for (auto it = buildingsIcoTable.begin(); it != buildingsIcoTable.end(); ++it)
+		for (auto& ico : t1::bc::buildingsIcoTable)
 		{
-			if (it->second.icoSprite.getGlobalBounds().contains(mouseCoord.x, mouseCoord.y))
+			if (ico.second.icoSprite.getGlobalBounds().contains(mouseCoord.x, mouseCoord.y))
 			{
-				buildExampleSprite.setTextureRect(it->second.texMapRect);
-				it->second.icoSprite.setColor(sf::Color(0, 250, 0));
+				buildExampleSprite.setTextureRect(ico.second.texMapRect);
+				ico.second.icoSprite.setColor(sf::Color(0, 250, 0));
 				oldBuildingType = newBuildingType;
-				newBuildingType = it->first;
+				newBuildingType = ico.first;
 				isBuildingTypeSelected = true;
 				if (oldBuildingType == newBuildingType)
 				{
 					isBuildingTypeSelected = false;
 					newBuildingType = VOID_;
-					for (auto it = buildingsIcoTable.begin(); it != buildingsIcoTable.end(); ++it)
+					for (auto& ico : t1::bc::buildingsIcoTable)
 					{
-						it->second.icoSprite.setColor(sf::Color::White);
+						ico.second.icoSprite.setColor(sf::Color::White);
 					}
 				}
 				return;
@@ -104,6 +104,8 @@ void BuildingPanel::interact(const sf::Vector2i& mouseCoord, const sf::Vector2f&
 
 void BuildingPanel::relocate(const sf::Vector2u windowSize)
 {
+	using namespace t1::bc;
+
 	position = windowSize - size;
 
 	buildingsIcoTable[REMOVE].icoSprite.setPosition(windowSize.x - 82, windowSize.y - 182);
@@ -142,9 +144,9 @@ void BuildingPanel::draw(sf::RenderWindow& window)
 
 	this->drawSubWindowBase(window);
 
-	for (auto it = buildingsIcoTable.cbegin(); it != buildingsIcoTable.cend(); ++it )
+	for (auto& ico : t1::bc::buildingsIcoTable)
 	{
-		window.draw(it->second.icoSprite);
+		window.draw(ico.second.icoSprite);
 	}
 }
 

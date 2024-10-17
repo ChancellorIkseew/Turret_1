@@ -18,7 +18,7 @@
 #include "map_structures/particles/particles.h"
 #include "map_structures/resources/resource_units.h"
 #include "map_structures/pre-settings/pre-settings.h"
-#include "map_structures/base_engine/t1_mutex.h"
+#include "t1_system/t1_mutex.h"
 
 enum buttonsEnum
 {
@@ -77,14 +77,13 @@ void MainControlPanel::interact(sf::Vector2i& mouseCoord, bool& isPaused, bool& 
 	{
 		PreSettings::savePreSettings();
 
-		mtBuildings.lock();
+		std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
 		TerrainMap::saveMap(saveFolderName);
 		BuildingsMap::saveMap(saveFolderName);
 		//saveEntitiesList(saveFolderName);
 		//saveResUnitsList(saveFolderName);
 		t1::time::saveTime(saveFolderName);
 		//t1::res::saveResources(saveFolderName);
-		mtBuildings.unlock();
 	}
 	
 	if (buttons[EXIT_TO_MENU].press(mouseCoord))
@@ -93,10 +92,9 @@ void MainControlPanel::interact(sf::Vector2i& mouseCoord, bool& isPaused, bool& 
 		
 		if(ConfirmationWindow::getInstance().interact(mouseCoord))
 		{
-			mtBuildings.lock();
+			std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
 			cleanParticlesList();
 			cleanResUnitsList();
-			mtBuildings.unlock();
 			
 			isGameplayActive = false;
 		}

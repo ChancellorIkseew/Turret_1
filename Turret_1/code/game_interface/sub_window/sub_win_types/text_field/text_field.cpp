@@ -4,15 +4,18 @@
 
 #include "text_field.h"
 
-#include "game_interface/system/system.h"
-#include "game_interface/system/text_enter.h"
+#include "t1_system/system.h"
+#include "t1_system/sleep.h"
+#include "t1_system/t1_mutex.h"
 #include "game_interface/sub_window/sub_win_util/fonts.h"
+#include "game_interface/main_window/main_window.h"
 
 
-TextField::TextField(const sf::String& value, const sf::Vector2u size, const sf::Vector2u  position) : SubWindow('t', size, position)
+TextField::TextField(const sf::String& value, const uint32_t sizeX, const sf::Vector2u  position) : SubWindow('t', sf::Vector2u(sizeX, 23), position)
 {
 	this->prepareInterfaceSprites();
 	this->text.setString(value);
+	maxLenght = (sizeX - 10) / 8;
 }
 
 TextField::TextField() : SubWindow('t', sf::Vector2u(100, 23), sf::Vector2u(100, 100))
@@ -34,20 +37,33 @@ void TextField::interact(const sf::Vector2i& mouseCoord)
 	if (containsCoursor(mouseCoord) && LMB_Pressed)
 	{
 		isSelected = true;
-		Sleep(150);
+		isOneSelected = true;
+		t1::system::sleep(150);
 
 		while (true)
 		{
-			enterText(text);
-			
-			if (containsCoursor(mouseCoord) && LMB_Pressed)
+			t1::system::mt::textEnter.lock();
+			char32_t sym = symbol;
+			symbol = '?';
+			t1::system::mt::textEnter.unlock();
+			t1::system::sleep(50);
+
+			if (sym > 47 && sym < 58 && text.getString().getSize() < maxLenght)
 			{
-				isSelected = false;
-				Sleep(150);
-				return;
+				text.setString(text.getString() + sym);
+			}
+			else if (sym == 8)
+			{
+				std::string str = text.getString();
+				std::string new_str = str.substr(0, str.length() - 1);
+				text.setString(new_str);
 			}
 
-			Sleep(16);
+			if (LMB_Pressed)
+			{
+				isSelected = false;
+				return;
+			}	
 		}
 	}
 }
@@ -58,6 +74,7 @@ void TextField::relocate(const sf::Vector2u ownerPosition)
 	position -= this->ownerPosition;
 	this->ownerPosition = ownerPosition;
 	position += this->ownerPosition;
+	text.setPosition(position.x + 5, position.y + 1);
 }
 
 
@@ -69,7 +86,6 @@ void TextField::draw(sf::RenderWindow& window)
 	}
 
 	drawSubWindowBase(window);
-	text.setPosition(position.x + 5, position.y + 1);
 	window.draw(text);
 	baseSprite.setColor(sf::Color(255, 255, 255, 210)); // set_normal_color
 }

@@ -5,7 +5,7 @@
 #include "game_interface/main_window/main_window_resize.h"
 
 #include "game_interface/gameplay/gameplay_util/camera.h"
-#include "map_structures/base_engine/t1_mutex.h"
+#include "t1_system/t1_mutex.h"
 
 #include "game_interface/gameplay/sub_windows/exit_confirmation.h"
 #include "game_interface/gameplay/sub_windows/settings_window.h"
@@ -29,8 +29,6 @@ void t1::gamepl::graphics(bool& isGameplayActive, const bool& isPaused, sf::Rend
     sf::Vector2i& mouseCoord, sf::Vector2f& mouseMapCoord, sf::Vector2f& lastMousePosition,
     bool& isMovingCamera)
 {
-    oldWinSizeX = 0;
-
     Camera t1camera;
 
     Building::prepareSprites();
@@ -40,15 +38,14 @@ void t1::gamepl::graphics(bool& isGameplayActive, const bool& isPaused, sf::Rend
     Shell::prepareSprites();
     Particle::prepareSprites();
 
+    sf::Event event;
     while (isGameplayActive)
     {
-        overlayResize(mainWindow);
         t1camera.resize(mainWindow);
 
         mouseCoord = sf::Mouse::getPosition(mainWindow);
         mouseMapCoord = mainWindow.mapPixelToCoords(mouseCoord);
 
-        sf::Event event;
         while (mainWindow.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
@@ -60,6 +57,7 @@ void t1::gamepl::graphics(bool& isGameplayActive, const bool& isPaused, sf::Rend
             if (event.type == sf::Event::Resized)
             {
                 overlayResize(mainWindow);
+                t1camera.updateMapRegion(mainWindow);
             }
 
             if (event.type == sf::Event::MouseWheelMoved)
@@ -83,13 +81,13 @@ void t1::gamepl::graphics(bool& isGameplayActive, const bool& isPaused, sf::Rend
 
         mainWindow.clear(sf::Color::Black);		//Begin draw_block
 
-        mtBuildings.lock();
+        t1::system::mt::buildings.lock();
         TerrainMap::drawMap(mainWindow);
         BuildingsMap::drawMap(mainWindow);
         drawResUnitsList(mainWindow);
         drawParticlesList(mainWindow);
         Team::drawAll(mainWindow);
-        mtBuildings.unlock();
+        t1::system::mt::buildings.unlock();
 
         BuildingPanel::getInstance().drawBuildExample(mainWindow, mouseMapCoord);
 

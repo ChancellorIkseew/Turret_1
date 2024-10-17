@@ -1,8 +1,8 @@
 
 #include "simulation.h"
 
-#include "game_interface/system/sleep.h"
-#include "map_structures/base_engine/t1_mutex.h"
+#include "t1_system/sleep.h"
+#include "t1_system/t1_mutex.h"
 #include "game_interface/gameplay/gameplay_util/t1_time.h"
 #include "game_interface/gameplay/gameplay_util/wave_constructor.h"
 
@@ -22,13 +22,13 @@ void t1::gamepl::simulation(const bool& isGameplayActive, const bool& isPaused, 
         if (!isPaused)
         {
             //t1::res::useEnergy(time);
-            mtBuildings.lock();
+            t1::system::mt::buildings.lock();
             BuildingsMap::intetractMap();
             createWave(enemy);
             Team::interactAll();
             moveParticlesList();
             moveResUnitsList(t1::time::time);
-            mtBuildings.unlock();
+            t1::system::mt::buildings.unlock();
             t1::time::time++;
         }
         ResourcesPanel::getInstance().interact(player);

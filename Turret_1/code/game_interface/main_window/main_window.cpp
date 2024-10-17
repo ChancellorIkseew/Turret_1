@@ -19,24 +19,18 @@
 
 void openMainWindow()
 {
+	loadSettings();
+
 	GameSound g1;
 
 	g1.loadSound();
 	g1.start();
 
 	SubWindow::init();
-	//initFonts();
-
 
 	sf::RenderWindow mainWindow(sf::VideoMode(800, 600), L"Турельница. Версия альфа_0.5.6", sf::Style::Default);
-
 	mainWindow.setFramerateLimit(60);
-	
-	
-	overlay.setSize(sf::Vector2f(800, 600));
-	overlay.setCenter(sf::Vector2f(400, 300));
-
-	loadSettings();
+	overlay.setSize(sf::Vector2f(800.0f, 600.0f));
 
 	std::string saveFolderName = "0";
 	bool startNewGame = false;

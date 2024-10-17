@@ -8,6 +8,8 @@
 class TerrainPre
 {
 public:
+	static inline uint32_t seed;
+	static inline uint8_t smoothLayer;
 	static inline std::map<int, int> frequency;
 	static inline std::map<int, int> depositSize;
 
