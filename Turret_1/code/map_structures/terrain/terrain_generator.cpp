@@ -28,7 +28,7 @@ std::vector<std::vector<std::unique_ptr<int>>> generateTerrain(TerrainPre terrai
 	std::mt19937 gen(terrainPre.seed);
 
 	std::vector<std::vector<std::unique_ptr<int>>> terrainMap;
-	const TileCoord mapSize = PreSettings::getMapSize();
+	const TileCoord mapSize = PreSettings::getTerrain().mapSize;
 
 	terrainMap.resize(mapSize.x);
 	terrainMap.reserve(mapSize.x);
@@ -75,7 +75,7 @@ inline int generateTile(TerrainPre& terrainPre, std::mt19937& gen)
 
 inline void generateLine(const TerrainPre& terrainPre, std::vector<std::vector<std::unique_ptr<int>>>& terrainMap, const TileCoord start)
 {
-	const TileCoord mapSize = PreSettings::getMapSize();
+	const TileCoord mapSize = PreSettings::getTerrain().mapSize;
 
 	int tileType = *terrainMap[start.x][start.y];
 	int spotSize = terrainPre.depositSize.find(tileType)->second;
@@ -108,7 +108,7 @@ inline void generateLine(const TerrainPre& terrainPre, std::vector<std::vector<s
 
 inline void generateSpot(const TerrainPre& terrainPre, std::vector<std::vector<std::unique_ptr<int>>>& terrainMap, const TileCoord start, std::mt19937& gen)
 {
-	const TileCoord mapSize = PreSettings::getMapSize();
+	const TileCoord mapSize = PreSettings::getTerrain().mapSize;
 
 	int tileType = *terrainMap[start.x][start.y];
 	int spotSize = terrainPre.depositSize.find(tileType)->second;

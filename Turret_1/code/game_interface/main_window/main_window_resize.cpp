@@ -5,7 +5,7 @@
 #include "main_window_resize.h"
 
 #include "game_interface/settings/settings_util/settings_save_system.h"
-#include "game_interface/sub_window/sub_win_util/sub_windows_list.h"
+#include "game_interface/ui_window/sub_win_util/ui_windows_list.h"
 
 
 void overlayResize(sf::RenderWindow& mainWindow)

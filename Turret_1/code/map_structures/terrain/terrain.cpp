@@ -15,18 +15,17 @@
 
 TerrainMap::TerrainMap(const TileCoord mapSize)
 {
-	mapSizeX = mapSize.x;
-	mapSizeY = mapSize.y;
+	this->mapSize = mapSize;
 
-	terrainMap.resize(mapSizeX);
-	terrainMap.reserve(mapSizeX);
-	for (int x = 0; x < mapSizeX; ++x)
+	terrainMap.resize(mapSize.x);
+	terrainMap.reserve(mapSize.x);
+	for (auto& line : terrainMap)
 	{
-		terrainMap[x].resize(mapSizeY);
-		terrainMap[x].reserve(mapSizeY);
-		for (int y = 0; y < mapSizeY; ++y)
+		line.resize(mapSize.y);
+		line.reserve(mapSize.y);
+		for (auto& terrain : line)
 		{
-			terrainMap[x][y] = std::make_unique<int>(0);
+			terrain = std::make_unique<int>(0);
 		}
 	}
 
@@ -53,9 +52,9 @@ void TerrainMap::loadMap(const std::string& folder)
 	fin.open(file);
 	if(fin.is_open())
 	{
-		for(int y=0; y < mapSizeY; ++y)
+		for(int y=0; y < mapSize.y; ++y)
 		{
-			for(int x=0; x < mapSizeX; ++x)
+			for(int x=0; x < mapSize.x; ++x)
 			{
 				char c; 
 				fin.get(c);
@@ -84,9 +83,9 @@ void TerrainMap::saveMap(const std::string& folder)
 	fout.open(file);
 	if (fout.is_open())
 	{
-		for (int y = 0; y < mapSizeY; ++y)
+		for (int y = 0; y < mapSize.y; ++y)
 		{
-			for (int x = 0; x < mapSizeX; ++x)
+			for (int x = 0; x < mapSize.x; ++x)
 			{
 				fout << *terrainMap[x][y];
 			}

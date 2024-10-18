@@ -10,9 +10,8 @@ using namespace t1::be;
 
 void Entity::initPreSettings()
 {
-	Entity::mapSizeX = PreSettings::getMapSize().x;
-	Entity::mapSizeY = PreSettings::getMapSize().y;
-	Entity::enemyMobMaxDurabilityModifier = PreSettings::enemyMobMaxDurabilityModifier;
+	Entity::mapSize = PreSettings::getTerrain().mapSize;
+	Entity::maxDurabilityModifier = PreSettings::getMobs().maxDurabilityModifier;
 }
 
 Entity::Entity(const int type, Team* team)		//1st spawn
@@ -20,7 +19,7 @@ Entity::Entity(const int type, Team* team)		//1st spawn
 	this->type = type;
 	this->team = team;
 	isAimDetected = false;
-	aimCoord = pixel(mapSizeX / 2, mapSizeY / 2);
+	aimCoord = pixel(mapSize.x / 2, mapSize.y / 2);
 	destCoord = aimCoord;
 	reloadTimer = 0;
 	maxSpeed = 0.1f;
@@ -61,7 +60,7 @@ void Entity::motion()
 
 	if (newTile.x != oldTile.x || newTile.y != oldTile.y)
 	{
-		destCoord = pixel(mapSizeX / 2, mapSizeY / 2);
+		destCoord = pixel(mapSize.x / 2, mapSize.y / 2);
 	}
 
 	this->oldTile = this->newTile;
@@ -80,14 +79,14 @@ PixelCoord Entity::findDestinationCoord() const
 
 		if (BuildingsMap::isVoidBuilding(tileX, tileY))
 		{
-			float distance = powf(float(tileX - mapSizeX / 2), 2.0f) + powf(float(tileY - mapSizeY / 2), 2.0f);
+			float distance = powf(float(tileX - mapSize.x / 2), 2.0f) + powf(float(tileY - mapSize.y / 2), 2.0f);
 			if (distance < currentDistance)
 			{
 				return pixel(tileX, tileY);
 			}
 		}
 	}
-	return pixel(mapSizeX / 2, mapSizeY / 2);
+	return pixel(mapSize.x / 2, mapSize.y / 2);
 }
 
 

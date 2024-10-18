@@ -7,12 +7,12 @@
 #include "game_interface/gameplay/gameplay_util/camera.h"
 #include "t1_system/t1_mutex.h"
 
-#include "game_interface/gameplay/sub_windows/exit_confirmation.h"
-#include "game_interface/gameplay/sub_windows/settings_window.h"
-#include "game_interface/gameplay/sub_windows/resources_panel.h"
-#include "game_interface/gameplay/sub_windows/main_control_panel.h"
-#include "game_interface/gameplay/sub_windows/specifications_panel.h"
-#include "game_interface/gameplay/sub_windows/building_panel.h"
+#include "game_interface/gameplay/ui_elements/exit_confirmation.h"
+#include "game_interface/gameplay/ui_elements/settings_window.h"
+#include "game_interface/gameplay/ui_elements/resources_panel.h"
+#include "game_interface/gameplay/ui_elements/main_control_panel.h"
+#include "game_interface/gameplay/ui_elements/specifications_panel.h"
+#include "game_interface/gameplay/ui_elements/building_panel.h"
 
 #include "map_structures/pre-settings/pre-settings.h"
 #include "map_structures/terrain/terrain.h"

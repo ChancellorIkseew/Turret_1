@@ -5,13 +5,13 @@
 
 #include "game_interface/main_window/main_window_resize.h"
 #include "game_interface/main_window/main_window.h"
-#include "game_interface/sub_window/sub_win_types/text_field/text_field.h"
+#include "game_interface/ui_window/sub_win_types/text_field/text_field.h"
 
 #include "t1_system/sleep.h"
 
-#include "sub_windows/main_menu.h"
-#include "sub_windows/choise_save_folder.h"
-#include "sub_windows/pre_settings.h"
+#include "ui_elements/main_menu.h"
+#include "ui_elements/choise_save_folder.h"
+#include "ui_elements/pre_settings.h"
 #include "t1_system/t1_mutex.h"
 
 
@@ -92,8 +92,9 @@ char openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string& sav
 				exit = true;
 			}
 
-			if (event.type == sf::Event::Resized)
+			if (event.type == sf::Event::Resized || UIWindow::windowCreated)
 			{
+				UIWindow::windowCreated = false;
 				overlayResize(mainWindow);
 				mainMenu.relocate(mainWindow.getSize());
 				choiseFolderMenu.relocate(mainWindow.getSize());

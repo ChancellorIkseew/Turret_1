@@ -7,8 +7,8 @@
 #include "t1_system/sleep.h"
 
 #include "game_interface/gameplay/gameplay_util/cheet_commands.h"
-#include "game_interface/gameplay/sub_windows/main_control_panel.h"
-#include "game_interface/gameplay/sub_windows/building_panel.h"
+#include "game_interface/gameplay/ui_elements/main_control_panel.h"
+#include "game_interface/gameplay/ui_elements/building_panel.h"
 
 
 void t1::gamepl::input(bool& isGameplayActive, bool& isPaused, sf::RenderWindow& mainWindow,

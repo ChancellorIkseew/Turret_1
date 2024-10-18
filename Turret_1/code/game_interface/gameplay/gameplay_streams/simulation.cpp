@@ -12,7 +12,7 @@
 #include "map_structures/resources/resource_units.h"
 #include "map_structures/particles/particles.h"
 
-#include "game_interface/gameplay/sub_windows/resources_panel.h"
+#include "game_interface/gameplay/ui_elements/resources_panel.h"
 
 
 void t1::gamepl::simulation(const bool& isGameplayActive, const bool& isPaused, Team& enemy, Team& player)

@@ -12,8 +12,8 @@ class Team;
 class Entity
 {
 protected:
-	static inline int mapSizeX, mapSizeY;
-	static inline float enemyMobMaxDurabilityModifier;
+	static inline TileCoord mapSize;
+	static inline float maxDurabilityModifier;
 	
 	int type;
 	Team* team;

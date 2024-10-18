@@ -11,7 +11,7 @@
 class TerrainMap
 {
 private:	
-	static inline int mapSizeX, mapSizeY;
+	static inline TileCoord mapSize;
 	static inline std::vector<std::vector<std::unique_ptr<int>>> terrainMap;
 	
 	static inline sf::Image terrainImage;

@@ -13,7 +13,7 @@
 class BuildingsMap
 {
 private:
-	static inline int mapSizeX, mapSizeY;
+	static inline TileCoord mapSize;
 	static inline bool isMapChanged;
 	static inline std::vector<std::vector<std::shared_ptr<Building>>> buildingsMap;
 	

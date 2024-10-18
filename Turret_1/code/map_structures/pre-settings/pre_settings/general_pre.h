@@ -5,10 +5,10 @@
 #include <map>
 
 
-class GeneralPre
+struct GeneralPre
 {
 public:
-	static inline std::map<int, int> startBalance;
+	std::map<int, int> startBalance;
 
 
 };

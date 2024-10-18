@@ -28,8 +28,8 @@ char t1::gamepl::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, 
         PreSettings::loadPreSettings();
     }
 
-	TerrainMap terrainMap(PreSettings::getMapSize());
-	BuildingsMap buildingsMap(PreSettings::getMapSize());
+	TerrainMap terrainMap(PreSettings::getTerrain().mapSize);
+	BuildingsMap buildingsMap(PreSettings::getTerrain().mapSize);
     Entity::initPreSettings();
 
     std::shared_ptr<Team> player = std::make_shared<Team>("player");

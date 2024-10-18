@@ -16,7 +16,7 @@ Camera::Camera()
 	startTile = { 0, 0 };
 	endTile = { 50, 50 };
 
-	mapSize = PreSettings::getMapSize();
+	mapSize = PreSettings::getTerrain().mapSize;
 }
 
 

@@ -18,18 +18,17 @@
 
 BuildingsMap::BuildingsMap(const TileCoord mapSize)
 {
-	mapSizeX = mapSize.x;
-	mapSizeY = mapSize.y;
+	this->mapSize = mapSize;
 
-	buildingsMap.resize(mapSizeX);
-	buildingsMap.reserve(mapSizeX);
-	for (int x = 0; x < mapSizeX; ++x)
+	buildingsMap.resize(mapSize.x);
+	buildingsMap.reserve(mapSize.x);
+	for (auto& line : buildingsMap)
 	{
-		buildingsMap[x].resize(mapSizeY);
-		buildingsMap[x].reserve(mapSizeY);
-		for (int y = 0; y < mapSizeY; ++y)
+		line.resize(mapSize.y);
+		line.reserve(mapSize.y);
+		for (auto& building : line)
 		{
-			buildingsMap[x][y] = nullptr;
+			building = nullptr;
 		}
 	}
 
@@ -80,9 +79,9 @@ void BuildingsMap::saveMap(const std::string& folder)
 	fout.open(file);
 	if (fout.is_open())
 	{
-		for (int x = 0; x < mapSizeX; x++)
+		for (int x = 0; x < mapSize.x; x++)
 		{
-			for (int y = 0; y < mapSizeY; y++)
+			for (int y = 0; y < mapSize.y; y++)
 			{
 				if (buildingsMap[x][y] != nullptr && buildingsMap[x][y]->getType() != AUXILARY)
 				{
@@ -115,7 +114,7 @@ void BuildingsMap::constructBuilding(const int type, const char direction, const
 		return;
 
 	int size = t1::bc::buildingsInfoTable[type].size;
-	int durability = t1::bc::buildingsInfoTable[type].durability * PreSettings::getBuildingsMaxDurabilityModidier();
+	int durability = t1::bc::buildingsInfoTable[type].durability * PreSettings::getBuildings().maxDurabilityModifier;
 
 	for (int i = 0; i < size; i++) // cheeck_square_for_building
 	{
@@ -155,13 +154,13 @@ void BuildingsMap::demolishBuilding(const TileCoord tile)
 
 bool BuildingsMap::buildingExists(const int tileX, const int tileY)
 {
-	return (tileX >= 0 && tileX < mapSizeX && tileY >= 0 && tileY < mapSizeY &&
+	return (tileX >= 0 && tileX < mapSize.x && tileY >= 0 && tileY < mapSize.y &&
 		buildingsMap[tileX][tileY] != nullptr);
 }
 
 bool BuildingsMap::isVoidBuilding(const int tileX, const int tileY)
 {
-	return (tileX >= 0 && tileX < mapSizeX && tileY >= 0 && tileY < mapSizeY &&
+	return (tileX >= 0 && tileX < mapSize.x && tileY >= 0 && tileY < mapSize.y &&
 		buildingsMap[tileX][tileY] == nullptr);
 }
 
@@ -240,13 +239,13 @@ void BuildingsMap::cleanMapChanged() { isMapChanged = false; }
 
 void BuildingsMap::intetractMap()
 {
-	for (int x = 0; x < mapSizeX; ++x)
+	for (auto& line : buildingsMap)
 	{
-		for (int y = 0; y < mapSizeY; ++y)
+		for (auto& building : line)
 		{
-			if (buildingsMap[x][y] != nullptr && buildingsMap[x][y]->getType() != AUXILARY)
+			if (building != nullptr && building->getType() != AUXILARY)
 			{
-				buildingsMap[x][y]->interact();
+				building->interact();
 			}
 		}
 	}

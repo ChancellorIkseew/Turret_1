@@ -24,7 +24,7 @@ bool Balance::isEnough(const AllResources& expenses) const
 	for (auto& res : expenses.allResources)
 	{
 		int index = res.first;
-		if (balance.allResources.find(index)->second < expenses.allResources.find(index)->second * PreSettings::getBuildingExpansesMidifier())
+		if (balance.allResources.find(index)->second < expenses.allResources.find(index)->second * PreSettings::getBuildings().expensesModifier)
 			return false;
 	}
 	return true;
@@ -36,7 +36,7 @@ void Balance::waste(const AllResources& expenses)
 	for (auto& res : expenses.allResources)
 	{
 		int index = res.first;
-		balance.allResources.find(index)->second -= expenses.allResources.find(index)->second * PreSettings::getBuildingExpansesMidifier();
+		balance.allResources.find(index)->second -= expenses.allResources.find(index)->second * PreSettings::getBuildings().expensesModifier;
 	
 	}
 }

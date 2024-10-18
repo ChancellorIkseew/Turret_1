@@ -9,7 +9,7 @@
 
 RocketBossBot::RocketBossBot(int type, Team* team) : Entity(type, team)
 {
-	durability = 230 * enemyMobMaxDurabilityModifier;
+	durability = 230 * maxDurabilityModifier;
 	pixelRange = 28;
 	spyralRange = 2661;
 }
