@@ -11,7 +11,7 @@
 class StandardBot : public Entity
 {
 public:
-	StandardBot(int type);
+	StandardBot(int type, Team* team);
 	~StandardBot() = default;
 
 	void shoot() override final;

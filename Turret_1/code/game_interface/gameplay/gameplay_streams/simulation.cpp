@@ -1,38 +1,36 @@
 
 #include "simulation.h"
 
-#include "game_interface/system/sleep.h"
-#include "map_structures/base_engine/t1_mutex.h"
+#include "t1_system/sleep.h"
+#include "t1_system/t1_mutex.h"
 #include "game_interface/gameplay/gameplay_util/t1_time.h"
 #include "game_interface/gameplay/gameplay_util/wave_constructor.h"
 
 #include "map_structures/terrain/terrain.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
-#include "map_structures/entities/turret/turret.h"
-#include "map_structures/entities/entities_list/entities_list.h"
-#include "map_structures/shells/shells_list/shells_list.h"
-#include "map_structures/resources/resource_units.h"
+#include "map_structures/team/team.h"
 #include "map_structures/particles/particles.h"
 
+#include "game_interface/gameplay/ui_elements/resources_panel.h"
 
-void t1::gamepl::simulation(const bool& isGameplayActive, const bool& isPaused)
+
+void t1::gamepl::simulation(const bool& isGameplayActive, const bool& isPaused, Team& enemy, Team& player)
 {
     while (isGameplayActive)
     {
         if (!isPaused)
         {
             //t1::res::useEnergy(time);
-            mtBuildings.lock();
+            t1::system::mt::buildings.lock();
             BuildingsMap::intetractMap();
-            createWave();
-            moveEntitiesList();
-            BuildingsMap::cleanMapChanged();
-            t1::sh::moveShellsList();
+            createWave(enemy);
+            Team::interactAll();
             moveParticlesList();
-            moveResUnitsList(t1::time::time);
-            mtBuildings.unlock();
+            t1::system::mt::buildings.unlock();
             t1::time::time++;
         }
+        ResourcesPanel::getInstance().interact(player);
+
         t1::system::sleep(16);
     }
 }

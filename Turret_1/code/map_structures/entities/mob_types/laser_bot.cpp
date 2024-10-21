@@ -1,16 +1,16 @@
 
 #include "laser_bot.h"
 
-#include "map_structures/shells/shell/shell.h"
+#include "map_structures/team/team.h"
 #include "map_structures/shells/shell/shell_enum.h"
-#include "map_structures/shells/shells_list/shells_list.h"
 #include "map_structures/buildings/building/buildings_enum.h"
+#include "map_structures/team/team.h"
 
 
-LaserBot::LaserBot(int type) : Entity(type)
+LaserBot::LaserBot(int type, Team* team) : Entity(type, team)
 {
-	durability = 10 * enemyMobMaxDurabilityModifier;
-	range = 8;
+	durability = 10 * maxDurabilityModifier;
+	pixelRange = 8;
 	spyralRange = 249;
 }
 
@@ -28,8 +28,9 @@ void LaserBot::shoot()
 		if (reloadTimer <= 0)
 		{
 			float correctionX = cos(shootingAngleRad) * 4.5f;
-			float correctionY = sin(shootingAngleRad) * 4.5f;	
-			t1::sh::enemyShellsList.emplace_back(Shell::createShell(AC_SHELL, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg));
+			float correctionY = sin(shootingAngleRad) * 4.5f;
+
+			team->spawnShell(AC_SHELL, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
 			reloadTimer = 60;
 		}
 	}

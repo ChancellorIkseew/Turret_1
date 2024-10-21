@@ -4,7 +4,7 @@
 #include "map_structures/resources/res_enum.h"
 
 
-RocketFactory::RocketFactory(int type, short durability, short size, const TileCoord tile) : Factory(type, durability, size, tile)
+RocketFactory::RocketFactory(int type, short durability, short size, const TileCoord tile, Team* team) : Factory(type, durability, size, tile, team)
 {
 	timer = 120;
 }
@@ -42,7 +42,7 @@ void RocketFactory::produceResource()
 }
 
 
-bool RocketFactory::canAccept(const int resType) const
+bool RocketFactory::canAccept(const uint16_t resType) const
 {
 	if (resType == RES_IRON || resType == RES_COPPER || resType == RES_SILICON || resType == RES_SULFUR)
 	{

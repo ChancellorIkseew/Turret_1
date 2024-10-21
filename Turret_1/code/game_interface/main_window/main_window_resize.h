@@ -4,17 +4,9 @@
 
 #include <SFML/Graphics.hpp>
 
-extern sf::View overlay;
-
-extern int overlaySizeX;
-extern int overlaySizeY;
-
-extern int oldWinSizeX;
-extern int oldWinSizeY;
+inline sf::View overlay;
 
 void mainWindowResize(sf::RenderWindow& mainWindow);
-
 void overlayResize(sf::RenderWindow& mainWindow);
-
 
 #endif // MAIN_WINDOW_RESIZE_H

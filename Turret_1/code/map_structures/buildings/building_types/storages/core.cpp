@@ -1,9 +1,8 @@
 
 #include "core.h"
-#include "map_structures/buildings/building/buildings_enum.h"
 
 
-Core::Core(int type, short durability, short size, const TileCoord tile) : Building(type, durability, size, tile)
+Core::Core(int type, short durability, short size, const TileCoord tile, Team* team) : Building(type, durability, size, tile, team)
 {
 
 }
@@ -15,13 +14,7 @@ void Core::interact()
 }
 
 
-bool Core::isThisPositionFree(int position) const
-{
-	return true;
-}
-
-
-bool Core::canAccept(int resType) const
+bool Core::canAccept(const uint16_t resType) const
 {
 	return true;
 }

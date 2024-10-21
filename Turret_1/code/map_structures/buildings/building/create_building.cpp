@@ -16,59 +16,59 @@
 #include "map_structures/buildings/building_types/factories/factory_types/rocket_factory.h"
 
 
-std::shared_ptr<Building> Building::createBuilding(int type, char direction, short durability, short size, const TileCoord tile)
+std::shared_ptr<Building> Building::createBuilding(int type, char direction, short durability, short size, const TileCoord tile, Team* team)
 {
 	switch (type)
 	{
 	case AUXILARY:
-		return std::make_shared<Auxilary>(AUXILARY, durability, size, tile);
+		return std::make_shared<Auxilary>(AUXILARY, durability, size, tile, team);
 
 	case CORE_MK1:
-		return std::make_shared<Core>(CORE_MK1, durability, size, tile);
+		return std::make_shared<Core>(CORE_MK1, durability, size, tile, team);
 	case CORE_MK2:
 		break;
 	case CORE_MK3:
 		break;
 
 	case STONE_WALL:
-		return std::make_shared<StoneWall>(STONE_WALL, durability, size, tile);
+		return std::make_shared<StoneWall>(STONE_WALL, durability, size, tile, team);
 	case CONCRETE_WALL:
 		break;
 	case URANIUM_WALL:
 		break;
 
 	case STONE_TOWER:
-		return std::make_shared<StoneTower>(STONE_TOWER, durability, size, tile);
+		return std::make_shared<StoneTower>(STONE_TOWER, durability, size, tile, team);
 	case CONCRETE_TOWER:
 		break;
 	case URANIUM_TOWER:
 		break;
 
 	case STANDARD_CONVEYER:
-		return std::make_shared<Conveyer>(STANDARD_CONVEYER, direction, durability, size, tile);
+		return std::make_shared<Conveyer>(STANDARD_CONVEYER, direction, durability, size, tile, team);
 	case SHIELDED_CONVEYER:
-		return std::make_shared<ShieldedConveyer>(SHIELDED_CONVEYER, direction, durability, size, tile);
+		return std::make_shared<ShieldedConveyer>(SHIELDED_CONVEYER, direction, durability, size, tile, team);
 
 	case BRIDGE:
-		return std::make_shared<Bridge>(BRIDGE, direction, durability, size, tile);
+		return std::make_shared<Bridge>(BRIDGE, direction, durability, size, tile, team);
 	case ROUTER:
-		return std::make_shared<Router>(ROUTER, durability, size, tile);
+		return std::make_shared<Router>(ROUTER, durability, size, tile, team);
 	case SORTER:
 		break;
 
 	case SMALL_DRILL:
-		return std::make_shared<SmallDrill>(SMALL_DRILL, durability, size, tile);
+		return std::make_shared<SmallDrill>(SMALL_DRILL, durability, size, tile, team);
 	case BIG_DRILL:
-		return std::make_shared<BigDrill>(BIG_DRILL, durability, size, tile);
+		return std::make_shared<BigDrill>(BIG_DRILL, durability, size, tile, team);
 	case EFFECTIVE_DRILL:
 		break;
 	case REINFORCED_DRILL:
 		break;
 
 	case SHELL_FACTORY:
-		return std::make_shared<ShellFactory>(SHELL_FACTORY, durability, size, tile);
+		return std::make_shared<ShellFactory>(SHELL_FACTORY, durability, size, tile, team);
 	case ROCKET_FACTORY:
-		return std::make_shared<RocketFactory>(ROCKET_FACTORY, durability, size, tile);
+		return std::make_shared<RocketFactory>(ROCKET_FACTORY, durability, size, tile, team);
 
 	default:
 		return nullptr;

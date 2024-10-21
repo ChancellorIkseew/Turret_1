@@ -11,16 +11,14 @@ protected:
 	std::unique_ptr<Turret> turret;
 
 public:
-	Tower(char type, short durability, short size, const TileCoord tile);
+	Tower(char type, short durability, short size, const TileCoord tile, Team* team);
 	virtual ~Tower() = default;
 
 	void save(std::ofstream& fout) const override;
 	void load(std::ifstream& fin) override;
 
 	void interact() override;
-
-	bool isThisPositionFree(int position) const override;
-	bool canAccept(int resType) const override;
+	bool canAccept(const uint16_t resType) const override;
 
 	void setTurret(int turretType) override final;
 	void removeTurret() override final;

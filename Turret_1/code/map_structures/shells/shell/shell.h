@@ -7,6 +7,7 @@
 
 #include "map_structures/base_engine/tile_coord.h"
 
+class Team;
 
 class Shell
 {
@@ -23,23 +24,21 @@ protected:
 	int curentLifeTime;
 	int maxLifeTime;
 	bool isWasted;
+	Team* team;
 
 	static inline sf::Image shellImage;
 	static inline sf::Texture shellTexture;
 	static inline sf::Sprite shellSprite;
 	
 public:
-	Shell(short type, const PixelCoord coord, float angleRad, float angleDeg);
+	Shell(short type, const PixelCoord coord, float angleRad, float angleDeg, Team* team);
 	virtual ~Shell() = default;
 
-	static std::unique_ptr<Shell> createShell(short type, const PixelCoord coord, float angleRad, float angleDeg);
-	static void spawnEnemyShell(short type, const PixelCoord coord, float angleRad, float angleDeg);
-	static void spawnPlayerShell(short type, const PixelCoord coord, float angleRad, float angleDeg);
+	static std::unique_ptr<Shell> createShell(short type, const PixelCoord coord, float angleRad, float angleDeg, Team* team);
 
 	virtual void motion();
 	virtual void explosion();
-	virtual void tryPlayerShellsHitting();
-	virtual void tryEnemyShellsHitting();
+	virtual void tryHitting();
 
 	PixelCoord getCoord();
 	bool getIsWasted();

@@ -1,16 +1,16 @@
 
 #include "rocket_boss_bot.h"
 
-#include "map_structures/shells/shell/shell.h"
+#include "map_structures/team/team.h"
 #include "map_structures/shells/shell/shell_enum.h"
-#include "map_structures/shells/shells_list/shells_list.h"
 #include "map_structures/buildings/building/buildings_enum.h"
+#include "map_structures/team/team.h"
 
 
-RocketBossBot::RocketBossBot(int type) : Entity(type)
+RocketBossBot::RocketBossBot(int type, Team* team) : Entity(type, team)
 {
-	durability = 230 * enemyMobMaxDurabilityModifier;
-	range = 28;
+	durability = 230 * maxDurabilityModifier;
+	pixelRange = 28;
 	spyralRange = 2661;
 }
 
@@ -36,8 +36,8 @@ void RocketBossBot::shoot()
 			float correctionX = cos(shootingAngleRad) * 18;
 			float correctionY = sin(shootingAngleRad) * 18;
 
-			t1::sh::enemyShellsList.push_back(Shell::createShell(ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg));
-			t1::sh::enemyShellsList.push_back(Shell::createShell(ROCKET, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg));
+			team->spawnShell(ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
+			team->spawnShell(ROCKET, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg);
 			reloadTimer = 60;
 		}
 		else if (reloadTimer == 30)
@@ -45,8 +45,8 @@ void RocketBossBot::shoot()
 			float correctionX = cos(shootingAngleRad) * 14;
 			float correctionY = sin(shootingAngleRad) * 14;
 
-			t1::sh::enemyShellsList.push_back(Shell::createShell(ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg));
-			t1::sh::enemyShellsList.push_back(Shell::createShell(ROCKET, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg));
+			team->spawnShell(ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
+			team->spawnShell(ROCKET, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg);
 		}
 	}
 }

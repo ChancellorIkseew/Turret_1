@@ -2,9 +2,7 @@
 #ifndef MAIN_WINDOW_H
 #define MAIN_WINDOW_H
 
-
-extern int overlaySizeX;
-extern int overlaySizeY;
+inline char32_t symbol = '?';
 
 enum GameCondition
 {

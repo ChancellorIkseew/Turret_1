@@ -4,7 +4,7 @@
 #include "map_structures/resources/res_enum.h"
 
 
-ShellFactory::ShellFactory(int type, short durability, short size, const TileCoord tile) : Factory(type, durability, size, tile)
+ShellFactory::ShellFactory(int type, short durability, short size, const TileCoord tile, Team* team) : Factory(type, durability, size, tile, team)
 {
 	timer = 30;
 }
@@ -40,7 +40,7 @@ void ShellFactory::produceResource()
 }
 
 
-bool ShellFactory::canAccept(const int resType) const
+bool ShellFactory::canAccept(const uint16_t resType) const
 {
 	if (resType == RES_IRON || resType == RES_SULFUR)
 	{

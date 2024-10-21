@@ -2,11 +2,10 @@
 #include "bridge.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"
-#include "map_structures/resources/resource_units.h"
 #include "map_structures/resources/res_enum.h"
 
 
-Bridge::Bridge(int type, char direction, short durability, short size, const TileCoord tile) : Building(type, durability, size, tile)
+Bridge::Bridge(int type, char direction, short durability, short size, const TileCoord tile, Team* team) : Building(type, durability, size, tile, team)
 {
 	this->direction = direction;
 }
@@ -59,7 +58,7 @@ void Bridge::transmitResourceUnit()
 
 		if (BuildingsMap::getBuildingType(aimTile) == ROUTER)
 		{
-			if (BuildingsMap::isThisPositionFree(aimTile, 0))
+			if (BuildingsMap::canAccept(resType, aimTile))
 			{
 				wasteResorce(resType, 1);
 				BuildingsMap::addToInventory(resType, aimTile);
@@ -70,16 +69,10 @@ void Bridge::transmitResourceUnit()
 }
 
 
-
-bool Bridge::isThisPositionFree(int position) const
+bool Bridge::canAccept(const uint16_t resType) const
 {
 	if (Building::isStorageFull(10))
 		return false;
-	return true;
-}
-
-bool Bridge::canAccept(int resType) const
-{
 	return true;
 }
 

@@ -2,8 +2,6 @@
 #ifndef PARTICLES_H
 #define PARTICLES_H
 
-#include <fstream>
-#include <string>
 #include <SFML\Graphics.hpp>
 #include <list>
 
@@ -15,7 +13,8 @@ class Particle
 private:
 	PixelCoord coord;
 	
-	int particlesLifeTime;
+	short type;
+	short particlesLifeTime;
 	bool isWasted;
 	
 	static inline sf::Image burstImage;
@@ -38,14 +37,8 @@ public:
 
 extern std::list<std::unique_ptr<Particle>> particlesList;
 
-
 void moveParticlesList();
-
 void drawParticlesList(sf::RenderWindow& window);
-
-void saveParticlesList(int saveFileNumber);
-
 void cleanParticlesList();
-
 
 #endif // PARTICLES_H

@@ -3,7 +3,7 @@
 #include "map_structures/buildings/building/buildings_enum.h"
 
 
-StoneTower::StoneTower(char type, short durability, short size, const TileCoord tile) : Tower (type, durability, size, tile)
+StoneTower::StoneTower(char type, short durability, short size, const TileCoord tile, Team* team) : Tower (type, durability, size, tile, team)
 {
 
 }

@@ -10,7 +10,7 @@
 class RocketTurret : public Turret
 {
 	public:
-		RocketTurret(const int type, const TileCoord tile);
+		RocketTurret(const int type, const TileCoord tile, Team* team);
 		~RocketTurret() = default;
 
 		void shooting() override final;

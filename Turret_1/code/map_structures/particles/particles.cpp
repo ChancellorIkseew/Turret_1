@@ -1,6 +1,4 @@
 
-#include <fstream>
-#include <string>
 #include <SFML\Graphics.hpp>
 #include <list>
 
@@ -9,6 +7,7 @@
 		
 Particle::Particle(const int type, const PixelCoord coord)
 {
+	this->type = type;
 	this->coord = coord;
 	particlesLifeTime = 0;
 	isWasted = false;
@@ -21,12 +20,12 @@ bool Particle::getIsWasted() const { return isWasted; }
 
 void Particle::prepareSprites()
 {
-	burstImage.loadFromFile("images/rocket_burst.bmp");
+	burstImage.loadFromFile("images/shell_burst.bmp");
 	burstImage.createMaskFromColor(sf::Color(0, 255, 0));
 	burstTexture.loadFromImage(burstImage);
 	burstSprite.setTexture(burstTexture);
-	burstSprite.setTextureRect(sf::IntRect(0, 0, 121, 121));
-	burstSprite.setOrigin(60, 60);
+	burstSprite.setTextureRect(sf::IntRect(0, 0, 96, 96));
+	burstSprite.setOrigin(48, 48);
 	burstSprite.setColor(sf::Color(255, 255, 255, 128));
 }
 
@@ -42,6 +41,19 @@ void Particle::animate()
 
 void Particle::draw(sf::RenderWindow& window)
 {
+	switch (type)
+	{
+	case 1:
+		burstSprite.setScale(1.0f, 1.0f);
+		break;
+	case 2:
+		burstSprite.setScale(2.4f, 2.4f);
+		break;
+	default:
+		burstSprite.setScale(0, 0);
+		break;
+	}
+
 	burstSprite.setPosition(coord.x, coord.y);
 	window.draw(burstSprite);
 }
@@ -73,12 +85,6 @@ void drawParticlesList(sf::RenderWindow& window)
 	{
 		(*it)->draw(window);
 	}
-}
-
-
-void saveParticlesList(int saveFileNumber)
-{
-	
 }
 
 

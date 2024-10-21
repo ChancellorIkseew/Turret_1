@@ -5,7 +5,7 @@
 #include <map>
 #include <SFML/Graphics.hpp>
 
-#include "map_structures/resources/resources.h"
+#include "map_structures/resources/all_resources.h"
 
 struct BuildingInfo
 {
@@ -14,7 +14,7 @@ struct BuildingInfo
 	int size;
 	int durability;
 
-	t1::res::AllResources costToBuild;
+	AllResources costToBuild;
 
 	sf::String description;
 };

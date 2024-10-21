@@ -1,20 +1,22 @@
 #pragma once
-#ifndef ENTITIES_H
-#define ENTITIES_H
+#ifndef ENTITY_H
+#define ENTITY_H
 
 #include <fstream>
 #include <SFML\Graphics.hpp>
 
 #include "map_structures/base_engine/tile_coord.h"
 
+class Team;
 
 class Entity
 {
 protected:
-	static inline int mapSizeX, mapSizeY;
-	static inline float enemyMobMaxDurabilityModifier;
-		
+	static inline TileCoord mapSize;
+	static inline float maxDurabilityModifier;
+	
 	int type;
+	Team* team;
 	
 	PixelCoord coord;
 	PixelCoord aimCoord;
@@ -31,7 +33,7 @@ protected:
 	float shootingAngleDeg;
 
 	int durability;
-	int range;
+	int pixelRange;
 	int spyralRange;
 	int reloadTimer;
 	float maxSpeed;
@@ -52,13 +54,13 @@ protected:
 public:
 	static void initPreSettings();
 
-	Entity(int type);
+	Entity(int type, Team* team);
 	virtual ~Entity() = default;
 
 	void save(std::ofstream& fout) const;
 	void load(std::ifstream& fin);
-	static std::unique_ptr<Entity> createEntity(const int type);
-	static void spawnEntity(const int amount, const int type);
+
+	static std::unique_ptr<Entity> createEntity(const int type, Team* team);
 	static PixelCoord randomMapBorderSpawn();
 
 	// combat
@@ -81,4 +83,4 @@ public:
 		
 };
 
-#endif // ENTITIES_H
+#endif // ENTITY_H

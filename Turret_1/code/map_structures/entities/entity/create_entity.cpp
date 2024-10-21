@@ -1,9 +1,6 @@
 
-#include <iostream>
-
 #include "map_structures/entities/entity/entity.h"
 #include "map_structures/entities/entity/mob_enum.h"
-#include "map_structures/entities/entities_list/entities_list.h"
 
 #include "map_structures/entities/mob_types/standard_bot.h"
 #include "map_structures/entities/mob_types/heavy_bot.h"
@@ -14,39 +11,22 @@
 #include "map_structures/entities/mob_types/rocket_boss_bot.h"
 
 
-void Entity::spawnEntity(const int amount, const int type)
-{
-	for (int i = 0; i < amount; ++i)
-	{
-		try
-		{
-			entitiesList.emplace_back(createEntity(type));
-			entitiesList.back()->setCoord(randomMapBorderSpawn());
-		}
-		catch (std::exception)
-		{
-			std::cout << "mob_type does not exist. type: " << type << '\n';
-		}
-	}
-}
-
-
-std::unique_ptr<Entity> Entity::createEntity(const int type)
+std::unique_ptr<Entity> Entity::createEntity(const int type, Team* team)
 {
 	switch (type)
 	{
 	case STANDARD_BOT:
-		return std::make_unique<StandardBot>(STANDARD_BOT);
+		return std::make_unique<StandardBot>(STANDARD_BOT, team);
 	case HEAVY_BOT:
-		return std::make_unique<HeavyBot>(HEAVY_BOT);
+		return std::make_unique<HeavyBot>(HEAVY_BOT, team);
 	case ROCKET_BOT:
-		return std::make_unique<RocketBot>(ROCKET_BOT);
+		return std::make_unique<RocketBot>(ROCKET_BOT, team);
 	case LASER_BOT:
-		return std::make_unique<LaserBot>(LASER_BOT);
+		return std::make_unique<LaserBot>(LASER_BOT, team);
 	case CANNON_BOSS:
-		return std::make_unique<CannonBossBot>(CANNON_BOSS);
+		return std::make_unique<CannonBossBot>(CANNON_BOSS, team);
 	case ROCKET_BOSS:
-		return std::make_unique<RocketBossBot>(ROCKET_BOSS);
+		return std::make_unique<RocketBossBot>(ROCKET_BOSS, team);
 	default:
 		throw std::exception("mob_type does not exist");
 	}
@@ -63,22 +43,22 @@ PixelCoord Entity::randomMapBorderSpawn()
 	{
 	case 0:
 		coordX = pixelF(0);
-		coordY = pixelF(rand() % (mapSizeY - 1));
+		coordY = pixelF(rand() % (mapSize.y - 1));
 		break;
 
 	case 1:
-		coordX = pixelF(rand() % (mapSizeX - 3) + 1);
+		coordX = pixelF(rand() % (mapSize.x - 3) + 1);
 		coordY = pixelF(0);
 		break;
 
 	case 2:
-		coordX = pixelF(mapSizeX - 1);
-		coordY = pixelF(rand() % (mapSizeY - 1));
+		coordX = pixelF(mapSize.x - 1);
+		coordY = pixelF(rand() % (mapSize.y - 1));
 		break;
 
 	case 3:
-		coordX = pixelF(rand() % (mapSizeX - 3) + 1);
-		coordY = pixelF(mapSizeY - 1);
+		coordX = pixelF(rand() % (mapSize.x - 3) + 1);
+		coordY = pixelF(mapSize.y - 1);
 		break;
 
 	default:

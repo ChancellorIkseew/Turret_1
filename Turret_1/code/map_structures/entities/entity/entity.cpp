@@ -1,9 +1,7 @@
 
-#include <fstream>
-#include <SFML\Graphics.hpp>
-
 #include "entity.h"
 
+#include "map_structures/team/team.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/pre-settings/pre-settings.h"
@@ -12,16 +10,16 @@ using namespace t1::be;
 
 void Entity::initPreSettings()
 {
-	Entity::mapSizeX = PreSettings::getMapSize().x;
-	Entity::mapSizeY = PreSettings::getMapSize().y;
-	Entity::enemyMobMaxDurabilityModifier = PreSettings::enemyMobMaxDurabilityModifier;
+	Entity::mapSize = PreSettings::getTerrain().mapSize;
+	Entity::maxDurabilityModifier = PreSettings::getMobs().maxDurabilityModifier;
 }
 
-Entity::Entity(const int type)		//1st spawn
+Entity::Entity(const int type, Team* team)		//1st spawn
 {
 	this->type = type;
+	this->team = team;
 	isAimDetected = false;
-	aimCoord = pixel(mapSizeX / 2, mapSizeY / 2);
+	aimCoord = pixel(mapSize.x / 2, mapSize.y / 2);
 	destCoord = aimCoord;
 	reloadTimer = 0;
 	maxSpeed = 0.1f;
@@ -62,7 +60,7 @@ void Entity::motion()
 
 	if (newTile.x != oldTile.x || newTile.y != oldTile.y)
 	{
-		destCoord = pixel(mapSizeX / 2, mapSizeY / 2);
+		destCoord = pixel(mapSize.x / 2, mapSize.y / 2);
 	}
 
 	this->oldTile = this->newTile;
@@ -81,27 +79,44 @@ PixelCoord Entity::findDestinationCoord() const
 
 		if (BuildingsMap::isVoidBuilding(tileX, tileY))
 		{
-			float distance = powf(float(tileX - mapSizeX / 2), 2.0f) + powf(float(tileY - mapSizeY / 2), 2.0f);
+			float distance = powf(float(tileX - mapSize.x / 2), 2.0f) + powf(float(tileY - mapSize.y / 2), 2.0f);
 			if (distance < currentDistance)
 			{
 				return pixel(tileX, tileY);
 			}
 		}
 	}
-	return pixel(mapSizeX / 2, mapSizeY / 2);
+	return pixel(mapSize.x / 2, mapSize.y / 2);
 }
 
 
 PixelCoord Entity::findShootingAim() const
 {
-	for (int i = 1; i <= range; i++)
+	for (auto& tm : Team::teams)
+	{
+		if (this->team->getID() != tm->getID())
+		{
+			for (auto entity = tm->entities.begin(); entity != tm->entities.end(); ++entity)
+			{
+				float deltaX = coord.x - (*entity)->getCoord().x;
+				float deltaY = coord.y - (*entity)->getCoord().y;
+
+				if (sqrt(deltaX * deltaX + deltaY * deltaY) < pixelRange)
+				{
+					return (*entity)->getCoord();
+				}
+			}
+		}
+	}
+
+	for (int i = 1; i <= pixelRange; i++)
 	{
 		int tileX = tile(coord.x + sin(motionAngleRad) * _TILE_ * i);
 		int tileY = tile(coord.y + cos(motionAngleRad) * _TILE_ * i);
-		TileCoord tileCoord{ tileX, tileY };
-		if (BuildingsMap::buildingExists(tileCoord))
+		TileCoord tile{ tileX, tileY };
+		if (BuildingsMap::buildingExists(tile) && BuildingsMap::getTeamID(tile) != team->getID())
 		{
-			return pixel(tileCoord);
+			return pixel(tile);
 		}
 	}
 
@@ -109,10 +124,10 @@ PixelCoord Entity::findShootingAim() const
 	{
 		int tileX = this->newTile.x + coordSpyralArr[i].x;
 		int tileY = this->newTile.y + coordSpyralArr[i].y;
-		TileCoord tileCoord{ tileX, tileY };
-		if (BuildingsMap::buildingExists(tileCoord))
+		TileCoord tile{ tileX, tileY };
+		if (BuildingsMap::buildingExists(tile) && BuildingsMap::getTeamID(tile) != team->getID())
 		{
-			return pixel(tileCoord);
+			return pixel(tile);
 		}
 	}
 

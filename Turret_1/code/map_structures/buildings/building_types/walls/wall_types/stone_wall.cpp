@@ -3,7 +3,7 @@
 #include "map_structures/buildings/building/buildings_enum.h"
 
 
-StoneWall::StoneWall(char type, short durability, short size, const TileCoord tile) : Building (type, durability, size, tile)
+StoneWall::StoneWall(char type, short durability, short size, const TileCoord tile, Team* team) : Building (type, durability, size, tile, team)
 {
 
 }

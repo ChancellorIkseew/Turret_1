@@ -2,27 +2,36 @@
 #ifndef CONVEYER_H
 #define CONVEYER_H
 
+#include <vector>
+#include <SFML/Graphics.hpp>
 #include "map_structures/buildings/building/building.h"
-#include "SFML/Graphics.hpp"
+#include "map_structures/resources/resource_unit.h"
+
+struct Position
+{
+	TileCoord tile;
+	int position;
+};
+
 
 
 class Conveyer : public Building
 {
 protected:
-	bool isPositionFree[5];
+	int timer;
+	float speed;
+	std::vector<ResourceUnit> resUnits;
 
 public:
-
-	Conveyer(char type, char direction, short durability, short v_size, const TileCoord tile);
-	virtual ~Conveyer() = default;
+	Conveyer(char type, char direction, short durability, short v_size, const TileCoord tile, Team* team);
+	virtual ~Conveyer();
 
 	void save(std::ofstream& fout) const override final;
 	virtual void load(std::ifstream& fin) override final;
 
-	bool canAccept(int resType) const override final;
-	bool isThisPositionFree(int position) const override final;
-	void leavePosition(int position) override final;
-	void takePosition(int position) override final;
+	virtual void interact() override final;
+	void addToInventory(ResourceUnit& unit) override final;
+	bool canAccept(const ResourceUnit& unit) const override final;
 
 	virtual void draw(sf::RenderWindow& window) override;
 	

@@ -1,43 +1,29 @@
 
-#include <iostream>
-#include <SFML/Graphics.hpp>
-
 #include "main_window.h"
-
 #include "main_window_resize.h"
 
 #include "game_interface/menu/menu.h"
 #include "game_interface/gameplay/gameplay.h"
 
-#include "game_interface/gameplay/sub_windows/sub_windows_util/sub_window.h"
-#include "game_interface/gameplay/sub_windows/sub_windows_util/sub_windows_list.h"
-#include "game_interface/gameplay/sub_windows/sub_windows_util/fonts.h"
-
+#include "game_interface/ui_window/ui_window/ui_plate.h"
 #include "game_interface/sound_system/sound_system.h"
-
 #include "game_interface/settings/settings_util/settings_save_system.h"
 
 
 void openMainWindow()
 {
+	loadSettings();
+
 	GameSound g1;
 
 	g1.loadSound();
 	g1.start();
 
-	SubWindow::init();
-	//initFonts();
-
+	UIPlate::init();
 
 	sf::RenderWindow mainWindow(sf::VideoMode(800, 600), L"Турельница. Версия альфа_0.5.6", sf::Style::Default);
-
 	mainWindow.setFramerateLimit(60);
-	
-	
-	overlay.setSize(sf::Vector2f(800, 600));
-	overlay.setCenter(sf::Vector2f(400, 300));
-
-	loadSettings();
+	overlay.setSize(sf::Vector2f(800.0f, 600.0f));
 
 	std::string saveFolderName = "0";
 	bool startNewGame = false;
@@ -52,10 +38,9 @@ void openMainWindow()
 		if (currentFunction == GAMEPLAY)
 			currentFunction = t1::gamepl::startGameplay(mainWindow, startNewGame, saveFolderName);
 
-		//if (currentFunction == EXIT)
-			
+		if (currentFunction == EXIT)
+			mainWindow.close();
 	}
 
-	//mainWindow.close();
 	return;
 }

@@ -5,7 +5,6 @@
 #include "cheet_commands.h"
 
 #include "map_structures/base_engine/test.h"
-#include "map_structures/resources/resources.h"
 #include "map_structures/resources/res_enum.h"
 #include "map_structures/entities/entity/entity.h"
 #include "map_structures/entities/mob_types/standard_bot.h"
@@ -31,7 +30,7 @@ void acceptCheetCommand()
 			std::cin >> resType >> resAmount;
 			if (resType > 0 && resType < 7)
 			{
-				t1::res::sendToBalance(resType, resAmount);
+				//t1::res::sendToBalance(resType, resAmount);
 			}
 			else
 			{
@@ -42,13 +41,12 @@ void acceptCheetCommand()
 
 		case 'u':
 		{
-			using namespace t1::res;
-			sendToBalance(RES_STONE, 10000);
-			sendToBalance(RES_IRON, 10000);
-			sendToBalance(RES_COPPER, 10000);
-			sendToBalance(RES_SILICON, 10000);
-			sendToBalance(RES_COAL, 10000);
-			sendToBalance(RES_SULFUR, 10000);
+			//sendToBalance(RES_STONE, 10000);
+			//sendToBalance(RES_IRON, 10000);
+			//sendToBalance(RES_COPPER, 10000);
+			//sendToBalance(RES_SILICON, 10000);
+			//sendToBalance(RES_COAL, 10000);
+			//sendToBalance(RES_SULFUR, 10000);
 			break;
 		}
 
@@ -59,12 +57,12 @@ void acceptCheetCommand()
 			std::cin >> act;
 			if (act == 'k')
 			{
-				cleanEntitiesList();
+				//cleanEntitiesList();
 			}
 			if (act == 'n')
 			{
-				entitiesList.push_back(std::move(Entity::createEntity(1)));
-				entitiesList.back()->setCoord({ 8.0f, 8.0f });
+				//entitiesList.push_back(std::move(Entity::createEntity(1)));
+				//entitiesList.back()->setCoord({ 8.0f, 8.0f });
 			}
 			break;
 		}

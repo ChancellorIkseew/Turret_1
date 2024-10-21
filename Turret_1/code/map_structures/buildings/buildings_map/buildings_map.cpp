@@ -13,23 +13,22 @@
 
 #include "map_structures/pre-settings/pre-settings.h"
 #include "map_structures/base_engine/tile_coord.h"
-#include "map_structures/resources/resources.h"
+#include "map_structures/team/team.h"
 
 
 BuildingsMap::BuildingsMap(const TileCoord mapSize)
 {
-	mapSizeX = mapSize.x;
-	mapSizeY = mapSize.y;
+	this->mapSize = mapSize;
 
-	buildingsMap.resize(mapSizeX);
-	buildingsMap.reserve(mapSizeX);
-	for (int x = 0; x < mapSizeX; ++x)
+	buildingsMap.resize(mapSize.x);
+	buildingsMap.reserve(mapSize.x);
+	for (auto& line : buildingsMap)
 	{
-		buildingsMap[x].resize(mapSizeY);
-		buildingsMap[x].reserve(mapSizeY);
-		for (int y = 0; y < mapSizeY; ++y)
+		line.resize(mapSize.y);
+		line.reserve(mapSize.y);
+		for (auto& building : line)
 		{
-			buildingsMap[x][y] = nullptr;
+			building = nullptr;
 		}
 	}
 
@@ -42,16 +41,9 @@ BuildingsMap::~BuildingsMap()
 }
 
 
-void BuildingsMap::generateMap()
-{
-	buildingsMap[48][48] = Building::createBuilding(CORE_MK1, '0', 900, 16, { 48, 48 });
-	createAuxilary(16, { 48, 48 });
-	isMapChanged = true;
-}
-
-
 void BuildingsMap::loadMap(const std::string& folder)
 {
+	/*
 	std::string file = "saves/" + folder + "/buildings.txt";
 	std::ifstream fin;
 	fin.open(file);
@@ -68,14 +60,15 @@ void BuildingsMap::loadMap(const std::string& folder)
 			TileCoord tile = { 0, 0 };
 			int type;
 			fin >> tile.x >> tile.y >> type;
-			buildingsMap[tile.x][tile.y] = Building::createBuilding(type, 0, 0, 0, tile);
+			buildingsMap[tile.x][tile.y] = Building::createBuilding(type, 0, 0, 0, tile, team);
 			buildingsMap[tile.x][tile.y]->load(fin);
-			createAuxilary(buildingsMap[tile.x][tile.y]->getSize(), tile);
+			createAuxilary(buildingsMap[tile.x][tile.y]->getSize(), tile, team);
 		}
 	}
 	fin.close();
 	isMapChanged = true;
 	std::cout << "sucñessfull_buildings_map_load" << '\n';
+	*/
 }
 
 
@@ -86,9 +79,9 @@ void BuildingsMap::saveMap(const std::string& folder)
 	fout.open(file);
 	if (fout.is_open())
 	{
-		for (int x = 0; x < mapSizeX; x++)
+		for (int x = 0; x < mapSize.x; x++)
 		{
-			for (int y = 0; y < mapSizeY; y++)
+			for (int y = 0; y < mapSize.y; y++)
 			{
 				if (buildingsMap[x][y] != nullptr && buildingsMap[x][y]->getType() != AUXILARY)
 				{
@@ -104,24 +97,24 @@ void BuildingsMap::saveMap(const std::string& folder)
 }
 
 
-void BuildingsMap::createAuxilary(const short size, const TileCoord tile)
+void BuildingsMap::createAuxilary(const short size, const TileCoord tile, Team* team)
 {
 	for (int i = 1; i < size; i++)
 	{
 		int iTileX = tile.x + t1::be::coordSquareArr[i].x;
 		int iTileY = tile.y + t1::be::coordSquareArr[i].y;
-		buildingsMap[iTileX][iTileY] = Building::createBuilding(AUXILARY, 0, 0, size, tile);
+		buildingsMap[iTileX][iTileY] = Building::createBuilding(AUXILARY, 0, 0, size, tile, team);
 	}
 }
 
 
-void BuildingsMap::constructBuilding(const int type, const char direction, const TileCoord tile)
+void BuildingsMap::constructBuilding(const int type, const char direction, const TileCoord tile, Team* team)
 {
 	if (t1::bc::buildingsInfoTable.find(type) == t1::bc::buildingsInfoTable.end())
 		return;
 
 	int size = t1::bc::buildingsInfoTable[type].size;
-	int durability = t1::bc::buildingsInfoTable[type].durability * PreSettings::getBuildingsMaxDurabilityModidier();
+	int durability = t1::bc::buildingsInfoTable[type].durability * PreSettings::getBuildings().maxDurabilityModifier;
 
 	for (int i = 0; i < size; i++) // cheeck_square_for_building
 	{
@@ -131,11 +124,11 @@ void BuildingsMap::constructBuilding(const int type, const char direction, const
 			return;
 	}
 
-	if (t1::res::isEnoughAllRes(t1::bc::buildingsInfoTable[type].costToBuild))
+	if (team->getBalance().isEnough(t1::bc::buildingsInfoTable[type].costToBuild))
 	{
-		t1::res::wasteRes(t1::bc::buildingsInfoTable[type].costToBuild);
-		buildingsMap[tile.x][tile.y] = Building::createBuilding(type, direction, durability, size, tile);
-		createAuxilary(size, tile);
+		team->getBalance().waste(t1::bc::buildingsInfoTable[type].costToBuild);
+		buildingsMap[tile.x][tile.y] = Building::createBuilding(type, direction, durability, size, tile, team);
+		createAuxilary(size, tile, team);
 		isMapChanged = true;
 	}
 }
@@ -153,7 +146,6 @@ void BuildingsMap::demolishBuilding(const TileCoord tile)
 		int iTileY = mainBuilding.y + t1::be::coordSquareArr[i].y;
 
 		buildingsMap[iTileX][iTileY].reset();
-		buildingsMap[iTileX][iTileY] = nullptr;
 	}
 	isMapChanged = true;
 }
@@ -161,13 +153,13 @@ void BuildingsMap::demolishBuilding(const TileCoord tile)
 
 bool BuildingsMap::buildingExists(const int tileX, const int tileY)
 {
-	return (tileX >= 0 && tileX < mapSizeX && tileY >= 0 && tileY < mapSizeY &&
+	return (tileX >= 0 && tileX < mapSize.x && tileY >= 0 && tileY < mapSize.y &&
 		buildingsMap[tileX][tileY] != nullptr);
 }
 
 bool BuildingsMap::isVoidBuilding(const int tileX, const int tileY)
 {
-	return (tileX >= 0 && tileX < mapSizeX && tileY >= 0 && tileY < mapSizeY &&
+	return (tileX >= 0 && tileX < mapSize.x && tileY >= 0 && tileY < mapSize.y &&
 		buildingsMap[tileX][tileY] == nullptr);
 }
 
@@ -226,56 +218,65 @@ char BuildingsMap::getBuildingDirection(const TileCoord tile)
 	return 0;
 }
 
+Team* BuildingsMap::getTeam(const TileCoord tile)
+{
+	if (buildingExists(tile))
+		return buildingsMap[tile.x][tile.y]->getTeam();
+	return nullptr;
+}
+
+int BuildingsMap::getTeamID(const TileCoord tile)
+{
+	if (buildingExists(tile))
+		return buildingsMap[tile.x][tile.y]->getTeamID();
+	return 199999;
+}
+
 bool BuildingsMap::getIsMapChanged() { return isMapChanged; }
 void BuildingsMap::cleanMapChanged() { isMapChanged = false; }
 
 
 void BuildingsMap::intetractMap()
 {
-	for (int x = 0; x < mapSizeX; ++x)
+	for (auto& line : buildingsMap)
 	{
-		for (int y = 0; y < mapSizeY; ++y)
+		for (auto& building : line)
 		{
-			if (buildingsMap[x][y] != nullptr && buildingsMap[x][y]->getType() != AUXILARY)
+			if (building != nullptr && building->getType() != AUXILARY)
 			{
-				buildingsMap[x][y]->interact();
+				building->interact();
 			}
 		}
 	}
 }
 
 
-void BuildingsMap::addToInventory(const int resType, const TileCoord tile)
+void BuildingsMap::addToInventory(const uint16_t resType, const TileCoord tile)
 {
 	TileCoord mainTile = getBuildingMainTileCoord(tile);
 	buildingsMap[mainTile.x][mainTile.y]->addToInventory(resType, 1);
 }
 
-
-bool BuildingsMap::isThisPositionFree(const TileCoord tile, const int position)
+void BuildingsMap::addToInventory(ResourceUnit& unit, const TileCoord tile)
 {
 	if (!buildingExists(tile))
-		return false;
-	TileCoord mainTile = getBuildingMainTileCoord(tile);
-	return buildingsMap[mainTile.x][mainTile.y]->isThisPositionFree(position);
+		return;
+	buildingsMap[tile.x][tile.y]->addToInventory(unit);
 }
 
-void BuildingsMap::leavePosition(const TileCoord tile, const int position)
-{
-	buildingsMap[tile.x][tile.y]->leavePosition(position);
-}
-
-void BuildingsMap::takePosition(const TileCoord tile, const int position)
-{
-	buildingsMap[tile.x][tile.y]->takePosition(position);
-}
-
-bool BuildingsMap::canAccept(const int resType, const TileCoord tile)
+bool BuildingsMap::canAccept(const uint16_t resType, const TileCoord tile)
 {
 	if (!buildingExists(tile))
 		return false;
 	TileCoord mainTile = getBuildingMainTileCoord(tile);
 	return buildingsMap[mainTile.x][mainTile.y]->canAccept(resType);
+}
+
+bool BuildingsMap::canAccept(const ResourceUnit& unit, const TileCoord tile)
+{
+	if (!buildingExists(tile))
+		return false;
+	return buildingsMap[tile.x][tile.y]->canAccept(unit);
 }
 
 
@@ -288,7 +289,7 @@ int BuildingsMap::getBuildingType(const TileCoord tile)
 }
 
 
-void BuildingsMap::setTurret(const int turretType, const TileCoord tile)
+void BuildingsMap::setTurret(const int turretType, const TileCoord tile, Team* team)
 {
 	if (t1::bc::buildingsInfoTable.find(turretType) == t1::bc::buildingsInfoTable.end() || !buildingExists(tile) ||
 		(buildingsMap[tile.x][tile.y]->getType() != STONE_TOWER && buildingsMap[tile.x][tile.y]->getType() != STEEL_TOWER))
@@ -296,9 +297,9 @@ void BuildingsMap::setTurret(const int turretType, const TileCoord tile)
 		return;
 	}
 
-	if (t1::res::isEnoughAllRes(t1::bc::buildingsInfoTable[turretType].costToBuild))
+	if (team->getBalance().isEnough(t1::bc::buildingsInfoTable[turretType].costToBuild))
 	{
-		t1::res::wasteRes(t1::bc::buildingsInfoTable[turretType].costToBuild);
+		team->getBalance().waste(t1::bc::buildingsInfoTable[turretType].costToBuild);
 		buildingsMap[tile.x][tile.y]->setTurret(turretType);
 	}
 }

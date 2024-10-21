@@ -5,20 +5,19 @@
 
 #include "game_interface/main_window/main_window_resize.h"
 #include "game_interface/main_window/main_window.h"
+#include "game_interface/ui_window/sub_win_types/text_field/text_field.h"
 
-#include "game_interface/system/system.h"
+#include "t1_system/sleep.h"
 
-#include "sub_windows/main_menu.h"
-#include "sub_windows/choise_save_folder.h"
-#include "sub_windows/pre_settings.h"
+#include "ui_elements/main_menu.h"
+#include "ui_elements/choise_save_folder.h"
+#include "ui_elements/pre_settings.h"
+#include "t1_system/t1_mutex.h"
 
 
 char openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string& saveFolderName)
 {
-	oldWinSizeX = 0;
-	overlayResize(mainWindow);
-
-	sf::Image backImage;									//Terrain
+	sf::Image backImage;
 	backImage.loadFromFile("images/background.bmp");
 	sf::Texture backTexture;
 	backTexture.loadFromImage(backImage);
@@ -74,16 +73,16 @@ char openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string& sav
 					exit = true;
 				}
 
-				Sleep(16);
+				t1::system::sleep(16);
 			}
 		}
 	);
 
+	sf::Event event;
 	while (isMenuOpen)
     {
 		mouseCoord = sf::Mouse::getPosition(mainWindow);
-
-        sf::Event event;
+        
         while (mainWindow.pollEvent(event))
         {
 			if (event.type == sf::Event::Closed)
@@ -93,13 +92,24 @@ char openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string& sav
 				exit = true;
 			}
 
-			if (event.type = sf::Event::Resized)
+			if (event.type == sf::Event::Resized || UIWindow::windowCreated)
 			{
-				//std::cout << "resize_works_0" << '\n';
+				UIWindow::windowCreated = false;
 				overlayResize(mainWindow);
-				mainMenu.relocate(mainWindow.getSize().x, mainWindow.getSize().y);
-				choiseFolderMenu.relocate(mainWindow.getSize().x, mainWindow.getSize().y);
-				preSettingsWindow.relocate(mainWindow.getSize().x, mainWindow.getSize().y);
+				mainMenu.relocate(mainWindow.getSize());
+				choiseFolderMenu.relocate(mainWindow.getSize());
+				preSettingsWindow.relocate(mainWindow.getSize());
+			}
+
+			if (event.type == sf::Event::TextEntered)
+			{
+				if (TextField::isOneSeltcted())
+				{
+					t1::system::mt::textEnter.lock();
+					symbol = event.text.unicode;
+					std::cout << symbol << '\n';
+					t1::system::mt::textEnter.unlock();
+				}
 			}
 		}
 

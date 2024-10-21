@@ -11,7 +11,7 @@ class Bridge : public Building
 {
 public:
 
-	Bridge(int type, char direction, short durability, short size, const TileCoord tile);
+	Bridge(int type, char direction, short durability, short size, const TileCoord tile, Team* team);
 	~Bridge() = default;
 
 	void save(std::ofstream& fout) const override final;
@@ -19,9 +19,7 @@ public:
 
 	void interact() override final;
 	void transmitResourceUnit();
-
-	bool canAccept(int resType) const override final;
-	bool isThisPositionFree(int position) const override final;
+	bool canAccept(const uint16_t resType) const override final;
 
 	void draw(sf::RenderWindow& window) override final;
 

@@ -1,15 +1,15 @@
 #include "cannon_boss_bot.h"
 
-#include "map_structures/shells/shell/shell.h"
+#include "map_structures/team/team.h"
 #include "map_structures/shells/shell/shell_enum.h"
-#include "map_structures/shells/shells_list/shells_list.h"
 #include "map_structures/buildings/building/buildings_enum.h"
+#include "map_structures/team/team.h"
 
 
-CannonBossBot::CannonBossBot(int type) : Entity(type)
+CannonBossBot::CannonBossBot(int type, Team* team) : Entity(type, team)
 {
-	durability = 270 * enemyMobMaxDurabilityModifier;
-	range = 20;
+	durability = 270 * maxDurabilityModifier;
+	pixelRange = 20;
 	spyralRange = 1369;
 }
 
@@ -35,8 +35,8 @@ void CannonBossBot::shoot()
 			float correctionX = cos(shootingAngleRad) * 15;
 			float correctionY = sin(shootingAngleRad) * 15;
 
-			t1::sh::enemyShellsList.push_back(Shell::createShell(HEAVY_SHELL, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg));
-			t1::sh::enemyShellsList.push_back(Shell::createShell(HEAVY_SHELL, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg));
+			team->spawnShell(HEAVY_SHELL, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
+			team->spawnShell(HEAVY_SHELL, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg);
 			reloadTimer = 30;
 		}
 	}

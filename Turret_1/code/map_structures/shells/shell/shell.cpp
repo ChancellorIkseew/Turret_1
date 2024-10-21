@@ -1,25 +1,21 @@
 
-#include <fstream>
-#include <string>
 #include <SFML\Graphics.hpp>
-#include <list>
 
 #include "shell.h"
 
 #include "shell_enum.h"
-#include "map_structures/base_engine/tile_coord.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"
-#include "map_structures/entities/entity/entity.h"
-#include "map_structures/entities/entities_list/entities_list.h"
+#include "map_structures/team/team.h"
 
-		
-Shell::Shell(short type, const PixelCoord coord, float angleRad, float angleDeg)
+
+Shell::Shell(short type, const PixelCoord coord, float angleRad, float angleDeg, Team* team)
 {
 	this->type = type;
 	this->coord = coord;
 	this->angleRad = angleRad;
 	this->angleDeg = angleDeg;
+	this->team = team;
 	
 	damage = 1;
 	float speed = 1.6f;
@@ -43,25 +39,28 @@ void Shell::motion()
 
 void Shell::explosion() { }
 
-void Shell::tryEnemyShellsHitting()
+void Shell::tryHitting()
 {
-	TileCoord tileCoord = t1::be::tile(coord);
-	if(BuildingsMap::getBuildingType(tileCoord) != VOID_)
+	TileCoord tile = t1::be::tile(coord);
+	if (!BuildingsMap::isVoidBuilding(tile) && BuildingsMap::getTeamID(tile) != team->getID())
 	{
-		BuildingsMap::setDamage(this->damage, tileCoord);
+		BuildingsMap::setDamage(this->damage, tile);
 		isWasted = true;
 	}
-}
 
-void Shell::tryPlayerShellsHitting()
-{
-	for (auto it = entitiesList.begin(); it != entitiesList.end(); ++it)
+	for (auto it = Team::teams.begin(); it != Team::teams.end(); ++it)
 	{
-		if (abs((*it)->getCoord().x - coord.x) < 7 && abs((*it)->getCoord().y - coord.y) < 7)
+		if (this->team->getID() != (*it)->getID())
 		{
-			(*it)->setDamage(this->damage);
-			isWasted = true;
-			return;
+			for (auto entity = (*it)->entities.begin(); entity != (*it)->entities.end(); ++entity)
+			{
+				if (abs((*entity)->getCoord().x - coord.x) < 7 && abs((*entity)->getCoord().y - coord.y) < 7)
+				{
+					(*entity)->setDamage(this->damage);
+					isWasted = true;
+					return;
+				}
+			}
 		}
 	}
 }

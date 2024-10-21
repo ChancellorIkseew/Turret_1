@@ -3,16 +3,17 @@
 
 #include "input.h"
 
-#include "game_interface/system/system.h"
+#include "t1_system/system.h"
+#include "t1_system/sleep.h"
 
 #include "game_interface/gameplay/gameplay_util/cheet_commands.h"
-#include "game_interface/gameplay/sub_windows/main_control_panel.h"
-#include "game_interface/gameplay/sub_windows/building_panel.h"
+#include "game_interface/gameplay/ui_elements/main_control_panel.h"
+#include "game_interface/gameplay/ui_elements/building_panel.h"
 
 
 void t1::gamepl::input(bool& isGameplayActive, bool& isPaused, sf::RenderWindow& mainWindow,
     sf::Vector2i& mouseCoord, sf::Vector2f& mouseMapCoord, sf::Vector2f& lastMousePosition,
-    bool& isMovingCamera, const std::string& saveFolderName)
+    bool& isMovingCamera, const std::string& saveFolderName, Team* team)
 {
     while (isGameplayActive)
     {
@@ -22,7 +23,7 @@ void t1::gamepl::input(bool& isGameplayActive, bool& isPaused, sf::RenderWindow&
         if (LMB_Pressed)
         {
             
-            BuildingPanel::getInstance().interact(mouseCoord, mouseMapCoord);
+            BuildingPanel::getInstance().interact(mouseCoord, mouseMapCoord, team);
 
             Sleep(150);
         }
@@ -55,6 +56,6 @@ void t1::gamepl::input(bool& isGameplayActive, bool& isPaused, sf::RenderWindow&
         }
 #endif // TURRET_1_NO_TEST_BUILD
 
-        Sleep(16);
+        t1::system::sleep(16);
     }
 }
