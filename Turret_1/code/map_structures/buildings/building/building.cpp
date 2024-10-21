@@ -4,7 +4,6 @@
 
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/resources/res_enum.h"
-#include "map_structures/resources/resource_units.h"
 #include "map_structures/team/team.h"
 
 
@@ -45,8 +44,8 @@ void Building::load(std::ifstream& fin)
 			break;
 
 		fin.seekg(-1, std::ios::cur);
-		int resType;
-		short amount;
+		uint16_t resType;
+		uint16_t amount;
 		fin >> resType >> amount;
 		storedResourcesList.push_back(StoredResource{ resType, amount });	
 	}
@@ -75,10 +74,9 @@ int Building::getTeamID() const { return team->getID(); }
 
 
 // resUnits_and_inventory
-bool Building::canAccept(const int resType) const { return false; }
-bool Building::isThisPositionFree(const int position) const { return false; }
-void Building::leavePosition(const int position) { }
-void Building::takePosition(const int position) { }
+bool Building::canAccept(const uint16_t resType) const { return false; }
+bool Building::canAccept(const ResourceUnit& unit) const { return false; }
+
 
 bool Building::isStorageFull(const short capacity) const
 {
@@ -104,7 +102,7 @@ int Building::findResource() const
 	return RES_NO_RESOURCES;
 }
 
-bool Building::isEnoughRes(const int resType, const short amount) const
+bool Building::isEnoughRes(const uint16_t resType, const uint16_t amount) const
 {
 	for (auto it = storedResourcesList.cbegin(); it != storedResourcesList.cend(); ++it)
 	{
@@ -114,7 +112,7 @@ bool Building::isEnoughRes(const int resType, const short amount) const
 	return false;
 }
 
-void Building::wasteResorce(const int resType, const short amount)
+void Building::wasteResorce(const uint16_t resType, const uint16_t amount)
 {
 	for (auto it = storedResourcesList.begin(); it != storedResourcesList.end(); ++it)
 	{
@@ -126,7 +124,7 @@ void Building::wasteResorce(const int resType, const short amount)
 	}
 }
 
-void Building::addToInventory(const int resType, const short amount)
+void Building::addToInventory(const uint16_t resType, const uint16_t amount)
 {
 	for (auto it = storedResourcesList.begin(); it != storedResourcesList.end(); ++it)
 	{
@@ -178,6 +176,8 @@ void Building::placeResourceUnit(const int resType, const TileCoord tile)
 
 	int side = rand() % 4;
 	int i = 0;
+	TileCoord cheekTile = { 0.0f, 0.0f };
+	ResourceUnit unit;
 
 	while (true)
 	{
@@ -186,44 +186,48 @@ void Building::placeResourceUnit(const int resType, const TileCoord tile)
 		case 0:
 			if (++i > 4)
 				return;
+			cheekTile = { tile.x, tile.y - 1 };
+			unit = ResourceUnit(resType, 'w', { 0, 12 });
 			if (side == 0 && hasCorrectConveyerUp(tile) &&
-				BuildingsMap::isThisPositionFree({ tile.x, tile.y - 1 }, 2) && isEnoughRes(resType, 1))
+				BuildingsMap::canAccept(unit, cheekTile) && isEnoughRes(resType, 1))
 			{
-				resourceUnitsList.emplace_back(new ResourceUnit(resType, tile.x * _TILE_ + _HALF_TILE_, tile.y * _TILE_ - 6, 'w'));
-				BuildingsMap::takePosition({ tile.x, tile.y - 1 }, 2);
+				BuildingsMap::addToInventory(unit, cheekTile);
 				wasteResorce(resType, 1);
 			}
 			[[fallthrough]];
 		case 1:
 			if (++i > 4)
 				return;
+			cheekTile = { tile.x - 1, tile.y };
+			unit = ResourceUnit(resType, 'a', { 12, 0 });
 			if (side == 1 && hasCorrectConveyerLeft(tile) &&
-				BuildingsMap::isThisPositionFree({ tile.x - 1, tile.y }, 4) && isEnoughRes(resType, 1))
+				BuildingsMap::canAccept(unit, cheekTile) && isEnoughRes(resType, 1))
 			{
-				resourceUnitsList.emplace_back(new ResourceUnit(resType, tile.x * _TILE_ - 6, tile.y * _TILE_ + _HALF_TILE_, 'a'));
-				BuildingsMap::takePosition({ tile.x - 1, tile.y }, 4);
+				BuildingsMap::addToInventory(unit, cheekTile);
 				wasteResorce(resType, 1);
 			}
 			[[fallthrough]];
 		case 2:
 			if (++i > 4)
 				return;
+			cheekTile = { tile.x, tile.y + 1 };
+			unit = ResourceUnit(resType, 's', { 0, -12 });
 			if (side == 2 && hasCorrectConveyerDown(tile) &&
-				BuildingsMap::isThisPositionFree({ tile.x, tile.y + 1 }, 0) && isEnoughRes(resType, 1))
+				BuildingsMap::canAccept(unit, cheekTile) && isEnoughRes(resType, 1))
 			{
-				resourceUnitsList.emplace_back(new ResourceUnit(resType, tile.x * _TILE_ + _HALF_TILE_, tile.y * _TILE_ + 38, 's'));
-				BuildingsMap::takePosition({ tile.x, tile.y + 1 }, 0);
+				BuildingsMap::addToInventory(unit, cheekTile);
 				wasteResorce(resType, 1);
 			}
 			[[fallthrough]];
 		case 3:
 			if (++i > 4)
 				return;
+			cheekTile = { tile.x + 1, tile.y };
+			unit = ResourceUnit(resType, 'd', { -12, 0 });
 			if (side == 3 && hasCorrectConveyerRight(tile) &&
-				BuildingsMap::isThisPositionFree({ tile.x + 1, tile.y }, 3) && isEnoughRes(resType, 1))
+				BuildingsMap::canAccept(unit, cheekTile) && isEnoughRes(resType, 1))
 			{
-				resourceUnitsList.emplace_back(new ResourceUnit(resType, tile.x * _TILE_ + 38, tile.y * _TILE_ + _HALF_TILE_, 'd'));
-				BuildingsMap::takePosition({ tile.x + 1, tile.y }, 3);
+				BuildingsMap::addToInventory(unit, cheekTile);
 				wasteResorce(resType, 1);
 			}
 		}
@@ -232,12 +236,12 @@ void Building::placeResourceUnit(const int resType, const TileCoord tile)
 	}
 }
 
-void Building::placeResourceUnitX1(const int resType)
+void Building::placeResourceUnitX1(const uint16_t resType)
 {
 	placeResourceUnit(resType, this->tile);
 }
 
-void Building::placeResourceUnitX4(const int resType)
+void Building::placeResourceUnitX4(const uint16_t resType)
 {
 	if (!isEnoughRes(resType, 1))
 		return;
@@ -251,7 +255,7 @@ void Building::placeResourceUnitX4(const int resType)
 	}
 }
 
-void Building::placeResourceUnitX9(const int resType)
+void Building::placeResourceUnitX9(const uint16_t resType)
 {
 	if (!isEnoughRes(resType, 1))
 		return;
@@ -270,6 +274,11 @@ void Building::placeResourceUnitX9(const int resType)
 void Building::setTurret(const int turretType) { }
 void Building::removeTurret() { }
 bool Building::isTurretOnTower() const { return false; }
+// conveyers
+void Building::addToInventory(ResourceUnit& unit)
+{
+	addToInventory(unit.type, 1);
+}
 
 // visual
 void Building::prepareSprites()

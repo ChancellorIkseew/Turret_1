@@ -6,9 +6,3 @@ Factory::Factory(int type, short durability, short size, const TileCoord tile, T
 {
 	timer = 0;
 }
-
-
-bool Factory::isThisPositionFree(int position) const
-{
-	return true;
-}

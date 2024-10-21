@@ -18,9 +18,7 @@ public:
 	void load(std::ifstream& fin) override;
 
 	void interact() override;
-
-	bool isThisPositionFree(int position) const override;
-	bool canAccept(int resType) const override;
+	bool canAccept(const uint16_t resType) const override;
 
 	void setTurret(int turretType) override final;
 	void removeTurret() override final;

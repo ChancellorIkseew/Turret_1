@@ -7,14 +7,14 @@
 #include <SFML/Graphics.hpp>
 
 #include "map_structures/base_engine/tile_coord.h"
-#include "map_structures/terrain/terrain.h"
+#include "map_structures/resources/resource_unit.h"
 
 class Team;
 
 struct StoredResource
 {
-	int type;
-	short quantity;
+	uint16_t type;
+	uint16_t quantity;
 };
 
 class Building
@@ -36,9 +36,9 @@ protected:
 	static inline sf::Texture buildingsTexture;
 	static inline sf::Sprite buildingSprite;
 
-	void placeResourceUnitX1(const int resType);
-	void placeResourceUnitX4(const int resType);
-	void placeResourceUnitX9(const int resType);
+	void placeResourceUnitX1(const uint16_t resType);
+	void placeResourceUnitX4(const uint16_t resType);
+	void placeResourceUnitX9(const uint16_t resType);
 	bool isStorageFull(const short capacity) const;
 
 public:
@@ -62,15 +62,14 @@ public:
 	int getTeamID() const;
 
 	// resouses_and_inventory
-	virtual bool canAccept(const int resType) const;
-	virtual bool isThisPositionFree(const int position) const;
-	virtual void leavePosition(const int position);
-	virtual void takePosition(const int position);
+	virtual bool canAccept(const uint16_t resType) const;
+	virtual bool canAccept(const ResourceUnit& unit) const;
 
 	int findResource() const;
-	bool isEnoughRes(const int resType, const short amount) const;
-	void wasteResorce(const int resType, const short amount);
-	void addToInventory(const int resType, const short amount);
+	bool isEnoughRes(const uint16_t resType, const uint16_t amount) const;
+	void wasteResorce(const uint16_t resType, const uint16_t amount);
+	void addToInventory(const uint16_t resType, const uint16_t amount);
+	virtual void addToInventory(ResourceUnit& unit);
 
 	// resUnits_and_inventory
 	bool hasCorrectConveyerUp(const TileCoord tile) const;

@@ -7,11 +7,6 @@ ShieldedConveyer::ShieldedConveyer(char type, char direction, short durability, 
 	Conveyer(type, direction, durability, size, tile, team)
 {
 	this->direction = direction;
-
-	for (int i = 0; i < 5; ++i)
-	{
-		isPositionFree[i] = true;
-	}
 }
 
 

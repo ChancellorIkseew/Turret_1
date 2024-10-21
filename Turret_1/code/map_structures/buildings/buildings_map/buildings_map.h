@@ -8,7 +8,10 @@
 
 #include "map_structures/base_engine/tile_coord.h"
 #include "map_structures/buildings/building/building.h"
+#include "map_structures/resources/resource_unit.h"
 
+
+class Conveyer;
 
 class BuildingsMap
 {
@@ -50,11 +53,10 @@ public:
 	static void cleanMapChanged();
 	
 	// resources_and_inventory
-	static bool canAccept(const int resType, const TileCoord tile);
-	static bool isThisPositionFree(const TileCoord tile, const int position);
-	static void leavePosition(const TileCoord tile, const int position);
-	static void takePosition(const TileCoord tile, const int position);
-	static void addToInventory(const int resType, const TileCoord tile);
+	static bool canAccept(const uint16_t resType, const TileCoord tile);
+	static bool canAccept(const ResourceUnit& unit, const TileCoord tile);
+	static void addToInventory(const uint16_t resType, const TileCoord tile);
+	static void addToInventory(ResourceUnit& unit, const TileCoord tile);
 
 	// turrets
 	static void setTurret(const int turretType, const TileCoord tile, Team* team);
@@ -63,8 +65,12 @@ public:
 	
 	// Visual
 	static void drawMap(sf::RenderWindow& window);
+
+
+	friend Conveyer;
 	
 };
 
 
 #endif // BUILDINGS_MAP_H
+;

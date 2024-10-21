@@ -19,7 +19,7 @@ public:
 	void interact() override final;
 	void produceResource() override final;
 
-	bool canAccept(const int resType) const override final;
+	bool canAccept(const uint16_t resType) const override final;
 
 	void animation() override final;
 	void draw(sf::RenderWindow& window) override final;

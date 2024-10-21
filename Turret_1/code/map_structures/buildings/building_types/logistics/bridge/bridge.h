@@ -19,9 +19,7 @@ public:
 
 	void interact() override final;
 	void transmitResourceUnit();
-
-	bool canAccept(int resType) const override final;
-	bool isThisPositionFree(int position) const override final;
+	bool canAccept(const uint16_t resType) const override final;
 
 	void draw(sf::RenderWindow& window) override final;
 

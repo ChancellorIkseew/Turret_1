@@ -16,9 +16,7 @@ public:
 	virtual ~Core() = default;
 
 	void interact() override;
-
-	bool canAccept(int resType) const override;
-	bool isThisPositionFree(int position) const override;
+	bool canAccept(const uint16_t resType) const override;
 
 	virtual void draw(sf::RenderWindow& window) override;
 	

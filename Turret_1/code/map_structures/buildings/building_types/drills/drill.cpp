@@ -1,6 +1,7 @@
 
 #include "drill.h"
 #include "map_structures/resources/res_enum.h"
+#include "map_structures/terrain/terrain.h"
 
 
 Drill::Drill(int type, short durability, short size, const TileCoord tile, Team* team) : Building(type, durability, size, tile, team)

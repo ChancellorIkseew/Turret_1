@@ -54,17 +54,11 @@ void Tower::interact()
 }
 
 
-bool Tower::isThisPositionFree(int position) const
-{
-	if (Building::isStorageFull(20))
-		return false;
-	return true;
-}
-
-bool Tower::canAccept(int resType) const
+bool Tower::canAccept(const uint16_t resType) const
 {
 	if (resType == RES_AC_SHELLS || resType == RES_ROCKET)
 	{
+		if (!Building::isStorageFull(20))
 		return true;
 	}
 	return false;

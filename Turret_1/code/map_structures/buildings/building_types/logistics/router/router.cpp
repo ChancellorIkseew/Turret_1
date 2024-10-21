@@ -1,6 +1,5 @@
 
 #include "router.h"
-#include "map_structures/resources/resource_units.h"
 #include "map_structures/resources/res_enum.h"
 
 
@@ -20,16 +19,10 @@ void Router::interact()
 }
 
 
-bool Router::isThisPositionFree(int position) const
+bool Router::canAccept(const uint16_t resType) const
 {
 	if (Building::isStorageFull(10))
 		return false;
-	return true;
-}
-
-
-bool Router::canAccept(int resType) const
-{
 	return true;
 }
 

@@ -14,13 +14,12 @@
 #include "game_interface/gameplay/ui_elements/specifications_panel.h"
 #include "game_interface/gameplay/ui_elements/building_panel.h"
 
-#include "map_structures/pre-settings/pre-settings.h"
 #include "map_structures/terrain/terrain.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/entities/turret/turret.h"
 #include "map_structures/entities/entity/entity.h"
 #include "map_structures/shells/shell/shell.h"
-#include "map_structures/resources/resource_units.h"
+#include "map_structures/resources/resource_unit.h"
 #include "map_structures/particles/particles.h"
 #include "map_structures/team/team.h"
 
@@ -84,7 +83,7 @@ void t1::gamepl::graphics(bool& isGameplayActive, const bool& isPaused, sf::Rend
         t1::system::mt::buildings.lock();
         TerrainMap::drawMap(mainWindow);
         BuildingsMap::drawMap(mainWindow);
-        drawResUnitsList(mainWindow);
+        //drawResUnitsList(mainWindow);
         drawParticlesList(mainWindow);
         Team::drawAll(mainWindow);
         t1::system::mt::buildings.unlock();

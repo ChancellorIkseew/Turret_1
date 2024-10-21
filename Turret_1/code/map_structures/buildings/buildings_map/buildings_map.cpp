@@ -146,7 +146,6 @@ void BuildingsMap::demolishBuilding(const TileCoord tile)
 		int iTileY = mainBuilding.y + t1::be::coordSquareArr[i].y;
 
 		buildingsMap[iTileX][iTileY].reset();
-		buildingsMap[iTileX][iTileY] = nullptr;
 	}
 	isMapChanged = true;
 }
@@ -252,37 +251,32 @@ void BuildingsMap::intetractMap()
 }
 
 
-void BuildingsMap::addToInventory(const int resType, const TileCoord tile)
+void BuildingsMap::addToInventory(const uint16_t resType, const TileCoord tile)
 {
 	TileCoord mainTile = getBuildingMainTileCoord(tile);
 	buildingsMap[mainTile.x][mainTile.y]->addToInventory(resType, 1);
 }
 
-
-bool BuildingsMap::isThisPositionFree(const TileCoord tile, const int position)
+void BuildingsMap::addToInventory(ResourceUnit& unit, const TileCoord tile)
 {
 	if (!buildingExists(tile))
-		return false;
-	TileCoord mainTile = getBuildingMainTileCoord(tile);
-	return buildingsMap[mainTile.x][mainTile.y]->isThisPositionFree(position);
+		return;
+	buildingsMap[tile.x][tile.y]->addToInventory(unit);
 }
 
-void BuildingsMap::leavePosition(const TileCoord tile, const int position)
-{
-	buildingsMap[tile.x][tile.y]->leavePosition(position);
-}
-
-void BuildingsMap::takePosition(const TileCoord tile, const int position)
-{
-	buildingsMap[tile.x][tile.y]->takePosition(position);
-}
-
-bool BuildingsMap::canAccept(const int resType, const TileCoord tile)
+bool BuildingsMap::canAccept(const uint16_t resType, const TileCoord tile)
 {
 	if (!buildingExists(tile))
 		return false;
 	TileCoord mainTile = getBuildingMainTileCoord(tile);
 	return buildingsMap[mainTile.x][mainTile.y]->canAccept(resType);
+}
+
+bool BuildingsMap::canAccept(const ResourceUnit& unit, const TileCoord tile)
+{
+	if (!buildingExists(tile))
+		return false;
+	return buildingsMap[tile.x][tile.y]->canAccept(unit);
 }
 
 

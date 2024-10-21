@@ -14,9 +14,7 @@ public:
 	~Router() = default;
 
 	void interact() override;
-
-	bool canAccept(int resType) const override;
-	bool isThisPositionFree(int position) const override;
+	bool canAccept(const uint16_t resType) const override;
 
 	void draw(sf::RenderWindow& window) override;
 

@@ -15,7 +15,6 @@
 #include "map_structures/pre-settings/pre-settings.h"
 #include "map_structures/terrain/terrain.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
-#include "map_structures/resources/resource_units.h"
 #include "map_structures/particles/particles.h"
 #include "map_structures/team/team.h"
 #include "map_structures/buildings/building/buildings_enum.h"
@@ -53,11 +52,8 @@ char t1::gamepl::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, 
 		std::cout << "save open works" << std::endl;
         TerrainMap::loadMap(saveFolderName);
 		BuildingsMap::loadMap(saveFolderName);
-		//loadEntitiesList(saveFolderName);
-        loadResUnitsList(saveFolderName);
 
         t1::time::loadTime(saveFolderName);
-        //t1::res::loadResources(saveFolderName);
 	}
 	
     bool isMovingCamera = false;
@@ -81,6 +77,6 @@ char t1::gamepl::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, 
 
     simulation.join();
     input.join();
-
+    Team::teams.clear();
 	return GameCondition::MAIN_MENU;
 }
