@@ -354,6 +354,7 @@
     <ClInclude Include="code\map_structures\team\balance\balance.h" />
     <ClInclude Include="code\map_structures\team\team.h" />
     <ClInclude Include="code\map_structures\terrain\terrain.h" />
+    <ClInclude Include="code\map_structures\terrain\terrain_enum.h" />
     <ClInclude Include="code\map_structures\terrain\terrain_generator.h" />
     <ClInclude Include="code\t1_system\sleep.h" />
     <ClInclude Include="code\t1_system\system.h" />

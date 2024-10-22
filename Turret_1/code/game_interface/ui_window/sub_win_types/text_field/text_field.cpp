@@ -67,6 +67,9 @@ void TextField::interact(const sf::Vector2i& mouseCoord)
 			}	
 		}
 	}
+
+	if (!isSelected && text.getString().getSize() < 1)
+		text.setString("0");
 }
 
 
@@ -100,6 +103,8 @@ void TextField::setText(const sf::String& value)
 
 int TextField::getIntValue()
 {
+	if (text.getString().getSize() < 1)
+		return 0;
 	std::string str = text.getString();
 	return std::stoi(str);
 }

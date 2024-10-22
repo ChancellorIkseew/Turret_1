@@ -1,5 +1,4 @@
 
-#include <iostream>
 #include <thread>
 #include <SFML/Graphics.hpp>
 
@@ -107,7 +106,6 @@ char openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string& sav
 				{
 					t1::system::mt::textEnter.lock();
 					symbol = event.text.unicode;
-					std::cout << symbol << '\n';
 					t1::system::mt::textEnter.unlock();
 				}
 			}

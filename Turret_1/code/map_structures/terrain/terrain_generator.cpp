@@ -6,7 +6,7 @@
 
 #include "map_structures/base_engine/tile_coord.h"
 #include "map_structures/pre-settings/pre-settings.h"
-#include "map_structures/terrain/terrain.h"
+#include "map_structures/terrain/terrain_enum.h"
 
 static inline bool tileExitst(const TileCoord tile, const TileCoord mapSize)
 {
@@ -45,16 +45,16 @@ std::vector<std::vector<std::unique_ptr<int>>> generateTerrain(TerrainPre terrai
 	{
 		for(int y = 0; y < mapSize.y; ++y)
 		{ 
-			*terrainMap[x][y] = generateTile(terrainPre, gen);
-			if (*terrainMap[x][y] != TILE_GROUND)
+			int tileNewType = generateTile(terrainPre, gen);
+			if (tileNewType != TILE_GROUND)
+			{
+				*terrainMap[x][y] = tileNewType;
 				generateSpot(terrainPre, terrainMap, { x, y }, gen);
-
+			}
 		}
 	}
 
-
-
-
+	// will_be_expanded
 
 	return terrainMap;
 }
@@ -84,12 +84,11 @@ inline void generateSpot(const TerrainPre& terrainPre, std::vector<std::vector<s
 
 	TileCoord tile = start;
 	std::uniform_int_distribution<> dist(0, 3);
-
-	for (int s = 1; s < spotSize; ++s)
+	
+	for (int s = 0; s < spotSize; ++s)
 	{
-		if (tileType != TILE_GROUND)
+		if (s != 0)
 		{
-			
 			int dir = dist(gen);
 			if (dir == 3)
 				tile.x -= 1;
@@ -99,19 +98,15 @@ inline void generateSpot(const TerrainPre& terrainPre, std::vector<std::vector<s
 				tile.x += 1;
 			else if (dir == 0)
 				tile.y += 1;
-
-			if (!tileExitst(tile, mapSize))
-				return;
-
-			TileCoord nTile = { 0, 0 };
-			for (int i = 0; i < 5; ++i)
-			{
-				nTile.x = tile.x + t1::be::coordSpyralArr[i].x;
-				nTile.y = tile.y + t1::be::coordSpyralArr[i].y;
-				if (tileExitst(nTile, mapSize))
-					*terrainMap[nTile.x][nTile.y] = tileType;
-			}
-
+		}
+			
+		TileCoord nTile = { 0, 0 };
+		for (int i = 0; i < 5; ++i)
+		{
+			nTile.x = tile.x + t1::be::coordSpyralArr[i].x;
+			nTile.y = tile.y + t1::be::coordSpyralArr[i].y;
+			if (tileExitst(nTile, mapSize))
+				*terrainMap[nTile.x][nTile.y] = tileType;
 		}
 	}
 }

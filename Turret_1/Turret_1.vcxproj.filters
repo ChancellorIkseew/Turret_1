@@ -671,5 +671,8 @@
     <ClInclude Include="code\map_structures\buildings\building_types\storages\core_types\core_mk2.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="code\map_structures\terrain\terrain_enum.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
