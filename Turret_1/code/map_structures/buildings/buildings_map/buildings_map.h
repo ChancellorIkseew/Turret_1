@@ -11,8 +11,6 @@
 #include "map_structures/resources/resource_unit.h"
 
 
-class Conveyer;
-
 class BuildingsMap
 {
 private:
@@ -66,9 +64,6 @@ public:
 	// Visual
 	static void drawMap(sf::RenderWindow& window);
 
-
-	friend Conveyer;
-	
 };
 
 

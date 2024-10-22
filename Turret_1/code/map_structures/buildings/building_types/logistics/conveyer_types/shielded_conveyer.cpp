@@ -1,12 +1,12 @@
 
-#include "shielded_conveer.h"
+#include "shielded_conveyer.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 
 
 ShieldedConveyer::ShieldedConveyer(char type, char direction, short durability, short size, const TileCoord tile, Team* team) :
 	Conveyer(type, direction, durability, size, tile, team)
 {
-	this->direction = direction;
+	speed = 2.0f;
 }
 
 
@@ -36,4 +36,8 @@ void ShieldedConveyer::draw(sf::RenderWindow& window)
 
 	buildingSprite.setRotation(0);
 	buildingSprite.setOrigin(0, 0);
+
+
+	for (auto& res : resUnits)
+		res.draw(window, tile);
 }

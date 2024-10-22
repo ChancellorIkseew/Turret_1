@@ -8,17 +8,12 @@
 
 class Core : public Building
 {
-protected:
-
 public:
-
 	Core(int type, short durability, short size, const TileCoord tile, Team* team);
 	virtual ~Core() = default;
 
-	void interact() override;
-	bool canAccept(const uint16_t resType) const override;
-
-	virtual void draw(sf::RenderWindow& window) override;
+	void interact() override final;
+	bool canAccept(const uint16_t resType) const override final;
 	
 };
 

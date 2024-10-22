@@ -14,7 +14,6 @@ static inline bool tileExitst(const TileCoord tile, const TileCoord mapSize)
 }
 
 inline int generateTile(TerrainPre& terrainPre, std::mt19937& gen);
-inline void generateLine(const TerrainPre& terrainPre, std::vector<std::vector<std::unique_ptr<int>>>& terrainMap, const TileCoord start);
 inline void generateSpot(const TerrainPre& terrainPre, std::vector<std::vector<std::unique_ptr<int>>>& terrainMap, const TileCoord start, std::mt19937& gen);
 
 std::vector<std::vector<std::unique_ptr<int>>> generateTerrain(TerrainPre terrainPre)
@@ -65,44 +64,14 @@ inline int generateTile(TerrainPre& terrainPre, std::mt19937& gen)
 {
 	for (auto& it : terrainPre.frequency)
 	{
-		std::uniform_int_distribution<> dist(0, int(10000 / it.second));
-		if (dist(gen) == 0)
-			return it.first;
-	}
-	return TILE_GROUND;
-}
-
-
-inline void generateLine(const TerrainPre& terrainPre, std::vector<std::vector<std::unique_ptr<int>>>& terrainMap, const TileCoord start)
-{
-	const TileCoord mapSize = PreSettings::getTerrain().mapSize;
-
-	int tileType = *terrainMap[start.x][start.y];
-	int spotSize = terrainPre.depositSize.find(tileType)->second;
-
-	TileCoord tile = start;
-
-	for (int s = 1; s < spotSize; ++s)
-	{
-		if (tileType != TILE_GROUND)
+		if (it.second > 0)
 		{
-			int dir = rand() % 4;
-			if (dir == 3)
-				tile.x -= 1;
-			else if (dir == 2)
-				tile.y -= 1;
-			else if (dir == 1)
-				tile.x += 1;
-			else if (dir == 0)
-				tile.y += 1;
-
-			if (!tileExitst(tile, mapSize))
-				return;
-
-			if (*terrainMap[tile.x][tile.y] == TILE_GROUND)
-				*terrainMap[tile.x][tile.y] = tileType;
+			std::uniform_int_distribution<> dist(0, int(10000 / it.second));
+			if (dist(gen) == 0)
+				return it.first;
 		}
 	}
+	return TILE_GROUND;
 }
 
 

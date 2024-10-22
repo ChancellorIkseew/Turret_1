@@ -42,7 +42,7 @@ char t1::gamepl::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, 
 		std::cout << "create new works" << std::endl;
 
         TerrainMap::generateMap();
-        BuildingsMap::constructBuilding(CORE_MK1, 0, { 48, 48 }, player.get());
+        BuildingsMap::constructBuilding(CORE_MK2, 0, { 48, 48 }, player.get());
 
         t1::time::resetTime();
         player->balance.giveStartRes(PreSettings::getGeneral().startBalance);

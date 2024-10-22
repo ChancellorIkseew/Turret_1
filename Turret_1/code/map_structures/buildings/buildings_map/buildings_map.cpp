@@ -253,6 +253,8 @@ void BuildingsMap::intetractMap()
 
 void BuildingsMap::addToInventory(const uint16_t resType, const TileCoord tile)
 {
+	if (!buildingExists(tile))
+		return;
 	TileCoord mainTile = getBuildingMainTileCoord(tile);
 	buildingsMap[mainTile.x][mainTile.y]->addToInventory(resType, 1);
 }
@@ -261,7 +263,8 @@ void BuildingsMap::addToInventory(ResourceUnit& unit, const TileCoord tile)
 {
 	if (!buildingExists(tile))
 		return;
-	buildingsMap[tile.x][tile.y]->addToInventory(unit);
+	TileCoord mainTile = getBuildingMainTileCoord(tile);
+	buildingsMap[mainTile.x][mainTile.y]->addToInventory(unit);
 }
 
 bool BuildingsMap::canAccept(const uint16_t resType, const TileCoord tile)
@@ -276,7 +279,8 @@ bool BuildingsMap::canAccept(const ResourceUnit& unit, const TileCoord tile)
 {
 	if (!buildingExists(tile))
 		return false;
-	return buildingsMap[tile.x][tile.y]->canAccept(unit);
+	TileCoord mainTile = getBuildingMainTileCoord(tile);
+	return buildingsMap[mainTile.x][mainTile.y]->canAccept(unit);
 }
 
 

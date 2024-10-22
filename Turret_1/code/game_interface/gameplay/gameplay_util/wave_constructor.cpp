@@ -27,14 +27,14 @@ void switchEntities(const int wave, Team& enemy)
 	{
 	case 1:
 		enemy.spawnEntity(2, STANDARD_BOT);
-//#ifdef TURRET_1_MOB_TYPES_TEST
+#ifdef TURRET_1_MOB_TYPES_TEST
 		enemy.spawnEntity(1, HEAVY_BOT);
 		enemy.spawnEntity(1, ROCKET_BOT);
 		enemy.spawnEntity(1, LASER_BOT);
 		enemy.spawnEntity(1, CANNON_BOSS);
 		enemy.spawnEntity(1, ROCKET_BOSS);
 		enemy.spawnEntity(1, 999);
-//#endif // TURRET_1_MOB_TYPES_TEST
+#endif // TURRET_1_MOB_TYPES_TEST
 		break;
 
 	case 2:

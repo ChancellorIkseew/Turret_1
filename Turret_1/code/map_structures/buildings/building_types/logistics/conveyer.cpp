@@ -1,6 +1,6 @@
 
 #include <iostream>
-#include "conveer.h"
+#include "conveyer.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 
@@ -10,7 +10,7 @@ Conveyer::Conveyer(char type, char direction, short durability, short size, cons
 {
 	this->direction = direction;
 	timer = 5;
-	speed = 2.0f;
+	speed = 0.0f;
 }
 
 Conveyer::~Conveyer()
@@ -216,38 +216,3 @@ bool Conveyer::canAccept(const ResourceUnit& unit) const
 	}
 	return false;
 }
-
-
-void Conveyer::draw(sf::RenderWindow& window)
-{
-	buildingSprite.setPosition(tile.x * _TILE_ + _HALF_TILE_, tile.y * _TILE_ + _HALF_TILE_);
-
-	buildingSprite.setTextureRect(sf::IntRect(128, 96, 32, 32));
-	buildingSprite.setOrigin(16, 16);
-
-	switch (direction)
-	{
-	case 'a':
-		buildingSprite.setRotation(270);
-		break;
-
-	case 's':
-		buildingSprite.setRotation(180);
-		break;
-
-	case 'd':
-		buildingSprite.setRotation(90);
-		break;
-	}
-
-	window.draw(buildingSprite);
-
-	buildingSprite.setRotation(0);
-	buildingSprite.setOrigin(0, 0);
-
-	for (auto& res : resUnits)
-		res.draw(window, tile);
-}
-
-
-

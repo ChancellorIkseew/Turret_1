@@ -75,7 +75,10 @@ int Building::getTeamID() const { return team->getID(); }
 
 // resUnits_and_inventory
 bool Building::canAccept(const uint16_t resType) const { return false; }
-bool Building::canAccept(const ResourceUnit& unit) const { return false; }
+bool Building::canAccept(const ResourceUnit& unit) const
+{
+	return canAccept(unit.type);
+}
 
 
 bool Building::isStorageFull(const short capacity) const

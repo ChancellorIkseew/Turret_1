@@ -7,13 +7,6 @@
 #include "map_structures/buildings/building/building.h"
 #include "map_structures/resources/resource_unit.h"
 
-struct Position
-{
-	TileCoord tile;
-	int position;
-};
-
-
 
 class Conveyer : public Building
 {
@@ -23,7 +16,7 @@ protected:
 	std::vector<ResourceUnit> resUnits;
 
 public:
-	Conveyer(char type, char direction, short durability, short v_size, const TileCoord tile, Team* team);
+	Conveyer(char type, char direction, short durability, short size, const TileCoord tile, Team* team);
 	virtual ~Conveyer();
 
 	void save(std::ofstream& fout) const override final;
@@ -32,8 +25,6 @@ public:
 	virtual void interact() override final;
 	void addToInventory(ResourceUnit& unit) override final;
 	bool canAccept(const ResourceUnit& unit) const override final;
-
-	virtual void draw(sf::RenderWindow& window) override;
 	
 };
 

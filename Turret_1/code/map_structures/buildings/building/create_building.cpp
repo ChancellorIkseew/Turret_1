@@ -7,11 +7,11 @@
 #include "map_structures/buildings/building_types/drills/drill.h"
 #include "map_structures/buildings/building_types/drills/drill_types/small_drill.h"
 #include "map_structures/buildings/building_types/drills/drill_types/big_drill.h"
-#include "map_structures/buildings/building_types/logistics/conveer.h"
-#include "map_structures/buildings/building_types/logistics/conveer_types/shielded_conveer.h"
+#include "map_structures/buildings/building_types/logistics/conveyer_types/standard_conveyer.h"
+#include "map_structures/buildings/building_types/logistics/conveyer_types/shielded_conveyer.h"
 #include "map_structures/buildings/building_types/logistics/bridge/bridge.h"
 #include "map_structures/buildings/building_types/logistics/router/router.h"
-#include "map_structures/buildings/building_types/storages/core.h"
+#include "map_structures/buildings/building_types/storages/core_types/core_mk2.h"
 #include "map_structures/buildings/building_types/factories/factory_types/shell_factory.h"
 #include "map_structures/buildings/building_types/factories/factory_types/rocket_factory.h"
 
@@ -24,9 +24,9 @@ std::shared_ptr<Building> Building::createBuilding(int type, char direction, sho
 		return std::make_shared<Auxilary>(AUXILARY, durability, size, tile, team);
 
 	case CORE_MK1:
-		return std::make_shared<Core>(CORE_MK1, durability, size, tile, team);
-	case CORE_MK2:
 		break;
+	case CORE_MK2:
+		return std::make_shared<CoreMK2>(CORE_MK2, durability, size, tile, team);
 	case CORE_MK3:
 		break;
 
@@ -45,7 +45,7 @@ std::shared_ptr<Building> Building::createBuilding(int type, char direction, sho
 		break;
 
 	case STANDARD_CONVEYER:
-		return std::make_shared<Conveyer>(STANDARD_CONVEYER, direction, durability, size, tile, team);
+		return std::make_shared<StandardConveyer>(STANDARD_CONVEYER, direction, durability, size, tile, team);
 	case SHIELDED_CONVEYER:
 		return std::make_shared<ShieldedConveyer>(SHIELDED_CONVEYER, direction, durability, size, tile, team);
 

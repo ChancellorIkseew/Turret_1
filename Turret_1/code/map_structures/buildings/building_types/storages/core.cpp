@@ -1,5 +1,6 @@
 
 #include "core.h"
+#include "map_structures/team/team.h"
 
 
 Core::Core(int type, short durability, short size, const TileCoord tile, Team* team) : Building(type, durability, size, tile, team)
@@ -10,20 +11,17 @@ Core::Core(int type, short durability, short size, const TileCoord tile, Team* t
 
 void Core::interact()
 {
-
+	for (auto& res : storedResourcesList)
+	{
+		if (res.quantity > 0)
+		{
+			team->getBalance().accept(res.type, res.quantity);
+			res.quantity = 0;
+		}
+	}
 }
-
 
 bool Core::canAccept(const uint16_t resType) const
 {
 	return true;
-}
-
-
-void Core::draw(sf::RenderWindow& window)
-{
-	buildingSprite.setPosition(tile.x * _TILE_, tile.y * _TILE_);
-	buildingSprite.setTextureRect(sf::IntRect(0, 96, 128, 128));
-
-	window.draw(buildingSprite);
 }

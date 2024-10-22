@@ -10,6 +10,7 @@
 #include "map_structures/resources/resource_unit.h"
 
 class Team;
+class Core;
 
 struct StoredResource
 {
@@ -86,6 +87,8 @@ public:
 	static void prepareSprites();
 	virtual void animation();
 	virtual void draw(sf::RenderWindow& window) = 0;
+
+	friend Core;
 
 };
 

@@ -4,7 +4,7 @@
 
 #include "SFML/Graphics.hpp"
 
-#include "map_structures/buildings/building_types/logistics/conveer.h"
+#include "map_structures/buildings/building_types/logistics/conveyer.h"
 
 
 class ShieldedConveyer : public Conveyer
