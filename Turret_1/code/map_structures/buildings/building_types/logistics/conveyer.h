@@ -16,7 +16,7 @@ protected:
 	std::vector<ResourceUnit> resUnits;
 
 public:
-	Conveyer(char type, char direction, short durability, short size, const TileCoord tile, Team* team);
+	Conveyer(const uint16_t type, const char direction, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team);
 	virtual ~Conveyer();
 
 	void save(std::ofstream& fout) const override final;

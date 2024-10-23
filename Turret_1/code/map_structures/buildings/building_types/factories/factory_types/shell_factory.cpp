@@ -4,7 +4,8 @@
 #include "map_structures/resources/res_enum.h"
 
 
-ShellFactory::ShellFactory(int type, short durability, short size, const TileCoord tile, Team* team) : Factory(type, durability, size, tile, team)
+ShellFactory::ShellFactory(const uint16_t type, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team) :
+	Factory(type, durability, size, tile, team)
 {
 	timer = 30;
 }

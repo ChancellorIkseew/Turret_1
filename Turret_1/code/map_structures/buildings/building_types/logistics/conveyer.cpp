@@ -6,7 +6,8 @@
 
 const TileCoord nullCoord = { 0, 0 };
 
-Conveyer::Conveyer(char type, char direction, short durability, short size, const TileCoord tile, Team* team) : Building(type, durability, size, tile, team)
+Conveyer::Conveyer(const uint16_t type, const char direction, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team) :
+	Building(type, durability, size, tile, team)
 {
 	this->direction = direction;
 	timer = 5;

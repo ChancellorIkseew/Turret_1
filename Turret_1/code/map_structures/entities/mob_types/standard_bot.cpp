@@ -7,7 +7,7 @@
 #include "map_structures/team/team.h"
 
 
-StandardBot::StandardBot(int type, Team* team) : Entity(type, team)
+StandardBot::StandardBot(const uint16_t type, Team* const team) : Entity(type, team)
 {
 	durability = 10 * maxDurabilityModifier;
 	pixelRange = 5;

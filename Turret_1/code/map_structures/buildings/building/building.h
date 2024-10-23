@@ -21,16 +21,18 @@ struct StoredResource
 class Building
 {
 private:
-	int type;
-	short durability;
-	short size;
-	Team* team;
 	std::list<StoredResource> storedResourcesList;
-
-	void placeResourceUnit(const int resType, const TileCoord tile);
-
+	Team* team;
 protected:
 	TileCoord tile;
+private:
+	uint16_t type;
+	int16_t durability;
+	uint8_t size;
+
+	inline void placeResourceUnit(const uint16_t resType, const TileCoord tile);
+
+protected:
 	char direction;
 
 	static inline sf::Image buildingsImage;
@@ -43,13 +45,13 @@ protected:
 	bool isStorageFull(const short capacity) const;
 
 public:
-	Building(int type, short durability, short size, const TileCoord tile, Team* team);
+	Building(const uint16_t type, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team);
 	virtual ~Building() = default;
 
 	virtual void save(std::ofstream& fout) const;
 	virtual void load(std::ifstream& fin);
 
-	static std::shared_ptr<Building> createBuilding(int type, char direction, short durability, short v_size, const TileCoord tile, Team* team);
+	static std::shared_ptr<Building> createBuilding(const uint16_t type, const char direction, const TileCoord tile, Team* const team);
 
 	virtual void interact();
 	void setDamage(const int damage);
@@ -79,7 +81,7 @@ public:
 	bool hasCorrectConveyerRight(const TileCoord tile) const;
 
 	// turrets
-	virtual void setTurret(const int turretType);
+	virtual void setTurret(const uint16_t turretType);
 	virtual void removeTurret();
 	virtual bool isTurretOnTower() const;
 

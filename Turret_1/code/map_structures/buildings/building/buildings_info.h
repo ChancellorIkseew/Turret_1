@@ -11,8 +11,8 @@ struct BuildingInfo
 {
 	sf::String buildingTitle;
 
-	int size;
-	int durability;
+	uint8_t size;
+	int16_t durability;
 
 	AllResources costToBuild;
 
@@ -21,9 +21,9 @@ struct BuildingInfo
 
 namespace t1::bc
 {
-	extern std::map<int, const BuildingInfo> buildingsInfoTable;
+	extern std::map<uint16_t, const BuildingInfo> buildingsInfoTable;
 
-	void addBuildingsInfo(int type, const BuildingInfo info);
+	void addBuildingsInfo(uint16_t type, const BuildingInfo info);
 }
 
 #endif // BUILDINGS_INFO

@@ -12,20 +12,21 @@ class Team;
 class Turret
 {
 protected:
-	int type;
 	PixelCoord coord;
 	Team* team;
 	
 	float angleRad;
 	float angleDeg;
-	
-	int durability;
-	short amooQuantity;
-	short maxAmoo;
 
-	int reloadTimer;
-	short spyralRange;
-	short pixelRange;
+	uint16_t type;
+	
+	int16_t durability; // timer_and_durability can_be_negative_in_xome_cases
+	int16_t reloadTimer;
+	uint16_t amooQuantity;
+	uint16_t maxAmoo;
+	
+	uint16_t spyralRange;
+	uint16_t pixelRange;
 	
 	static inline sf::Image turretImage;
 	static inline sf::Texture turretTexture;
@@ -35,19 +36,19 @@ protected:
 	PixelCoord findShootingAim() const;
 
 public:
-	Turret(const int type, const TileCoord tile, Team* team);
+	Turret(const int type, const TileCoord tile, Team* const team);
 	~Turret() = default;
 
 	void save(std::ofstream& fout) const;
 	void load(std::ifstream& fin);
-	static std::unique_ptr<Turret> createTurret(const int type, const TileCoord tile, Team* team);
+	static std::unique_ptr<Turret> createTurret(const uint16_t type, const TileCoord tile, Team* const team);
 
 	virtual void shooting() = 0;
 
 	bool needAmoo() const;
 	virtual void takeAmoo(const int resType) = 0;
 
-	int getType() const;
+	uint16_t getType() const;
 	TileCoord getTile() const;
 	PixelCoord getCoord() const;
 	int getAngleDeg() const;

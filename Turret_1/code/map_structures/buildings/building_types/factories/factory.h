@@ -13,7 +13,7 @@ protected:
 
 public:
 
-	Factory(int type, short durability, short size, const TileCoord tile, Team* team);
+	Factory(const uint16_t type, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team);
 	virtual ~Factory() = default;
 
 	virtual void produceResource() = 0;

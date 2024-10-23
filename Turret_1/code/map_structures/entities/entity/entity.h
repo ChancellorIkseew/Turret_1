@@ -15,28 +15,29 @@ protected:
 	static inline TileCoord mapSize;
 	static inline float maxDurabilityModifier;
 	
-	int type;
 	Team* team;
 	
 	PixelCoord coord;
 	PixelCoord aimCoord;
 	PixelCoord destCoord; // destination_point
-
 	TileCoord newTile, oldTile;
 	
 	bool isAimDetected;
 	
 	float motionAngleRad;
 	float motionAngleDeg;
-
 	float shootingAngleRad;
 	float shootingAngleDeg;
 
-	int durability;
-	int pixelRange;
-	int spyralRange;
-	int reloadTimer;
 	float maxSpeed;
+
+	uint16_t type;
+
+	int16_t durability; // timer_and_durability can_be_negative_in_some_cases
+	int16_t reloadTimer;
+	uint16_t pixelRange;
+	uint16_t spyralRange;
+	
 
 	static inline sf::Image entityImage;
 	static inline sf::Texture entityTexture;
@@ -54,13 +55,13 @@ protected:
 public:
 	static void initPreSettings();
 
-	Entity(int type, Team* team);
+	Entity(const uint16_t type, Team* const team);
 	virtual ~Entity() = default;
 
 	void save(std::ofstream& fout) const;
 	void load(std::ifstream& fin);
 
-	static std::unique_ptr<Entity> createEntity(const int type, Team* team);
+	static std::unique_ptr<Entity> createEntity(const uint16_t type, Team* const team);
 	static PixelCoord randomMapBorderSpawn();
 
 	// combat
@@ -68,10 +69,10 @@ public:
 	virtual void shoot() = 0;
 
 	// simple_utilites
-	void setDurability(const int durability);
-	void setDamage(const int damage);
+	void setDurability(const int16_t durability);
+	void setDamage(const int16_t damage);
 	void setCoord(const PixelCoord coord);
-	char getType() const;
+	uint16_t getType() const;
 	PixelCoord getCoord() const;
 	TileCoord getTile() const;
 	int getAngleDeg() const;

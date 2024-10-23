@@ -9,7 +9,7 @@
 class CoreMK2 : public Core
 {
 public:
-	CoreMK2(int type, short durability, short size, const TileCoord tile, Team* team);
+	CoreMK2(const uint16_t type, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team);
 	virtual ~CoreMK2() = default;
 
 	virtual void draw(sf::RenderWindow& window) override final;

@@ -1,12 +1,8 @@
 
-#include <fstream>
-#include <SFML\Graphics.hpp>
-
 #include "turret.h"
 
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
-
 #include "map_structures/team/team.h"
 
 		
@@ -90,7 +86,7 @@ void Turret::setCoord(PixelCoord coord)
 	this->coord = coord;
 }
 
-int Turret::getType() const { return type; }
+uint16_t Turret::getType() const { return type; }
 TileCoord Turret::getTile() const { return t1::be::tile(coord); }
 PixelCoord Turret::getCoord() const { return coord; }
 int Turret::getAngleDeg() const {	return int(angleDeg); }

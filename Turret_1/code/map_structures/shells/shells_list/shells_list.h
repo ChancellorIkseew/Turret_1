@@ -22,7 +22,7 @@ public:
 	void save(const std::string& folder);
 	void load(const std::string& folder);
 
-	void spawnShell(short type, const PixelCoord coord, float angleRad, float angleDeg, Team* team);
+	void spawnShell(const uint16_t type, const PixelCoord coord, float angleRad, float angleDeg, Team* const team);
 	void move();
 
 	void draw(sf::RenderWindow& window);

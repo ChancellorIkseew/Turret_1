@@ -5,7 +5,7 @@
 #include "map_structures/entities/turret_types/rocket_turret.h"
 
 
-std::unique_ptr<Turret> Turret::createTurret(const int type, const TileCoord tile, Team* team)
+std::unique_ptr<Turret> Turret::createTurret(const uint16_t type, const TileCoord tile, Team* const team)
 {
 	switch (type)
 	{

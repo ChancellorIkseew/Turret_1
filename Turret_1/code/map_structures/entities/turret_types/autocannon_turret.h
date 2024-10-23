@@ -3,14 +3,13 @@
 #define AUTOCANNON_TURRET_H
 
 #include <SFML\Graphics.hpp>
-
 #include "map_structures/entities/turret/turret.h"
 
 
 class AutocannonTurret : public Turret
 {
 	public:
-		AutocannonTurret(const int type, const TileCoord tile, Team* team);
+		AutocannonTurret(const uint16_t type, const TileCoord tile, Team* const team);
 		~AutocannonTurret() = default;
 
 		void shooting() override final;

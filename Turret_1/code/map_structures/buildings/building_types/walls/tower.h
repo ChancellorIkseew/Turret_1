@@ -11,7 +11,7 @@ protected:
 	std::unique_ptr<Turret> turret;
 
 public:
-	Tower(char type, short durability, short size, const TileCoord tile, Team* team);
+	Tower(const uint16_t type, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team);
 	virtual ~Tower() = default;
 
 	void save(std::ofstream& fout) const override;
@@ -20,7 +20,7 @@ public:
 	void interact() override;
 	bool canAccept(const uint16_t resType) const override;
 
-	void setTurret(int turretType) override final;
+	void setTurret(const uint16_t turretType) override final;
 	void removeTurret() override final;
 	bool isTurretOnTower() const override final;
 

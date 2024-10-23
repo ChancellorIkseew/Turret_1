@@ -11,7 +11,7 @@ class SmallDrill final : public Drill
 {
 public:
 
-	SmallDrill(int type, short durability, short size, const TileCoord tile, Team* team);
+	SmallDrill(const uint16_t type, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team);
 	~SmallDrill() = default;
 
 	void interact() override final;

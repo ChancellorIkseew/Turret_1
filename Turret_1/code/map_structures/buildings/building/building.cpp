@@ -7,7 +7,7 @@
 #include "map_structures/team/team.h"
 
 
-Building::Building(int type, short durability, short size, const TileCoord tile, Team* team)
+Building::Building(const uint16_t type, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team)
 {
 	this->type = type;
 	this->durability = durability;
@@ -172,7 +172,7 @@ bool Building::hasCorrectConveyerRight(const TileCoord tile) const
 
 
 // resUnits_and_inventory
-void Building::placeResourceUnit(const int resType, const TileCoord tile)
+void Building::placeResourceUnit(const uint16_t resType, const TileCoord tile)
 {
 	if (!isEnoughRes(resType, 1))
 		return;
@@ -274,7 +274,7 @@ void Building::placeResourceUnitX9(const uint16_t resType)
 
 
 // turrets
-void Building::setTurret(const int turretType) { }
+void Building::setTurret(const uint16_t turretType) { }
 void Building::removeTurret() { }
 bool Building::isTurretOnTower() const { return false; }
 // conveyers

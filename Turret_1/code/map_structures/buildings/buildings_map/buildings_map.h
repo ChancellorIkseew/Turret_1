@@ -30,7 +30,7 @@ public:
 	static void intetractMap();
 
 	// Construction_process
-	static void constructBuilding(const int type, const char direction, const TileCoord tile, Team* team);
+	static void constructBuilding(const uint16_t type, const char direction, const TileCoord tile, Team* team);
 	static void demolishBuilding(const TileCoord tile);
 	
 	// Simple_utilites
@@ -57,7 +57,7 @@ public:
 	static void addToInventory(ResourceUnit& unit, const TileCoord tile);
 
 	// turrets
-	static void setTurret(const int turretType, const TileCoord tile, Team* team);
+	static void setTurret(const uint16_t turretType, const TileCoord tile, Team* const team);
 	static void removeTurret(const TileCoord tile);
 	static bool isTurretOnTile(const TileCoord tile);
 	

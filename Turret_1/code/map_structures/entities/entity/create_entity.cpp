@@ -11,7 +11,7 @@
 #include "map_structures/entities/mob_types/rocket_boss_bot.h"
 
 
-std::unique_ptr<Entity> Entity::createEntity(const int type, Team* team)
+std::unique_ptr<Entity> Entity::createEntity(const uint16_t type, Team* const team)
 {
 	switch (type)
 	{

@@ -23,7 +23,7 @@ public:
 	void save(const std::string& folder);
 	void load(const std::string& folder);
 
-	void spawnEntity(const int amount, const int type, Team* team);
+	void spawnEntity(const uint8_t amount, const uint16_t type, Team* const team);
 	void clean() noexcept;
 
 	void interact();

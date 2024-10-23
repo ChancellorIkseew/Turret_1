@@ -7,7 +7,7 @@
 #include "map_structures/team/team.h"
 
 
-RocketBot::RocketBot(int entityType, Team* team) : Entity(entityType, team)
+RocketBot::RocketBot(const uint16_t type, Team* const team) : Entity(type, team)
 {
 	durability = 25 * maxDurabilityModifier;
 	pixelRange = 25;

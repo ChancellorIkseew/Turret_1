@@ -39,8 +39,8 @@ public:
 	static void interactAll();
 	static void drawAll(sf::RenderWindow& window);
 
-	void spawnShell(short type, const PixelCoord coord, float angleRad, float angleDeg);
-	void spawnEntity(const int amount, const int type);
+	void spawnShell(const uint16_t, const PixelCoord coord, float angleRad, float angleDeg);
+	void spawnEntity(const uint8_t amount, const uint16_t);
 
 	int getID();
 	Balance& getBalance();

@@ -1,5 +1,7 @@
 
 #include "buildings_enum.h"
+#include "map_structures/buildings/building/buildings_info.h"
+#include "map_structures/pre-settings/pre-settings.h"
 
 #include "map_structures/buildings/building_types/auxilary/auxilary.h"
 #include "map_structures/buildings/building_types/walls/wall_types/stone_wall.h"
@@ -16,8 +18,17 @@
 #include "map_structures/buildings/building_types/factories/factory_types/rocket_factory.h"
 
 
-std::shared_ptr<Building> Building::createBuilding(int type, char direction, short durability, short size, const TileCoord tile, Team* team)
+std::shared_ptr<Building> Building::createBuilding(const uint16_t type, const char direction, const TileCoord tile, Team* const team)
 {
+	int32_t durability = 0;
+	uint8_t size = 1;
+
+	if (type != AUXILARY)
+	{
+		durability = t1::bc::buildingsInfoTable[type].durability * PreSettings::getBuildings().maxDurabilityModifier;
+		size = t1::bc::buildingsInfoTable[type].size;
+	}
+
 	switch (type)
 	{
 	case AUXILARY:

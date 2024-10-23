@@ -1,7 +1,4 @@
 
-#include <SFML\Graphics.hpp>
-
-
 #include "autocannon_turret.h"
 
 #include "map_structures/buildings/building/buildings_enum.h"
@@ -10,7 +7,7 @@
 #include "map_structures/team/team.h"
 
 
-AutocannonTurret::AutocannonTurret(int type, TileCoord tile, Team* team) :
+AutocannonTurret::AutocannonTurret(const uint16_t type, const TileCoord tile, Team* const team) :
 	Turret(AUTOCANNON_TURRET, tile, team)
 {
 	pixelRange = 11 * _TILE_;

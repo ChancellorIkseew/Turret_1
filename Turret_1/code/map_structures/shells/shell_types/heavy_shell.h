@@ -10,7 +10,7 @@
 class HeavyShell : public Shell
 {
 public:
-	HeavyShell(short type, PixelCoord coord, float angleRad, float angleDeg, Team* team);
+	HeavyShell(const uint16_t type, PixelCoord coord, float angleRad, float angleDeg, Team* const team);
 	~HeavyShell() = default;
 
 	void explosion() override final;

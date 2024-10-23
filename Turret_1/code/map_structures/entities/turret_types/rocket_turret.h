@@ -3,14 +3,13 @@
 #define ROCKET_TURRET_H
 
 #include <SFML\Graphics.hpp>
-
 #include "map_structures/entities/turret/turret.h"
 
 
 class RocketTurret : public Turret
 {
 	public:
-		RocketTurret(const int type, const TileCoord tile, Team* team);
+		RocketTurret(const uint16_t type, const TileCoord tile, Team* const team);
 		~RocketTurret() = default;
 
 		void shooting() override final;

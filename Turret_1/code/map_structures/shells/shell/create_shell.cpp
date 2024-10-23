@@ -5,7 +5,7 @@
 #include "map_structures/shells/shell_types/rocket.h"
 
 
-std::unique_ptr<Shell> Shell::createShell(short type, const PixelCoord coord, float angleRad, float angleDeg, Team* team)
+std::unique_ptr<Shell> Shell::createShell(const uint16_t type, const PixelCoord coord, float angleRad, float angleDeg, Team* const team)
 {
 	switch (type)
 	{

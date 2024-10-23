@@ -7,7 +7,7 @@
 #include "map_structures/team/team.h"
 
 
-RocketTurret::RocketTurret(int type, TileCoord tile, Team* team) :
+RocketTurret::RocketTurret(const uint16_t type, const TileCoord tile, Team* const team) :
 	Turret(ROCKET_TURRET, tile, team)
 {
 	spyralRange = 4109;

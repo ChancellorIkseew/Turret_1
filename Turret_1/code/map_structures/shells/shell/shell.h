@@ -12,29 +12,32 @@ class Team;
 class Shell
 {
 protected:
-	short type;
-	short damage;
+	PixelCoord coord;
+	PixelCoord lineMotion;
+
+	Team* team;
 
 	float angleRad;
 	float angleDeg;
-	
-	PixelCoord coord;
-	PixelCoord lineMotion;
-	
-	int curentLifeTime;
-	int maxLifeTime;
+
 	bool isWasted;
-	Team* team;
+
+	uint16_t type;
+	int16_t damage;
+
+	uint16_t curentLifeTime;
+	uint16_t maxLifeTime;
+	
 
 	static inline sf::Image shellImage;
 	static inline sf::Texture shellTexture;
 	static inline sf::Sprite shellSprite;
 	
 public:
-	Shell(short type, const PixelCoord coord, float angleRad, float angleDeg, Team* team);
+	Shell(const uint16_t type, const PixelCoord coord, float angleRad, float angleDeg, Team* const team);
 	virtual ~Shell() = default;
 
-	static std::unique_ptr<Shell> createShell(short type, const PixelCoord coord, float angleRad, float angleDeg, Team* team);
+	static std::unique_ptr<Shell> createShell(const uint16_t type, const PixelCoord coord, float angleRad, float angleDeg, Team* const team);
 
 	virtual void motion();
 	virtual void explosion();

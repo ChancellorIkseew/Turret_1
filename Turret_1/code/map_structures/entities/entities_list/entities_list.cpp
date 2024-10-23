@@ -62,7 +62,7 @@ void EntitiesList::load(const std::string& folder)
 
 
 
-void EntitiesList::spawnEntity(const int amount, const int type, Team* team)
+void EntitiesList::spawnEntity(const uint8_t amount, const uint16_t type, Team* const team)
 {
 	for (int i = 0; i < amount; ++i)
 	{

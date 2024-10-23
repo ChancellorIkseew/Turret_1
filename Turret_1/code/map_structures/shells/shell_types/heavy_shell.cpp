@@ -1,6 +1,4 @@
 
-#include <SFML\Graphics.hpp>
-
 #include "heavy_shell.h"
 
 #include "map_structures/buildings/buildings_map/buildings_map.h"
@@ -10,7 +8,7 @@
 
 const int EXP_RADIUS = _TILE_ + _HALF_TILE_;
 
-HeavyShell::HeavyShell(short type, PixelCoord coord, float angleRad, float angleDeg, Team* team) :
+HeavyShell::HeavyShell(const uint16_t type, PixelCoord coord, float angleRad, float angleDeg, Team* const team) :
 	Shell(type, coord, angleRad, angleDeg, team)
 {
 	damage = 20;

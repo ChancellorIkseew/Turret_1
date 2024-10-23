@@ -3,15 +3,13 @@
 #define SHIELDED_CONVEYER_H
 
 #include "SFML/Graphics.hpp"
-
 #include "map_structures/buildings/building_types/logistics/conveyer.h"
 
 
 class ShieldedConveyer : public Conveyer
 {
 public:
-
-	ShieldedConveyer(char type, char direction, short durability, short size, const TileCoord tile, Team* team);
+	ShieldedConveyer(const uint16_t type, const char direction, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team);
 	~ShieldedConveyer() = default;
 
 	void draw(sf::RenderWindow& window) override final;

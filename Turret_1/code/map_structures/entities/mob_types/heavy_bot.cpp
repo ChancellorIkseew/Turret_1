@@ -7,7 +7,7 @@
 #include "map_structures/team/team.h"
 
 
-HeavyBot::HeavyBot(int type, Team* team) : Entity(type, team)
+HeavyBot::HeavyBot(const uint16_t type, Team* const team) : Entity(type, team)
 {
 	durability = 50 * maxDurabilityModifier;
 	pixelRange = 7;

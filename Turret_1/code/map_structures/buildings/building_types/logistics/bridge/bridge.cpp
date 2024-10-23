@@ -5,7 +5,8 @@
 #include "map_structures/resources/res_enum.h"
 
 
-Bridge::Bridge(int type, char direction, short durability, short size, const TileCoord tile, Team* team) : Building(type, durability, size, tile, team)
+Bridge::Bridge(const uint16_t type, const char direction, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team) :
+	Building(type, durability, size, tile, team)
 {
 	this->direction = direction;
 }

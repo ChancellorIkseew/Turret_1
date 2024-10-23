@@ -20,12 +20,12 @@ void Team::addTeam(const std::shared_ptr<Team> team)
     teams.emplace(team);
 }
 
-void Team::spawnShell(short type, const PixelCoord coord, float angleRad, float angleDeg)
+void Team::spawnShell(const uint16_t type, const PixelCoord coord, float angleRad, float angleDeg)
 {
     shells.spawnShell(type, coord, angleRad, angleDeg, this);
 }
 
-void Team::spawnEntity(const int amount, const int type)
+void Team::spawnEntity(const uint8_t amount, const uint16_t type)
 {
     entities.spawnEntity(amount, type, this);
 }

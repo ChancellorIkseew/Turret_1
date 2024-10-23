@@ -23,7 +23,7 @@ void ShellsList::load(const std::string& folder)
 }
 
 
-void ShellsList::spawnShell(short type, const PixelCoord coord, float angleRad, float angleDeg, Team* team)
+void ShellsList::spawnShell(const uint16_t type, const PixelCoord coord, float angleRad, float angleDeg, Team* const team)
 {
 	try
 	{

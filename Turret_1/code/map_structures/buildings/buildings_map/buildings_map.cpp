@@ -1,9 +1,5 @@
 
 #include <iostream>
-#include <fstream>
-#include <string>
-#include <SFML\Graphics.hpp>
-
 
 #include "buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"
@@ -103,18 +99,17 @@ void BuildingsMap::createAuxilary(const short size, const TileCoord tile, Team* 
 	{
 		int iTileX = tile.x + t1::be::coordSquareArr[i].x;
 		int iTileY = tile.y + t1::be::coordSquareArr[i].y;
-		buildingsMap[iTileX][iTileY] = Building::createBuilding(AUXILARY, 0, 0, size, tile, team);
+		buildingsMap[iTileX][iTileY] = Building::createBuilding(AUXILARY, 0, tile, team);
 	}
 }
 
 
-void BuildingsMap::constructBuilding(const int type, const char direction, const TileCoord tile, Team* team)
+void BuildingsMap::constructBuilding(const uint16_t type, const char direction, const TileCoord tile, Team* team)
 {
 	if (t1::bc::buildingsInfoTable.find(type) == t1::bc::buildingsInfoTable.end())
 		return;
 
 	int size = t1::bc::buildingsInfoTable[type].size;
-	int durability = t1::bc::buildingsInfoTable[type].durability * PreSettings::getBuildings().maxDurabilityModifier;
 
 	for (int i = 0; i < size; i++) // cheeck_square_for_building
 	{
@@ -127,7 +122,7 @@ void BuildingsMap::constructBuilding(const int type, const char direction, const
 	if (team->getBalance().isEnough(t1::bc::buildingsInfoTable[type].costToBuild))
 	{
 		team->getBalance().waste(t1::bc::buildingsInfoTable[type].costToBuild);
-		buildingsMap[tile.x][tile.y] = Building::createBuilding(type, direction, durability, size, tile, team);
+		buildingsMap[tile.x][tile.y] = Building::createBuilding(type, direction, tile, team);
 		createAuxilary(size, tile, team);
 		isMapChanged = true;
 	}
@@ -293,7 +288,7 @@ int BuildingsMap::getBuildingType(const TileCoord tile)
 }
 
 
-void BuildingsMap::setTurret(const int turretType, const TileCoord tile, Team* team)
+void BuildingsMap::setTurret(const uint16_t turretType, const TileCoord tile, Team* const team)
 {
 	if (t1::bc::buildingsInfoTable.find(turretType) == t1::bc::buildingsInfoTable.end() || !buildingExists(tile) ||
 		(buildingsMap[tile.x][tile.y]->getType() != STONE_TOWER && buildingsMap[tile.x][tile.y]->getType() != STEEL_TOWER))

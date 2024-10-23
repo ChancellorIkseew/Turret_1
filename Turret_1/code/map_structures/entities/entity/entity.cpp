@@ -14,7 +14,7 @@ void Entity::initPreSettings()
 	Entity::maxDurabilityModifier = PreSettings::getMobs().maxDurabilityModifier;
 }
 
-Entity::Entity(const int type, Team* team)		//1st spawn
+Entity::Entity(const uint16_t type, Team* const team)		//1st spawn
 {
 	this->type = type;
 	this->team = team;
@@ -160,12 +160,12 @@ void Entity::reloadWeapon()
 }
 
 
-void Entity::setDurability(const int durability)
+void Entity::setDurability(const int16_t durability)
 {
 	this->durability = durability;
 }
 
-void Entity::setDamage(const int damage)
+void Entity::setDamage(const int16_t damage)
 {
 	durability -= damage;
 }
@@ -176,7 +176,7 @@ void Entity::setCoord(const PixelCoord coord)
 }
 
 
-char Entity::getType() const { return type; }
+uint16_t Entity::getType() const { return type; }
 PixelCoord Entity::getCoord() const { return coord; }
 TileCoord Entity::getTile() const { return tile(coord); }
 int Entity::getAngleDeg() const { return int(motionAngleDeg); }

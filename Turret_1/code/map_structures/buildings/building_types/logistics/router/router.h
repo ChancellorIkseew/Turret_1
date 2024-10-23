@@ -2,15 +2,15 @@
 #ifndef BUILDING_ROUTER_H
 #define BUILDING_ROUTER_H
 
-#include "map_structures/buildings/building/building.h"
 #include "SFML/Graphics.hpp"
+#include "map_structures/buildings/building/building.h"
 
 
 class Router : public Building
 {
 public:
 
-	Router(int type, short durability, short size, const TileCoord tile, Team* team);
+	Router(const uint16_t type, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team);
 	~Router() = default;
 
 	void interact() override;

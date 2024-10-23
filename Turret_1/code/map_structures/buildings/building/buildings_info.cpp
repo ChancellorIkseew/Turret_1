@@ -3,9 +3,9 @@
 #include "buildings_enum.h"
 
 
-std::map<int, const BuildingInfo> t1::bc::buildingsInfoTable
+std::map<uint16_t, const BuildingInfo> t1::bc::buildingsInfoTable
 {
-	std::pair<int, const BuildingInfo>
+	std::pair<uint16_t, const BuildingInfo>
 
 	{ REMOVE, { L"Снести здание", 0, 0, {0, 0, 0, 0, 0, 0},
 	L"Будьте осторожны. Ресурсы, \nзатраченные на строительство \nпри сносе не возвращаются."} },
@@ -61,7 +61,7 @@ std::map<int, const BuildingInfo> t1::bc::buildingsInfoTable
 };
 
 
-void t1::bc::addBuildingsInfo(int type, const BuildingInfo info)
+void t1::bc::addBuildingsInfo(uint16_t type, const BuildingInfo info)
 {
 
 }

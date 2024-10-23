@@ -1,6 +1,4 @@
 
-#include <SFML\Graphics.hpp>
-
 #include "rocket.h"
 
 #include "map_structures/buildings/buildings_map/buildings_map.h"
@@ -10,7 +8,7 @@
 
 const int EXP_RADIUS = _TILE_ * 3 + _HALF_TILE_;
 
-Rocket::Rocket(short type, PixelCoord coord, float angleRad, float angleDeg, Team* team) :
+Rocket::Rocket(const uint16_t type, PixelCoord coord, float angleRad, float angleDeg, Team* const team) :
 	Shell(type, coord, angleRad, angleDeg, team)
 {
 	damage = 0; // only_burst_damage

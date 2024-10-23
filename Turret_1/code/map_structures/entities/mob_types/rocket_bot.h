@@ -3,15 +3,13 @@
 #define SNIPER_BOT_H
 
 #include <SFML\Graphics.hpp>
-
 #include "map_structures/entities/entity/entity.h"
-#include "map_structures/base_engine/tile_coord.h"
 
 
 class RocketBot : public Entity
 {
 public:
-	RocketBot(int type, Team* team);
+	RocketBot(const uint16_t type, Team* const team);
 	~RocketBot() = default;
 
 	PixelCoord findDestinationCoord() const override final;

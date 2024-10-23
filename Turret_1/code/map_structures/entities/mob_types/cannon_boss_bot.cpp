@@ -6,7 +6,7 @@
 #include "map_structures/team/team.h"
 
 
-CannonBossBot::CannonBossBot(int type, Team* team) : Entity(type, team)
+CannonBossBot::CannonBossBot(const uint16_t type, Team* const team) : Entity(type, team)
 {
 	durability = 270 * maxDurabilityModifier;
 	pixelRange = 20;

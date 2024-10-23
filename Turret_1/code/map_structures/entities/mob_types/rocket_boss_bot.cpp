@@ -7,7 +7,7 @@
 #include "map_structures/team/team.h"
 
 
-RocketBossBot::RocketBossBot(int type, Team* team) : Entity(type, team)
+RocketBossBot::RocketBossBot(const uint16_t type, Team* const team) : Entity(type, team)
 {
 	durability = 230 * maxDurabilityModifier;
 	pixelRange = 28;

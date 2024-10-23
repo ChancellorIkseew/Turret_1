@@ -1,6 +1,4 @@
 
-#include <SFML\Graphics.hpp>
-
 #include "shell.h"
 
 #include "shell_enum.h"
@@ -9,7 +7,7 @@
 #include "map_structures/team/team.h"
 
 
-Shell::Shell(short type, const PixelCoord coord, float angleRad, float angleDeg, Team* team)
+Shell::Shell(const uint16_t, const PixelCoord coord, float angleRad, float angleDeg, Team* const team)
 {
 	this->type = type;
 	this->coord = coord;

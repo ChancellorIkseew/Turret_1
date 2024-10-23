@@ -7,7 +7,7 @@
 #include "map_structures/team/team.h"
 
 
-LaserBot::LaserBot(int type, Team* team) : Entity(type, team)
+LaserBot::LaserBot(const uint16_t type, Team* const team) : Entity(type, team)
 {
 	durability = 10 * maxDurabilityModifier;
 	pixelRange = 8;

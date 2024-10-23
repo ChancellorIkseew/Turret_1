@@ -3,15 +3,13 @@
 #define ROCKET_BOSS_BOT_H
 
 #include <SFML\Graphics.hpp>
-
 #include "map_structures/entities/entity/entity.h"
-#include "map_structures/base_engine/tile_coord.h"
 
 
 class RocketBossBot : public Entity
 {
 public:
-	RocketBossBot(int type, Team* team);
+	RocketBossBot(const uint16_t type, Team* const team);
 	~RocketBossBot() = default;
 
 	PixelCoord findDestinationCoord() const override final;

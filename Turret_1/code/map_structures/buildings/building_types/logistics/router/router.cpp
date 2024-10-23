@@ -3,7 +3,8 @@
 #include "map_structures/resources/res_enum.h"
 
 
-Router::Router(int type, short durability, short size, const TileCoord tile, Team* team) : Building(type, durability, size, tile, team)
+Router::Router(const uint16_t type, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team) :
+	Building(type, durability, size, tile, team)
 {
 
 }
