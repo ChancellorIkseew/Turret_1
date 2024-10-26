@@ -186,7 +186,7 @@ int Entity::getDurability() const { return durability; }
 // visual
 void Entity::prepareSprites()
 {
-	entityImage.loadFromFile("images/flame_bot.bmp");
+	entityImage.loadFromFile("images/mobs.bmp");
 	entityImage.createMaskFromColor(sf::Color(0, 255, 0));
 	entityTexture.loadFromImage(entityImage);
 	entitySprite.setTexture(entityTexture);

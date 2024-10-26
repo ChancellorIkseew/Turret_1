@@ -15,6 +15,7 @@ struct BuildingInfo
 	int16_t durability;
 
 	AllResources costToBuild;
+	sf::IntRect icoRect;
 
 	sf::String description;
 };

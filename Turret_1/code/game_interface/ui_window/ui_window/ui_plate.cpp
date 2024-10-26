@@ -6,6 +6,7 @@
 #include "game_interface/ui_window/sub_win_util/fonts.h"
 #include "game_interface/ui_window/elements/res_ico/res_ico.h"
 #include "game_interface/ui_window/elements/res_info/res_info.h"
+#include "game_interface/ui_window/elements/button/building_ico.h"
 
 
 UIPlate::UIPlate(const sf::Vector2u size, const sf::Vector2u position)
@@ -24,6 +25,7 @@ void UIPlate::init()
 
 	ResIco::prepareSprites();
 	ResInfo::prepareSprites();
+	BuildingIco::prepareSprites();
 	initFonts();
 }
 
@@ -109,11 +111,7 @@ void UIPlate::setVisible(const bool value)
 
 bool UIPlate::containsCoursor(const sf::Vector2i& mouseCoord) const
 {
-	if (isVisible &&
+	return isVisible &&
 		position.x <= mouseCoord.x && (position.x + size.x) >= mouseCoord.x &&
-		position.y <= mouseCoord.y && (position.y + size.y) >= mouseCoord.y)
-	{
-		return true;
-	}
-	return false;
+		position.y <= mouseCoord.y && (position.y + size.y) >= mouseCoord.y;
 }

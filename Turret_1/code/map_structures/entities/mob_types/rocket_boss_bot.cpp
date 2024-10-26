@@ -54,8 +54,8 @@ void RocketBossBot::shoot()
 
 void RocketBossBot::draw(sf::RenderWindow& window)
 {
-	entitySprite.setTextureRect(sf::IntRect(0, 61, 41, 28));
-	entitySprite.setOrigin(21.5, 14);
+	entitySprite.setTextureRect(sf::IntRect(0, 62, 47, 30));
+	entitySprite.setOrigin(24, 14);
 
 	if (isAimDetected)
 		entitySprite.setRotation(shootingAngleDeg);

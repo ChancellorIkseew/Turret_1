@@ -86,6 +86,7 @@ void Rocket::draw(sf::RenderWindow &window)
 	else
 		shellSprite.setTextureRect(sf::IntRect(15, 0, 10, 30));
 	
+	shellSprite.setOrigin(7, 1);
 	shellSprite.setPosition(coord.x, coord.y);
 	shellSprite.setRotation(angleDeg);
 	window.draw(shellSprite);

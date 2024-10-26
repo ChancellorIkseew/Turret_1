@@ -45,8 +45,8 @@ void CannonBossBot::shoot()
 
 void CannonBossBot::draw(sf::RenderWindow& window)
 {
-	entitySprite.setTextureRect(sf::IntRect(0, 19, 41, 41));
-	entitySprite.setOrigin(21, 21);
+	entitySprite.setTextureRect(sf::IntRect(0, 18, 43, 43));
+	entitySprite.setOrigin(22, 22);
 
 	if (isAimDetected)
 		entitySprite.setRotation(shootingAngleDeg);

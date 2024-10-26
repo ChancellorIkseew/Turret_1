@@ -1,25 +1,39 @@
 
 #include <iostream>
-#include <SFML\Graphics.hpp>
 
 #include "building_panel.h"
+#include "building_panel/buildings_pages.h"
 
 #include "game_interface/ui_window/sub_win_util/ui_windows_list.h"
 #include "specifications_panel.h"
 
-#include "map_structures/buildings/building/buildings_ico.h"
 #include "map_structures/terrain/terrain.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/base_engine/tile_coord.h"
 #include "t1_system/t1_mutex.h"
+#include "t1_system/system.h"
+#include "t1_system/sleep.h"
 
-//using namespace t1::bc;
-
-BuildingPanel::BuildingPanel() : UIWindow(sf::Vector2u (144, 192), sf::Vector2u(0, 0))
+enum Buttons
 {
+	LOGISTICS = 0,
+	DRILLS = 1,
+	FACTORIES = 2,
+	ELECTRICS = 3,
+	WALLS = 4,
+	TURRETS = 5,
+	SPECIAL = 6,
+	STORAGES = 7
+};
+
+
+BuildingPanel::BuildingPanel() : UIWindow(sf::Vector2u(272, 192), sf::Vector2u(0, 0))
+{
+	selectedPage = LOGISTICS;
 	isBuildingTypeSelected = false;
 	newBuildingType = VOID_;
+	oldBuildingType = VOID_;
 	direction = 'w';
 
 	this->prepareInterfaceSprites();
@@ -28,74 +42,59 @@ BuildingPanel::BuildingPanel() : UIWindow(sf::Vector2u (144, 192), sf::Vector2u(
 
 void BuildingPanel::prepareInterfaceSprites()
 {
-	t1::bc::initBuildingIco();
 	buildingsImage.loadFromFile("images/buildings_map.bmp");
 	buildingsImage.createMaskFromColor(sf::Color(0, 255, 0));
 	buildingsTexture.loadFromImage(buildingsImage);
-	buildExampleSprite.setTexture(buildingsTexture); //Building_example_on_coursor
-	buildExampleSprite.setOrigin(_HALF_TILE_, _HALF_TILE_);
+	buildExample.setTexture(buildingsTexture); //Building_example_on_coursor
+	buildExample.setOrigin(_HALF_TILE_, _HALF_TILE_);
+
+	int line1 = 188;
+	int line2 = 230;
+	buttons[LOGISTICS] = Button("building/logistics_ico.bmp", sf::Vector2i(32, 32), sf::Vector2i(line1, 10));
+	buttons[DRILLS] = Button("building/drill_ico.bmp", sf::Vector2i(32, 32), sf::Vector2i(line1, 52));
+	buttons[FACTORIES] = Button("building/factory_ico.bmp", sf::Vector2i(32, 32), sf::Vector2i(line1, 94));
+	buttons[ELECTRICS] = Button("building/electrics_ico.bmp", sf::Vector2i(32, 32), sf::Vector2i(line1, 136));
+
+	buttons[WALLS] = Button("building/wall_ico.bmp", sf::Vector2i(32, 32), sf::Vector2i(line2, 10));
+	buttons[TURRETS] = Button("building/turret_ico.bmp", sf::Vector2i(32, 32), sf::Vector2i(line2, 52));
+	buttons[SPECIAL] = Button("building/special_ico.bmp", sf::Vector2i(32, 32), sf::Vector2i(line2, 94));
+	buttons[STORAGES] = Button("building/storage_ico.bmp", sf::Vector2i(32, 32), sf::Vector2i(line2, 136));
+
+	t1::bc::initLogistics(pages[LOGISTICS]);
+	t1::bc::initDrills(pages[DRILLS]);
+	t1::bc::initFactories(pages[FACTORIES]);
+	t1::bc::initElectrics(pages[ELECTRICS]);
+
+	t1::bc::initWalls(pages[WALLS]);
+	t1::bc::initTurrets(pages[TURRETS]);
+	t1::bc::initSpecial(pages[SPECIAL]);
+	t1::bc::initStorages(pages[STORAGES]);
+
+	for (auto& pg : pages)
+		t1::bc::arrangePage(pg.second);
 }
 
 
 
-void BuildingPanel::interact(const sf::Vector2i& mouseCoord, const sf::Vector2f& mouseMapCoord, Team* team)
+void BuildingPanel::interact(const sf::Vector2i& mouseCoord, const sf::Vector2f& mouseMapCoord, Team* const team)
 {
-	if (isBuildingTypeSelected && noSubWindowSelected(mouseCoord))
+	if (LMB_Pressed && isBuildingTypeSelected && noSubWindowSelected(mouseCoord))
 	{
-		std::cout << "building_place_works: " << newBuildingType << '\n';
-		TileCoord selectedTile = t1::be::tile(mouseMapCoord.x, mouseMapCoord.y);
-
-		t1::system::mt::buildings.lock();
-		if (newBuildingType == REMOVE)
-		{
-			if (BuildingsMap::isTurretOnTile(selectedTile))
-				BuildingsMap::removeTurret(selectedTile);
-			else
-				BuildingsMap::demolishBuilding(selectedTile);
-		}
-		else if (newBuildingType == AUTOCANNON_TURRET || newBuildingType == ROCKET_TURRET)
-		{
-			if (!BuildingsMap::isTurretOnTile(selectedTile))
-				BuildingsMap::setTurret(newBuildingType, selectedTile, team);
-		}
-		else
-		{
-			BuildingsMap::constructBuilding(newBuildingType, direction, selectedTile, team);
-		}
-		t1::system::mt::buildings.unlock();
+		placeBuilding(mouseMapCoord, team);
+		t1::system::sleep(150);
+		return;
 	}
-	
+
+	if (RMB_Pressed)
+	{
+		rotateBuilding();
+		t1::system::sleep(150);
+		return;
+	}
 	
 	if (BuildingPanel::getInstance().containsCoursor(mouseCoord))
 	{
-		for (auto& ico : t1::bc::buildingsIcoTable)
-		{
-			ico.second.icoSprite.setColor(sf::Color::White);
-		}
-
-		for (auto& ico : t1::bc::buildingsIcoTable)
-		{
-			if (ico.second.icoSprite.getGlobalBounds().contains(mouseCoord.x, mouseCoord.y))
-			{
-				buildExampleSprite.setTextureRect(ico.second.texMapRect);
-				ico.second.icoSprite.setColor(sf::Color(0, 250, 0));
-				oldBuildingType = newBuildingType;
-				newBuildingType = ico.first;
-				isBuildingTypeSelected = true;
-				if (oldBuildingType == newBuildingType)
-				{
-					isBuildingTypeSelected = false;
-					newBuildingType = VOID_;
-					for (auto& ico : t1::bc::buildingsIcoTable)
-					{
-						ico.second.icoSprite.setColor(sf::Color::White);
-					}
-				}
-				return;
-			}	
-		}
-
-		isBuildingTypeSelected = false;
+		selectBuildingType(mouseCoord);
 	}
 }
 
@@ -103,32 +102,16 @@ void BuildingPanel::interact(const sf::Vector2i& mouseCoord, const sf::Vector2f&
 
 void BuildingPanel::relocate(const sf::Vector2u windowSize)
 {
-	using namespace t1::bc;
-
 	position = windowSize - size;
 
-	buildingsIcoTable[REMOVE].icoSprite.setPosition(windowSize.x - 82, windowSize.y - 182);
+	for (auto& btn : buttons)
+		btn.second.relocateWithOwner(position);
 
-	buildingsIcoTable[STONE_TOWER].icoSprite.setPosition(windowSize.x - 134, windowSize.y - 182);
-	buildingsIcoTable[STONE_WALL].icoSprite.setPosition(windowSize.x - 108, windowSize.y - 182);
-	
-	buildingsIcoTable[SMALL_DRILL].icoSprite.setPosition(windowSize.x - 134, windowSize.y - 156);
-	buildingsIcoTable[BIG_DRILL].icoSprite.setPosition(windowSize.x - 108, windowSize.y - 156);
-    
-	buildingsIcoTable[SHELL_FACTORY].icoSprite.setPosition(windowSize.x - 134, windowSize.y - 104);
-	buildingsIcoTable[ROCKET_FACTORY].icoSprite.setPosition(windowSize.x - 92, windowSize.y - 104);
-    
-	buildingsIcoTable[COAL_GENERATOR].icoSprite.setPosition(windowSize.x - 50, windowSize.y - 156);
-    
-	buildingsIcoTable[STANDARD_CONVEYER].icoSprite.setPosition(windowSize.x - 134, windowSize.y - 60);
-	buildingsIcoTable[SHIELDED_CONVEYER].icoSprite.setPosition(windowSize.x - 108, windowSize.y - 60);
-
-	buildingsIcoTable[BRIDGE].icoSprite.setPosition(windowSize.x - 82, windowSize.y - 60);
-	buildingsIcoTable[ROUTER].icoSprite.setPosition(windowSize.x - 56, windowSize.y - 60);
-	buildingsIcoTable[SORTER].icoSprite.setPosition(windowSize.x - 30, windowSize.y - 60);
-
-	buildingsIcoTable[AUTOCANNON_TURRET].icoSprite.setPosition(windowSize.x - 56, windowSize.y - 182);
-	buildingsIcoTable[ROCKET_TURRET].icoSprite.setPosition(windowSize.x - 30, windowSize.y - 182);
+	for (auto& pg : pages)
+	{
+		for (auto& ico : pg.second)
+			ico.second.relocateWithOwner(position);
+	}
 }
 
 
@@ -142,28 +125,26 @@ void BuildingPanel::draw(sf::RenderWindow& window)
 	}
 
 	drawBase(window);
-
-	for (auto& ico : t1::bc::buildingsIcoTable)
-	{
-		window.draw(ico.second.icoSprite);
-	}
+	for (auto& btn : buttons)
+		btn.second.draw(window);
+	for (auto& ico : pages[selectedPage])
+		ico.second.draw(window);
 }
 
 
 
 void BuildingPanel::drawBuildExample(sf::RenderWindow& window, const sf::Vector2f& mouseMapCoord)
 {
-	if (isBuildingTypeSelected)
+	if (!isBuildingTypeSelected)
+		return;
+	if (newBuildingType != STANDARD_CONVEYER && newBuildingType != SHIELDED_CONVEYER &&
+		newBuildingType != BRIDGE && newBuildingType != SORTER)
 	{
-		if (newBuildingType != STANDARD_CONVEYER && newBuildingType != SHIELDED_CONVEYER &&
-			newBuildingType != BRIDGE && newBuildingType != SORTER)
-		{
-			direction = 'w';
-			buildExampleSprite.setRotation(0);
-		}
-		buildExampleSprite.setPosition(mouseMapCoord);
-		window.draw(buildExampleSprite);
+		direction = 'w';
+		buildExample.setRotation(0);
 	}
+	buildExample.setPosition(mouseMapCoord);
+	window.draw(buildExample);
 }
 
 
@@ -179,28 +160,84 @@ void BuildingPanel::rotateBuilding()
 		if (direction == 'w')
 		{
 			direction = 'a';
-			buildExampleSprite.setRotation(270);
+			buildExample.setRotation(270);
 		}
 		else if (direction == 'a')
 		{
 			direction = 's';
-			buildExampleSprite.setRotation(180);
+			buildExample.setRotation(180);
 		}
 		else if (direction == 's')
 		{
 			direction = 'd';
-			buildExampleSprite.setRotation(90);
+			buildExample.setRotation(90);
 		}
 		else if (direction == 'd')
 		{
 			direction = 'w';
-			buildExampleSprite.setRotation(0);
+			buildExample.setRotation(0);
 		}
 		break;
 
 	default:
 		direction = 'w';
-		buildExampleSprite.setRotation(0);
+		buildExample.setRotation(0);
 		break;
 	}
+}
+
+
+void BuildingPanel::selectBuildingType(const sf::Vector2i& mouseCoord)
+{
+	for (auto& btn : buttons)
+	{
+		if (btn.second.press(mouseCoord))
+			selectedPage = btn.first;
+	}
+
+	for (auto& ico : pages[selectedPage])
+	{
+		if (ico.second.press(mouseCoord))
+		{
+			newBuildingType = ico.first;
+			if (oldBuildingType != newBuildingType)
+			{
+				buildExample.setTextureRect(t1::bc::buildingsInfoTable[newBuildingType].icoRect);
+				isBuildingTypeSelected = true;
+				oldBuildingType = newBuildingType;
+			}
+			else
+			{
+				isBuildingTypeSelected = false;
+				oldBuildingType = VOID_;
+			}
+			return;
+		}
+	}
+}
+
+
+void BuildingPanel::placeBuilding(const sf::Vector2f& mouseMapCoord, Team* const team)
+{
+	std::cout << "building_place_works: " << newBuildingType << '\n';
+	TileCoord selectedTile = t1::be::tile(mouseMapCoord.x, mouseMapCoord.y);
+
+	t1::system::mt::buildings.lock();
+	if (newBuildingType == REMOVE)
+	{
+		if (BuildingsMap::isTurretOnTile(selectedTile))
+			BuildingsMap::removeTurret(selectedTile);
+		else
+			BuildingsMap::demolishBuilding(selectedTile);
+	}
+	else if (newBuildingType == AUTOCANNON_TURRET || newBuildingType == ROCKET_TURRET)
+	{
+		if (!BuildingsMap::isTurretOnTile(selectedTile))
+			BuildingsMap::setTurret(newBuildingType, selectedTile, team);
+	}
+	else
+	{
+		BuildingsMap::constructBuilding(newBuildingType, direction, selectedTile, team);
+	}
+	t1::system::mt::buildings.unlock();
 }

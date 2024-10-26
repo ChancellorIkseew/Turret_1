@@ -18,21 +18,7 @@ void t1::gamepl::input(bool& isGameplayActive, bool& isPaused, sf::RenderWindow&
     while (isGameplayActive)
     {
         MainControlPanel::getInstance().interact(mouseCoord, isPaused, isGameplayActive, saveFolderName);
-
-
-        if (LMB_Pressed)
-        {
-            
-            BuildingPanel::getInstance().interact(mouseCoord, mouseMapCoord, team);
-
-            Sleep(150);
-        }
-
-        if (RMB_Pressed)
-        {
-            BuildingPanel::getInstance().rotateBuilding();
-            Sleep(150);
-        }
+        BuildingPanel::getInstance().interact(mouseCoord, mouseMapCoord, team);
 
         if (MidMB_Pressed)
         {

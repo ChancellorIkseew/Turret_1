@@ -273,9 +273,6 @@
     <ClCompile Include="code\game_interface\gameplay\gameplay_streams\simulation.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="code\map_structures\buildings\building\buildings_ico.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="code\game_interface\gameplay\gameplay_streams\graphics.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -343,6 +340,36 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="code\map_structures\buildings\building_types\storages\core_types\core_mk2.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game_interface\gameplay\ui_elements\building_panel\logistics_page.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game_interface\gameplay\ui_elements\building_panel\turrets_page.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game_interface\gameplay\ui_elements\building_panel\walls_page.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game_interface\ui_window\elements\button\building_ico.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game_interface\gameplay\ui_elements\building_panel\arrange_page.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game_interface\gameplay\ui_elements\building_panel\drills_page.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game_interface\gameplay\ui_elements\building_panel\factories_page.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game_interface\gameplay\ui_elements\building_panel\storages_page.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game_interface\gameplay\ui_elements\building_panel\special_page.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game_interface\gameplay\ui_elements\building_panel\electrics_page.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -581,9 +608,6 @@
     <ClInclude Include="code\game_interface\gameplay\gameplay_streams\simulation.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="code\map_structures\buildings\building\buildings_ico.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="code\game_interface\gameplay\gameplay_streams\graphics.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -672,6 +696,12 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\map_structures\terrain\terrain_enum.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\game_interface\gameplay\ui_elements\building_panel\buildings_pages.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\game_interface\ui_window\elements\button\building_ico.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

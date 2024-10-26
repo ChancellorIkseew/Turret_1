@@ -2,9 +2,8 @@
 #ifndef ROCKET_FACTORY_H
 #define ROCKET_FACTORY_H
 
+#include <SFML/Graphics.hpp>
 #include "map_structures/buildings/building_types/factories/factory.h"
-
-#include "SFML/Graphics.hpp"
 
 
 class RocketFactory final : public Factory
@@ -25,6 +24,5 @@ public:
 	void draw(sf::RenderWindow& window) override final;
 
 };
-
 
 #endif // ROCKET_FACTORY_H

@@ -1,7 +1,6 @@
 
 #include <string>
 #include <sstream>
-#include <SFML\Graphics.hpp>
 
 #include "specifications_panel.h"
 
@@ -10,7 +9,7 @@
 #include "map_structures/pre-settings/pre-settings.h"
 
 
-BuildingInfo SpecificationsPanel::nullInfo = { L" ", 0, 0, {0, 0, 0, 0, 0, 0}, L" " };
+BuildingInfo SpecificationsPanel::nullInfo = { L" ", 0, 0, {0, 0, 0, 0, 0, 0}, sf::IntRect(0, 0, 0, 0), L" "};
 
 SpecificationsPanel::SpecificationsPanel() : UIWindow(sf::Vector2u(260, 400), sf::Vector2u(0, 310))
 {

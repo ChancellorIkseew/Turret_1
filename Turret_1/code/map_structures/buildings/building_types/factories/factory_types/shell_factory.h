@@ -2,9 +2,8 @@
 #ifndef SHELL_FACTORY_H
 #define SHELL_FACTORY_H
 
-#include "map_structures/buildings/building_types/factories/factory.h"
-
 #include "SFML/Graphics.hpp"
+#include "map_structures/buildings/building_types/factories/factory.h"
 
 
 class ShellFactory final : public Factory

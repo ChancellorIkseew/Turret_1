@@ -2,9 +2,8 @@
 #ifndef SMALL_DRILL_H
 #define SMALL_DRILL_H
 
+#include <SFML/Graphics.hpp>
 #include "map_structures/buildings/building_types/drills/drill.h"
-
-#include "SFML/Graphics.hpp"
 
 
 class SmallDrill final : public Drill
@@ -20,6 +19,5 @@ public:
 	void draw(sf::RenderWindow& window) override;
 	
 };
-
 
 #endif // SMALL_DRILL_H

@@ -13,13 +13,11 @@ protected:
 	float rotorAngle;
 
 public:
-
 	Drill(const uint16_t type, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team);
 	virtual ~Drill() = default;
 
 	void mineResource(int amountFromOneTile);
 
 };
-
 
 #endif // DRILL_H

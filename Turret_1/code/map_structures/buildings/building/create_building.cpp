@@ -1,4 +1,6 @@
 
+#include <iostream>
+
 #include "buildings_enum.h"
 #include "map_structures/buildings/building/buildings_info.h"
 #include "map_structures/pre-settings/pre-settings.h"
@@ -82,6 +84,7 @@ std::shared_ptr<Building> Building::createBuilding(const uint16_t type, const ch
 		return std::make_shared<RocketFactory>(ROCKET_FACTORY, durability, size, tile, team);
 
 	default:
+		std::cout << "building_type does not exist. type: " << type << '\n';
 		return nullptr;
 	}
 }
