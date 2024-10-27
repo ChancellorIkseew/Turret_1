@@ -4,8 +4,7 @@
 #include "building_panel.h"
 #include "building_panel/buildings_pages.h"
 
-#include "game_interface/ui_window/sub_win_util/ui_windows_list.h"
-#include "specifications_panel.h"
+#include "game_interface/gameplay/gameplay.h"
 
 #include "map_structures/terrain/terrain.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
@@ -37,6 +36,7 @@ BuildingPanel::BuildingPanel() : UIWindow(sf::Vector2u(272, 192), sf::Vector2u(0
 	direction = 'w';
 
 	this->prepareInterfaceSprites();
+	specificationsPanel = std::make_unique<SpecificationsPanel>();
 }
 
 
@@ -78,7 +78,7 @@ void BuildingPanel::prepareInterfaceSprites()
 
 void BuildingPanel::interact(const sf::Vector2i& mouseCoord, const sf::Vector2f& mouseMapCoord, Team* const team)
 {
-	if (LMB_Pressed && isBuildingTypeSelected && noSubWindowSelected(mouseCoord))
+	if (LMB_Pressed && isBuildingTypeSelected && (*Gameplay::getInstance()).noSubWindowSelected(mouseCoord))
 	{
 		placeBuilding(mouseMapCoord, team);
 		t1::system::sleep(150);
@@ -92,10 +92,7 @@ void BuildingPanel::interact(const sf::Vector2i& mouseCoord, const sf::Vector2f&
 		return;
 	}
 	
-	if (BuildingPanel::getInstance().containsCoursor(mouseCoord))
-	{
-		selectBuildingType(mouseCoord);
-	}
+	selectBuildingType(mouseCoord);
 }
 
 
@@ -112,6 +109,8 @@ void BuildingPanel::relocate(const sf::Vector2u windowSize)
 		for (auto& ico : pg.second)
 			ico.second.relocateWithOwner(position);
 	}
+
+	specificationsPanel->relocate(windowSize);
 }
 
 
@@ -120,8 +119,8 @@ void BuildingPanel::draw(sf::RenderWindow& window)
 {
 	if (isBuildingTypeSelected)
 	{
-		SpecificationsPanel::getInstance().interact(newBuildingType);
-		SpecificationsPanel::getInstance().draw(window);
+		specificationsPanel->interact(newBuildingType);
+		specificationsPanel->draw(window);
 	}
 
 	drawBase(window);

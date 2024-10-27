@@ -5,7 +5,6 @@
 
 #include "main_control_panel.h"
 
-#include "game_interface/ui_window/sub_win_util/ui_windows_list.h"
 #include "game_interface/ui_window/sub_win_util/fonts.h"
 
 #include "settings_window.h"
@@ -70,19 +69,16 @@ void MainControlPanel::prepareInterfaceSprites()
 
 
 
-void MainControlPanel::interact(sf::Vector2i& mouseCoord, bool& isPaused, bool& isGameplayActive, const std::string& saveFolderName)
+void MainControlPanel::interact(const sf::Vector2i& mouseCoord, bool& isPaused, bool& isGameplayActive)
 {
 	if (buttons[SAVE].press(mouseCoord))
 	{
 		PreSettings::savePreSettings();
 
 		std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
-		TerrainMap::saveMap(saveFolderName);
-		BuildingsMap::saveMap(saveFolderName);
-		//saveEntitiesList(saveFolderName);
-		//saveResUnitsList(saveFolderName);
-		t1::time::saveTime(saveFolderName);
-		//t1::res::saveResources(saveFolderName);
+		//TerrainMap::saveMap(saveFolderName);
+		//BuildingsMap::saveMap(saveFolderName);
+		//t1::time::saveTime(saveFolderName);
 	}
 	
 	if (buttons[EXIT_TO_MENU].press(mouseCoord))
@@ -93,8 +89,6 @@ void MainControlPanel::interact(sf::Vector2i& mouseCoord, bool& isPaused, bool& 
 		{
 			std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
 			cleanParticlesList();
-			//cleanResUnitsList();
-			
 			isGameplayActive = false;
 		}
 		
@@ -103,9 +97,9 @@ void MainControlPanel::interact(sf::Vector2i& mouseCoord, bool& isPaused, bool& 
 	
 	if (buttons[SETTINGS].press(mouseCoord))
 	{
-		SettingsWindow::getInstance().setVisible(true);
-		SettingsWindow::getInstance().interact(mouseCoord);
-		SettingsWindow::getInstance().setVisible(false);
+		//SettingsWindow::getInstance().setVisible(true);
+		//SettingsWindow::getInstance().interact(mouseCoord);
+		//SettingsWindow::getInstance().setVisible(false);
 	}
 	
 	if (buttons[HELP].press(mouseCoord))

@@ -6,10 +6,6 @@
 
 #include "game_interface/main_window/main_window.h"
 
-#include "game_interface/gameplay/gameplay_streams/simulation.h"
-#include "game_interface/gameplay/gameplay_streams/input.h"
-#include "game_interface/gameplay/gameplay_streams/graphics.h"
-
 #include "gameplay_util/t1_time.h"
 
 #include "map_structures/pre-settings/pre-settings.h"
@@ -19,8 +15,11 @@
 #include "map_structures/team/team.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 
+#include "game_interface/gameplay/ui_elements/exit_confirmation.h"
+#include "game_interface/gameplay/ui_elements/settings_window.h"
 
-char t1::gamepl::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, std::string saveFolderName)
+
+int Gameplay::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, std::string saveFolderName)
 {
     if (!startNewGame)
     {
@@ -31,9 +30,8 @@ char t1::gamepl::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, 
 	BuildingsMap buildingsMap(PreSettings::getTerrain().mapSize);
     Entity::initPreSettings();
 
-    std::shared_ptr<Team> player = std::make_shared<Team>("player");
-    std::shared_ptr<Team> enemy = std::make_shared<Team>("enemy");
-
+	player = std::make_shared<Team>("player");
+	enemy = std::make_shared<Team>("enemy");
     Team::addTeam(player);
     Team::addTeam(enemy);
 
@@ -55,28 +53,53 @@ char t1::gamepl::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, 
 
         t1::time::loadTime(saveFolderName);
 	}
-	
-    bool isMovingCamera = false;
-    sf::Vector2f lastMousePosition;
 
-    sf::Vector2i mouseCoord;
-    sf::Vector2f mouseMapCoord;
-    
-    bool isPaused = true;
-	bool isGameplayActive = true;
-
-    std::thread simulation([&]() { t1::gamepl::simulation(isGameplayActive, isPaused, *enemy, *player); });
-    std::thread input([&]() { t1::gamepl::input(isGameplayActive, isPaused, mainWindow, mouseCoord, mouseMapCoord,
-        lastMousePosition, isMovingCamera, saveFolderName, player.get()); });
-    graphics(isGameplayActive, isPaused, mainWindow, mouseCoord, mouseMapCoord,
-        lastMousePosition, isMovingCamera);
-    if (false)
-    {
-        //std::thread network([&]() { network(); } );
-    }
+    std::thread simulation([&]() { simulation(); });
+    std::thread input([&]() { input(mainWindow); });
+    //std::thread network([&]() { network(); } );
+    graphics(mainWindow);
 
     simulation.join();
     input.join();
     Team::teams.clear();
 	return GameCondition::MAIN_MENU;
+}
+
+
+
+void Gameplay::relocateSubWindows(const sf::Vector2u windowSize)
+{
+	ConfirmationWindow::getInstance().relocate(windowSize);
+	SettingsWindow::getInstance().relocate(windowSize);
+	resourcesPanel.relocate(windowSize);
+	buildingPanel.relocate(windowSize);
+}
+
+
+
+bool Gameplay::noSubWindowSelected(sf::Vector2i mouseCoord)
+{
+	if (!mainControlPanel.containsCoursor(mouseCoord) && !resourcesPanel.containsCoursor(mouseCoord) &&
+		!buildingPanel.containsCoursor(mouseCoord))
+	{
+		return true;
+	}
+
+	return false;
+}
+
+
+Gameplay::Gameplay()
+{
+	instance = this;
+}
+
+Gameplay::~Gameplay()
+{
+	instance = nullptr;
+}
+
+Gameplay* Gameplay::getInstance()
+{
+	return instance;
 }

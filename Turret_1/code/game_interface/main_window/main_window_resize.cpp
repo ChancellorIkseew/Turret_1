@@ -5,7 +5,6 @@
 #include "main_window_resize.h"
 
 #include "game_interface/settings/settings_util/settings_save_system.h"
-#include "game_interface/ui_window/sub_win_util/ui_windows_list.h"
 
 
 void overlayResize(sf::RenderWindow& mainWindow)
@@ -21,10 +20,8 @@ void overlayResize(sf::RenderWindow& mainWindow)
 	overlay.setCenter(sf::Vector2f(overlaySize.x / 2, overlaySize.y / 2));
 
 	mainWindow.setView(overlay);
-
-	relocateSubWindows(mainWindow.getSize());
 }
-		
+
 
 
 void mainWindowResize(sf::RenderWindow& mainWindow)

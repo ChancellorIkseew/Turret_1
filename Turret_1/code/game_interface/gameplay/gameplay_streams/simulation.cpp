@@ -1,5 +1,5 @@
 
-#include "simulation.h"
+#include "game_interface/gameplay/gameplay.h"
 
 #include "t1_system/sleep.h"
 #include "t1_system/t1_mutex.h"
@@ -14,7 +14,7 @@
 #include "game_interface/gameplay/ui_elements/resources_panel.h"
 
 
-void t1::gamepl::simulation(const bool& isGameplayActive, const bool& isPaused, Team& enemy, Team& player)
+void Gameplay::simulation()
 {
     while (isGameplayActive)
     {
@@ -23,13 +23,13 @@ void t1::gamepl::simulation(const bool& isGameplayActive, const bool& isPaused, 
             //t1::res::useEnergy(time);
             t1::system::mt::buildings.lock();
             BuildingsMap::intetractMap();
-            createWave(enemy);
+            createWave(*enemy);
             Team::interactAll();
             moveParticlesList();
             t1::system::mt::buildings.unlock();
             t1::time::time++;
         }
-        ResourcesPanel::getInstance().interact(player);
+        resourcesPanel.interact(*player);
 
         t1::system::sleep(16);
     }

@@ -297,9 +297,6 @@
     <ClCompile Include="code\game_interface\ui_window\sub_win_types\text_field\text_field.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="code\game_interface\ui_window\sub_win_util\ui_windows_list.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="code\game_interface\ui_window\ui_window\ui_window.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -602,15 +599,6 @@
     <ClInclude Include="code\game_interface\gameplay\gameplay_util\t1_time.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="code\game_interface\gameplay\gameplay_streams\input.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="code\game_interface\gameplay\gameplay_streams\simulation.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="code\game_interface\gameplay\gameplay_streams\graphics.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="code\map_structures\team\team.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -630,9 +618,6 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\game_interface\ui_window\sub_win_types\text_field\text_field.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="code\game_interface\ui_window\sub_win_util\ui_windows_list.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\game_interface\ui_window\ui_window\ui_window.h">

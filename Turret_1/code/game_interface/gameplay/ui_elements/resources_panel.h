@@ -15,18 +15,12 @@ private:
 	static inline std::mutex mutex;
 	std::map<int, ResInfo> resInfo;
 
-	ResourcesPanel();
 	ResourcesPanel(const ResourcesPanel&) = delete;
 	ResourcesPanel& operator=(const ResourcesPanel&) = delete;
-	~ResourcesPanel() = default;
 	
 public:
-	
-	static ResourcesPanel& getInstance()
-	{
-		static ResourcesPanel self;
-		return self;
-	}
+	ResourcesPanel();
+	~ResourcesPanel() = default;
 	
 	void interact(Team& team);
 	void relocate(const sf::Vector2u windowSizeY) override final;

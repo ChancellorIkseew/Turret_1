@@ -1,7 +1,6 @@
 
 #include <iostream>
-
-#include "input.h"
+#include "game_interface/gameplay/gameplay.h"
 
 #include "t1_system/system.h"
 #include "t1_system/sleep.h"
@@ -11,14 +10,12 @@
 #include "game_interface/gameplay/ui_elements/building_panel.h"
 
 
-void t1::gamepl::input(bool& isGameplayActive, bool& isPaused, sf::RenderWindow& mainWindow,
-    sf::Vector2i& mouseCoord, sf::Vector2f& mouseMapCoord, sf::Vector2f& lastMousePosition,
-    bool& isMovingCamera, const std::string& saveFolderName, Team* team)
+void Gameplay::input(sf::RenderWindow& mainWindow)
 {
     while (isGameplayActive)
     {
-        MainControlPanel::getInstance().interact(mouseCoord, isPaused, isGameplayActive, saveFolderName);
-        BuildingPanel::getInstance().interact(mouseCoord, mouseMapCoord, team);
+        mainControlPanel.interact(mouseCoord, isPaused, isGameplayActive);
+        buildingPanel.interact(mouseCoord, mouseMapCoord, player.get());
 
         if (MidMB_Pressed)
         {

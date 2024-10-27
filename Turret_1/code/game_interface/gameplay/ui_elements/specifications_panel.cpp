@@ -11,7 +11,7 @@
 
 BuildingInfo SpecificationsPanel::nullInfo = { L" ", 0, 0, {0, 0, 0, 0, 0, 0}, sf::IntRect(0, 0, 0, 0), L" "};
 
-SpecificationsPanel::SpecificationsPanel() : UIWindow(sf::Vector2u(260, 400), sf::Vector2u(0, 310))
+SpecificationsPanel::SpecificationsPanel() : UIWindow(sf::Vector2u(225, 120), sf::Vector2u(0, 0))
 {
     resInfo.emplace(RES_STONE, ResInfo(RES_STONE, 0));
     resInfo.emplace(RES_IRON, ResInfo(RES_IRON, 0));
@@ -64,29 +64,45 @@ void SpecificationsPanel::interact(const int index)
 }
 
 
+void SpecificationsPanel::relocate(const sf::Vector2u windowSize)
+{
+    position.x = windowSize.x - size.x;
+    position.y = windowSize.y - 192 - size.y;
+}
+
+
 void SpecificationsPanel::draw(sf::RenderWindow& window)
 {
     drawBase(window);
-    title.setPosition(40, position.y + 10);
+    title.setPosition(position.x + 40, position.y + 10);
 	window.draw(title);
 
+    unsigned int posX = position.x + 16;
     unsigned int posY = position.y + 30;
     for (auto& resI : resInfo)
     {
         if (resI.second.getQuantity() != 0)
         {
-            resI.second.draw(window, position.x + 16, posY);
+            resI.second.draw(window, posX, posY);
             posY += 20;
         }
+
+        if (posY >= position.y + 110)
+        {
+            posY = position.y + 30;
+            posX += 70;
+        }
+
     }
-   
+    /*
     if(buildingInfo.durability != 0)
     {
-        durability.setPosition(10, posY);
+        durability.setPosition(position.x + 10, posY);
         window.draw(durability);
         posY += 20;
     }
 
-    description.setPosition(10, posY);
+    description.setPosition(position.x + 10, posY);
 	window.draw(description);
+    */
 }

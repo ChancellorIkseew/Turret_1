@@ -38,7 +38,7 @@ void ConfirmationWindow::draw(sf::RenderWindow& window)
 
 
 
-bool ConfirmationWindow::interact(sf::Vector2i& mouseCoord)
+bool ConfirmationWindow::interact(const sf::Vector2i& mouseCoord)
 {
     while (true)
     {

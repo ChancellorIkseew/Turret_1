@@ -36,7 +36,10 @@ void openMainWindow()
 			currentFunction = openMenu(mainWindow, startNewGame, saveFolderName);
 		
 		if (currentFunction == GAMEPLAY)
-			currentFunction = t1::gamepl::startGameplay(mainWindow, startNewGame, saveFolderName);
+		{
+			Gameplay gameplay;
+			currentFunction = gameplay.startGameplay(mainWindow, startNewGame, saveFolderName);
+		}
 
 		if (currentFunction == EXIT)
 			mainWindow.close();

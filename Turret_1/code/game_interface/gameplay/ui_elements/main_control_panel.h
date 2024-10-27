@@ -19,21 +19,15 @@ private:
 	sf::Text waveNumberText2;
 	sf::Text waveTimerText;
 	sf::Text waveTimerText2;
-
-	MainControlPanel();
+	
 	MainControlPanel(const MainControlPanel&) = delete;
 	MainControlPanel& operator=(const MainControlPanel&) = delete;
-	~MainControlPanel() = default;
 	
 public:
+	MainControlPanel();
+	~MainControlPanel() = default;
 	
-	static MainControlPanel& getInstance()
-	{
-		static MainControlPanel self;
-		return self;
-	}
-	
-	void interact(sf::Vector2i& mouseCoord, bool& isPaused, bool& isGameplayActive, const std::string& saveFolderName);
+	void interact(const sf::Vector2i& mouseCoord, bool& isPaused, bool& isGameplayActive);
 	void interactWaveTimer(const bool isPaused);
 
 	void prepareInterfaceSprites() override final;

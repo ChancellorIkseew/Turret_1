@@ -191,7 +191,6 @@
     <ClCompile Include="code\game_interface\ui_window\sub_win_types\page\page.cpp" />
     <ClCompile Include="code\game_interface\ui_window\sub_win_types\text_field\text_field.cpp" />
     <ClCompile Include="code\game_interface\ui_window\sub_win_util\fonts.cpp" />
-    <ClCompile Include="code\game_interface\ui_window\sub_win_util\ui_windows_list.cpp" />
     <ClCompile Include="code\map_structures\base_engine\test.cpp" />
     <ClCompile Include="code\map_structures\base_engine\tile_coord.cpp" />
     <ClCompile Include="code\map_structures\buildings\buildings_map\buildings_map.cpp" />
@@ -263,9 +262,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\game_interface\gameplay\gameplay.h" />
-    <ClInclude Include="code\game_interface\gameplay\gameplay_streams\graphics.h" />
-    <ClInclude Include="code\game_interface\gameplay\gameplay_streams\input.h" />
-    <ClInclude Include="code\game_interface\gameplay\gameplay_streams\simulation.h" />
     <ClInclude Include="code\game_interface\gameplay\gameplay_util\camera.h" />
     <ClInclude Include="code\game_interface\gameplay\gameplay_util\cheet_commands.h" />
     <ClInclude Include="code\game_interface\gameplay\gameplay_util\t1_time.h" />
@@ -300,7 +296,6 @@
     <ClInclude Include="code\game_interface\ui_window\sub_win_types\page\page.h" />
     <ClInclude Include="code\game_interface\ui_window\sub_win_types\text_field\text_field.h" />
     <ClInclude Include="code\game_interface\ui_window\sub_win_util\fonts.h" />
-    <ClInclude Include="code\game_interface\ui_window\sub_win_util\ui_windows_list.h" />
     <ClInclude Include="code\map_structures\base_engine\test.h" />
     <ClInclude Include="code\map_structures\base_engine\tile_coord.h" />
     <ClInclude Include="code\map_structures\buildings\buildings_map\buildings_map.h" />

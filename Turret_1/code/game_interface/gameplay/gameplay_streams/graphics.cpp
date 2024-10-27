@@ -1,5 +1,5 @@
 
-#include "graphics.h"
+#include "game_interface/gameplay/gameplay.h"
 
 #include "game_interface/main_window/main_window.h"
 #include "game_interface/main_window/main_window_resize.h"
@@ -9,24 +9,11 @@
 
 #include "game_interface/gameplay/ui_elements/exit_confirmation.h"
 #include "game_interface/gameplay/ui_elements/settings_window.h"
-#include "game_interface/gameplay/ui_elements/resources_panel.h"
-#include "game_interface/gameplay/ui_elements/main_control_panel.h"
-#include "game_interface/gameplay/ui_elements/specifications_panel.h"
-#include "game_interface/gameplay/ui_elements/building_panel.h"
 
-#include "map_structures/terrain/terrain.h"
-#include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/entities/turret/turret.h"
-#include "map_structures/entities/entity/entity.h"
-#include "map_structures/shells/shell/shell.h"
-#include "map_structures/resources/resource_unit.h"
-#include "map_structures/particles/particles.h"
-#include "map_structures/team/team.h"
 
 
-void t1::gamepl::graphics(bool& isGameplayActive, const bool& isPaused, sf::RenderWindow& mainWindow,
-    sf::Vector2i& mouseCoord, sf::Vector2f& mouseMapCoord, sf::Vector2f& lastMousePosition,
-    bool& isMovingCamera)
+void Gameplay::graphics(sf::RenderWindow& mainWindow)
 {
     Camera t1camera;
 
@@ -53,9 +40,11 @@ void t1::gamepl::graphics(bool& isGameplayActive, const bool& isPaused, sf::Rend
                 isGameplayActive = false;
             }
 
-            if (event.type == sf::Event::Resized)
+            if (event.type == sf::Event::Resized || UIWindow::windowCreated)
             {
+                UIWindow::windowCreated = false;
                 overlayResize(mainWindow);
+                relocateSubWindows(mainWindow.getSize());
                 t1camera.updateMapRegion(mainWindow);
             }
 
@@ -83,18 +72,17 @@ void t1::gamepl::graphics(bool& isGameplayActive, const bool& isPaused, sf::Rend
         t1::system::mt::buildings.lock();
         TerrainMap::drawMap(mainWindow);
         BuildingsMap::drawMap(mainWindow);
-        //drawResUnitsList(mainWindow);
         drawParticlesList(mainWindow);
         Team::drawAll(mainWindow);
         t1::system::mt::buildings.unlock();
 
-        BuildingPanel::getInstance().drawBuildExample(mainWindow, mouseMapCoord);
+        buildingPanel.drawBuildExample(mainWindow, mouseMapCoord);
 
         mainWindow.setView(overlay);						//	Draw_inteface block
-        MainControlPanel::getInstance().draw(mainWindow);
-        MainControlPanel::getInstance().interactWaveTimer(isPaused);
-        BuildingPanel::getInstance().draw(mainWindow);
-        ResourcesPanel::getInstance().draw(mainWindow);
+        mainControlPanel.draw(mainWindow);
+        mainControlPanel.interactWaveTimer(isPaused);
+        buildingPanel.draw(mainWindow);
+        resourcesPanel.draw(mainWindow);
         ConfirmationWindow::getInstance().draw(mainWindow);
         SettingsWindow::getInstance().draw(mainWindow);
 

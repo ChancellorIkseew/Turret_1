@@ -21,20 +21,15 @@ private:
 	
 	std::map<int, ResInfo> resInfo;
 
-	SpecificationsPanel();
 	SpecificationsPanel(const SpecificationsPanel&) = delete;
 	SpecificationsPanel& operator=(const SpecificationsPanel&) = delete;
-	~SpecificationsPanel() = default;
 	
 public:
-
-	static SpecificationsPanel& getInstance()
-	{
-		static SpecificationsPanel self;
-		return self;
-	}
+	SpecificationsPanel();
+	~SpecificationsPanel() = default;
 	
 	void interact(const int index);
+	void relocate(const sf::Vector2u windowSize) override final;
 
 	void prepareInterfaceSprites() override final;
 	void draw(sf::RenderWindow& window) override final;

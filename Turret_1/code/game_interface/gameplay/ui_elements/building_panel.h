@@ -6,6 +6,7 @@
 #include "game_interface/ui_window/ui_window/ui_window.h"
 #include "game_interface/ui_window/elements/button/button.h"
 #include "game_interface/ui_window/elements/button/building_ico.h"
+#include "specifications_panel.h"
 
 class Team;
 
@@ -28,17 +29,14 @@ private:
 	inline void rotateBuilding();
 	inline void placeBuilding(const sf::Vector2f& mouseMapCoord, Team* const team);
 
-	BuildingPanel();
+	std::unique_ptr<SpecificationsPanel> specificationsPanel;
+
 	BuildingPanel(const BuildingPanel&) = delete;
 	BuildingPanel& operator=(const BuildingPanel&) = delete;
-	~BuildingPanel() = default;
 	
 public:
-	static BuildingPanel& getInstance()
-	{
-		static BuildingPanel self;
-		return self;
-	}
+	BuildingPanel();
+	~BuildingPanel() = default;
 	
 	void interact(const sf::Vector2i& mouseCoord, const sf::Vector2f& mouseMapCoord, Team* const team);
 	void relocate(const sf::Vector2u windowSize) override final;
