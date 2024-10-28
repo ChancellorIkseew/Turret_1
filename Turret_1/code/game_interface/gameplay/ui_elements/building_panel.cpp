@@ -5,6 +5,7 @@
 #include "building_panel/buildings_pages.h"
 
 #include "game_interface/gameplay/gameplay.h"
+#include "game_interface/ui_window/sub_win_util/fonts.h"
 
 #include "map_structures/terrain/terrain.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
@@ -23,11 +24,11 @@ enum Buttons
 	WALLS = 4,
 	TURRETS = 5,
 	SPECIAL = 6,
-	STORAGES = 7
+	STORAGES = 7,
 };
 
 
-BuildingPanel::BuildingPanel() : UIWindow(sf::Vector2u(272, 192), sf::Vector2u(0, 0))
+BuildingPanel::BuildingPanel() : UIWindow(sf::Vector2u(324, 192), sf::Vector2u(0, 0))
 {
 	selectedPage = LOGISTICS;
 	isBuildingTypeSelected = false;
@@ -42,14 +43,17 @@ BuildingPanel::BuildingPanel() : UIWindow(sf::Vector2u(272, 192), sf::Vector2u(0
 
 void BuildingPanel::prepareInterfaceSprites()
 {
-	buildingsImage.loadFromFile("images/buildings_map.bmp");
+	buildingsImage.loadFromFile("images/buildings_ico.bmp");
 	buildingsImage.createMaskFromColor(sf::Color(0, 255, 0));
 	buildingsTexture.loadFromImage(buildingsImage);
 	buildExample.setTexture(buildingsTexture); //Building_example_on_coursor
 	buildExample.setOrigin(_HALF_TILE_, _HALF_TILE_);
 
-	int line1 = 188;
-	int line2 = 230;
+	int line1 = 240;
+	int line2 = 282;
+	remove = BuildingIco(REMOVE);
+	remove.setPosition(sf::Vector2u(10, 10));
+
 	buttons[LOGISTICS] = Button("building/logistics_ico.bmp", sf::Vector2i(32, 32), sf::Vector2i(line1, 10));
 	buttons[DRILLS] = Button("building/drill_ico.bmp", sf::Vector2i(32, 32), sf::Vector2i(line1, 52));
 	buttons[FACTORIES] = Button("building/factory_ico.bmp", sf::Vector2i(32, 32), sf::Vector2i(line1, 94));
@@ -101,6 +105,8 @@ void BuildingPanel::relocate(const sf::Vector2u windowSize)
 {
 	position = windowSize - size;
 
+	remove.relocateWithOwner(position);
+
 	for (auto& btn : buttons)
 		btn.second.relocateWithOwner(position);
 
@@ -124,6 +130,7 @@ void BuildingPanel::draw(sf::RenderWindow& window)
 	}
 
 	drawBase(window);
+	remove.draw(window);
 	for (auto& btn : buttons)
 		btn.second.draw(window);
 	for (auto& ico : pages[selectedPage])
@@ -132,7 +139,7 @@ void BuildingPanel::draw(sf::RenderWindow& window)
 
 
 
-void BuildingPanel::drawBuildExample(sf::RenderWindow& window, const sf::Vector2f& mouseMapCoord)
+void BuildingPanel::drawBuildExample(sf::RenderWindow& window, const sf::Vector2f& mouseMapCoord, Team* const team)
 {
 	if (!isBuildingTypeSelected)
 		return;
@@ -142,6 +149,14 @@ void BuildingPanel::drawBuildExample(sf::RenderWindow& window, const sf::Vector2
 		direction = 'w';
 		buildExample.setRotation(0);
 	}
+
+	TileCoord selectedTile = t1::be::tile(mouseMapCoord.x, mouseMapCoord.y);
+	if (BuildingsMap::isAvaluablePlaceBuilding(newBuildingType, selectedTile, team) ||
+		newBuildingType == AUTOCANNON_TURRET || newBuildingType == ROCKET_TURRET)
+		buildExample.setColor(whiteTransparent);
+	else
+		buildExample.setColor(darkRedTransparent);
+
 	buildExample.setPosition(mouseMapCoord);
 	window.draw(buildExample);
 }
@@ -188,6 +203,15 @@ void BuildingPanel::rotateBuilding()
 
 void BuildingPanel::selectBuildingType(const sf::Vector2i& mouseCoord)
 {
+	if (remove.press(mouseCoord))
+	{
+		newBuildingType = REMOVE;
+		buildExample.setTextureRect(t1::bc::buildingsInfoTable[newBuildingType].icoRect);
+		isBuildingTypeSelected = true;
+		oldBuildingType = REMOVE;
+		return;
+	}
+
 	for (auto& btn : buttons)
 	{
 		if (btn.second.press(mouseCoord))
@@ -221,7 +245,7 @@ void BuildingPanel::placeBuilding(const sf::Vector2f& mouseMapCoord, Team* const
 	std::cout << "building_place_works: " << newBuildingType << '\n';
 	TileCoord selectedTile = t1::be::tile(mouseMapCoord.x, mouseMapCoord.y);
 
-	t1::system::mt::buildings.lock();
+	std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
 	if (newBuildingType == REMOVE)
 	{
 		if (BuildingsMap::isTurretOnTile(selectedTile))
@@ -238,5 +262,4 @@ void BuildingPanel::placeBuilding(const sf::Vector2f& mouseMapCoord, Team* const
 	{
 		BuildingsMap::constructBuilding(newBuildingType, direction, selectedTile, team);
 	}
-	t1::system::mt::buildings.unlock();
 }

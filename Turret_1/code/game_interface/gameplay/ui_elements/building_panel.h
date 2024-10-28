@@ -13,6 +13,7 @@ class Team;
 class BuildingPanel : public UIWindow
 {
 private:
+	BuildingIco remove;
 	std::map<int, Button> buttons;
 	std::map<int, std::map<uint16_t, BuildingIco>> pages;
 	
@@ -43,7 +44,7 @@ public:
 	
 	void prepareInterfaceSprites() override final;
 	void draw(sf::RenderWindow& window) override final;
-	void drawBuildExample(sf::RenderWindow& window, const sf::Vector2f& mouseMapCoord);
+	void drawBuildExample(sf::RenderWindow& window, const sf::Vector2f& mouseMapCoord, Team* const team);
 	
 };
 

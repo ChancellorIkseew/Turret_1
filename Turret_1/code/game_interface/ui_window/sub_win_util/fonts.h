@@ -13,6 +13,9 @@ extern sf::Color darkGray;
 extern sf::Color darkRed;
 extern sf::Color lightGreen;
 
+extern sf::Color whiteTransparent;
+extern sf::Color darkRedTransparent;
+
 void initFonts();
 
 #endif // NEW_FONTS_H

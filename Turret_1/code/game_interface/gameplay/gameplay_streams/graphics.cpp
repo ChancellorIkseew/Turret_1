@@ -76,7 +76,7 @@ void Gameplay::graphics(sf::RenderWindow& mainWindow)
         Team::drawAll(mainWindow);
         t1::system::mt::buildings.unlock();
 
-        buildingPanel.drawBuildExample(mainWindow, mouseMapCoord);
+        buildingPanel.drawBuildExample(mainWindow, mouseMapCoord, player.get());
 
         mainWindow.setView(overlay);						//	Draw_inteface block
         mainControlPanel.draw(mainWindow);

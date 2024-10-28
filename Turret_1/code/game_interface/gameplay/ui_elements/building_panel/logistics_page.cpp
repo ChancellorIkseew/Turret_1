@@ -6,6 +6,7 @@ void t1::bc::initLogistics(std::map<uint16_t, BuildingIco>& logistics)
 {
 	logistics[STANDARD_CONVEYER] = BuildingIco(STANDARD_CONVEYER);
 	logistics[SHIELDED_CONVEYER] = BuildingIco(SHIELDED_CONVEYER);
+	logistics[INTERSECTION] = BuildingIco(INTERSECTION);
 	logistics[ROUTER] = BuildingIco(ROUTER);
 	logistics[BRIDGE] = BuildingIco(BRIDGE);
 }

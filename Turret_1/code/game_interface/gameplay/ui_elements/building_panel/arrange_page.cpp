@@ -3,17 +3,17 @@
 
 void t1::bc::arrangePage(std::map<uint16_t, BuildingIco>& page)
 {
-	int deltaX = 10, deltaY = 10;
+	int deltaX = 62, deltaY = 10;
 
 	for (auto& ico : page)
 	{
 		ico.second.setPosition(sf::Vector2u(deltaX, deltaY));
 
-		if (deltaX < 136)
+		if (deltaX < 188)
 			deltaX += 42;
 		else
 		{
-			deltaX = 10;
+			deltaX = 62;
 			deltaY += 42;
 		}
 	}

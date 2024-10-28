@@ -68,7 +68,7 @@ void BuildingIco::draw(sf::RenderWindow& window)
 
 void BuildingIco::prepareSprites()
 {
-	image.loadFromFile("images/buildings_map.bmp");
+	image.loadFromFile("images/buildings_ico.bmp");
 	image.createMaskFromColor(sf::Color(0, 255, 0));
 	texture.loadFromImage(image);
 }

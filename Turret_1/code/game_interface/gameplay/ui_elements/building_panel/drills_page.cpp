@@ -6,4 +6,6 @@ void t1::bc::initDrills(std::map<uint16_t, BuildingIco>& walls)
 {
 	walls[SMALL_DRILL] = BuildingIco(SMALL_DRILL);
 	walls[BIG_DRILL] = BuildingIco(BIG_DRILL);
+	walls[EFFECTIVE_DRILL] = BuildingIco(EFFECTIVE_DRILL);
+	walls[REINFORCED_DRILL] = BuildingIco(REINFORCED_DRILL);
 }
