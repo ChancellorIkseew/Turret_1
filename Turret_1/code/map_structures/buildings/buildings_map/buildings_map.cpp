@@ -119,8 +119,19 @@ void BuildingsMap::constructBuilding(const uint16_t type, const char direction, 
 
 bool BuildingsMap::placeBuilding(const uint16_t type, const char direction, const TileCoord tile, Team* const team)
 {
+	if (!isAvaluablePlaceBuilding(type, tile, team))
+		return false;
 	int size = t1::bc::buildingsInfoTable[type].size;
+	buildingsMap[tile.x][tile.y] = Building::createBuilding(type, direction, tile, team);
+	createAuxilary(size, tile, team);
+	isMapChanged = true;
+	return true;
+}
 
+
+bool BuildingsMap::isAvaluablePlaceBuilding(const uint16_t type, const TileCoord tile, Team* const team)
+{
+	int size = t1::bc::buildingsInfoTable[type].size;
 	for (int i = 0; i < size; i++) // cheeck_square_for_place
 	{
 		int iTileX = tile.x + t1::be::coordSquareArr[i].x;
@@ -128,10 +139,6 @@ bool BuildingsMap::placeBuilding(const uint16_t type, const char direction, cons
 		if (!isVoidBuilding(iTileX, iTileY))
 			return false;
 	}
-
-	buildingsMap[tile.x][tile.y] = Building::createBuilding(type, direction, tile, team);
-	createAuxilary(size, tile, team);
-	isMapChanged = true;
 	return true;
 }
 

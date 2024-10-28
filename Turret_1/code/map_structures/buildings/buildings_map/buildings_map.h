@@ -32,6 +32,7 @@ public:
 	// Construction_process
 	static void constructBuilding(const uint16_t type, const char direction, const TileCoord tile, Team* const team);
 	static bool placeBuilding(const uint16_t type, const char direction, const TileCoord tile, Team* const team);
+	static bool isAvaluablePlaceBuilding(const uint16_t type, const TileCoord tile, Team* const team);
 	static void demolishBuilding(const TileCoord tile);
 	
 	// Simple_utilites
