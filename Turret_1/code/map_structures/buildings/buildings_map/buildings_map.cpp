@@ -104,28 +104,35 @@ void BuildingsMap::createAuxilary(const short size, const TileCoord tile, Team* 
 }
 
 
-void BuildingsMap::constructBuilding(const uint16_t type, const char direction, const TileCoord tile, Team* team)
+void BuildingsMap::constructBuilding(const uint16_t type, const char direction, const TileCoord tile, Team* const team)
 {
 	if (t1::bc::buildingsInfoTable.find(type) == t1::bc::buildingsInfoTable.end())
 		return;
 
+	if (team->getBalance().isEnough(t1::bc::buildingsInfoTable[type].costToBuild))
+	{
+		if (placeBuilding(type, direction, tile, team))
+			team->getBalance().waste(t1::bc::buildingsInfoTable[type].costToBuild);
+	}
+}
+
+
+bool BuildingsMap::placeBuilding(const uint16_t type, const char direction, const TileCoord tile, Team* const team)
+{
 	int size = t1::bc::buildingsInfoTable[type].size;
 
-	for (int i = 0; i < size; i++) // cheeck_square_for_building
+	for (int i = 0; i < size; i++) // cheeck_square_for_place
 	{
 		int iTileX = tile.x + t1::be::coordSquareArr[i].x;
 		int iTileY = tile.y + t1::be::coordSquareArr[i].y;
 		if (!isVoidBuilding(iTileX, iTileY))
-			return;
+			return false;
 	}
 
-	if (team->getBalance().isEnough(t1::bc::buildingsInfoTable[type].costToBuild))
-	{
-		team->getBalance().waste(t1::bc::buildingsInfoTable[type].costToBuild);
-		buildingsMap[tile.x][tile.y] = Building::createBuilding(type, direction, tile, team);
-		createAuxilary(size, tile, team);
-		isMapChanged = true;
-	}
+	buildingsMap[tile.x][tile.y] = Building::createBuilding(type, direction, tile, team);
+	createAuxilary(size, tile, team);
+	isMapChanged = true;
+	return true;
 }
 
 
