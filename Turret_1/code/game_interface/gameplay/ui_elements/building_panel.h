@@ -6,14 +6,15 @@
 #include "game_interface/ui_window/ui_window/ui_window.h"
 #include "game_interface/ui_window/elements/button/button.h"
 #include "game_interface/ui_window/elements/button/building_ico.h"
-#include "specifications_panel.h"
+#include "expenses_panel.h"
+#include "specification_panel.h"
 
 class Team;
 
 class BuildingPanel : public UIWindow
 {
 private:
-	BuildingIco remove;
+	Button info;
 	std::map<int, Button> buttons;
 	std::map<int, std::map<uint16_t, BuildingIco>> pages;
 	
@@ -25,12 +26,14 @@ private:
 	bool isBuildingTypeSelected;
 	int oldBuildingType, newBuildingType;
 	char direction;
+	bool isInfoOpen;
 
-	inline void selectBuildingType(const sf::Vector2i& mouseCoord);
+	inline void selectBuildingType(const sf::Vector2i& mouseCoord, BuildingIco& ico);
 	inline void rotateBuilding();
 	inline void placeBuilding(const sf::Vector2f& mouseMapCoord, Team* const team);
 
-	std::unique_ptr<SpecificationsPanel> specificationsPanel;
+	std::unique_ptr<ExpensesPanel> expensesPanel;
+	std::unique_ptr<SpecificationPanel> specificationPanel;
 
 	BuildingPanel(const BuildingPanel&) = delete;
 	BuildingPanel& operator=(const BuildingPanel&) = delete;
@@ -41,6 +44,7 @@ public:
 	
 	void interact(const sf::Vector2i& mouseCoord, const sf::Vector2f& mouseMapCoord, Team* const team);
 	void relocate(const sf::Vector2u windowSize) override final;
+	bool containsCoursor(const sf::Vector2i& mouseCoord) const override final;
 	
 	void prepareInterfaceSprites() override final;
 	void draw(sf::RenderWindow& window) override final;

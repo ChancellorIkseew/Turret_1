@@ -23,7 +23,7 @@ void Building::save(std::ofstream& fout)const
 {
 	fout << size << " " << durability << '\n';
 
-	for (auto it = storedResourcesList.cbegin(); it != storedResourcesList.cend(); ++it)
+	for (auto it = inventory.cbegin(); it != inventory.cend(); ++it)
 	{
 		if (it->quantity != 0)
 			fout << it->type << " " << it->quantity << '\n';
@@ -47,7 +47,7 @@ void Building::load(std::ifstream& fin)
 		uint16_t resType;
 		uint16_t amount;
 		fin >> resType >> amount;
-		storedResourcesList.push_back(StoredResource{ resType, amount });	
+		inventory.push_back(StoredResource{ resType, amount });	
 	}
 }
 
@@ -69,6 +69,7 @@ int Building::getType() const { return type; }
 short Building::getSize() const { return size; }
 short Building::getDurability() const { return durability; }
 char Building::getDirection() const { return direction;  }
+std::list<StoredResource>& Building::getInventory() { return inventory; }
 Team* Building::getTeam() const { return team; }
 int Building::getTeamID() const { return team->getID(); }
 
@@ -85,7 +86,7 @@ bool Building::isStorageFull(const short capacity) const
 {
 	short comonResQuant = 0;
 
-	for (auto it = storedResourcesList.cbegin(); it != storedResourcesList.cend(); ++it)
+	for (auto it = inventory.cbegin(); it != inventory.cend(); ++it)
 	{
 		comonResQuant += it->quantity;
 	}
@@ -97,7 +98,7 @@ bool Building::isStorageFull(const short capacity) const
 
 int Building::findResource() const
 {
-	for (auto it = storedResourcesList.cbegin(); it != storedResourcesList.cend(); ++it)
+	for (auto it = inventory.cbegin(); it != inventory.cend(); ++it)
 	{
 		if (it->quantity > 0)
 			return it->type;
@@ -107,7 +108,7 @@ int Building::findResource() const
 
 bool Building::isEnoughRes(const uint16_t resType, const uint16_t amount) const
 {
-	for (auto it = storedResourcesList.cbegin(); it != storedResourcesList.cend(); ++it)
+	for (auto it = inventory.cbegin(); it != inventory.cend(); ++it)
 	{
 		if (it->type == resType && it->quantity >= amount)
 			return true;
@@ -117,7 +118,7 @@ bool Building::isEnoughRes(const uint16_t resType, const uint16_t amount) const
 
 void Building::wasteResorce(const uint16_t resType, const uint16_t amount)
 {
-	for (auto it = storedResourcesList.begin(); it != storedResourcesList.end(); ++it)
+	for (auto it = inventory.begin(); it != inventory.end(); ++it)
 	{
 		if (it->type == resType)
 		{
@@ -129,7 +130,7 @@ void Building::wasteResorce(const uint16_t resType, const uint16_t amount)
 
 void Building::addToInventory(const uint16_t resType, const uint16_t amount)
 {
-	for (auto it = storedResourcesList.begin(); it != storedResourcesList.end(); ++it)
+	for (auto it = inventory.begin(); it != inventory.end(); ++it)
 	{
 		if (it->type == resType)
 		{
@@ -137,7 +138,7 @@ void Building::addToInventory(const uint16_t resType, const uint16_t amount)
 			return;
 		}
 	}
-	storedResourcesList.emplace_back(StoredResource{ resType, amount });
+	inventory.emplace_back(StoredResource{ resType, amount });
 }
 
 

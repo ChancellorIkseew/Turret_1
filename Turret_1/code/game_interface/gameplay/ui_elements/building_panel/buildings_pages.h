@@ -17,6 +17,8 @@ namespace t1::bc
 	void initStorages(std::map<uint16_t, BuildingIco>& storages);
 	void initSpecial(std::map<uint16_t, BuildingIco>& electrics);
 
+	void initUtil(std::map<uint16_t, BuildingIco>& util);
+
 	void arrangePage(std::map<uint16_t, BuildingIco>& page); // make order_of_ico-buttons 
 
 }

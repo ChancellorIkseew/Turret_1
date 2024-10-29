@@ -21,7 +21,7 @@ struct StoredResource
 class Building
 {
 private:
-	std::list<StoredResource> storedResourcesList;
+	std::list<StoredResource> inventory;
 	Team* team;
 protected:
 	TileCoord tile;
@@ -61,6 +61,7 @@ public:
 	short getDurability() const;
 	short getSize() const;
 	char getDirection() const;
+	std::list<StoredResource>& getInventory();
 	Team* getTeam() const;
 	int getTeamID() const;
 

@@ -15,16 +15,17 @@
 #include "t1_system/system.h"
 #include "t1_system/sleep.h"
 
-enum Buttons
+enum Pages
 {
-	LOGISTICS = 0,
-	DRILLS = 1,
-	FACTORIES = 2,
-	ELECTRICS = 3,
-	WALLS = 4,
-	TURRETS = 5,
-	SPECIAL = 6,
-	STORAGES = 7,
+	UTIL = 0,
+	LOGISTICS = 1,
+	DRILLS = 2,
+	FACTORIES = 3,
+	ELECTRICS = 4,
+	WALLS = 5,
+	TURRETS = 6,
+	SPECIAL = 7,
+	STORAGES = 8,
 };
 
 
@@ -35,9 +36,11 @@ BuildingPanel::BuildingPanel() : UIWindow(sf::Vector2u(324, 192), sf::Vector2u(0
 	newBuildingType = VOID_;
 	oldBuildingType = VOID_;
 	direction = 'w';
+	isInfoOpen = false;
 
 	this->prepareInterfaceSprites();
-	specificationsPanel = std::make_unique<SpecificationsPanel>();
+	expensesPanel = std::make_unique<ExpensesPanel>();
+	specificationPanel = std::make_unique<SpecificationPanel>();
 }
 
 
@@ -51,8 +54,7 @@ void BuildingPanel::prepareInterfaceSprites()
 
 	int line1 = 240;
 	int line2 = 282;
-	remove = BuildingIco(REMOVE);
-	remove.setPosition(sf::Vector2u(10, 10));
+	info = Button("building/info_ico.bmp", sf::Vector2i(32, 32), sf::Vector2i(10, 10));
 
 	buttons[LOGISTICS] = Button("building/logistics_ico.bmp", sf::Vector2i(32, 32), sf::Vector2i(line1, 10));
 	buttons[DRILLS] = Button("building/drill_ico.bmp", sf::Vector2i(32, 32), sf::Vector2i(line1, 52));
@@ -76,6 +78,8 @@ void BuildingPanel::prepareInterfaceSprites()
 
 	for (auto& pg : pages)
 		t1::bc::arrangePage(pg.second);
+
+	t1::bc::initUtil(pages[UTIL]);
 }
 
 
@@ -95,8 +99,20 @@ void BuildingPanel::interact(const sf::Vector2i& mouseCoord, const sf::Vector2f&
 		t1::system::sleep(150);
 		return;
 	}
+
+	if (info.press(mouseCoord))
+		isInfoOpen = !isInfoOpen;
 	
-	selectBuildingType(mouseCoord);
+	for (auto& btn : buttons)
+	{
+		if (btn.second.press(mouseCoord))
+			selectedPage = btn.first;
+	}
+
+	for (auto& ico : pages[selectedPage])
+		selectBuildingType(mouseCoord, ico.second);
+	for (auto& ico : pages[UTIL])
+		selectBuildingType(mouseCoord, ico.second);
 }
 
 
@@ -104,8 +120,7 @@ void BuildingPanel::interact(const sf::Vector2i& mouseCoord, const sf::Vector2f&
 void BuildingPanel::relocate(const sf::Vector2u windowSize)
 {
 	position = windowSize - size;
-
-	remove.relocateWithOwner(position);
+	info.relocateWithOwner(position);
 
 	for (auto& btn : buttons)
 		btn.second.relocateWithOwner(position);
@@ -116,24 +131,36 @@ void BuildingPanel::relocate(const sf::Vector2u windowSize)
 			ico.second.relocateWithOwner(position);
 	}
 
-	specificationsPanel->relocate(windowSize);
+	expensesPanel->relocate(windowSize);
+	specificationPanel->relocate(windowSize);
 }
 
-
+bool BuildingPanel::containsCoursor(const sf::Vector2i& mouseCoord) const
+{
+	return 
+		UIPlate::containsCoursor(mouseCoord) ||
+		expensesPanel->containsCoursor(mouseCoord);
+}
 
 void BuildingPanel::draw(sf::RenderWindow& window)
 {
 	if (isBuildingTypeSelected)
 	{
-		specificationsPanel->interact(newBuildingType);
-		specificationsPanel->draw(window);
+		expensesPanel->interact(newBuildingType);
+		expensesPanel->draw(window);
+		if (isInfoOpen)
+		{
+			specificationPanel->interact(newBuildingType);
+			specificationPanel->draw(window);
+		}	
 	}
-
 	drawBase(window);
-	remove.draw(window);
+	info.draw(window);
 	for (auto& btn : buttons)
 		btn.second.draw(window);
 	for (auto& ico : pages[selectedPage])
+		ico.second.draw(window);
+	for (auto& ico : pages[UTIL])
 		ico.second.draw(window);
 }
 
@@ -201,41 +228,24 @@ void BuildingPanel::rotateBuilding()
 }
 
 
-void BuildingPanel::selectBuildingType(const sf::Vector2i& mouseCoord)
+void BuildingPanel::selectBuildingType(const sf::Vector2i& mouseCoord, BuildingIco& ico)
 {
-	if (remove.press(mouseCoord))
+	if (ico.press(mouseCoord))
 	{
-		newBuildingType = REMOVE;
-		buildExample.setTextureRect(t1::bc::buildingsInfoTable[newBuildingType].icoRect);
-		isBuildingTypeSelected = true;
-		oldBuildingType = REMOVE;
-		return;
-	}
-
-	for (auto& btn : buttons)
-	{
-		if (btn.second.press(mouseCoord))
-			selectedPage = btn.first;
-	}
-
-	for (auto& ico : pages[selectedPage])
-	{
-		if (ico.second.press(mouseCoord))
+		newBuildingType = ico.getBuildingType();
+		if (oldBuildingType != newBuildingType)
 		{
-			newBuildingType = ico.first;
-			if (oldBuildingType != newBuildingType)
-			{
-				buildExample.setTextureRect(t1::bc::buildingsInfoTable[newBuildingType].icoRect);
-				isBuildingTypeSelected = true;
-				oldBuildingType = newBuildingType;
-			}
-			else
-			{
-				isBuildingTypeSelected = false;
-				oldBuildingType = VOID_;
-			}
-			return;
+			buildExample.setTextureRect(t1::bc::buildingsInfoTable[newBuildingType].icoRect);
+			isBuildingTypeSelected = true;
+			oldBuildingType = newBuildingType;
 		}
+		else
+		{
+			isBuildingTypeSelected = false;
+			oldBuildingType = VOID_;
+			isInfoOpen = false;
+		}
+		return;
 	}
 }
 

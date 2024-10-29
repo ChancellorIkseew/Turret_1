@@ -83,6 +83,7 @@ void Gameplay::graphics(sf::RenderWindow& mainWindow)
         mainControlPanel.interactWaveTimer(isPaused);
         buildingPanel.draw(mainWindow);
         resourcesPanel.draw(mainWindow);
+        inventoryWindow.draw(mainWindow);
         ConfirmationWindow::getInstance().draw(mainWindow);
         SettingsWindow::getInstance().draw(mainWindow);
 

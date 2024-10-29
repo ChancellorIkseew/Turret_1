@@ -48,7 +48,7 @@ public:
 	virtual ~UIPlate() = default;
 
 	void setVisible(const bool value);
-	bool containsCoursor(const sf::Vector2i& mouseCoord) const;
+	virtual bool containsCoursor(const sf::Vector2i& mouseCoord) const;
 
 	static void init();
 	virtual void prepareInterfaceSprites() = 0;

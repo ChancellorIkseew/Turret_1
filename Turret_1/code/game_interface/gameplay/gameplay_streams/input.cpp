@@ -16,6 +16,7 @@ void Gameplay::input(sf::RenderWindow& mainWindow)
     {
         mainControlPanel.interact(mouseCoord, isPaused, isGameplayActive);
         buildingPanel.interact(mouseCoord, mouseMapCoord, player.get());
+        inventoryWindow.interact(mouseCoord, mouseMapCoord, player.get());
 
         if (MidMB_Pressed)
         {

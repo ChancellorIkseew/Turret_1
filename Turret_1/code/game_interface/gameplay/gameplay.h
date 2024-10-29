@@ -10,10 +10,10 @@
 #include "map_structures/particles/particles.h"
 #include "map_structures/team/team.h"
 
-#include "game_interface/gameplay/gameplay_util/cheet_commands.h"
 #include "game_interface/gameplay/ui_elements/main_control_panel.h"
 #include "game_interface/gameplay/ui_elements/resources_panel.h"
 #include "game_interface/gameplay/ui_elements/building_panel.h"
+#include "game_interface/gameplay/ui_elements/inventory_window.h"
 
 
 class Gameplay
@@ -31,6 +31,7 @@ private:
 	MainControlPanel mainControlPanel;
 	ResourcesPanel resourcesPanel;
 	BuildingPanel buildingPanel;
+	InventoryWindow inventoryWindow;
 
 	std::shared_ptr<Team> player;
 	std::shared_ptr<Team> enemy;

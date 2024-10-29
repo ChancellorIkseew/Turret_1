@@ -227,6 +227,14 @@ char BuildingsMap::getBuildingDirection(const TileCoord tile)
 	return 0;
 }
 
+std::list<StoredResource> BuildingsMap::getInventory(const TileCoord tile)
+{
+	if (buildingExists(tile))
+		return buildingsMap[tile.x][tile.y]->getInventory();
+	std::list<StoredResource> nullInventory;
+	return nullInventory;
+}
+
 Team* BuildingsMap::getTeam(const TileCoord tile)
 {
 	if (buildingExists(tile))

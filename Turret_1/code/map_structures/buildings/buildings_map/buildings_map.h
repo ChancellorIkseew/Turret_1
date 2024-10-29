@@ -46,6 +46,7 @@ public:
 	static short getBuildingDurability(const TileCoord tile);
 	static char getBuildingDirection(const TileCoord tile);
 	static TileCoord getBuildingMainTileCoord(const TileCoord tile);
+	static std::list<StoredResource> getInventory(const TileCoord tile);
 	static Team* getTeam(const TileCoord tile);
 	static int getTeamID(const TileCoord tile);
 

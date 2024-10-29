@@ -1,6 +1,6 @@
 #pragma once
-#ifndef SPECIFICATIONS_PANEL_H
-#define SPECIFICATIONS_PANEL_H
+#ifndef SPECIFICATION_PANEL_H
+#define SPECIFICATION_PANEL_H
 
 #include <map>
 
@@ -9,31 +9,32 @@
 #include "map_structures/buildings/building/buildings_info.h"
 
 
-class SpecificationsPanel : public UIWindow
+class SpecificationPanel : public UIWindow
 {
 private:
 	static BuildingInfo nullInfo;
 	BuildingInfo& buildingInfo = nullInfo;
-	
+
 	sf::Text title;
 	sf::Text durability;
 	sf::Text description;
-	
+
 	std::map<int, ResInfo> resInfo;
 
-	SpecificationsPanel(const SpecificationsPanel&) = delete;
-	SpecificationsPanel& operator=(const SpecificationsPanel&) = delete;
-	
+	SpecificationPanel(const SpecificationPanel&) = delete;
+	SpecificationPanel& operator=(const SpecificationPanel&) = delete;
+
 public:
-	SpecificationsPanel();
-	~SpecificationsPanel() = default;
-	
+	SpecificationPanel();
+	~SpecificationPanel() = default;
+
 	void interact(const int index);
 	void relocate(const sf::Vector2u windowSize) override final;
 
 	void prepareInterfaceSprites() override final;
 	void draw(sf::RenderWindow& window) override final;
-	
+	bool getIsVisible();
+
 };
 
-#endif // SPECIFICATIONS_PANEL_H
+#endif // SPECIFICATION_PANEL_H

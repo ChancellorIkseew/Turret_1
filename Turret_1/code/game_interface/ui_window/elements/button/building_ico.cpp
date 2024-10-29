@@ -45,6 +45,10 @@ bool BuildingIco::press(const sf::Vector2i& mouseCoord)
 	return false;
 }
 
+uint16_t BuildingIco::getBuildingType() const
+{
+	return buildingType;
+}
 
 void BuildingIco::setPosition(const sf::Vector2u position)
 {

@@ -28,6 +28,7 @@ public:
     ~BuildingIco() = default;
    
     bool press(const sf::Vector2i& mouseCoord);
+    uint16_t getBuildingType() const;
 
     void setPosition(const sf::Vector2u position);
     void relocateWithOwner(const sf::Vector2u ownerPosition);

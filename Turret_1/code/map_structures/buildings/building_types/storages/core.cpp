@@ -12,7 +12,7 @@ Core::Core(const uint16_t type, const int16_t durability, const uint8_t size, co
 
 void Core::interact()
 {
-	for (auto& res : storedResourcesList)
+	for (auto& res : inventory)
 	{
 		if (res.quantity > 0)
 		{
