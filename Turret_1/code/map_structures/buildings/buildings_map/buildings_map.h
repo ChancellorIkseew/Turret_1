@@ -6,7 +6,7 @@
 #include <vector>
 #include <SFML\Graphics.hpp>
 
-#include "map_structures/base_engine/tile_coord.h"
+#include "map_structures/base_engine/base_engine.h"
 #include "map_structures/buildings/building/building.h"
 #include "map_structures/resources/resource_unit.h"
 

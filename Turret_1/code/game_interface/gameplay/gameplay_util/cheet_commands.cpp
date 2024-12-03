@@ -4,7 +4,7 @@
 
 #include "cheet_commands.h"
 
-#include "map_structures/base_engine/test.h"
+#include "internal_tests/coord_spyral_test.h"
 #include "map_structures/resources/res_enum.h"
 #include "map_structures/entities/entity/entity.h"
 #include "map_structures/entities/mob_types/standard_bot.h"

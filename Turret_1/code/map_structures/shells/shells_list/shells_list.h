@@ -6,7 +6,7 @@
 #include <SFML\Graphics.hpp>
 #include <list>
 
-#include "map_structures/base_engine/tile_coord.h"
+#include "map_structures/base_engine/base_engine.h"
 #include "map_structures/shells/shell/shell.h"
 
 

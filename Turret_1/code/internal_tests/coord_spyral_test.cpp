@@ -1,8 +1,8 @@
 #ifndef TURRET_1_NO_TEST_BUILD
 
-#include "test.h"
+#include "coord_spyral_test.h"
 
-#include "tile_coord.h"
+#include "map_structures/base_engine/base_engine.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 
 

@@ -2,7 +2,7 @@
 #ifndef T1_ENT_PATH_FINDING_H
 #define T1_ENT_PATH_FINDING_H
 
-#include "map_structures/base_engine/tile_coord.h"
+#include "map_structures/base_engine/base_engine.h"
 
 class Entity;
 

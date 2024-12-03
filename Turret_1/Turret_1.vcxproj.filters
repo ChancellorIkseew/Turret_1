@@ -99,9 +99,6 @@
     <ClCompile Include="code\game_interface\sound_system\sound_system.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="code\map_structures\base_engine\tile_coord.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="code\map_structures\buildings\building\building.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -181,9 +178,6 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="code\map_structures\entities\mob_types\laser_bot.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="code\map_structures\base_engine\test.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="code\map_structures\buildings\building\create_building.cpp">
@@ -384,6 +378,15 @@
     <ClCompile Include="code\map_structures\entities\behavior\path_finding.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="code\map_structures\base_engine\coords\tile_coord_arrays.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\map_structures\base_engine\coords\transforms.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\internal_tests\coord_spyral_test.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="libgcc_s_seh_64-1.dll" />
@@ -438,9 +441,6 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\game_interface\sound_system\sound_system.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="code\map_structures\base_engine\tile_coord.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\map_structures\buildings\building\building.h">
@@ -528,9 +528,6 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\map_structures\entities\mob_types\laser_bot.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="code\map_structures\base_engine\test.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\map_structures\shells\shell\shell_enum.h">
@@ -714,6 +711,24 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\map_structures\entities\behavior\path_finding.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\map_structures\base_engine\base_engine.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\map_structures\base_engine\coords\tile_coord.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\map_structures\base_engine\coords\pixel_coord.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\map_structures\base_engine\coords\transforms.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\map_structures\base_engine\coords\tile_coord_arrays.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\internal_tests\coord_spyral_test.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

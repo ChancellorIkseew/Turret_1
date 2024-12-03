@@ -4,7 +4,7 @@
 
 #include "terrain_generator.h"
 
-#include "map_structures/base_engine/tile_coord.h"
+#include "map_structures/base_engine/base_engine.h"
 #include "map_structures/pre-settings/pre-settings.h"
 #include "map_structures/terrain/terrain_enum.h"
 

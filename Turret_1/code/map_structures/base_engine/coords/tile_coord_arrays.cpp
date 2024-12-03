@@ -1,59 +1,10 @@
 
-#include "tile_coord.h"
+#include "tile_coord_arrays.h"
 
 
-// pixel_to_tile
-int t1::be::tile(float pixelCoord) {
-	return int(pixelCoord / _TILE_);
-}
-
-int t1::be::tile(int pixelCoord) {
-	return int(pixelCoord / _TILE_);
-}
-
-TileCoord t1::be::tile(float pixelCoordX, float pixelCoordY) {
-	return { tile(pixelCoordX) , tile(pixelCoordY) };
-}
-
-TileCoord t1::be::tile(int pixelCoordX, int pixelCoordY) {
-	return { tile(pixelCoordX) , tile(pixelCoordY) };
-}
-
-TileCoord t1::be::tile(PixelCoord pixelCoord) {
-	return { tile(pixelCoord.x) , tile(pixelCoord.y) };
-}
-
-// tile_to_pixel
-int t1::be::pixel(int tileCoord) {
-	return tileCoord * _TILE_ + _HALF_TILE_;
-}
-
-float t1::be::pixelF(int tileCoord) {
-	return tileCoord * _TILE_ + _HALF_TILE_;
-}
-
-PixelCoord t1::be::pixel(int tileCoordX, int tileCoordY) {
-	return { pixelF(tileCoordX),  pixelF(tileCoordY) };
-}
-
-PixelCoord t1::be::pixel(TileCoord tileCoord) {
-	return { pixelF(tileCoord.x), pixelF(tileCoord.y) };
-}
-
-
-int t1::be::pow2i(const int value) {
-	return value * value;
-}
-
-
-float t1::be::radToDegree(const float radian) {
-	return 180.0f - radian * 57.3f;
-}
-
-
-const TileCoord t1::be::coordSquareArr[16]
+const std::array<TileCoord, 16> t1::be::coordSquareArr
 {
-	{0,0},
+	TileCoord(0,0),
 	{1,0},
 	{0,1},
 	{1,1},	// 2_base
@@ -72,9 +23,9 @@ const TileCoord t1::be::coordSquareArr[16]
 };
 
 
-const TileCoord t1::be::coordSpyralArr[4109]
+const std::array<TileCoord, 4109> t1::be::coordSpyralArr
 {
-	{ 0, 0 },	//0
+	TileCoord(0, 0),	//0
 	{ -1, 0 }, 	//1
 	{ 0, -1 }, 	//2
 	{ 0, 1 }, 	//3

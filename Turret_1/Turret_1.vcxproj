@@ -194,8 +194,9 @@
     <ClCompile Include="code\game_interface\ui_window\sub_win_types\page\page.cpp" />
     <ClCompile Include="code\game_interface\ui_window\sub_win_types\text_field\text_field.cpp" />
     <ClCompile Include="code\game_interface\ui_window\sub_win_util\fonts.cpp" />
-    <ClCompile Include="code\map_structures\base_engine\test.cpp" />
-    <ClCompile Include="code\map_structures\base_engine\tile_coord.cpp" />
+    <ClCompile Include="code\internal_tests\coord_spyral_test.cpp" />
+    <ClCompile Include="code\map_structures\base_engine\coords\tile_coord_arrays.cpp" />
+    <ClCompile Include="code\map_structures\base_engine\coords\transforms.cpp" />
     <ClCompile Include="code\map_structures\buildings\buildings_map\buildings_map.cpp" />
     <ClCompile Include="code\map_structures\buildings\building\building.cpp" />
     <ClCompile Include="code\map_structures\buildings\building\buildings_info.cpp" />
@@ -303,8 +304,12 @@
     <ClInclude Include="code\game_interface\ui_window\sub_win_types\page\page.h" />
     <ClInclude Include="code\game_interface\ui_window\sub_win_types\text_field\text_field.h" />
     <ClInclude Include="code\game_interface\ui_window\sub_win_util\fonts.h" />
-    <ClInclude Include="code\map_structures\base_engine\test.h" />
-    <ClInclude Include="code\map_structures\base_engine\tile_coord.h" />
+    <ClInclude Include="code\internal_tests\coord_spyral_test.h" />
+    <ClInclude Include="code\map_structures\base_engine\base_engine.h" />
+    <ClInclude Include="code\map_structures\base_engine\coords\pixel_coord.h" />
+    <ClInclude Include="code\map_structures\base_engine\coords\tile_coord.h" />
+    <ClInclude Include="code\map_structures\base_engine\coords\tile_coord_arrays.h" />
+    <ClInclude Include="code\map_structures\base_engine\coords\transforms.h" />
     <ClInclude Include="code\map_structures\buildings\buildings_map\buildings_map.h" />
     <ClInclude Include="code\map_structures\buildings\building\building.h" />
     <ClInclude Include="code\map_structures\buildings\building\buildings_enum.h" />

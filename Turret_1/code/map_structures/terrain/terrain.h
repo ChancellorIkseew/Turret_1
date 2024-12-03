@@ -5,7 +5,7 @@
 #include <string>
 #include <SFML\Graphics.hpp>
 
-#include "map_structures/base_engine/tile_coord.h"
+#include "map_structures/base_engine/base_engine.h"
 
 
 class TerrainMap

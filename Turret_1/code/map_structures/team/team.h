@@ -8,7 +8,7 @@
 
 #include "map_structures/entities/entities_list/entities_list.h"
 #include "map_structures/shells/shells_list/shells_list.h"
-#include "map_structures/base_engine/tile_coord.h"
+#include "map_structures/base_engine/base_engine.h"
 
 #include "balance/balance.h"
 

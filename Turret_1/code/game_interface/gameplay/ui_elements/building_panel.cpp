@@ -10,7 +10,7 @@
 #include "map_structures/terrain/terrain.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"
-#include "map_structures/base_engine/tile_coord.h"
+#include "map_structures/base_engine/base_engine.h"
 #include "t1_system/t1_mutex.h"
 #include "t1_system/system.h"
 #include "t1_system/sleep.h"
