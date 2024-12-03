@@ -13,7 +13,6 @@ public:
 	~LaserBot() = default;
 
 	void shoot() override final;
-	PixelCoord findShootingAim() const override final;
 
 	void draw(sf::RenderWindow& window) override final;
 

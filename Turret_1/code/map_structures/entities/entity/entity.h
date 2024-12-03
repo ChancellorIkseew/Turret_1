@@ -6,6 +6,8 @@
 #include <SFML\Graphics.hpp>
 
 #include "map_structures/base_engine/tile_coord.h"
+#include "map_structures/entities/behavior/aiming.h"
+#include "map_structures/entities/behavior/path_finding.h"
 
 class Team;
 
@@ -15,28 +17,28 @@ protected:
 	static inline TileCoord mapSize;
 	static inline float maxDurabilityModifier;
 	
-	Team* team;
+	Team* team = nullptr;
 	
 	PixelCoord coord;
 	PixelCoord aimCoord;
 	PixelCoord destCoord; // destination_point
-	TileCoord newTile, oldTile;
+	TileCoord currentTile, oldTile;
 	
-	bool isAimDetected;
+	bool isAimDetected = false;
 	
-	float motionAngleRad;
-	float motionAngleDeg;
-	float shootingAngleRad;
-	float shootingAngleDeg;
+	float motionAngleRad = 0;
+	float motionAngleDeg = 0;
+	float shootingAngleRad = 0;
+	float shootingAngleDeg = 0;
 
-	float maxSpeed;
+	float maxSpeed = 0;
 
-	uint16_t type;
+	uint16_t type = 0;
 
-	int16_t durability; // timer_and_durability can_be_negative_in_some_cases
-	int16_t reloadTimer;
-	uint16_t pixelRange;
-	uint16_t spyralRange;
+	int16_t durability = 0; // timer_and_durability can_be_negative_in_some_cases
+	int16_t reloadTimer = 0;
+	uint16_t pixelRange = 0;
+	uint16_t spyralRange = 0;
 	
 
 	static inline sf::Image entityImage;
@@ -48,8 +50,6 @@ protected:
 	static inline sf::Sprite shieldSprite;
 
 	void reloadWeapon();
-	virtual PixelCoord findDestinationCoord() const;
-	virtual PixelCoord findShootingAim() const;
 	void detectAim();
 
 public:
@@ -65,6 +65,7 @@ public:
 	static PixelCoord randomMapBorderSpawn();
 
 	// combat
+	bool tileChanged() const;
 	virtual void motion();
 	virtual void shoot() = 0;
 
@@ -81,6 +82,9 @@ public:
 	// visual
 	static void prepareSprites();
 	virtual void draw(sf::RenderWindow& window) = 0;
+
+	friend PixelCoord t1::ent::findAim(const Entity& entity);
+	friend TileCoord t1::ent::findDestination(const Entity& entity);
 		
 };
 

@@ -9,12 +9,31 @@
 
 struct TileCoord
 {
-	int x, y;
+	int x = 0, y = 0;
+
+	TileCoord() = default;
+	TileCoord(int x, int y) {
+		this->x = x;
+		this->y = y;
+	}
+
+	TileCoord operator+(const TileCoord& rhs) const {
+		return { x + rhs.x, y + rhs.y };
+	}
+	TileCoord operator-(const TileCoord& rhs) const {
+		return { x - rhs.x, y - rhs.y };
+	}
+	TileCoord operator*(const int value) const {
+		return { x * value, y * value };
+	}
+	TileCoord operator/(const int value) const {
+		return { x / value, y / value };
+	}
 };
 
 struct PixelCoord
 {
-	float x, y;
+	float x = 0, y = 0;
 };
 
 namespace t1::be
@@ -32,6 +51,10 @@ namespace t1::be
 	inline float pixelF(int tileCoord);
 	PixelCoord pixel(int tileCoordX, int tileCoordY);
 	PixelCoord pixel(TileCoord tileCoord);
+
+	int pow2i(const int value);
+
+	float radToDegree(const float radian);
 };
 
 #endif // T1_BE_TILE_COORD_H

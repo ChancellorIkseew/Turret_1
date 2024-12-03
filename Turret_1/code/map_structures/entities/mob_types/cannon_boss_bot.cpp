@@ -14,12 +14,6 @@ CannonBossBot::CannonBossBot(const uint16_t type, Team* const team) : Entity(typ
 }
 
 
-PixelCoord CannonBossBot::findDestinationCoord() const
-{
-	return Entity::findDestinationCoord();
-}
-
-
 void CannonBossBot::shoot()
 {
 	Entity::detectAim();

@@ -378,6 +378,12 @@
     <ClCompile Include="code\game_interface\gameplay\ui_elements\building_panel\util_page.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="code\map_structures\entities\behavior\aiming.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\map_structures\entities\behavior\path_finding.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="libgcc_s_seh_64-1.dll" />
@@ -702,6 +708,12 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\game_interface\gameplay\ui_elements\inventory_window.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\map_structures\entities\behavior\aiming.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\map_structures\entities\behavior\path_finding.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

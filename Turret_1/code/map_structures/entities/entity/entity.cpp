@@ -6,7 +6,10 @@
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/pre-settings/pre-settings.h"
 
+#include "iostream"
+
 using namespace t1::be;
+constexpr float BASIC_COLLISION_RADIUS = 30.0f;
 
 void Entity::initPreSettings()
 {
@@ -19,8 +22,8 @@ Entity::Entity(const uint16_t type, Team* const team)		//1st spawn
 	this->type = type;
 	this->team = team;
 	isAimDetected = false;
-	aimCoord = pixel(mapSize.x / 2, mapSize.y / 2);
-	destCoord = aimCoord;
+	destCoord = pixel(t1::ent::findClosestCore(*this));
+	aimCoord = destCoord;
 	reloadTimer = 0;
 	maxSpeed = 0.1f;
 }
@@ -40,106 +43,45 @@ void Entity::load(std::ifstream& fin)
 }
 
 
+bool Entity::tileChanged() const
+{
+	return currentTile.x != oldTile.x || currentTile.y != oldTile.y;
+}
+
+
 void Entity::motion()
 {
 	this->motionAngleRad = atan2f(destCoord.x - coord.x, destCoord.y - coord.y);
-	this->motionAngleDeg = atan2f(destCoord.y - coord.y, destCoord.x - coord.x) * 57.3f + 90.0f;
+	this->motionAngleDeg = t1::be::radToDegree(motionAngleRad);
 
-	int nextTileX = tile(coord.x + sin(motionAngleRad) * 30);
-	int nextTileY = tile(coord.y + cos(motionAngleRad) * 30);
+	int nextTileX = tile(coord.x + sin(motionAngleRad) * BASIC_COLLISION_RADIUS);
+	int nextTileY = tile(coord.y + cos(motionAngleRad) * BASIC_COLLISION_RADIUS);
 
-	if ((BuildingsMap::isVoidBuilding(nextTileX, nextTileY)))
+	if (BuildingsMap::isVoidBuilding(nextTileX, nextTileY))
 	{
 		this->coord.x += sin(motionAngleRad) * maxSpeed;
 		this->coord.y += cos(motionAngleRad) * maxSpeed;
 	}
 	else
 	{
-		destCoord = this->findDestinationCoord();
+		destCoord = pixel(t1::ent::findDestination(*this));
 	}
 
-	if (newTile.x != oldTile.x || newTile.y != oldTile.y)
+	if (tileChanged())
 	{
-		destCoord = pixel(mapSize.x / 2, mapSize.y / 2);
+		destCoord = pixel(t1::ent::findClosestCore(*this));
 	}
 
-	this->oldTile = this->newTile;
-	this->newTile = tile(coord);
-}
-
-
-PixelCoord Entity::findDestinationCoord() const
-{
-	float currentDistance = powf((newTile.x - 50), 2.0f) + powf((newTile.y - 50), 2.0f);
-
-	for (int i = 1; i < 9; i += 2)
-	{
-		int tileX = this->newTile.x + coordSpyralArr[i].x;
-		int tileY = this->newTile.y + coordSpyralArr[i].y;
-
-		if (BuildingsMap::isVoidBuilding(tileX, tileY))
-		{
-			float distance = powf(float(tileX - mapSize.x / 2), 2.0f) + powf(float(tileY - mapSize.y / 2), 2.0f);
-			if (distance < currentDistance)
-			{
-				return pixel(tileX, tileY);
-			}
-		}
-	}
-	return pixel(mapSize.x / 2, mapSize.y / 2);
-}
-
-
-PixelCoord Entity::findShootingAim() const
-{
-	for (auto& tm : Team::teams)
-	{
-		if (this->team->getID() != tm->getID())
-		{
-			for (auto entity = tm->entities.begin(); entity != tm->entities.end(); ++entity)
-			{
-				float deltaX = coord.x - (*entity)->getCoord().x;
-				float deltaY = coord.y - (*entity)->getCoord().y;
-
-				if (sqrt(deltaX * deltaX + deltaY * deltaY) < pixelRange)
-				{
-					return (*entity)->getCoord();
-				}
-			}
-		}
-	}
-
-	for (int i = 1; i <= pixelRange; i++)
-	{
-		int tileX = tile(coord.x + sin(motionAngleRad) * _TILE_ * i);
-		int tileY = tile(coord.y + cos(motionAngleRad) * _TILE_ * i);
-		TileCoord tile{ tileX, tileY };
-		if (BuildingsMap::buildingExists(tile) && BuildingsMap::getTeamID(tile) != team->getID())
-		{
-			return pixel(tile);
-		}
-	}
-
-	for (int i = 0; i < spyralRange; i++)
-	{
-		int tileX = this->newTile.x + coordSpyralArr[i].x;
-		int tileY = this->newTile.y + coordSpyralArr[i].y;
-		TileCoord tile{ tileX, tileY };
-		if (BuildingsMap::buildingExists(tile) && BuildingsMap::getTeamID(tile) != team->getID())
-		{
-			return pixel(tile);
-		}
-	}
-
-	return { 0.0f, 0.0f };
+	this->oldTile = this->currentTile;
+	this->currentTile = tile(coord);
 }
 
 
 void Entity::detectAim()
 {
-	if (newTile.x != oldTile.x || newTile.y != oldTile.y || BuildingsMap::getIsMapChanged())
+	if (tileChanged() || BuildingsMap::getIsMapChanged())
 	{
-		PixelCoord newAimCoord = this->findShootingAim();
+		PixelCoord newAimCoord = t1::ent::findAim(*this);
 		if (newAimCoord.x != 0)	// "0" - aim_was_not_detected
 		{
 			aimCoord = newAimCoord;

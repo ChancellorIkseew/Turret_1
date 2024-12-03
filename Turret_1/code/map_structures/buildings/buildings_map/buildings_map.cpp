@@ -121,9 +121,12 @@ bool BuildingsMap::placeBuilding(const uint16_t type, const char direction, cons
 {
 	if (!isAvaluablePlaceBuilding(type, tile, team))
 		return false;
+	auto building = Building::createBuilding(type, direction, tile, team);
+	buildingsMap[tile.x][tile.y] = building;
 	int size = t1::bc::buildingsInfoTable[type].size;
-	buildingsMap[tile.x][tile.y] = Building::createBuilding(type, direction, tile, team);
 	createAuxilary(size, tile, team);
+	if (type == CORE_MK1 || type == CORE_MK2 || type == CORE_MK3)
+		cores.emplace_back(building);
 	isMapChanged = true;
 	return true;
 }
@@ -148,6 +151,7 @@ void BuildingsMap::demolishBuilding(const TileCoord tile)
 	if (!buildingExists(tile))
 		return;
 	TileCoord mainBuilding = getBuildingMainTileCoord(tile);
+	uint16_t type = buildingsMap[mainBuilding.x][mainBuilding.y]->getType();
 	short size = buildingsMap[mainBuilding.x][mainBuilding.y]->getSize();
 	for (int i = 0; i < size; ++i)
 	{
@@ -155,6 +159,17 @@ void BuildingsMap::demolishBuilding(const TileCoord tile)
 		int iTileY = mainBuilding.y + t1::be::coordSquareArr[i].y;
 
 		buildingsMap[iTileX][iTileY].reset();
+	}
+	if (type == CORE_MK1 || type == CORE_MK2 || type == CORE_MK3)
+	{
+		for (auto core = cores.begin(); core != cores.end(); ++core)
+		{
+			if ((*core)->getTileCoord().x == mainBuilding.x && (*core)->getTileCoord().y == mainBuilding.y)
+			{
+				cores.erase(core);
+				return;
+			}	
+		}
 	}
 	isMapChanged = true;
 }
@@ -229,10 +244,13 @@ char BuildingsMap::getBuildingDirection(const TileCoord tile)
 
 std::list<StoredResource> BuildingsMap::getInventory(const TileCoord tile)
 {
-	if (buildingExists(tile))
-		return buildingsMap[tile.x][tile.y]->getInventory();
-	std::list<StoredResource> nullInventory;
-	return nullInventory;
+	if (!buildingExists(tile))
+	{
+		std::list<StoredResource> nullInventory;
+		return nullInventory;
+	}
+	TileCoord mainTile = getBuildingMainTileCoord(tile);
+	return buildingsMap[mainTile.x][mainTile.y]->getInventory();
 }
 
 Team* BuildingsMap::getTeam(const TileCoord tile)
@@ -265,6 +283,11 @@ void BuildingsMap::intetractMap()
 			}
 		}
 	}
+}
+
+const std::vector<std::shared_ptr<Building>>& BuildingsMap::getCores()
+{
+	return cores;
 }
 
 

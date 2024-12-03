@@ -37,12 +37,6 @@ void LaserBot::shoot()
 }
 
 
-PixelCoord LaserBot::findShootingAim() const
-{
-	return Entity::findShootingAim();
-}
-
-
 void LaserBot::draw(sf::RenderWindow& window)
 {
 	entitySprite.setTextureRect(sf::IntRect(60, 0, 17, 15));

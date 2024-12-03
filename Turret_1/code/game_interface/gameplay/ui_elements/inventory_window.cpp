@@ -30,10 +30,21 @@ void InventoryWindow::interact(const sf::Vector2i& mouseCoord, const sf::Vector2
     }
     if (!isVisible || !BuildingsMap::buildingExists(selectedTile))
         return;
-    for (auto& res : BuildingsMap::getInventory(selectedTile))
+
+    for (auto& info : resInfo)
     {
-        resInfo[res.type].update(res.quantity);
+        int amount = 0;
+        for (auto& res : BuildingsMap::getInventory(selectedTile))
+        {
+            if (info.first == res.type)
+            {
+                amount = res.quantity;
+                break;
+            }
+        }
+        info.second.update(amount);
     }
+
     relocateToCoursor(mouseCoord);
 }
 
@@ -52,11 +63,11 @@ void InventoryWindow::draw(sf::RenderWindow& window)
     drawBase(window);
     unsigned int posX = position.x + 16;
     unsigned int posY = position.y + 30;
-    for (auto& resI : resInfo)
+    for (auto& info : resInfo)
     {
-        if (resI.second.getQuantity() != 0)
+        if (info.second.getQuantity() != 0)
         {
-            resI.second.draw(window, posX, posY);
+            info.second.draw(window, posX, posY);
             posY += 20;
         }
 

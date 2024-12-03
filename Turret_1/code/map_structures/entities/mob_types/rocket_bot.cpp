@@ -15,12 +15,6 @@ RocketBot::RocketBot(const uint16_t type, Team* const team) : Entity(type, team)
 }
 
 
-PixelCoord RocketBot::findDestinationCoord() const
-{
-	return Entity::findDestinationCoord();
-}
-
-
 void RocketBot::shoot()
 {
 	Entity::detectAim();
@@ -40,12 +34,6 @@ void RocketBot::shoot()
 			reloadTimer = 240;
 		}
 	}
-}
-
-
-PixelCoord RocketBot::findShootingAim() const
-{
-	return Entity::findShootingAim();
 }
 
 

@@ -180,7 +180,7 @@ void Building::placeResourceUnit(const uint16_t resType, const TileCoord tile)
 
 	int side = rand() % 4;
 	int i = 0;
-	TileCoord cheekTile = { 0.0f, 0.0f };
+	TileCoord cheekTile(0, 0);
 	ResourceUnit unit;
 
 	while (true)

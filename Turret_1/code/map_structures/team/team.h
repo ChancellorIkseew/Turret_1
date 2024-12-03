@@ -3,8 +3,6 @@
 #define TEAM_H
 
 #include <vector>
-#include <SFML/Graphics.hpp>
-
 #include <unordered_set>
 #include <SFML/Graphics.hpp>
 

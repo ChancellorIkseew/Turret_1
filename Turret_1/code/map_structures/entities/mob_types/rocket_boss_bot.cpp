@@ -15,12 +15,6 @@ RocketBossBot::RocketBossBot(const uint16_t type, Team* const team) : Entity(typ
 }
 
 
-PixelCoord RocketBossBot::findDestinationCoord() const
-{
-	return Entity::findDestinationCoord();
-}
-
-
 void RocketBossBot::shoot()
 {
 	Entity::detectAim();

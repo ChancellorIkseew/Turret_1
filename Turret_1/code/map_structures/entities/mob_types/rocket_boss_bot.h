@@ -12,7 +12,6 @@ public:
 	RocketBossBot(const uint16_t type, Team* const team);
 	~RocketBossBot() = default;
 
-	PixelCoord findDestinationCoord() const override final;
 	void shoot() override final;
 
 	void draw(sf::RenderWindow& window) override final;

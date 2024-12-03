@@ -12,9 +12,7 @@ public:
 	RocketBot(const uint16_t type, Team* const team);
 	~RocketBot() = default;
 
-	PixelCoord findDestinationCoord() const override final;
 	void shoot() override final;
-	PixelCoord findShootingAim() const override final;
 
 	void draw(sf::RenderWindow& window) override final;
 
