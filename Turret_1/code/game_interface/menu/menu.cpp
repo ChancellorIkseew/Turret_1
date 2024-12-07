@@ -1,12 +1,14 @@
 
 #include <thread>
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 #include "game_interface/main_window/main_window_resize.h"
 #include "game_interface/main_window/main_window.h"
 #include "game_interface/ui_window/sub_win_types/text_field/text_field.h"
 
 #include "t1_system/sleep.h"
+#include "t1_system/events/event_handler.h"
 
 #include "ui_elements/main_menu.h"
 #include "ui_elements/choise_save_folder.h"
@@ -84,6 +86,16 @@ char openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string& sav
         
         while (mainWindow.pollEvent(event))
         {
+			t1::system::EventHandler::updateInput(event);
+			//t1::system::EventHandler::pushEvent(InputEvent(event));
+			//t1::system::EventHandler::pollEvents();
+
+			
+			if (t1::system::EventHandler::active(KeyName::RMB))
+			{
+				std::cout << "RMB\n";
+			}
+			
 			if (event.type == sf::Event::Closed)
 			{
 				mainWindow.close();
