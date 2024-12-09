@@ -86,12 +86,12 @@ char openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string& sav
         
         while (mainWindow.pollEvent(event))
         {
-			t1::system::EventHandler::updateInput(event);
+			EventsHandler::updateInput(event);
 			//t1::system::EventHandler::pushEvent(InputEvent(event));
 			//t1::system::EventHandler::pollEvents();
 
 			
-			if (t1::system::EventHandler::active(KeyName::RMB))
+			if (EventsHandler::active(t1::KeyName::RMB))
 			{
 				std::cout << "RMB\n";
 			}

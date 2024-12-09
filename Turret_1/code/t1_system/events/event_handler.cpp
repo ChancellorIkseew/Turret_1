@@ -2,67 +2,44 @@
 #include "event_handler.h"
 #include <iostream>
 
-using namespace t1::system;
 
-void EventHandler::pushEvent(EventVariant&& event)
+void EventsHandler::pushEvent(t1::EventType type, std::unique_ptr<t1::Event> event)
 {
-	eventsQueue.push(event);
+	events[type] = std::move(event);
 }
 
-void EventHandler::clearEvents() noexcept
+void EventsHandler::clearEvents() noexcept
 {
-	
+	events.clear();
 }
 
-void EventHandler::pollEvents()
+void EventsHandler::pollSimulationEvents()
 {
-	while (!eventsQueue.empty())
+	for (auto& entry : events)
 	{
-		EventVariant& event = eventsQueue.front();
-
-		if (std::holds_alternative<InputEvent>(event))
+		auto& event = entry.second;
+		if (event->active)
 		{
-			std::cout << "input_registred\n";
-			switch (std::get<InputEvent>(event).sfEvent.type)
-			{
-			case sf::Event::MouseButtonPressed:
-				std::cout << "buttonPresed\n";
-				break;
-
-			case sf::Event::KeyPressed:
-				std::cout << "key_pressed\n";
-				break;
-
-			case sf::Event::MouseWheelMoved:
-				std::cout << "whell_moved\n";
-				break;
-			}
+			event->active = false;
+			std::cout << " active\n";
 		}
-		/*
-		if (std::holds_alternative<MapChanged>(event))
-		{
-
-		}
-		*/
-
-
-		eventsQueue.pop();
+			
 	}
 }
 
-void EventHandler::updateInput(const sf::Event& event)
+void EventsHandler::updateInput(const sf::Event& event)
 {
-	for (auto& entry : bindings)
+	for (auto& entry : t1::bindings)
 	{
 		auto& binding = entry.second;
 
-		if (binding.inputType == InputType::keyboard && event.type == sf::Event::KeyPressed)
+		if (binding.inputType == t1::InputType::keyboard && event.type == sf::Event::KeyPressed)
 		{
 			binding.active = static_cast<sf::Keyboard::Scancode>(binding.code) == event.key.scancode;
 			continue;	// scancode - the code of concrete key
 		}
 
-		if (binding.inputType == InputType::mouse && event.type == sf::Event::MouseButtonPressed)
+		if (binding.inputType == t1::InputType::mouse && event.type == sf::Event::MouseButtonPressed)
 		{
 			binding.active = static_cast<sf::Mouse::Button>(binding.code) == event.mouseButton.button;
 			continue;
@@ -73,10 +50,28 @@ void EventHandler::updateInput(const sf::Event& event)
 }
 
 
-bool EventHandler::active(const KeyName keyName)
+bool EventsHandler::active(const t1::KeyName keyName)
 {
-	const auto& found = bindings.find(keyName);
-	if (found == bindings.end())
+	const auto& found = t1::bindings.find(keyName);
+	if (found == t1::bindings.end())
 		return false;
 	return found->second.active;
 }
+
+bool EventsHandler::active(const t1::EventType eventType)
+{
+	const auto& found = events.find(eventType);
+	if (found == events.end())
+		return false;
+	return found->second->active;
+}
+
+
+void EventsHandler::init()
+{
+	using namespace t1;
+
+	events.emplace(EventType::INPUT_REGISTRED, std::make_unique<InputRegistred>());
+	events.emplace(EventType::MAP_CHANGED, std::unique_ptr<MapChanged>());
+
+};

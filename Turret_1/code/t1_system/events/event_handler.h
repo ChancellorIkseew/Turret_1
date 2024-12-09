@@ -3,31 +3,31 @@
 #define T1_SYSTEM_EVENT_HANDLER_H
 
 #include <queue>
-#include <variant>
+#include <unordered_map>
 #include "events.h"
 
-namespace t1::system
+
+using EventsMap = std::unordered_map<t1::EventType, std::unique_ptr<t1::Event>>;
+
+class EventsHandler
 {
-	using EventVariant = std::variant<InputEvent>;
+private:
+	static inline EventsMap events;
 
-	class EventHandler
-	{
-	private:
-		static inline std::queue<EventVariant> eventsQueue;
+public:
+	EventsHandler() = default;
+	~EventsHandler() = default;
 
-	public:
-		EventHandler() = default;
-		~EventHandler() = default;
+	static void pushEvent(t1::EventType type, std::unique_ptr<t1::Event> event);
+	static void clearEvents() noexcept;
+	static void pollSimulationEvents();
+	static void updateInput(const sf::Event& event);
 
-		static void pushEvent(EventVariant&& event);
-		static void clearEvents() noexcept;
-		static void pollEvents();
-		static void updateInput(const sf::Event& event);
+	static bool active(const t1::KeyName keyName);
+	static bool active(const t1::EventType eventType);
 
-		static bool active(const KeyName keyName);
 
-	};
-
-}
+	static void init();
+};
 
 #endif // T1_SYSTEM_EVENT_HANDLER_H

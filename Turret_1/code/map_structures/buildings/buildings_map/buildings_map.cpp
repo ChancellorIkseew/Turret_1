@@ -11,6 +11,8 @@
 #include "map_structures/base_engine/base_engine.h"
 #include "map_structures/team/team.h"
 
+#include "t1_system/events/event_handler.h"
+
 
 BuildingsMap::BuildingsMap(const TileCoord mapSize)
 {
@@ -127,7 +129,7 @@ bool BuildingsMap::placeBuilding(const uint16_t type, const char direction, cons
 	createAuxilary(size, tile, team);
 	if (type == CORE_MK1 || type == CORE_MK2 || type == CORE_MK3)
 		cores.emplace_back(building);
-	isMapChanged = true;
+	justChangedTiles.push_back(tile);
 	return true;
 }
 
@@ -137,9 +139,8 @@ bool BuildingsMap::isAvaluablePlaceBuilding(const uint16_t type, const TileCoord
 	int size = t1::bc::buildingsInfoTable[type].size;
 	for (int i = 0; i < size; i++) // cheeck_square_for_place
 	{
-		int iTileX = tile.x + t1::be::coordSquareArr[i].x;
-		int iTileY = tile.y + t1::be::coordSquareArr[i].y;
-		if (!isVoidBuilding(iTileX, iTileY))
+		TileCoord cheekTile = tile + t1::be::coordSquareArr[i];
+		if (!isVoidBuilding(cheekTile))
 			return false;
 	}
 	return true;
@@ -155,10 +156,9 @@ void BuildingsMap::demolishBuilding(const TileCoord tile)
 	short size = buildingsMap[mainBuilding.x][mainBuilding.y]->getSize();
 	for (int i = 0; i < size; ++i)
 	{
-		int iTileX = mainBuilding.x + t1::be::coordSquareArr[i].x;
-		int iTileY = mainBuilding.y + t1::be::coordSquareArr[i].y;
-
-		buildingsMap[iTileX][iTileY].reset();
+		TileCoord iTile = mainBuilding + t1::be::coordSquareArr[i];
+		buildingsMap[iTile.x][iTile.y].reset();
+		justChangedTiles.push_back(iTile);
 	}
 	if (type == CORE_MK1 || type == CORE_MK2 || type == CORE_MK3)
 	{
@@ -171,7 +171,6 @@ void BuildingsMap::demolishBuilding(const TileCoord tile)
 			}	
 		}
 	}
-	isMapChanged = true;
 }
 
 
@@ -283,6 +282,14 @@ void BuildingsMap::intetractMap()
 			}
 		}
 	}
+}
+
+void BuildingsMap::pushChanges()
+{
+	if (justChangedTiles.empty())
+		return;
+	EventsHandler::pushEvent(t1::EventType::MAP_CHANGED, std::make_unique<t1::MapChanged>(justChangedTiles));
+	justChangedTiles.clear();
 }
 
 const std::vector<std::shared_ptr<Building>>& BuildingsMap::getCores()
