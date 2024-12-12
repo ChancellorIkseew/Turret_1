@@ -44,21 +44,21 @@ char openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string& sav
 				if (menuTab == MAIN_MENU)
 				{
 					mainMenu.setVisible(true);
-					menuTab = mainMenu.interact(mouseCoord, isMenuOpen);
+					menuTab = mainMenu.interact(isMenuOpen);
 					mainMenu.setVisible(false);
 				}
 				
 				if (menuTab == CHOISE_FOLDER_MENU)
 				{
 					choiseFolderMenu.setVisible(true);
-					menuTab = choiseFolderMenu.interact(mouseCoord, isMenuOpen, startNewGame, saveFolderName);
+					menuTab = choiseFolderMenu.interact(isMenuOpen, startNewGame, saveFolderName);
 					choiseFolderMenu.setVisible(false);
 				}
 
 				if (menuTab == PRE_SETTINGS_MENU)
 				{
 					preSettingsWindow.setVisible(true);
-					menuTab = preSettingsWindow.interact(mouseCoord, isMenuOpen);
+					menuTab = preSettingsWindow.interact(isMenuOpen);
 					preSettingsWindow.setVisible(false);
 				}
 
@@ -87,6 +87,7 @@ char openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string& sav
         while (mainWindow.pollEvent(event))
         {
 			InputHandler::updateInput(event);
+			InputHandler::updateMouseCoord(mainWindow);
 			
 			if (event.type == sf::Event::Closed)
 			{

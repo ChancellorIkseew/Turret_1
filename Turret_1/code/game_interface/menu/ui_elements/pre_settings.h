@@ -20,7 +20,7 @@ public:
 	PreSettingsWindow();
 	~PreSettingsWindow() = default;
 
-	int interact(sf::Vector2i& mouseCoord, bool& isMenuOpen);
+	int interact(bool& isMenuOpen);
 	void relocate(sf::Vector2u windowSize) override final;
 
 	void prepareInterfaceSprites() override final;

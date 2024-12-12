@@ -14,9 +14,9 @@ void Gameplay::input(sf::RenderWindow& mainWindow)
 {
     while (isGameplayActive)
     {
-        mainControlPanel.interact(mouseCoord, isPaused, isGameplayActive);
-        buildingPanel.interact(mouseCoord, mouseMapCoord, player.get());
-        inventoryWindow.interact(mouseCoord, mouseMapCoord, player.get());
+        mainControlPanel.interact(isPaused, isGameplayActive);
+        buildingPanel.interact(mouseMapCoord, player.get());
+        inventoryWindow.interact(mouseMapCoord, player.get());
 
         if (InputHandler::active(t1::KeyName::MidMB))
         {

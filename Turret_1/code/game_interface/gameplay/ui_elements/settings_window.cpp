@@ -36,12 +36,13 @@ void SettingsWindow::prepareInterfaceSprites()
 }
 
 
-bool SettingsWindow::interact(sf::Vector2i& mouseCoord)
+bool SettingsWindow::interact()
 {
 	while (true)
 	{
 		if (InputHandler::jactive(t1::KeyName::LMB))
 		{
+			/*
 			if (confirmButtonSprite.getGlobalBounds().contains(mouseCoord.x, mouseCoord.y))
 			{
 				std::cout << "exit_confirmed" << std::endl;
@@ -53,6 +54,7 @@ bool SettingsWindow::interact(sf::Vector2i& mouseCoord)
 				std::cout << "exit_was_rejected" << std::endl;
 				return false;
 			}
+			*/
 		}
 	}
 }

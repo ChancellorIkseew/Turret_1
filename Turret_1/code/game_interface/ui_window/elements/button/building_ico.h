@@ -19,7 +19,7 @@ private:
     sf::IntRect icoRect;
     float scale;
 
-    bool select(const sf::Vector2i& mouseCoord) const;
+    bool select() const;
 
 public:
     BuildingIco() = default;
@@ -27,7 +27,7 @@ public:
     BuildingIco(const uint16_t buildingType);
     ~BuildingIco() = default;
    
-    bool press(const sf::Vector2i& mouseCoord);
+    bool press();
     uint16_t getBuildingType() const;
 
     void setPosition(const sf::Vector2u position);

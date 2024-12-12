@@ -31,12 +31,10 @@ void Gameplay::graphics(sf::RenderWindow& mainWindow)
 
         t1camera.resize(mainWindow);
 
-        mouseCoord = sf::Mouse::getPosition(mainWindow);
-        mouseMapCoord = mainWindow.mapPixelToCoords(mouseCoord);
-
         while (mainWindow.pollEvent(event))
         {
             InputHandler::updateInput(event);
+            InputHandler::updateMouseCoord(mainWindow);
 
             if (event.type == sf::Event::Closed)
             {

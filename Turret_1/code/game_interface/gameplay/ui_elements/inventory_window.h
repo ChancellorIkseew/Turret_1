@@ -20,7 +20,7 @@ public:
 	InventoryWindow();
 	~InventoryWindow() = default;
 
-	void interact(const sf::Vector2i& mouseCoord, const sf::Vector2f& mouseMapCoord, Team* const team);
+	void interact(const sf::Vector2f& mouseMapCoord, Team* const team);
 	void relocateToCoursor(const sf::Vector2i& mouseCoord);
 
 	void prepareInterfaceSprites() override final;

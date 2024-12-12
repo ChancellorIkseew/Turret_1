@@ -74,10 +74,26 @@ bool InputHandler::jactive(const t1::KeyName keyName)
 	return false;
 }
 
-
-char32_t InputHandler::getTextEntered()
+char32_t InputHandler::getLastSymbolEntered()
 {
 	return symbolJustEntered.exchange(NON_USABLE_SYMBOL, std::memory_order_relaxed);
+}
+
+
+void InputHandler::updateMouseCoord(sf::RenderWindow& window)
+{
+	mouseCoord.store(sf::Mouse::getPosition(window), std::memory_order_relaxed);
+	mouseMapCoord = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+}
+
+sf::Vector2i InputHandler::getMouseCoord()
+{
+	return mouseCoord.load(std::memory_order_relaxed);
+}
+
+sf::Vector2f InputHandler::getMouseMapCoord()
+{
+	return mouseMapCoord;
 }
 
 

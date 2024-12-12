@@ -28,7 +28,7 @@ public:
 	TerrainPreSettingsPage(const sf::Vector2u position);
 	~TerrainPreSettingsPage() = default;
 
-	void interact(const sf::Vector2i& mouseCoord, bool& isMenuOpen) override final;
+	void interact() override final;
 	void enter() override final;
 	void relocateWithOwner(const sf::Vector2u windowSizeY) override final;
 

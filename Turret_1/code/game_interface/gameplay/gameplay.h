@@ -21,9 +21,7 @@ class Gameplay
 private:
 	bool isMovingCamera = false;
 	sf::Vector2f lastMousePosition;
-
-	sf::Vector2i mouseCoord;
-	sf::Vector2f mouseMapCoord;
+	static inline sf::Vector2f mouseMapCoord = sf::Vector2f(0.0f, 0.0f);
 
 	bool isPaused = true;
 	bool isGameplayActive = true;
@@ -50,7 +48,7 @@ public:
 	int startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, std::string saveFolderName);
 
 	void relocateSubWindows(const sf::Vector2u windowSize);
-	bool noSubWindowSelected(const sf::Vector2i mouseCoord);
+	bool noSubWindowSelected();
 
 	static Gameplay* getInstance();
 

@@ -20,7 +20,7 @@ public:
 	TextField();
 	~TextField() = default;
 
-	void interact(const sf::Vector2i& mouseCoord);
+	void interact();
 	void relocateWithOwner(const sf::Vector2u ownerPosition);
 	static bool isOneSeltcted() { return isOneSelected; }
 

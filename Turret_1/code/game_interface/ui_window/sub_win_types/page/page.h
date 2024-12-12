@@ -15,7 +15,7 @@ public:
 	Page(const sf::Vector2u size, const sf::Vector2u position);
 	virtual ~Page() = default;
 
-	virtual void interact(const sf::Vector2i& mouseCoord, bool& isMenuOpen) = 0;
+	virtual void interact() = 0;
 	virtual void enter() = 0;
 	virtual void relocateWithOwner(const sf::Vector2u ownerPosition);
 

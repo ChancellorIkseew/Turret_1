@@ -18,7 +18,7 @@ public:
 	MainMenu();
 	~MainMenu() = default;
 
-	int interact(sf::Vector2i& mouseCoord, bool& isMenuOpen);
+	int interact(bool& isMenuOpen);
 	void relocate(const sf::Vector2u windowSizeY) override final;
 
 	void prepareInterfaceSprites() override final;

@@ -28,7 +28,7 @@ private:
 	char direction;
 	bool isInfoOpen;
 
-	inline void selectBuildingType(const sf::Vector2i& mouseCoord, BuildingIco& ico);
+	inline void selectBuildingType(BuildingIco& ico);
 	inline void rotateBuilding();
 	inline void placeBuilding(const sf::Vector2f& mouseMapCoord, Team* const team);
 
@@ -42,9 +42,9 @@ public:
 	BuildingPanel();
 	~BuildingPanel() = default;
 	
-	void interact(const sf::Vector2i& mouseCoord, const sf::Vector2f& mouseMapCoord, Team* const team);
+	void interact(const sf::Vector2f& mouseMapCoord, Team* const team);
 	void relocate(const sf::Vector2u windowSize) override final;
-	bool containsCoursor(const sf::Vector2i& mouseCoord) const override final;
+	bool containsCoursor() const override final;
 	
 	void prepareInterfaceSprites() override final;
 	void draw(sf::RenderWindow& window) override final;

@@ -85,9 +85,9 @@ void BuildingPanel::prepareInterfaceSprites()
 
 
 
-void BuildingPanel::interact(const sf::Vector2i& mouseCoord, const sf::Vector2f& mouseMapCoord, Team* const team)
+void BuildingPanel::interact(const sf::Vector2f& mouseMapCoord, Team* const team)
 {
-	if (InputHandler::active(t1::KeyName::Build) && isBuildingTypeSelected && (*Gameplay::getInstance()).noSubWindowSelected(mouseCoord))
+	if (InputHandler::active(t1::KeyName::Build) && isBuildingTypeSelected && (*Gameplay::getInstance()).noSubWindowSelected())
 	{
 		placeBuilding(mouseMapCoord, team);
 		t1::system::sleep(150);
@@ -101,19 +101,19 @@ void BuildingPanel::interact(const sf::Vector2i& mouseCoord, const sf::Vector2f&
 		return;
 	}
 
-	if (info.press(mouseCoord))
+	if (info.press())
 		isInfoOpen = !isInfoOpen;
 	
 	for (auto& btn : buttons)
 	{
-		if (btn.second.press(mouseCoord))
+		if (btn.second.press())
 			selectedPage = btn.first;
 	}
 
 	for (auto& ico : pages[selectedPage])
-		selectBuildingType(mouseCoord, ico.second);
+		selectBuildingType(ico.second);
 	for (auto& ico : pages[UTIL])
-		selectBuildingType(mouseCoord, ico.second);
+		selectBuildingType(ico.second);
 }
 
 
@@ -136,11 +136,11 @@ void BuildingPanel::relocate(const sf::Vector2u windowSize)
 	specificationPanel->relocate(windowSize);
 }
 
-bool BuildingPanel::containsCoursor(const sf::Vector2i& mouseCoord) const
+bool BuildingPanel::containsCoursor() const
 {
 	return 
-		UIPlate::containsCoursor(mouseCoord) ||
-		expensesPanel->containsCoursor(mouseCoord);
+		UIPlate::containsCoursor() ||
+		expensesPanel->containsCoursor();
 }
 
 void BuildingPanel::draw(sf::RenderWindow& window)
@@ -229,9 +229,9 @@ void BuildingPanel::rotateBuilding()
 }
 
 
-void BuildingPanel::selectBuildingType(const sf::Vector2i& mouseCoord, BuildingIco& ico)
+void BuildingPanel::selectBuildingType(BuildingIco& ico)
 {
-	if (ico.press(mouseCoord))
+	if (ico.press())
 	{
 		newBuildingType = ico.getBuildingType();
 		if (oldBuildingType != newBuildingType)

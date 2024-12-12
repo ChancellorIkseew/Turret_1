@@ -27,7 +27,7 @@ public:
 	MainControlPanel();
 	~MainControlPanel() = default;
 	
-	void interact(const sf::Vector2i& mouseCoord, bool& isPaused, bool& isGameplayActive);
+	void interact(bool& isPaused, bool& isGameplayActive);
 	void interactWaveTimer(const bool isPaused);
 
 	void prepareInterfaceSprites() override final;

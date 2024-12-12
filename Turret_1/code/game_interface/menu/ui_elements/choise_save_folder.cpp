@@ -60,17 +60,17 @@ void ChoiseFolderMenu::prepareInterfaceSprites()
 }
 
 
-int ChoiseFolderMenu::interact(sf::Vector2i& mouseCoord, bool& isMenuOpen, bool& startNewGame, std::string& saveFolderName)
+int ChoiseFolderMenu::interact(bool& isMenuOpen, bool& startNewGame, std::string& saveFolderName)
 {
 	while (isMenuOpen)
 	{
-		if (buttons[LOAD_1].press(mouseCoord))
+		if (buttons[LOAD_1].press())
 		{
 			saveFolderName = selectFolder("save1", isFolderSelected);
 			isTextVisible = false;
 		}
 
-		if (buttons[LOAD_GAME].press(mouseCoord))
+		if (buttons[LOAD_GAME].press())
 		{
 			if (isFolderSelected)
 			{
@@ -84,7 +84,7 @@ int ChoiseFolderMenu::interact(sf::Vector2i& mouseCoord, bool& isMenuOpen, bool&
 			}
 		}
 
-		if (buttons[NEW_GAME].press(mouseCoord))
+		if (buttons[NEW_GAME].press())
 		{
 			if (isFolderSelected)
 			{
@@ -98,7 +98,7 @@ int ChoiseFolderMenu::interact(sf::Vector2i& mouseCoord, bool& isMenuOpen, bool&
 			}
 		}
 
-		if (buttons[EXIT_TO_MENU].press(mouseCoord))
+		if (buttons[EXIT_TO_MENU].press())
 			return MAIN_MENU;
 
 		t1::system::sleep(16);

@@ -20,7 +20,7 @@ InventoryWindow::InventoryWindow() : UIPlate(sf::Vector2u(225, 120), sf::Vector2
 void InventoryWindow::prepareInterfaceSprites() { }
 
 
-void InventoryWindow::interact(const sf::Vector2i& mouseCoord, const sf::Vector2f& mouseMapCoord, Team* const team)
+void InventoryWindow::interact(const sf::Vector2f& mouseMapCoord, Team* const team)
 {
     TileCoord selectedTile = t1::be::tile(mouseMapCoord.x, mouseMapCoord.y);
     if (InputHandler::jactive(t1::KeyName::LMB) && !BuildingsMap::isVoidBuilding(selectedTile))
@@ -45,7 +45,7 @@ void InventoryWindow::interact(const sf::Vector2i& mouseCoord, const sf::Vector2
         info.second.update(amount);
     }
 
-    relocateToCoursor(mouseCoord);
+    relocateToCoursor(InputHandler::getMouseCoord());
 }
 
 

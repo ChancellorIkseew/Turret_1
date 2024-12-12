@@ -32,9 +32,9 @@ void TextField::prepareInterfaceSprites()
 }
 
 
-void TextField::interact(const sf::Vector2i& mouseCoord)
+void TextField::interact()
 {
-	if (containsCoursor(mouseCoord) && InputHandler::jactive(t1::KeyName::LMB))
+	if (containsCoursor() && InputHandler::jactive(t1::KeyName::LMB))
 	{
 		isSelected = true;
 		isOneSelected = true;
@@ -42,7 +42,7 @@ void TextField::interact(const sf::Vector2i& mouseCoord)
 
 		while (true)
 		{
-			char32_t sym = InputHandler::getTextEntered();
+			char32_t sym = InputHandler::getLastSymbolEntered();
 			t1::system::sleep(50);
 
 			if (sym > 47 && sym < 58 && text.getString().getSize() < maxLenght)

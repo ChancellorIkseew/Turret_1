@@ -52,15 +52,16 @@ Button::Button(const Button&& other) noexcept
 	isPressed = false;
 }
 
-bool Button::select(const sf::Vector2i& mouseCoord)
+bool Button::select()
 {
+	const sf::Vector2i mouseCoord = InputHandler::getMouseCoord();
 	isSelected = button.getGlobalBounds().contains(mouseCoord.x, mouseCoord.y);
 	return isSelected;
 }
 
-bool Button::press(const sf::Vector2i& mouseCoord)
+bool Button::press()
 {
-	if (!isVisible || !select(mouseCoord))
+	if (!isVisible || !select())
 		return false;
 
 	if (InputHandler::jactive(t1::KeyName::LMB))

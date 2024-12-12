@@ -25,17 +25,17 @@ void MainMenu::prepareInterfaceSprites()
 	buttons[SETTINGS] = Button("settings.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 70));
 }
 
-int MainMenu::interact(sf::Vector2i& mouseCoord, bool& isMenuOpen)
+int MainMenu::interact(bool& isMenuOpen)
 {
 	while (isMenuOpen)
 	{
-		if (buttons[PLAY].press(mouseCoord))
+		if (buttons[PLAY].press())
 			return CHOISE_FOLDER_MENU;
 
-		if (buttons[EXIT_GAME].press(mouseCoord))
+		if (buttons[EXIT_GAME].press())
 			return EXIT;
 
-		if (buttons[SETTINGS].press(mouseCoord))
+		if (buttons[SETTINGS].press())
 			return OPTIONS;
 
 		t1::system::sleep(16);

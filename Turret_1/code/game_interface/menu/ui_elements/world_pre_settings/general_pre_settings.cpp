@@ -40,12 +40,12 @@ void GeneralPreSettingsPage::prepareInterfaceSprites()
 	resIco[RES_SULFUR] = ResIco(RES_SULFUR, sf::Vector2u(line0, 168));
 }
 
-void GeneralPreSettingsPage::interact(const sf::Vector2i& mouseCoord, bool& isMenuOpen)
+void GeneralPreSettingsPage::interact()
 {
 	if (isVisible)
 	{
 		for (auto& field : fields)
-			field.second.interact(mouseCoord);
+			field.second.interact();
 	}
 }
 

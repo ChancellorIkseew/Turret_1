@@ -30,15 +30,16 @@ BuildingIco::BuildingIco(const uint16_t buildingType)
 }
 
 
-bool BuildingIco::select(const sf::Vector2i& mouseCoord) const
+bool BuildingIco::select() const
 {
+	sf::Vector2i mouseCoord = InputHandler::getMouseCoord();
 	return position.x <= mouseCoord.x && (position.x + 32) >= mouseCoord.x &&
 		position.y <= mouseCoord.y && (position.y + 32) >= mouseCoord.y;
 }
 
-bool BuildingIco::press(const sf::Vector2i& mouseCoord)
+bool BuildingIco::press()
 {
-	if (select(mouseCoord) && InputHandler::jactive(t1::KeyName::LMB))
+	if (select() && InputHandler::jactive(t1::KeyName::LMB))
 	{
 		t1::system::sleep(150);
 		return true;
