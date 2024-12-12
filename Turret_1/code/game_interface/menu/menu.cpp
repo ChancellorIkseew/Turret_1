@@ -103,16 +103,6 @@ char openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string& sav
 				choiseFolderMenu.relocate(mainWindow.getSize());
 				preSettingsWindow.relocate(mainWindow.getSize());
 			}
-
-			if (event.type == sf::Event::TextEntered)
-			{
-				if (TextField::isOneSeltcted())
-				{
-					t1::system::mt::textEnter.lock();
-					symbol = event.text.unicode;
-					t1::system::mt::textEnter.unlock();
-				}
-			}
 		}
 
 		mainWindow.clear(sf::Color::Black);

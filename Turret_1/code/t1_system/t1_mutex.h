@@ -11,8 +11,6 @@ namespace t1::system::mt
 	inline std::mutex mobs;
 	inline std::mutex shells;
 	inline std::mutex particles;
-
-	inline std::mutex textEnter;
 }
 
 #endif // T1_MUTEX

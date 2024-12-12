@@ -2,14 +2,12 @@
 #ifndef MAIN_WINDOW_H
 #define MAIN_WINDOW_H
 
-inline char32_t symbol = '?';
-
 enum GameCondition
 {
-	MAIN_MENU = 'm',
-	CHOISE_FOLDER_MENU = 'c',
-	PRE_SETTINGS_MENU = 'p',
-	GAMEPLAY = 'g',
+	MAIN_MENU,
+	CHOISE_FOLDER_MENU,
+	PRE_SETTINGS_MENU,
+	GAMEPLAY,
 	OPTIONS,
 	EXIT
 };

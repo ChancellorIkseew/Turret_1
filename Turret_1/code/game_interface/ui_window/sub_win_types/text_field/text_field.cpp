@@ -42,10 +42,7 @@ void TextField::interact(const sf::Vector2i& mouseCoord)
 
 		while (true)
 		{
-			t1::system::mt::textEnter.lock();
-			char32_t sym = symbol;
-			symbol = '?';
-			t1::system::mt::textEnter.unlock();
+			char32_t sym = InputHandler::getTextEntered();
 			t1::system::sleep(50);
 
 			if (sym > 47 && sym < 58 && text.getString().getSize() < maxLenght)
@@ -64,7 +61,7 @@ void TextField::interact(const sf::Vector2i& mouseCoord)
 				isSelected = false;
 				isOneSelected = false;
 				return;
-			}	
+			}
 		}
 	}
 
@@ -85,10 +82,7 @@ void TextField::relocateWithOwner(const sf::Vector2u ownerPosition)
 void TextField::draw(sf::RenderWindow& window)
 {
 	if (isSelected)
-	{
 		base.setColor(sf::Color(239, 228, 176));
-	}
-
 	drawBase(window);
 	window.draw(text);
 	base.setColor(sf::Color(255, 255, 255, 210)); // set_normal_color

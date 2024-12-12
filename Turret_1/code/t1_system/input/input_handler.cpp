@@ -1,6 +1,8 @@
 
 #include "input_handler.h"
+
 #include <iostream>
+#include "game_interface/ui_window/sub_win_types/text_field/text_field.h"
 
 
 void InputHandler::updateInput(const sf::Event& event)
@@ -37,6 +39,11 @@ void InputHandler::updateInput(const sf::Event& event)
 	{
 
 	}
+
+	if (event.type == sf::Event::TextEntered && TextField::isOneSeltcted())
+	{
+		symbolJustEntered.store(event.text.unicode, std::memory_order_relaxed);
+	}
 }
 
 ///@brief cheek long press
@@ -65,6 +72,12 @@ bool InputHandler::jactive(const t1::KeyName keyName)
 		return true;
 	}
 	return false;
+}
+
+
+char32_t InputHandler::getTextEntered()
+{
+	return symbolJustEntered.exchange(NON_USABLE_SYMBOL, std::memory_order_relaxed);
 }
 
 
