@@ -5,7 +5,7 @@
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/pre-settings/pre-settings.h"
-#include "t1_system/events/event_handler.h"
+#include "t1_system/events/events_handler.h"
 
 #include "iostream"
 

@@ -7,7 +7,7 @@
 #include "game_interface/ui_window/sub_win_util/fonts.h"
 #include "game_interface/settings/settings_util/settings_save_system.h"
 #include "game_interface/main_window/main_window_resize.h"
-#include "t1_system/system.h"
+#include "t1_system/input/input_handler.h"
 
 
 SettingsWindow::SettingsWindow() : UIWindow(sf::Vector2u(720, 4800), sf::Vector2u(0, 0))
@@ -40,7 +40,7 @@ bool SettingsWindow::interact(sf::Vector2i& mouseCoord)
 {
 	while (true)
 	{
-		if (LMB_Pressed)
+		if (InputHandler::jactive(t1::KeyName::LMB))
 		{
 			if (confirmButtonSprite.getGlobalBounds().contains(mouseCoord.x, mouseCoord.y))
 			{

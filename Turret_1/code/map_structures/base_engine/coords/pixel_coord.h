@@ -13,6 +13,11 @@ struct PixelCoord
 		this->y = static_cast<float>(y);
 	}
 
+	bool operator==(const PixelCoord& rhs) const {
+		constexpr float epsilon = 0.0001f;
+		return std::abs(x - rhs.x) < epsilon && std::abs(y - rhs.y) < epsilon;
+	}
+
 	PixelCoord operator+(const PixelCoord& rhs) const {
 		return { x + rhs.x, y + rhs.y };
 	}

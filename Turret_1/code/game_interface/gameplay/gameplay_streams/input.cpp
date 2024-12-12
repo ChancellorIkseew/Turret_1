@@ -2,7 +2,7 @@
 #include <iostream>
 #include "game_interface/gameplay/gameplay.h"
 
-#include "t1_system/system.h"
+#include "t1_system/input/input_handler.h"
 #include "t1_system/sleep.h"
 
 #include "game_interface/gameplay/gameplay_util/cheet_commands.h"
@@ -18,7 +18,7 @@ void Gameplay::input(sf::RenderWindow& mainWindow)
         buildingPanel.interact(mouseCoord, mouseMapCoord, player.get());
         inventoryWindow.interact(mouseCoord, mouseMapCoord, player.get());
 
-        if (MidMB_Pressed)
+        if (InputHandler::active(t1::KeyName::MidMB))
         {
             if (!isMovingCamera)
             {
@@ -26,14 +26,13 @@ void Gameplay::input(sf::RenderWindow& mainWindow)
                 lastMousePosition = mainWindow.mapPixelToCoords(sf::Mouse::getPosition(mainWindow));
             }
         }
-
-        if (MidMB_Free)
+        else
         {
             isMovingCamera = false;
         }
 
 #ifndef TURRET_1_NO_TEST_BUILD
-        if (LEFT_ALT_Pressed)
+        if (InputHandler::jactive(t1::KeyName::Console_cheat))
         {
             std::cout << "cheet_comands_panel_called" << '\n';
             acceptCheetCommand();

@@ -12,7 +12,7 @@
 #include "map_structures/particles/particles.h"
 
 #include "game_interface/gameplay/ui_elements/resources_panel.h"
-#include "t1_system/events/event_handler.h"
+#include "t1_system/events/events_handler.h"
 
 
 void Gameplay::simulation()

@@ -11,8 +11,9 @@
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/base_engine/base_engine.h"
+
+#include "t1_system/input/input_handler.h"
 #include "t1_system/t1_mutex.h"
-#include "t1_system/system.h"
 #include "t1_system/sleep.h"
 
 enum Pages
@@ -86,14 +87,14 @@ void BuildingPanel::prepareInterfaceSprites()
 
 void BuildingPanel::interact(const sf::Vector2i& mouseCoord, const sf::Vector2f& mouseMapCoord, Team* const team)
 {
-	if (LMB_Pressed && isBuildingTypeSelected && (*Gameplay::getInstance()).noSubWindowSelected(mouseCoord))
+	if (InputHandler::active(t1::KeyName::Build) && isBuildingTypeSelected && (*Gameplay::getInstance()).noSubWindowSelected(mouseCoord))
 	{
 		placeBuilding(mouseMapCoord, team);
 		t1::system::sleep(150);
 		return;
 	}
 
-	if (RMB_Pressed)
+	if (InputHandler::jactive(t1::KeyName::Rotate_building))
 	{
 		rotateBuilding();
 		t1::system::sleep(150);

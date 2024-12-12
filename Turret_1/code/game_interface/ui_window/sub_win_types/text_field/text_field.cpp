@@ -4,7 +4,7 @@
 
 #include "text_field.h"
 
-#include "t1_system/system.h"
+#include "t1_system/input/input_handler.h"
 #include "t1_system/sleep.h"
 #include "t1_system/t1_mutex.h"
 #include "game_interface/ui_window/sub_win_util/fonts.h"
@@ -34,7 +34,7 @@ void TextField::prepareInterfaceSprites()
 
 void TextField::interact(const sf::Vector2i& mouseCoord)
 {
-	if (containsCoursor(mouseCoord) && LMB_Pressed)
+	if (containsCoursor(mouseCoord) && InputHandler::jactive(t1::KeyName::LMB))
 	{
 		isSelected = true;
 		isOneSelected = true;
@@ -59,7 +59,7 @@ void TextField::interact(const sf::Vector2i& mouseCoord)
 				text.setString(new_str);
 			}
 
-			if (LMB_Pressed)
+			if (InputHandler::jactive(t1::KeyName::LMB))
 			{
 				isSelected = false;
 				isOneSelected = false;

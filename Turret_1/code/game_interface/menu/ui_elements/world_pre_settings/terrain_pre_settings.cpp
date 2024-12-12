@@ -1,7 +1,6 @@
  
 #include "terrain_pre_settings.h"
 
-#include "t1_system/system.h"
 #include "map_structures/resources/res_enum.h"
 #include "game_interface/ui_window/sub_win_util/fonts.h"
 #include "map_structures/pre-settings/pre-settings.h"

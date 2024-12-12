@@ -11,7 +11,7 @@
 #include "map_structures/base_engine/base_engine.h"
 #include "map_structures/team/team.h"
 
-#include "t1_system/events/event_handler.h"
+#include "t1_system/events/events_handler.h"
 
 
 BuildingsMap::BuildingsMap(const TileCoord mapSize)
@@ -29,8 +29,6 @@ BuildingsMap::BuildingsMap(const TileCoord mapSize)
 			building = nullptr;
 		}
 	}
-
-	isMapChanged = false;
 }
 
 BuildingsMap::~BuildingsMap()
@@ -129,7 +127,7 @@ bool BuildingsMap::placeBuilding(const uint16_t type, const char direction, cons
 	createAuxilary(size, tile, team);
 	if (type == CORE_MK1 || type == CORE_MK2 || type == CORE_MK3)
 		cores.emplace_back(building);
-	justChangedTiles.push_back(tile);
+	justTriggeredTiles.push_back(tile);
 	return true;
 }
 
@@ -158,7 +156,7 @@ void BuildingsMap::demolishBuilding(const TileCoord tile)
 	{
 		TileCoord iTile = mainBuilding + t1::be::coordSquareArr[i];
 		buildingsMap[iTile.x][iTile.y].reset();
-		justChangedTiles.push_back(iTile);
+		justTriggeredTiles.push_back(iTile);
 	}
 	if (type == CORE_MK1 || type == CORE_MK2 || type == CORE_MK3)
 	{
@@ -266,9 +264,6 @@ int BuildingsMap::getTeamID(const TileCoord tile)
 	return 199999;
 }
 
-bool BuildingsMap::getIsMapChanged() { return isMapChanged; }
-void BuildingsMap::cleanMapChanged() { isMapChanged = false; }
-
 
 void BuildingsMap::intetractMap()
 {
@@ -286,10 +281,10 @@ void BuildingsMap::intetractMap()
 
 void BuildingsMap::pushChanges()
 {
-	if (justChangedTiles.empty())
+	if (justTriggeredTiles.empty())
 		return;
-	EventsHandler::pushEvent(t1::EventType::MAP_CHANGED, std::make_unique<t1::MapChanged>(justChangedTiles));
-	justChangedTiles.clear();
+	EventsHandler::pushEvent(t1::EventType::MAP_CHANGED, std::make_unique<t1::MapChanged>(justTriggeredTiles));
+	justTriggeredTiles.clear();
 }
 
 const std::vector<std::shared_ptr<Building>>& BuildingsMap::getCores()

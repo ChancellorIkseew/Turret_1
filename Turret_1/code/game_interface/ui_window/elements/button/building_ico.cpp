@@ -1,9 +1,10 @@
 
 #include "building_ico.h"
-#include "t1_system/sleep.h"
-#include "t1_system/system.h"
+
 #include "game_interface/ui_window/sub_win_util/fonts.h"
 #include "map_structures/buildings/building/buildings_info.h"
+#include "t1_system/input/input_handler.h"
+#include "t1_system/sleep.h"
 
 
 BuildingIco::BuildingIco(const uint16_t buildingType, const sf::Vector2u position)
@@ -37,7 +38,7 @@ bool BuildingIco::select(const sf::Vector2i& mouseCoord) const
 
 bool BuildingIco::press(const sf::Vector2i& mouseCoord)
 {
-	if (select(mouseCoord) && LMB_Pressed)
+	if (select(mouseCoord) && InputHandler::jactive(t1::KeyName::LMB))
 	{
 		t1::system::sleep(150);
 		return true;

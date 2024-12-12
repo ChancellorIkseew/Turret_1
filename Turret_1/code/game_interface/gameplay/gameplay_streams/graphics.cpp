@@ -5,6 +5,7 @@
 #include "game_interface/main_window/main_window_resize.h"
 
 #include "game_interface/gameplay/gameplay_util/camera.h"
+#include "t1_system/input/input_handler.h"
 #include "t1_system/t1_mutex.h"
 
 #include "game_interface/gameplay/ui_elements/exit_confirmation.h"
@@ -27,6 +28,7 @@ void Gameplay::graphics(sf::RenderWindow& mainWindow)
     sf::Event event;
     while (isGameplayActive)
     {
+
         t1camera.resize(mainWindow);
 
         mouseCoord = sf::Mouse::getPosition(mainWindow);
@@ -34,6 +36,8 @@ void Gameplay::graphics(sf::RenderWindow& mainWindow)
 
         while (mainWindow.pollEvent(event))
         {
+            InputHandler::updateInput(event);
+
             if (event.type == sf::Event::Closed)
             {
                 mainWindow.close();

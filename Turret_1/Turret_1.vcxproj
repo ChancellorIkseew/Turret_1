@@ -253,9 +253,9 @@
     <ClCompile Include="code\map_structures\team\team.cpp" />
     <ClCompile Include="code\map_structures\terrain\terrain.cpp" />
     <ClCompile Include="code\map_structures\terrain\terrain_generator.cpp" />
-    <ClCompile Include="code\t1_system\events\event_handler.cpp" />
+    <ClCompile Include="code\t1_system\events\events_handler.cpp" />
+    <ClCompile Include="code\t1_system\input\input_handler.cpp" />
     <ClCompile Include="code\t1_system\sleep.cpp" />
-    <ClCompile Include="code\t1_system\system.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -376,10 +376,11 @@
     <ClInclude Include="code\map_structures\terrain\terrain.h" />
     <ClInclude Include="code\map_structures\terrain\terrain_enum.h" />
     <ClInclude Include="code\map_structures\terrain\terrain_generator.h" />
-    <ClInclude Include="code\t1_system\events\events.h" />
-    <ClInclude Include="code\t1_system\events\event_handler.h" />
+    <ClInclude Include="code\t1_system\events\t1_events.h" />
+    <ClInclude Include="code\t1_system\events\events_handler.h" />
+    <ClInclude Include="code\t1_system\input\input_handler.h" />
+    <ClInclude Include="code\t1_system\input\t1_input.h" />
     <ClInclude Include="code\t1_system\sleep.h" />
-    <ClInclude Include="code\t1_system\system.h" />
     <ClInclude Include="code\t1_system\t1_mutex.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
