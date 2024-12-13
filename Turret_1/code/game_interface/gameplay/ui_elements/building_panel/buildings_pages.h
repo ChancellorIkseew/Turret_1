@@ -8,7 +8,7 @@
 namespace t1::bc
 {
 	void initLogistics(std::map<uint16_t, BuildingIco>& logistics);
-	void initDrills(std::map<uint16_t, BuildingIco>& factories);
+	void initDrills(std::map<uint16_t, BuildingIco>& drills);
 	void initFactories(std::map<uint16_t, BuildingIco>& factories);
 	void initElectrics(std::map<uint16_t, BuildingIco>& electrics);
 
