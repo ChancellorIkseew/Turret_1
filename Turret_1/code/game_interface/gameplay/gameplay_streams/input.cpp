@@ -14,6 +14,7 @@ void Gameplay::input(sf::RenderWindow& mainWindow)
 {
     while (isGameplayActive)
     {
+        sf::Vector2f mouseMapCoord = InputHandler::getMouseMapCoord();
         mainControlPanel.interact(isPaused, isGameplayActive);
         buildingPanel.interact(mouseMapCoord, player.get());
         inventoryWindow.interact(mouseMapCoord, player.get());

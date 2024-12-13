@@ -48,7 +48,7 @@ public:
 	
 	void prepareInterfaceSprites() override final;
 	void draw(sf::RenderWindow& window) override final;
-	void drawBuildExample(sf::RenderWindow& window, const sf::Vector2f& mouseMapCoord, Team* const team);
+	void drawBuildExample(sf::RenderWindow& window, Team* const team);
 	
 };
 

@@ -45,12 +45,13 @@ void InventoryWindow::interact(const sf::Vector2f& mouseMapCoord, Team* const te
         info.second.update(amount);
     }
 
-    relocateToCoursor(InputHandler::getMouseCoord());
+    relocateToCoursor();
 }
 
 
-void InventoryWindow::relocateToCoursor(const sf::Vector2i& mouseCoord)
+void InventoryWindow::relocateToCoursor()
 {
+    const sf::Vector2i mouseCoord = InputHandler::getMouseCoord();
     position.x = mouseCoord.x;
     position.y = mouseCoord.y;
 }

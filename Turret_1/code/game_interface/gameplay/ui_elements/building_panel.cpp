@@ -167,15 +167,17 @@ void BuildingPanel::draw(sf::RenderWindow& window)
 
 
 
-void BuildingPanel::drawBuildExample(sf::RenderWindow& window, const sf::Vector2f& mouseMapCoord, Team* const team)
+void BuildingPanel::drawBuildExample(sf::RenderWindow& window, Team* const team)
 {
+	const sf::Vector2f mouseMapCoord = InputHandler::getMouseMapCoord();
+
 	if (!isBuildingTypeSelected)
 		return;
 	if (newBuildingType != STANDARD_CONVEYER && newBuildingType != SHIELDED_CONVEYER &&
 		newBuildingType != BRIDGE && newBuildingType != SORTER)
 	{
 		direction = 'w';
-		buildExample.setRotation(0);
+		buildExample.setRotation(0.0f);
 	}
 
 	TileCoord selectedTile = t1::be::tile(mouseMapCoord.x, mouseMapCoord.y);
@@ -231,22 +233,20 @@ void BuildingPanel::rotateBuilding()
 
 void BuildingPanel::selectBuildingType(BuildingIco& ico)
 {
-	if (ico.press())
-	{
-		newBuildingType = ico.getBuildingType();
-		if (oldBuildingType != newBuildingType)
-		{
-			buildExample.setTextureRect(t1::bc::buildingsInfoTable[newBuildingType].icoRect);
-			isBuildingTypeSelected = true;
-			oldBuildingType = newBuildingType;
-		}
-		else
-		{
-			isBuildingTypeSelected = false;
-			oldBuildingType = VOID_;
-			isInfoOpen = false;
-		}
+	if (!ico.press())
 		return;
+	newBuildingType = ico.getBuildingType();
+	if (oldBuildingType != newBuildingType)
+	{
+		buildExample.setTextureRect(t1::bc::buildingsInfoTable[newBuildingType].icoRect);
+		isBuildingTypeSelected = true;
+		oldBuildingType = newBuildingType;
+	}
+	else
+	{
+		isBuildingTypeSelected = false;
+		oldBuildingType = VOID_;
+		isInfoOpen = false;
 	}
 }
 
@@ -254,7 +254,7 @@ void BuildingPanel::selectBuildingType(BuildingIco& ico)
 void BuildingPanel::placeBuilding(const sf::Vector2f& mouseMapCoord, Team* const team)
 {
 	std::cout << "building_place_works: " << newBuildingType << '\n';
-	TileCoord selectedTile = t1::be::tile(mouseMapCoord.x, mouseMapCoord.y);
+	const TileCoord selectedTile = t1::be::tile(mouseMapCoord.x, mouseMapCoord.y);
 
 	std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
 	if (newBuildingType == REMOVE)

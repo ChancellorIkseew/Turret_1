@@ -93,7 +93,7 @@ sf::Vector2i InputHandler::getMouseCoord()
 
 sf::Vector2f InputHandler::getMouseMapCoord()
 {
-	return mouseMapCoord;
+	return mouseMapCoord.load(std::memory_order_relaxed);
 }
 
 

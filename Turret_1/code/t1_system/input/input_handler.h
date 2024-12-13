@@ -13,7 +13,7 @@ private:
 	static inline constexpr char32_t NON_USABLE_SYMBOL = static_cast<char32_t>(0);
 	static inline std::atomic<char32_t> symbolJustEntered = NON_USABLE_SYMBOL;
 	static inline std::atomic<sf::Vector2i> mouseCoord = sf::Vector2i(0, 0);
-	static inline sf::Vector2f mouseMapCoord;
+	static inline std::atomic<sf::Vector2f> mouseMapCoord = sf::Vector2f(0.0f, 0.0f);
 
 public:
 	InputHandler() = default;
