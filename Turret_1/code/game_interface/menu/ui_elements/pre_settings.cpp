@@ -42,23 +42,23 @@ void PreSettingsWindow::prepareInterfaceSprites()
 }
 
 
-int PreSettingsWindow::interact(sf::Vector2i& mouseCoord, bool& isMenuOpen)
+int PreSettingsWindow::interact(bool& isMenuOpen)
 {
 	while (isMenuOpen)
 	{
-		if (buttons[START_GAME].press(mouseCoord))
+		if (buttons[START_GAME].press())
 		{
 			for (auto& pg : pages)
 				pg.second->enter();
 			return GAMEPLAY;
 		}
 
-		if (buttons[EXIT_TO_MENU].press(mouseCoord))
+		if (buttons[EXIT_TO_MENU].press())
 			return MAIN_MENU;
 
 		for (auto& pg : pages)
 		{
-			if (buttons[pg.first].press(mouseCoord))
+			if (buttons[pg.first].press())
 			{
 				for (auto& pg2 : pages)
 				{
@@ -66,7 +66,7 @@ int PreSettingsWindow::interact(sf::Vector2i& mouseCoord, bool& isMenuOpen)
 				}
 			}
 			
-			pg.second->interact(mouseCoord, isMenuOpen);
+			pg.second->interact();
 		}	
 
 		t1::system::sleep(16);

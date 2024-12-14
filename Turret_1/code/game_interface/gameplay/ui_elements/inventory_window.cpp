@@ -2,7 +2,7 @@
 #include "inventory_window.h"
 #include "map_structures/resources/res_enum.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
-#include "t1_system/system.h"
+#include "t1_system/input/input_handler.h"
 #include "t1_system/sleep.h"
 
 
@@ -20,10 +20,10 @@ InventoryWindow::InventoryWindow() : UIPlate(sf::Vector2u(225, 120), sf::Vector2
 void InventoryWindow::prepareInterfaceSprites() { }
 
 
-void InventoryWindow::interact(const sf::Vector2i& mouseCoord, const sf::Vector2f& mouseMapCoord, Team* const team)
+void InventoryWindow::interact(const sf::Vector2f& mouseMapCoord, Team* const team)
 {
     TileCoord selectedTile = t1::be::tile(mouseMapCoord.x, mouseMapCoord.y);
-    if (LMB_Pressed && !BuildingsMap::isVoidBuilding(selectedTile))
+    if (InputHandler::jactive(t1::KeyName::LMB) && !BuildingsMap::isVoidBuilding(selectedTile))
     {
         isVisible = !isVisible;
         t1::system::sleep(150);
@@ -45,12 +45,13 @@ void InventoryWindow::interact(const sf::Vector2i& mouseCoord, const sf::Vector2
         info.second.update(amount);
     }
 
-    relocateToCoursor(mouseCoord);
+    relocateToCoursor();
 }
 
 
-void InventoryWindow::relocateToCoursor(const sf::Vector2i& mouseCoord)
+void InventoryWindow::relocateToCoursor()
 {
+    const sf::Vector2i mouseCoord = InputHandler::getMouseCoord();
     position.x = mouseCoord.x;
     position.y = mouseCoord.y;
 }

@@ -24,7 +24,7 @@ public:
 	ChoiseFolderMenu();
 	~ChoiseFolderMenu() = default;
 
-	int interact(sf::Vector2i& mouseCoord, bool& isMenuOpen, bool& startNewGame, std::string& saveFolderName);
+	int interact(bool& isMenuOpen, bool& startNewGame, std::string& saveFolderName);
 	void relocate(sf::Vector2u windowSize) override final;
 
 	void prepareInterfaceSprites() override final;

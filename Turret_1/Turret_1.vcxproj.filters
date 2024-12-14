@@ -309,9 +309,6 @@
     <ClCompile Include="code\t1_system\sleep.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="code\t1_system\system.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="code\game_interface\menu\ui_elements\world_pre_settings\buildings_pre_settings.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -385,6 +382,12 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="code\internal_tests\coord_spyral_test.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\t1_system\events\events_handler.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\t1_system\input\input_handler.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -653,9 +656,6 @@
     <ClInclude Include="code\t1_system\sleep.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="code\t1_system\system.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="code\t1_system\t1_mutex.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -729,6 +729,18 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\internal_tests\coord_spyral_test.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\t1_system\events\t1_events.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\t1_system\events\events_handler.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\t1_system\input\input_handler.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\t1_system\input\t1_input.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

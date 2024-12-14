@@ -69,9 +69,9 @@ void MainControlPanel::prepareInterfaceSprites()
 
 
 
-void MainControlPanel::interact(const sf::Vector2i& mouseCoord, bool& isPaused, bool& isGameplayActive)
+void MainControlPanel::interact(bool& isPaused, bool& isGameplayActive)
 {
-	if (buttons[SAVE].press(mouseCoord))
+	if (buttons[SAVE].press())
 	{
 		PreSettings::savePreSettings();
 
@@ -81,11 +81,11 @@ void MainControlPanel::interact(const sf::Vector2i& mouseCoord, bool& isPaused, 
 		//t1::time::saveTime(saveFolderName);
 	}
 	
-	if (buttons[EXIT_TO_MENU].press(mouseCoord))
+	if (buttons[EXIT_TO_MENU].press())
 	{
 		ConfirmationWindow::getInstance().setVisible(true);
 		
-		if(ConfirmationWindow::getInstance().interact(mouseCoord))
+		if(ConfirmationWindow::getInstance().interact())
 		{
 			std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
 			cleanParticlesList();
@@ -95,19 +95,19 @@ void MainControlPanel::interact(const sf::Vector2i& mouseCoord, bool& isPaused, 
 		ConfirmationWindow::getInstance().setVisible(false);
 	}
 	
-	if (buttons[SETTINGS].press(mouseCoord))
+	if (buttons[SETTINGS].press())
 	{
 		//SettingsWindow::getInstance().setVisible(true);
 		//SettingsWindow::getInstance().interact(mouseCoord);
 		//SettingsWindow::getInstance().setVisible(false);
 	}
 	
-	if (buttons[HELP].press(mouseCoord))
+	if (buttons[HELP].press())
 	{
 		std::cout << "help button works" << std::endl;
 	}
 	
-	if (buttons[SET_PAUSE].press(mouseCoord))
+	if (buttons[SET_PAUSE].press())
 	{
 		std::cout << "set pause button works" << std::endl;
 		isPaused = true;
@@ -116,7 +116,7 @@ void MainControlPanel::interact(const sf::Vector2i& mouseCoord, bool& isPaused, 
 		buttons[REMOVE_PAUSE].setVisible(true);
 	}
 	
-	if (buttons[REMOVE_PAUSE].press(mouseCoord))
+	if (buttons[REMOVE_PAUSE].press())
 	{
 		std::cout << "remove pause button works" << std::endl;
 		isPaused = false;

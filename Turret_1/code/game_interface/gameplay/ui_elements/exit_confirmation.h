@@ -28,7 +28,7 @@ public:
 		return self;
 	}
 
-	bool interact(const sf::Vector2i& mouseCoord);
+	bool interact();
 	void relocate(const sf::Vector2u wndowSize) override final;
 
 	void prepareInterfaceSprites() override final;

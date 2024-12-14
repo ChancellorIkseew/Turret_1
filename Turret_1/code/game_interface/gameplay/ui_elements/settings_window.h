@@ -32,7 +32,7 @@ public:
 		return self;
 	}
 
-	bool interact(sf::Vector2i& mouseCoord);
+	bool interact();
 	void relocate(const sf::Vector2u windowSize) override final;
 
 	void prepareInterfaceSprites() override final;

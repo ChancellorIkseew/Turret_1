@@ -35,12 +35,12 @@ void BuildingsPreSettingsPage::prepareInterfaceSprites()
 	tConstructionSpeed.setFillColor(standardColor);
 }
 
-void BuildingsPreSettingsPage::interact(const sf::Vector2i& mouseCoord, bool& isMenuOpen)
+void BuildingsPreSettingsPage::interact()
 {
 	if (isVisible)
 	{
 		for (auto& field : fields)
-			field.second.interact(mouseCoord);
+			field.second.interact();
 	}
 }
 

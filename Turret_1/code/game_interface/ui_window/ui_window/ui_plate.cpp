@@ -8,6 +8,8 @@
 #include "game_interface/ui_window/elements/res_info/res_info.h"
 #include "game_interface/ui_window/elements/button/building_ico.h"
 
+#include "t1_system/input/input_handler.h"
+
 
 UIPlate::UIPlate(const sf::Vector2u size, const sf::Vector2u position)
 {
@@ -109,8 +111,9 @@ void UIPlate::setVisible(const bool value)
 	isVisible = value;
 }
 
-bool UIPlate::containsCoursor(const sf::Vector2i& mouseCoord) const
+bool UIPlate::containsCoursor() const
 {
+	sf::Vector2i mouseCoord = InputHandler::getMouseCoord();
 	return isVisible &&
 		position.x <= mouseCoord.x && (position.x + size.x) >= mouseCoord.x &&
 		position.y <= mouseCoord.y && (position.y + size.y) >= mouseCoord.y;

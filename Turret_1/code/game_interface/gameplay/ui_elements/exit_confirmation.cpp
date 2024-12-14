@@ -1,7 +1,6 @@
 
 #include "game_interface/ui_window/sub_win_util/fonts.h"
 #include "game_interface/main_window/main_window_resize.h"
-#include "t1_system/system.h"
 #include "t1_system/sleep.h"
 
 #include "exit_confirmation.h"
@@ -38,14 +37,14 @@ void ConfirmationWindow::draw(sf::RenderWindow& window)
 
 
 
-bool ConfirmationWindow::interact(const sf::Vector2i& mouseCoord)
+bool ConfirmationWindow::interact()
 {
     while (true)
     {
-        if (confirm.press(mouseCoord))
+        if (confirm.press())
             return true;
 
-        if (reject.press(mouseCoord))
+        if (reject.press())
             return false;
 
         t1::system::sleep(16);

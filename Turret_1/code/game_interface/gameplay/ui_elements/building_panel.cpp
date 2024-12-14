@@ -11,8 +11,9 @@
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/base_engine/base_engine.h"
+
+#include "t1_system/input/input_handler.h"
 #include "t1_system/t1_mutex.h"
-#include "t1_system/system.h"
 #include "t1_system/sleep.h"
 
 enum Pages
@@ -84,35 +85,35 @@ void BuildingPanel::prepareInterfaceSprites()
 
 
 
-void BuildingPanel::interact(const sf::Vector2i& mouseCoord, const sf::Vector2f& mouseMapCoord, Team* const team)
+void BuildingPanel::interact(const sf::Vector2f& mouseMapCoord, Team* const team)
 {
-	if (LMB_Pressed && isBuildingTypeSelected && (*Gameplay::getInstance()).noSubWindowSelected(mouseCoord))
+	if (InputHandler::active(t1::KeyName::Build) && isBuildingTypeSelected && (*Gameplay::getInstance()).noSubWindowSelected())
 	{
 		placeBuilding(mouseMapCoord, team);
 		t1::system::sleep(150);
 		return;
 	}
 
-	if (RMB_Pressed)
+	if (InputHandler::jactive(t1::KeyName::Rotate_building))
 	{
 		rotateBuilding();
 		t1::system::sleep(150);
 		return;
 	}
 
-	if (info.press(mouseCoord))
+	if (info.press())
 		isInfoOpen = !isInfoOpen;
 	
 	for (auto& btn : buttons)
 	{
-		if (btn.second.press(mouseCoord))
+		if (btn.second.press())
 			selectedPage = btn.first;
 	}
 
 	for (auto& ico : pages[selectedPage])
-		selectBuildingType(mouseCoord, ico.second);
+		selectBuildingType(ico.second);
 	for (auto& ico : pages[UTIL])
-		selectBuildingType(mouseCoord, ico.second);
+		selectBuildingType(ico.second);
 }
 
 
@@ -135,11 +136,11 @@ void BuildingPanel::relocate(const sf::Vector2u windowSize)
 	specificationPanel->relocate(windowSize);
 }
 
-bool BuildingPanel::containsCoursor(const sf::Vector2i& mouseCoord) const
+bool BuildingPanel::containsCoursor() const
 {
 	return 
-		UIPlate::containsCoursor(mouseCoord) ||
-		expensesPanel->containsCoursor(mouseCoord);
+		UIPlate::containsCoursor() ||
+		expensesPanel->containsCoursor();
 }
 
 void BuildingPanel::draw(sf::RenderWindow& window)
@@ -166,15 +167,17 @@ void BuildingPanel::draw(sf::RenderWindow& window)
 
 
 
-void BuildingPanel::drawBuildExample(sf::RenderWindow& window, const sf::Vector2f& mouseMapCoord, Team* const team)
+void BuildingPanel::drawBuildExample(sf::RenderWindow& window, Team* const team)
 {
+	const sf::Vector2f mouseMapCoord = InputHandler::getMouseMapCoord();
+
 	if (!isBuildingTypeSelected)
 		return;
 	if (newBuildingType != STANDARD_CONVEYER && newBuildingType != SHIELDED_CONVEYER &&
 		newBuildingType != BRIDGE && newBuildingType != SORTER)
 	{
 		direction = 'w';
-		buildExample.setRotation(0);
+		buildExample.setRotation(0.0f);
 	}
 
 	TileCoord selectedTile = t1::be::tile(mouseMapCoord.x, mouseMapCoord.y);
@@ -228,24 +231,22 @@ void BuildingPanel::rotateBuilding()
 }
 
 
-void BuildingPanel::selectBuildingType(const sf::Vector2i& mouseCoord, BuildingIco& ico)
+void BuildingPanel::selectBuildingType(BuildingIco& ico)
 {
-	if (ico.press(mouseCoord))
-	{
-		newBuildingType = ico.getBuildingType();
-		if (oldBuildingType != newBuildingType)
-		{
-			buildExample.setTextureRect(t1::bc::buildingsInfoTable[newBuildingType].icoRect);
-			isBuildingTypeSelected = true;
-			oldBuildingType = newBuildingType;
-		}
-		else
-		{
-			isBuildingTypeSelected = false;
-			oldBuildingType = VOID_;
-			isInfoOpen = false;
-		}
+	if (!ico.press())
 		return;
+	newBuildingType = ico.getBuildingType();
+	if (oldBuildingType != newBuildingType)
+	{
+		buildExample.setTextureRect(t1::bc::buildingsInfoTable[newBuildingType].icoRect);
+		isBuildingTypeSelected = true;
+		oldBuildingType = newBuildingType;
+	}
+	else
+	{
+		isBuildingTypeSelected = false;
+		oldBuildingType = VOID_;
+		isInfoOpen = false;
 	}
 }
 
@@ -253,7 +254,7 @@ void BuildingPanel::selectBuildingType(const sf::Vector2i& mouseCoord, BuildingI
 void BuildingPanel::placeBuilding(const sf::Vector2f& mouseMapCoord, Team* const team)
 {
 	std::cout << "building_place_works: " << newBuildingType << '\n';
-	TileCoord selectedTile = t1::be::tile(mouseMapCoord.x, mouseMapCoord.y);
+	const TileCoord selectedTile = t1::be::tile(mouseMapCoord.x, mouseMapCoord.y);
 
 	std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
 	if (newBuildingType == REMOVE)

@@ -15,9 +15,9 @@ class BuildingsMap
 {
 private:
 	static inline TileCoord mapSize;
-	static inline bool isMapChanged;
 	static inline std::vector<std::vector<std::shared_ptr<Building>>> buildingsMap;
 	static inline std::vector<std::shared_ptr<Building>> cores;
+	static inline std::vector<TileCoord> justTriggeredTiles;
 	
 	static void createAuxilary(const short size, const TileCoord tile, Team* team);
 
@@ -29,6 +29,7 @@ public:
 	static void saveMap(const std::string& folder);
 	
 	static void intetractMap();
+	static void pushChanges();
 	static const std::vector<std::shared_ptr<Building>>& getCores();
 
 	// Construction_process
@@ -51,9 +52,6 @@ public:
 	static std::list<StoredResource> getInventory(const TileCoord tile);
 	static Team* getTeam(const TileCoord tile);
 	static int getTeamID(const TileCoord tile);
-
-	static bool getIsMapChanged();
-	static void cleanMapChanged();
 	
 	// resources_and_inventory
 	static bool canAccept(const uint16_t resType, const TileCoord tile);

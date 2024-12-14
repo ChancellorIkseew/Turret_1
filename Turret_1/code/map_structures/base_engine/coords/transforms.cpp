@@ -30,7 +30,7 @@ int t1::be::pixel(int tileCoord) {
 }
 
 float t1::be::pixelF(int tileCoord) {
-	return tileCoord * _TILE_ + _HALF_TILE_;
+	return static_cast<float>(tileCoord * _TILE_ + _HALF_TILE_);
 }
 
 PixelCoord t1::be::pixel(int tileCoordX, int tileCoordY) {

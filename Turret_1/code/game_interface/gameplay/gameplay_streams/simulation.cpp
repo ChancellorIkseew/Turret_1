@@ -12,6 +12,7 @@
 #include "map_structures/particles/particles.h"
 
 #include "game_interface/gameplay/ui_elements/resources_panel.h"
+#include "t1_system/events/events_handler.h"
 
 
 void Gameplay::simulation()
@@ -20,6 +21,9 @@ void Gameplay::simulation()
     {
         if (!isPaused)
         {
+            BuildingsMap::pushChanges();
+
+
             //t1::res::useEnergy(time);
             t1::system::mt::buildings.lock();
             BuildingsMap::intetractMap();
@@ -28,6 +32,7 @@ void Gameplay::simulation()
             moveParticlesList();
             t1::system::mt::buildings.unlock();
             t1::time::time++;
+            EventsHandler::pollSimulationEvents();
         }
         resourcesPanel.interact(*player);
 

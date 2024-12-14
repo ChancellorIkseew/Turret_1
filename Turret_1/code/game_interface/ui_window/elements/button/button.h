@@ -35,8 +35,8 @@ public:
     ~Button() = default;
     
 
-    bool select(const sf::Vector2i& mouseCoord);
-    bool press(const sf::Vector2i& mouseCoord);
+    bool select();
+    bool press();
     void setVisible(const bool visible);
 
     void relocateWithOwner(const sf::Vector2u ownerPosition);

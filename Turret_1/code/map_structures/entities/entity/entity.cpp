@@ -5,6 +5,7 @@
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/pre-settings/pre-settings.h"
+#include "t1_system/events/events_handler.h"
 
 #include "iostream"
 
@@ -79,7 +80,7 @@ void Entity::motion()
 
 void Entity::detectAim()
 {
-	if (tileChanged() || BuildingsMap::getIsMapChanged())
+	if (tileChanged() || EventsHandler::active(t1::EventType::MAP_CHANGED))
 	{
 		PixelCoord newAimCoord = t1::ent::findAim(*this);
 		if (newAimCoord.x != 0)	// "0" - aim_was_not_detected

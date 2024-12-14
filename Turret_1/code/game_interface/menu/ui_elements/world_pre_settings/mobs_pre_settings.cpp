@@ -45,12 +45,12 @@ void MobsPreSettingsPage::prepareInterfaceSprites()
 		text.second.setFillColor(standardColor);
 }
 
-void MobsPreSettingsPage::interact(const sf::Vector2i& mouseCoord, bool& isMenuOpen)
+void MobsPreSettingsPage::interact()
 {
 	if (isVisible)
 	{
 		for (auto& field : fields)
-			field.second.interact(mouseCoord);
+			field.second.interact();
 	}
 }
 

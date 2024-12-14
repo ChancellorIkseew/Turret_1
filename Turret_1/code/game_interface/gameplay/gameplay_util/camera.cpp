@@ -1,80 +1,136 @@
 
 #include "camera.h"
 #include "map_structures/pre-settings/pre-settings.h"
+#include "t1_system/input/input_handler.h"
+#include <iostream>
 
+constexpr float MIN_MAP_SCALE = 0.5f, MAX_MAP_SCALE = 5.0f;
+constexpr float SCALE_FACTOR = 1.2f;
+constexpr float MOTION_SPEED_MODIFIER = 20.0f;
+constexpr int MAX_MAP_STRUCTURE_SIZE = 6;
 
 Camera::Camera()
 {
-	size = sf::Vector2i(1024, 720);
-	center = size / 2;
+	windowSize = sf::Vector2f(1024, 720);
 
-	mapScale = 1;
+	mapScale = MIN_MAP_SCALE;
 
-	isMooving = false;
-	isScaling = false;
+	startTile = TileCoord(0, 0);
+	endTile = TileCoord(0, 0);
 
-	startTile = { 0, 0 };
-	endTile = { 50, 50 };
-
-	mapSize = PreSettings::getTerrain().mapSize;
+	tileMapSize = PreSettings::getTerrain().mapSize;
+	pixelMapSize = t1::be::pixel(tileMapSize);
 }
 
 
-void Camera::move()
+void Camera::interact(const sf::RenderWindow& window)
 {
-
+	resize(window);
+	scale();
+	moveByMouse();
+	moveByWASD();
+	avoidEscapeFromMap();
+	updateMapRegion(window);
 }
 
 
-void Camera::scale(sf::Event event)
+void Camera::moveByMouse()
 {
-	if ((event.mouseWheel.delta) == 1)
+	if (InputHandler::active(t1::KeyName::MidMB))
 	{
-		if (mapScale >= 2)
+		if (!isMooving)
 		{
-			mapScale = mapScale / 1.2f;
+			movingStartMouseCoord = InputHandler::getMouseMapCoord();
+			isMooving = true;
 		}
 	}
-
-	if ((event.mouseWheel.delta) == -1)
+	else
 	{
-		mapScale = mapScale * 1.2f;
+		isMooving = false;
 	}
 
-	camera.setSize(sf::Vector2f(size.x * mapScale / 4, size.y * mapScale / 4));
+	if (isMooving)
+	{
+		const sf::Vector2f newMouseMapCoord = InputHandler::getMouseMapCoord();
+		const sf::Vector2f delta = movingStartMouseCoord - newMouseMapCoord;
+		cameraView.move(delta);
+	}
 }
 
-
-void Camera::resize(sf::RenderWindow& window)
+void Camera::moveByWASD()
 {
-	if (size.x != window.getSize().x || size.y != window.getSize().y)	// mainWindow_scaling block
-	{
-		size.x = window.getSize().x;
-		size.y = window.getSize().y;
+	sf::Vector2f delta = sf::Vector2f(0.0f, 0.0f);
 
-		camera.setSize(sf::Vector2f(size.x * mapScale, size.y * mapScale));
-		window.setView(camera);
+	if (InputHandler::active(t1::KeyName::Move_up))
+		delta.y -= 1.0f;
+	if (InputHandler::active(t1::KeyName::Move_left))
+		delta.x -= 1.0f;
+	if (InputHandler::active(t1::KeyName::Move_down))
+		delta.y += 1.0f;
+	if (InputHandler::active(t1::KeyName::Move_right))
+		delta.x += 1.0f;
+
+	if (delta != sf::Vector2f(0.0f, 0.0f))
+		cameraView.move(delta * MOTION_SPEED_MODIFIER * mapScale);
+}
+
+void Camera::avoidEscapeFromMap()
+{
+	sf::Vector2f viewCenter = cameraView.getCenter();
+	viewCenter.x = std::clamp(viewCenter.x, 0.0f, pixelMapSize.x);
+	viewCenter.y = std::clamp(viewCenter.y, 0.0f, pixelMapSize.y);
+	cameraView.setCenter(viewCenter);
+}
+
+
+void Camera::scale()
+{
+	switch (InputHandler::getMouseWheelScroll())
+	{
+	case t1::MouseWheelScroll::none:
+		return;
+	case t1::MouseWheelScroll::up:
+		if (mapScale >= MIN_MAP_SCALE)
+			mapScale /= SCALE_FACTOR;
+		break;
+	case t1::MouseWheelScroll::down:
+		if (mapScale <= MAX_MAP_SCALE)
+			mapScale *= SCALE_FACTOR;
+		break;
+	}
+	cameraView.setSize(windowSize * mapScale);
+}
+
+
+void Camera::resize(const sf::RenderWindow& window)
+{
+	if (windowSize.x != window.getSize().x || windowSize.y != window.getSize().y)
+	{
+		windowSize = sf::Vector2f(window.getSize());
+		cameraView.setSize(windowSize * mapScale);
+		cameraView.setCenter(windowSize * mapScale / 2.0f);
 	}
 }
 
 
-void Camera::updateMapRegion(sf::RenderWindow& window)
+void Camera::updateMapRegion(const sf::RenderWindow& window)
 {
 	using namespace t1::be;
 
 	sf::Vector2f startPixel = window.mapPixelToCoords(sf::Vector2i(0, 0));
-	startTile = { tile(startPixel.x) - 6, tile(startPixel.y) - 6 }; // 6_is_max_building_line_size needed_to_correct_big_buildings_drawing
+	startTile = TileCoord(tile(startPixel.x) - MAX_MAP_STRUCTURE_SIZE, tile(startPixel.y) - MAX_MAP_STRUCTURE_SIZE);
+	// 6 is max building_line_size. Correction is needed to correct big_buildings drawing.
 
 	sf::Vector2f endPixel = window.mapPixelToCoords(sf::Vector2i(window.getSize().x, window.getSize().y));
-	endTile = { tile(endPixel.x) + 1, tile(endPixel.y) + 1 };
+	endTile = TileCoord(tile(endPixel.x) + 1, tile(endPixel.y) + 1);
 
 	if (startTile.x < 0)
 		startTile.x = 0;
 	if (startTile.y < 0)
 		startTile.y = 0;
 
-	if (endTile.x > mapSize.x)
-		endTile.x = mapSize.x;
-	if (endTile.y > mapSize.y)
-		endTile.y = mapSize.y;
+	if (endTile.x > tileMapSize.x)
+		endTile.x = tileMapSize.x;
+	if (endTile.y > tileMapSize.y)
+		endTile.y = tileMapSize.y;
 }

@@ -19,7 +19,7 @@ public:
 	GeneralPreSettingsPage(const sf::Vector2u position);
 	~GeneralPreSettingsPage() = default;
 
-	void interact(const sf::Vector2i& mouseCoord, bool& isMenuOpen) override final;
+	void interact() override final;
 	void relocateWithOwner(const sf::Vector2u ownerPosition) override final;
 	void enter() override final;
 

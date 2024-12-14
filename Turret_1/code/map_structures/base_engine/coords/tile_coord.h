@@ -11,6 +11,10 @@ struct TileCoord
 	TileCoord() = default;
 	TileCoord(int x, int y) : x(x), y(y) {}
 
+	bool operator==(const TileCoord& rhs) {
+		return { x == rhs.x && y == rhs.y };
+	}
+
 	TileCoord operator+(const TileCoord& rhs) const {
 		return { x + rhs.x, y + rhs.y };
 	}

@@ -1,7 +1,8 @@
 
 #include "button.h"
+
+#include "t1_system/input/input_handler.h"
 #include "t1_system/sleep.h"
-#include "t1_system/system.h"
 
 
 Button::Button(const std::string& imageFile, const sf::Vector2i size, const sf::Vector2i position)
@@ -51,31 +52,24 @@ Button::Button(const Button&& other) noexcept
 	isPressed = false;
 }
 
-bool Button::select(const sf::Vector2i& mouseCoord)
+bool Button::select()
 {
-	if (button.getGlobalBounds().contains(mouseCoord.x, mouseCoord.y))
-	{
-		isSelected = true;
-		return true;
-	}
-	isSelected = false;
-	return false;
+	const sf::Vector2i mouseCoord = InputHandler::getMouseCoord();
+	isSelected = button.getGlobalBounds().contains(mouseCoord.x, mouseCoord.y);
+	return isSelected;
 }
 
-bool Button::press(const sf::Vector2i& mouseCoord)
+bool Button::press()
 {
-	if (!isVisible)
+	if (!isVisible || !select())
 		return false;
 
-	if (select(mouseCoord))
+	if (InputHandler::jactive(t1::KeyName::LMB))
 	{
-		if (LMB_Pressed)
-		{
-			isPressed = true;
-			t1::system::sleep(150);
-			isPressed = false;
-			return true;
-		}
+		isPressed = true;
+		t1::system::sleep(150);
+		isPressed = false;
+		return true;
 	}
 	return false;
 }
@@ -97,20 +91,12 @@ void Button::draw(sf::RenderWindow& window)
 	if (!isVisible)
 		return;
 	
-	if (isSelected && !isPressed)
-	{
-		button.setTextureRect(sf::IntRect(0, size.y, size.x, size.y));
-	}
-
 	if (isPressed)
-	{
 		button.setTextureRect(sf::IntRect(0, size.y * 2, size.x, size.y));
-	}
-
-	if (!isSelected && !isPressed)
-	{
+	else if (isSelected)
+		button.setTextureRect(sf::IntRect(0, size.y, size.x, size.y));
+	else
 		button.setTextureRect(sf::IntRect(0, 0, size.x, size.y));
-	}
 	
 	window.draw(button);
 }

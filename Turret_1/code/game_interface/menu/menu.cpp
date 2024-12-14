@@ -1,11 +1,13 @@
 
 #include <thread>
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 #include "game_interface/main_window/main_window_resize.h"
 #include "game_interface/main_window/main_window.h"
 #include "game_interface/ui_window/sub_win_types/text_field/text_field.h"
 
+#include "t1_system/input/input_handler.h"
 #include "t1_system/sleep.h"
 
 #include "ui_elements/main_menu.h"
@@ -42,21 +44,21 @@ char openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string& sav
 				if (menuTab == MAIN_MENU)
 				{
 					mainMenu.setVisible(true);
-					menuTab = mainMenu.interact(mouseCoord, isMenuOpen);
+					menuTab = mainMenu.interact(isMenuOpen);
 					mainMenu.setVisible(false);
 				}
 				
 				if (menuTab == CHOISE_FOLDER_MENU)
 				{
 					choiseFolderMenu.setVisible(true);
-					menuTab = choiseFolderMenu.interact(mouseCoord, isMenuOpen, startNewGame, saveFolderName);
+					menuTab = choiseFolderMenu.interact(isMenuOpen, startNewGame, saveFolderName);
 					choiseFolderMenu.setVisible(false);
 				}
 
 				if (menuTab == PRE_SETTINGS_MENU)
 				{
 					preSettingsWindow.setVisible(true);
-					menuTab = preSettingsWindow.interact(mouseCoord, isMenuOpen);
+					menuTab = preSettingsWindow.interact(isMenuOpen);
 					preSettingsWindow.setVisible(false);
 				}
 
@@ -84,6 +86,9 @@ char openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string& sav
         
         while (mainWindow.pollEvent(event))
         {
+			InputHandler::updateInput(event);
+			InputHandler::updateMouseCoord(mainWindow);
+			
 			if (event.type == sf::Event::Closed)
 			{
 				mainWindow.close();
@@ -98,16 +103,6 @@ char openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string& sav
 				mainMenu.relocate(mainWindow.getSize());
 				choiseFolderMenu.relocate(mainWindow.getSize());
 				preSettingsWindow.relocate(mainWindow.getSize());
-			}
-
-			if (event.type == sf::Event::TextEntered)
-			{
-				if (TextField::isOneSeltcted())
-				{
-					t1::system::mt::textEnter.lock();
-					symbol = event.text.unicode;
-					t1::system::mt::textEnter.unlock();
-				}
 			}
 		}
 

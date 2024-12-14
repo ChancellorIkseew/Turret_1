@@ -11,6 +11,8 @@
 #include "map_structures/base_engine/base_engine.h"
 #include "map_structures/team/team.h"
 
+#include "t1_system/events/events_handler.h"
+
 
 BuildingsMap::BuildingsMap(const TileCoord mapSize)
 {
@@ -27,8 +29,6 @@ BuildingsMap::BuildingsMap(const TileCoord mapSize)
 			building = nullptr;
 		}
 	}
-
-	isMapChanged = false;
 }
 
 BuildingsMap::~BuildingsMap()
@@ -127,7 +127,7 @@ bool BuildingsMap::placeBuilding(const uint16_t type, const char direction, cons
 	createAuxilary(size, tile, team);
 	if (type == CORE_MK1 || type == CORE_MK2 || type == CORE_MK3)
 		cores.emplace_back(building);
-	isMapChanged = true;
+	justTriggeredTiles.push_back(tile);
 	return true;
 }
 
@@ -137,9 +137,8 @@ bool BuildingsMap::isAvaluablePlaceBuilding(const uint16_t type, const TileCoord
 	int size = t1::bc::buildingsInfoTable[type].size;
 	for (int i = 0; i < size; i++) // cheeck_square_for_place
 	{
-		int iTileX = tile.x + t1::be::coordSquareArr[i].x;
-		int iTileY = tile.y + t1::be::coordSquareArr[i].y;
-		if (!isVoidBuilding(iTileX, iTileY))
+		TileCoord cheekTile = tile + t1::be::coordSquareArr[i];
+		if (!isVoidBuilding(cheekTile))
 			return false;
 	}
 	return true;
@@ -155,10 +154,9 @@ void BuildingsMap::demolishBuilding(const TileCoord tile)
 	short size = buildingsMap[mainBuilding.x][mainBuilding.y]->getSize();
 	for (int i = 0; i < size; ++i)
 	{
-		int iTileX = mainBuilding.x + t1::be::coordSquareArr[i].x;
-		int iTileY = mainBuilding.y + t1::be::coordSquareArr[i].y;
-
-		buildingsMap[iTileX][iTileY].reset();
+		TileCoord iTile = mainBuilding + t1::be::coordSquareArr[i];
+		buildingsMap[iTile.x][iTile.y].reset();
+		justTriggeredTiles.push_back(iTile);
 	}
 	if (type == CORE_MK1 || type == CORE_MK2 || type == CORE_MK3)
 	{
@@ -171,7 +169,6 @@ void BuildingsMap::demolishBuilding(const TileCoord tile)
 			}	
 		}
 	}
-	isMapChanged = true;
 }
 
 
@@ -267,9 +264,6 @@ int BuildingsMap::getTeamID(const TileCoord tile)
 	return 199999;
 }
 
-bool BuildingsMap::getIsMapChanged() { return isMapChanged; }
-void BuildingsMap::cleanMapChanged() { isMapChanged = false; }
-
 
 void BuildingsMap::intetractMap()
 {
@@ -283,6 +277,14 @@ void BuildingsMap::intetractMap()
 			}
 		}
 	}
+}
+
+void BuildingsMap::pushChanges()
+{
+	if (justTriggeredTiles.empty())
+		return;
+	EventsHandler::pushEvent(t1::EventType::MAP_CHANGED, std::make_unique<t1::MapChanged>(justTriggeredTiles));
+	justTriggeredTiles.clear();
 }
 
 const std::vector<std::shared_ptr<Building>>& BuildingsMap::getCores()
@@ -363,15 +365,12 @@ bool BuildingsMap::isTurretOnTile(const TileCoord tile)
 
 void BuildingsMap::drawMap(sf::RenderWindow& window)
 {
-	int startX = Camera::startTile.x;
-	int startY = Camera::startTile.y;
+	const TileCoord start = Camera::getStartTile();
+	const TileCoord end = Camera::getEndTile();
 
-	int endX = Camera::endTile.x;
-	int endY = Camera::endTile.y;
-
-	for (int x = startX; x < endX; ++x)
+	for (int x = start.x; x < end.x; ++x)
 	{
-		for (int y = startY; y < endY; ++y)
+		for (int y = start.y; y < end.y; ++y)
 		{
 			if (buildingsMap[x][y] != nullptr && buildingsMap[x][y]->getType() != AUXILARY)
 			{

@@ -3,6 +3,7 @@
 #define GAMEPLAY_H
 
 #include <SFML/Graphics.hpp>
+#include "game_interface/gameplay/gameplay_util/camera.h"
 
 #include "map_structures/pre-settings/pre-settings.h"
 #include "map_structures/terrain/terrain.h"
@@ -19,14 +20,10 @@
 class Gameplay
 {
 private:
-	bool isMovingCamera = false;
-	sf::Vector2f lastMousePosition;
-
-	sf::Vector2i mouseCoord;
-	sf::Vector2f mouseMapCoord;
-
 	bool isPaused = true;
 	bool isGameplayActive = true;
+
+	Camera camera;
 
 	MainControlPanel mainControlPanel;
 	ResourcesPanel resourcesPanel;
@@ -50,7 +47,7 @@ public:
 	int startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, std::string saveFolderName);
 
 	void relocateSubWindows(const sf::Vector2u windowSize);
-	bool noSubWindowSelected(const sf::Vector2i mouseCoord);
+	bool noSubWindowSelected();
 
 	static Gameplay* getInstance();
 
