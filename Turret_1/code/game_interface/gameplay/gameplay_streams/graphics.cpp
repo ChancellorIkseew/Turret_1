@@ -16,8 +16,6 @@
 
 void Gameplay::graphics(sf::RenderWindow& mainWindow)
 {
-    Camera t1camera;
-
     Building::prepareSprites();
     Turret::prepareSprites();
     ResourceUnit::prepareSprites();
@@ -29,7 +27,7 @@ void Gameplay::graphics(sf::RenderWindow& mainWindow)
     while (isGameplayActive)
     {
 
-        t1camera.resize(mainWindow);
+        camera.resize(mainWindow);
 
         while (mainWindow.pollEvent(event))
         {
@@ -47,29 +45,17 @@ void Gameplay::graphics(sf::RenderWindow& mainWindow)
                 UIWindow::windowCreated = false;
                 overlayResize(mainWindow);
                 relocateSubWindows(mainWindow.getSize());
-                t1camera.updateMapRegion(mainWindow);
             }
 
             if (event.type == sf::Event::MouseWheelMoved)
             {
-                t1camera.scale(event);
-                mainWindow.setView(t1camera.camera);
-                t1camera.updateMapRegion(mainWindow);
+                camera.scale(event);
             }
         }
-
-        if (isMovingCamera)
-        {
-            sf::Vector2f newMousePosition = mainWindow.mapPixelToCoords(sf::Mouse::getPosition(mainWindow));
-            sf::Vector2f delta = lastMousePosition - newMousePosition;
-
-            t1camera.camera.move(delta);
-            mainWindow.setView(t1camera.camera);
-            t1camera.updateMapRegion(mainWindow);
-        }
-
-
+        
         mainWindow.clear(sf::Color::Black);		//Begin draw_block
+        camera.move();
+        camera.updateMapRegion(mainWindow);
 
         t1::system::mt::buildings.lock();
         TerrainMap::drawMap(mainWindow);
@@ -80,7 +66,7 @@ void Gameplay::graphics(sf::RenderWindow& mainWindow)
 
         buildingPanel.drawBuildExample(mainWindow, player.get());
 
-        mainWindow.setView(overlay);						//	Draw_inteface block
+        mainWindow.setView(overlay);			//Draw_inteface block
         mainControlPanel.draw(mainWindow);
         mainControlPanel.interactWaveTimer(isPaused);
         buildingPanel.draw(mainWindow);
@@ -89,8 +75,7 @@ void Gameplay::graphics(sf::RenderWindow& mainWindow)
         ConfirmationWindow::getInstance().draw(mainWindow);
         SettingsWindow::getInstance().draw(mainWindow);
 
-        mainWindow.setView(t1camera.camera);
-
-        mainWindow.display();		//End draw_block
+        mainWindow.setView(camera.getView());
+        mainWindow.display();                   //End draw_block
     }
 }

@@ -3,6 +3,7 @@
 #define GAMEPLAY_H
 
 #include <SFML/Graphics.hpp>
+#include "game_interface/gameplay/gameplay_util/camera.h"
 
 #include "map_structures/pre-settings/pre-settings.h"
 #include "map_structures/terrain/terrain.h"
@@ -19,12 +20,10 @@
 class Gameplay
 {
 private:
-	bool isMovingCamera = false;
-	sf::Vector2f lastMousePosition;
-	static inline sf::Vector2f mouseMapCoord = sf::Vector2f(0.0f, 0.0f);
-
 	bool isPaused = true;
 	bool isGameplayActive = true;
+
+	Camera camera;
 
 	MainControlPanel mainControlPanel;
 	ResourcesPanel resourcesPanel;

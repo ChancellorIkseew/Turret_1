@@ -46,5 +46,4 @@ namespace t1
 	};
 }
 
-
 #endif // T1_SYSTEM_INPUT

@@ -11,9 +11,20 @@ void InputHandler::updateInput(const sf::Event& event)
 	{
 		auto& binding = entry.second;
 
-		if (binding.inputType == t1::InputType::keyboard && event.type == sf::Event::KeyPressed)
+		if (binding.inputType == t1::InputType::keyboard &&
+			static_cast<sf::Keyboard::Scancode>(binding.code) == event.key.scancode)
 		{
-			binding.active = static_cast<sf::Keyboard::Scancode>(binding.code) == event.key.scancode;
+			if (event.type == sf::Event::KeyPressed)
+			{
+				if (!binding.active)
+					binding.justTriggered = true;
+				binding.active = true;
+			}
+			else if (event.type == sf::Event::KeyReleased)
+			{
+				binding.active = false;
+				binding.justTriggered = false;
+			}
 			continue;	// scancode - the code of concrete key
 		}
 

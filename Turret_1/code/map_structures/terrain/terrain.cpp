@@ -107,15 +107,12 @@ void TerrainMap::prepareSprites()
 	
 void TerrainMap::drawMap(sf::RenderWindow& window)
 {
-	int startX = Camera::startTile.x;
-	int startY = Camera::startTile.y;
+	const TileCoord start = Camera::getStartTile();
+	const TileCoord end = Camera::getEndTile();
 
-	int endX = Camera::endTile.x;
-	int endY = Camera::endTile.y;
-
-	for (int y = startY; y < endY; ++y)
+	for (int y = start.y; y < end.y; ++y)
 	{
-		for (int x = startX; x < endX; ++x)
+		for (int x = start.x; x < end.x; ++x)
 		{
 			switch (*terrainMap[x][y])
 			{

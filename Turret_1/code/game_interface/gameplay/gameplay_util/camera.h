@@ -9,29 +9,37 @@
 class Camera
 {
 private:
-	//sf::View camera;
+	sf::View cameraView = sf::View(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(0.0f, 0.0f));
 
-	sf::Vector2i size, center;
-	TileCoord mapSize;
+	sf::Vector2f windowSize;
+	sf::Vector2f movingStartMouseCoord = sf::Vector2f(0.0f, 0.0f);
+	TileCoord tileMapSize;
+	PixelCoord pixelMapSize;
 
 	float mapScale;
 
-	bool isMooving, isScaling;
+	bool isMooving = false;
+	bool isScaling = false;
 
-public:
+	void moveByMouse();
+	void moveByWASD();
+	void avoidEscapeFromMap();
+
 	static inline TileCoord startTile;
 	static inline TileCoord endTile;
 
 public:
-	sf::View camera;
-
 	Camera();
 	~Camera() = default;
 
 	void move();
-	void scale(sf::Event event);
-	void resize(sf::RenderWindow& window);
-	void updateMapRegion(sf::RenderWindow& window);
+	void scale(const sf::Event& event);
+	void resize(const sf::RenderWindow& window);
+	void updateMapRegion(const sf::RenderWindow& window);
+
+	static TileCoord getStartTile() { return startTile; }
+	static TileCoord getEndTile() { return endTile; }
+	sf::View getView() const { return cameraView; }
 
 };
 

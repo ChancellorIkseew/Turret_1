@@ -79,13 +79,8 @@ void Gameplay::relocateSubWindows(const sf::Vector2u windowSize)
 
 bool Gameplay::noSubWindowSelected()
 {
-	if (!mainControlPanel.containsCoursor() && !resourcesPanel.containsCoursor() &&
-		!buildingPanel.containsCoursor())
-	{
-		return true;
-	}
-
-	return false;
+	return (!mainControlPanel.containsCoursor() && !resourcesPanel.containsCoursor() &&
+		!buildingPanel.containsCoursor());
 }
 
 

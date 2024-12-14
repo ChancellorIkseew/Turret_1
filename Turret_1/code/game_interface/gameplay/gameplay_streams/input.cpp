@@ -19,19 +19,6 @@ void Gameplay::input(sf::RenderWindow& mainWindow)
         buildingPanel.interact(mouseMapCoord, player.get());
         inventoryWindow.interact(mouseMapCoord, player.get());
 
-        if (InputHandler::active(t1::KeyName::MidMB))
-        {
-            if (!isMovingCamera)
-            {
-                isMovingCamera = true;
-                lastMousePosition = mainWindow.mapPixelToCoords(sf::Mouse::getPosition(mainWindow));
-            }
-        }
-        else
-        {
-            isMovingCamera = false;
-        }
-
 #ifndef TURRET_1_NO_TEST_BUILD
         if (InputHandler::jactive(t1::KeyName::Console_cheat))
         {
