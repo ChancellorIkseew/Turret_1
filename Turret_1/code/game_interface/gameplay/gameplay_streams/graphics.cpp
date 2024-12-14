@@ -4,7 +4,6 @@
 #include "game_interface/main_window/main_window.h"
 #include "game_interface/main_window/main_window_resize.h"
 
-#include "game_interface/gameplay/gameplay_util/camera.h"
 #include "t1_system/input/input_handler.h"
 #include "t1_system/t1_mutex.h"
 
@@ -26,9 +25,6 @@ void Gameplay::graphics(sf::RenderWindow& mainWindow)
     sf::Event event;
     while (isGameplayActive)
     {
-
-        camera.resize(mainWindow);
-
         while (mainWindow.pollEvent(event))
         {
             InputHandler::updateInput(event);
@@ -46,16 +42,10 @@ void Gameplay::graphics(sf::RenderWindow& mainWindow)
                 overlayResize(mainWindow);
                 relocateSubWindows(mainWindow.getSize());
             }
-
-            if (event.type == sf::Event::MouseWheelMoved)
-            {
-                camera.scale(event);
-            }
         }
         
         mainWindow.clear(sf::Color::Black);		//Begin draw_block
-        camera.move();
-        camera.updateMapRegion(mainWindow);
+        camera.interact(mainWindow);
 
         t1::system::mt::buildings.lock();
         TerrainMap::drawMap(mainWindow);

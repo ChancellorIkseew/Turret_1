@@ -19,11 +19,13 @@ private:
 	float mapScale;
 
 	bool isMooving = false;
-	bool isScaling = false;
 
 	void moveByMouse();
 	void moveByWASD();
 	void avoidEscapeFromMap();
+	void scale();
+	void resize(const sf::RenderWindow& window);
+	void updateMapRegion(const sf::RenderWindow& window);
 
 	static inline TileCoord startTile;
 	static inline TileCoord endTile;
@@ -32,10 +34,7 @@ public:
 	Camera();
 	~Camera() = default;
 
-	void move();
-	void scale(const sf::Event& event);
-	void resize(const sf::RenderWindow& window);
-	void updateMapRegion(const sf::RenderWindow& window);
+	void interact(const sf::RenderWindow& window);
 
 	static TileCoord getStartTile() { return startTile; }
 	static TileCoord getEndTile() { return endTile; }

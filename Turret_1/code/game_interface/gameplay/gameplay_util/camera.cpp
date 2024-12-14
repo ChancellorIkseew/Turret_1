@@ -23,11 +23,14 @@ Camera::Camera()
 }
 
 
-void Camera::move()
+void Camera::interact(const sf::RenderWindow& window)
 {
+	resize(window);
+	scale();
 	moveByMouse();
 	moveByWASD();
 	avoidEscapeFromMap();
+	updateMapRegion(window);
 }
 
 
@@ -80,19 +83,21 @@ void Camera::avoidEscapeFromMap()
 }
 
 
-void Camera::scale(const sf::Event& event)
+void Camera::scale()
 {
-	if ((event.mouseWheel.delta) == 1)
+	switch (InputHandler::getMouseWheelScroll())
 	{
+	case t1::MouseWheelScroll::none:
+		return;
+	case t1::MouseWheelScroll::up:
 		if (mapScale >= MIN_MAP_SCALE)
-			mapScale = mapScale / SCALE_FACTOR;
-	}
-	else if ((event.mouseWheel.delta) == -1)
-	{
+			mapScale /= SCALE_FACTOR;
+		break;
+	case t1::MouseWheelScroll::down:
 		if (mapScale <= MAX_MAP_SCALE)
-			mapScale = mapScale * SCALE_FACTOR;
+			mapScale *= SCALE_FACTOR;
+		break;
 	}
-
 	cameraView.setSize(windowSize * mapScale);
 }
 

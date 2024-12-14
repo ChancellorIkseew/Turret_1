@@ -14,6 +14,7 @@ private:
 	static inline std::atomic<char32_t> symbolJustEntered = NON_USABLE_SYMBOL;
 	static inline std::atomic<sf::Vector2i> mouseCoord = sf::Vector2i(0, 0);
 	static inline std::atomic<sf::Vector2f> mouseMapCoord = sf::Vector2f(0.0f, 0.0f);
+	static inline std::atomic<t1::MouseWheelScroll> mouseWheelScroll = t1::MouseWheelScroll::none;
 
 public:
 	InputHandler() = default;
@@ -28,6 +29,7 @@ public:
 	static void updateMouseCoord(sf::RenderWindow& window);
 	static sf::Vector2i getMouseCoord();
 	static sf::Vector2f getMouseMapCoord();
+	static t1::MouseWheelScroll getMouseWheelScroll();
 
 	static void rebind(const t1::KeyName keyName, const sf::Event& event);
 };

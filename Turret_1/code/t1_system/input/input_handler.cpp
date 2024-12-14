@@ -1,7 +1,6 @@
 
 #include "input_handler.h"
 
-#include <iostream>
 #include "game_interface/ui_window/sub_win_types/text_field/text_field.h"
 
 
@@ -48,7 +47,7 @@ void InputHandler::updateInput(const sf::Event& event)
 
 	if (event.type == sf::Event::MouseWheelScrolled)
 	{
-
+		mouseWheelScroll.store(static_cast<t1::MouseWheelScroll>(event.mouseWheelScroll.delta), std::memory_order_relaxed);
 	}
 
 	if (event.type == sf::Event::TextEntered && TextField::isOneSeltcted())
@@ -105,6 +104,11 @@ sf::Vector2i InputHandler::getMouseCoord()
 sf::Vector2f InputHandler::getMouseMapCoord()
 {
 	return mouseMapCoord.load(std::memory_order_relaxed);
+}
+
+t1::MouseWheelScroll InputHandler::getMouseWheelScroll()
+{
+	return mouseWheelScroll.exchange(t1::MouseWheelScroll::none, std::memory_order_relaxed);
 }
 
 

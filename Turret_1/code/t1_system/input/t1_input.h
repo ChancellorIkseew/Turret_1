@@ -32,6 +32,13 @@ namespace t1
 		mouse,
 	};
 
+	enum class MouseWheelScroll
+	{
+		none = 0,
+		up = 1,
+		down = -1
+	};
+
 	class Binding
 	{
 	public:
