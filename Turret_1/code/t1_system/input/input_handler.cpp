@@ -96,11 +96,13 @@ void InputHandler::updateMouseCoord(sf::RenderWindow& window)
 	mouseMapCoord = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 }
 
+///@brief coordinate in SFML window
 sf::Vector2i InputHandler::getMouseCoord()
 {
 	return mouseCoord.load(std::memory_order_relaxed);
 }
 
+///@brief coordinate on map
 sf::Vector2f InputHandler::getMouseMapCoord()
 {
 	return mouseMapCoord.load(std::memory_order_relaxed);
