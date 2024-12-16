@@ -34,7 +34,7 @@ void TextField::prepareInterfaceSprites()
 
 void TextField::interact()
 {
-	if (containsCoursor() && InputHandler::jactive(t1::KeyName::LMB))
+	if (containsCoursor() && InputHandler::jactive(t1::BindName::LMB))
 	{
 		isSelected = true;
 		isOneSelected = true;
@@ -56,7 +56,7 @@ void TextField::interact()
 				text.setString(new_str);
 			}
 
-			if (InputHandler::jactive(t1::KeyName::LMB))
+			if (InputHandler::jactive(t1::BindName::LMB))
 			{
 				isSelected = false;
 				isOneSelected = false;

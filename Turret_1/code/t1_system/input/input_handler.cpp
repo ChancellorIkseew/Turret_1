@@ -57,9 +57,9 @@ void InputHandler::updateInput(const sf::Event& event)
 }
 
 ///@brief cheek long press
-bool InputHandler::active(const t1::KeyName keyName)
+bool InputHandler::active(const t1::BindName bindName)
 {
-	const auto& found = bindings.find(keyName);
+	const auto& found = bindings.find(bindName);
 	if (found == bindings.end())
 		return false;
 	if (found->second.active)
@@ -71,9 +71,9 @@ bool InputHandler::active(const t1::KeyName keyName)
 }
 
 ///@brief cheek short press
-bool InputHandler::jactive(const t1::KeyName keyName)
+bool InputHandler::jactive(const t1::BindName bindName)
 {
-	const auto& found = bindings.find(keyName);
+	const auto& found = bindings.find(bindName);
 	if (found == bindings.end())
 		return false;
 	if (found->second.active && found->second.justTriggered)
@@ -114,7 +114,7 @@ t1::MouseWheelScroll InputHandler::getMouseWheelScroll()
 }
 
 
-void InputHandler::rebind(const t1::KeyName keyName, const sf::Event& event)
+void InputHandler::rebind(const t1::BindName bindName, const sf::Event& event)
 {
 	int code = 0;
 	t1::InputType inputType = t1::InputType::keyboard;
@@ -128,27 +128,28 @@ void InputHandler::rebind(const t1::KeyName keyName, const sf::Event& event)
 		code = static_cast<int>(event.mouseButton.button);
 	}
 
-	bindings.erase(keyName);
-	bindings.emplace(keyName, t1::Binding(code, inputType));
+	bindings.erase(bindName);
+	bindings.emplace(bindName, t1::Binding(code, inputType));
 }
 
-using KeyName = t1::KeyName;
+using BindName = t1::BindName;
 using Binding = t1::Binding;
 using InputType = t1::InputType;
 
-std::unordered_map<t1::KeyName, t1::Binding> InputHandler::bindings
+std::unordered_map<t1::BindName, t1::Binding> InputHandler::bindings
 {
-	{KeyName::LMB, Binding(sf::Mouse::Left, InputType::mouse)},
-	{KeyName::RMB, Binding(sf::Mouse::Right, InputType::mouse)},
-	{KeyName::MidMB, Binding(sf::Mouse::Middle, InputType::mouse)},
+	{BindName::LMB, Binding(sf::Mouse::Left, InputType::mouse)},
+	{BindName::RMB, Binding(sf::Mouse::Right, InputType::mouse)},
+	{BindName::MidMB, Binding(sf::Mouse::Middle, InputType::mouse)},
 
-	{KeyName::Build, Binding(sf::Mouse::Left, InputType::mouse)},
-	{KeyName::Rotate_building, Binding(sf::Mouse::Right, InputType::mouse)},
+	{BindName::Build, Binding(sf::Mouse::Left, InputType::mouse)},
+	{BindName::Rotate_building, Binding(sf::Mouse::Right, InputType::mouse)},
 
-	{KeyName::Move_up, Binding(sf::Keyboard::W, InputType::keyboard)},
-	{KeyName::Move_left, Binding(sf::Keyboard::A, InputType::keyboard)},
-	{KeyName::Move_down, Binding(sf::Keyboard::S, InputType::keyboard)},
-	{KeyName::Move_right, Binding(sf::Keyboard::D, InputType::keyboard)},
+	{BindName::Move_up, Binding(sf::Keyboard::W, InputType::keyboard)},
+	{BindName::Move_left, Binding(sf::Keyboard::A, InputType::keyboard)},
+	{BindName::Move_down, Binding(sf::Keyboard::S, InputType::keyboard)},
+	{BindName::Move_right, Binding(sf::Keyboard::D, InputType::keyboard)},
 
-	{KeyName::Console_cheat, Binding(sf::Keyboard::RAlt, InputType::keyboard)}
+	{BindName::Pause, Binding(sf::Keyboard::P, InputType::keyboard)},
+	{BindName::Console_cheat, Binding(sf::Keyboard::RAlt, InputType::keyboard)}
 };

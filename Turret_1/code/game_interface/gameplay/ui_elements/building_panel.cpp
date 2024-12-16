@@ -87,14 +87,14 @@ void BuildingPanel::prepareInterfaceSprites()
 
 void BuildingPanel::interact(const sf::Vector2f& mouseMapCoord, Team* const team)
 {
-	if (InputHandler::active(t1::KeyName::Build) && isBuildingTypeSelected && (*Gameplay::getInstance()).noSubWindowSelected())
+	if (InputHandler::active(t1::BindName::Build) && isBuildingTypeSelected && (*Gameplay::getInstance()).noSubWindowSelected())
 	{
 		placeBuilding(mouseMapCoord, team);
 		t1::system::sleep(150);
 		return;
 	}
 
-	if (InputHandler::jactive(t1::KeyName::Rotate_building))
+	if (InputHandler::jactive(t1::BindName::Rotate_building))
 	{
 		rotateBuilding();
 		t1::system::sleep(150);

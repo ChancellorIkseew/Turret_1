@@ -19,7 +19,7 @@ int main()
 
     openMainWindow();
 
-    std::cout << "return_to_main_works" << '\n';
+    std::cout << "return_to_main_works\n";
 
     _CrtDumpMemoryLeaks();
     return 0;

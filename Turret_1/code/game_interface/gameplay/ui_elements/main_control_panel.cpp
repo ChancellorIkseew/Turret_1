@@ -16,6 +16,7 @@
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/particles/particles.h"
 #include "map_structures/pre-settings/pre-settings.h"
+#include "t1_system/input/input_handler.h"
 #include "t1_system/t1_mutex.h"
 
 enum buttonsEnum
@@ -30,7 +31,6 @@ enum buttonsEnum
 
 MainControlPanel::MainControlPanel() : UIWindow(sf::Vector2u(312, 110), sf::Vector2u(0, 0))
 {
-	isPaused = true;
 	this->prepareInterfaceSprites();
 }
 
@@ -73,12 +73,13 @@ void MainControlPanel::interact(bool& isPaused, bool& isGameplayActive)
 {
 	if (buttons[SAVE].press())
 	{
-		PreSettings::savePreSettings();
+		PreSettings::save();
+		//PreSettings::load();
 
 		std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
-		//TerrainMap::saveMap(saveFolderName);
-		//BuildingsMap::saveMap(saveFolderName);
-		//t1::time::saveTime(saveFolderName);
+		//TerrainMap::save(saveFolderName);
+		//BuildingsMap::save(saveFolderName);
+		//t1::time::save(saveFolderName);
 	}
 	
 	if (buttons[EXIT_TO_MENU].press())
@@ -107,24 +108,13 @@ void MainControlPanel::interact(bool& isPaused, bool& isGameplayActive)
 		std::cout << "help button works" << std::endl;
 	}
 	
-	if (buttons[SET_PAUSE].press())
+	if (buttons[SET_PAUSE].press() || buttons[REMOVE_PAUSE].press() || InputHandler::jactive(t1::BindName::Pause))
 	{
-		std::cout << "set pause button works" << std::endl;
-		isPaused = true;
-		this->isPaused = isPaused;
-		buttons[SET_PAUSE].setVisible(false);
-		buttons[REMOVE_PAUSE].setVisible(true);
+		std::cout << "pause button works" << std::endl;
+		isPaused = !isPaused;
+		buttons[SET_PAUSE].setVisible(!isPaused);
+		buttons[REMOVE_PAUSE].setVisible(isPaused);
 	}
-	
-	if (buttons[REMOVE_PAUSE].press())
-	{
-		std::cout << "remove pause button works" << std::endl;
-		isPaused = false;
-		this->isPaused = isPaused;
-		buttons[REMOVE_PAUSE].setVisible(false);
-		buttons[SET_PAUSE].setVisible(true);
-	}
-	
 }
 
 

@@ -23,7 +23,7 @@ int Gameplay::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, std
 {
     if (!startNewGame)
     {
-        PreSettings::loadPreSettings();
+        PreSettings::load();
     }
 
 	TerrainMap terrainMap(PreSettings::getTerrain().mapSize);

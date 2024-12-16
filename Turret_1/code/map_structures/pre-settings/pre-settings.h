@@ -28,8 +28,8 @@ public:
 	PreSettings(std::string saveFolderName);
 	~PreSettings() = default;
 
-	static void loadPreSettings();
-	static void savePreSettings();
+	static void load();
+	static void save();
 	
 	static const GeneralPre& getGeneral() { return general; }
 	static const TerrainPre& getTerrain() { return terrain; }

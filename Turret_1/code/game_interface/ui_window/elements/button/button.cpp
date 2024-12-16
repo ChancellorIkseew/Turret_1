@@ -64,7 +64,7 @@ bool Button::press()
 	if (!isVisible || !select())
 		return false;
 
-	if (InputHandler::jactive(t1::KeyName::LMB))
+	if (InputHandler::jactive(t1::BindName::LMB))
 	{
 		isPressed = true;
 		t1::system::sleep(150);

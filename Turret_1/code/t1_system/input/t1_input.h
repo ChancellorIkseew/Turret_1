@@ -6,7 +6,7 @@
 
 namespace t1
 {
-	enum class KeyName
+	enum class BindName
 	{
 		LMB,
 		RMB,
@@ -23,6 +23,7 @@ namespace t1
 		Move_down,
 		Move_right,
 
+		Pause,
 		Console_cheat
 	};
 

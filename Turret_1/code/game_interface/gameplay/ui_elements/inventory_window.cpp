@@ -23,10 +23,9 @@ void InventoryWindow::prepareInterfaceSprites() { }
 void InventoryWindow::interact(const sf::Vector2f& mouseMapCoord, Team* const team)
 {
     TileCoord selectedTile = t1::be::tile(mouseMapCoord.x, mouseMapCoord.y);
-    if (InputHandler::jactive(t1::KeyName::LMB) && !BuildingsMap::isVoidBuilding(selectedTile))
+    if (InputHandler::jactive(t1::BindName::LMB) && !BuildingsMap::isVoidBuilding(selectedTile))
     {
         isVisible = !isVisible;
-        t1::system::sleep(150);
     }
     if (!isVisible || !BuildingsMap::buildingExists(selectedTile))
         return;

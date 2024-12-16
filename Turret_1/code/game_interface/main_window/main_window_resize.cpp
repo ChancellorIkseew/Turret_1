@@ -4,7 +4,7 @@
 
 #include "main_window_resize.h"
 
-#include "game_interface/settings/settings_util/settings_save_system.h"
+#include "game_interface/settings/settings.h"
 
 
 void overlayResize(sf::RenderWindow& mainWindow)
@@ -22,22 +22,18 @@ void overlayResize(sf::RenderWindow& mainWindow)
 	mainWindow.setView(overlay);
 }
 
-
-
 void mainWindowResize(sf::RenderWindow& mainWindow)
 {
-	if (mainWindow.getSize().x > maxGameplayWindowSizeX)	// mainWindow_scaling block
+	if (mainWindow.getSize().x > Settings::getDisplay().windowMaxSize.x)	// mainWindow_scaling block
 	{
 		std::cout << "mainWindow size chek works" << '\n';
-
-		mainWindow.setSize(sf::Vector2u(maxGameplayWindowSizeX, mainWindow.getSize().y));
+		mainWindow.setSize(sf::Vector2u(Settings::Settings::getDisplay().windowMaxSize.x, mainWindow.getSize().y));
 	}
 
-	if (mainWindow.getSize().y > maxGameplayWindowSizeY)
+	if (mainWindow.getSize().y > Settings::Settings::getDisplay().windowMaxSize.y)
 	{
 		std::cout << "mainWindow size chek works" << '\n';
-
-		mainWindow.setSize(sf::Vector2u(mainWindow.getSize().x, maxGameplayWindowSizeY));
+		mainWindow.setSize(sf::Vector2u(mainWindow.getSize().x, Settings::getDisplay().windowMaxSize.y));
 	}
 
 }

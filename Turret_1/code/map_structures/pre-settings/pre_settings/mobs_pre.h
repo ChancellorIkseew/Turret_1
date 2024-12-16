@@ -2,8 +2,7 @@
 #ifndef MAP_STR_MOBS_PRE_H
 #define MAP_STR_MOBS_PRE_H
 
-#include <map>
-
+#include "util/parser/cpptoml.h"
 
 struct MobsPre
 {
@@ -11,6 +10,29 @@ struct MobsPre
 	float maxDurabilityModifier;
 	float collisionDamage;
 	uint8_t virtIntLevel;
+
+	void save(std::shared_ptr<cpptoml::table> root) const
+	{
+		auto mobsRoot = cpptoml::make_table();
+		mobsRoot->insert("quantity-modifier", quantityModifier);
+		mobsRoot->insert("max-durability-modifier", maxDurabilityModifier);
+		mobsRoot->insert("collision-damage", collisionDamage);
+		mobsRoot->insert("ai-level", virtIntLevel);
+		root->insert("mobs", mobsRoot);
+	}
+
+	void load(std::shared_ptr<cpptoml::table> root)
+	{
+		const auto table = root->get_table("mobs");
+		//
+		quantityModifier = table->get_as<uint8_t>("quantity-modifier").value_or(1);
+		const auto x1 = table->get_as<double>("max-durability-modifier");
+		maxDurabilityModifier = static_cast<float>(x1.value_or(1.0f));
+		const auto x2 = table->get_as<double>("collision-damage");
+		collisionDamage = static_cast<float>(x2.value_or(1.0f));
+		virtIntLevel = table->get_as<uint8_t>("ai-level").value_or(1);
+	}
+
 };
 
 #endif // MAP_STR_MOBS_PRE_H

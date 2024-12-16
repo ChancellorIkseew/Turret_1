@@ -39,7 +39,7 @@ TerrainMap::~TerrainMap()
 }
 
 
-void TerrainMap::generateMap() //empty constructor
+void TerrainMap::generateMap()
 {
 	terrainMap = std::move(generateTerrain(PreSettings::getTerrain()));
 }

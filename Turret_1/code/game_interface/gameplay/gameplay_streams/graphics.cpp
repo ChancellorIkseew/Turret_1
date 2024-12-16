@@ -11,7 +11,7 @@
 #include "game_interface/gameplay/ui_elements/settings_window.h"
 
 #include "map_structures/entities/turret/turret.h"
-
+#include <iostream>
 
 void Gameplay::graphics(sf::RenderWindow& mainWindow)
 {

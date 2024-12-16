@@ -11,8 +11,6 @@
 class MainControlPanel : public UIWindow
 {
 private:
-	bool isPaused;
-	
 	std::map<int, Button> buttons;
 	
 	sf::Text waveNumberText;

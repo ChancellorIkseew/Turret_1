@@ -39,7 +39,7 @@ bool BuildingIco::select() const
 
 bool BuildingIco::press()
 {
-	if (select() && InputHandler::jactive(t1::KeyName::LMB))
+	if (select() && InputHandler::jactive(t1::BindName::LMB))
 	{
 		t1::system::sleep(150);
 		return true;

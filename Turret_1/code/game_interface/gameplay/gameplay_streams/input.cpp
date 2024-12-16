@@ -20,13 +20,13 @@ void Gameplay::input(sf::RenderWindow& mainWindow)
         inventoryWindow.interact(mouseMapCoord, player.get());
 
 #ifndef TURRET_1_NO_TEST_BUILD
-        if (InputHandler::jactive(t1::KeyName::Console_cheat))
+        if (InputHandler::jactive(t1::BindName::Console_cheat))
         {
-            std::cout << "cheet_comands_panel_called" << '\n';
+            std::cout << "cheet_comands_panel_called\n";
             acceptCheetCommand();
         }
 #endif // TURRET_1_NO_TEST_BUILD
-
+        
         t1::system::sleep(16);
     }
 }

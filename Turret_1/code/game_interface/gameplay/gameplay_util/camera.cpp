@@ -2,7 +2,6 @@
 #include "camera.h"
 #include "map_structures/pre-settings/pre-settings.h"
 #include "t1_system/input/input_handler.h"
-#include <iostream>
 
 constexpr float MIN_MAP_SCALE = 0.5f, MAX_MAP_SCALE = 5.0f;
 constexpr float SCALE_FACTOR = 1.2f;
@@ -36,20 +35,10 @@ void Camera::interact(const sf::RenderWindow& window)
 
 void Camera::moveByMouse()
 {
-	if (InputHandler::active(t1::KeyName::MidMB))
-	{
-		if (!isMooving)
-		{
-			movingStartMouseCoord = InputHandler::getMouseMapCoord();
-			isMooving = true;
-		}
-	}
-	else
-	{
-		isMooving = false;
-	}
+	if (InputHandler::jactive(t1::BindName::MidMB))
+		movingStartMouseCoord = InputHandler::getMouseMapCoord();
 
-	if (isMooving)
+	if (InputHandler::active(t1::BindName::MidMB))
 	{
 		const sf::Vector2f newMouseMapCoord = InputHandler::getMouseMapCoord();
 		const sf::Vector2f delta = movingStartMouseCoord - newMouseMapCoord;
@@ -61,13 +50,13 @@ void Camera::moveByWASD()
 {
 	sf::Vector2f delta = sf::Vector2f(0.0f, 0.0f);
 
-	if (InputHandler::active(t1::KeyName::Move_up))
+	if (InputHandler::active(t1::BindName::Move_up))
 		delta.y -= 1.0f;
-	if (InputHandler::active(t1::KeyName::Move_left))
+	if (InputHandler::active(t1::BindName::Move_left))
 		delta.x -= 1.0f;
-	if (InputHandler::active(t1::KeyName::Move_down))
+	if (InputHandler::active(t1::BindName::Move_down))
 		delta.y += 1.0f;
-	if (InputHandler::active(t1::KeyName::Move_right))
+	if (InputHandler::active(t1::BindName::Move_right))
 		delta.x += 1.0f;
 
 	if (delta != sf::Vector2f(0.0f, 0.0f))

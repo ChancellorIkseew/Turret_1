@@ -5,7 +5,7 @@
 #include "settings_window.h"
 
 #include "game_interface/ui_window/sub_win_util/fonts.h"
-#include "game_interface/settings/settings_util/settings_save_system.h"
+#include "game_interface/settings/settings.h"
 #include "game_interface/main_window/main_window_resize.h"
 #include "t1_system/input/input_handler.h"
 
@@ -40,7 +40,7 @@ bool SettingsWindow::interact()
 {
 	while (true)
 	{
-		if (InputHandler::jactive(t1::KeyName::LMB))
+		if (InputHandler::jactive(t1::BindName::LMB))
 		{
 			/*
 			if (confirmButtonSprite.getGlobalBounds().contains(mouseCoord.x, mouseCoord.y))
