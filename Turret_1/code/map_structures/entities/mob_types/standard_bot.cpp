@@ -15,9 +15,9 @@ StandardBot::StandardBot(const uint16_t type, Team* const team) : Entity(type, t
 }
 
 
-void StandardBot::shoot()
+void StandardBot::shoot(const BuildingsMap& buildingsMap)
 {
-	Entity::detectAim();
+	Entity::detectAim(buildingsMap);
 	Entity::reloadWeapon();
 	
 	if (isAimDetected)

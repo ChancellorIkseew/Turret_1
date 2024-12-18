@@ -10,6 +10,7 @@
 #include "map_structures/entities/behavior/path_finding.h"
 
 class Team;
+class BuildingsMap;
 
 class Entity
 {
@@ -50,7 +51,7 @@ protected:
 	static inline sf::Sprite shieldSprite;
 
 	void reloadWeapon();
-	void detectAim();
+	void detectAim(const BuildingsMap& buildingsMap);
 
 public:
 	static void initPreSettings();
@@ -66,25 +67,25 @@ public:
 
 	// combat
 	bool tileChanged() const;
-	virtual void motion();
-	virtual void shoot() = 0;
+	virtual void motion(const BuildingsMap& buildingsMap);
+	virtual void shoot(const BuildingsMap& buildingsMap) = 0;
 
 	// simple_utilites
 	void setDurability(const int16_t durability);
 	void setDamage(const int16_t damage);
 	void setCoord(const PixelCoord coord);
-	uint16_t getType() const;
-	PixelCoord getCoord() const;
-	TileCoord getTile() const;
-	int getAngleDeg() const;
-	int getDurability() const;
+	uint16_t getType() const { return type; }
+	PixelCoord getCoord() const { return coord; }
+	TileCoord getTile() const { return currentTile; }
+	int getAngleDeg() const { return motionAngleDeg; }
+	int getDurability() const { return durability; }
 
 	// visual
 	static void prepareSprites();
 	virtual void draw(sf::RenderWindow& window) = 0;
 
-	friend PixelCoord t1::ent::findAim(const Entity& entity);
-	friend TileCoord t1::ent::findDestination(const Entity& entity);
+	friend PixelCoord t1::ent::findAim(const Entity& entity, const BuildingsMap& buildingsMap);
+	friend TileCoord t1::ent::findDestination(const Entity& entity, const BuildingsMap& buildingsMap);
 		
 };
 

@@ -12,7 +12,7 @@ public:
 	RocketBot(const uint16_t type, Team* const team);
 	~RocketBot() = default;
 
-	void shoot() override final;
+	void shoot(const BuildingsMap& buildingsMap) override final;
 
 	void draw(sf::RenderWindow& window) override final;
 

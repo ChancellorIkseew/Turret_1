@@ -15,9 +15,9 @@ HeavyBot::HeavyBot(const uint16_t type, Team* const team) : Entity(type, team)
 }
 
 
-void HeavyBot::shoot()
+void HeavyBot::shoot(const BuildingsMap& buildingsMap)
 {
-	Entity::detectAim();
+	Entity::detectAim(buildingsMap);
 	Entity::reloadWeapon();
 
 	if (isAimDetected)

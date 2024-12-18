@@ -30,8 +30,9 @@ enum Pages
 };
 
 
-BuildingPanel::BuildingPanel() : UIWindow(sf::Vector2u(324, 192), sf::Vector2u(0, 0))
+BuildingPanel::BuildingPanel(World* world) : UIWindow(sf::Vector2u(324, 192), sf::Vector2u(0, 0))
 {
+	this->world = world;
 	selectedPage = LOGISTICS;
 	isBuildingTypeSelected = false;
 	newBuildingType = VOID_;
@@ -181,7 +182,7 @@ void BuildingPanel::drawBuildExample(sf::RenderWindow& window, Team* const team)
 	}
 
 	TileCoord selectedTile = t1::be::tile(mouseMapCoord.x, mouseMapCoord.y);
-	if (BuildingsMap::isAvaluablePlaceBuilding(newBuildingType, selectedTile, team) ||
+	if (world->getBuildingsMap().isAvaluablePlaceBuilding(newBuildingType, selectedTile, team) ||
 		newBuildingType == AUTOCANNON_TURRET || newBuildingType == ROCKET_TURRET)
 		buildExample.setColor(whiteTransparent);
 	else
@@ -259,18 +260,18 @@ void BuildingPanel::placeBuilding(const sf::Vector2f& mouseMapCoord, Team* const
 	std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
 	if (newBuildingType == REMOVE)
 	{
-		if (BuildingsMap::isTurretOnTile(selectedTile))
-			BuildingsMap::removeTurret(selectedTile);
+		if (world->getBuildingsMap().isTurretOnTile(selectedTile))
+			world->getBuildingsMap().removeTurret(selectedTile);
 		else
-			BuildingsMap::demolishBuilding(selectedTile);
+			world->getBuildingsMap().demolishBuilding(selectedTile);
 	}
 	else if (newBuildingType == AUTOCANNON_TURRET || newBuildingType == ROCKET_TURRET)
 	{
-		if (!BuildingsMap::isTurretOnTile(selectedTile))
-			BuildingsMap::setTurret(newBuildingType, selectedTile, team);
+		if (!world->getBuildingsMap().isTurretOnTile(selectedTile))
+			world->getBuildingsMap().setTurret(newBuildingType, selectedTile, team);
 	}
 	else
 	{
-		BuildingsMap::constructBuilding(newBuildingType, direction, selectedTile, team);
+		world->getBuildingsMap().constructBuilding(newBuildingType, direction, selectedTile, team);
 	}
 }

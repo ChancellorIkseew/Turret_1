@@ -46,14 +46,7 @@ void Gameplay::graphics(sf::RenderWindow& mainWindow)
         
         mainWindow.clear(sf::Color::Black);		//Begin draw_block
         camera.interact(mainWindow);
-
-        t1::system::mt::buildings.lock();
-        TerrainMap::drawMap(mainWindow);
-        BuildingsMap::drawMap(mainWindow);
-        drawParticlesList(mainWindow);
-        Team::drawAll(mainWindow);
-        t1::system::mt::buildings.unlock();
-
+        world.draw(mainWindow);
         buildingPanel.drawBuildExample(mainWindow, player.get());
 
         mainWindow.setView(overlay);			//Draw_inteface block

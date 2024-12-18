@@ -390,7 +390,7 @@
     <ClCompile Include="code\game_interface\settings\settings.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="code\map_structures\save\save_world.cpp">
+    <ClCompile Include="code\map_structures\world\world.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -749,7 +749,7 @@
     <ClInclude Include="code\game_interface\settings\settings\display_settings.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="code\map_structures\save\save_world.h">
+    <ClInclude Include="code\map_structures\world\world.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\game_interface\settings\settings\saving_settings.h">

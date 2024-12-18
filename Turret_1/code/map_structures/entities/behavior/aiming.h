@@ -5,10 +5,11 @@
 #include "map_structures/base_engine/base_engine.h"
 
 class Entity;
+class BuildingsMap;
 
 namespace t1::ent
 {
-	PixelCoord findAim(const Entity& entity);
+	PixelCoord findAim(const Entity& entity, const BuildingsMap& buildingsMap);
 }
 
 #endif // T1_ENT_AIMING_H

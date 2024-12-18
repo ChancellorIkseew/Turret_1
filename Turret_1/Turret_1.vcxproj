@@ -243,7 +243,7 @@
     <ClCompile Include="code\map_structures\pre-settings\pre-settings.cpp" />
     <ClCompile Include="code\map_structures\resources\all_resources.cpp" />
     <ClCompile Include="code\map_structures\resources\resource_unit.cpp" />
-    <ClCompile Include="code\map_structures\save\save_world.cpp" />
+    <ClCompile Include="code\map_structures\world\world.cpp" />
     <ClCompile Include="code\map_structures\shells\shells_list\shells_list.cpp" />
     <ClCompile Include="code\map_structures\shells\shell\create_shell.cpp" />
     <ClCompile Include="code\map_structures\shells\shell\shell.cpp" />
@@ -368,7 +368,7 @@
     <ClInclude Include="code\map_structures\resources\all_resources.h" />
     <ClInclude Include="code\map_structures\resources\resource_unit.h" />
     <ClInclude Include="code\map_structures\resources\res_enum.h" />
-    <ClInclude Include="code\map_structures\save\save_world.h" />
+    <ClInclude Include="code\map_structures\world\world.h" />
     <ClInclude Include="code\map_structures\shells\shells_list\shells_list.h" />
     <ClInclude Include="code\map_structures\shells\shell\shell.h" />
     <ClInclude Include="code\map_structures\shells\shell\shell_enum.h" />

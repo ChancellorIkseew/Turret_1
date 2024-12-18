@@ -10,6 +10,7 @@
 #include "specification_panel.h"
 
 class Team;
+class World;
 
 class BuildingPanel : public UIWindow
 {
@@ -22,6 +23,7 @@ private:
 	static inline sf::Texture buildingsTexture;
 	static inline sf::Sprite buildExample;
 
+	World* world;
 	int selectedPage;
 	bool isBuildingTypeSelected;
 	int oldBuildingType, newBuildingType;
@@ -39,7 +41,7 @@ private:
 	BuildingPanel& operator=(const BuildingPanel&) = delete;
 	
 public:
-	BuildingPanel();
+	BuildingPanel(World* world);
 	~BuildingPanel() = default;
 	
 	void interact(const sf::Vector2f& mouseMapCoord, Team* const team);

@@ -16,15 +16,10 @@
 class Team
 {
 private:
-	
 	int ID;
 	sf::String name;
 
-	void interact();
-	void draw(sf::RenderWindow& window);
-
 public:
-	static inline std::unordered_set<std::shared_ptr<Team>> teams;
 	EntitiesList entities;
 	ShellsList shells;
 	Balance balance;
@@ -32,10 +27,8 @@ public:
 	Team(sf::String name);
 	~Team() = default;
 
-	static void addTeam(const sf::String& name);
-	static void addTeam(const std::shared_ptr<Team> team);
-	static void interactAll();
-	static void drawAll(sf::RenderWindow& window);
+	void interact(const BuildingsMap& buildingsMap);
+	void draw(sf::RenderWindow& window);
 
 	void spawnShell(const uint16_t, const PixelCoord coord, float angleRad, float angleDeg);
 	void spawnEntity(const uint8_t amount, const uint16_t);

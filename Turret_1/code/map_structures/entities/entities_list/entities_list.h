@@ -26,7 +26,7 @@ public:
 	void spawnEntity(const uint8_t amount, const uint16_t type, Team* const team);
 	void clean() noexcept;
 
-	void interact();
+	void interact(const BuildingsMap& buildingsMap);
 	void draw(sf::RenderWindow& mainWindow);
 
 	std::list<std::unique_ptr<Entity>>::iterator begin() noexcept;

@@ -19,7 +19,7 @@
 #include "t1_system/input/input_handler.h"
 #include "t1_system/t1_mutex.h"
 
-#include "map_structures/save/save_world.h"
+#include "map_structures/world/world.h"
 
 enum buttonsEnum
 {
@@ -76,11 +76,8 @@ void MainControlPanel::interact(bool& isPaused, bool& isGameplayActive)
 	if (buttons[SAVE].press())
 	{
 		PreSettings::save();
-		SaveWorld::save("saves/try.bin");
-
 		std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
-		//TerrainMap::save(saveFolderName);
-		//BuildingsMap::save(saveFolderName);
+		Gameplay::getWorld().save("saves/try.bin");
 		//t1::time::save(saveFolderName);
 	}
 	

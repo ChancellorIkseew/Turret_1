@@ -15,6 +15,7 @@
 #include "game_interface/gameplay/ui_elements/resources_panel.h"
 #include "game_interface/gameplay/ui_elements/building_panel.h"
 #include "game_interface/gameplay/ui_elements/inventory_window.h"
+#include "map_structures/world/world.h"
 
 
 class Gameplay
@@ -23,6 +24,7 @@ private:
 	bool isPaused = true;
 	bool isGameplayActive = true;
 
+	World world;
 	Camera camera;
 
 	MainControlPanel mainControlPanel;
@@ -50,6 +52,7 @@ public:
 	bool noSubWindowSelected();
 
 	static Gameplay* getInstance();
+	World& getWorld() { return world; }
 
 };
 

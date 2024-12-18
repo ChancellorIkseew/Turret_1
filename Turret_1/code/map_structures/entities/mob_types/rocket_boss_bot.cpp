@@ -15,9 +15,9 @@ RocketBossBot::RocketBossBot(const uint16_t type, Team* const team) : Entity(typ
 }
 
 
-void RocketBossBot::shoot()
+void RocketBossBot::shoot(const BuildingsMap& buildingsMap)
 {
-	Entity::detectAim();
+	Entity::detectAim(buildingsMap);
 	Entity::reloadWeapon();
 
 	if (isAimDetected)

@@ -31,65 +31,17 @@ BuildingsMap::BuildingsMap(const TileCoord mapSize)
 	}
 }
 
-BuildingsMap::~BuildingsMap()
+
+void BuildingsMap::save(cereal::BinaryOutputArchive& archive) const
 {
-	buildingsMap.clear();
+	archive(buildingsMap);
+	archive(cores);
 }
 
-
-void BuildingsMap::loadMap(const std::string& folder)
+void BuildingsMap::load(cereal::BinaryInputArchive& archive)
 {
-	/*
-	std::string file = "saves/" + folder + "/buildings.txt";
-	std::ifstream fin;
-	fin.open(file);
-	if (fin.is_open())
-	{
-		while (true)
-		{
-			char nextSymbol;
-			fin >> nextSymbol;
-			if (nextSymbol == '&')
-				break;
-			
-			fin.seekg(-1, std::ios::cur);
-			TileCoord tile = { 0, 0 };
-			int type;
-			fin >> tile.x >> tile.y >> type;
-			buildingsMap[tile.x][tile.y] = Building::createBuilding(type, 0, 0, 0, tile, team);
-			buildingsMap[tile.x][tile.y]->load(fin);
-			createAuxilary(buildingsMap[tile.x][tile.y]->getSize(), tile, team);
-		}
-	}
-	fin.close();
-	isMapChanged = true;
-	std::cout << "sucñessfull_buildings_map_load" << '\n';
-	*/
-}
-
-
-void BuildingsMap::saveMap(const std::string& folder)
-{
-	std::string file = "saves/" + folder + "/buildings.txt";
-	std::ofstream fout;
-	fout.open(file);
-	if (fout.is_open())
-	{
-		for (int x = 0; x < mapSize.x; x++)
-		{
-			for (int y = 0; y < mapSize.y; y++)
-			{
-				if (buildingsMap[x][y] != nullptr && buildingsMap[x][y]->getType() != AUXILARY)
-				{
-					fout << x << " " << y << " " << buildingsMap[x][y]->getType() << '\n';
-					buildingsMap[x][y]->save(fout);
-				}
-			}
-		}
-		fout << '&';
-	}
-	fout.close();
-	std::cout << "Save_buildings_map_works" <<'\n';
+	archive(buildingsMap);
+	archive(cores);
 }
 
 
@@ -127,12 +79,12 @@ bool BuildingsMap::placeBuilding(const uint16_t type, const char direction, cons
 	createAuxilary(size, tile, team);
 	if (type == CORE_MK1 || type == CORE_MK2 || type == CORE_MK3)
 		cores.emplace_back(building);
-	justTriggeredTiles.push_back(tile);
+	justChangedTiles.push_back(tile);
 	return true;
 }
 
 
-bool BuildingsMap::isAvaluablePlaceBuilding(const uint16_t type, const TileCoord tile, Team* const team)
+bool BuildingsMap::isAvaluablePlaceBuilding(const uint16_t type, const TileCoord tile, Team* const team) const
 {
 	int size = t1::bc::buildingsInfoTable[type].size;
 	for (int i = 0; i < size; i++) // cheeck_square_for_place
@@ -156,7 +108,7 @@ void BuildingsMap::demolishBuilding(const TileCoord tile)
 	{
 		TileCoord iTile = mainBuilding + t1::be::coordSquareArr[i];
 		buildingsMap[iTile.x][iTile.y].reset();
-		justTriggeredTiles.push_back(iTile);
+		justChangedTiles.push_back(iTile);
 	}
 	if (type == CORE_MK1 || type == CORE_MK2 || type == CORE_MK3)
 	{
@@ -172,24 +124,24 @@ void BuildingsMap::demolishBuilding(const TileCoord tile)
 }
 
 
-bool BuildingsMap::buildingExists(const int tileX, const int tileY)
+bool BuildingsMap::buildingExists(const int tileX, const int tileY) const
 {
 	return (tileX >= 0 && tileX < mapSize.x && tileY >= 0 && tileY < mapSize.y &&
 		buildingsMap[tileX][tileY] != nullptr);
 }
 
-bool BuildingsMap::isVoidBuilding(const int tileX, const int tileY)
+bool BuildingsMap::isVoidBuilding(const int tileX, const int tileY) const
 {
 	return (tileX >= 0 && tileX < mapSize.x && tileY >= 0 && tileY < mapSize.y &&
 		buildingsMap[tileX][tileY] == nullptr);
 }
 
-bool BuildingsMap::buildingExists(const TileCoord tile)
+bool BuildingsMap::buildingExists(const TileCoord tile) const
 {
 	return buildingExists(tile.x, tile.y);
 }
 
-bool BuildingsMap::isVoidBuilding(const TileCoord tile)
+bool BuildingsMap::isVoidBuilding(const TileCoord tile) const
 {
 	return isVoidBuilding(tile.x, tile.y);
 }
@@ -208,7 +160,7 @@ void BuildingsMap::setDamage(const short damage, const TileCoord tile)
 }
 
 
-TileCoord BuildingsMap::getBuildingMainTileCoord(const TileCoord tile)
+TileCoord BuildingsMap::getBuildingMainTileCoord(const TileCoord tile) const
 {
 	if (!buildingExists(tile))
 		return {-1,-1};
@@ -224,7 +176,7 @@ void BuildingsMap::setBuildingDurability(const short durability, const TileCoord
 	buildingsMap[mainTile.x][mainTile.y]->setDurability(durability);
 }
 
-short BuildingsMap::getBuildingDurability(const TileCoord tile)
+short BuildingsMap::getBuildingDurability(const TileCoord tile) const
 { 
 	if (!buildingExists(tile))
 		return 0;
@@ -232,14 +184,14 @@ short BuildingsMap::getBuildingDurability(const TileCoord tile)
 	return buildingsMap[mainTile.x][mainTile.y]->getDurability();
 }
 
-char BuildingsMap::getBuildingDirection(const TileCoord tile)
+char BuildingsMap::getBuildingDirection(const TileCoord tile) const
 {
 	if (buildingExists(tile))
 		return buildingsMap[tile.x][tile.y]->getDirection();
 	return 0;
 }
 
-std::list<StoredResource> BuildingsMap::getInventory(const TileCoord tile)
+std::list<StoredResource> BuildingsMap::getInventory(const TileCoord tile) const
 {
 	if (!buildingExists(tile))
 	{
@@ -250,14 +202,14 @@ std::list<StoredResource> BuildingsMap::getInventory(const TileCoord tile)
 	return buildingsMap[mainTile.x][mainTile.y]->getInventory();
 }
 
-Team* BuildingsMap::getTeam(const TileCoord tile)
+Team* BuildingsMap::getTeam(const TileCoord tile) const
 {
 	if (buildingExists(tile))
 		return buildingsMap[tile.x][tile.y]->getTeam();
 	return nullptr;
 }
 
-int BuildingsMap::getTeamID(const TileCoord tile)
+int BuildingsMap::getTeamID(const TileCoord tile) const
 {
 	if (buildingExists(tile))
 		return buildingsMap[tile.x][tile.y]->getTeamID();
@@ -281,13 +233,13 @@ void BuildingsMap::intetractMap()
 
 void BuildingsMap::pushChanges()
 {
-	if (justTriggeredTiles.empty())
+	if (justChangedTiles.empty())
 		return;
-	EventsHandler::pushEvent(t1::EventType::MAP_CHANGED, std::make_unique<t1::MapChanged>(justTriggeredTiles));
-	justTriggeredTiles.clear();
+	EventsHandler::pushEvent(t1::EventType::MAP_CHANGED, std::make_unique<t1::MapChanged>(justChangedTiles));
+	justChangedTiles.clear();
 }
 
-const std::vector<std::shared_ptr<Building>>& BuildingsMap::getCores()
+const std::vector<std::shared_ptr<Building>>& BuildingsMap::getCores() const
 {
 	return cores;
 }
@@ -309,7 +261,7 @@ void BuildingsMap::addToInventory(ResourceUnit& unit, const TileCoord tile)
 	buildingsMap[mainTile.x][mainTile.y]->addToInventory(unit);
 }
 
-bool BuildingsMap::canAccept(const uint16_t resType, const TileCoord tile)
+bool BuildingsMap::canAccept(const uint16_t resType, const TileCoord tile) const
 {
 	if (!buildingExists(tile))
 		return false;
@@ -317,7 +269,7 @@ bool BuildingsMap::canAccept(const uint16_t resType, const TileCoord tile)
 	return buildingsMap[mainTile.x][mainTile.y]->canAccept(resType);
 }
 
-bool BuildingsMap::canAccept(const ResourceUnit& unit, const TileCoord tile)
+bool BuildingsMap::canAccept(const ResourceUnit& unit, const TileCoord tile) const
 {
 	if (!buildingExists(tile))
 		return false;
@@ -326,7 +278,7 @@ bool BuildingsMap::canAccept(const ResourceUnit& unit, const TileCoord tile)
 }
 
 
-int BuildingsMap::getBuildingType(const TileCoord tile)
+int BuildingsMap::getBuildingType(const TileCoord tile) const
 {
 	if (!buildingExists(tile))
 		return VOID_;
@@ -355,7 +307,7 @@ void BuildingsMap::removeTurret(const TileCoord tile)
 	buildingsMap[tile.x][tile.y]->removeTurret();
 }
 
-bool BuildingsMap::isTurretOnTile(const TileCoord tile)
+bool BuildingsMap::isTurretOnTile(const TileCoord tile) const
 {
 	if (!buildingExists(tile))
 		return false;
@@ -363,7 +315,7 @@ bool BuildingsMap::isTurretOnTile(const TileCoord tile)
 }
 
 
-void BuildingsMap::drawMap(sf::RenderWindow& window)
+void BuildingsMap::draw(sf::RenderWindow& window)
 {
 	const TileCoord start = Camera::getStartTile();
 	const TileCoord end = Camera::getEndTile();

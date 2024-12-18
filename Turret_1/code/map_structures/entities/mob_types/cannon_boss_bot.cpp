@@ -14,9 +14,9 @@ CannonBossBot::CannonBossBot(const uint16_t type, Team* const team) : Entity(typ
 }
 
 
-void CannonBossBot::shoot()
+void CannonBossBot::shoot(const BuildingsMap& buildingsMap)
 {
-	Entity::detectAim();
+	Entity::detectAim(buildingsMap);
 	Entity::reloadWeapon();
 
 	if (isAimDetected)

@@ -21,6 +21,7 @@ HeavyShell::HeavyShell(const uint16_t type, PixelCoord coord, float angleRad, fl
 
 void HeavyShell::explosion()
 {
+	/*
 	TileCoord centreTile = t1::be::tile(coord);
 	TileCoord tile{ 0, 0 };
 	for (int i = 0; i < 9; ++i)
@@ -47,6 +48,7 @@ void HeavyShell::explosion()
 		}
 	}
 	particlesList.push_back(std::make_unique<Particle>(1, coord));
+	*/
 }
 
 

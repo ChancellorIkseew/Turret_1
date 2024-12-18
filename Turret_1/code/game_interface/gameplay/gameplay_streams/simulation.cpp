@@ -21,14 +21,14 @@ void Gameplay::simulation()
     {
         if (!isPaused)
         {
-            BuildingsMap::pushChanges();
+            world.getBuildingsMap().pushChanges();
 
 
-            //t1::res::useEnergy(time);
             t1::system::mt::buildings.lock();
-            BuildingsMap::intetractMap();
             createWave(*enemy);
-            Team::interactAll();
+            
+
+
             moveParticlesList();
             t1::system::mt::buildings.unlock();
             t1::time::time++;

@@ -23,7 +23,7 @@ Entity::Entity(const uint16_t type, Team* const team)		//1st spawn
 	this->type = type;
 	this->team = team;
 	isAimDetected = false;
-	destCoord = pixel(t1::ent::findClosestCore(*this));
+	destCoord = pixel(t1::ent::findClosestCore(*this, buildingsMap));
 	aimCoord = destCoord;
 	reloadTimer = 0;
 	maxSpeed = 0.1f;
@@ -50,7 +50,7 @@ bool Entity::tileChanged() const
 }
 
 
-void Entity::motion()
+void Entity::motion(const BuildingsMap& buildingsMap)
 {
 	this->motionAngleRad = atan2f(destCoord.x - coord.x, destCoord.y - coord.y);
 	this->motionAngleDeg = t1::be::radToDegree(motionAngleRad);
@@ -58,19 +58,19 @@ void Entity::motion()
 	int nextTileX = tile(coord.x + sin(motionAngleRad) * BASIC_COLLISION_RADIUS);
 	int nextTileY = tile(coord.y + cos(motionAngleRad) * BASIC_COLLISION_RADIUS);
 
-	if (BuildingsMap::isVoidBuilding(nextTileX, nextTileY))
+	if (buildingsMap.isVoidBuilding(nextTileX, nextTileY))
 	{
 		this->coord.x += sin(motionAngleRad) * maxSpeed;
 		this->coord.y += cos(motionAngleRad) * maxSpeed;
 	}
 	else
 	{
-		destCoord = pixel(t1::ent::findDestination(*this));
+		destCoord = pixel(t1::ent::findDestination(*this, buildingsMap));
 	}
 
 	if (tileChanged())
 	{
-		destCoord = pixel(t1::ent::findClosestCore(*this));
+		destCoord = pixel(t1::ent::findClosestCore(*this, buildingsMap));
 	}
 
 	this->oldTile = this->currentTile;
@@ -78,11 +78,11 @@ void Entity::motion()
 }
 
 
-void Entity::detectAim()
+void Entity::detectAim(const BuildingsMap& buildingsMap)
 {
 	if (tileChanged() || EventsHandler::active(t1::EventType::MAP_CHANGED))
 	{
-		PixelCoord newAimCoord = t1::ent::findAim(*this);
+		PixelCoord newAimCoord = t1::ent::findAim(*this, buildingsMap);
 		if (newAimCoord.x != 0)	// "0" - aim_was_not_detected
 		{
 			aimCoord = newAimCoord;
@@ -117,14 +117,6 @@ void Entity::setCoord(const PixelCoord coord)
 {
 	this->coord = coord;
 }
-
-
-uint16_t Entity::getType() const { return type; }
-PixelCoord Entity::getCoord() const { return coord; }
-TileCoord Entity::getTile() const { return tile(coord); }
-int Entity::getAngleDeg() const { return int(motionAngleDeg); }
-int Entity::getDurability() const { return durability; }
-
 
 // visual
 void Entity::prepareSprites()

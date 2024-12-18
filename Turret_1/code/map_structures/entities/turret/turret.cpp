@@ -35,6 +35,7 @@ void Turret::load(std::ifstream& fin)
 
 PixelCoord Turret::findShootingAim() const
 {
+	/*
 	for (auto& tm : Team::teams)
 	{
 		if (this->team->getID() != tm->getID())
@@ -63,7 +64,7 @@ PixelCoord Turret::findShootingAim() const
 			return t1::be::pixel(aimTile);
 		}
 	}
-	
+	*/
 	return { 0.0f, 0.0f };
 }
 

@@ -10,8 +10,8 @@
 class TerrainMap
 {
 private:	
-	static inline TileCoord mapSize;
-	static inline std::vector<std::vector<std::unique_ptr<int>>> terrainMap;
+	TileCoord mapSize = TileCoord(0, 0);
+	std::vector<std::vector<std::unique_ptr<int>>> terrainMap;
 	
 	static inline sf::Image terrainImage;
 	static inline sf::Texture terrainTexture;
@@ -20,17 +20,17 @@ private:
 public:
 	TerrainMap() = default;
 	TerrainMap(const TileCoord mapSize);
-	~TerrainMap();
+	~TerrainMap() = default;
 
-	static void save(cereal::BinaryOutputArchive& archive);
-	static void load(cereal::BinaryInputArchive& archive);
+	void save(cereal::BinaryOutputArchive& archive) const;
+	void load(cereal::BinaryInputArchive& archive);
 
-	static void generateMap(); //empty constructor
+	void generate(); //empty constructor
 	
-	static int getTileType(int tileX, int tileY);
+	int getTileType(int tileX, int tileY);
 	
-	static void prepareSprites();
-	static void drawMap(sf::RenderWindow& window);
+	void prepareSprites();
+	void draw(sf::RenderWindow& window);
 	
 };
 

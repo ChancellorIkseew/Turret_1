@@ -2,9 +2,9 @@
 #ifndef BUILDINGS_MAP_H
 #define BUILDINGS_MAP_H
 
-#include <string>
 #include <vector>
 #include <SFML\Graphics.hpp>
+#include <cereal/archives/binary.hpp>
 
 #include "map_structures/base_engine/base_engine.h"
 #include "map_structures/buildings/building/building.h"
@@ -14,58 +14,59 @@
 class BuildingsMap
 {
 private:
-	static inline TileCoord mapSize;
-	static inline std::vector<std::vector<std::shared_ptr<Building>>> buildingsMap;
-	static inline std::vector<std::shared_ptr<Building>> cores;
-	static inline std::vector<TileCoord> justTriggeredTiles;
+	TileCoord mapSize = TileCoord(0, 0);
+	std::vector<std::vector<std::shared_ptr<Building>>> buildingsMap;
+	std::vector<std::shared_ptr<Building>> cores;
+	std::vector<TileCoord> justChangedTiles;
 	
-	static void createAuxilary(const short size, const TileCoord tile, Team* team);
+	void createAuxilary(const short size, const TileCoord tile, Team* team);
 
 public:
 	BuildingsMap(const TileCoord mapSize);
-	~BuildingsMap();
+	BuildingsMap() = default;
+	~BuildingsMap() = default;
 	
-	static void loadMap(const std::string& folder);
-	static void saveMap(const std::string& folder);
+	void save(cereal::BinaryOutputArchive& archive) const;
+	void load(cereal::BinaryInputArchive& archive);
 	
-	static void intetractMap();
-	static void pushChanges();
-	static const std::vector<std::shared_ptr<Building>>& getCores();
+	void intetractMap();
+	void pushChanges();
+	const std::vector<std::shared_ptr<Building>>& getCores() const;
 
 	// Construction_process
-	static void constructBuilding(const uint16_t type, const char direction, const TileCoord tile, Team* const team);
-	static bool placeBuilding(const uint16_t type, const char direction, const TileCoord tile, Team* const team);
-	static bool isAvaluablePlaceBuilding(const uint16_t type, const TileCoord tile, Team* const team);
-	static void demolishBuilding(const TileCoord tile);
+	void constructBuilding(const uint16_t type, const char direction, const TileCoord tile, Team* const team);
+	bool placeBuilding(const uint16_t type, const char direction, const TileCoord tile, Team* const team);
+	bool isAvaluablePlaceBuilding(const uint16_t type, const TileCoord tile, Team* const team) const;
+	void demolishBuilding(const TileCoord tile);
 	
 	// Simple_utilites
-	static inline bool buildingExists(const int tileX, const int tileY);
-	static inline bool isVoidBuilding(const int tileX, const int tileY);
-	static bool buildingExists(const TileCoord tile);
-	static bool isVoidBuilding(const TileCoord tile);
-	static void setBuildingDurability(const short durability, const TileCoord tile);
-	static void setDamage(const short damage, const TileCoord tile);
-	static int getBuildingType(const TileCoord tile);
-	static short getBuildingDurability(const TileCoord tile);
-	static char getBuildingDirection(const TileCoord tile);
-	static TileCoord getBuildingMainTileCoord(const TileCoord tile);
-	static std::list<StoredResource> getInventory(const TileCoord tile);
-	static Team* getTeam(const TileCoord tile);
-	static int getTeamID(const TileCoord tile);
-	
+	inline bool buildingExists(const int tileX, const int tileY) const;
+	inline bool isVoidBuilding(const int tileX, const int tileY) const;
+	bool buildingExists(const TileCoord tile) const;
+	bool isVoidBuilding(const TileCoord tile) const;
+	int getBuildingType(const TileCoord tile) const;
+	short getBuildingDurability(const TileCoord tile) const;
+	char getBuildingDirection(const TileCoord tile) const;
+	TileCoord getBuildingMainTileCoord(const TileCoord tile) const;
+	std::list<StoredResource> getInventory(const TileCoord tile) const;
+	Team* getTeam(const TileCoord tile) const;
+	int getTeamID(const TileCoord tile) const;
+	void setBuildingDurability(const short durability, const TileCoord tile);
+	void setDamage(const short damage, const TileCoord tile);
+
 	// resources_and_inventory
-	static bool canAccept(const uint16_t resType, const TileCoord tile);
-	static bool canAccept(const ResourceUnit& unit, const TileCoord tile);
-	static void addToInventory(const uint16_t resType, const TileCoord tile);
-	static void addToInventory(ResourceUnit& unit, const TileCoord tile);
+	bool canAccept(const uint16_t resType, const TileCoord tile) const;
+	bool canAccept(const ResourceUnit& unit, const TileCoord tile) const;
+	void addToInventory(const uint16_t resType, const TileCoord tile);
+	void addToInventory(ResourceUnit& unit, const TileCoord tile);
 
 	// turrets
-	static void setTurret(const uint16_t turretType, const TileCoord tile, Team* const team);
-	static void removeTurret(const TileCoord tile);
-	static bool isTurretOnTile(const TileCoord tile);
+	void setTurret(const uint16_t turretType, const TileCoord tile, Team* const team);
+	void removeTurret(const TileCoord tile);
+	bool isTurretOnTile(const TileCoord tile) const;
 	
 	// Visual
-	static void drawMap(sf::RenderWindow& window);
+	void draw(sf::RenderWindow& window);
 
 };
 

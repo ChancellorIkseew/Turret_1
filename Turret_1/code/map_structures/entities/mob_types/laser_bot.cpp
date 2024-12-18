@@ -15,9 +15,9 @@ LaserBot::LaserBot(const uint16_t type, Team* const team) : Entity(type, team)
 }
 
 
-void LaserBot::shoot()
+void LaserBot::shoot(const BuildingsMap& buildingsMap)
 {
-	Entity::detectAim();
+	Entity::detectAim(buildingsMap);
 	Entity::reloadWeapon();
 
 	if (isAimDetected)

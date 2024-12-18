@@ -18,62 +18,48 @@
 #include "game_interface/gameplay/ui_elements/exit_confirmation.h"
 #include "game_interface/gameplay/ui_elements/settings_window.h"
 
-#include "map_structures/save/save_world.h"
+#include "map_structures/world/world.h"
 
 int Gameplay::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, std::string saveFolderName)
 {
+	if (!startNewGame)
+	{
+		PreSettings::load();
+	}
+
+	World world;
+	//TerrainMap terrainMap(PreSettings::getTerrain().mapSize);
+	//BuildingsMap buildingsMap(PreSettings::getTerrain().mapSize);
+	//Entity::initPreSettings();
+	//player = std::make_shared<Team>("player");
+	//enemy = std::make_shared<Team>("enemy");
+	//Team::addTeam(player);
+	//Team::addTeam(enemy);
+
 	if (startNewGame)
 	{
 		std::cout << "create new works" << std::endl;
 
-		TerrainMap::generateMap();
-		BuildingsMap::placeBuilding(CORE_MK2, 0, { 48, 48 }, player.get());
+		//TerrainMap::generateMap();
+		//BuildingsMap::placeBuilding(CORE_MK2, 0, { 48, 48 }, player.get());
 
 		t1::time::resetTime();
 		player->balance.giveStartRes(PreSettings::getGeneral().startBalance);
 	}
 	else
     {
-		std::cout << "load  works" << std::endl;
-        PreSettings::load();
-		SaveWorld::load("saves/try.bin");
+		std::cout << "load world works" << std::endl;
+		world.load("saves/try.bin");
     }
 
-	TerrainMap terrainMap(PreSettings::getTerrain().mapSize);
-	//BuildingsMap buildingsMap(PreSettings::getTerrain().mapSize);
-    //Entity::initPreSettings();
-
-	player = std::make_shared<Team>("player");
-	enemy = std::make_shared<Team>("enemy");
-    Team::addTeam(player);
-    Team::addTeam(enemy);
-	/*
-	if (startNewGame)
-	{
-		std::cout << "create new works" << std::endl;
-
-        TerrainMap::generateMap();
-        BuildingsMap::placeBuilding(CORE_MK2, 0, { 48, 48 }, player.get());
-
-        t1::time::resetTime();
-        player->balance.giveStartRes(PreSettings::getGeneral().startBalance);
-	}
-	else
-	{
-		std::cout << "save open works" << std::endl;
-        //TerrainMap::load(saveFolderName);
-		BuildingsMap::loadMap(saveFolderName);
-
-        t1::time::loadTime(saveFolderName);
-	}
-	*/
     //std::thread simulation([&]() { simulation(); });
     std::thread input([&]() { input(mainWindow); });
-    //std::thread network([&]() { network(); } );
+    //std::thread network([&]() { network(); } ); not implemented
     graphics(mainWindow);
 
     //simulation.join();
     input.join();
+	//network.join(); not implemented
     Team::teams.clear();
 	return GameCondition::MAIN_MENU;
 }

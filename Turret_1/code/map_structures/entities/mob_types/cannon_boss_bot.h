@@ -12,7 +12,7 @@ public:
 	CannonBossBot(const uint16_t type, Team* const team);
 	~CannonBossBot() = default;
 
-	void shoot() override final;
+	void shoot(const BuildingsMap& buildingsMap) override final;
 
 	void draw(sf::RenderWindow& window) override final;
 

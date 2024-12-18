@@ -39,10 +39,11 @@ void Shell::explosion() { }
 
 void Shell::tryHitting()
 {
+	/*
 	TileCoord tile = t1::be::tile(coord);
-	if (!BuildingsMap::isVoidBuilding(tile) && BuildingsMap::getTeamID(tile) != team->getID())
+	if (!buildingsMap.isVoidBuilding(tile) && buildingsMap.getTeamID(tile) != team->getID())
 	{
-		BuildingsMap::setDamage(this->damage, tile);
+		buildingsMap.setDamage(this->damage, tile);
 		isWasted = true;
 	}
 
@@ -61,6 +62,7 @@ void Shell::tryHitting()
 			}
 		}
 	}
+	*/
 }
 
 

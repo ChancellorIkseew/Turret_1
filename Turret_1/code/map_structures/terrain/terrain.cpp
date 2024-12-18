@@ -1,6 +1,10 @@
 
 #include <iostream>
 #include <SFML\Graphics.hpp>
+#include <cereal/cereal.hpp>
+#include <cereal/archives/binary.hpp>
+#include <cereal/types/vector.hpp>
+#include <cereal/types/memory.hpp>
 
 #include "terrain.h"
 
@@ -10,10 +14,6 @@
 #include "map_structures/base_engine/base_engine.h"
 
 #include "game_interface/gameplay/gameplay_util/camera.h"
-#include <cereal/cereal.hpp>
-#include <cereal/archives/binary.hpp>
-#include <cereal/types/vector.hpp>
-#include <cereal/types/memory.hpp>
 
 
 TerrainMap::TerrainMap(const TileCoord mapSize)
@@ -35,19 +35,7 @@ TerrainMap::TerrainMap(const TileCoord mapSize)
 	this->prepareSprites();
 }
 
-TerrainMap::~TerrainMap()
-{
-	terrainMap.clear();
-}
-
-
-void TerrainMap::generateMap()
-{
-	terrainMap = std::move(generateTerrain(PreSettings::getTerrain()));
-}
-
-
-void TerrainMap::save(cereal::BinaryOutputArchive& archive)
+void TerrainMap::save(cereal::BinaryOutputArchive& archive) const
 {
 	archive(terrainMap);
 	std::cout << "save terrain_map works" << '\n';
@@ -55,8 +43,14 @@ void TerrainMap::save(cereal::BinaryOutputArchive& archive)
 
 void TerrainMap::load(cereal::BinaryInputArchive& archive)
 {
+	std::vector<std::vector<std::unique_ptr<int>>> readMap;
 	archive(terrainMap);
 	std::cout << "load terrain_map works" << '\n';
+}
+
+void TerrainMap::generate()
+{
+	terrainMap = std::move(generateTerrain(PreSettings::getTerrain()));
 }
 
 
@@ -73,7 +67,7 @@ void TerrainMap::prepareSprites()
 	mapSprite.setTexture(terrainTexture);
 }
 	
-void TerrainMap::drawMap(sf::RenderWindow& window)
+void TerrainMap::draw(sf::RenderWindow& window)
 {
 	const TileCoord start = Camera::getStartTile();
 	const TileCoord end = Camera::getEndTile();

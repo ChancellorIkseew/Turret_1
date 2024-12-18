@@ -79,12 +79,12 @@ void EntitiesList::spawnEntity(const uint8_t amount, const uint16_t type, Team* 
 }
 
 
-void EntitiesList::interact()
+void EntitiesList::interact(const BuildingsMap& buildingsMap)
 {
 	for (auto it = entitiesList.begin(); it != entitiesList.end();)
 	{
-		(*it)->motion();
-		(*it)->shoot();
+		(*it)->motion(buildingsMap);
+		(*it)->shoot(buildingsMap);
 
 		if ((*it)->getDurability() < 1)
 			it = entitiesList.erase(it);

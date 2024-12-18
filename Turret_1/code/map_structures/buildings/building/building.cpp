@@ -19,36 +19,14 @@ Building::Building(const uint16_t type, const int16_t durability, const uint8_t 
 }
 
 
-void Building::save(std::ofstream& fout)const
+void Building::save(cereal::BinaryOutputArchive& archive)const
 {
-	fout << size << " " << durability << '\n';
-
-	for (auto it = inventory.cbegin(); it != inventory.cend(); ++it)
-	{
-		if (it->quantity != 0)
-			fout << it->type << " " << it->quantity << '\n';
-	}
-	fout << "$\n";
+	archive(type);
 }
 
-void Building::load(std::ifstream& fin)
+void Building::load(cereal::BinaryInputArchive& archive)
 {
-	fin >> size >> durability;
-
-	while (true)
-	{
-		char nextSymbol;
-		fin >> nextSymbol;
-		
-		if (nextSymbol == '$')
-			break;
-
-		fin.seekg(-1, std::ios::cur);
-		uint16_t resType;
-		uint16_t amount;
-		fin >> resType >> amount;
-		inventory.push_back(StoredResource{ resType, amount });	
-	}
+	archive(type);
 }
 
 
@@ -143,37 +121,37 @@ void Building::addToInventory(const uint16_t resType, const uint16_t amount)
 
 
 
-bool Building::hasCorrectConveyerUp(const TileCoord tile) const
+bool Building::hasCorrectConveyerUp(const TileCoord tile, const BuildingsMap& buildingsMap) const
 {
 	const TileCoord checkTile = { tile.x, tile.y - 1 };
-	return ((BuildingsMap::getBuildingType(checkTile) == STANDARD_CONVEYER && BuildingsMap::getBuildingDirection(checkTile) != 's') ||
-		BuildingsMap::getBuildingDirection(checkTile) == 'w');
+	return ((buildingsMap.getBuildingType(checkTile) == STANDARD_CONVEYER && buildingsMap.getBuildingDirection(checkTile) != 's') ||
+		buildingsMap.getBuildingDirection(checkTile) == 'w');
 }
 
-bool Building::hasCorrectConveyerLeft(const TileCoord tile) const
+bool Building::hasCorrectConveyerLeft(const TileCoord tile, const BuildingsMap& buildingsMap) const
 {
 	const TileCoord checkTile = { tile.x - 1, tile.y };
-	return ((BuildingsMap::getBuildingType(checkTile) == STANDARD_CONVEYER && BuildingsMap::getBuildingDirection(checkTile) != 'd') ||
-		BuildingsMap::getBuildingDirection(checkTile) == 'a');
+	return ((buildingsMap.getBuildingType(checkTile) == STANDARD_CONVEYER && buildingsMap.getBuildingDirection(checkTile) != 'd') ||
+		buildingsMap.getBuildingDirection(checkTile) == 'a');
 }
 
-bool Building::hasCorrectConveyerDown(const TileCoord tile) const
+bool Building::hasCorrectConveyerDown(const TileCoord tile, const BuildingsMap& buildingsMap) const
 {
 	const TileCoord checkTile = { tile.x, tile.y + 1 };
-	return ((BuildingsMap::getBuildingType(checkTile) == STANDARD_CONVEYER && BuildingsMap::getBuildingDirection(checkTile) != 'w') ||
-		BuildingsMap::getBuildingDirection(checkTile) == 's');
+	return ((buildingsMap.getBuildingType(checkTile) == STANDARD_CONVEYER && buildingsMap.getBuildingDirection(checkTile) != 'w') ||
+		buildingsMap.getBuildingDirection(checkTile) == 's');
 }
 
-bool Building::hasCorrectConveyerRight(const TileCoord tile) const
+bool Building::hasCorrectConveyerRight(const TileCoord tile, const BuildingsMap& buildingsMap) const
 {
 	const TileCoord checkTile = { tile.x + 1, tile.y };
-	return ((BuildingsMap::getBuildingType(checkTile) == STANDARD_CONVEYER && BuildingsMap::getBuildingDirection(checkTile) != 'a') ||
-		BuildingsMap::getBuildingDirection(checkTile) == 'd');
+	return ((buildingsMap.getBuildingType(checkTile) == STANDARD_CONVEYER && buildingsMap.getBuildingDirection(checkTile) != 'a') ||
+		buildingsMap.getBuildingDirection(checkTile) == 'd');
 }
 
 
 // resUnits_and_inventory
-void Building::placeResourceUnit(const uint16_t resType, const TileCoord tile)
+void Building::placeResourceUnit(const uint16_t resType, const TileCoord tile, BuildingsMap& buildingsMap)
 {
 	if (!isEnoughRes(resType, 1))
 		return;
@@ -190,48 +168,48 @@ void Building::placeResourceUnit(const uint16_t resType, const TileCoord tile)
 		case 0:
 			if (++i > 4)
 				return;
-			cheekTile = { tile.x, tile.y - 1 };
-			unit = ResourceUnit(resType, 'w', { 0, 12 });
-			if (side == 0 && hasCorrectConveyerUp(tile) &&
-				BuildingsMap::canAccept(unit, cheekTile) && isEnoughRes(resType, 1))
+			cheekTile = TileCoord(tile.x, tile.y - 1);
+			unit = ResourceUnit(resType, 'w', PixelCoord(0, 12));
+			if (side == 0 && hasCorrectConveyerUp(tile, buildingsMap) &&
+				buildingsMap.canAccept(unit, cheekTile) && isEnoughRes(resType, 1))
 			{
-				BuildingsMap::addToInventory(unit, cheekTile);
+				buildingsMap.addToInventory(unit, cheekTile);
 				wasteResorce(resType, 1);
 			}
 			[[fallthrough]];
 		case 1:
 			if (++i > 4)
 				return;
-			cheekTile = { tile.x - 1, tile.y };
-			unit = ResourceUnit(resType, 'a', { 12, 0 });
-			if (side == 1 && hasCorrectConveyerLeft(tile) &&
-				BuildingsMap::canAccept(unit, cheekTile) && isEnoughRes(resType, 1))
+			cheekTile = TileCoord(tile.x - 1, tile.y);
+			unit = ResourceUnit(resType, 'a', PixelCoord(12, 0));
+			if (side == 1 && hasCorrectConveyerLeft(tile, buildingsMap) &&
+				buildingsMap.canAccept(unit, cheekTile) && isEnoughRes(resType, 1))
 			{
-				BuildingsMap::addToInventory(unit, cheekTile);
+				buildingsMap.addToInventory(unit, cheekTile);
 				wasteResorce(resType, 1);
 			}
 			[[fallthrough]];
 		case 2:
 			if (++i > 4)
 				return;
-			cheekTile = { tile.x, tile.y + 1 };
-			unit = ResourceUnit(resType, 's', { 0, -12 });
-			if (side == 2 && hasCorrectConveyerDown(tile) &&
-				BuildingsMap::canAccept(unit, cheekTile) && isEnoughRes(resType, 1))
+			cheekTile = TileCoord(tile.x, tile.y + 1);
+			unit = ResourceUnit(resType, 's', PixelCoord(0, -12));
+			if (side == 2 && hasCorrectConveyerDown(tile, buildingsMap) &&
+				buildingsMap.canAccept(unit, cheekTile) && isEnoughRes(resType, 1))
 			{
-				BuildingsMap::addToInventory(unit, cheekTile);
+				buildingsMap.addToInventory(unit, cheekTile);
 				wasteResorce(resType, 1);
 			}
 			[[fallthrough]];
 		case 3:
 			if (++i > 4)
 				return;
-			cheekTile = { tile.x + 1, tile.y };
-			unit = ResourceUnit(resType, 'd', { -12, 0 });
-			if (side == 3 && hasCorrectConveyerRight(tile) &&
-				BuildingsMap::canAccept(unit, cheekTile) && isEnoughRes(resType, 1))
+			cheekTile = TileCoord(tile.x + 1, tile.y);
+			unit = ResourceUnit(resType, 'd', PixelCoord(- 12, 0));
+			if (side == 3 && hasCorrectConveyerRight(tile, buildingsMap) &&
+				buildingsMap.canAccept(unit, cheekTile) && isEnoughRes(resType, 1))
 			{
-				BuildingsMap::addToInventory(unit, cheekTile);
+				buildingsMap.addToInventory(unit, cheekTile);
 				wasteResorce(resType, 1);
 			}
 		}
@@ -240,36 +218,32 @@ void Building::placeResourceUnit(const uint16_t resType, const TileCoord tile)
 	}
 }
 
-void Building::placeResourceUnitX1(const uint16_t resType)
+void Building::placeResourceUnitX1(const uint16_t resType, BuildingsMap& buildingsMap)
 {
-	placeResourceUnit(resType, this->tile);
+	placeResourceUnit(resType, tile, buildingsMap);
 }
 
-void Building::placeResourceUnitX4(const uint16_t resType)
+void Building::placeResourceUnitX4(const uint16_t resType, BuildingsMap& buildingsMap)
 {
 	if (!isEnoughRes(resType, 1))
 		return;
 
 	for (int i = 0; i < 4; ++i)
 	{
-		int tileX = this->tile.x + t1::be::coordSquareArr[i].x;
-		int tileY = this->tile.y + t1::be::coordSquareArr[i].y;
-
-		placeResourceUnit(resType, { tileX, tileY });
+		TileCoord tile = tile + t1::be::coordSquareArr[i];
+		placeResourceUnit(resType, tile, buildingsMap);
 	}
 }
 
-void Building::placeResourceUnitX9(const uint16_t resType)
+void Building::placeResourceUnitX9(const uint16_t resType, BuildingsMap& buildingsMap)
 {
 	if (!isEnoughRes(resType, 1))
 		return;
 
 	for (int i = 0; i < 9; (i != 3 ? ++i : i += 2))
 	{
-		int tileX = this->tile.x + t1::be::coordSquareArr[i].x;
-		int tileY = this->tile.y + t1::be::coordSquareArr[i].y;
-
-		placeResourceUnit(resType, { tileX, tileY });
+		TileCoord tile = tile + t1::be::coordSquareArr[i];
+		placeResourceUnit(resType, tile, buildingsMap);
 	}
 }
 

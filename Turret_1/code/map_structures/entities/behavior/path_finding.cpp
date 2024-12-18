@@ -15,16 +15,16 @@ static inline TileCoord findBuildingCenter(const Building& building)
 }
 
 
-TileCoord t1::ent::findDestination(const Entity& entity)
+TileCoord t1::ent::findDestination(const Entity& entity, const BuildingsMap& buildingsMap)
 {
-	TileCoord core = findClosestCore(entity);
+	TileCoord core = findClosestCore(entity, buildingsMap);
 	int currentDistance = pow2i(entity.currentTile.x - core.x) + pow2i(entity.currentTile.y - core.y); // SQR(real_distance)
 	int newDistance = 0;
 
 	for (int i = 1; i < 9; i += 2)
 	{
 		TileCoord cheekTile = entity.currentTile + coordSpyralArr[i];
-		if (!BuildingsMap::isVoidBuilding(cheekTile))
+		if (!buildingsMap.isVoidBuilding(cheekTile))
 			continue;
 
 		newDistance = pow2i(cheekTile.x - core.x) + pow2i(cheekTile.y - core.y); // SQR(real_distance)
@@ -35,9 +35,9 @@ TileCoord t1::ent::findDestination(const Entity& entity)
 }
 
 
-TileCoord t1::ent::findClosestCore(const Entity& entity)
+TileCoord t1::ent::findClosestCore(const Entity& entity, const BuildingsMap& buildingsMap)
 {
-	const std::vector<std::shared_ptr<Building>>& cores = BuildingsMap::getCores();
+	const std::vector<std::shared_ptr<Building>>& cores = buildingsMap.getCores();
 	if (cores.size() == 0)
 		return { 0, 0 }; // возможны изменения
 

@@ -6,7 +6,7 @@
 #include "map_structures/particles/particles.h"
 #include "map_structures/team/team.h"
 
-const int EXP_RADIUS = _TILE_ * 3 + _HALF_TILE_;
+constexpr int EXP_RADIUS = _TILE_ * 3 + _HALF_TILE_;
 
 Rocket::Rocket(const uint16_t type, PixelCoord coord, float angleRad, float angleDeg, Team* const team) :
 	Shell(type, coord, angleRad, angleDeg, team)
@@ -21,6 +21,7 @@ Rocket::Rocket(const uint16_t type, PixelCoord coord, float angleRad, float angl
 
 void Rocket::tryHitting()
 {
+	/*
 	TileCoord tile = t1::be::tile(coord);
 	if (BuildingsMap::buildingExists(tile) && BuildingsMap::getTeamID(tile) != team->getID())
 	{
@@ -44,11 +45,13 @@ void Rocket::tryHitting()
 			}
 		}
 	}
+	*/
 }
 
 
 void Rocket::explosion()
 {
+	/*
 	TileCoord centreTile = t1::be::tile(coord);
 	TileCoord tile{0, 0};
 	for (int i = 0; i < 45; ++i)
@@ -76,6 +79,7 @@ void Rocket::explosion()
 	}
 
 	particlesList.emplace_back(std::make_unique<Particle>(2, coord));
+	*/
 }
 
 

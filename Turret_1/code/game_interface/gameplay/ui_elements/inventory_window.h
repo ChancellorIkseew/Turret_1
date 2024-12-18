@@ -7,17 +7,19 @@
 #include "game_interface/ui_window/elements/res_info/res_info.h"
 
 class Team;
+class World;
 
 class InventoryWindow : public UIPlate
 {
 private:
 	std::map<int, ResInfo> resInfo;
+	World* world;
 
 	InventoryWindow(const InventoryWindow&) = delete;
 	InventoryWindow& operator=(const InventoryWindow&) = delete;
 
 public:
-	InventoryWindow();
+	InventoryWindow(World* world);
 	~InventoryWindow() = default;
 
 	void interact(const sf::Vector2f& mouseMapCoord, Team* const team);

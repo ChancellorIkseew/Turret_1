@@ -6,8 +6,9 @@
 
 using namespace t1::be;
 
-PixelCoord t1::ent::findAim(const Entity& entity)
+PixelCoord t1::ent::findAim(const Entity& entity, const BuildingsMap& buildingsMap)
 {
+	/*
 	for (auto& tm : Team::teams)
 	{
 		if (entity.team->getID() != tm->getID())
@@ -24,13 +25,14 @@ PixelCoord t1::ent::findAim(const Entity& entity)
 			}
 		}
 	}
+	*/
 
 	for (int i = 1; i <= entity.pixelRange; i++)
 	{
 		int tileX = tile(entity.coord.x + sin(entity.motionAngleRad) * _TILE_ * i);
 		int tileY = tile(entity.coord.y + cos(entity.motionAngleRad) * _TILE_ * i);
 		TileCoord tile{ tileX, tileY };
-		if (BuildingsMap::buildingExists(tile) && BuildingsMap::getTeamID(tile) != entity.team->getID())
+		if (buildingsMap.buildingExists(tile) && buildingsMap.getTeamID(tile) != entity.team->getID())
 		{
 			return pixel(tile);
 		}
@@ -41,7 +43,7 @@ PixelCoord t1::ent::findAim(const Entity& entity)
 		int tileX = entity.currentTile.x + coordSpyralArr[i].x;
 		int tileY = entity.currentTile.y + coordSpyralArr[i].y;
 		TileCoord tile{ tileX, tileY };
-		if (BuildingsMap::buildingExists(tile) && BuildingsMap::getTeamID(tile) != entity.team->getID())
+		if (buildingsMap.buildingExists(tile) && buildingsMap.getTeamID(tile) != entity.team->getID())
 		{
 			return pixel(tile);
 		}
