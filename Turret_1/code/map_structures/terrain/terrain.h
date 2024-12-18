@@ -2,9 +2,8 @@
 #ifndef TERRAIN_MAP_H
 #define TERRAIN_MAP_H
 
-#include <string>
 #include <SFML\Graphics.hpp>
-
+#include <cereal/archives/binary.hpp>
 #include "map_structures/base_engine/base_engine.h"
 
 
@@ -19,11 +18,12 @@ private:
 	static inline sf::Sprite mapSprite;
 	
 public:
+	TerrainMap() = default;
 	TerrainMap(const TileCoord mapSize);
 	~TerrainMap();
-	
-	static void saveMap(const std::string& folder);
-	static void loadMap(const std::string& folder);
+
+	static void save(cereal::BinaryOutputArchive& archive);
+	static void load(cereal::BinaryInputArchive& archive);
 
 	static void generateMap(); //empty constructor
 	
