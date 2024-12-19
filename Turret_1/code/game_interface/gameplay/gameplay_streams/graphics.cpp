@@ -47,7 +47,7 @@ void Gameplay::graphics(sf::RenderWindow& mainWindow)
         mainWindow.clear(sf::Color::Black);		//Begin draw_block
         camera.interact(mainWindow);
         world.draw(mainWindow);
-        buildingPanel.drawBuildExample(mainWindow, player.get());
+        buildingPanel.drawBuildExample(mainWindow, player.get(), world.getBuildingsMap());
 
         mainWindow.setView(overlay);			//Draw_inteface block
         mainControlPanel.draw(mainWindow);

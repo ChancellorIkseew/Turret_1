@@ -25,7 +25,7 @@ void Gameplay::simulation()
 
 
             t1::system::mt::buildings.lock();
-            createWave(*enemy);
+            createWave(*enemy, world.getBuildingsMap());
             
 
 

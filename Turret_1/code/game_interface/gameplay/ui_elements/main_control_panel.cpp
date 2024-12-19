@@ -71,14 +71,13 @@ void MainControlPanel::prepareInterfaceSprites()
 
 
 
-void MainControlPanel::interact(bool& isPaused, bool& isGameplayActive)
+void MainControlPanel::interact(bool& isPaused, bool& isGameplayActive, const World& world)
 {
 	if (buttons[SAVE].press())
 	{
 		PreSettings::save();
 		std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
-		Gameplay::getWorld().save("saves/try.bin");
-		//t1::time::save(saveFolderName);
+		world.save("saves/try.bin");
 	}
 	
 	if (buttons[EXIT_TO_MENU].press())

@@ -30,9 +30,8 @@ enum Pages
 };
 
 
-BuildingPanel::BuildingPanel(World* world) : UIWindow(sf::Vector2u(324, 192), sf::Vector2u(0, 0))
+BuildingPanel::BuildingPanel() : UIWindow(sf::Vector2u(324, 192), sf::Vector2u(0, 0))
 {
-	this->world = world;
 	selectedPage = LOGISTICS;
 	isBuildingTypeSelected = false;
 	newBuildingType = VOID_;
@@ -86,11 +85,11 @@ void BuildingPanel::prepareInterfaceSprites()
 
 
 
-void BuildingPanel::interact(const sf::Vector2f& mouseMapCoord, Team* const team)
+void BuildingPanel::interact(const sf::Vector2f& mouseMapCoord, Team* team, BuildingsMap& buildingsMap)
 {
 	if (InputHandler::active(t1::BindName::Build) && isBuildingTypeSelected && (*Gameplay::getInstance()).noSubWindowSelected())
 	{
-		placeBuilding(mouseMapCoord, team);
+		placeBuilding(mouseMapCoord, team, buildingsMap);
 		t1::system::sleep(150);
 		return;
 	}
@@ -168,7 +167,7 @@ void BuildingPanel::draw(sf::RenderWindow& window)
 
 
 
-void BuildingPanel::drawBuildExample(sf::RenderWindow& window, Team* const team)
+void BuildingPanel::drawBuildExample(sf::RenderWindow& window, Team* team, const BuildingsMap& buildingsMap)
 {
 	const sf::Vector2f mouseMapCoord = InputHandler::getMouseMapCoord();
 
@@ -182,7 +181,7 @@ void BuildingPanel::drawBuildExample(sf::RenderWindow& window, Team* const team)
 	}
 
 	TileCoord selectedTile = t1::be::tile(mouseMapCoord.x, mouseMapCoord.y);
-	if (world->getBuildingsMap().isAvaluablePlaceBuilding(newBuildingType, selectedTile, team) ||
+	if (buildingsMap.isAvaluablePlaceBuilding(newBuildingType, selectedTile, team) ||
 		newBuildingType == AUTOCANNON_TURRET || newBuildingType == ROCKET_TURRET)
 		buildExample.setColor(whiteTransparent);
 	else
@@ -252,7 +251,7 @@ void BuildingPanel::selectBuildingType(BuildingIco& ico)
 }
 
 
-void BuildingPanel::placeBuilding(const sf::Vector2f& mouseMapCoord, Team* const team)
+void BuildingPanel::placeBuilding(const sf::Vector2f& mouseMapCoord, Team* team, BuildingsMap& buildingsMap) const
 {
 	std::cout << "building_place_works: " << newBuildingType << '\n';
 	const TileCoord selectedTile = t1::be::tile(mouseMapCoord.x, mouseMapCoord.y);
@@ -260,18 +259,18 @@ void BuildingPanel::placeBuilding(const sf::Vector2f& mouseMapCoord, Team* const
 	std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
 	if (newBuildingType == REMOVE)
 	{
-		if (world->getBuildingsMap().isTurretOnTile(selectedTile))
-			world->getBuildingsMap().removeTurret(selectedTile);
+		if (buildingsMap.isTurretOnTile(selectedTile))
+			buildingsMap.removeTurret(selectedTile);
 		else
-			world->getBuildingsMap().demolishBuilding(selectedTile);
+			buildingsMap.demolishBuilding(selectedTile);
 	}
 	else if (newBuildingType == AUTOCANNON_TURRET || newBuildingType == ROCKET_TURRET)
 	{
-		if (!world->getBuildingsMap().isTurretOnTile(selectedTile))
-			world->getBuildingsMap().setTurret(newBuildingType, selectedTile, team);
+		if (!buildingsMap.isTurretOnTile(selectedTile))
+			buildingsMap.setTurret(newBuildingType, selectedTile, team);
 	}
 	else
 	{
-		world->getBuildingsMap().constructBuilding(newBuildingType, direction, selectedTile, team);
+		buildingsMap.constructBuilding(newBuildingType, direction, selectedTile, team);
 	}
 }

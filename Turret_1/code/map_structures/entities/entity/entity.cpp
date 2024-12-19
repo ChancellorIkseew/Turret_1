@@ -23,7 +23,7 @@ Entity::Entity(const uint16_t type, Team* const team)		//1st spawn
 	this->type = type;
 	this->team = team;
 	isAimDetected = false;
-	destCoord = pixel(t1::ent::findClosestCore(*this, buildingsMap));
+	//destCoord = pixel(t1::ent::findClosestCore(*this, buildingsMap));
 	aimCoord = destCoord;
 	reloadTimer = 0;
 	maxSpeed = 0.1f;
@@ -116,6 +116,11 @@ void Entity::setDamage(const int16_t damage)
 void Entity::setCoord(const PixelCoord coord)
 {
 	this->coord = coord;
+}
+
+void Entity::setDestCoord(const PixelCoord destCoord)
+{
+	this->destCoord = destCoord;
 }
 
 // visual

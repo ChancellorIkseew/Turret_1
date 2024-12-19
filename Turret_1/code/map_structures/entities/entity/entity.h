@@ -74,6 +74,7 @@ public:
 	void setDurability(const int16_t durability);
 	void setDamage(const int16_t damage);
 	void setCoord(const PixelCoord coord);
+	void setDestCoord(const PixelCoord destCoord);
 	uint16_t getType() const { return type; }
 	PixelCoord getCoord() const { return coord; }
 	TileCoord getTile() const { return currentTile; }

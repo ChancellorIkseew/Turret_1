@@ -7,6 +7,7 @@
 #include "game_interface/ui_window/ui_window/ui_window.h"
 #include "game_interface/ui_window/elements/button/button.h"
 
+class World;
 
 class MainControlPanel : public UIWindow
 {
@@ -25,7 +26,7 @@ public:
 	MainControlPanel();
 	~MainControlPanel() = default;
 	
-	void interact(bool& isPaused, bool& isGameplayActive);
+	void interact(bool& isPaused, bool& isGameplayActive, const World& world);
 	void interactWaveTimer(const bool isPaused);
 
 	void prepareInterfaceSprites() override final;

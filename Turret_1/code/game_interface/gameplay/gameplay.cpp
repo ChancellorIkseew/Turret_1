@@ -60,7 +60,7 @@ int Gameplay::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, std
     //simulation.join();
     input.join();
 	//network.join(); not implemented
-    Team::teams.clear();
+    //Team::teams.clear();
 	return GameCondition::MAIN_MENU;
 }
 

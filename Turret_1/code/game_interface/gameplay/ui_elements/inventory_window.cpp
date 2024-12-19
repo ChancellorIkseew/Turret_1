@@ -2,14 +2,12 @@
 #include "inventory_window.h"
 #include "map_structures/resources/res_enum.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
-#include "map_structures/world/world.h"
 #include "t1_system/input/input_handler.h"
 #include "t1_system/sleep.h"
 
 
-InventoryWindow::InventoryWindow(World* world) : UIPlate(sf::Vector2u(225, 120), sf::Vector2u(0, 0))
+InventoryWindow::InventoryWindow() : UIPlate(sf::Vector2u(225, 120), sf::Vector2u(0, 0))
 {
-    this->world = world;
     isVisible = false;
 
     resInfo.emplace(RES_STONE, ResInfo(RES_STONE, 0));
@@ -22,20 +20,20 @@ InventoryWindow::InventoryWindow(World* world) : UIPlate(sf::Vector2u(225, 120),
 void InventoryWindow::prepareInterfaceSprites() { }
 
 
-void InventoryWindow::interact(const sf::Vector2f& mouseMapCoord, Team* const team)
+void InventoryWindow::interact(const sf::Vector2f& mouseMapCoord, Team* team, const BuildingsMap& buildingsMap)
 {
     TileCoord selectedTile = t1::be::tile(mouseMapCoord.x, mouseMapCoord.y);
-    if (InputHandler::jactive(t1::BindName::LMB) && !world->getBuildingsMap().isVoidBuilding(selectedTile))
+    if (InputHandler::jactive(t1::BindName::LMB) && !buildingsMap.isVoidBuilding(selectedTile))
     {
         isVisible = !isVisible;
     }
-    if (!isVisible || !world->getBuildingsMap().buildingExists(selectedTile))
+    if (!isVisible || !buildingsMap.buildingExists(selectedTile))
         return;
 
     for (auto& info : resInfo)
     {
         int amount = 0;
-        for (auto& res : world->getBuildingsMap().getInventory(selectedTile))
+        for (auto& res : buildingsMap.getInventory(selectedTile))
         {
             if (info.first == res.type)
             {

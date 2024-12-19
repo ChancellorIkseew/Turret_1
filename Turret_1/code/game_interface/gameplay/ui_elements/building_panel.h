@@ -10,7 +10,7 @@
 #include "specification_panel.h"
 
 class Team;
-class World;
+class BuildingsMap;
 
 class BuildingPanel : public UIWindow
 {
@@ -23,7 +23,6 @@ private:
 	static inline sf::Texture buildingsTexture;
 	static inline sf::Sprite buildExample;
 
-	World* world;
 	int selectedPage;
 	bool isBuildingTypeSelected;
 	int oldBuildingType, newBuildingType;
@@ -32,7 +31,7 @@ private:
 
 	inline void selectBuildingType(BuildingIco& ico);
 	inline void rotateBuilding();
-	inline void placeBuilding(const sf::Vector2f& mouseMapCoord, Team* const team);
+	inline void placeBuilding(const sf::Vector2f& mouseMapCoord, Team* team, BuildingsMap& buildingsMap) const;
 
 	std::unique_ptr<ExpensesPanel> expensesPanel;
 	std::unique_ptr<SpecificationPanel> specificationPanel;
@@ -41,16 +40,16 @@ private:
 	BuildingPanel& operator=(const BuildingPanel&) = delete;
 	
 public:
-	BuildingPanel(World* world);
+	BuildingPanel();
 	~BuildingPanel() = default;
 	
-	void interact(const sf::Vector2f& mouseMapCoord, Team* const team);
+	void interact(const sf::Vector2f& mouseMapCoord, Team* team, BuildingsMap& buildingsMap);
 	void relocate(const sf::Vector2u windowSize) override final;
 	bool containsCoursor() const override final;
 	
 	void prepareInterfaceSprites() override final;
 	void draw(sf::RenderWindow& window) override final;
-	void drawBuildExample(sf::RenderWindow& window, Team* const team);
+	void drawBuildExample(sf::RenderWindow& window, Team* team, const BuildingsMap& buildingsMap);
 	
 };
 

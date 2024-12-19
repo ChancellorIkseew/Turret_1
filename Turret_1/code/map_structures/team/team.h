@@ -31,7 +31,7 @@ public:
 	void draw(sf::RenderWindow& window);
 
 	void spawnShell(const uint16_t, const PixelCoord coord, float angleRad, float angleDeg);
-	void spawnEntity(const uint8_t amount, const uint16_t);
+	void spawnEntity(const uint8_t amount, const uint16_t, const BuildingsMap& buildingsMap);
 
 	int getID();
 	Balance& getBalance();

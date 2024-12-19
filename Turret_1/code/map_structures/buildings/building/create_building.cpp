@@ -6,18 +6,18 @@
 #include "map_structures/pre-settings/pre-settings.h"
 
 #include "map_structures/buildings/building_types/auxilary/auxilary.h"
-#include "map_structures/buildings/building_types/walls/wall_types/stone_wall.h"
-#include "map_structures/buildings/building_types/walls/tower_types/stone_tower.h"
-#include "map_structures/buildings/building_types/drills/drill.h"
-#include "map_structures/buildings/building_types/drills/drill_types/small_drill.h"
-#include "map_structures/buildings/building_types/drills/drill_types/big_drill.h"
-#include "map_structures/buildings/building_types/logistics/conveyer_types/standard_conveyer.h"
-#include "map_structures/buildings/building_types/logistics/conveyer_types/shielded_conveyer.h"
-#include "map_structures/buildings/building_types/logistics/bridge/bridge.h"
-#include "map_structures/buildings/building_types/logistics/router/router.h"
+//#include "map_structures/buildings/building_types/walls/wall_types/stone_wall.h"
+//#include "map_structures/buildings/building_types/walls/tower_types/stone_tower.h"
+//#include "map_structures/buildings/building_types/drills/drill.h"
+//#include "map_structures/buildings/building_types/drills/drill_types/small_drill.h"
+//#include "map_structures/buildings/building_types/drills/drill_types/big_drill.h"
+//#include "map_structures/buildings/building_types/logistics/conveyer_types/standard_conveyer.h"
+//#include "map_structures/buildings/building_types/logistics/conveyer_types/shielded_conveyer.h"
+//#include "map_structures/buildings/building_types/logistics/bridge/bridge.h"
+//#include "map_structures/buildings/building_types/logistics/router/router.h"
 #include "map_structures/buildings/building_types/storages/core_types/core_mk2.h"
-#include "map_structures/buildings/building_types/factories/factory_types/shell_factory.h"
-#include "map_structures/buildings/building_types/factories/factory_types/rocket_factory.h"
+//#include "map_structures/buildings/building_types/factories/factory_types/shell_factory.h"
+//#include "map_structures/buildings/building_types/factories/factory_types/rocket_factory.h"
 
 
 std::shared_ptr<Building> Building::createBuilding(const uint16_t type, const char direction, const TileCoord tile, Team* const team)
@@ -42,7 +42,7 @@ std::shared_ptr<Building> Building::createBuilding(const uint16_t type, const ch
 		return std::make_shared<CoreMK2>(CORE_MK2, durability, size, tile, team);
 	case CORE_MK3:
 		break;
-
+		/*
 	case STONE_WALL:
 		return std::make_shared<StoneWall>(STONE_WALL, durability, size, tile, team);
 	case CONCRETE_WALL:
@@ -82,7 +82,7 @@ std::shared_ptr<Building> Building::createBuilding(const uint16_t type, const ch
 		return std::make_shared<ShellFactory>(SHELL_FACTORY, durability, size, tile, team);
 	case ROCKET_FACTORY:
 		return std::make_shared<RocketFactory>(ROCKET_FACTORY, durability, size, tile, team);
-
+		*/
 	default:
 		std::cout << "building_type does not exist. type: " << type << '\n';
 		return nullptr;
