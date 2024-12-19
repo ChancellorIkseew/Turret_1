@@ -3,11 +3,8 @@
 
 #include "map_structures/team/team.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
-#include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/pre-settings/pre-settings.h"
 #include "t1_system/events/events_handler.h"
-
-#include "iostream"
 
 using namespace t1::be;
 constexpr float BASIC_COLLISION_RADIUS = 30.0f;
@@ -23,24 +20,26 @@ Entity::Entity(const uint16_t type, Team* const team)		//1st spawn
 	this->type = type;
 	this->team = team;
 	isAimDetected = false;
-	//destCoord = pixel(t1::ent::findClosestCore(*this, buildingsMap));
 	aimCoord = destCoord;
 	reloadTimer = 0;
 	maxSpeed = 0.1f;
 }
 
 
-void Entity::save(std::ofstream& fout) const
+void Entity::save(cereal::BinaryOutputArchive& archive) const
 {
-	fout << type << " " << coord.x << " " << coord.y << " " << motionAngleDeg << " " << durability << '\n';
-	fout << "$\n";
+	archive(type);
+	archive(coord);
+	archive(motionAngleDeg);
+	archive(durability);
 }
 
-void Entity::load(std::ifstream& fin)
+void Entity::load(cereal::BinaryInputArchive& archive)
 {
-	fin >> coord.x >> coord.y >> motionAngleDeg >> durability;
-	char specialSymbol;
-	fin >> specialSymbol;
+	archive(type);
+	archive(coord);
+	archive(motionAngleDeg);
+	archive(durability);
 }
 
 

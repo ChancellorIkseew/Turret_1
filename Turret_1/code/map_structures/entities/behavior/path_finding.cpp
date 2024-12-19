@@ -9,7 +9,7 @@ constexpr int MAX_EXPECTED_DISTANCE = 64000;
 
 static inline TileCoord findBuildingCenter(const Building& building)
 {
-	int lineSize = sqrt(building.getSize());
+	int lineSize = static_cast<int>(sqrt(building.getSize()));
 	TileCoord correction(lineSize / 2, lineSize / 2);
 	return building.getTileCoord() + correction;
 }

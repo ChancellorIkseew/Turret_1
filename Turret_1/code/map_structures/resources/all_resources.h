@@ -3,6 +3,8 @@
 #define RESOURCES_H
 
 #include <map>
+#include <cereal/archives/binary.hpp>
+#include <cereal/types/map.hpp>
 
 class AllResources
 {
@@ -14,6 +16,24 @@ public:
 	AllResources();
 	~AllResources() = default;
 
+	void save(cereal::BinaryOutputArchive& archive) const{
+		archive(allResources);
+	}
+	void load(cereal::BinaryInputArchive& archive) {
+		archive(allResources);
+	}
+
+	/*
+	AllResources operator+(const AllResources& rhs)
+	{
+		return;
+	}
+
+	AllResources operator-(const AllResources& rhs)
+	{
+		return;
+	}
+	*/
 };
 
 #endif // RESOURCES_H

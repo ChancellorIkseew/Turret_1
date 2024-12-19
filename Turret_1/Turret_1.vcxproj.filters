@@ -333,6 +333,9 @@
     <ClCompile Include="code\map_structures\buildings\building_types\storages\core_types\core_mk2.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="code\map_structures\buildings\building_types\auxilary\auxilary.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="libgcc_s_seh_64-1.dll" />
@@ -633,6 +636,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\map_structures\buildings\building_types\storages\core_types\core_mk2.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\map_structures\buildings\building_types\auxilary\auxilary.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

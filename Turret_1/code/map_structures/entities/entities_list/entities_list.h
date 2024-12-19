@@ -2,9 +2,9 @@
 #ifndef ENTITIES_LIST_H
 #define ENTITIES_LIST_H
 
-#include <string>
 #include <list>
 #include <SFML/Graphics.hpp>
+#include <cereal/archives/binary.hpp>
 
 #include "map_structures/entities/entity/entity.h"
 
@@ -17,11 +17,11 @@ private:
 public:
 	std::list<std::unique_ptr<Entity>> entitiesList;
 
-	EntitiesList();
+	EntitiesList() = default;
 	~EntitiesList() = default;
 	
-	void save(const std::string& folder);
-	void load(const std::string& folder);
+	void save(cereal::BinaryOutputArchive& archive) const;
+	void load(cereal::BinaryInputArchive& archive);
 
 	void spawnEntity(const uint8_t amount, const uint16_t type, Team* team, const BuildingsMap& buildingsMap);
 	void clean() noexcept;

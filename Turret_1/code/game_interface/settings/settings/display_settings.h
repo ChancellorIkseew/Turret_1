@@ -21,8 +21,8 @@ struct DisplaySettings
 	{
 		const auto table = root->get_table("display");
 		//
-		windowMaxSize.x = table->get_as<double>("window-max-size-x").value_or(1920);
-		windowMaxSize.y = table->get_as<double>("window-max-size-y").value_or(1016);
+		windowMaxSize.x = table->get_as<uint32_t>("window-max-size-x").value_or(1920);
+		windowMaxSize.y = table->get_as<uint32_t>("window-max-size-y").value_or(1016);
 	}
 
 };

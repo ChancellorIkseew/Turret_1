@@ -37,9 +37,10 @@ std::shared_ptr<Building> Building::createBuilding(const uint16_t type, const ch
 		return std::make_shared<Auxilary>(AUXILARY, durability, size, tile, team);
 
 	case CORE_MK1:
-		break;
+		return nullptr;
 	case CORE_MK2:
 		return std::make_shared<CoreMK2>(CORE_MK2, durability, size, tile, team);
+	/*
 	case CORE_MK3:
 		break;
 		/*

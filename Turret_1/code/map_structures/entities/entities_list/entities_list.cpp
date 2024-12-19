@@ -1,27 +1,20 @@
 
 #include <iostream>
+#include <cereal/types/memory.hpp>
+#include <cereal/types/list.hpp>
 
 #include "entities_list.h"
 
-#include "map_structures/entities/entity/entity.h"
 
-
-EntitiesList::EntitiesList()
+void EntitiesList::save(cereal::BinaryOutputArchive& archive) const
 {
-
+	archive(entitiesList);
 }
 
-
-void EntitiesList::save(const std::string& folder)
+void EntitiesList::load(cereal::BinaryInputArchive& archive)
 {
-	
+	archive(entitiesList);
 }
-
-void EntitiesList::load(const std::string& folder)
-{
-	
-}
-
 
 
 void EntitiesList::spawnEntity(const uint8_t amount, const uint16_t type, Team* team, const BuildingsMap& buildingsMap)

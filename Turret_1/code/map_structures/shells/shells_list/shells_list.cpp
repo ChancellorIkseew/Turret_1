@@ -1,27 +1,20 @@
 
-#include "iostream"
+#include <iostream>
+#include <cereal/types/memory.hpp>
+#include <cereal/types/list.hpp>
 
 #include "shells_list.h"
 
-#include "map_structures/shells/shell/shell.h"
 
-
-ShellsList::ShellsList()
+void ShellsList::save(cereal::BinaryOutputArchive& archive) const
 {
-
+	archive(shellsList);
 }
 
-
-void ShellsList::save(const std::string& folder)
+void ShellsList::load(cereal::BinaryInputArchive& archive)
 {
-
+	archive(shellsList);
 }
-
-void ShellsList::load(const std::string& folder)
-{
-
-}
-
 
 void ShellsList::spawnShell(const uint16_t type, const PixelCoord coord, float angleRad, float angleDeg, Team* const team)
 {

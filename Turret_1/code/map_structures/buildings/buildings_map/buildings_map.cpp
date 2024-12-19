@@ -1,5 +1,7 @@
 
 #include <iostream>
+#include <cereal/types/memory.hpp>
+#include <cereal/types/vector.hpp>
 
 #include "buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"

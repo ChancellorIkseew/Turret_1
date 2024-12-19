@@ -8,6 +8,16 @@ Balance::Balance()
 	balance = AllResources(0, 0, 0, 0, 0, 0);
 }
 
+void Balance::save(cereal::BinaryOutputArchive& archive) const
+{
+	archive(balance);
+}
+
+void Balance::load(cereal::BinaryInputArchive& archive)
+{
+	archive(balance);
+}
+
 void Balance::accept(int type, short amount)
 {
 	balance.allResources[type] += amount;

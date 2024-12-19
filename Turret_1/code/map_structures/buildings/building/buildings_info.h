@@ -11,8 +11,8 @@ struct BuildingInfo
 {
 	sf::String buildingTitle;
 
-	uint8_t size;
-	int16_t durability;
+	uint8_t size = 0;
+	int16_t durability = 0;
 
 	AllResources costToBuild;
 	sf::IntRect icoRect;

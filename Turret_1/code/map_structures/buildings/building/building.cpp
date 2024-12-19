@@ -19,7 +19,7 @@ Building::Building(const uint16_t type, const int16_t durability, const uint8_t 
 }
 
 
-void Building::save(cereal::BinaryOutputArchive& archive)const
+void Building::save(cereal::BinaryOutputArchive& archive) const
 {
 	archive(type);
 }
@@ -227,10 +227,9 @@ void Building::placeResourceUnitX4(const uint16_t resType, BuildingsMap& buildin
 {
 	if (!isEnoughRes(resType, 1))
 		return;
-
 	for (int i = 0; i < 4; ++i)
 	{
-		TileCoord tile = tile + t1::be::coordSquareArr[i];
+		TileCoord tryTile = tile + t1::be::coordSquareArr[i];
 		placeResourceUnit(resType, tile, buildingsMap);
 	}
 }
@@ -239,10 +238,9 @@ void Building::placeResourceUnitX9(const uint16_t resType, BuildingsMap& buildin
 {
 	if (!isEnoughRes(resType, 1))
 		return;
-
 	for (int i = 0; i < 9; (i != 3 ? ++i : i += 2))
 	{
-		TileCoord tile = tile + t1::be::coordSquareArr[i];
+		TileCoord tryTile = tile + t1::be::coordSquareArr[i];
 		placeResourceUnit(resType, tile, buildingsMap);
 	}
 }

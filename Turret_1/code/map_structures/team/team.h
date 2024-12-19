@@ -2,9 +2,8 @@
 #ifndef TEAM_H
 #define TEAM_H
 
-#include <vector>
-#include <unordered_set>
 #include <SFML/Graphics.hpp>
+#include <cereal/archives/binary.hpp>
 
 #include "map_structures/entities/entities_list/entities_list.h"
 #include "map_structures/shells/shells_list/shells_list.h"
@@ -17,15 +16,19 @@ class Team
 {
 private:
 	int ID;
-	sf::String name;
+	std::string name;
 
 public:
 	EntitiesList entities;
 	ShellsList shells;
 	Balance balance;
 
-	Team(sf::String name);
+	Team(std::string name);
+	Team() = default;
 	~Team() = default;
+
+	void save(cereal::BinaryOutputArchive& archive) const;
+	void load(cereal::BinaryInputArchive& archive);
 
 	void interact(const BuildingsMap& buildingsMap);
 	void draw(sf::RenderWindow& window);

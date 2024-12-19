@@ -22,7 +22,29 @@ Shell::Shell(const uint16_t, const PixelCoord coord, float angleRad, float angle
 	
 	maxLifeTime = 200;
 	curentLifeTime = 0;
-	isWasted = false;
+}
+
+void Shell::save(cereal::BinaryOutputArchive& archive) const
+{
+	archive(coord);
+	archive(lineMotion);
+	archive(angleRad);
+	archive(type);
+	archive(damage);
+	archive(curentLifeTime);
+	archive(maxLifeTime);
+}
+
+void Shell::load(cereal::BinaryInputArchive& archive)
+{
+	archive(coord);
+	archive(lineMotion);
+	archive(angleRad);
+	angleDeg = t1::be::radToDegree(angleRad);
+	archive(type);
+	archive(damage);
+	archive(curentLifeTime);
+	archive(maxLifeTime);
 }
 
 

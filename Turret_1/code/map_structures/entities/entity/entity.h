@@ -2,8 +2,8 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include <fstream>
 #include <SFML\Graphics.hpp>
+#include <cereal/archives/binary.hpp>
 
 #include "map_structures/base_engine/base_engine.h"
 #include "map_structures/entities/behavior/aiming.h"
@@ -59,8 +59,8 @@ public:
 	Entity(const uint16_t type, Team* const team);
 	virtual ~Entity() = default;
 
-	void save(std::ofstream& fout) const;
-	void load(std::ifstream& fin);
+	void save(cereal::BinaryOutputArchive& archive) const;
+	void load(cereal::BinaryInputArchive& archive);
 
 	static std::unique_ptr<Entity> createEntity(const uint16_t type, Team* const team);
 	static PixelCoord randomMapBorderSpawn();
@@ -78,7 +78,7 @@ public:
 	uint16_t getType() const { return type; }
 	PixelCoord getCoord() const { return coord; }
 	TileCoord getTile() const { return currentTile; }
-	int getAngleDeg() const { return motionAngleDeg; }
+	float getAngleRad() const { return motionAngleRad; }
 	int getDurability() const { return durability; }
 
 	// visual

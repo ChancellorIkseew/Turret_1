@@ -201,6 +201,7 @@
     <ClCompile Include="code\map_structures\buildings\building\building.cpp" />
     <ClCompile Include="code\map_structures\buildings\building\buildings_info.cpp" />
     <ClCompile Include="code\map_structures\buildings\building\create_building.cpp" />
+    <ClCompile Include="code\map_structures\buildings\building_types\auxilary\auxilary.cpp" />
     <ClCompile Include="code\map_structures\buildings\building_types\storages\core.cpp" />
     <ClCompile Include="code\map_structures\buildings\building_types\storages\core_types\core_mk2.cpp" />
     <ClCompile Include="code\map_structures\entities\behavior\aiming.cpp" />
@@ -298,6 +299,7 @@
     <ClInclude Include="code\map_structures\buildings\building\building.h" />
     <ClInclude Include="code\map_structures\buildings\building\buildings_enum.h" />
     <ClInclude Include="code\map_structures\buildings\building\buildings_info.h" />
+    <ClInclude Include="code\map_structures\buildings\building_types\auxilary\auxilary.h" />
     <ClInclude Include="code\map_structures\buildings\building_types\logistics\conveer.h" />
     <ClInclude Include="code\map_structures\buildings\building_types\logistics\conveer_types\shielded_conveer.h" />
     <ClInclude Include="code\map_structures\buildings\building_types\storages\core.h" />

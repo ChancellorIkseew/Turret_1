@@ -1,14 +1,32 @@
 
 #include "team.h"
+#include <cereal/types/string.hpp>
 
 
-Team::Team(sf::String name)
+Team::Team(std::string name)
 {
     static int newID = 0;
 
     ID = newID;
     ++newID;
 }
+
+void Team::save(cereal::BinaryOutputArchive& archive) const
+{
+    archive(entities);
+    archive(shells);
+    archive(balance); //?
+    archive(name);
+}
+
+void Team::load(cereal::BinaryInputArchive& archive)
+{
+    archive(entities);
+    archive(shells);
+    archive(balance); //?
+    archive(name);
+}
+
 /*
 void Team::addTeam(const sf::String& name)
 {
@@ -20,6 +38,7 @@ void Team::addTeam(const std::shared_ptr<Team> team)
     teams.emplace(team);
 }
 */
+
 void Team::spawnShell(const uint16_t type, const PixelCoord coord, float angleRad, float angleDeg)
 {
     shells.spawnShell(type, coord, angleRad, angleDeg, this);

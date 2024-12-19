@@ -15,21 +15,21 @@ class BuildingsMap;
 
 struct StoredResource
 {
-	uint16_t type;
-	uint16_t quantity;
+	uint16_t type = 0;
+	uint16_t quantity = 0;
 };
 
 class Building
 {
 private:
 	std::list<StoredResource> inventory;
-	Team* team;
+	Team* team = nullptr;
 protected:
-	TileCoord tile;
+	TileCoord tile = TileCoord(0, 0);
 private:
-	uint16_t type;
-	int16_t durability;
-	uint8_t size;
+	uint16_t type = 0;
+	int16_t durability = 0;
+	uint8_t size = 0;
 
 	inline void placeResourceUnit(const uint16_t resType, const TileCoord tile, BuildingsMap& buildingsMap);
 
@@ -47,6 +47,7 @@ protected:
 
 public:
 	Building(const uint16_t type, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team);
+	Building() = default;
 	virtual ~Building() = default;
 
 	virtual void save(cereal::BinaryOutputArchive& archive) const;
