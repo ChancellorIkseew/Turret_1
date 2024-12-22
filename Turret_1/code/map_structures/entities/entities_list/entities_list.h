@@ -8,6 +8,7 @@
 
 #include "map_structures/entities/entity/entity.h"
 
+class Camera;
 
 class EntitiesList
 {
@@ -27,7 +28,7 @@ public:
 	void clean() noexcept;
 
 	void interact(const BuildingsMap& buildingsMap);
-	void draw(sf::RenderWindow& mainWindow);
+	void draw(sf::RenderWindow& mainWindow, const Camera& camera);
 
 	std::list<std::unique_ptr<Entity>>::iterator begin() noexcept;
 	std::list<std::unique_ptr<Entity>>::iterator end() noexcept;

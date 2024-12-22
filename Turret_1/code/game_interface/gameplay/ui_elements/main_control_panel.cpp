@@ -75,9 +75,8 @@ void MainControlPanel::interact(bool& isPaused, bool& isGameplayActive, const Wo
 {
 	if (buttons[SAVE].press())
 	{
-		PreSettings::save();
-		std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
-		world.save("saves/try.bin");
+		PreSettings::save("save_1");
+		world.save("save_1");
 	}
 	
 	if (buttons[EXIT_TO_MENU].press())

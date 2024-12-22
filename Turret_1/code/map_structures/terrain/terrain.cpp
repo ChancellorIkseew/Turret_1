@@ -31,21 +31,20 @@ TerrainMap::TerrainMap(const TileCoord mapSize)
 			terrain = std::make_unique<int>(0);
 		}
 	}
-
-	this->prepareSprites();
 }
 
 void TerrainMap::save(cereal::BinaryOutputArchive& archive) const
 {
+	std::cout << "try save terrain_map\n";
 	archive(terrainMap);
-	std::cout << "save terrain_map works" << '\n';
+	std::cout << "save terrain_map works\n";
 }
 
 void TerrainMap::load(cereal::BinaryInputArchive& archive)
 {
-	std::vector<std::vector<std::unique_ptr<int>>> readMap;
+	std::cout << "try load terrain_map\n";
 	archive(terrainMap);
-	std::cout << "load terrain_map works" << '\n';
+	std::cout << "load terrain_map works\n";
 }
 
 void TerrainMap::generate()
@@ -67,10 +66,10 @@ void TerrainMap::prepareSprites()
 	mapSprite.setTexture(terrainTexture);
 }
 	
-void TerrainMap::draw(sf::RenderWindow& window)
+void TerrainMap::draw(sf::RenderWindow& window, const Camera& camera)
 {
-	const TileCoord start = Camera::getStartTile();
-	const TileCoord end = Camera::getEndTile();
+	const TileCoord start = camera.getStartTile();
+	const TileCoord end = camera.getEndTile();
 
 	for (int y = start.y; y < end.y; ++y)
 	{
@@ -99,12 +98,6 @@ void TerrainMap::draw(sf::RenderWindow& window)
 			case TILE_SULFUR:
 				mapSprite.setTextureRect(sf::IntRect(64, 32, _TILE_, _TILE_));	//sulfur
 				break;
-			/*
-			case '7':
-				terrainMap[i][j] = 0;
-				mapSprite.setTextureRect(sf::IntRect(48, 16, 16, 16));	//leaf
-				break;
-			*/
 			}
 
 			mapSprite.setPosition(x * _TILE_, y * _TILE_);

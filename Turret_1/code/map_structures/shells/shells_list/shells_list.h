@@ -8,6 +8,7 @@
 
 #include "map_structures/shells/shell/shell.h"
 
+class Camera;
 
 class ShellsList
 {
@@ -24,7 +25,7 @@ public:
 	void spawnShell(const uint16_t type, const PixelCoord coord, float angleRad, float angleDeg, Team* const team);
 	void move();
 
-	void draw(sf::RenderWindow& window);
+	void draw(sf::RenderWindow& window, const Camera& camera);
 
 	void clean() noexcept;
 

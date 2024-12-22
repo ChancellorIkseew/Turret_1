@@ -2,7 +2,6 @@
 #include "game_interface/gameplay/gameplay.h"
 
 #include "t1_system/sleep.h"
-#include "t1_system/t1_mutex.h"
 #include "game_interface/gameplay/gameplay_util/t1_time.h"
 #include "game_interface/gameplay/gameplay_util/wave_constructor.h"
 
@@ -21,16 +20,8 @@ void Gameplay::simulation()
     {
         if (!isPaused)
         {
-            world.getBuildingsMap().pushChanges();
-
-
-            t1::system::mt::buildings.lock();
-            createWave(*enemy, world.getBuildingsMap());
-            
-
-
-            moveParticlesList();
-            t1::system::mt::buildings.unlock();
+            world.simulate();
+            //createWave(*enemy, world.getBuildingsMap());
             t1::time::time++;
             EventsHandler::pollSimulationEvents();
         }

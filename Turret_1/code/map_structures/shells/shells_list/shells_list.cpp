@@ -47,11 +47,11 @@ void ShellsList::move()
 }
 
 
-void ShellsList::draw(sf::RenderWindow& window)
+void ShellsList::draw(sf::RenderWindow& window, const Camera& camera)
 {
-	for (auto it = shellsList.begin(); it != shellsList.end(); ++it)
+	for (auto& shell : shellsList)
 	{
-		(*it)->draw(window);
+		shell->draw(window);
 
 	}
 }

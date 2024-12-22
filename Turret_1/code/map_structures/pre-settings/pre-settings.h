@@ -15,8 +15,6 @@
 class PreSettings
 {
 private:
-	static inline std::string saveFileName = "0";
-
 	static inline GeneralPre general;
 	static inline TerrainPre terrain;
 	static inline BuildingsPre buildings;
@@ -28,8 +26,8 @@ public:
 	PreSettings(std::string saveFolderName);
 	~PreSettings() = default;
 
-	static void load();
-	static void save();
+	static void load(const std::string& saveFolderName);
+	static void save(const std::string& saveFolderName);
 	
 	static const GeneralPre& getGeneral() { return general; }
 	static const TerrainPre& getTerrain() { return terrain; }

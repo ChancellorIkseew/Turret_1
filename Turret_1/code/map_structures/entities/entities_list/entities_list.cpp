@@ -50,11 +50,11 @@ void EntitiesList::interact(const BuildingsMap& buildingsMap)
 }
 
 
-void EntitiesList::draw(sf::RenderWindow& mainWindow)
+void EntitiesList::draw(sf::RenderWindow& mainWindow, const Camera& camera)
 {
-	for (auto it = entitiesList.begin(); it != entitiesList.end(); ++it)
+	for (auto& entity : entitiesList)
 	{
-		(*it)->draw(mainWindow);
+		entity->draw(mainWindow);
 	}
 }
 

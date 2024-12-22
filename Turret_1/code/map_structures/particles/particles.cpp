@@ -81,9 +81,9 @@ void moveParticlesList()
 
 void drawParticlesList(sf::RenderWindow& window)
 {
-	for (auto it = particlesList.begin(); it != particlesList.end(); ++it)
+	for (auto& particle : particlesList)
 	{
-		(*it)->draw(window);
+		particle->draw(window);
 	}
 }
 

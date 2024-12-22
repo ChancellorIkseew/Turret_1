@@ -6,11 +6,12 @@
 #include <cereal/archives/binary.hpp>
 #include "map_structures/base_engine/base_engine.h"
 
+class Camera;
 
 class TerrainMap
 {
 private:	
-	TileCoord mapSize = TileCoord(0, 0);
+	TileCoord mapSize;
 	std::vector<std::vector<std::unique_ptr<int>>> terrainMap;
 	
 	static inline sf::Image terrainImage;
@@ -29,8 +30,8 @@ public:
 	
 	int getTileType(int tileX, int tileY);
 	
-	void prepareSprites();
-	void draw(sf::RenderWindow& window);
+	static void prepareSprites();
+	void draw(sf::RenderWindow& window, const Camera& camera);
 	
 };
 

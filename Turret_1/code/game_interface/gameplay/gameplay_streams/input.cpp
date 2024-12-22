@@ -10,13 +10,13 @@
 #include "game_interface/gameplay/ui_elements/building_panel.h"
 
 
-void Gameplay::input(sf::RenderWindow& mainWindow)
+void Gameplay::input()
 {
     while (isGameplayActive)
     {
         sf::Vector2f mouseMapCoord = InputHandler::getMouseMapCoord();
         mainControlPanel.interact(isPaused, isGameplayActive, world);
-        buildingPanel.interact(mouseMapCoord, player.get(), world.getBuildingsMap());
+        buildingPanel.interact(mouseMapCoord, player.get(), world.getBuildingsMap(), *this);
         inventoryWindow.interact(mouseMapCoord, player.get(), world.getBuildingsMap());
 
 #ifndef TURRET_1_NO_TEST_BUILD

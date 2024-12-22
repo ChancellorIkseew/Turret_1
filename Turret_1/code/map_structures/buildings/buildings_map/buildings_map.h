@@ -10,6 +10,7 @@
 #include "map_structures/buildings/building/building.h"
 #include "map_structures/resources/resource_unit.h"
 
+class Camera;
 
 class BuildingsMap
 {
@@ -66,7 +67,7 @@ public:
 	bool isTurretOnTile(const TileCoord tile) const;
 	
 	// Visual
-	void draw(sf::RenderWindow& window);
+	void draw(sf::RenderWindow& window, const Camera& camera);
 
 };
 

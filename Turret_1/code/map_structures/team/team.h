@@ -11,6 +11,7 @@
 
 #include "balance/balance.h"
 
+class Camera;
 
 class Team
 {
@@ -31,7 +32,7 @@ public:
 	void load(cereal::BinaryInputArchive& archive);
 
 	void interact(const BuildingsMap& buildingsMap);
-	void draw(sf::RenderWindow& window);
+	void draw(sf::RenderWindow& window, const Camera& camera);
 
 	void spawnShell(const uint16_t, const PixelCoord coord, float angleRad, float angleDeg);
 	void spawnEntity(const uint8_t amount, const uint16_t, const BuildingsMap& buildingsMap);

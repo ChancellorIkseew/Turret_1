@@ -11,6 +11,7 @@
 
 class Team;
 class BuildingsMap;
+class Gameplay;
 
 class BuildingPanel : public UIWindow
 {
@@ -43,7 +44,7 @@ public:
 	BuildingPanel();
 	~BuildingPanel() = default;
 	
-	void interact(const sf::Vector2f& mouseMapCoord, Team* team, BuildingsMap& buildingsMap);
+	void interact(const sf::Vector2f& mouseMapCoord, Team* team, BuildingsMap& buildingsMap, const Gameplay& gameplay);
 	void relocate(const sf::Vector2u windowSize) override final;
 	bool containsCoursor() const override final;
 	

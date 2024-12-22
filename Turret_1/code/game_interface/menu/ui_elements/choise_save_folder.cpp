@@ -66,7 +66,7 @@ int ChoiseFolderMenu::interact(bool& isMenuOpen, bool& startNewGame, std::string
 	{
 		if (buttons[LOAD_1].press())
 		{
-			saveFolderName = selectFolder("save1", isFolderSelected);
+			saveFolderName = selectFolder("save_1", isFolderSelected);
 			isTextVisible = false;
 		}
 

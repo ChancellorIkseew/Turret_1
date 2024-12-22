@@ -317,10 +317,10 @@ bool BuildingsMap::isTurretOnTile(const TileCoord tile) const
 }
 
 
-void BuildingsMap::draw(sf::RenderWindow& window)
+void BuildingsMap::draw(sf::RenderWindow& window, const Camera& camera)
 {
-	const TileCoord start = Camera::getStartTile();
-	const TileCoord end = Camera::getEndTile();
+	const TileCoord start = camera.getStartTile();
+	const TileCoord end = camera.getEndTile();
 
 	for (int x = start.x; x < end.x; ++x)
 	{

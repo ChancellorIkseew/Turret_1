@@ -27,18 +27,6 @@ void Team::load(cereal::BinaryInputArchive& archive)
     archive(name);
 }
 
-/*
-void Team::addTeam(const sf::String& name)
-{
-    std::shared_ptr team = std::move(std::make_shared<Team>(name));
-}
-
-void Team::addTeam(const std::shared_ptr<Team> team)
-{
-    teams.emplace(team);
-}
-*/
-
 void Team::spawnShell(const uint16_t type, const PixelCoord coord, float angleRad, float angleDeg)
 {
     shells.spawnShell(type, coord, angleRad, angleDeg, this);
@@ -55,10 +43,10 @@ void Team::interact(const BuildingsMap& buildingsMap)
     shells.move();
 }
 
-void Team::draw(sf::RenderWindow& window)
+void Team::draw(sf::RenderWindow& window, const Camera& camera)
 {
-    entities.draw(window);
-    shells.draw(window);
+    entities.draw(window, camera);
+    shells.draw(window, camera);
 }
 
 

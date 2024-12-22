@@ -5,10 +5,19 @@
 #include <map>
 #include "util/parser/cpptoml.h"
 
+enum class GameMode
+{
+	SANDBOX,
+	SURVIVAL,
+	STORM,
+	PVP
+};
+
 struct GeneralPre
 {
 public:
 	std::map<int, int> startBalance;
+	GameMode gameMode = GameMode::SANDBOX;
 
 	void save(std::shared_ptr<cpptoml::table> root) const
 	{

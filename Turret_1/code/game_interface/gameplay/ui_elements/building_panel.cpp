@@ -85,9 +85,9 @@ void BuildingPanel::prepareInterfaceSprites()
 
 
 
-void BuildingPanel::interact(const sf::Vector2f& mouseMapCoord, Team* team, BuildingsMap& buildingsMap)
+void BuildingPanel::interact(const sf::Vector2f& mouseMapCoord, Team* team, BuildingsMap& buildingsMap, const Gameplay& gameplay)
 {
-	if (InputHandler::active(t1::BindName::Build) && isBuildingTypeSelected && (*Gameplay::getInstance()).noSubWindowSelected())
+	if (InputHandler::active(t1::BindName::Build) && isBuildingTypeSelected && (gameplay.noSubWindowSelected()))
 	{
 		placeBuilding(mouseMapCoord, team, buildingsMap);
 		t1::system::sleep(150);
