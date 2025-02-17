@@ -5,6 +5,7 @@
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/resources/res_enum.h"
 #include "map_structures/team/team.h"
+#include "map_structures/world/world.h"
 
 
 Building::Building(const uint16_t type, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team)
@@ -22,11 +23,23 @@ Building::Building(const uint16_t type, const int16_t durability, const uint8_t 
 void Building::save(cereal::BinaryOutputArchive& archive) const
 {
 	archive(type);
+	archive(durability);
+	archive(size);
+	archive(direction);
+	archive(team->getID());
+	archive(tile);
 }
 
-void Building::load(cereal::BinaryInputArchive& archive)
+void Building::load(cereal::BinaryInputArchive& archive, World& world)
 {
 	archive(type);
+	archive(durability);
+	archive(size);
+	archive(direction);
+	int teamID;
+	archive(teamID);
+	team = world.getTeam(teamID);
+	archive(tile);
 }
 
 

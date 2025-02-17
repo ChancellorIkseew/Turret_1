@@ -7,7 +7,7 @@
 #include "map_structures/team/team.h"
 
 
-StandardBot::StandardBot(const uint16_t type, Team* const team) : Entity(type, team)
+StandardBot::StandardBot(Team* const team) : Entity(team)
 {
 	durability = 10 * maxDurabilityModifier;
 	pixelRange = 5;
@@ -17,13 +17,12 @@ StandardBot::StandardBot(const uint16_t type, Team* const team) : Entity(type, t
 
 void StandardBot::shoot(const BuildingsMap& buildingsMap)
 {
-	Entity::detectAim(buildingsMap);
 	Entity::reloadWeapon();
 	
 	if (isAimDetected)
 	{
 		shootingAngleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
-		shootingAngleDeg = atan2f(aimCoord.y - coord.y, aimCoord.x - coord.x) * 57.3f + 90.0f;
+		shootingAngleDeg = t1::be::radToDegree(shootingAngleRad);
 
 		if (reloadTimer <= 0)
 		{

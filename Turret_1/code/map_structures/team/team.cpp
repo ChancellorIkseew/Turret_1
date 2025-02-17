@@ -17,6 +17,7 @@ void Team::save(cereal::BinaryOutputArchive& archive) const
     archive(shells);
     archive(balance); //?
     archive(name);
+    archive(ID);
 }
 
 void Team::load(cereal::BinaryInputArchive& archive)
@@ -25,6 +26,7 @@ void Team::load(cereal::BinaryInputArchive& archive)
     archive(shells);
     archive(balance); //?
     archive(name);
+    archive(ID);
 }
 
 void Team::spawnShell(const uint16_t type, const PixelCoord coord, float angleRad, float angleDeg)
@@ -32,7 +34,7 @@ void Team::spawnShell(const uint16_t type, const PixelCoord coord, float angleRa
     shells.spawnShell(type, coord, angleRad, angleDeg, this);
 }
 
-void Team::spawnEntity(const uint8_t amount, const uint16_t type, const BuildingsMap& buildingsMap)
+void Team::spawnEntity(const uint8_t amount, const MobType type, const BuildingsMap& buildingsMap)
 {
     entities.spawnEntity(amount, type, this, buildingsMap);
 }

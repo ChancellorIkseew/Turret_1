@@ -1,6 +1,7 @@
 
 #include "entity.h"
 
+#include "map_structures/world/world.h"
 #include "map_structures/team/team.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/pre-settings/pre-settings.h"
@@ -15,9 +16,8 @@ void Entity::initPreSettings()
 	Entity::maxDurabilityModifier = PreSettings::getMobs().maxDurabilityModifier;
 }
 
-Entity::Entity(const uint16_t type, Team* const team)		//1st spawn
+Entity::Entity(Team* const team)		//1st spawn
 {
-	this->type = type;
 	this->team = team;
 	isAimDetected = false;
 	aimCoord = destCoord;
@@ -28,18 +28,15 @@ Entity::Entity(const uint16_t type, Team* const team)		//1st spawn
 
 void Entity::save(cereal::BinaryOutputArchive& archive) const
 {
-	archive(type);
-	archive(coord);
-	archive(motionAngleDeg);
-	archive(durability);
+	archive(coord, motionAngleRad, durability, team->getID());
 }
 
 void Entity::load(cereal::BinaryInputArchive& archive)
 {
-	archive(type);
-	archive(coord);
-	archive(motionAngleDeg);
-	archive(durability);
+	int teamID;
+	archive(coord, motionAngleRad, durability, teamID);
+	team = world->getTeam(teamID);
+	motionAngleDeg = t1::be::radToDegree(motionAngleRad);
 }
 
 
@@ -77,11 +74,11 @@ void Entity::motion(const BuildingsMap& buildingsMap)
 }
 
 
-void Entity::detectAim(const BuildingsMap& buildingsMap)
+void Entity::detectAim(const World& world)
 {
 	if (tileChanged() || EventsHandler::active(t1::EventType::MAP_CHANGED))
 	{
-		PixelCoord newAimCoord = t1::ent::findAim(*this, buildingsMap);
+		PixelCoord newAimCoord = t1::ent::findAim(*this, world);
 		if (newAimCoord.x != 0)	// "0" - aim_was_not_detected
 		{
 			aimCoord = newAimCoord;

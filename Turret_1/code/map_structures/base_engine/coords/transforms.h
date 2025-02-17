@@ -22,6 +22,7 @@ namespace t1::be
 	PixelCoord pixel(TileCoord tileCoord);
 
 	int pow2i(const int value);
+	PixelCoord correction(const PixelCoord center, const PixelCoord point, const float angleRad);
 
 	float radToDegree(const float radian);
 };

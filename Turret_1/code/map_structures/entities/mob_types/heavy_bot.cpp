@@ -7,7 +7,7 @@
 #include "map_structures/team/team.h"
 
 
-HeavyBot::HeavyBot(const uint16_t type, Team* const team) : Entity(type, team)
+HeavyBot::HeavyBot(Team* const team) : Entity(team)
 {
 	durability = 50 * maxDurabilityModifier;
 	pixelRange = 7;
@@ -17,7 +17,6 @@ HeavyBot::HeavyBot(const uint16_t type, Team* const team) : Entity(type, team)
 
 void HeavyBot::shoot(const BuildingsMap& buildingsMap)
 {
-	Entity::detectAim(buildingsMap);
 	Entity::reloadWeapon();
 
 	if (isAimDetected)

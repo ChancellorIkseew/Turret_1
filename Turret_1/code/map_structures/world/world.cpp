@@ -15,21 +15,22 @@ void World::save(const std::string& saveFolderName) const
 	std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
 	std::ofstream fout(saveFileName, std::ios::binary);
 	cereal::BinaryOutputArchive archive(fout);
+	archive(teams);
 	archive(terrainMap);
-	//archive(buildingsMap);
-	//archive(teams);
+	archive(buildingsMap);
 	fout.close();
 }
 
 void World::load(const std::string& saveFolderName)
 {
+	Entity::initPreSettings();
 	const std::string saveFileName = "saves/" + saveFolderName + "/world.bin";
 	std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
 	std::ifstream fin(saveFileName, std::ios::binary);
 	cereal::BinaryInputArchive archive(fin);
+	archive(teams);
 	archive(terrainMap);
-	//archive(buildingsMap);
-	//archive(teams);
+	archive(buildingsMap);
 	fin.close();
 }
 
@@ -49,7 +50,7 @@ void World::simulate()
 	//buildingsMap.intetractMap();
 	for (auto& team : teams)
 	{
-		team->interact(buildingsMap);
+		team.second->interact(buildingsMap);
 	}
 	//particlesList.interact();
 }
@@ -58,10 +59,10 @@ void World::draw(sf::RenderWindow& window, const Camera& camera)
 {
 	std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
 	terrainMap.draw(window, camera);
-	//buildingsMap.draw(window, camera);
+	buildingsMap.draw(window, camera);
 	for (auto& team : teams)
 	{
-		team->draw(window, camera);
+		team.second->draw(window, camera);
 	}
 	//particlesList.draw();
 }

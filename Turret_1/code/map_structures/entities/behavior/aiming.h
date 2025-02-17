@@ -6,10 +6,11 @@
 
 class Entity;
 class BuildingsMap;
+class World;
 
 namespace t1::ent
 {
-	PixelCoord findAim(const Entity& entity, const BuildingsMap& buildingsMap);
+	PixelCoord findAim(const Entity& entity, const World& world);
 }
 
 #endif // T1_ENT_AIMING_H

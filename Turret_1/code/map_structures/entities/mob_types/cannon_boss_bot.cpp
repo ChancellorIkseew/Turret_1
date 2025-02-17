@@ -6,7 +6,7 @@
 #include "map_structures/team/team.h"
 
 
-CannonBossBot::CannonBossBot(const uint16_t type, Team* const team) : Entity(type, team)
+CannonBossBot::CannonBossBot(Team* const team) : Entity(team)
 {
 	durability = 270 * maxDurabilityModifier;
 	pixelRange = 20;
@@ -16,13 +16,12 @@ CannonBossBot::CannonBossBot(const uint16_t type, Team* const team) : Entity(typ
 
 void CannonBossBot::shoot(const BuildingsMap& buildingsMap)
 {
-	Entity::detectAim(buildingsMap);
 	Entity::reloadWeapon();
 
 	if (isAimDetected)
 	{
 		shootingAngleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
-		shootingAngleDeg = atan2f(aimCoord.y - coord.y, aimCoord.x - coord.x) * 57.3f + 90.0f;
+		shootingAngleDeg = t1::be::radToDegree(shootingAngleRad);
 
 		if (reloadTimer <= 0)
 		{

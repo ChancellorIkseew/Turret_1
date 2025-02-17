@@ -2,6 +2,8 @@
 #ifndef WORLD_H
 #define WORLD_H
 
+#include <unordered_map>
+
 #include "map_structures/team/team.h"
 #include "map_structures/terrain/terrain.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
@@ -13,7 +15,7 @@ class World
 private:
 	TerrainMap terrainMap;
 	BuildingsMap buildingsMap;
-	std::unordered_set<std::shared_ptr<Team>> teams;
+	std::unordered_map<int, std::shared_ptr<Team>> teams;
 	//ParticlesList particlesList; not implemented
 
 public:
@@ -30,14 +32,27 @@ public:
 	TerrainMap& getTerrainMap() { return terrainMap; }
 	BuildingsMap& getBuildingsMap() { return buildingsMap; }
 
+	const TerrainMap& getTerrainMap() const { return terrainMap; }
+	const BuildingsMap& getBuildingsMap() const { return buildingsMap; }
+
 	void addTeam(const sf::String& name)
 	{
-		teams.emplace(std::make_shared<Team>(name));
+		teams.emplace(0, std::make_shared<Team>(name));
 	}
 
 	void addTeam(const std::shared_ptr<Team> team)
 	{
-		teams.emplace(team);
+		teams.emplace(team->getID(), team);
+	}
+
+	Team* getTeam(const int ID) const
+	{
+		return teams.find(ID)->second.get();
+	}
+
+	const std::unordered_map<int, std::shared_ptr<Team>>& getTeams() const
+	{
+		return teams;
 	}
 
 };

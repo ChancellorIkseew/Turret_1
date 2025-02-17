@@ -7,7 +7,7 @@
 #include "map_structures/team/team.h"
 
 
-RocketBossBot::RocketBossBot(const uint16_t type, Team* const team) : Entity(type, team)
+RocketBossBot::RocketBossBot(Team* const team) : Entity(team)
 {
 	durability = 230 * maxDurabilityModifier;
 	pixelRange = 28;
@@ -17,13 +17,12 @@ RocketBossBot::RocketBossBot(const uint16_t type, Team* const team) : Entity(typ
 
 void RocketBossBot::shoot(const BuildingsMap& buildingsMap)
 {
-	Entity::detectAim(buildingsMap);
 	Entity::reloadWeapon();
 
 	if (isAimDetected)
 	{
 		shootingAngleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
-		shootingAngleDeg = atan2f(aimCoord.y - coord.y, aimCoord.x - coord.x) * 57.3f + 90.0f;
+		shootingAngleDeg = t1::be::radToDegree(shootingAngleRad);
 
 		if (reloadTimer <= 0)
 		{

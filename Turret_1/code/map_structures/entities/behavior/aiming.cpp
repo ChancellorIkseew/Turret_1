@@ -3,17 +3,17 @@
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/entities/entity/entity.h"
 #include "map_structures/team/team.h"
+#include "map_structures/world/world.h"
 
 using namespace t1::be;
 
-PixelCoord t1::ent::findAim(const Entity& entity, const BuildingsMap& buildingsMap)
+PixelCoord t1::ent::findAim(const Entity& entity, const World& world)
 {
-	/*
-	for (auto& tm : Team::teams)
+	for (auto& team : world.getTeams())
 	{
-		if (entity.team->getID() != tm->getID())
+		if (entity.team->getID() != team.first)
 		{
-			for (auto en = tm->entities.begin(); en != tm->entities.end(); ++en)
+			for (auto en = team.second->entities.begin(); en != team.second->entities.end(); ++en)
 			{
 				float deltaX = entity.coord.x - (*en)->getCoord().x;
 				float deltaY = entity.coord.y - (*en)->getCoord().y;
@@ -25,7 +25,8 @@ PixelCoord t1::ent::findAim(const Entity& entity, const BuildingsMap& buildingsM
 			}
 		}
 	}
-	*/
+
+	BuildingsMap buildingsMap = world.getBuildingsMap();
 
 	for (int i = 1; i <= entity.pixelRange; i++)
 	{

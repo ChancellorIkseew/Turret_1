@@ -12,6 +12,7 @@
 class Team;
 class Core;
 class BuildingsMap;
+class World;
 
 struct StoredResource
 {
@@ -51,7 +52,7 @@ public:
 	virtual ~Building() = default;
 
 	virtual void save(cereal::BinaryOutputArchive& archive) const;
-	virtual void load(cereal::BinaryInputArchive& archive);
+	virtual void load(cereal::BinaryInputArchive& archive, World& world);
 
 	static std::shared_ptr<Building> createBuilding(const uint16_t type, const char direction, const TileCoord tile, Team* const team);
 

@@ -17,7 +17,7 @@ void EntitiesList::load(cereal::BinaryInputArchive& archive)
 }
 
 
-void EntitiesList::spawnEntity(const uint8_t amount, const uint16_t type, Team* team, const BuildingsMap& buildingsMap)
+void EntitiesList::spawnEntity(const uint8_t amount, const MobType type, Team* team, const BuildingsMap& buildingsMap)
 {
 	for (int i = 0; i < amount; ++i)
 	{
@@ -29,7 +29,7 @@ void EntitiesList::spawnEntity(const uint8_t amount, const uint16_t type, Team* 
 		}
 		catch (std::exception)
 		{
-			std::cout << "mob_type does not exist. type: " << type << '\n';
+			std::cout << "Mob_type does not exist. Type: " << static_cast<uint16_t>(type) << ".\n";
 		}
 	}
 }

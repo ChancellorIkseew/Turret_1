@@ -9,8 +9,12 @@
 #include "map_structures/entities/behavior/aiming.h"
 #include "map_structures/entities/behavior/path_finding.h"
 
+enum class MobType : uint8_t;
+enum class MobCategory : uint8_t;
+
 class Team;
 class BuildingsMap;
+class World;
 
 class Entity
 {
@@ -18,6 +22,7 @@ protected:
 	static inline TileCoord mapSize;
 	static inline float maxDurabilityModifier;
 	
+	static inline World* world;
 	Team* team = nullptr;
 	
 	PixelCoord coord;
@@ -34,8 +39,6 @@ protected:
 
 	float maxSpeed = 0;
 
-	uint16_t type = 0;
-
 	int16_t durability = 0; // timer_and_durability can_be_negative_in_some_cases
 	int16_t reloadTimer = 0;
 	uint16_t pixelRange = 0;
@@ -51,18 +54,19 @@ protected:
 	static inline sf::Sprite shieldSprite;
 
 	void reloadWeapon();
-	void detectAim(const BuildingsMap& buildingsMap);
+	void detectAim(const World& world);
 
 public:
 	static void initPreSettings();
 
-	Entity(const uint16_t type, Team* const team);
+	Entity(Team* const team);
+	Entity() = default;
 	virtual ~Entity() = default;
 
 	void save(cereal::BinaryOutputArchive& archive) const;
 	void load(cereal::BinaryInputArchive& archive);
 
-	static std::unique_ptr<Entity> createEntity(const uint16_t type, Team* const team);
+	static std::unique_ptr<Entity> createEntity(const MobType type, Team* const team);
 	static PixelCoord randomMapBorderSpawn();
 
 	// combat
@@ -75,17 +79,20 @@ public:
 	void setDamage(const int16_t damage);
 	void setCoord(const PixelCoord coord);
 	void setDestCoord(const PixelCoord destCoord);
-	uint16_t getType() const { return type; }
 	PixelCoord getCoord() const { return coord; }
 	TileCoord getTile() const { return currentTile; }
 	float getAngleRad() const { return motionAngleRad; }
 	int getDurability() const { return durability; }
+	Team* getTeam() const { return team; }
+
+	virtual MobCategory getCategory() const = 0;
+	virtual MobType getType() const = 0;
 
 	// visual
 	static void prepareSprites();
 	virtual void draw(sf::RenderWindow& window) = 0;
 
-	friend PixelCoord t1::ent::findAim(const Entity& entity, const BuildingsMap& buildingsMap);
+	friend PixelCoord t1::ent::findAim(const Entity& entity, const World& world);
 	friend TileCoord t1::ent::findDestination(const Entity& entity, const BuildingsMap& buildingsMap);
 		
 };

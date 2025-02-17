@@ -47,6 +47,11 @@ int t1::be::pow2i(const int value) {
 	return value * value;
 }
 
+PixelCoord t1::be::correction(const PixelCoord center, const PixelCoord point, const float angleRad) {
+
+	return PixelCoord(0, 0);
+}
+
 
 // angles
 float t1::be::radToDegree(const float radian) {

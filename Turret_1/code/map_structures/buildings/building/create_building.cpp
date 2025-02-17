@@ -6,8 +6,8 @@
 #include "map_structures/pre-settings/pre-settings.h"
 
 #include "map_structures/buildings/building_types/auxilary/auxilary.h"
-//#include "map_structures/buildings/building_types/walls/wall_types/stone_wall.h"
-//#include "map_structures/buildings/building_types/walls/tower_types/stone_tower.h"
+#include "map_structures/buildings/building_types/walls/wall_types/stone_wall.h"
+#include "map_structures/buildings/building_types/walls/tower_types/stone_tower.h"
 //#include "map_structures/buildings/building_types/drills/drill.h"
 //#include "map_structures/buildings/building_types/drills/drill_types/small_drill.h"
 //#include "map_structures/buildings/building_types/drills/drill_types/big_drill.h"
@@ -40,12 +40,11 @@ std::shared_ptr<Building> Building::createBuilding(const uint16_t type, const ch
 		return nullptr;
 	case CORE_MK2:
 		return std::make_shared<CoreMK2>(CORE_MK2, durability, size, tile, team);
-	/*
 	case CORE_MK3:
-		break;
-		/*
+		return nullptr;
+		
 	case STONE_WALL:
-		return std::make_shared<StoneWall>(STONE_WALL, durability, size, tile, team);
+		return std::make_shared<StoneWall>(STONE_WALL, durability, size, tile, team);/*
 	case CONCRETE_WALL:
 		break;
 	case URANIUM_WALL:

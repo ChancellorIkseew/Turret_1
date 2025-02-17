@@ -198,12 +198,17 @@
     <ClCompile Include="code\map_structures\base_engine\coords\tile_coord_arrays.cpp" />
     <ClCompile Include="code\map_structures\base_engine\coords\transforms.cpp" />
     <ClCompile Include="code\map_structures\buildings\buildings_map\buildings_map.cpp" />
+    <ClCompile Include="code\map_structures\buildings\buildings_map\b_map_construction.cpp" />
+    <ClCompile Include="code\map_structures\buildings\buildings_map\b_map_get_set.cpp" />
+    <ClCompile Include="code\map_structures\buildings\buildings_map\b_map_save_load.cpp" />
+    <ClCompile Include="code\map_structures\buildings\buildings_map\b_map_turrets.cpp" />
     <ClCompile Include="code\map_structures\buildings\building\building.cpp" />
     <ClCompile Include="code\map_structures\buildings\building\buildings_info.cpp" />
     <ClCompile Include="code\map_structures\buildings\building\create_building.cpp" />
     <ClCompile Include="code\map_structures\buildings\building_types\auxilary\auxilary.cpp" />
     <ClCompile Include="code\map_structures\buildings\building_types\storages\core.cpp" />
     <ClCompile Include="code\map_structures\buildings\building_types\storages\core_types\core_mk2.cpp" />
+    <ClCompile Include="code\map_structures\buildings\building_types\walls\wall_types\stone_wall.cpp" />
     <ClCompile Include="code\map_structures\entities\behavior\aiming.cpp" />
     <ClCompile Include="code\map_structures\entities\behavior\path_finding.cpp" />
     <ClCompile Include="code\map_structures\entities\entities_list\entities_list.cpp" />
@@ -220,6 +225,7 @@
     <ClCompile Include="code\map_structures\entities\turret\turret.cpp" />
     <ClCompile Include="code\map_structures\entities\turret_types\autocannon_turret.cpp" />
     <ClCompile Include="code\map_structures\entities\turret_types\rocket_turret.cpp" />
+    <ClCompile Include="code\map_structures\entities\weapon\weapon.cpp" />
     <ClCompile Include="code\map_structures\particles\particles.cpp" />
     <ClCompile Include="code\map_structures\pre-settings\pre-settings.cpp" />
     <ClCompile Include="code\map_structures\resources\all_resources.cpp" />
@@ -304,6 +310,7 @@
     <ClInclude Include="code\map_structures\buildings\building_types\logistics\conveer_types\shielded_conveer.h" />
     <ClInclude Include="code\map_structures\buildings\building_types\storages\core.h" />
     <ClInclude Include="code\map_structures\buildings\building_types\storages\core_types\core_mk2.h" />
+    <ClInclude Include="code\map_structures\buildings\building_types\walls\wall_types\stone_wall.h" />
     <ClInclude Include="code\map_structures\entities\behavior\aiming.h" />
     <ClInclude Include="code\map_structures\entities\behavior\path_finding.h" />
     <ClInclude Include="code\map_structures\entities\entities_list\entities_list.h" />
@@ -319,6 +326,7 @@
     <ClInclude Include="code\map_structures\entities\turret\turret.h" />
     <ClInclude Include="code\map_structures\entities\turret_types\autocannon_turret.h" />
     <ClInclude Include="code\map_structures\entities\turret_types\rocket_turret.h" />
+    <ClInclude Include="code\map_structures\entities\weapon\weapon.h" />
     <ClInclude Include="code\map_structures\particles\particles.h" />
     <ClInclude Include="code\map_structures\pre-settings\pre-settings.h" />
     <ClInclude Include="code\map_structures\pre-settings\pre_settings\buildings_pre.h" />

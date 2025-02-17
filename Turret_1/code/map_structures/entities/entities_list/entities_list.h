@@ -24,7 +24,7 @@ public:
 	void save(cereal::BinaryOutputArchive& archive) const;
 	void load(cereal::BinaryInputArchive& archive);
 
-	void spawnEntity(const uint8_t amount, const uint16_t type, Team* team, const BuildingsMap& buildingsMap);
+	void spawnEntity(const uint8_t amount, const MobType type, Team* team, const BuildingsMap& buildingsMap);
 	void clean() noexcept;
 
 	void interact(const BuildingsMap& buildingsMap);

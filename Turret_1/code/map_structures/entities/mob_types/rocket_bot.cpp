@@ -7,7 +7,7 @@
 #include "map_structures/team/team.h"
 
 
-RocketBot::RocketBot(const uint16_t type, Team* const team) : Entity(type, team)
+RocketBot::RocketBot(Team* const team) : Entity(team)
 {
 	durability = 25 * maxDurabilityModifier;
 	pixelRange = 25;
@@ -17,13 +17,12 @@ RocketBot::RocketBot(const uint16_t type, Team* const team) : Entity(type, team)
 
 void RocketBot::shoot(const BuildingsMap& buildingsMap)
 {
-	Entity::detectAim(buildingsMap);
 	Entity::reloadWeapon();
 
 	if (isAimDetected)
 	{
 		shootingAngleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
-		shootingAngleDeg = atan2f(aimCoord.y - coord.y, aimCoord.x - coord.x) * 57.3f + 90.0f;
+		shootingAngleDeg = t1::be::radToDegree(shootingAngleRad);
 
 		if (reloadTimer <= 0)
 		{

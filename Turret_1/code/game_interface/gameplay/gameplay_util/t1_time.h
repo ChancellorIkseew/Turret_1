@@ -4,16 +4,27 @@
 
 #include <string>
 
-namespace t1::time
+namespace t1
 {
-	extern int time;
-	extern int waveNumber;
+	class Time
+	{
+	private:
+		static inline int currentTime = 0;
+		static inline int currentWave = 0;
 
-	void loadTime(const std::string& folder);
-	void saveTime(const std::string& folder);
+	public:
+		static void loadTime(const std::string& folder);
+		static void saveTime(const std::string& folder);
 
-	void resetTime();
-	void setTime(const int time, const int wave);
+		static void resetTime();
+		static void setTime(const int time);
+		static void setWave(const int wave);
+		static int getTime() { return currentTime; }
+		static int getWave() { return currentWave; }
+
+		static void timeRun(const int ticks);
+		static void setNextWave();
+	};
 }
 
 #endif // T1_TIME
