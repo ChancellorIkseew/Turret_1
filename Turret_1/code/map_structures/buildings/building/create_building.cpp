@@ -20,12 +20,12 @@
 //#include "map_structures/buildings/building_types/factories/factory_types/rocket_factory.h"
 
 
-std::shared_ptr<Building> Building::createBuilding(const uint16_t type, const char direction, const TileCoord tile, Team* const team)
+std::shared_ptr<Building> Building::createBuilding(const BuildingType type, const char direction, const TileCoord tile, Team* const team)
 {
 	int32_t durability = 0;
 	uint8_t size = 1;
 
-	if (type != AUXILARY)
+	if (type != BuildingType::AUXILARY)
 	{
 		durability = t1::bc::buildingsInfoTable[type].durability * PreSettings::getBuildings().maxDurabilityModifier;
 		size = t1::bc::buildingsInfoTable[type].size;
@@ -33,18 +33,18 @@ std::shared_ptr<Building> Building::createBuilding(const uint16_t type, const ch
 
 	switch (type)
 	{
-	case AUXILARY:
-		return std::make_shared<Auxilary>(AUXILARY, durability, size, tile, team);
+	case BuildingType::AUXILARY:
+		return std::make_shared<Auxilary>(durability, size, tile, team);
 
-	case CORE_MK1:
+	case BuildingType::CORE_MK1:
 		return nullptr;
-	case CORE_MK2:
-		return std::make_shared<CoreMK2>(CORE_MK2, durability, size, tile, team);
-	case CORE_MK3:
+	case BuildingType::CORE_MK2:
+		return std::make_shared<CoreMK2>(durability, size, tile, team);
+	case BuildingType::CORE_MK3:
 		return nullptr;
 		
-	case STONE_WALL:
-		return std::make_shared<StoneWall>(STONE_WALL, durability, size, tile, team);/*
+	case BuildingType::STONE_WALL:
+		return std::make_shared<StoneWall>(durability, size, tile, team);/*
 	case CONCRETE_WALL:
 		break;
 	case URANIUM_WALL:
@@ -84,7 +84,7 @@ std::shared_ptr<Building> Building::createBuilding(const uint16_t type, const ch
 		return std::make_shared<RocketFactory>(ROCKET_FACTORY, durability, size, tile, team);
 		*/
 	default:
-		std::cout << "building_type does not exist. type: " << type << '\n';
+		std::cout << "building_type does not exist. type: " << static_cast<uint16_t>(type) << '\n';
 		return nullptr;
 	}
 }

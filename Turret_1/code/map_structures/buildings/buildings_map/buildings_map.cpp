@@ -72,7 +72,7 @@ void BuildingsMap::intetractMap()
 	{
 		for (auto& building : line)
 		{
-			if (building != nullptr && building->getType() != AUXILARY)
+			if (building != nullptr && building->getType() != BuildingType::AUXILARY)
 				building->interact();
 		}
 	}
@@ -134,7 +134,7 @@ void BuildingsMap::draw(sf::RenderWindow& window, const Camera& camera)
 	{
 		for (int y = start.y; y < end.y; ++y)
 		{
-			if (buildingsMap[x][y] != nullptr && buildingsMap[x][y]->getType() != AUXILARY)
+			if (buildingsMap[x][y] != nullptr && buildingsMap[x][y]->getType() != BuildingType::AUXILARY)
 				buildingsMap[x][y]->draw(window);
 		}
 	}

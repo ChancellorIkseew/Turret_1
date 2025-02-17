@@ -7,6 +7,7 @@
 #include "game_interface/ui_window/ui_window/ui_window.h"
 #include "game_interface/ui_window/elements/res_info/res_info.h"
 #include "map_structures/buildings/building/buildings_info.h"
+#include "map_structures/buildings/building/buildings_enum.h"
 
 
 class ExpensesPanel : public UIWindow
@@ -25,7 +26,7 @@ public:
 	ExpensesPanel();
 	~ExpensesPanel() = default;
 	
-	void interact(const int index);
+	void interact(const BuildingType index);
 	void relocate(const sf::Vector2u windowSize) override final;
 
 	void prepareInterfaceSprites() override final;

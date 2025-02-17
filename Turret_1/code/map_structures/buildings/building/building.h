@@ -8,6 +8,7 @@
 
 #include "map_structures/base_engine/base_engine.h"
 #include "map_structures/resources/resource_unit.h"
+#include "map_structures/buildings/building/buildings_enum.h"
 
 class Team;
 class Core;
@@ -47,26 +48,27 @@ protected:
 	bool isStorageFull(const short capacity) const;
 
 public:
-	Building(const uint16_t type, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team);
+	Building(const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team);
 	Building() = default;
 	virtual ~Building() = default;
 
 	virtual void save(cereal::BinaryOutputArchive& archive) const;
 	virtual void load(cereal::BinaryInputArchive& archive, World& world);
 
-	static std::shared_ptr<Building> createBuilding(const uint16_t type, const char direction, const TileCoord tile, Team* const team);
+	static std::shared_ptr<Building> createBuilding(const BuildingType type, const char direction, const TileCoord tile, Team* const team);
 
 	virtual void interact();
 	void setDamage(const int damage);
 	void setDurability(const int durability);
-	TileCoord getTileCoord() const;
-	int getType() const;
-	short getDurability() const;
-	short getSize() const;
-	char getDirection() const;
-	std::list<StoredResource>& getInventory();
-	Team* getTeam() const;
+	TileCoord getTileCoord() const { return tile; }
+	short getSize() const { return size; }
+	short getDurability() const { return durability; }
+	char getDirection() const { return direction; }
+	std::list<StoredResource>& getInventory() { return inventory; }
+	Team* getTeam() const { return team; }
 	int getTeamID() const;
+
+	virtual BuildingType getType() const = 0;
 
 	// resouses_and_inventory
 	virtual bool canAccept(const uint16_t resType) const;
@@ -85,7 +87,7 @@ public:
 	bool hasCorrectConveyerRight(const TileCoord tile, const BuildingsMap& buildingsMap) const;
 
 	// turrets
-	virtual void setTurret(const uint16_t turretType);
+	virtual void setTurret(const BuildingType turretType);
 	virtual void removeTurret();
 	virtual bool isTurretOnTower() const;
 

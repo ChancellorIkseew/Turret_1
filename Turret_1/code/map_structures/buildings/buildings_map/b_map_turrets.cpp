@@ -6,10 +6,10 @@
 #include "map_structures/team/team.h"
 
 
-void BuildingsMap::setTurret(const uint16_t turretType, const TileCoord tile, Team* team)
+void BuildingsMap::setTurret(const BuildingType turretType, const TileCoord tile, Team* team)
 {
 	if (t1::bc::buildingsInfoTable.find(turretType) == t1::bc::buildingsInfoTable.end() || !buildingExists(tile) ||
-		(buildingsMap[tile.x][tile.y]->getType() != STONE_TOWER && buildingsMap[tile.x][tile.y]->getType() != STEEL_TOWER))
+		(buildingsMap[tile.x][tile.y]->getType() != BuildingType::STONE_TOWER && buildingsMap[tile.x][tile.y]->getType() != BuildingType::STEEL_TOWER))
 	{
 		return;
 	}

@@ -44,7 +44,7 @@ void SpecificationPanel::prepareInterfaceSprites()
 
 
 
-void SpecificationPanel::interact(const int index)
+void SpecificationPanel::interact(const BuildingType index)
 {
     if (!isVisible)
         return;

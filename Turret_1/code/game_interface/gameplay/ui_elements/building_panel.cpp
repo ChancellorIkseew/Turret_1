@@ -34,8 +34,8 @@ BuildingPanel::BuildingPanel() : UIWindow(sf::Vector2u(324, 192), sf::Vector2u(0
 {
 	selectedPage = LOGISTICS;
 	isBuildingTypeSelected = false;
-	newBuildingType = VOID_;
-	oldBuildingType = VOID_;
+	newBuildingType = BuildingType::VOID_;
+	oldBuildingType = BuildingType::VOID_;
 	direction = 'w';
 	isInfoOpen = false;
 
@@ -173,8 +173,8 @@ void BuildingPanel::drawBuildExample(sf::RenderWindow& window, Team* team, const
 
 	if (!isBuildingTypeSelected)
 		return;
-	if (newBuildingType != STANDARD_CONVEYER && newBuildingType != SHIELDED_CONVEYER &&
-		newBuildingType != BRIDGE && newBuildingType != SORTER)
+	if (newBuildingType != BuildingType::STANDARD_CONVEYER && newBuildingType != BuildingType::SHIELDED_CONVEYER &&
+		newBuildingType != BuildingType::BRIDGE && newBuildingType != BuildingType::SORTER)
 	{
 		direction = 'w';
 		buildExample.setRotation(0.0f);
@@ -182,7 +182,7 @@ void BuildingPanel::drawBuildExample(sf::RenderWindow& window, Team* team, const
 
 	TileCoord selectedTile = t1::be::tile(mouseMapCoord.x, mouseMapCoord.y);
 	if (buildingsMap.isAvaluablePlaceBuilding(newBuildingType, selectedTile, team) ||
-		newBuildingType == AUTOCANNON_TURRET || newBuildingType == ROCKET_TURRET)
+		newBuildingType == BuildingType::AUTOCANNON_TURRET || newBuildingType == BuildingType::ROCKET_TURRET)
 		buildExample.setColor(whiteTransparent);
 	else
 		buildExample.setColor(darkRedTransparent);
@@ -197,10 +197,10 @@ void BuildingPanel::rotateBuilding()
 {
 	switch (newBuildingType)
 	{
-	case STANDARD_CONVEYER:
-	case SHIELDED_CONVEYER:
-	case BRIDGE:
-	case SORTER:
+	case BuildingType::STANDARD_CONVEYER:
+	case BuildingType::SHIELDED_CONVEYER:
+	case BuildingType::BRIDGE:
+	case BuildingType::SORTER:
 		if (direction == 'w')
 		{
 			direction = 'a';
@@ -245,7 +245,7 @@ void BuildingPanel::selectBuildingType(BuildingIco& ico)
 	else
 	{
 		isBuildingTypeSelected = false;
-		oldBuildingType = VOID_;
+		oldBuildingType = BuildingType::VOID_;
 		isInfoOpen = false;
 	}
 }
@@ -253,18 +253,18 @@ void BuildingPanel::selectBuildingType(BuildingIco& ico)
 
 void BuildingPanel::placeBuilding(const sf::Vector2f& mouseMapCoord, Team* team, BuildingsMap& buildingsMap) const
 {
-	std::cout << "building_place_works: " << newBuildingType << '\n';
+	std::cout << "building_place_works: " << static_cast<uint16_t>(newBuildingType) << '\n';
 	const TileCoord selectedTile = t1::be::tile(mouseMapCoord.x, mouseMapCoord.y);
 
 	std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
-	if (newBuildingType == REMOVE)
+	if (newBuildingType == BuildingType::REMOVE)
 	{
 		if (buildingsMap.isTurretOnTile(selectedTile))
 			buildingsMap.removeTurret(selectedTile);
 		else
 			buildingsMap.demolishBuilding(selectedTile);
 	}
-	else if (newBuildingType == AUTOCANNON_TURRET || newBuildingType == ROCKET_TURRET)
+	else if (newBuildingType == BuildingType::AUTOCANNON_TURRET || newBuildingType == BuildingType::ROCKET_TURRET)
 	{
 		if (!buildingsMap.isTurretOnTile(selectedTile))
 			buildingsMap.setTurret(newBuildingType, selectedTile, team);

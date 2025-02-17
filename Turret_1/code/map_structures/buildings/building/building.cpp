@@ -8,7 +8,7 @@
 #include "map_structures/world/world.h"
 
 
-Building::Building(const uint16_t type, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team)
+Building::Building(const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team)
 {
 	this->type = type;
 	this->durability = durability;
@@ -55,15 +55,7 @@ void Building::setDurability(const int durability)
 	this->durability = durability;
 }
 
-TileCoord Building::getTileCoord() const { return tile; }
-int Building::getType() const { return type; }
-short Building::getSize() const { return size; }
-short Building::getDurability() const { return durability; }
-char Building::getDirection() const { return direction;  }
-std::list<StoredResource>& Building::getInventory() { return inventory; }
-Team* Building::getTeam() const { return team; }
 int Building::getTeamID() const { return team->getID(); }
-
 
 // resUnits_and_inventory
 bool Building::canAccept(const uint16_t resType) const { return false; }
@@ -137,28 +129,28 @@ void Building::addToInventory(const uint16_t resType, const uint16_t amount)
 bool Building::hasCorrectConveyerUp(const TileCoord tile, const BuildingsMap& buildingsMap) const
 {
 	const TileCoord checkTile = { tile.x, tile.y - 1 };
-	return ((buildingsMap.getBuildingType(checkTile) == STANDARD_CONVEYER && buildingsMap.getBuildingDirection(checkTile) != 's') ||
+	return ((buildingsMap.getBuildingType(checkTile) == BuildingType::STANDARD_CONVEYER && buildingsMap.getBuildingDirection(checkTile) != 's') ||
 		buildingsMap.getBuildingDirection(checkTile) == 'w');
 }
 
 bool Building::hasCorrectConveyerLeft(const TileCoord tile, const BuildingsMap& buildingsMap) const
 {
 	const TileCoord checkTile = { tile.x - 1, tile.y };
-	return ((buildingsMap.getBuildingType(checkTile) == STANDARD_CONVEYER && buildingsMap.getBuildingDirection(checkTile) != 'd') ||
+	return ((buildingsMap.getBuildingType(checkTile) == BuildingType::STANDARD_CONVEYER && buildingsMap.getBuildingDirection(checkTile) != 'd') ||
 		buildingsMap.getBuildingDirection(checkTile) == 'a');
 }
 
 bool Building::hasCorrectConveyerDown(const TileCoord tile, const BuildingsMap& buildingsMap) const
 {
 	const TileCoord checkTile = { tile.x, tile.y + 1 };
-	return ((buildingsMap.getBuildingType(checkTile) == STANDARD_CONVEYER && buildingsMap.getBuildingDirection(checkTile) != 'w') ||
+	return ((buildingsMap.getBuildingType(checkTile) == BuildingType::STANDARD_CONVEYER && buildingsMap.getBuildingDirection(checkTile) != 'w') ||
 		buildingsMap.getBuildingDirection(checkTile) == 's');
 }
 
 bool Building::hasCorrectConveyerRight(const TileCoord tile, const BuildingsMap& buildingsMap) const
 {
 	const TileCoord checkTile = { tile.x + 1, tile.y };
-	return ((buildingsMap.getBuildingType(checkTile) == STANDARD_CONVEYER && buildingsMap.getBuildingDirection(checkTile) != 'a') ||
+	return ((buildingsMap.getBuildingType(checkTile) == BuildingType::STANDARD_CONVEYER && buildingsMap.getBuildingDirection(checkTile) != 'a') ||
 		buildingsMap.getBuildingDirection(checkTile) == 'd');
 }
 
@@ -260,7 +252,7 @@ void Building::placeResourceUnitX9(const uint16_t resType, BuildingsMap& buildin
 
 
 // turrets
-void Building::setTurret(const uint16_t turretType) { }
+void Building::setTurret(const BuildingType turretType) { }
 void Building::removeTurret() { }
 bool Building::isTurretOnTower() const { return false; }
 // conveyers

@@ -20,7 +20,7 @@ public:
 	void interact() override;
 	bool canAccept(const uint16_t resType) const override;
 
-	void setTurret(const uint16_t turretType) override final;
+	void setTurret(const BuildingType turretType) override final;
 	void removeTurret() override final;
 	bool isTurretOnTower() const override final;
 

@@ -63,10 +63,10 @@ int BuildingsMap::getTeamID(const TileCoord tile) const
 	return 199999;
 }
 
-int BuildingsMap::getBuildingType(const TileCoord tile) const
+BuildingType BuildingsMap::getBuildingType(const TileCoord tile) const
 {
 	if (!buildingExists(tile))
-		return VOID_;
+		return BuildingType::VOID_;
 	TileCoord mainTile = getBuildingMainTileCoord(tile);
 	return buildingsMap[mainTile.x][mainTile.y]->getType();
 }

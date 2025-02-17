@@ -10,6 +10,8 @@
 #include "map_structures/buildings/building/building.h"
 #include "map_structures/resources/resource_unit.h"
 
+enum class BuildingType : uint16_t;
+
 class Camera;
 
 class BuildingsMap
@@ -35,9 +37,9 @@ public:
 	const std::vector<std::shared_ptr<Building>>& getCores() const;
 
 	// Construction_process
-	void constructBuilding(const uint16_t type, const char direction, const TileCoord tile, Team* team);
-	bool placeBuilding(const uint16_t type, const char direction, const TileCoord tile, Team* team);
-	bool isAvaluablePlaceBuilding(const uint16_t type, const TileCoord tile, Team* team) const;
+	void constructBuilding(const BuildingType type, const char direction, const TileCoord tile, Team* team);
+	bool placeBuilding(const BuildingType type, const char direction, const TileCoord tile, Team* team);
+	bool isAvaluablePlaceBuilding(const BuildingType type, const TileCoord tile, Team* team) const;
 	void demolishBuilding(const TileCoord tile);
 	
 	// Simple_utilites
@@ -47,7 +49,7 @@ public:
 	bool isVoidBuilding(const TileCoord tile) const;
 
 	// Get_set
-	int getBuildingType(const TileCoord tile) const;
+	BuildingType getBuildingType(const TileCoord tile) const;
 	short getBuildingDurability(const TileCoord tile) const;
 	char getBuildingDirection(const TileCoord tile) const;
 	TileCoord getBuildingMainTileCoord(const TileCoord tile) const;
@@ -64,7 +66,7 @@ public:
 	void addToInventory(ResourceUnit& unit, const TileCoord tile);
 
 	// turrets
-	void setTurret(const uint16_t turretType, const TileCoord tile, Team* team);
+	void setTurret(const BuildingType turretType, const TileCoord tile, Team* team);
 	void removeTurret(const TileCoord tile);
 	bool isTurretOnTile(const TileCoord tile) const;
 	

@@ -3,6 +3,7 @@
 #define T1_BUILDING_ICO_H
 
 #include <SFML/Graphics.hpp>
+#include "map_structures/buildings/building/buildings_enum.h"
 
 
 class BuildingIco
@@ -15,7 +16,7 @@ private:
     static inline sf::Texture texture;
     sf::Sprite ico;
 
-    uint16_t buildingType;
+    BuildingType buildingType;
     sf::IntRect icoRect;
     float scale;
 
@@ -23,12 +24,12 @@ private:
 
 public:
     BuildingIco() = default;
-    BuildingIco(const uint16_t buildingType, const sf::Vector2u position);
-    BuildingIco(const uint16_t buildingType);
+    BuildingIco(const BuildingType buildingType, const sf::Vector2u position);
+    BuildingIco(const BuildingType buildingType);
     ~BuildingIco() = default;
    
     bool press();
-    uint16_t getBuildingType() const;
+    BuildingType getBuildingType() const;
 
     void setPosition(const sf::Vector2u position);
     void relocateWithOwner(const sf::Vector2u ownerPosition);

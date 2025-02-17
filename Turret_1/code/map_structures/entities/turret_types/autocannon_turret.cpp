@@ -7,8 +7,8 @@
 #include "map_structures/team/team.h"
 
 
-AutocannonTurret::AutocannonTurret(const uint16_t type, const TileCoord tile, Team* const team) :
-	Turret(AUTOCANNON_TURRET, tile, team)
+AutocannonTurret::AutocannonTurret(const TileCoord tile, Team* const team) :
+	Turret(tile, team)
 {
 	pixelRange = 11 * _TILE_;
 	spyralRange = 437;

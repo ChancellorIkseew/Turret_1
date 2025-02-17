@@ -2,8 +2,8 @@
 #include "auxilary.h"
 
 
-Auxilary::Auxilary(const uint16_t type, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team) :
-	Building(type, durability, size, tile, team)
+Auxilary::Auxilary(const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team) :
+	Building(durability, size, tile, team)
 {
 
 }

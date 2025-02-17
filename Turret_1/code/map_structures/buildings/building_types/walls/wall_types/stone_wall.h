@@ -7,8 +7,10 @@
 class StoneWall : public Building
 {
 public:
-	StoneWall(const uint16_t type, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team);
+	StoneWall(const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team);
 	~StoneWall() = default;
+
+	BuildingType getType() const override final { return BuildingType::STONE_WALL; }
 
 	void draw(sf::RenderWindow& window) override;
 

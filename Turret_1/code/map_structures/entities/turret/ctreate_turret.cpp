@@ -5,15 +5,17 @@
 #include "map_structures/entities/turret_types/rocket_turret.h"
 
 
-std::unique_ptr<Turret> Turret::createTurret(const uint16_t type, const TileCoord tile, Team* const team)
+std::unique_ptr<Turret> Turret::createTurret(const BuildingType type, const TileCoord tile, Team* const team)
 {
+	
 	switch (type)
 	{
-	case AUTOCANNON_TURRET:
-		return std::make_unique<AutocannonTurret>(AUTOCANNON_TURRET, tile, team);
-	case ROCKET_TURRET:
-		return std::make_unique<RocketTurret>(ROCKET_TURRET, tile, team);
+	case BuildingType::AUTOCANNON_TURRET:
+		return std::make_unique<AutocannonTurret>(tile, team);
+	case BuildingType::ROCKET_TURRET:
+		return std::make_unique<RocketTurret>(tile, team);
 	default:
 		return nullptr;
 	}
+	
 }

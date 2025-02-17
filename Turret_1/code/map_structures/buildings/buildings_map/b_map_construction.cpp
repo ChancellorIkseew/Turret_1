@@ -12,12 +12,12 @@ void BuildingsMap::createAuxilary(const short size, const TileCoord tile, Team* 
 	{
 		int iTileX = tile.x + t1::be::coordSquareArr[i].x;
 		int iTileY = tile.y + t1::be::coordSquareArr[i].y;
-		buildingsMap[iTileX][iTileY] = Building::createBuilding(AUXILARY, 0, tile, team);
+		buildingsMap[iTileX][iTileY] = Building::createBuilding(BuildingType::AUXILARY, 0, tile, team);
 	}
 }
 
 
-void BuildingsMap::constructBuilding(const uint16_t type, const char direction, const TileCoord tile, Team* team)
+void BuildingsMap::constructBuilding(const BuildingType type, const char direction, const TileCoord tile, Team* team)
 {
 	if (t1::bc::buildingsInfoTable.find(type) == t1::bc::buildingsInfoTable.end())
 		return;
@@ -30,7 +30,7 @@ void BuildingsMap::constructBuilding(const uint16_t type, const char direction, 
 }
 
 
-bool BuildingsMap::placeBuilding(const uint16_t type, const char direction, const TileCoord tile, Team* team)
+bool BuildingsMap::placeBuilding(const BuildingType type, const char direction, const TileCoord tile, Team* team)
 {
 	if (!isAvaluablePlaceBuilding(type, tile, team))
 		return false;
@@ -38,14 +38,14 @@ bool BuildingsMap::placeBuilding(const uint16_t type, const char direction, cons
 	buildingsMap[tile.x][tile.y] = building;
 	int size = t1::bc::buildingsInfoTable[type].size;
 	createAuxilary(size, tile, team);
-	if (type == CORE_MK1 || type == CORE_MK2 || type == CORE_MK3)
+	if (type == BuildingType::CORE_MK1 || type == BuildingType::CORE_MK2 || type == BuildingType::CORE_MK3)
 		cores.emplace_back(building);
 	justChangedTiles.push_back(tile);
 	return true;
 }
 
 
-bool BuildingsMap::isAvaluablePlaceBuilding(const uint16_t type, const TileCoord tile, Team* team) const
+bool BuildingsMap::isAvaluablePlaceBuilding(const BuildingType type, const TileCoord tile, Team* team) const
 {
 	int size = t1::bc::buildingsInfoTable[type].size;
 	for (int i = 0; i < size; i++) // cheeck_square_for_place
@@ -63,7 +63,7 @@ void BuildingsMap::demolishBuilding(const TileCoord tile)
 	if (!buildingExists(tile))
 		return;
 	TileCoord mainBuilding = getBuildingMainTileCoord(tile);
-	uint16_t type = buildingsMap[mainBuilding.x][mainBuilding.y]->getType();
+	BuildingType type = buildingsMap[mainBuilding.x][mainBuilding.y]->getType();
 	short size = buildingsMap[mainBuilding.x][mainBuilding.y]->getSize();
 	for (int i = 0; i < size; ++i)
 	{
@@ -71,7 +71,7 @@ void BuildingsMap::demolishBuilding(const TileCoord tile)
 		buildingsMap[iTile.x][iTile.y].reset();
 		justChangedTiles.push_back(iTile);
 	}
-	if (type == CORE_MK1 || type == CORE_MK2 || type == CORE_MK3)
+	if (type == BuildingType::CORE_MK1 || type == BuildingType::CORE_MK2 || type == BuildingType::CORE_MK3)
 	{
 		for (auto core = cores.begin(); core != cores.end(); ++core)
 		{

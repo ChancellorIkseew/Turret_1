@@ -9,7 +9,7 @@
 class AutocannonTurret : public Turret
 {
 	public:
-		AutocannonTurret(const uint16_t type, const TileCoord tile, Team* const team);
+		AutocannonTurret(const TileCoord tile, Team* const team);
 		~AutocannonTurret() = default;
 
 		void shooting() override final;

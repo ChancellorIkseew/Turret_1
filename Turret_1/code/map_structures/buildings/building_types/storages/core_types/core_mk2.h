@@ -9,8 +9,10 @@
 class CoreMK2 : public Core
 {
 public:
-	CoreMK2(const uint16_t type, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team);
+	CoreMK2(const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team);
 	virtual ~CoreMK2() = default;
+
+	BuildingType getType() const override final { return BuildingType::CORE_MK2; }
 
 	virtual void draw(sf::RenderWindow& window) override final;
 

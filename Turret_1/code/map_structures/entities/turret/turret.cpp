@@ -6,9 +6,9 @@
 #include "map_structures/team/team.h"
 
 		
-Turret::Turret(const int type, const TileCoord tile, Team* team)
+Turret::Turret(const TileCoord tile, Team* team)
 {
-	this->type = type;
+	//this->type = type;
 	this->team = team;
 	
 	coord = t1::be::pixel(tile) ;

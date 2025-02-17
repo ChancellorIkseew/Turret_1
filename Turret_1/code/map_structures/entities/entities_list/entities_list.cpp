@@ -23,9 +23,10 @@ void EntitiesList::spawnEntity(const uint8_t amount, const MobType type, Team* t
 	{
 		try
 		{
-			entitiesList.emplace_back(Entity::createEntity(type, team));
-			entitiesList.back()->setCoord(Entity::randomMapBorderSpawn());
-			entitiesList.back()->setDestCoord(t1::be::pixel(t1::ent::findClosestCore(*entitiesList.back(), buildingsMap)));
+			std::unique_ptr<Entity> entity = Entity::createEntity(type, team);
+			entity->setCoord(Entity::randomMapBorderSpawn());
+			entity->setDestCoord(t1::be::pixel(t1::ent::findClosestCore(*entity, buildingsMap)));
+			entitiesList.push_back(std::move(entity));
 		}
 		catch (std::exception)
 		{

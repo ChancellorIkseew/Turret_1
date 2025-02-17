@@ -7,6 +7,8 @@
 
 #include "map_structures/base_engine/base_engine.h"
 
+enum class BuildingType : uint16_t;
+
 class Team;
 
 class Turret
@@ -36,12 +38,12 @@ protected:
 	PixelCoord findShootingAim() const;
 
 public:
-	Turret(const int type, const TileCoord tile, Team* const team);
+	Turret(const TileCoord tile, Team* const team);
 	~Turret() = default;
 
 	void save(std::ofstream& fout) const;
 	void load(std::ifstream& fin);
-	static std::unique_ptr<Turret> createTurret(const uint16_t type, const TileCoord tile, Team* const team);
+	static std::unique_ptr<Turret> createTurret(const BuildingType type, const TileCoord tile, Team* const team);
 
 	virtual void shooting() = 0;
 

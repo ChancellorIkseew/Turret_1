@@ -32,7 +32,7 @@ int Gameplay::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, std
 	{
 		std::cout << "create new works" << std::endl;
 		world.createNew(PreSettings::getTerrain().mapSize);
-		world.getBuildingsMap().placeBuilding(CORE_MK2, 0, {48, 48}, player.get());
+		world.getBuildingsMap().placeBuilding(BuildingType::CORE_MK2, 0, {48, 48}, player.get());
 		t1::Time::resetTime();
 		player->balance.giveStartRes(PreSettings::getGeneral().startBalance);
 	}

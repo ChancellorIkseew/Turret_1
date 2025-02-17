@@ -34,7 +34,7 @@ void ExpensesPanel::prepareInterfaceSprites()
 
 
 
-void ExpensesPanel::interact(const int index)
+void ExpensesPanel::interact(const BuildingType index)
 {
     buildingInfo = t1::bc::buildingsInfoTable[index];
     title.setString(buildingInfo.buildingTitle);

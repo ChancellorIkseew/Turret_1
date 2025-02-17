@@ -2,10 +2,10 @@
 #include "buildings_pages.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 
-void t1::bc::initDrills(std::map<uint16_t, BuildingIco>& drills)
+void t1::bc::initDrills(std::map<BuildingType, BuildingIco>& drills)
 {
-	drills[SMALL_DRILL] = BuildingIco(SMALL_DRILL);
-	drills[BIG_DRILL] = BuildingIco(BIG_DRILL);
-	drills[EFFECTIVE_DRILL] = BuildingIco(EFFECTIVE_DRILL);
-	drills[REINFORCED_DRILL] = BuildingIco(REINFORCED_DRILL);
+	drills[BuildingType::SMALL_DRILL] = BuildingIco(BuildingType::SMALL_DRILL);
+	drills[BuildingType::BIG_DRILL] = BuildingIco(BuildingType::BIG_DRILL);
+	drills[BuildingType::EFFECTIVE_DRILL] = BuildingIco(BuildingType::EFFECTIVE_DRILL);
+	drills[BuildingType::REINFORCED_DRILL] = BuildingIco(BuildingType::REINFORCED_DRILL);
 }

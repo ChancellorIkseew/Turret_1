@@ -9,6 +9,8 @@
 #include "expenses_panel.h"
 #include "specification_panel.h"
 
+enum class BuildingType : uint16_t;
+
 class Team;
 class BuildingsMap;
 class Gameplay;
@@ -18,7 +20,7 @@ class BuildingPanel : public UIWindow
 private:
 	Button info;
 	std::map<int, Button> buttons;
-	std::map<int, std::map<uint16_t, BuildingIco>> pages;
+	std::map<int, std::map<BuildingType, BuildingIco>> pages;
 	
 	static inline sf::Image buildingsImage;
 	static inline sf::Texture buildingsTexture;
@@ -26,7 +28,7 @@ private:
 
 	int selectedPage;
 	bool isBuildingTypeSelected;
-	int oldBuildingType, newBuildingType;
+	BuildingType oldBuildingType, newBuildingType;
 	char direction;
 	bool isInfoOpen;
 
