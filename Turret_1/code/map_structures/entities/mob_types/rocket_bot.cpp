@@ -5,11 +5,12 @@
 #include "map_structures/shells/shell/shell_enum.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/team/team.h"
+#include "map_structures/world/world.h"
 
 
 RocketBot::RocketBot(Team* const team) : Entity(team)
 {
-	durability = 25 * maxDurabilityModifier;
+	durability = 25 * world->getPreSettings().getMobs().maxDurabilityModifier;
 	pixelRange = 25;
 	spyralRange = 2109;
 }
@@ -29,7 +30,7 @@ void RocketBot::shoot(const BuildingsMap& buildingsMap)
 			float correctionX = cos(shootingAngleRad) * 5;
 			float correctionY = sin(shootingAngleRad) * 5;
 
-			team->spawnShell(ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
+			team->spawnShell(ShellType::ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
 			reloadTimer = 240;
 		}
 	}

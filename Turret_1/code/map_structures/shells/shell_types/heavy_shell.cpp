@@ -8,8 +8,8 @@
 
 const int EXP_RADIUS = _TILE_ + _HALF_TILE_;
 
-HeavyShell::HeavyShell(const uint16_t type, PixelCoord coord, float angleRad, float angleDeg, Team* const team) :
-	Shell(type, coord, angleRad, angleDeg, team)
+HeavyShell::HeavyShell(PixelCoord coord, float angleRad, float angleDeg, Team* const team) :
+	Shell(coord, angleRad, angleDeg, team)
 {
 	damage = 20;
 	float speed = 1.6f;

@@ -4,11 +4,12 @@
 #include "map_structures/shells/shell/shell_enum.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/team/team.h"
+#include "map_structures/world/world.h"
 
 
 CannonBossBot::CannonBossBot(Team* const team) : Entity(team)
 {
-	durability = 270 * maxDurabilityModifier;
+	durability = 270 * world->getPreSettings().getMobs().maxDurabilityModifier;
 	pixelRange = 20;
 	spyralRange = 1369;
 }
@@ -28,8 +29,8 @@ void CannonBossBot::shoot(const BuildingsMap& buildingsMap)
 			float correctionX = cos(shootingAngleRad) * 15;
 			float correctionY = sin(shootingAngleRad) * 15;
 
-			team->spawnShell(HEAVY_SHELL, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
-			team->spawnShell(HEAVY_SHELL, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg);
+			team->spawnShell(ShellType::HEAVY_SHELL, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
+			team->spawnShell(ShellType::HEAVY_SHELL, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg);
 			reloadTimer = 30;
 		}
 	}

@@ -4,16 +4,14 @@
 #include "map_structures/world/world.h"
 #include "map_structures/team/team.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
-#include "map_structures/pre-settings/pre-settings.h"
 #include "t1_system/events/events_handler.h"
 
 using namespace t1::be;
 constexpr float BASIC_COLLISION_RADIUS = 30.0f;
 
-void Entity::initPreSettings()
+void Entity::initWorld(World* world)
 {
-	Entity::mapSize = PreSettings::getTerrain().mapSize;
-	Entity::maxDurabilityModifier = PreSettings::getMobs().maxDurabilityModifier;
+	Entity::world = world;
 }
 
 Entity::Entity(Team* const team)		//1st spawn

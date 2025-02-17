@@ -34,7 +34,7 @@ public:
 	void interact(const BuildingsMap& buildingsMap);
 	void draw(sf::RenderWindow& window, const Camera& camera);
 
-	void spawnShell(const uint16_t type, const PixelCoord coord, float angleRad, float angleDeg);
+	void spawnShell(const ShellType type, const PixelCoord coord, float angleRad, float angleDeg);
 	void spawnEntity(const uint8_t amount, const MobType type, const BuildingsMap& buildingsMap);
 
 	int getID();

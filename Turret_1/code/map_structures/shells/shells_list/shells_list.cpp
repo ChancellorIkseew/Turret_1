@@ -16,7 +16,7 @@ void ShellsList::load(cereal::BinaryInputArchive& archive)
 	archive(shellsList);
 }
 
-void ShellsList::spawnShell(const uint16_t type, const PixelCoord coord, float angleRad, float angleDeg, Team* const team)
+void ShellsList::spawnShell(const ShellType type, const PixelCoord coord, float angleRad, float angleDeg, Team* const team)
 {
 	try
 	{
@@ -24,7 +24,7 @@ void ShellsList::spawnShell(const uint16_t type, const PixelCoord coord, float a
 	}
 	catch (std::exception)
 	{
-		std::cout << "shell_type does not exist. type: " << type << '\n';
+		std::cout << "Shell_type does not exist. Type: " << static_cast<uint16_t>(type) << ".\n";
 	}
 }
 

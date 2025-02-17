@@ -7,6 +7,8 @@
 
 #include "map_structures/base_engine/base_engine.h"
 
+enum class ShellType : uint8_t;
+
 class Team;
 
 class Shell
@@ -22,7 +24,6 @@ protected:
 
 	bool isWasted = false;
 
-	uint16_t type = 0;
 	int16_t damage = 0;
 
 	uint16_t curentLifeTime = 0;
@@ -34,14 +35,14 @@ protected:
 	static inline sf::Sprite shellSprite;
 	
 public:
-	Shell(const uint16_t type, const PixelCoord coord, float angleRad, float angleDeg, Team* const team);
+	Shell(const PixelCoord coord, float angleRad, float angleDeg, Team* const team);
 	Shell() = default;
 	virtual ~Shell() = default;
 
 	void save(cereal::BinaryOutputArchive& archive) const;
 	void load(cereal::BinaryInputArchive& archive);
 
-	static std::unique_ptr<Shell> createShell(const uint16_t type, const PixelCoord coord, float angleRad, float angleDeg, Team* const team);
+	static std::unique_ptr<Shell> createShell(const ShellType type, const PixelCoord coord, float angleRad, float angleDeg, Team* const team);
 
 	virtual void motion();
 	virtual void explosion();

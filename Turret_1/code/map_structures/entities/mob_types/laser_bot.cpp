@@ -5,11 +5,12 @@
 #include "map_structures/shells/shell/shell_enum.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/team/team.h"
+#include "map_structures/world/world.h"
 
 
 LaserBot::LaserBot(Team* const team) : Entity(team)
 {
-	durability = 10 * maxDurabilityModifier;
+	durability = 10 * world->getPreSettings().getMobs().maxDurabilityModifier;
 	pixelRange = 8;
 	spyralRange = 249;
 }
@@ -29,7 +30,7 @@ void LaserBot::shoot(const BuildingsMap& buildingsMap)
 			float correctionX = cos(shootingAngleRad) * 4.5f;
 			float correctionY = sin(shootingAngleRad) * 4.5f;
 
-			team->spawnShell(AC_SHELL, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
+			team->spawnShell(ShellType::AC_SHELL, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
 			reloadTimer = 60;
 		}
 	}

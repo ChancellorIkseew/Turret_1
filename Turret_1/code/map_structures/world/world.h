@@ -8,18 +8,20 @@
 #include "map_structures/terrain/terrain.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/particles/particles.h"
+#include "map_structures/pre-settings/pre-settings.h"
 
 
 class World
 {
 private:
+	PreSettings preSettings;
 	TerrainMap terrainMap;
 	BuildingsMap buildingsMap;
 	std::unordered_map<int, std::shared_ptr<Team>> teams;
 	//ParticlesList particlesList; not implemented
 
 public:
-	World() = default;
+	World();
 	~World() = default;
 
 	void save(const std::string& saveFolderName) const;
@@ -54,6 +56,8 @@ public:
 	{
 		return teams;
 	}
+
+	const PreSettings getPreSettings() const { return preSettings; };
 
 };
 

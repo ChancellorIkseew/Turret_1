@@ -13,7 +13,7 @@ void Weapon::shoot(const Entity& owner)
 	shooterCor.x = coord.x + shooter.x * sin(angleRad);
 	shooterCor.y = coord.y + shooter.y * cos(angleRad);
 
-	owner.getTeam()->spawnShell(shellType, shooterCor, angleRad, angleDeg);
+	//owner.getTeam()->spawnShell(shellType, shooterCor, angleRad, angleDeg);
 }
 
 void Weapon::rotate(const Entity& owner)

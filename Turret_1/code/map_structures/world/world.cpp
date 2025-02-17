@@ -9,6 +9,11 @@
 #include "t1_system/t1_mutex.h"
 
 
+World::World()
+{
+	Entity::initWorld(this);
+}
+
 void World::save(const std::string& saveFolderName) const
 {
 	const std::string saveFileName = "saves/" + saveFolderName + "/world.bin";
@@ -23,7 +28,6 @@ void World::save(const std::string& saveFolderName) const
 
 void World::load(const std::string& saveFolderName)
 {
-	Entity::initPreSettings();
 	const std::string saveFileName = "saves/" + saveFolderName + "/world.bin";
 	std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
 	std::ifstream fin(saveFileName, std::ios::binary);
@@ -38,7 +42,6 @@ void World::createNew(const TileCoord mapSize)
 {
 	terrainMap.generate();
 	buildingsMap = BuildingsMap(mapSize);
-	Entity::initPreSettings();
 
 
 
@@ -66,3 +69,4 @@ void World::draw(sf::RenderWindow& window, const Camera& camera)
 	}
 	//particlesList.draw();
 }
+

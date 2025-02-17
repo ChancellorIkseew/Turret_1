@@ -7,9 +7,8 @@
 #include "map_structures/team/team.h"
 
 
-Shell::Shell(const uint16_t, const PixelCoord coord, float angleRad, float angleDeg, Team* const team)
+Shell::Shell(const PixelCoord coord, float angleRad, float angleDeg, Team* const team)
 {
-	this->type = type;
 	this->coord = coord;
 	this->angleRad = angleRad;
 	this->angleDeg = angleDeg;
@@ -29,7 +28,6 @@ void Shell::save(cereal::BinaryOutputArchive& archive) const
 	archive(coord);
 	archive(lineMotion);
 	archive(angleRad);
-	archive(type);
 	archive(damage);
 	archive(curentLifeTime);
 	archive(maxLifeTime);
@@ -41,7 +39,6 @@ void Shell::load(cereal::BinaryInputArchive& archive)
 	archive(lineMotion);
 	archive(angleRad);
 	angleDeg = t1::be::radToDegree(angleRad);
-	archive(type);
 	archive(damage);
 	archive(curentLifeTime);
 	archive(maxLifeTime);

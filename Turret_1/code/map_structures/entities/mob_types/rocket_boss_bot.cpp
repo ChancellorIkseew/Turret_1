@@ -5,11 +5,12 @@
 #include "map_structures/shells/shell/shell_enum.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/team/team.h"
+#include "map_structures/world/world.h"
 
 
 RocketBossBot::RocketBossBot(Team* const team) : Entity(team)
 {
-	durability = 230 * maxDurabilityModifier;
+	durability = 230 * world->getPreSettings().getMobs().maxDurabilityModifier;
 	pixelRange = 28;
 	spyralRange = 2661;
 }
@@ -29,8 +30,8 @@ void RocketBossBot::shoot(const BuildingsMap& buildingsMap)
 			float correctionX = cos(shootingAngleRad) * 18;
 			float correctionY = sin(shootingAngleRad) * 18;
 
-			team->spawnShell(ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
-			team->spawnShell(ROCKET, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg);
+			team->spawnShell(ShellType::ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
+			team->spawnShell(ShellType::ROCKET, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg);
 			reloadTimer = 60;
 		}
 		else if (reloadTimer == 30)
@@ -38,8 +39,8 @@ void RocketBossBot::shoot(const BuildingsMap& buildingsMap)
 			float correctionX = cos(shootingAngleRad) * 14;
 			float correctionY = sin(shootingAngleRad) * 14;
 
-			team->spawnShell(ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
-			team->spawnShell(ROCKET, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg);
+			team->spawnShell(ShellType::ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
+			team->spawnShell(ShellType::ROCKET, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg);
 		}
 	}
 }

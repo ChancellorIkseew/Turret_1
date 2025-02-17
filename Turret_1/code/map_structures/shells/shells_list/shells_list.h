@@ -22,7 +22,7 @@ public:
 	void save(cereal::BinaryOutputArchive& archive) const;
 	void load(cereal::BinaryInputArchive& archive);
 
-	void spawnShell(const uint16_t type, const PixelCoord coord, float angleRad, float angleDeg, Team* const team);
+	void spawnShell(const ShellType type, const PixelCoord coord, float angleRad, float angleDeg, Team* const team);
 	void move();
 
 	void draw(sf::RenderWindow& window, const Camera& camera);

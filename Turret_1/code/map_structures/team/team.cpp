@@ -29,7 +29,7 @@ void Team::load(cereal::BinaryInputArchive& archive)
     archive(ID);
 }
 
-void Team::spawnShell(const uint16_t type, const PixelCoord coord, float angleRad, float angleDeg)
+void Team::spawnShell(const ShellType type, const PixelCoord coord, float angleRad, float angleDeg)
 {
     shells.spawnShell(type, coord, angleRad, angleDeg, this);
 }

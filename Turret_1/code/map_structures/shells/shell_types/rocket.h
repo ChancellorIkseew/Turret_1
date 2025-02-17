@@ -10,7 +10,8 @@
 class Rocket : public Shell
 {
 	public:
-		Rocket(const uint16_t type, PixelCoord coord, float angleRad, float angleDeg, Team* const team);
+		Rocket(PixelCoord coord, float angleRad, float angleDeg, Team* const team);
+		Rocket() = default;
 		~Rocket() = default;
 
 		void tryHitting() override final;

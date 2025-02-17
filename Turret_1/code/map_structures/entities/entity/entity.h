@@ -19,9 +19,6 @@ class World;
 class Entity
 {
 protected:
-	static inline TileCoord mapSize;
-	static inline float maxDurabilityModifier;
-	
 	static inline World* world;
 	Team* team = nullptr;
 	
@@ -57,7 +54,7 @@ protected:
 	void detectAim(const World& world);
 
 public:
-	static void initPreSettings();
+	static void initWorld(World* world);
 
 	Entity(Team* const team);
 	Entity() = default;

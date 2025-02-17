@@ -8,8 +8,8 @@
 
 constexpr int EXP_RADIUS = _TILE_ * 3 + _HALF_TILE_;
 
-Rocket::Rocket(const uint16_t type, PixelCoord coord, float angleRad, float angleDeg, Team* const team) :
-	Shell(type, coord, angleRad, angleDeg, team)
+Rocket::Rocket(PixelCoord coord, float angleRad, float angleDeg, Team* const team) :
+	Shell(coord, angleRad, angleDeg, team)
 {
 	damage = 0; // only_burst_damage
 	float speed = 2.4f;

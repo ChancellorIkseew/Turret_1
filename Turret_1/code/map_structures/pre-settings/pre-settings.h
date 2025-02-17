@@ -24,6 +24,7 @@ private:
 
 public:
 	PreSettings(std::string saveFolderName);
+	PreSettings() = default;
 	~PreSettings() = default;
 
 	static void load(const std::string& saveFolderName);

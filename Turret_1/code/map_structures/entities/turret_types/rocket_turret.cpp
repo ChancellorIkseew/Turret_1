@@ -27,7 +27,7 @@ void RocketTurret::shooting()
 
 		if (reloadTimer <= 0 && amooQuantity > 0)
 		{
-			team->spawnShell(ROCKET, { float(coord.x), float(coord.y) }, angleRad, angleDeg);
+			team->spawnShell(ShellType::ROCKET, { float(coord.x), float(coord.y) }, angleRad, angleDeg);
 			reloadTimer = 120;
 			--amooQuantity;
 		}

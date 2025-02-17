@@ -2,8 +2,7 @@
 #ifndef SHELL_ENUM_H
 #define SHELL_ENUM_H
 
-
-enum ShellType
+enum class ShellType : uint8_t
 {
 	AC_SHELL = 1001,
 	HEAVY_SHELL = 1002,

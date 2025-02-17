@@ -32,12 +32,12 @@ void AutocannonTurret::shooting()
 
 			if (reloadTimer <= 0)
 			{
-				team->spawnShell(AC_SHELL, { coord.x + correctionX, coord.y - correctionY }, angleRad, angleDeg);
+				team->spawnShell(ShellType::AC_SHELL, { coord.x + correctionX, coord.y - correctionY }, angleRad, angleDeg);
 				reloadTimer = 30;
 			}
 			else
 			{
-				team->spawnShell(AC_SHELL, { coord.x - correctionX, coord.y + correctionY }, angleRad, angleDeg);
+				team->spawnShell(ShellType::AC_SHELL, { coord.x - correctionX, coord.y + correctionY }, angleRad, angleDeg);
 			}
 			--amooQuantity;
 		}
