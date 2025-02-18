@@ -74,10 +74,7 @@ void MainControlPanel::prepareInterfaceSprites()
 void MainControlPanel::interact(bool& isPaused, bool& isGameplayActive, const World& world)
 {
 	if (buttons[SAVE].press())
-	{
-		PreSettings::save("save_1");
 		world.save("save_1");
-	}
 	
 	if (buttons[EXIT_TO_MENU].press())
 	{

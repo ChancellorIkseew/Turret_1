@@ -21,7 +21,7 @@
 #include "map_structures/world/world.h"
 
 
-int Gameplay::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, std::string saveFolderName)
+GameState Gameplay::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, std::string saveFolderName, std::optional<PreSettings> preSettings)
 {
 	player = std::make_shared<Team>("player");
 	enemy = std::make_shared<Team>("enemy");
@@ -31,19 +31,19 @@ int Gameplay::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, std
 	if (startNewGame)
 	{
 		std::cout << "create new works" << std::endl;
-		world.createNew(PreSettings::getTerrain().mapSize);
+		world.createNew(preSettings.value());
 		world.getBuildingsMap().placeBuilding(BuildingType::CORE_MK2, 0, {48, 48}, player.get());
 		t1::Time::resetTime();
-		player->balance.giveStartRes(PreSettings::getGeneral().startBalance);
+		player->balance.giveStartRes(preSettings.value().getGeneral().startBalance);
 	}
 	else
     {
 		std::cout << "load world works" << std::endl;
-		PreSettings::load("save_1");
+		//PreSettings::load("save_1");
 		world.load("save_1");
     }
 
-	camera = Camera(PreSettings::getTerrain().mapSize);
+	camera = Camera(world.getPreSettings().getTerrain().mapSize);
 
 	std::thread simulation(&Gameplay::simulation, this);
 	std::thread input(&Gameplay::input, this);
@@ -53,7 +53,7 @@ int Gameplay::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, std
     simulation.join();
     input.join();
 	//network.join(); not implemented
-	return GameCondition::MAIN_MENU;
+	return GameState::MAIN_MENU;
 }
 
 

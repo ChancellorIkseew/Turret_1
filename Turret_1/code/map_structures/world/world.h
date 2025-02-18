@@ -26,7 +26,7 @@ public:
 
 	void save(const std::string& saveFolderName) const;
 	void load(const std::string& saveFolderName);
-	void createNew(const TileCoord mapSize);
+	void createNew(PreSettings& preSettings);
 
 	void simulate();
 	void draw(sf::RenderWindow& window, const Camera& camera);
@@ -34,30 +34,22 @@ public:
 	TerrainMap& getTerrainMap() { return terrainMap; }
 	BuildingsMap& getBuildingsMap() { return buildingsMap; }
 
+	const PreSettings getPreSettings() const { return preSettings; };
 	const TerrainMap& getTerrainMap() const { return terrainMap; }
 	const BuildingsMap& getBuildingsMap() const { return buildingsMap; }
 
-	void addTeam(const sf::String& name)
-	{
+	void addTeam(const sf::String& name) {
 		teams.emplace(0, std::make_shared<Team>(name));
 	}
-
-	void addTeam(const std::shared_ptr<Team> team)
-	{
+	void addTeam(const std::shared_ptr<Team> team) {
 		teams.emplace(team->getID(), team);
 	}
-
-	Team* getTeam(const int ID) const
-	{
+	Team* getTeam(const int ID) const{
 		return teams.find(ID)->second.get();
 	}
-
-	const std::unordered_map<int, std::shared_ptr<Team>>& getTeams() const
-	{
+	const std::unordered_map<int, std::shared_ptr<Team>>& getTeams() const {
 		return teams;
 	}
-
-	const PreSettings getPreSettings() const { return preSettings; };
 
 };
 

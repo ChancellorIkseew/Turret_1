@@ -42,19 +42,19 @@ void PreSettingsWindow::prepareInterfaceSprites()
 }
 
 
-int PreSettingsWindow::interact(bool& isMenuOpen)
+GameState PreSettingsWindow::interact(bool& isMenuOpen, PreSettings& preSettings)
 {
 	while (isMenuOpen)
 	{
 		if (buttons[START_GAME].press())
 		{
 			for (auto& pg : pages)
-				pg.second->enter();
-			return GAMEPLAY;
+				//pg.second->enter(preSettings);
+			return GameState::GAMEPLAY;
 		}
 
 		if (buttons[EXIT_TO_MENU].press())
-			return MAIN_MENU;
+			return GameState::MAIN_MENU;
 
 		for (auto& pg : pages)
 		{

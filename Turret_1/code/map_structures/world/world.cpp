@@ -16,6 +16,7 @@ World::World()
 
 void World::save(const std::string& saveFolderName) const
 {
+	preSettings.save(saveFolderName);
 	const std::string saveFileName = "saves/" + saveFolderName + "/world.bin";
 	std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
 	std::ofstream fout(saveFileName, std::ios::binary);
@@ -28,6 +29,7 @@ void World::save(const std::string& saveFolderName) const
 
 void World::load(const std::string& saveFolderName)
 {
+	preSettings.load(saveFolderName);
 	const std::string saveFileName = "saves/" + saveFolderName + "/world.bin";
 	std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
 	std::ifstream fin(saveFileName, std::ios::binary);
@@ -38,10 +40,11 @@ void World::load(const std::string& saveFolderName)
 	fin.close();
 }
 
-void World::createNew(const TileCoord mapSize)
+void World::createNew(PreSettings& preSettings)
 {
-	terrainMap.generate();
-	buildingsMap = BuildingsMap(mapSize);
+	this->preSettings = std::move(preSettings);
+	terrainMap.generate(preSettings.getTerrain());
+	buildingsMap = BuildingsMap(preSettings.getTerrain().mapSize);
 
 
 

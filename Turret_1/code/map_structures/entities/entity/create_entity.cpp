@@ -2,6 +2,7 @@
 #include "map_structures/entities/entity/entity.h"
 #include "map_structures/entities/entity/mob_enum.h"
 #include "map_structures/pre-settings/pre-settings.h"
+#include "map_structures/world/world.h"
 
 #include "map_structures/entities/mob_types/standard_bot.h"
 #include "map_structures/entities/mob_types/heavy_bot.h"
@@ -37,8 +38,7 @@ std::unique_ptr<Entity> Entity::createEntity(const MobType type, Team* const tea
 PixelCoord Entity::randomMapBorderSpawn()
 {
 	using namespace t1::be;
-
-	TileCoord mapSize = PreSettings::getTerrain().mapSize;
+	TileCoord mapSize = world->getPreSettings().getTerrain().mapSize;
 	float coordX, coordY;
 	int x = rand() % 4;
 	switch (x)

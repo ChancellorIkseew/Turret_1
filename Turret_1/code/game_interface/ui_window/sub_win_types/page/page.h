@@ -2,6 +2,7 @@
 #ifndef T1_GUI_PAGE_H
 #define T1_GUI_PAGE_H
 
+#include <any>
 #include <SFML/Graphics.hpp>
 #include "game_interface/ui_window/ui_window/ui_plate.h"
 
@@ -16,7 +17,7 @@ public:
 	virtual ~Page() = default;
 
 	virtual void interact() = 0;
-	virtual void enter() = 0;
+	virtual void enter(std::any& data) = 0;
 	virtual void relocateWithOwner(const sf::Vector2u ownerPosition);
 
 };

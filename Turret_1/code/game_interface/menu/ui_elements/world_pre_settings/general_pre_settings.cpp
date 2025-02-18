@@ -49,14 +49,14 @@ void GeneralPreSettingsPage::interact()
 	}
 }
 
-void GeneralPreSettingsPage::enter()
+void GeneralPreSettingsPage::enter(std::any& data)
 {
-	PreSettings::changeTerrain().mapSize = {fields[MAP_MAX_X].getIntValue(), fields[MAP_MAX_Y].getIntValue()};
+	std::any_cast<PreSettings>(data).changeTerrain().mapSize = {fields[MAP_MAX_X].getIntValue(), fields[MAP_MAX_Y].getIntValue()};
 
 	std::map<int, int> startRes;
 	for (auto& field : fields)
 		startRes[field.first] = field.second.getIntValue();
-	PreSettings::changeGeneral().startBalance = startRes;
+	std::any_cast<PreSettings>(data).changeGeneral().startBalance = startRes;
 }
 
 void GeneralPreSettingsPage::relocateWithOwner(const sf::Vector2u ownerPosition)

@@ -34,13 +34,13 @@ void ExpensesPanel::prepareInterfaceSprites()
 
 
 
-void ExpensesPanel::interact(const BuildingType index)
+void ExpensesPanel::interact(const BuildingType index, const BuildingsPre& buildingsPre)
 {
     buildingInfo = t1::bc::buildingsInfoTable[index];
     title.setString(buildingInfo.buildingTitle);
     for (auto& resI : resInfo)
     {
-        resI.second.update(buildingInfo.costToBuild.allResources[resI.first] * PreSettings::getBuildings().expensesModifier);
+        resI.second.update(buildingInfo.costToBuild.allResources[resI.first] * buildingsPre.expensesModifier);
     }
 }
 

@@ -15,34 +15,33 @@
 class PreSettings
 {
 private:
-	static inline GeneralPre general;
-	static inline TerrainPre terrain;
-	static inline BuildingsPre buildings;
-	static inline MobsPre mobs;
-	static inline ShellsPre shells;
-	static inline TimerPre timer;
+	GeneralPre general;
+	TerrainPre terrain;
+	BuildingsPre buildings;
+	MobsPre mobs;
+	ShellsPre shells;
+	TimerPre timer;
 
 public:
-	PreSettings(std::string saveFolderName);
 	PreSettings() = default;
 	~PreSettings() = default;
 
-	static void load(const std::string& saveFolderName);
-	static void save(const std::string& saveFolderName);
+	void load(const std::string& saveFolderName);
+	void save(const std::string& saveFolderName) const;
 	
-	static const GeneralPre& getGeneral() { return general; }
-	static const TerrainPre& getTerrain() { return terrain; }
-	static const BuildingsPre& getBuildings() { return buildings; }
-	static const MobsPre& getMobs() { return mobs; }
-	static const ShellsPre& getShells() { return shells; }
-	static const TimerPre& getTimer() { return timer; }
+	const GeneralPre& getGeneral() const { return general; }
+	const TerrainPre& getTerrain() const { return terrain; }
+	const BuildingsPre& getBuildings() const { return buildings; }
+	const MobsPre& getMobs() const { return mobs; }
+	const ShellsPre& getShells() const { return shells; }
+	const TimerPre& getTimer() const { return timer; }
 
-	static GeneralPre& changeGeneral() { return general; }
-	static TerrainPre& changeTerrain() { return terrain; }
-	static BuildingsPre& changeBuildings() { return buildings; }
-	static MobsPre& changeMobs() { return mobs; }
-	static ShellsPre& changeShells() { return shells; }
-	static TimerPre& changeTimer() { return timer; }
+	GeneralPre& changeGeneral() { return general; }
+	TerrainPre& changeTerrain() { return terrain; }
+	BuildingsPre& changeBuildings() { return buildings; }
+	MobsPre& changeMobs() { return mobs; }
+	ShellsPre& changeShells() { return shells; }
+	TimerPre& changeTimer() { return timer; }
 
 };
 

@@ -24,6 +24,7 @@ struct StoredResource
 class Building
 {
 private:
+	static inline World* world;
 	std::list<StoredResource> inventory;
 	Team* team = nullptr;
 protected:

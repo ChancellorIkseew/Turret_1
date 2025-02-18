@@ -60,7 +60,7 @@ void ChoiseFolderMenu::prepareInterfaceSprites()
 }
 
 
-int ChoiseFolderMenu::interact(bool& isMenuOpen, bool& startNewGame, std::string& saveFolderName)
+GameState ChoiseFolderMenu::interact(bool& isMenuOpen, bool& startNewGame, std::string& saveFolderName)
 {
 	while (isMenuOpen)
 	{
@@ -74,9 +74,9 @@ int ChoiseFolderMenu::interact(bool& isMenuOpen, bool& startNewGame, std::string
 		{
 			if (isFolderSelected)
 			{
-				PreSettings preSettings1(saveFolderName);
+				//PreSettings preSettings1(saveFolderName);
 				startNewGame = false;
-				return GameCondition::GAMEPLAY;
+				return GameState::GAMEPLAY;
 			}
 			else
 			{
@@ -88,9 +88,9 @@ int ChoiseFolderMenu::interact(bool& isMenuOpen, bool& startNewGame, std::string
 		{
 			if (isFolderSelected)
 			{
-				PreSettings preSettings1(saveFolderName);
+				//PreSettings preSettings1(saveFolderName);
 				startNewGame = true;
-				return PRE_SETTINGS_MENU;
+				return GameState::PRE_SETTINGS_MENU;
 			}
 			else
 			{
@@ -99,12 +99,12 @@ int ChoiseFolderMenu::interact(bool& isMenuOpen, bool& startNewGame, std::string
 		}
 
 		if (buttons[EXIT_TO_MENU].press())
-			return MAIN_MENU;
+			return GameState::MAIN_MENU;
 
 		t1::system::sleep(16);
 	}
 
-	return CHOISE_FOLDER_MENU;
+	return GameState::CHOISE_FOLDER_MENU;
 }
 
 

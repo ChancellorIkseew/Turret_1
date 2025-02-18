@@ -3,6 +3,8 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
+#include "menu.h"
+
 #include "game_interface/main_window/main_window_resize.h"
 #include "game_interface/main_window/main_window.h"
 #include "game_interface/ui_window/sub_win_types/text_field/text_field.h"
@@ -16,7 +18,7 @@
 #include "t1_system/t1_mutex.h"
 
 
-char openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string& saveFolderName)
+GameState openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string& saveFolderName, PreSettings& preSettings)
 {
 	sf::Image backImage;
 	backImage.loadFromFile("images/background.bmp");
@@ -37,38 +39,38 @@ char openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string& sav
 
 	std::thread input([&]()
 		{
-			int menuTab = MAIN_MENU;
+			GameState menuTab = GameState::MAIN_MENU;
 
 			while (isMenuOpen)
 			{
-				if (menuTab == MAIN_MENU)
+				if (menuTab == GameState::MAIN_MENU)
 				{
 					mainMenu.setVisible(true);
 					menuTab = mainMenu.interact(isMenuOpen);
 					mainMenu.setVisible(false);
 				}
 				
-				if (menuTab == CHOISE_FOLDER_MENU)
+				if (menuTab == GameState::CHOISE_FOLDER_MENU)
 				{
 					choiseFolderMenu.setVisible(true);
 					menuTab = choiseFolderMenu.interact(isMenuOpen, startNewGame, saveFolderName);
 					choiseFolderMenu.setVisible(false);
 				}
 
-				if (menuTab == PRE_SETTINGS_MENU)
+				if (menuTab == GameState::PRE_SETTINGS_MENU)
 				{
 					preSettingsWindow.setVisible(true);
-					menuTab = preSettingsWindow.interact(isMenuOpen);
+					menuTab = preSettingsWindow.interact(isMenuOpen, preSettings);
 					preSettingsWindow.setVisible(false);
 				}
 
-				if (menuTab == GAMEPLAY)
+				if (menuTab == GameState::GAMEPLAY)
 				{
 					isMenuOpen = false;
 					exit = false;
 				}
 
-				if (menuTab == EXIT)
+				if (menuTab == GameState::EXIT)
 				{
 					isMenuOpen = false;
 					exit = true;
@@ -121,7 +123,7 @@ char openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string& sav
 	
 	if (!exit)
 	{
-		return GAMEPLAY;
+		return GameState::GAMEPLAY;
 	}
-	return EXIT;
+	return GameState::EXIT;
 }

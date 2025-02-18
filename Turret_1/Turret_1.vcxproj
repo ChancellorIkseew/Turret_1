@@ -270,6 +270,7 @@
     <ClInclude Include="code\game_interface\gameplay\ui_elements\settings_window.h" />
     <ClInclude Include="code\game_interface\gameplay\ui_elements\expenses_panel.h" />
     <ClInclude Include="code\game_interface\gameplay\ui_elements\specification_panel.h" />
+    <ClInclude Include="code\game_interface\main_window\game_state.h" />
     <ClInclude Include="code\game_interface\main_window\main_window.h" />
     <ClInclude Include="code\game_interface\main_window\main_window_resize.h" />
     <ClInclude Include="code\game_interface\menu\main_menu.h" />

@@ -47,9 +47,9 @@ void TerrainMap::load(cereal::BinaryInputArchive& archive)
 	std::cout << "load terrain_map works\n";
 }
 
-void TerrainMap::generate()
+void TerrainMap::generate(const TerrainPre& terrainPre)
 {
-	terrainMap = std::move(generateTerrain(PreSettings::getTerrain()));
+	terrainMap = std::move(generateTerrain(terrainPre));
 }
 
 

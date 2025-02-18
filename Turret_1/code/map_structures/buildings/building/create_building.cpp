@@ -4,6 +4,7 @@
 #include "buildings_enum.h"
 #include "map_structures/buildings/building/buildings_info.h"
 #include "map_structures/pre-settings/pre-settings.h"
+#include "map_structures/world/world.h"
 
 #include "map_structures/buildings/building_types/auxilary/auxilary.h"
 #include "map_structures/buildings/building_types/walls/wall_types/stone_wall.h"
@@ -27,7 +28,7 @@ std::shared_ptr<Building> Building::createBuilding(const BuildingType type, cons
 
 	if (type != BuildingType::AUXILARY)
 	{
-		durability = t1::bc::buildingsInfoTable[type].durability * PreSettings::getBuildings().maxDurabilityModifier;
+		durability = t1::bc::buildingsInfoTable[type].durability * world->getPreSettings().getBuildings().maxDurabilityModifier;
 		size = t1::bc::buildingsInfoTable[type].size;
 	}
 

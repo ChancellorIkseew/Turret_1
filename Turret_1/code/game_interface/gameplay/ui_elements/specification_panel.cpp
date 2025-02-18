@@ -44,7 +44,7 @@ void SpecificationPanel::prepareInterfaceSprites()
 
 
 
-void SpecificationPanel::interact(const BuildingType index)
+void SpecificationPanel::interact(const BuildingType index, const BuildingsPre& buildingsPre)
 {
     if (!isVisible)
         return;
@@ -52,13 +52,13 @@ void SpecificationPanel::interact(const BuildingType index)
     title.setString(buildingInfo.buildingTitle);
 
     std::ostringstream strDurability;
-    strDurability << buildingInfo.durability * PreSettings::getBuildings().maxDurabilityModifier;
+    strDurability << buildingInfo.durability * buildingsPre.maxDurabilityModifier;
     sf::String durb = strDurability.str();
     durability.setString(L"прочность " + durb);
 
     for (auto& resI : resInfo)
     {
-        resI.second.update(buildingInfo.costToBuild.allResources[resI.first] * PreSettings::getBuildings().expensesModifier);
+        resI.second.update(buildingInfo.costToBuild.allResources[resI.first] * buildingsPre.expensesModifier);
     }
 
     description.setString(buildingInfo.description);

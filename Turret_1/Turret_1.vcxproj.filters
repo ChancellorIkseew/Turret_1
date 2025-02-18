@@ -665,5 +665,8 @@
     <ClInclude Include="code\map_structures\entities\weapon\weapon.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="code\game_interface\main_window\game_state.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

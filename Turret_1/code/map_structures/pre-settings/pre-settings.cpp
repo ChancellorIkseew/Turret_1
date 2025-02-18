@@ -5,13 +5,7 @@
 #include "pre-settings.h"
 
 
-PreSettings::PreSettings(std::string saveFolderName)
-{
-	
-}
-
-
-void PreSettings::save(const std::string& saveFolderName)
+void PreSettings::save(const std::string& saveFolderName) const
 {
     const std::string saveFileName = "saves/" + saveFolderName + "/world_pre-settings.toml";
     std::ofstream fout;

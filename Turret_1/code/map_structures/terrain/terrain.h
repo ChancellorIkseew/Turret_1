@@ -7,6 +7,7 @@
 #include "map_structures/base_engine/base_engine.h"
 
 class Camera;
+class TerrainPre;
 
 class TerrainMap
 {
@@ -26,7 +27,7 @@ public:
 	void save(cereal::BinaryOutputArchive& archive) const;
 	void load(cereal::BinaryInputArchive& archive);
 
-	void generate(); //empty constructor
+	void generate(const TerrainPre& terrainPre); //empty constructor
 	
 	int getTileType(int tileX, int tileY);
 	

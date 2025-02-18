@@ -54,14 +54,14 @@ void MobsPreSettingsPage::interact()
 	}
 }
 
-void MobsPreSettingsPage::enter()
+void MobsPreSettingsPage::enter(std::any& data)
 {
-	PreSettings::changeMobs().quantityModifier = fields[QUANTITY].getIntValue();
-	PreSettings::changeMobs().maxDurabilityModifier = fields[DURABILITY].getIntValue();
-	PreSettings::changeMobs().virtIntLevel = fields[VI_LEVEL].getIntValue();
-	PreSettings::changeMobs().collisionDamage = fields[COLLISION_DAMAGE].getIntValue();
-	PreSettings::changeShells().directDamageModifier = fields[DIRECT_DAMAGE].getIntValue();
-	PreSettings::changeShells().burstDamageModifier = fields[BURST_DAMAGE].getIntValue();
+	std::any_cast<PreSettings>(data).changeMobs().quantityModifier = fields[QUANTITY].getIntValue();
+	std::any_cast<PreSettings>(data).changeMobs().maxDurabilityModifier = fields[DURABILITY].getIntValue();
+	std::any_cast<PreSettings>(data).changeMobs().virtIntLevel = fields[VI_LEVEL].getIntValue();
+	std::any_cast<PreSettings>(data).changeMobs().collisionDamage = fields[COLLISION_DAMAGE].getIntValue();
+	std::any_cast<PreSettings>(data).changeShells().directDamageModifier = fields[DIRECT_DAMAGE].getIntValue();
+	std::any_cast<PreSettings>(data).changeShells().burstDamageModifier = fields[BURST_DAMAGE].getIntValue();
 }
 
 void MobsPreSettingsPage::relocateWithOwner(const sf::Vector2u ownerPosition)

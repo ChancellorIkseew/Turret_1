@@ -2,7 +2,9 @@
 #ifndef GAMEPLAY_H
 #define GAMEPLAY_H
 
+#include <optional>
 #include <SFML/Graphics.hpp>
+#include "game_interface/main_window/game_state.h"
 #include "game_interface/gameplay/gameplay_util/camera.h"
 
 #include "map_structures/pre-settings/pre-settings.h"
@@ -41,7 +43,7 @@ public:
 	Gameplay() = default;
 	~Gameplay() = default;
 
-	int startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, std::string saveFolderName);
+	GameState startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, std::string saveFolderName, std::optional<PreSettings> preSettings);
 
 	void relocateSubWindows(const sf::Vector2u windowSize);
 	bool noSubWindowSelected() const;
