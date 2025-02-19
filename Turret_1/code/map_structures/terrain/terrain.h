@@ -27,7 +27,7 @@ public:
 	void save(cereal::BinaryOutputArchive& archive) const;
 	void load(cereal::BinaryInputArchive& archive);
 
-	void generate(const TerrainPre& terrainPre); //empty constructor
+	void generate(TerrainPre& terrainPre); //empty constructor
 	
 	int getTileType(int tileX, int tileY);
 	

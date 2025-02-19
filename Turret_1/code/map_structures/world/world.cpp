@@ -12,6 +12,8 @@
 World::World()
 {
 	Entity::initWorld(this);
+	Building::initWorld(this);
+	Balance::initWorld(this);
 }
 
 void World::save(const std::string& saveFolderName) const
@@ -43,7 +45,7 @@ void World::load(const std::string& saveFolderName)
 void World::createNew(PreSettings& preSettings)
 {
 	this->preSettings = std::move(preSettings);
-	terrainMap.generate(preSettings.getTerrain());
+	terrainMap.generate(preSettings.changeTerrain());
 	buildingsMap = BuildingsMap(preSettings.getTerrain().mapSize);
 
 

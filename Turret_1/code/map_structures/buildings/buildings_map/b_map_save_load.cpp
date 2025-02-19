@@ -33,5 +33,3 @@ void BuildingsMap::load(cereal::BinaryInputArchive& archive)
 		
 	}
 }
-
-//CEREAL_REGISTER_TYPE();

@@ -3,6 +3,7 @@
 
 #include "t1_system/sleep.h"
 #include "game_interface/main_window/main_window.h"
+#include "map_structures/pre-settings/pre-settings.h"
 
 #include "world_pre_settings/general_pre_settings.h"
 #include "world_pre_settings/terrain_pre_settings.h"
@@ -49,7 +50,7 @@ GameState PreSettingsWindow::interact(bool& isMenuOpen, PreSettings& preSettings
 		if (buttons[START_GAME].press())
 		{
 			for (auto& pg : pages)
-				//pg.second->enter(preSettings);
+				pg.second->enter(preSettings);
 			return GameState::GAMEPLAY;
 		}
 

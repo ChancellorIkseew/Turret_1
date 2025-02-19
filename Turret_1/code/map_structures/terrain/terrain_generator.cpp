@@ -16,7 +16,7 @@ static inline bool tileExitst(const TileCoord tile, const TileCoord mapSize)
 inline int generateTile(TerrainPre& terrainPre, std::mt19937& gen);
 inline void generateSpot(const TerrainPre& terrainPre, std::vector<std::vector<std::unique_ptr<int>>>& terrainMap, const TileCoord start, std::mt19937& gen);
 
-std::vector<std::vector<std::unique_ptr<int>>> generateTerrain(TerrainPre terrainPre)
+std::vector<std::vector<std::unique_ptr<int>>> generateTerrain(TerrainPre& terrainPre)
 {
 	if (terrainPre.seed == 0)
 	{

@@ -9,11 +9,6 @@
 using namespace t1::be;
 constexpr float BASIC_COLLISION_RADIUS = 30.0f;
 
-void Entity::initWorld(World* world)
-{
-	Entity::world = world;
-}
-
 Entity::Entity(Team* const team)		//1st spawn
 {
 	this->team = team;

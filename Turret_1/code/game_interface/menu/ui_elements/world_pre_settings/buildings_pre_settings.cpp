@@ -44,11 +44,11 @@ void BuildingsPreSettingsPage::interact()
 	}
 }
 
-void BuildingsPreSettingsPage::enter(std::any& data)
+void BuildingsPreSettingsPage::enter(PreSettings& preSettings)
 {
-	std::any_cast<PreSettings>(data).changeBuildings().maxDurabilityModifier = fields[DURABILITY].getIntValue();
-	std::any_cast<PreSettings>(data).changeBuildings().expensesModifier = fields[EXPENSES].getIntValue();
-	std::any_cast<PreSettings>(data).changeBuildings().constructionSpeedModifier = fields[CONSTRUCTION_SPEED].getIntValue();
+	preSettings.changeBuildings().maxDurabilityModifier = fields[DURABILITY].getIntValue();
+	preSettings.changeBuildings().expensesModifier = fields[EXPENSES].getIntValue();
+	preSettings.changeBuildings().constructionSpeedModifier = fields[CONSTRUCTION_SPEED].getIntValue();
 }
 
 void BuildingsPreSettingsPage::relocateWithOwner(const sf::Vector2u ownerPosition)

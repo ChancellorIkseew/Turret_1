@@ -5,10 +5,12 @@
 #include <cereal/archives/binary.hpp>
 #include "map_structures/resources/all_resources.h"
 
+class World;
+
 class Balance
 {
 private:
-	
+	static inline World* world;
 
 public:
 	AllResources balance;
@@ -25,6 +27,10 @@ public:
 	void accept(int type, short amount);
 	bool isEnough(const AllResources& expenses) const;
 	void waste(const AllResources& expenses);
+
+	static void initWorld(World* world) {
+		Balance::world = world;
+	}
 
 };
 

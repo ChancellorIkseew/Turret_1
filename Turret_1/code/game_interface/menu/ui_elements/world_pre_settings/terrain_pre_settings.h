@@ -29,7 +29,7 @@ public:
 	~TerrainPreSettingsPage() = default;
 
 	void interact() override final;
-	void enter(std::any& data) override final;
+	void enter(PreSettings& preSettings) override final;
 	void relocateWithOwner(const sf::Vector2u windowSizeY) override final;
 
 	void prepareInterfaceSprites() override final;

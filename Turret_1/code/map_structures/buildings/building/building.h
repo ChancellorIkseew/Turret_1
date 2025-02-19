@@ -97,6 +97,9 @@ public:
 	virtual void animation();
 	virtual void draw(sf::RenderWindow& window) = 0;
 
+	static void initWorld(World* world) {
+		Building::world = world;
+	}
 	friend Core;
 
 };

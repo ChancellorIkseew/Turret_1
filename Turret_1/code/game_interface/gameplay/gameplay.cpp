@@ -21,25 +21,22 @@
 #include "map_structures/world/world.h"
 
 
-GameState Gameplay::startGameplay(sf::RenderWindow& mainWindow, bool startNewGame, std::string saveFolderName, std::optional<PreSettings> preSettings)
+GameState Gameplay::startGameplay(sf::RenderWindow& mainWindow, const bool newGame, std::string saveFolderName, std::optional<PreSettings> preSettings)
 {
 	player = std::make_shared<Team>("player");
 	enemy = std::make_shared<Team>("enemy");
 	world.addTeam(player);
 	world.addTeam(enemy);
 
-	if (startNewGame)
+	if (newGame)
 	{
-		std::cout << "create new works" << std::endl;
 		world.createNew(preSettings.value());
-		world.getBuildingsMap().placeBuilding(BuildingType::CORE_MK2, 0, {48, 48}, player.get());
+		world.getBuildingsMap().placeBuilding(BuildingType::CORE_MK2, 0, TileCoord(48, 48), player.get());
 		t1::Time::resetTime();
 		player->balance.giveStartRes(preSettings.value().getGeneral().startBalance);
 	}
 	else
     {
-		std::cout << "load world works" << std::endl;
-		//PreSettings::load("save_1");
 		world.load("save_1");
     }
 
