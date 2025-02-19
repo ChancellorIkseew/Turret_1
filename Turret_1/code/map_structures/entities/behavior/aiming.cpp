@@ -9,6 +9,7 @@ using namespace t1::be;
 
 PixelCoord t1::ent::findAim(const Entity& entity, const World& world)
 {
+	/*
 	for (auto& team : world.getTeams())
 	{
 		if (entity.team->getID() != team.first)
@@ -25,6 +26,7 @@ PixelCoord t1::ent::findAim(const Entity& entity, const World& world)
 			}
 		}
 	}
+	*/
 
 	BuildingsMap buildingsMap = world.getBuildingsMap();
 

@@ -13,20 +13,12 @@ Team::Team(std::string name)
 
 void Team::save(cereal::BinaryOutputArchive& archive) const
 {
-    archive(entities);
-    archive(shells);
-    archive(balance); //?
-    archive(name);
-    archive(ID);
+    archive(ID, name, balance, entities, shells);
 }
 
 void Team::load(cereal::BinaryInputArchive& archive)
 {
-    archive(entities);
-    archive(shells);
-    archive(balance); //?
-    archive(name);
-    archive(ID);
+    archive(ID, name, balance, entities, shells);
 }
 
 void Team::spawnShell(const ShellType type, const PixelCoord coord, float angleRad, float angleDeg)

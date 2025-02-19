@@ -30,7 +30,7 @@ void ResourcesPanel::interact(Team& team)
     std::lock_guard<std::mutex> guard(mutex);
     for (auto& resI : resInfo)
     {
-        resI.second.update(team.getBalance().balance.allResources[resI.first]);
+        resI.second.update(team.getBalance().getResources().getQuantity(resI.first));
     }
 }
 

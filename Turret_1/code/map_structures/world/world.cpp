@@ -55,7 +55,7 @@ void World::createNew(PreSettings& preSettings)
 void World::simulate()
 {
 	std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
-	//buildingsMap.intetractMap();
+	buildingsMap.intetractMap();
 	for (auto& team : teams)
 	{
 		team.second->interact(buildingsMap);

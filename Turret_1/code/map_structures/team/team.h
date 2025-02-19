@@ -19,11 +19,11 @@ private:
 	int ID;
 	std::string name;
 
-public:
 	EntitiesList entities;
 	ShellsList shells;
 	Balance balance;
 
+public:
 	Team(std::string name);
 	Team() = default;
 	~Team() = default;

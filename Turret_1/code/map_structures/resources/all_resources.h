@@ -23,6 +23,7 @@ public:
 		archive(allResources);
 	}
 
+	int getQuantity(const int type) const { return allResources.at(type); }
 	/*
 	AllResources operator+(const AllResources& rhs)
 	{

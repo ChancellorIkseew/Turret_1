@@ -11,10 +11,9 @@ class Balance
 {
 private:
 	static inline World* world;
-
-public:
 	AllResources balance;
 
+public:
 	Balance();
 	~Balance() = default;
 
@@ -27,6 +26,8 @@ public:
 	void accept(int type, short amount);
 	bool isEnough(const AllResources& expenses) const;
 	void waste(const AllResources& expenses);
+
+	const AllResources& getResources() const { return balance; }
 
 	static void initWorld(World* world) {
 		Balance::world = world;
