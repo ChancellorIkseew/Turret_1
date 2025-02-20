@@ -3,7 +3,6 @@
 
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"
-#include "map_structures/particles/particles.h"
 #include "map_structures/team/team.h"
 
 constexpr int EXP_RADIUS = _TILE_ * 3 + _HALF_TILE_;

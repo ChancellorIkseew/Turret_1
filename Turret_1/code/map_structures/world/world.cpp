@@ -56,7 +56,7 @@ void World::simulate()
 	buildingsMap.intetract();
 	for (auto& team : teams)
 		team.second->interact(buildingsMap);
-	//particles.interact();
+	particles.interact();
 	time.timeRun(1);
 	EventsHandler::pollSimulationEvents();
 }

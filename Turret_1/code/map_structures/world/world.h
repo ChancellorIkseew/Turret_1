@@ -7,7 +7,7 @@
 #include "map_structures/team/team.h"
 #include "map_structures/terrain/terrain.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
-#include "map_structures/particles/particles.h"
+#include "map_structures/particles/particles_list/particles_list.h"
 #include "map_structures/pre-settings/pre-settings.h"
 #include "game_interface/gameplay/gameplay_util/t1_time.h"
 
@@ -20,7 +20,7 @@ private:
 	TerrainMap terrainMap;
 	BuildingsMap buildingsMap;
 	std::unordered_map<int, std::shared_ptr<Team>> teams;
-	//ParticlesList particles; not implemented
+	ParticlesList particles;
 	t1::Time time;
 
 public:

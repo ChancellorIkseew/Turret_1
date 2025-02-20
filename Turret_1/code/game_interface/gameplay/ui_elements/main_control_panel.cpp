@@ -14,7 +14,6 @@
 
 #include "map_structures/terrain/terrain.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
-#include "map_structures/particles/particles.h"
 #include "map_structures/pre-settings/pre-settings.h"
 #include "t1_system/input/input_handler.h"
 #include "t1_system/t1_mutex.h"
@@ -79,14 +78,8 @@ void MainControlPanel::interact(bool& isPaused, bool& isGameplayActive, const Wo
 	if (buttons[EXIT_TO_MENU].press())
 	{
 		ConfirmationWindow::getInstance().setVisible(true);
-		
 		if(ConfirmationWindow::getInstance().interact())
-		{
-			std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
-			cleanParticlesList();
 			isGameplayActive = false;
-		}
-		
 		ConfirmationWindow::getInstance().setVisible(false);
 	}
 	

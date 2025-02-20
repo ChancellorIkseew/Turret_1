@@ -2,21 +2,14 @@
 #include <SFML\Graphics.hpp>
 #include <list>
 
-#include "particles.h"
+#include "particle.h"
 
 		
 Particle::Particle(const int type, const PixelCoord coord)
 {
 	this->type = type;
 	this->coord = coord;
-	particlesLifeTime = 0;
-	isWasted = false;
 }
-
-
-PixelCoord Particle::getCoord() const { return coord; }
-bool Particle::getIsWasted() const { return isWasted; }
-
 
 void Particle::prepareSprites()
 {
@@ -29,14 +22,11 @@ void Particle::prepareSprites()
 	burstSprite.setColor(sf::Color(255, 255, 255, 128));
 }
 
-void Particle::animate()
+void Particle::interact()
 {
 	++particlesLifeTime;
-	
 	if(particlesLifeTime > 40)
-	{
 		isWasted = true;
-	}
 }
 
 void Particle::draw(sf::RenderWindow& window)
@@ -56,39 +46,4 @@ void Particle::draw(sf::RenderWindow& window)
 
 	burstSprite.setPosition(coord.x, coord.y);
 	window.draw(burstSprite);
-}
-
-
-std::list<std::unique_ptr<Particle>> particlesList;
-
-
-void moveParticlesList()
-{
-	for (auto it = particlesList.begin(); it != particlesList.end();)
-	{
-		if((*it)->getIsWasted() == true)
-		{
-			it = particlesList.erase(it);
-		}
-		else
-		{
-			(*it)->animate();
-			++it;
-		}
-	}
-}
-
-
-void drawParticlesList(sf::RenderWindow& window)
-{
-	for (auto& particle : particlesList)
-	{
-		particle->draw(window);
-	}
-}
-
-
-void cleanParticlesList()
-{
-	particlesList.clear();
 }

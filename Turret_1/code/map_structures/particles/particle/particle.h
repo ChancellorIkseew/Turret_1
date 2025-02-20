@@ -1,21 +1,18 @@
 #pragma once
-#ifndef PARTICLES_H
-#define PARTICLES_H
+#ifndef PARTICLE_H
+#define PARTICLE_H
 
-#include <SFML\Graphics.hpp>
 #include <list>
-
+#include <SFML\Graphics.hpp>
 #include "map_structures/base_engine/base_engine.h"
-
 
 class Particle
 {
 private:
 	PixelCoord coord;
-	
 	short type;
-	short particlesLifeTime;
-	bool isWasted;
+	short particlesLifeTime = 0;
+	bool isWasted = false;
 	
 	static inline sf::Image burstImage;
 	static inline sf::Texture burstTexture;
@@ -25,20 +22,13 @@ public:
 	Particle(const int type, const PixelCoord coord);
 	~Particle() = default;
 
-	PixelCoord getCoord() const;
-	bool getIsWasted() const;
+	PixelCoord getCoord() const { return coord; }
+	bool getIsWasted() const { return isWasted; }
 
 	static void prepareSprites();
-	void animate();
+	void interact();
 	void draw(sf::RenderWindow& window);
 		
 };
 
-
-extern std::list<std::unique_ptr<Particle>> particlesList;
-
-void moveParticlesList();
-void drawParticlesList(sf::RenderWindow& window);
-void cleanParticlesList();
-
-#endif // PARTICLES_H
+#endif // PARTICLE_H

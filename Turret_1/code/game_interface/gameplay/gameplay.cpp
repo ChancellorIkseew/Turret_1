@@ -1,24 +1,17 @@
 
-#include <iostream>	
 #include <thread>
 
 #include "gameplay.h"
 
 #include "game_interface/main_window/main_window.h"
 
-#include "gameplay_util/t1_time.h"
-
 #include "map_structures/pre-settings/pre-settings.h"
-#include "map_structures/terrain/terrain.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
-#include "map_structures/particles/particles.h"
 #include "map_structures/team/team.h"
-#include "map_structures/buildings/building/buildings_enum.h"
+#include "map_structures/world/world.h"
 
 #include "game_interface/gameplay/ui_elements/exit_confirmation.h"
 #include "game_interface/gameplay/ui_elements/settings_window.h"
-
-#include "map_structures/world/world.h"
 
 
 GameState Gameplay::startGameplay(sf::RenderWindow& mainWindow, const bool newGame, std::string saveFolderName, std::optional<PreSettings> preSettings)
