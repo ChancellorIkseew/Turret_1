@@ -64,7 +64,7 @@ void Shell::tryHitting()
 	BuildingsMap& buildingsMap = world->getBuildingsMap();
 	if (!buildingsMap.isVoidBuilding(tile) && buildingsMap.getTeamID(tile) != team->getID())
 	{
-		buildingsMap.setDamage(this->damage, tile);
+		//buildingsMap.setDamage(damage, tile);
 		isWasted = true;
 	}
 
@@ -76,7 +76,7 @@ void Shell::tryHitting()
 			{
 				if (abs(entity->getCoord().x - coord.x) < 7 && abs(entity->getCoord().y - coord.y) < 7)
 				{
-					entity->setDamage(this->damage);
+					entity->setDamage(damage);
 					isWasted = true;
 					return;
 				}

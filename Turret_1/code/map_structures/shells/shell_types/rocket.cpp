@@ -3,40 +3,45 @@
 
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"
+#include "map_structures/shells/damage/damage.h"
 #include "map_structures/team/team.h"
+#include "map_structures/world/world.h"
 
-constexpr int EXP_RADIUS = _TILE_ * 3 + _HALF_TILE_;
+constexpr int ACTIVATION_RADIUS = _TILE_;
+constexpr int EXP_RADIUS = 3; // radius in tiles
+constexpr int16_t EXP_DAMAGE = 20;
+constexpr float SPEED = 2.4f;
 
 Rocket::Rocket(PixelCoord coord, float angleRad, float angleDeg, Team* const team) :
 	Shell(coord, angleRad, angleDeg, team)
 {
-	damage = 0; // only_burst_damage
-	float speed = 2.4f;
+	// Rocket has no colision damage. Only burst damage. That's why there is not sth like "damage = x".
 	maxLifeTime = 420;
-	lineMotion.x = sin(angleRad) * speed;
-	lineMotion.y = cos(angleRad) * speed;
+	lineMotion.x = sin(angleRad) * SPEED;
+	lineMotion.y = cos(angleRad) * SPEED;
 }
 
 
 void Rocket::tryHitting()
 {
-	/*
 	TileCoord tile = t1::be::tile(coord);
-	if (BuildingsMap::buildingExists(tile) && BuildingsMap::getTeamID(tile) != team->getID())
+	BuildingsMap& buildingsMap = world->getBuildingsMap();
+	if (!buildingsMap.isVoidBuilding(tile) && buildingsMap.getTeamID(tile) != team->getID())
 	{
 		isWasted = true;
 		return;
 	}
 	
-	for (auto it = Team::teams.begin(); it != Team::teams.end(); ++it)
+	for (auto& it : world->getTeams())
 	{
-		if (this->team->getID() != (*it)->getID())
+		Team& team = *it.second;
+		if (this->team->getID() != team.getID())
 		{
-			for (auto entity = (*it)->entities.begin(); entity != (*it)->entities.end(); ++entity)
+			for (auto& entity : team.getEneities().getList())
 			{
-				float deltaX = coord.x - (*entity)->getCoord().x;
-				float deltaY = coord.y - (*entity)->getCoord().y;
-				if (abs(deltaX) < 32 && abs(deltaY) < 32)
+				float deltaX = coord.x - entity->getCoord().x;
+				float deltaY = coord.y - entity->getCoord().y;
+				if (abs(deltaX) < ACTIVATION_RADIUS && abs(deltaY) < ACTIVATION_RADIUS)
 				{
 					isWasted = true;
 					return;
@@ -44,41 +49,13 @@ void Rocket::tryHitting()
 			}
 		}
 	}
-	*/
 }
 
 
 void Rocket::explosion()
 {
-	/*
-	TileCoord centreTile = t1::be::tile(coord);
-	TileCoord tile{0, 0};
-	for (int i = 0; i < 45; ++i)
-	{
-		tile.x = centreTile.x + t1::be::coordSpyralArr[i].x;
-		tile.y = centreTile.y + t1::be::coordSpyralArr[i].y;
-		if (BuildingsMap::buildingExists(tile))
-		{
-			BuildingsMap::setDamage(20, tile);
-		}
-	}
-
-	for (auto it = Team::teams.begin(); it != Team::teams.end(); ++it)
-	{
-		for (auto entity = (*it)->entities.begin(); entity != (*it)->entities.end(); ++entity)
-		{
-			float deltaX = coord.x - (*entity)->getCoord().x;
-			float deltaY = coord.y - (*entity)->getCoord().y;
-			float deltaS = sqrt(deltaX * deltaX + deltaY * deltaY);
-			if (deltaS < EXP_RADIUS)
-			{
-				(*entity)->setDamage(20);
-			}
-		}	
-	}
-
-	particlesList.emplace_back(std::make_unique<Particle>(2, coord));
-	*/
+	Damage::createBurst(coord, EXP_RADIUS, EXP_DAMAGE, 0.0f, *world);
+	world->getParticles().spawnParticle(2, coord);
 }
 
 

@@ -11,6 +11,7 @@ class WaveConstructor
 public:
 	static void createWave(Team& enemy, World& world);
 	static void switchEntities(const int wave, Team& enemy, const BuildingsMap& buildingsMap);
+	static void spawnTestWave(Team& enemy, const BuildingsMap& buildingsMap);
 };
 
 #endif // WAVE_CONSTRUCTOR_H

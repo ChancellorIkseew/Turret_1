@@ -62,8 +62,8 @@ public:
 	void setDamage(const int damage);
 	void setDurability(const int durability);
 	TileCoord getTileCoord() const { return tile; }
-	short getSize() const { return size; }
-	short getDurability() const { return durability; }
+	uint8_t getSize() const { return size; }
+	int16_t getDurability() const { return durability; }
 	char getDirection() const { return direction; }
 	std::list<StoredResource>& getInventory() { return inventory; }
 	Team* getTeam() const { return team; }

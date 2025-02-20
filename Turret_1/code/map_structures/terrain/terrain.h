@@ -7,7 +7,7 @@
 #include "map_structures/base_engine/base_engine.h"
 
 class Camera;
-class TerrainPre;
+struct TerrainPre;
 
 class TerrainMap
 {

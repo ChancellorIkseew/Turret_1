@@ -35,6 +35,7 @@ public:
 	void draw(sf::RenderWindow& window, const Camera& camera);
 
 	BuildingsMap& getBuildingsMap() { return buildingsMap; } // non_const
+	ParticlesList& getParticles() { return particles; }
 	
 	const PreSettings& getPreSettings() const { return preSettings; };
 	const TerrainMap& getTerrainMap() const { return terrainMap; }

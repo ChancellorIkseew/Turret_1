@@ -12,9 +12,7 @@ void BuildingsMap::setDamage(const short damage, const TileCoord tile)
 	TileCoord mainBuilding = getBuildingMainTileCoord(tile);
 	buildingsMap[mainBuilding.x][mainBuilding.y]->setDamage(damage);
 	if (buildingsMap[mainBuilding.x][mainBuilding.y]->getDurability() < 1)
-	{
 		demolishBuilding(mainBuilding);
-	}
 }
 
 

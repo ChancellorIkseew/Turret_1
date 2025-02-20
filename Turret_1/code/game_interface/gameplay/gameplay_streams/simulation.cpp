@@ -11,6 +11,9 @@
 
 void Gameplay::simulation()
 {
+    //test
+    WaveConstructor::spawnTestWave(*enemy, world.getBuildingsMap());
+    //
     while (isGameplayActive)
     {
         if (!isPaused)

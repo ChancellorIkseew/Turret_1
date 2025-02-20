@@ -67,9 +67,7 @@ void World::draw(sf::RenderWindow& window, const Camera& camera)
 	terrainMap.draw(window, camera);
 	buildingsMap.draw(window, camera);
 	for (auto& team : teams)
-	{
 		team.second->draw(window, camera);
-	}
-	//particlesList.draw();
+	particles.draw(window);
 }
 

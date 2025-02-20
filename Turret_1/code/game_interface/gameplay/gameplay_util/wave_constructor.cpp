@@ -27,14 +27,6 @@ void WaveConstructor::switchEntities(const int wave, Team& enemy, const Building
 	{
 	case 1:
 		enemy.spawnEntity(2, MobType::STANDARD_BOT, buildingsMap);
-//#ifdef TURRET_1_MOB_TYPES_TEST
-		enemy.spawnEntity(1, MobType::HEAVY_BOT, buildingsMap);
-		enemy.spawnEntity(1, MobType::ROCKET_BOT, buildingsMap);
-		enemy.spawnEntity(1, MobType::LASER_BOT, buildingsMap);
-		enemy.spawnEntity(1, MobType::CANNON_BOSS, buildingsMap);
-		enemy.spawnEntity(1, MobType::ROCKET_BOSS, buildingsMap);
-		enemy.spawnEntity(1, MobType::UNKNOWN_VALUE, buildingsMap);
-//#endif // TURRET_1_MOB_TYPES_TEST
 		break;
 
 	case 2:
@@ -124,4 +116,16 @@ void WaveConstructor::switchEntities(const int wave, Team& enemy, const Building
 			enemy.spawnEntity(2, MobType::ROCKET_BOSS, buildingsMap);
 		}	
 	}
+}
+
+
+void WaveConstructor::spawnTestWave(Team& enemy, const BuildingsMap& buildingsMap)
+{
+	enemy.spawnEntity(2, MobType::STANDARD_BOT, buildingsMap);
+	enemy.spawnEntity(1, MobType::HEAVY_BOT, buildingsMap);
+	enemy.spawnEntity(1, MobType::ROCKET_BOT, buildingsMap);
+	enemy.spawnEntity(1, MobType::LASER_BOT, buildingsMap);
+	enemy.spawnEntity(1, MobType::CANNON_BOSS, buildingsMap);
+	enemy.spawnEntity(1, MobType::ROCKET_BOSS, buildingsMap);
+	enemy.spawnEntity(1, MobType::UNKNOWN_VALUE, buildingsMap);
 }

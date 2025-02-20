@@ -10,16 +10,16 @@ constexpr int _HALF_TILE_ = 16;
 
 namespace t1::be
 {
-	inline int tile(float pixelCoord);
-	inline int tile(int pixelCoord);
+	int tile(float pixelCoord);
+	int tile(int pixelCoord);
 	TileCoord tile(float pixelCoordX, float pixelCoordY);
 	TileCoord tile(int pixelCoordX, int pixelCoordY);
-	TileCoord tile(PixelCoord pixelCoord);
+	TileCoord tile(const PixelCoord pixelCoord);
 
-	inline int pixel(int tileCoord);
-	inline float pixelF(int tileCoord);
+	int pixel(int tileCoord);
+	float pixelF(int tileCoord);
 	PixelCoord pixel(int tileCoordX, int tileCoordY);
-	PixelCoord pixel(TileCoord tileCoord);
+	PixelCoord pixel(const TileCoord tileCoord);
 
 	int pow2i(const int value);
 	PixelCoord correction(const PixelCoord center, const PixelCoord point, const float angleRad);

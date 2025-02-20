@@ -19,7 +19,7 @@ TileCoord t1::be::tile(int pixelCoordX, int pixelCoordY) {
 	return { tile(pixelCoordX) , tile(pixelCoordY) };
 }
 
-TileCoord t1::be::tile(PixelCoord pixelCoord) {
+TileCoord t1::be::tile(const PixelCoord pixelCoord) {
 	return { tile(pixelCoord.x) , tile(pixelCoord.y) };
 }
 
@@ -37,7 +37,7 @@ PixelCoord t1::be::pixel(int tileCoordX, int tileCoordY) {
 	return { pixelF(tileCoordX),  pixelF(tileCoordY) };
 }
 
-PixelCoord t1::be::pixel(TileCoord tileCoord) {
+PixelCoord t1::be::pixel(const TileCoord tileCoord) {
 	return { pixelF(tileCoord.x), pixelF(tileCoord.y) };
 }
 

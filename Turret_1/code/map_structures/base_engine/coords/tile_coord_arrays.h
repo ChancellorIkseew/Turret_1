@@ -7,7 +7,8 @@
 
 namespace t1::be
 {
-	extern const std::array<TileCoord, 16> coordSquareArr;
+	extern const std::array<int, 35> tileRangeToSpiralRange;
+	extern const std::array<TileCoord, 16> coordSquareArr; 
 	extern const std::array<TileCoord, 4109> coordSpyralArr;
 };
 
