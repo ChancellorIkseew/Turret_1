@@ -39,6 +39,7 @@ public:
 
 	int getID();
 	Balance& getBalance();
+	EntitiesList& getEneities() { return entities; }
 
 };
 

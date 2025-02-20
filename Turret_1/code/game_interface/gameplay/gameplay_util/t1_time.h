@@ -2,28 +2,31 @@
 #ifndef T1_TIME
 #define T1_TIME
 
-#include <string>
+#include <cereal/archives/binary.hpp>
 
 namespace t1
 {
 	class Time
 	{
 	private:
-		static inline int currentTime = 0;
-		static inline int currentWave = 0;
+		int currentTime = 0;
+		int currentWave = 0;
 
 	public:
-		static void loadTime(const std::string& folder);
-		static void saveTime(const std::string& folder);
+		Time() = default;
+		~Time() = default;
 
-		static void resetTime();
-		static void setTime(const int time);
-		static void setWave(const int wave);
-		static int getTime() { return currentTime; }
-		static int getWave() { return currentWave; }
+		void save(cereal::BinaryOutputArchive& archive) const;
+		void load(cereal::BinaryInputArchive& archive);
 
-		static void timeRun(const int ticks);
-		static void setNextWave();
+		void resetTime();
+		void setTime(const int time);
+		void setWave(const int wave);
+		int getTime() const { return currentTime; }
+		int getWave() const { return currentWave; }
+
+		void timeRun(const int ticks);
+		void setNextWave();
 	};
 }
 

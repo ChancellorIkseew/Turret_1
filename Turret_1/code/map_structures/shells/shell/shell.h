@@ -10,10 +10,13 @@
 enum class ShellType : uint8_t;
 
 class Team;
+class World;
 
 class Shell
 {
 protected:
+	static inline World* world;
+
 	PixelCoord coord = PixelCoord(0, 0);
 	PixelCoord lineMotion = PixelCoord(0, 0);
 
@@ -53,7 +56,9 @@ public:
 
 	static void prepareSprites();
 	virtual void draw(sf::RenderWindow& window);
-
+	static void initWorld(World* world) {
+		Shell::world = world;
+	}
 };
 
 #endif // SHELLS_H

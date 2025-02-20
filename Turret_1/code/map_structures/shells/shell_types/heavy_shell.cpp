@@ -5,6 +5,7 @@
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/particles/particles.h"
 #include "map_structures/team/team.h"
+#include "map_structures/world/world.h"
 
 const int EXP_RADIUS = _TILE_ + _HALF_TILE_;
 
@@ -21,19 +22,18 @@ HeavyShell::HeavyShell(PixelCoord coord, float angleRad, float angleDeg, Team* c
 
 void HeavyShell::explosion()
 {
-	/*
+	BuildingsMap buildingsMap = world->getBuildingsMap();
 	TileCoord centreTile = t1::be::tile(coord);
-	TileCoord tile{ 0, 0 };
+	TileCoord tile;
 	for (int i = 0; i < 9; ++i)
 	{
-		tile.x = centreTile.x + t1::be::coordSpyralArr[i].x;
-		tile.y = centreTile.y + t1::be::coordSpyralArr[i].y;
-		if (BuildingsMap::buildingExists(tile))
+		tile = centreTile + t1::be::coordSpyralArr[i];
+		if (buildingsMap.buildingExists(tile))
 		{
-			BuildingsMap::setDamage(10, tile);
+			buildingsMap.setDamage(10, tile);
 		}
 	}
-
+	/*
 	for (auto it = Team::teams.begin(); it != Team::teams.end(); ++it)
 	{
 		for (auto entity = (*it)->entities.begin(); entity != (*it)->entities.end(); ++entity)
@@ -47,8 +47,9 @@ void HeavyShell::explosion()
 			}
 		}
 	}
-	particlesList.push_back(std::make_unique<Particle>(1, coord));
 	*/
+	//particlesList.push_back(std::make_unique<Particle>(1, coord));
+	
 }
 
 

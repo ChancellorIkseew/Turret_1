@@ -18,6 +18,7 @@ CannonBossBot::CannonBossBot(Team* const team) : Entity(team)
 void CannonBossBot::shoot(const BuildingsMap& buildingsMap)
 {
 	Entity::reloadWeapon();
+	Entity::detectAim();
 
 	if (isAimDetected)
 	{

@@ -5,6 +5,7 @@
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/team/team.h"
+#include "map_structures/world/world.h"
 
 
 Shell::Shell(const PixelCoord coord, float angleRad, float angleDeg, Team* const team)
@@ -58,30 +59,30 @@ void Shell::explosion() { }
 
 void Shell::tryHitting()
 {
-	/*
+	
 	TileCoord tile = t1::be::tile(coord);
+	BuildingsMap& buildingsMap = world->getBuildingsMap();
 	if (!buildingsMap.isVoidBuilding(tile) && buildingsMap.getTeamID(tile) != team->getID())
 	{
 		buildingsMap.setDamage(this->damage, tile);
 		isWasted = true;
 	}
 
-	for (auto it = Team::teams.begin(); it != Team::teams.end(); ++it)
+	for (auto& team : world->getTeams())
 	{
-		if (this->team->getID() != (*it)->getID())
+		if (this->team->getID() != team.first)
 		{
-			for (auto entity = (*it)->entities.begin(); entity != (*it)->entities.end(); ++entity)
+			for (auto& entity : team.second->getEneities().getList())
 			{
-				if (abs((*entity)->getCoord().x - coord.x) < 7 && abs((*entity)->getCoord().y - coord.y) < 7)
+				if (abs(entity->getCoord().x - coord.x) < 7 && abs(entity->getCoord().y - coord.y) < 7)
 				{
-					(*entity)->setDamage(this->damage);
+					entity->setDamage(this->damage);
 					isWasted = true;
 					return;
 				}
 			}
 		}
 	}
-	*/
 }
 
 

@@ -6,7 +6,7 @@
 #include "game_interface/gameplay/gameplay_util/wave_constructor.h"
 
 #include "game_interface/gameplay/ui_elements/resources_panel.h"
-#include "t1_system/events/events_handler.h"
+
 
 
 void Gameplay::simulation()
@@ -16,12 +16,9 @@ void Gameplay::simulation()
         if (!isPaused)
         {
             world.simulate();
-            WaveConstructor::createWave(*enemy, world.getBuildingsMap());
-            t1::Time::timeRun(1);
-            EventsHandler::pollSimulationEvents();
+            WaveConstructor::createWave(*enemy, world);
         }
         resourcesPanel.interact(*player);
-
         t1::system::sleep(16);
     }
 }

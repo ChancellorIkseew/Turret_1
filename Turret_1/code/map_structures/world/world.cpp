@@ -5,6 +5,7 @@
 #include <cereal/types/memory.hpp>
 #include <cereal/types/unordered_set.hpp>
 #include <cereal/archives/binary.hpp>
+#include "t1_system/events/events_handler.h"
 
 #include "t1_system/t1_mutex.h"
 
@@ -12,6 +13,7 @@
 World::World()
 {
 	Entity::initWorld(this);
+	Shell::initWorld(this);
 	Building::initWorld(this);
 	Balance::initWorld(this);
 }
@@ -23,9 +25,7 @@ void World::save(const std::string& saveFolderName) const
 	std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
 	std::ofstream fout(saveFileName, std::ios::binary);
 	cereal::BinaryOutputArchive archive(fout);
-	archive(teams);
-	archive(terrainMap);
-	archive(buildingsMap);
+	archive(time, teams, terrainMap, buildingsMap);
 	fout.close();
 }
 
@@ -36,9 +36,7 @@ void World::load(const std::string& saveFolderName)
 	std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
 	std::ifstream fin(saveFileName, std::ios::binary);
 	cereal::BinaryInputArchive archive(fin);
-	archive(teams);
-	archive(terrainMap);
-	archive(buildingsMap);
+	archive(time, teams, terrainMap, buildingsMap);
 	fin.close();
 }
 
@@ -55,12 +53,12 @@ void World::createNew(PreSettings& preSettings)
 void World::simulate()
 {
 	std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
-	buildingsMap.intetractMap();
+	buildingsMap.intetract();
 	for (auto& team : teams)
-	{
 		team.second->interact(buildingsMap);
-	}
-	//particlesList.interact();
+	//particles.interact();
+	time.timeRun(1);
+	EventsHandler::pollSimulationEvents();
 }
 
 void World::draw(sf::RenderWindow& window, const Camera& camera)

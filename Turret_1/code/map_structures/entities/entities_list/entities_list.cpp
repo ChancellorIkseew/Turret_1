@@ -59,16 +59,6 @@ void EntitiesList::draw(sf::RenderWindow& mainWindow, const Camera& camera)
 	}
 }
 
-std::list<std::unique_ptr<Entity>>::iterator EntitiesList::begin() noexcept
-{
-	return entitiesList.begin();
-}
-
-std::list<std::unique_ptr<Entity>>::iterator EntitiesList::end() noexcept
-{
-	return entitiesList.end();
-}
-
 void EntitiesList::clean() noexcept
 {
 	entitiesList.clear();

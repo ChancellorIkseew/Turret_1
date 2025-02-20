@@ -3,6 +3,9 @@
 #define T1_BE_TILE_COORD_H
 
 #include <cereal/archives/binary.hpp>
+#include <limits>
+
+constexpr int MINIMAL_INT = std::numeric_limits<int>::lowest();
 
 struct TileCoord
 {
@@ -20,6 +23,9 @@ struct TileCoord
 		archive(y);
 	}
 
+	bool valid() const {
+		return x > MINIMAL_INT;
+	}
 	bool operator==(const TileCoord& rhs) {
 		return { x == rhs.x && y == rhs.y };
 	}
@@ -37,5 +43,7 @@ struct TileCoord
 		return { x / value, y / value };
 	}
 };
+
+const TileCoord INCORRECT_TILE_COORD = TileCoord(MINIMAL_INT, MINIMAL_INT);
 
 #endif // T1_BE_TILE_COORD_H

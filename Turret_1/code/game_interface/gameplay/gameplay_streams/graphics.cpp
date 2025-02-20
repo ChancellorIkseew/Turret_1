@@ -52,7 +52,7 @@ void Gameplay::graphics(sf::RenderWindow& mainWindow)
 
         mainWindow.setView(overlay);			//Draw_inteface block
         mainControlPanel.draw(mainWindow);
-        mainControlPanel.interactWaveTimer(isPaused);
+        mainControlPanel.interactWaveTimer(isPaused, world);
         buildingPanel.draw(mainWindow);
         resourcesPanel.draw(mainWindow);
         inventoryWindow.draw(mainWindow);

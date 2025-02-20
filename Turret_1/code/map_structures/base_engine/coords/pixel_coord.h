@@ -3,6 +3,9 @@
 #define T1_BE_PIXEL_COORD_H
 
 #include <cereal/archives/binary.hpp>
+#include <limits>
+
+constexpr float MINIMAL_FLOAT = std::numeric_limits<float>::lowest();
 
 struct PixelCoord
 {
@@ -24,6 +27,10 @@ struct PixelCoord
 		archive(y);
 	}
 
+	bool valid() const {
+		constexpr float epsilon = 0.0001f;
+		return x > MINIMAL_FLOAT + epsilon;
+	}
 	bool operator==(const PixelCoord& rhs) const {
 		constexpr float epsilon = 0.0001f;
 		return std::abs(x - rhs.x) < epsilon && std::abs(y - rhs.y) < epsilon;
@@ -50,5 +57,7 @@ struct PixelCoord
 		return { x / floatValue, y / floatValue };
 	}
 };
+
+const PixelCoord INCORRECT_PIXEL_COORD = PixelCoord(MINIMAL_FLOAT, MINIMAL_FLOAT);
 
 #endif // T1_BE_PIXEL_COORD_H

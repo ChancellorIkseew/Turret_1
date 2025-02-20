@@ -9,7 +9,9 @@
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/particles/particles.h"
 #include "map_structures/pre-settings/pre-settings.h"
+#include "game_interface/gameplay/gameplay_util/t1_time.h"
 
+class WaveConstructor;
 
 class World
 {
@@ -18,7 +20,8 @@ private:
 	TerrainMap terrainMap;
 	BuildingsMap buildingsMap;
 	std::unordered_map<int, std::shared_ptr<Team>> teams;
-	//ParticlesList particlesList; not implemented
+	//ParticlesList particles; not implemented
+	t1::Time time;
 
 public:
 	World();
@@ -31,12 +34,12 @@ public:
 	void simulate();
 	void draw(sf::RenderWindow& window, const Camera& camera);
 
-	TerrainMap& getTerrainMap() { return terrainMap; }
-	BuildingsMap& getBuildingsMap() { return buildingsMap; }
-
-	const PreSettings getPreSettings() const { return preSettings; };
+	BuildingsMap& getBuildingsMap() { return buildingsMap; } // non_const
+	
+	const PreSettings& getPreSettings() const { return preSettings; };
 	const TerrainMap& getTerrainMap() const { return terrainMap; }
 	const BuildingsMap& getBuildingsMap() const { return buildingsMap; }
+	const t1::Time& getTime() const { return time; }
 
 	void addTeam(const sf::String& name) {
 		teams.emplace(0, std::make_shared<Team>(name));
@@ -51,6 +54,7 @@ public:
 		return teams;
 	}
 
+	friend WaveConstructor;
 };
 
 #endif // WORLD_H

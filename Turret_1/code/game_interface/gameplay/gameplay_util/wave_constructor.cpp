@@ -7,15 +7,16 @@
 #include "map_structures/entities/entity/mob_enum.h"
 #include "map_structures/entities/entities_list/entities_list.h"
 #include "map_structures/team/team.h"
+#include "map_structures/world/world.h"
 
 
-void WaveConstructor::createWave(Team& team, const BuildingsMap& buildingsMap)
+void WaveConstructor::createWave(Team& team, World& world)
 {
-	if(t1::Time::getTime() % 10800 == 0)
+	if(world.getTime().getTime() % 10800 == 0)
 	{
-		t1::Time::setNextWave();
-		switchEntities(t1::Time::getWave(), team, buildingsMap);
-		t1::Time::setTime(0);
+		world.time.setNextWave();
+		switchEntities(world.getTime().getWave(), team, world.getBuildingsMap());
+		world.time.setTime(0);
 	}
 }
 

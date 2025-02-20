@@ -4,53 +4,52 @@
 #include "map_structures/entities/entity/entity.h"
 #include "map_structures/team/team.h"
 #include "map_structures/world/world.h"
+#include <iostream>
 
 using namespace t1::be;
 
-PixelCoord t1::ent::findAim(const Entity& entity, const World& world)
+PixelCoord Aiming::aimForward(const Entity& entity, const World& world)
 {
-	/*
-	for (auto& team : world.getTeams())
-	{
-		if (entity.team->getID() != team.first)
-		{
-			for (auto en = team.second->entities.begin(); en != team.second->entities.end(); ++en)
-			{
-				float deltaX = entity.coord.x - (*en)->getCoord().x;
-				float deltaY = entity.coord.y - (*en)->getCoord().y;
-
-				if (sqrt(deltaX * deltaX + deltaY * deltaY) < entity.pixelRange)
-				{
-					return (*en)->getCoord();
-				}
-			}
-		}
-	}
-	*/
-
-	BuildingsMap buildingsMap = world.getBuildingsMap();
-
+	const BuildingsMap& buildingsMap = world.getBuildingsMap();
 	for (int i = 1; i <= entity.pixelRange; i++)
 	{
 		int tileX = tile(entity.coord.x + sin(entity.motionAngleRad) * _TILE_ * i);
 		int tileY = tile(entity.coord.y + cos(entity.motionAngleRad) * _TILE_ * i);
-		TileCoord tile{ tileX, tileY };
+		TileCoord tile(tileX, tileY);
 		if (buildingsMap.buildingExists(tile) && buildingsMap.getTeamID(tile) != entity.team->getID())
-		{
 			return pixel(tile);
-		}
 	}
+	return INCORRECT_PIXEL_COORD;
+}
 
+
+PixelCoord Aiming::aimOnBuilding(const Entity& entity, const BuildingsMap& buildingsMap)
+{
 	for (int i = 0; i < entity.spyralRange; i++)
 	{
-		int tileX = entity.currentTile.x + coordSpyralArr[i].x;
-		int tileY = entity.currentTile.y + coordSpyralArr[i].y;
-		TileCoord tile{ tileX, tileY };
+		TileCoord tile = entity.currentTile + coordSpyralArr[i];
 		if (buildingsMap.buildingExists(tile) && buildingsMap.getTeamID(tile) != entity.team->getID())
-		{
 			return pixel(tile);
+	}
+	return INCORRECT_PIXEL_COORD;
+}
+
+
+PixelCoord Aiming::aimOnEntity(const Entity& entity, const World& world)
+{
+	for (auto& team : world.getTeams())
+	{
+		if (entity.team->getID() != team.first)
+		{
+			auto& eList = team.second->getEneities().getList();
+			for (auto& it : eList)
+			{
+				float deltaX = entity.coord.x - it->getCoord().x;
+				float deltaY = entity.coord.y - it->getCoord().y;
+				if (sqrt(deltaX * deltaX + deltaY * deltaY) < entity.pixelRange)
+					return it->getCoord();
+			}
 		}
 	}
-
-	return { 0.0f, 0.0f };
+	return INCORRECT_PIXEL_COORD;
 }

@@ -66,7 +66,7 @@ std::list<StoredResource> BuildingsMap::getInventory(const TileCoord tile) const
 }
 
 
-void BuildingsMap::intetractMap()
+void BuildingsMap::intetract()
 {
 	for (auto& line : buildingsMap)
 	{
@@ -76,6 +76,7 @@ void BuildingsMap::intetractMap()
 				building->interact();
 		}
 	}
+	pushChanges();
 }
 
 void BuildingsMap::pushChanges()

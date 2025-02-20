@@ -51,7 +51,7 @@ protected:
 	static inline sf::Sprite shieldSprite;
 
 	void reloadWeapon();
-	void detectAim(const World& world);
+	void detectAim();
 
 public:
 	Entity(Team* const team);
@@ -90,9 +90,8 @@ public:
 	static void initWorld(World* world) {
 		Entity::world = world;
 	}
-	friend PixelCoord t1::ent::findAim(const Entity& entity, const World& world);
 	friend TileCoord t1::ent::findDestination(const Entity& entity, const BuildingsMap& buildingsMap);
-		
+	friend Aiming;
 };
 
 #endif // ENTITY_H

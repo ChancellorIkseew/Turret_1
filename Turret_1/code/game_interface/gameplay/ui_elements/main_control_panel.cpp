@@ -113,19 +113,19 @@ void MainControlPanel::interact(bool& isPaused, bool& isGameplayActive, const Wo
 
 
 
-void MainControlPanel::interactWaveTimer(const bool isPaused)
+void MainControlPanel::interactWaveTimer(const bool isPaused, const World& world)
 {
 	if(!isPaused)
 	{
 		std::ostringstream strWaveNumber;
-		strWaveNumber << t1::Time::getWave();
+		strWaveNumber << world.getTime().getWave();
 		waveNumberText2.setString(strWaveNumber.str());
 
     	std::ostringstream strSeconds;
-		strSeconds << (59 - ((t1::Time::getTime() / 60) % 60));
+		strSeconds << (59 - ((world.getTime().getTime() / 60) % 60));
 
     	std::ostringstream strMinutes;
-		strMinutes << int(2 - (t1::Time::getTime() / 3600));
+		strMinutes << int(2 - (world.getTime().getTime() / 3600));
 
     	waveTimerText2.setString(strMinutes.str() + " : " + strSeconds.str());
 	}

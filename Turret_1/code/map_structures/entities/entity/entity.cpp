@@ -67,12 +67,12 @@ void Entity::motion(const BuildingsMap& buildingsMap)
 }
 
 
-void Entity::detectAim(const World& world)
+void Entity::detectAim()
 {
 	if (tileChanged() || EventsHandler::active(t1::EventType::MAP_CHANGED))
 	{
-		PixelCoord newAimCoord = t1::ent::findAim(*this, world);
-		if (newAimCoord.x != 0)	// "0" - aim_was_not_detected
+		PixelCoord newAimCoord = Aiming::aimOnBuilding(*this, world->getBuildingsMap());
+		if (newAimCoord.valid())
 		{
 			aimCoord = newAimCoord;
 			isAimDetected = true;

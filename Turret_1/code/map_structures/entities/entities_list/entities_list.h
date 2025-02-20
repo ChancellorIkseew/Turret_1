@@ -30,8 +30,7 @@ public:
 	void interact(const BuildingsMap& buildingsMap);
 	void draw(sf::RenderWindow& mainWindow, const Camera& camera);
 
-	std::list<std::unique_ptr<Entity>>::iterator begin() noexcept;
-	std::list<std::unique_ptr<Entity>>::iterator end() noexcept;
+	const std::list<std::unique_ptr<Entity>>& getList() const { return entitiesList; }
 	
 };
 

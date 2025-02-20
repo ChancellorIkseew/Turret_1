@@ -32,7 +32,6 @@ GameState Gameplay::startGameplay(sf::RenderWindow& mainWindow, const bool newGa
 	{
 		world.createNew(preSettings.value());
 		world.getBuildingsMap().placeBuilding(BuildingType::CORE_MK2, 0, TileCoord(48, 48), player.get());
-		t1::Time::resetTime();
 		player->getBalance().giveStartRes(preSettings.value().getGeneral().startBalance);
 	}
 	else

@@ -27,7 +27,7 @@ public:
 	~MainControlPanel() = default;
 	
 	void interact(bool& isPaused, bool& isGameplayActive, const World& world);
-	void interactWaveTimer(const bool isPaused);
+	void interactWaveTimer(const bool isPaused, const World& world);
 
 	void prepareInterfaceSprites() override final;
 	void draw(sf::RenderWindow& window) override final;
