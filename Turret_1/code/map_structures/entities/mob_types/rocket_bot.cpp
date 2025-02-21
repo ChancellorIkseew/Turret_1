@@ -27,8 +27,8 @@ void RocketBot::shoot(const BuildingsMap& buildingsMap)
 
 		if (reloadTimer <= 0)
 		{
-			float correctionX = cos(shootingAngleRad) * 5;
-			float correctionY = sin(shootingAngleRad) * 5;
+			float correctionX = cos(shootingAngleRad) * 5.0f;
+			float correctionY = sin(shootingAngleRad) * 5.0f;
 
 			team->spawnShell(ShellType::ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
 			reloadTimer = 240;

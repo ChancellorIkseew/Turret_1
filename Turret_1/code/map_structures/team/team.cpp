@@ -34,7 +34,7 @@ void Team::spawnEntity(const uint8_t amount, const MobType type, const Buildings
 void Team::interact(const BuildingsMap& buildingsMap)
 {
     entities.interact(buildingsMap);
-    shells.move();
+    shells.interact();
 }
 
 void Team::draw(sf::RenderWindow& window, const Camera& camera)

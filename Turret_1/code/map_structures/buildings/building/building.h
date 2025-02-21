@@ -54,13 +54,14 @@ public:
 	virtual ~Building() = default;
 
 	virtual void save(cereal::BinaryOutputArchive& archive) const;
-	virtual void load(cereal::BinaryInputArchive& archive, World& world);
+	virtual void load(cereal::BinaryInputArchive& archive);
 
 	static std::shared_ptr<Building> createBuilding(const BuildingType type, const char direction, const TileCoord tile, Team* const team);
 
 	virtual void interact();
-	void setDamage(const int damage);
-	void setDurability(const int durability);
+	void setDamage(const int16_t damage);
+	void setDamage(const float damage);
+	void setDurability(const int16_t durability);
 	TileCoord getTileCoord() const { return tile; }
 	uint8_t getSize() const { return size; }
 	int16_t getDurability() const { return durability; }

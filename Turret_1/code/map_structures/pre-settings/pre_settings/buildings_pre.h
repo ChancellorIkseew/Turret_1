@@ -6,9 +6,9 @@
 
 struct BuildingsPre
 {
-	float maxDurabilityModifier;
-	float expensesModifier;
-	float constructionSpeedModifier;
+	float maxDurabilityModifier = 1.0f;
+	float expensesModifier = 1.0f;
+	float constructionSpeedModifier = 1.0f;
 
 	void save(std::shared_ptr<cpptoml::table> root) const
 	{

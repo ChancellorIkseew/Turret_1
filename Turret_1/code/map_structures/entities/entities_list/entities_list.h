@@ -25,7 +25,7 @@ public:
 	void load(cereal::BinaryInputArchive& archive);
 
 	void spawnEntity(const uint8_t amount, const MobType type, Team* team, const BuildingsMap& buildingsMap);
-	void clean() noexcept;
+	void clean() noexcept { entitiesList.clear(); }
 
 	void interact(const BuildingsMap& buildingsMap);
 	void draw(sf::RenderWindow& mainWindow, const Camera& camera);

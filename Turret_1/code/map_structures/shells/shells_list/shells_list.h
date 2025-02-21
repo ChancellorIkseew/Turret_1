@@ -23,11 +23,12 @@ public:
 	void load(cereal::BinaryInputArchive& archive);
 
 	void spawnShell(const ShellType type, const PixelCoord coord, float angleRad, float angleDeg, Team* const team);
-	void move();
+	void clear() noexcept { shellsList.clear(); }
 
+	void interact();
 	void draw(sf::RenderWindow& window, const Camera& camera);
 
-	void clean() noexcept;
+	std::list<std::unique_ptr<Shell>>& getList() { return shellsList; }
 
 };
 

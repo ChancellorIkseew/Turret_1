@@ -28,8 +28,8 @@ void RocketBossBot::shoot(const BuildingsMap& buildingsMap)
 
 		if (reloadTimer <= 0)
 		{
-			float correctionX = cos(shootingAngleRad) * 18;
-			float correctionY = sin(shootingAngleRad) * 18;
+			float correctionX = cos(shootingAngleRad) * 18.0f;
+			float correctionY = sin(shootingAngleRad) * 18.0f;
 
 			team->spawnShell(ShellType::ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
 			team->spawnShell(ShellType::ROCKET, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg);
@@ -37,8 +37,8 @@ void RocketBossBot::shoot(const BuildingsMap& buildingsMap)
 		}
 		else if (reloadTimer == 30)
 		{
-			float correctionX = cos(shootingAngleRad) * 14;
-			float correctionY = sin(shootingAngleRad) * 14;
+			float correctionX = cos(shootingAngleRad) * 14.0f;
+			float correctionY = sin(shootingAngleRad) * 14.0f;
 
 			team->spawnShell(ShellType::ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
 			team->spawnShell(ShellType::ROCKET, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg);

@@ -1,14 +1,11 @@
 
 #include "heavy_shell.h"
 
-#include "map_structures/buildings/buildings_map/buildings_map.h"
-#include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/shells/damage/damage.h"
-#include "map_structures/team/team.h"
 #include "map_structures/world/world.h"
 
 constexpr int EXP_RADIUS = 1; // radius in tiles
-constexpr int16_t EXP_DAMAGE = 10;
+constexpr float EXP_DAMAGE = 10.0f;
 constexpr float SPEED = 1.6f;
 
 HeavyShell::HeavyShell(PixelCoord coord, float angleRad, float angleDeg, Team* const team) :
@@ -23,7 +20,7 @@ HeavyShell::HeavyShell(PixelCoord coord, float angleRad, float angleDeg, Team* c
 
 void HeavyShell::explosion()
 {
-	Damage::createBurst(coord, EXP_RADIUS, EXP_DAMAGE, 0.0f, *world);
+	Damage::createExplosion(coord, EXP_RADIUS, EXP_DAMAGE, 0.0f, *world);
 	world->getParticles().spawnParticle(1, coord);
 }
 

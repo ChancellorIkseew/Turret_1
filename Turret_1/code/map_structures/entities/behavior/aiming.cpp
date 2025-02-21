@@ -1,6 +1,7 @@
 
 #include "aiming.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
+#include "map_structures/shells/shell/shell_enum.h"
 #include "map_structures/entities/entity/entity.h"
 #include "map_structures/team/team.h"
 #include "map_structures/world/world.h"
@@ -48,6 +49,23 @@ PixelCoord Aiming::aimOnEntity(const Entity& entity, const World& world)
 				float deltaY = entity.coord.y - it->getCoord().y;
 				if (sqrt(deltaX * deltaX + deltaY * deltaY) < entity.pixelRange)
 					return it->getCoord();
+			}
+		}
+	}
+	return INCORRECT_PIXEL_COORD;
+}
+
+
+PixelCoord Aiming::aimOnShell(const Entity& entity, const World& world)
+{
+	for (auto& team : world.getTeams())
+	{
+		if (entity.team->getID() != team.first)
+		{
+			for (auto& shell : team.second->getShells().getList())
+			{
+				if (shell->getType() == ShellType::ROCKET)
+					return shell->getCoord();
 			}
 		}
 	}

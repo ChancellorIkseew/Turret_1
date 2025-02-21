@@ -40,6 +40,7 @@ public:
 	int getID();
 	Balance& getBalance();
 	EntitiesList& getEneities() { return entities; }
+	ShellsList& getShells() { return shells; }
 
 };
 

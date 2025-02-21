@@ -2,14 +2,13 @@
 #include "rocket.h"
 
 #include "map_structures/buildings/buildings_map/buildings_map.h"
-#include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/shells/damage/damage.h"
 #include "map_structures/team/team.h"
 #include "map_structures/world/world.h"
 
 constexpr int ACTIVATION_RADIUS = _TILE_;
 constexpr int EXP_RADIUS = 3; // radius in tiles
-constexpr int16_t EXP_DAMAGE = 20;
+constexpr float EXP_DAMAGE = 20.0f;
 constexpr float SPEED = 2.4f;
 
 Rocket::Rocket(PixelCoord coord, float angleRad, float angleDeg, Team* const team) :
@@ -54,7 +53,7 @@ void Rocket::tryHitting()
 
 void Rocket::explosion()
 {
-	Damage::createBurst(coord, EXP_RADIUS, EXP_DAMAGE, 0.0f, *world);
+	Damage::createExplosion(coord, EXP_RADIUS, EXP_DAMAGE, 0.25f, *world);
 	world->getParticles().spawnParticle(2, coord);
 }
 

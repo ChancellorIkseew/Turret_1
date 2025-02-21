@@ -3,22 +3,27 @@
 #define ROCKET_H
 
 #include <SFML\Graphics.hpp>
-
+#include <cereal/types/polymorphic.hpp>
+#include "map_structures/shells/shell/shell_enum.h"
 #include "map_structures/shells/shell/shell.h"
-
 
 class Rocket : public Shell
 {
-	public:
-		Rocket(PixelCoord coord, float angleRad, float angleDeg, Team* const team);
-		Rocket() = default;
-		~Rocket() = default;
+public:
+	Rocket(PixelCoord coord, float angleRad, float angleDeg, Team* const team);
+	Rocket() = default;
+	~Rocket() = default;
 
-		void tryHitting() override final;
-		void explosion() override final;
+	ShellType getType() override final { return ShellType::ROCKET; }
 
-		void draw(sf::RenderWindow& window) override final;
+	void tryHitting() override final;
+	void explosion() override final;
+
+	void draw(sf::RenderWindow& window) override final;
 		
 };
+
+CEREAL_REGISTER_TYPE(Rocket)
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Shell, Rocket)
 
 #endif // ROCKETS_H

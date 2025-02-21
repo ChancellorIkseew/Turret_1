@@ -232,6 +232,8 @@
     <ClCompile Include="code\map_structures\resources\all_resources.cpp" />
     <ClCompile Include="code\map_structures\resources\resource_unit.cpp" />
     <ClCompile Include="code\map_structures\shells\damage\damage.cpp" />
+    <ClCompile Include="code\map_structures\shells\shell_types\ac_shell.cpp" />
+    <ClCompile Include="code\map_structures\shells\shell_types\laser.cpp" />
     <ClCompile Include="code\map_structures\world\world.cpp" />
     <ClCompile Include="code\map_structures\shells\shells_list\shells_list.cpp" />
     <ClCompile Include="code\map_structures\shells\shell\create_shell.cpp" />
@@ -343,6 +345,8 @@
     <ClInclude Include="code\map_structures\resources\resource_unit.h" />
     <ClInclude Include="code\map_structures\resources\res_enum.h" />
     <ClInclude Include="code\map_structures\shells\damage\damage.h" />
+    <ClInclude Include="code\map_structures\shells\shell_types\ac_shell.h" />
+    <ClInclude Include="code\map_structures\shells\shell_types\laser.h" />
     <ClInclude Include="code\map_structures\world\world.h" />
     <ClInclude Include="code\map_structures\shells\shells_list\shells_list.h" />
     <ClInclude Include="code\map_structures\shells\shell\shell.h" />

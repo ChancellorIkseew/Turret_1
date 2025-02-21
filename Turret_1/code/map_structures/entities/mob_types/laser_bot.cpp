@@ -19,6 +19,14 @@ LaserBot::LaserBot(Team* const team) : Entity(team)
 void LaserBot::shoot(const BuildingsMap& buildingsMap)
 {
 	Entity::reloadWeapon();
+	Entity::detectAim();
+
+	PixelCoord newAim = Aiming::aimOnShell(*this, *world);
+	if (newAim.valid())
+	{
+		aimCoord = newAim;
+		isAimDetected = true;
+	}
 
 	if (isAimDetected)
 	{
@@ -27,11 +35,8 @@ void LaserBot::shoot(const BuildingsMap& buildingsMap)
 
 		if (reloadTimer <= 0)
 		{
-			float correctionX = cos(shootingAngleRad) * 4.5f;
-			float correctionY = sin(shootingAngleRad) * 4.5f;
-
-			team->spawnShell(ShellType::AC_SHELL, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
-			reloadTimer = 60;
+			team->spawnShell(ShellType::LASER, coord, shootingAngleRad, shootingAngleDeg);
+			reloadTimer = 2;
 		}
 	}
 }

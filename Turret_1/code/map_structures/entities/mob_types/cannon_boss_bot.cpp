@@ -27,8 +27,8 @@ void CannonBossBot::shoot(const BuildingsMap& buildingsMap)
 
 		if (reloadTimer <= 0)
 		{
-			float correctionX = cos(shootingAngleRad) * 15;
-			float correctionY = sin(shootingAngleRad) * 15;
+			float correctionX = cos(shootingAngleRad) * 15.0f;
+			float correctionY = sin(shootingAngleRad) * 15.0f;
 
 			team->spawnShell(ShellType::HEAVY_SHELL, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
 			team->spawnShell(ShellType::HEAVY_SHELL, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg);

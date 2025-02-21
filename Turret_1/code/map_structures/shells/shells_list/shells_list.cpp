@@ -6,15 +6,13 @@
 #include "shells_list.h"
 
 
-void ShellsList::save(cereal::BinaryOutputArchive& archive) const
-{
+void ShellsList::save(cereal::BinaryOutputArchive& archive) const {
+	archive(shellsList);
+}
+void ShellsList::load(cereal::BinaryInputArchive& archive) {
 	archive(shellsList);
 }
 
-void ShellsList::load(cereal::BinaryInputArchive& archive)
-{
-	archive(shellsList);
-}
 
 void ShellsList::spawnShell(const ShellType type, const PixelCoord coord, float angleRad, float angleDeg, Team* const team)
 {
@@ -29,7 +27,7 @@ void ShellsList::spawnShell(const ShellType type, const PixelCoord coord, float 
 }
 
 
-void ShellsList::move()
+void ShellsList::interact()
 {
 	for (auto it = shellsList.begin(); it != shellsList.end();)
 	{
@@ -54,10 +52,4 @@ void ShellsList::draw(sf::RenderWindow& window, const Camera& camera)
 		shell->draw(window);
 
 	}
-}
-
-
-void ShellsList::clean() noexcept
-{
-	shellsList.clear();
 }

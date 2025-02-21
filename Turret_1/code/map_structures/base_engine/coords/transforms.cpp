@@ -1,6 +1,6 @@
 
 #include "transforms.h"
-
+#include "tile_coord_arrays.h"
 
 // pixel_to_tile
 int t1::be::tile(float pixelCoord) {
@@ -50,6 +50,14 @@ int t1::be::pow2i(const int value) {
 PixelCoord t1::be::correction(const PixelCoord center, const PixelCoord point, const float angleRad) {
 
 	return PixelCoord(0, 0);
+}
+
+int t1::be::spiralRangeToTileRange(const int spiralRange) {
+	for (int i = 0; i < 35; ++i) {
+		if (t1::be::tileRangeToSpiralRange[i] > spiralRange) {
+			return i;
+		}
+	}
 }
 
 

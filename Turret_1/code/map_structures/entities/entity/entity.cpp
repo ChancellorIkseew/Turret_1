@@ -71,10 +71,10 @@ void Entity::detectAim()
 {
 	if (tileChanged() || EventsHandler::active(t1::EventType::MAP_CHANGED))
 	{
-		PixelCoord newAimCoord = Aiming::aimOnBuilding(*this, world->getBuildingsMap());
-		if (newAimCoord.valid())
+		PixelCoord newAim = Aiming::aimOnBuilding(*this, world->getBuildingsMap());
+		if (newAim.valid())
 		{
-			aimCoord = newAimCoord;
+			aimCoord = newAim;
 			isAimDetected = true;
 		}
 		else
@@ -92,23 +92,20 @@ void Entity::reloadWeapon()
 }
 
 
-void Entity::setDurability(const int16_t durability)
-{
+void Entity::setDurability(const int16_t durability) {
 	this->durability = durability;
 }
-
-void Entity::setDamage(const int16_t damage)
-{
+void Entity::setDamage(const int16_t damage) {
 	durability -= damage;
 }
-
-void Entity::setCoord(const PixelCoord coord)
-{
-	this->coord = coord;
+void Entity::setDamage(const float damage) {
+	durability -= static_cast<int16_t>(damage);
 }
 
-void Entity::setDestCoord(const PixelCoord destCoord)
-{
+void Entity::setCoord(const PixelCoord coord) {
+	this->coord = coord;
+}
+void Entity::setDestCoord(const PixelCoord destCoord) {
 	this->destCoord = destCoord;
 }
 

@@ -11,7 +11,7 @@ enum fieldEnum
 	COLLISION_DAMAGE = 2,
 	VI_LEVEL = 3,
 	DIRECT_DAMAGE = 4,
-	BURST_DAMAGE = 5
+	BLAST_DAMAGE = 5
 };
 
 
@@ -32,14 +32,14 @@ void MobsPreSettingsPage::prepareInterfaceSprites()
 	fields[VI_LEVEL] = TextField(sf::String(L"1"), 34, sf::Vector2u(line0, 145));
 	fields[COLLISION_DAMAGE] = TextField(sf::String(L"1"), 34, sf::Vector2u(line0, 205));
 	fields[DIRECT_DAMAGE] = TextField(sf::String(L"1"), 34, sf::Vector2u(line1, 55));
-	fields[BURST_DAMAGE] = TextField(sf::String(L"1"), 34, sf::Vector2u(line1, 105));
+	fields[BLAST_DAMAGE] = TextField(sf::String(L"1"), 34, sf::Vector2u(line1, 105));
 
 	texts[QUANTITY] = sf::Text(sf::String(L"Множитель\nчисленности\nврагов"), turretClassic, 12);
 	texts[DURABILITY] = sf::Text(sf::String(L"Множитель\nпрочности\nмобов"), turretClassic, 12);
 	texts[VI_LEVEL] = sf::Text(sf::String(L"Уровень\nвиртуально\nинтеллекта\nмобов"), turretClassic, 12);
 	texts[COLLISION_DAMAGE] = sf::Text(sf::String(L"Множитель\nконтактного\nурона мобов"), turretClassic, 12);
 	texts[DIRECT_DAMAGE] = sf::Text(sf::String(L"Множитель\nурона от\nпопадания\nснарядов"), turretClassic, 12);
-	texts[BURST_DAMAGE] = sf::Text(sf::String(L"Множитель\nвзрывного\nурона"), turretClassic, 12);
+	texts[BLAST_DAMAGE] = sf::Text(sf::String(L"Множитель\nвзрывного\nурона"), turretClassic, 12);
 	
 	for (auto& text : texts)
 		text.second.setFillColor(standardColor);
@@ -59,9 +59,9 @@ void MobsPreSettingsPage::enter(PreSettings& preSettings)
 	preSettings.changeMobs().quantityModifier = fields[QUANTITY].getIntValue();
 	preSettings.changeMobs().maxDurabilityModifier = fields[DURABILITY].getIntValue();
 	preSettings.changeMobs().virtIntLevel = fields[VI_LEVEL].getIntValue();
-	preSettings.changeMobs().collisionDamage = fields[COLLISION_DAMAGE].getIntValue();
+	preSettings.changeMobs().collisionDamageModifier = fields[COLLISION_DAMAGE].getIntValue();
 	preSettings.changeShells().directDamageModifier = fields[DIRECT_DAMAGE].getIntValue();
-	preSettings.changeShells().burstDamageModifier = fields[BURST_DAMAGE].getIntValue();
+	preSettings.changeShells().blastDamageModifier = fields[BLAST_DAMAGE].getIntValue();
 }
 
 void MobsPreSettingsPage::relocateWithOwner(const sf::Vector2u ownerPosition)

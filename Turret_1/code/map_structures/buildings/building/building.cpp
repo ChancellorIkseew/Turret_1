@@ -22,7 +22,6 @@ Building::Building(const int16_t durability, const uint8_t size, const TileCoord
 
 void Building::save(cereal::BinaryOutputArchive& archive) const
 {
-	archive(type);
 	archive(durability);
 	archive(size);
 	archive(direction);
@@ -30,28 +29,27 @@ void Building::save(cereal::BinaryOutputArchive& archive) const
 	archive(tile);
 }
 
-void Building::load(cereal::BinaryInputArchive& archive, World& world)
+void Building::load(cereal::BinaryInputArchive& archive)
 {
-	archive(type);
 	archive(durability);
 	archive(size);
 	archive(direction);
 	int teamID;
 	archive(teamID);
-	team = world.getTeam(teamID);
+	team = world->getTeam(teamID);
 	archive(tile);
 }
 
 
 void Building::interact() { }
 
-void Building::setDamage(const int damage)
-{
+void Building::setDamage(const int16_t damage) {
 	this->durability -= damage;
 }
-
-void Building::setDurability(const int durability)
-{
+void Building::setDamage(const float damage) {
+	this->durability -= static_cast<int>(damage);
+}
+void Building::setDurability(const int16_t durability) {
 	this->durability = durability;
 }
 

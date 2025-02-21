@@ -23,6 +23,7 @@ namespace t1::be
 
 	int pow2i(const int value);
 	PixelCoord correction(const PixelCoord center, const PixelCoord point, const float angleRad);
+	int spiralRangeToTileRange(const int spiralRange);
 
 	float radToDegree(const float radian);
 };

@@ -19,6 +19,7 @@ HeavyBot::HeavyBot(Team* const team) : Entity(team)
 void HeavyBot::shoot(const BuildingsMap& buildingsMap)
 {
 	Entity::reloadWeapon();
+	Entity::detectAim();
 
 	if (isAimDetected)
 	{
@@ -27,8 +28,8 @@ void HeavyBot::shoot(const BuildingsMap& buildingsMap)
 
 		if (reloadTimer <= 0)
 		{
-			float correctionX = cos(shootingAngleRad) * 8;
-			float correctionY = sin(shootingAngleRad) * 8;
+			float correctionX = cos(shootingAngleRad) * 8.0f;
+			float correctionY = sin(shootingAngleRad) * 8.0f;
 
 			team->spawnShell(ShellType::AC_SHELL, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
 			team->spawnShell(ShellType::AC_SHELL, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg);

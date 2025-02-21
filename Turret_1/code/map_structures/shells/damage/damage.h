@@ -9,7 +9,7 @@ class World;
 class Damage
 {
 public:
-	static void createBurst(const PixelCoord centrePixel, const int tileRadius, const uint16_t damage, const float dampingCoef, World& world);
+	static void createExplosion(const PixelCoord centrePixel, const int tileRadius, const float damage, const float dampingCoef, World& world);
 
 };
 

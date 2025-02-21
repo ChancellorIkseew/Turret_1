@@ -1,10 +1,9 @@
 
 #include "damage.h"
 #include "map_structures/world/world.h"
-#include <iostream>
 
 
-void Damage::createBurst(const PixelCoord centrePixel, const int tileRadius, const uint16_t damage, const float dampingCoef, World& world)
+void Damage::createExplosion(const PixelCoord centrePixel, const int tileRadius, const float damage, const float dampingCoef, World& world)
 {
 	BuildingsMap& buildingsMap = world.getBuildingsMap();
 	TileCoord centreTile = t1::be::tile(centrePixel);
@@ -13,7 +12,10 @@ void Damage::createBurst(const PixelCoord centrePixel, const int tileRadius, con
 	{
 		tile = centreTile + t1::be::coordSpyralArr[i];
 		if (buildingsMap.buildingExists(tile))
-			buildingsMap.setDamage(damage, tile);
+		{
+			const float modifiedDamage = damage * world.getPreSettings().getShells().blastDamageModifier;
+			buildingsMap.setDamage(modifiedDamage, tile);
+		}
 	}
 
 	for (auto& it : world.getTeams())
@@ -25,7 +27,10 @@ void Damage::createBurst(const PixelCoord centrePixel, const int tileRadius, con
 			float deltaY = centrePixel.y - entity->getCoord().y;
 			float deltaS = sqrt(deltaX * deltaX + deltaY * deltaY);
 			if (deltaS < t1::be::pixel(tileRadius))
-				entity->setDamage(damage);
+			{
+				const float modifiedDamage = damage * world.getPreSettings().getShells().blastDamageModifier;
+				entity->setDamage(modifiedDamage);
+			}
 		}
 	}
 }

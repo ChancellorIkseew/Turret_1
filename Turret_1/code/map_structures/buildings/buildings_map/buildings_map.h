@@ -56,8 +56,9 @@ public:
 	std::list<StoredResource> getInventory(const TileCoord tile) const;
 	Team* getTeam(const TileCoord tile) const;
 	int getTeamID(const TileCoord tile) const;
-	void setBuildingDurability(const short durability, const TileCoord tile);
-	void setDamage(const short damage, const TileCoord tile);
+	void setBuildingDurability(const int16_t durability, const TileCoord tile);
+	void setDamage(const int16_t damage, const TileCoord tile);
+	void setDamage(const float damage, const TileCoord tile);
 
 	// resources_and_inventory
 	bool canAccept(const uint16_t resType, const TileCoord tile) const;

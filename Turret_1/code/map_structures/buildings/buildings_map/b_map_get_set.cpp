@@ -4,8 +4,12 @@
 #include "map_structures/team/team.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 
+void BuildingsMap::setDamage(const float damage, const TileCoord tile)
+{
+	setDamage(static_cast<int16_t>(damage), tile);
+}
 
-void BuildingsMap::setDamage(const short damage, const TileCoord tile)
+void BuildingsMap::setDamage(const int16_t damage, const TileCoord tile)
 {
 	if (!buildingExists(tile))
 		return;
@@ -24,7 +28,7 @@ TileCoord BuildingsMap::getBuildingMainTileCoord(const TileCoord tile) const
 }
 
 
-void BuildingsMap::setBuildingDurability(const short durability, const TileCoord tile)
+void BuildingsMap::setBuildingDurability(const int16_t durability, const TileCoord tile)
 {
 	if (!buildingExists(tile))
 		return;

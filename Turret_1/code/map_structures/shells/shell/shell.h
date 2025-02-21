@@ -48,14 +48,16 @@ public:
 	static std::unique_ptr<Shell> createShell(const ShellType type, const PixelCoord coord, float angleRad, float angleDeg, Team* const team);
 
 	virtual void motion();
-	virtual void explosion();
 	virtual void tryHitting();
+	virtual void explosion() { }
 
-	PixelCoord getCoord();
-	bool getIsWasted();
+	virtual ShellType getType() = 0;
+	PixelCoord getCoord() const { return coord; }
+	bool getIsWasted() const { return isWasted; }
+	void setWasted() { isWasted = true; }
 
 	static void prepareSprites();
-	virtual void draw(sf::RenderWindow& window);
+	virtual void draw(sf::RenderWindow& window) = 0;
 	static void initWorld(World* world) {
 		Shell::world = world;
 	}

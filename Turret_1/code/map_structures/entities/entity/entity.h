@@ -72,6 +72,7 @@ public:
 	// simple_utilites
 	void setDurability(const int16_t durability);
 	void setDamage(const int16_t damage);
+	void setDamage(const float damage);
 	void setCoord(const PixelCoord coord);
 	void setDestCoord(const PixelCoord destCoord);
 	PixelCoord getCoord() const { return coord; }

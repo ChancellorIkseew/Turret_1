@@ -6,13 +6,10 @@
 #include "entities_list.h"
 
 
-void EntitiesList::save(cereal::BinaryOutputArchive& archive) const
-{
+void EntitiesList::save(cereal::BinaryOutputArchive& archive) const {
 	archive(entitiesList);
 }
-
-void EntitiesList::load(cereal::BinaryInputArchive& archive)
-{
+void EntitiesList::load(cereal::BinaryInputArchive& archive) {
 	archive(entitiesList);
 }
 
@@ -57,9 +54,4 @@ void EntitiesList::draw(sf::RenderWindow& mainWindow, const Camera& camera)
 	{
 		entity->draw(mainWindow);
 	}
-}
-
-void EntitiesList::clean() noexcept
-{
-	entitiesList.clear();
 }
