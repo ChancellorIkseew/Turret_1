@@ -22,22 +22,15 @@ Building::Building(const int16_t durability, const uint8_t size, const TileCoord
 
 void Building::save(cereal::BinaryOutputArchive& archive) const
 {
-	archive(durability);
-	archive(size);
-	archive(direction);
-	archive(team->getID());
-	archive(tile);
+	int teamID = team->getID();
+	archive(durability, size, direction, tile, teamID);
 }
 
 void Building::load(cereal::BinaryInputArchive& archive)
 {
-	archive(durability);
-	archive(size);
-	archive(direction);
 	int teamID;
-	archive(teamID);
+	archive(durability, size, direction, tile, teamID);
 	team = world->getTeam(teamID);
-	archive(tile);
 }
 
 

@@ -70,6 +70,7 @@ public:
 	virtual void shoot(const BuildingsMap& buildingsMap) = 0;
 
 	// simple_utilites
+	void setTeam(Team* team);
 	void setDurability(const int16_t durability);
 	void setDamage(const int16_t damage);
 	void setDamage(const float damage);

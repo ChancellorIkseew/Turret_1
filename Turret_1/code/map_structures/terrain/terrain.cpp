@@ -16,21 +16,11 @@
 #include "game_interface/gameplay/gameplay_util/camera.h"
 
 
-TerrainMap::TerrainMap(const TileCoord mapSize)
+TerrainMap::TerrainMap(const TileCoord mapSize) : mapSize(mapSize)
 {
-	this->mapSize = mapSize;
-
 	terrainMap.resize(mapSize.x);
-	terrainMap.reserve(mapSize.x);
 	for (auto& line : terrainMap)
-	{
 		line.resize(mapSize.y);
-		line.reserve(mapSize.y);
-		for (auto& terrain : line)
-		{
-			terrain = std::make_unique<int>(0);
-		}
-	}
 }
 
 void TerrainMap::save(cereal::BinaryOutputArchive& archive) const

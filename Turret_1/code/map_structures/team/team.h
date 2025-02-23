@@ -16,7 +16,7 @@ class Camera;
 class Team
 {
 private:
-	int ID;
+	int ID = 0;
 	std::string name;
 
 	EntitiesList entities;
@@ -24,7 +24,7 @@ private:
 	Balance balance;
 
 public:
-	Team(std::string name);
+	Team(std::string name, int ID);
 	Team() = default;
 	~Team() = default;
 
@@ -37,10 +37,15 @@ public:
 	void spawnShell(const ShellType type, const PixelCoord coord, float angleRad, float angleDeg);
 	void spawnEntity(const uint8_t amount, const MobType type, const BuildingsMap& buildingsMap);
 
-	int getID();
-	Balance& getBalance();
+	Balance& getBalance() { return balance; }
 	EntitiesList& getEneities() { return entities; }
 	ShellsList& getShells() { return shells; }
+
+	const int getID() const { return ID; }
+	const std::string& getName() const { return name; }
+	const Balance& getBalance() const { return balance; }
+	const EntitiesList& getEneities() const { return entities; }
+	const ShellsList& getShells() const { return shells; }
 
 };
 

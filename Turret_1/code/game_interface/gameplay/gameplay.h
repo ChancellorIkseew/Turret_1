@@ -31,8 +31,7 @@ private:
 	BuildingPanel buildingPanel;
 	InventoryWindow inventoryWindow;
 
-	std::shared_ptr<Team> player;
-	std::shared_ptr<Team> enemy;
+	Team* player;
 
 	void simulation();
 	void input();

@@ -1,5 +1,4 @@
 
-
 #include "buildings_map.h"
 
 #include <iostream>
@@ -9,43 +8,28 @@
 
 void BuildingsMap::save(cereal::BinaryOutputArchive& archive) const
 {
-	archive(mapSize);
-	int num = 0;
+	std::vector<std::shared_ptr<Building>> buildings;
 	for (auto& line : buildingsMap)
 		for (auto& building : line)
 			if (building != nullptr && building->getType() != BuildingType::AUXILARY)
-				++num;
-
-	archive(num);
-
-	for (auto& line : buildingsMap)
-		for (auto& building : line)
-			if (building != nullptr && building->getType() != BuildingType::AUXILARY)
-				building->save(archive);
+				buildings.emplace_back(building);
+	archive(mapSize, buildings);
 }
 
 void BuildingsMap::load(cereal::BinaryInputArchive& archive)
 {
-	archive(mapSize);
-	int num;
-	archive(num);
+	std::vector<std::shared_ptr<Building>> buildings;
+	archive(mapSize, buildings);
+
 	buildingsMap.resize(mapSize.x);
-	buildingsMap.reserve(mapSize.x);
 	for (auto& line : buildingsMap)
-	{
 		line.resize(mapSize.y);
-		line.reserve(mapSize.y);
-		for (auto& building : line)
-		{
-			building = nullptr;
-		}
+
+	for (auto& building : buildings)
+	{
+		const TileCoord tile = building->getTileCoord();
+		buildingsMap[tile.x][tile.y] = building;
+		createAuxilary(building->getSize(), tile, building->getTeam());
 	}
 
-	for (int i = 0; i < num; ++i)
-	{
-		std::shared_ptr<Building> building;
-		building->load(archive);
-		TileCoord tile = building->getTileCoord();
-		buildingsMap[tile.x][tile.y] = std::move(building);
-	}
 }

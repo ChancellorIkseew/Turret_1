@@ -28,7 +28,7 @@ public:
 	void interact();
 	void draw(sf::RenderWindow& window, const Camera& camera);
 
-	std::list<std::unique_ptr<Shell>>& getList() { return shellsList; }
+	const std::list<std::unique_ptr<Shell>>& getList() const { return shellsList; }
 
 };
 

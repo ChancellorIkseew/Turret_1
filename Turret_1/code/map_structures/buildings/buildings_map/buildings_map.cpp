@@ -12,21 +12,11 @@
 #include "t1_system/events/events_handler.h"
 
 
-BuildingsMap::BuildingsMap(const TileCoord mapSize)
+BuildingsMap::BuildingsMap(const TileCoord mapSize) : mapSize(mapSize)
 {
-	this->mapSize = mapSize;
-
 	buildingsMap.resize(mapSize.x);
-	buildingsMap.reserve(mapSize.x);
 	for (auto& line : buildingsMap)
-	{
 		line.resize(mapSize.y);
-		line.reserve(mapSize.y);
-		for (auto& building : line)
-		{
-			building = nullptr;
-		}
-	}
 }
 
 

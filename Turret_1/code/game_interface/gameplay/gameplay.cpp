@@ -16,22 +16,18 @@
 
 GameState Gameplay::startGameplay(sf::RenderWindow& mainWindow, const bool newGame, std::string saveFolderName, std::optional<PreSettings> preSettings)
 {
-	player = std::make_shared<Team>("player");
-	enemy = std::make_shared<Team>("enemy");
-	world.addTeam(player);
-	world.addTeam(enemy);
-
 	if (newGame)
 	{
 		world.createNew(preSettings.value());
-		world.getBuildingsMap().placeBuilding(BuildingType::CORE_MK2, 0, TileCoord(48, 48), player.get());
-		player->getBalance().giveStartRes(preSettings.value().getGeneral().startBalance);
+		world.getBuildingsMap().placeBuilding(BuildingType::CORE_MK2, 0, TileCoord(48, 48), world.getTeam("player"));
+		world.getTeam("player")->getBalance().giveStartRes(preSettings.value().getGeneral().startBalance);
 	}
 	else
     {
 		world.load("save_1");
     }
 
+	player = world.getTeam("player");
 	camera = Camera(world.getPreSettings().getTerrain().mapSize);
 
 	std::thread simulation(&Gameplay::simulation, this);

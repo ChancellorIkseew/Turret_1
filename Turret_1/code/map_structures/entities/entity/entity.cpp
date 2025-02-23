@@ -21,14 +21,12 @@ Entity::Entity(Team* const team)		//1st spawn
 
 void Entity::save(cereal::BinaryOutputArchive& archive) const
 {
-	archive(coord, motionAngleRad, durability, team->getID());
+	archive(coord, motionAngleRad, durability);
 }
 
 void Entity::load(cereal::BinaryInputArchive& archive)
 {
-	int teamID;
-	archive(coord, motionAngleRad, durability, teamID);
-	team = world->getTeam(teamID);
+	archive(coord, motionAngleRad, durability);
 	motionAngleDeg = t1::be::radToDegree(motionAngleRad);
 }
 
@@ -91,7 +89,9 @@ void Entity::reloadWeapon()
 		--reloadTimer;
 }
 
-
+void Entity::setTeam(Team* team) {
+	this->team = team;
+}
 void Entity::setDurability(const int16_t durability) {
 	this->durability = durability;
 }

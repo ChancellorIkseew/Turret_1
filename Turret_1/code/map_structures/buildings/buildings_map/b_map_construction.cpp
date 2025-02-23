@@ -6,13 +6,12 @@
 #include "map_structures/team/team.h"
 
 
-void BuildingsMap::createAuxilary(const short size, const TileCoord tile, Team* team)
+void BuildingsMap::createAuxilary(const short size, const TileCoord mainTile, Team* team)
 {
 	for (int i = 1; i < size; i++)
 	{
-		int iTileX = tile.x + t1::be::coordSquareArr[i].x;
-		int iTileY = tile.y + t1::be::coordSquareArr[i].y;
-		buildingsMap[iTileX][iTileY] = Building::createBuilding(BuildingType::AUXILARY, 0, tile, team);
+		TileCoord tile = mainTile + t1::be::coordSquareArr[i];
+		buildingsMap[tile.x][tile.y] = Building::createBuilding(BuildingType::AUXILARY, 0, mainTile, team);
 	}
 }
 

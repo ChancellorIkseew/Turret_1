@@ -16,8 +16,8 @@ void Gameplay::input()
     {
         sf::Vector2f mouseMapCoord = InputHandler::getMouseMapCoord();
         mainControlPanel.interact(isPaused, isGameplayActive, world);
-        buildingPanel.interact(mouseMapCoord, player.get(), world.getBuildingsMap(), *this);
-        inventoryWindow.interact(mouseMapCoord, player.get(), world.getBuildingsMap());
+        buildingPanel.interact(mouseMapCoord, player, world.getBuildingsMap(), *this);
+        inventoryWindow.interact(mouseMapCoord, player, world.getBuildingsMap());
 
 #ifndef TURRET_1_NO_TEST_BUILD
         if (InputHandler::jactive(t1::BindName::Console_cheat))

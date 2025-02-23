@@ -55,6 +55,7 @@ public:
 	PixelCoord getCoord() const { return coord; }
 	bool getIsWasted() const { return isWasted; }
 	void setWasted() { isWasted = true; }
+	void setTeam(Team* team) { this->team = team; }
 
 	static void prepareSprites();
 	virtual void draw(sf::RenderWindow& window) = 0;

@@ -22,7 +22,7 @@ private:
 	std::vector<std::shared_ptr<Building>> cores;
 	std::vector<TileCoord> justChangedTiles;
 	
-	void createAuxilary(const short size, const TileCoord tile, Team* team);
+	void createAuxilary(const short size, const TileCoord mainTile, Team* team);
 	void pushChanges();
 
 public:

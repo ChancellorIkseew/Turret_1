@@ -19,9 +19,10 @@ private:
 	PreSettings preSettings;
 	TerrainMap terrainMap;
 	BuildingsMap buildingsMap;
-	std::unordered_map<int, std::shared_ptr<Team>> teams;
+	std::unordered_map<int, std::unique_ptr<Team>> teams;
 	ParticlesList particles;
 	t1::Time time;
+	int nextTeamID = 0;
 
 public:
 	World();
@@ -36,25 +37,17 @@ public:
 
 	BuildingsMap& getBuildingsMap() { return buildingsMap; } // non_const
 	ParticlesList& getParticles() { return particles; }
+	Team* getTeam(const int ID) { return teams.at(ID).get(); }
+	std::unordered_map<int, std::unique_ptr<Team>>& getTeams() { return teams; }
 	
 	const PreSettings& getPreSettings() const { return preSettings; };
 	const TerrainMap& getTerrainMap() const { return terrainMap; }
 	const BuildingsMap& getBuildingsMap() const { return buildingsMap; }
 	const t1::Time& getTime() const { return time; }
+	const std::unordered_map<int, std::unique_ptr<Team>>& getTeams() const { return teams; }
 
-	void addTeam(const sf::String& name) {
-		teams.emplace(0, std::make_shared<Team>(name));
-	}
-	void addTeam(const std::shared_ptr<Team> team) {
-		teams.emplace(team->getID(), team);
-	}
-	Team* getTeam(const int ID) const{
-		return teams.find(ID)->second.get();
-	}
-	const std::unordered_map<int, std::shared_ptr<Team>>& getTeams() const {
-		return teams;
-	}
-
+	void addTeam(const std::string& name);
+	Team* getTeam(const std::string& name);
 	friend WaveConstructor;
 };
 

@@ -25,7 +25,7 @@ void World::save(const std::string& saveFolderName) const
 	std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
 	std::ofstream fout(saveFileName, std::ios::binary);
 	cereal::BinaryOutputArchive archive(fout);
-	archive(time, teams, terrainMap, buildingsMap);
+	archive(time, nextTeamID, teams, terrainMap, buildingsMap);
 	fout.close();
 }
 
@@ -36,7 +36,7 @@ void World::load(const std::string& saveFolderName)
 	std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
 	std::ifstream fin(saveFileName, std::ios::binary);
 	cereal::BinaryInputArchive archive(fin);
-	archive(time, teams, terrainMap, buildingsMap);
+	archive(time, nextTeamID, teams, terrainMap, buildingsMap);
 	fin.close();
 }
 
@@ -46,8 +46,8 @@ void World::createNew(PreSettings& preSettings)
 	terrainMap.generate(preSettings.changeTerrain());
 	buildingsMap = BuildingsMap(preSettings.getTerrain().mapSize);
 
-
-
+	addTeam("player");
+	addTeam("enemy");
 }
 
 void World::simulate()
@@ -71,3 +71,17 @@ void World::draw(sf::RenderWindow& window, const Camera& camera)
 	particles.draw(window);
 }
 
+void World::addTeam(const std::string& name)
+{
+	teams.emplace(nextTeamID, std::make_unique<Team>(name, nextTeamID));
+	++nextTeamID;
+}
+
+Team* World::getTeam(const std::string& name)
+{
+	for (auto& it : teams)
+	{
+		if (it.second->getName() == name)
+			return it.second.get();
+	}
+}
