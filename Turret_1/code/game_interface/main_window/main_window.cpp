@@ -15,13 +15,13 @@ void openMainWindow()
 {
 	Settings::load();
 
-	GameSound g1; // Test music implrmrntation. Will be expanded cnd reimplemented.
+	GameSound g1; // Test music implrmrntation. Will be expanded and reimplemented.
 	g1.loadSound();
 	g1.start();
 
 	UIPlate::init();
 
-	sf::RenderWindow mainWindow(sf::VideoMode(800, 600), L"Турельница. Версия альфа_0.6.2", sf::Style::Default);
+	sf::RenderWindow mainWindow(sf::VideoMode(800, 600), L"Турельница. Версия альфа_0.6.4", sf::Style::Default);
 	mainWindow.setFramerateLimit(60);
 	overlay.setSize(sf::Vector2f(800.0f, 600.0f));
 

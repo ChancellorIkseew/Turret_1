@@ -5,6 +5,8 @@
 #include <cereal/types/memory.hpp>
 #include <cereal/types/vector.hpp>
 
+#include "map_structures/buildings/building/building.h"
+
 
 void BuildingsMap::save(cereal::BinaryOutputArchive& archive) const
 {
@@ -32,4 +34,7 @@ void BuildingsMap::load(cereal::BinaryInputArchive& archive)
 		createAuxilary(building->getSize(), tile, building->getTeam());
 	}
 
+	for (auto& building : buildings)
+		if (building->getType() == BuildingType::CORE_MK2)
+			cores.emplace_back(building);
 }

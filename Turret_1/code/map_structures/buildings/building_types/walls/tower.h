@@ -2,6 +2,7 @@
 #ifndef TOWER_H
 #define TOWER_H
 
+#include <cereal/types/polymorphic.hpp>
 #include "map_structures/buildings/building/building.h"
 #include "map_structures/entities/turret/turret.h"
 
@@ -11,19 +12,23 @@ protected:
 	std::unique_ptr<Turret> turret;
 
 public:
-	Tower(const uint16_t type, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team);
+	Tower(const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team);
+	Tower() = default;
 	virtual ~Tower() = default;
 
-	//void save(std::ofstream& fout) const override;
-	//void load(std::ifstream& fin) override;
+	void save(cereal::BinaryOutputArchive& archive) const override final;
+	void load(cereal::BinaryInputArchive& archive) override final;
 
-	void interact() override;
-	bool canAccept(const uint16_t resType) const override;
+	void interact() override final;
+	bool canAccept(const uint16_t resType) const override final;
 
-	void setTurret(const BuildingType turretType) override final;
-	void removeTurret() override final;
-	bool isTurretOnTower() const override final;
+	void setTurret(const BuildingType turretType);
+	void removeTurret() { turret.reset(); }
+	bool isTurretOnTower() const { return turret != nullptr; }
 
 };
+
+CEREAL_REGISTER_TYPE(Tower)
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Building, Tower)
 
 #endif // TOWER_H

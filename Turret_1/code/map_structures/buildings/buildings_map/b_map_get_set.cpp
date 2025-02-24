@@ -2,6 +2,7 @@
 #include "buildings_map.h"
 
 #include "map_structures/team/team.h"
+#include "map_structures/buildings/building/building.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 
 void BuildingsMap::setDamage(const float damage, const TileCoord tile)

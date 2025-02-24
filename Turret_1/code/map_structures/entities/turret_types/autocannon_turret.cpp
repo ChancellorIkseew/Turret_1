@@ -23,7 +23,7 @@ void AutocannonTurret::shooting()
 	if(aim.x != 0)
 	{
 		angleRad = atan2f(aim.x - coord.x, aim.y - coord.y);
-		angleDeg = atan2f(aim.y - coord.y, aim.x - coord.x) * 57.3f + 90.0f;
+		angleDeg = t1::be::radToDegree(angleRad);
 
 		if (reloadTimer % 15 == 0 && amooQuantity > 0)
 		{

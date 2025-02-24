@@ -5,6 +5,7 @@
 #include <list>
 #include <SFML/Graphics.hpp>
 #include <cereal/archives/binary.hpp>
+#include <cereal/types/polymorphic.hpp>
 
 #include "map_structures/base_engine/base_engine.h"
 #include "map_structures/resources/resource_unit.h"
@@ -37,7 +38,7 @@ private:
 	inline void placeResourceUnit(const uint16_t resType, const TileCoord tile, BuildingsMap& buildingsMap);
 
 protected:
-	char direction;
+	char direction = 0;
 
 	static inline sf::Image buildingsImage;
 	static inline sf::Texture buildingsTexture;
@@ -88,11 +89,6 @@ public:
 	bool hasCorrectConveyerDown(const TileCoord tile, const BuildingsMap& buildingsMap) const;
 	bool hasCorrectConveyerRight(const TileCoord tile, const BuildingsMap& buildingsMap) const;
 
-	// turrets
-	virtual void setTurret(const BuildingType turretType);
-	virtual void removeTurret();
-	virtual bool isTurretOnTower() const;
-
 	// visual
 	static void prepareSprites();
 	virtual void animation();
@@ -104,5 +100,7 @@ public:
 	friend Core;
 
 };
+
+CEREAL_REGISTER_TYPE(Building)
 
 #endif // BUILDING_H

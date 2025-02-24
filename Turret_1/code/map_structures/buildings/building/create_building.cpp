@@ -46,42 +46,42 @@ std::shared_ptr<Building> Building::createBuilding(const BuildingType type, cons
 		
 	case BuildingType::STONE_WALL:
 		return std::make_shared<StoneWall>(durability, size, tile, team);/*
-	case CONCRETE_WALL:
+	case BuildingType::CONCRETE_WALL:
 		break;
-	case URANIUM_WALL:
+	case BuildingType::URANIUM_WALL:
+		break;*/
+
+	case BuildingType::STONE_TOWER:
+		return std::make_shared<StoneTower>(durability, size, tile, team);/*
+	case BuildingType::CONCRETE_TOWER:
+		break;
+	case BuildingType::URANIUM_TOWER:
 		break;
 
-	case STONE_TOWER:
-		return std::make_shared<StoneTower>(STONE_TOWER, durability, size, tile, team);
-	case CONCRETE_TOWER:
-		break;
-	case URANIUM_TOWER:
-		break;
-
-	case STANDARD_CONVEYER:
+	case BuildingType::STANDARD_CONVEYER:
 		return std::make_shared<StandardConveyer>(STANDARD_CONVEYER, direction, durability, size, tile, team);
-	case SHIELDED_CONVEYER:
+	case BuildingType::SHIELDED_CONVEYER:
 		return std::make_shared<ShieldedConveyer>(SHIELDED_CONVEYER, direction, durability, size, tile, team);
 
-	case BRIDGE:
+	case BuildingType::BRIDGE:
 		return std::make_shared<Bridge>(BRIDGE, direction, durability, size, tile, team);
-	case ROUTER:
+	case BuildingType::ROUTER:
 		return std::make_shared<Router>(ROUTER, durability, size, tile, team);
-	case SORTER:
+	case BuildingType::SORTER:
 		break;
 
-	case SMALL_DRILL:
+	case BuildingType::SMALL_DRILL:
 		return std::make_shared<SmallDrill>(SMALL_DRILL, durability, size, tile, team);
-	case BIG_DRILL:
+	case BuildingType::BIG_DRILL:
 		return std::make_shared<BigDrill>(BIG_DRILL, durability, size, tile, team);
-	case EFFECTIVE_DRILL:
+	case BuildingType::EFFECTIVE_DRILL:
 		break;
-	case REINFORCED_DRILL:
+	case BuildingType::REINFORCED_DRILL:
 		break;
 
-	case SHELL_FACTORY:
+	case BuildingType::SHELL_FACTORY:
 		return std::make_shared<ShellFactory>(SHELL_FACTORY, durability, size, tile, team);
-	case ROCKET_FACTORY:
+	case BuildingType::ROCKET_FACTORY:
 		return std::make_shared<RocketFactory>(ROCKET_FACTORY, durability, size, tile, team);
 		*/
 	default:

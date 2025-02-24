@@ -2,6 +2,7 @@
 #include "inventory_window.h"
 #include "map_structures/resources/res_enum.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
+#include "map_structures/buildings/building/building.h"
 #include "t1_system/input/input_handler.h"
 #include "t1_system/sleep.h"
 

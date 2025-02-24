@@ -348,9 +348,6 @@
     <ClCompile Include="code\map_structures\buildings\building_types\walls\wall_types\stone_wall.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="code\map_structures\entities\weapon\weapon.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="code\map_structures\particles\particle\particle.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -364,6 +361,15 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="code\map_structures\shells\shell_types\ac_shell.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game_interface\gameplay\gameplay_streams\scripts.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\map_structures\buildings\building_types\walls\tower.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="code\map_structures\buildings\building_types\walls\tower_types\stone_tower.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -671,9 +677,6 @@
     <ClInclude Include="code\map_structures\buildings\building_types\walls\wall_types\stone_wall.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="code\map_structures\entities\weapon\weapon.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="code\game_interface\main_window\game_state.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -690,6 +693,12 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\map_structures\shells\shell_types\ac_shell.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\map_structures\buildings\building_types\walls\tower.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\map_structures\buildings\building_types\walls\tower_types\stone_tower.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

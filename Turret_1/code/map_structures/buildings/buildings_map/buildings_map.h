@@ -7,12 +7,14 @@
 #include <cereal/archives/binary.hpp>
 
 #include "map_structures/base_engine/base_engine.h"
-#include "map_structures/buildings/building/building.h"
-#include "map_structures/resources/resource_unit.h"
 
 enum class BuildingType : uint16_t;
 
+class Team;
 class Camera;
+class Building;
+class ResourceUnit;
+struct StoredResource;
 
 class BuildingsMap
 {

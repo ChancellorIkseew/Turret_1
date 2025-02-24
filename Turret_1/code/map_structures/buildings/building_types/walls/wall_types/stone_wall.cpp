@@ -1,14 +1,8 @@
 
 #include "stone_wall.h"
-#include "map_structures/buildings/building/buildings_enum.h"
-
 
 StoneWall::StoneWall(const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team) :
-	Building (durability, size, tile, team)
-{
-
-}
-
+	Building (durability, size, tile, team) { }
 
 void StoneWall::draw(sf::RenderWindow& window)
 {

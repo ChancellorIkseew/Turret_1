@@ -32,11 +32,13 @@ GameState Gameplay::startGameplay(sf::RenderWindow& mainWindow, const bool newGa
 
 	std::thread simulation(&Gameplay::simulation, this);
 	std::thread input(&Gameplay::input, this);
+	std::thread scripts(&Gameplay::scripts, this);
 	//std::thread network(&Gameplay::network, this);  not implemented
     graphics(mainWindow);
 
     simulation.join();
     input.join();
+	scripts.join();
 	//network.join(); not implemented
 	return GameState::MAIN_MENU;
 }

@@ -5,9 +5,10 @@
 #include <cereal/types/memory.hpp>
 #include <cereal/types/unordered_set.hpp>
 #include <cereal/archives/binary.hpp>
-#include "t1_system/events/events_handler.h"
-
 #include "t1_system/t1_mutex.h"
+#include "t1_system/events/events_handler.h"
+#include "map_structures/entities/turret/turret.h"
+#include "map_structures/buildings/building/building.h"
 
 
 World::World()
@@ -15,6 +16,7 @@ World::World()
 	Entity::initWorld(this);
 	Shell::initWorld(this);
 	Building::initWorld(this);
+	Turret::initWorld(this);
 	Balance::initWorld(this);
 }
 

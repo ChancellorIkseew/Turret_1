@@ -5,53 +5,42 @@
 #include "map_structures/entities/turret_types/rocket_turret.h"
 
 
-Tower::Tower(const uint16_t type, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team) :
-	Building (type, durability, size, tile, team)
-{
-	turret = nullptr;
-}
+Tower::Tower(const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team) :
+	Building (durability, size, tile, team) { }
 
 
-void Tower::save(std::ofstream& fout) const
+void Tower::save(cereal::BinaryOutputArchive& archive) const
 {
+	archive(cereal::virtual_base_class<Building>(this));
 	if (turret != nullptr)
-		turret->save(fout);
-	else
-		fout << "!\n";
-	Building::save(fout);
+		archive(true, turret);
+	archive(false);
 }
 
-void Tower::load(std::ifstream& fin)
+void Tower::load(cereal::BinaryInputArchive& archive)
 {
-	char nextSymbol;
-	fin >> nextSymbol;
-	if (nextSymbol != '!')
-	{
-		fin.seekg(-1, std::ios::cur);
-		int turretType;
-		fin >> turretType;
-		turret = std::move(Turret::createTurret(turretType, tile, this->getTeam()));
-		turret->load(fin);
-	}
-	Building::load(fin);
+	archive(cereal::virtual_base_class<Building>(this));
+	bool hasTurret;
+	archive(hasTurret);
+	if (hasTurret)
+		archive(turret);
 }
 
 
 void Tower::interact()
 {
-	if (turret != nullptr)
-	{
-		if (turret->needAmoo())
+	if (turret == nullptr)
+		return;
+	if (turret->needAmoo())
 		{
-			int resType = turret->getAmooType();
-			if (isEnoughRes(resType, 1))
-			{
-				wasteResorce(resType, 1);
-				turret->takeAmoo(resType);
-			}
+		int resType = turret->getAmooType();
+		if (isEnoughRes(resType, 1))
+		{
+			wasteResorce(resType, 1);
+			turret->takeAmoo(resType);
 		}
-		turret->shooting();
 	}
+	turret->shooting();
 }
 
 
@@ -60,28 +49,14 @@ bool Tower::canAccept(const uint16_t resType) const
 	if (resType == RES_AC_SHELLS || resType == RES_ROCKET)
 	{
 		if (!Building::isStorageFull(20))
-		return true;
+			return true;
 	}
 	return false;
 }
 
 
-void Tower::setTurret(const uint16_t turretType)
+void Tower::setTurret(const BuildingType turretType)
 {
 	turret = std::move(Turret::createTurret(turretType, tile, this->getTeam()));
 }
 
-void Tower::removeTurret()
-{
-	turret.reset();
-	turret = nullptr;
-}
-
-bool Tower::isTurretOnTower() const
-{
-	if (turret != nullptr)
-	{
-		return true;
-	}
-	return false;
-}

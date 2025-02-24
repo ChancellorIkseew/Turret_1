@@ -1,14 +1,8 @@
 
 #include "stone_tower.h"
-#include "map_structures/buildings/building/buildings_enum.h"
 
-
-StoneTower::StoneTower(const uint16_t type, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team) :
-	Tower (type, durability, size, tile, team)
-{
-
-}
-
+StoneTower::StoneTower(const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team) :
+	Tower(durability, size, tile, team) {}
 
 void StoneTower::draw(sf::RenderWindow& window)
 {

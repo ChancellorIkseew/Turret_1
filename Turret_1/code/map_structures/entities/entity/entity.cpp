@@ -8,11 +8,10 @@
 
 using namespace t1::be;
 constexpr float BASIC_COLLISION_RADIUS = 30.0f;
+constexpr float MAX_SPEED = 0.1; // temporary desision
 
-Entity::Entity(Team* const team)		//1st spawn
+Entity::Entity(Team* const team) : team(team)	//1st spawn
 {
-	this->team = team;
-	isAimDetected = false;
 	aimCoord = destCoord;
 	reloadTimer = 0;
 	maxSpeed = 0.1f;
@@ -39,29 +38,30 @@ bool Entity::tileChanged() const
 
 void Entity::motion(const BuildingsMap& buildingsMap)
 {
-	this->motionAngleRad = atan2f(destCoord.x - coord.x, destCoord.y - coord.y);
-	this->motionAngleDeg = t1::be::radToDegree(motionAngleRad);
+	motionAngleRad = atan2f(destCoord.x - coord.x, destCoord.y - coord.y);
+	motionAngleDeg = t1::be::radToDegree(motionAngleRad);
 
 	int nextTileX = tile(coord.x + sin(motionAngleRad) * BASIC_COLLISION_RADIUS);
 	int nextTileY = tile(coord.y + cos(motionAngleRad) * BASIC_COLLISION_RADIUS);
 
 	if (buildingsMap.isVoidBuilding(nextTileX, nextTileY))
 	{
-		this->coord.x += sin(motionAngleRad) * maxSpeed;
-		this->coord.y += cos(motionAngleRad) * maxSpeed;
+		coord.x += sin(motionAngleRad) * MAX_SPEED;
+		coord.y += cos(motionAngleRad) * MAX_SPEED;
 	}
 	else
 	{
 		destCoord = pixel(t1::ent::findDestination(*this, buildingsMap));
 	}
 
-	if (tileChanged())
+	if (tileChanged() || EventsHandler::active(t1::EventType::MAP_CHANGED))
 	{
 		destCoord = pixel(t1::ent::findClosestCore(*this, buildingsMap));
+		std::cout << destCoord.x << " " << destCoord.y << " core\n";
 	}
 
-	this->oldTile = this->currentTile;
-	this->currentTile = tile(coord);
+	oldTile = currentTile;
+	currentTile = tile(coord);
 }
 
 

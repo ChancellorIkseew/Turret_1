@@ -8,17 +8,8 @@
 #include "map_structures/world/world.h"
 
 
-Building::Building(const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team)
-{
-	this->type = type;
-	this->durability = durability;
-	this->size = size;
-	this->direction = 0;
-	this->team = team;
-
-	this->tile = tile;
-}
-
+Building::Building(const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team) :
+	durability(durability), size(size), tile(tile), team(team) { }
 
 void Building::save(cereal::BinaryOutputArchive& archive) const
 {
@@ -241,11 +232,6 @@ void Building::placeResourceUnitX9(const uint16_t resType, BuildingsMap& buildin
 	}
 }
 
-
-// turrets
-void Building::setTurret(const BuildingType turretType) { }
-void Building::removeTurret() { }
-bool Building::isTurretOnTower() const { return false; }
 // conveyers
 void Building::addToInventory(ResourceUnit& unit)
 {

@@ -35,6 +35,7 @@ private:
 
 	void simulation();
 	void input();
+	void scripts();
 	void graphics(sf::RenderWindow& mainWindow);
 	//void network();
 

@@ -10,6 +10,7 @@
 #include "game_interface/gameplay/ui_elements/exit_confirmation.h"
 #include "game_interface/gameplay/ui_elements/settings_window.h"
 
+#include "map_structures/buildings/building/building.h"
 #include "map_structures/entities/turret/turret.h"
 #include <iostream>
 

@@ -1,6 +1,7 @@
 
 #include "buildings_map.h"
 
+#include "map_structures/buildings/building/building.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/buildings/building/buildings_info.h"
 
