@@ -3,7 +3,7 @@
 #define CONVEYER_H
 
 #include <vector>
-#include <SFML/Graphics.hpp>
+#include <cereal/archives/binary.hpp>
 #include "map_structures/buildings/building/building.h"
 #include "map_structures/resources/resource_unit.h"
 
@@ -11,16 +11,17 @@
 class Conveyer : public Building
 {
 protected:
-	int timer;
-	float speed;
+	int timer = 5;
+	float speed = 0.0f;
 	std::vector<ResourceUnit> resUnits;
 
 public:
-	Conveyer(const uint16_t type, const char direction, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team);
+	Conveyer(const char direction, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team);
+	Conveyer() = default;
 	virtual ~Conveyer();
 
-	void save(std::ofstream& fout) const override final;
-	virtual void load(std::ifstream& fin) override final;
+	void save(cereal::BinaryOutputArchive& archive) const override final;
+	virtual void load(cereal::BinaryInputArchive& archive) override final;
 
 	virtual void interact() override final;
 	void addToInventory(ResourceUnit& unit) override final;

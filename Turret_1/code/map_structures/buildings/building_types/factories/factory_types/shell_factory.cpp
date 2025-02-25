@@ -1,24 +1,17 @@
 
 #include "shell_factory.h"
-
 #include "map_structures/resources/res_enum.h"
+#include "map_structures/world/world.h"
 
 
-ShellFactory::ShellFactory(const uint16_t type, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team) :
-	Factory(type, durability, size, tile, team)
-{
-	timer = 30;
-}
+ShellFactory::ShellFactory(const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team) :
+	Factory(durability, size, tile, team) { }
 
 
 void ShellFactory::interact()
 {
-	--timer;
-
 	if (timer == 0 || timer == 15)
-	{
-		placeResourceUnitX4(RES_AC_SHELLS);
-	}
+		placeResourceUnitX4(RES_AC_SHELLS, world->getBuildingsMap());
 
 	if (timer == 0)
 	{
@@ -27,6 +20,7 @@ void ShellFactory::interact()
 	}
 
 	this->animation();
+	--timer;
 }
 
 
@@ -43,12 +37,11 @@ void ShellFactory::produceResource()
 
 bool ShellFactory::canAccept(const uint16_t resType) const
 {
-	if (resType == RES_IRON || resType == RES_SULFUR)
-	{
-		if (!isEnoughRes(resType, 20))
-			return true;
-	}
-	return false;
+	if (resType != RES_IRON && resType != RES_SULFUR)
+		return false;
+	if (isEnoughRes(resType, 20))
+		return false;
+	return true;
 }
 
 

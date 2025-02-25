@@ -24,10 +24,10 @@ struct StoredResource
 class Building
 {
 private:
-	static inline World* world;
 	std::list<StoredResource> inventory;
 	Team* team = nullptr;
 protected:
+	static inline World* world;
 	TileCoord tile = TileCoord(0, 0);
 private:
 	uint16_t type = 0;

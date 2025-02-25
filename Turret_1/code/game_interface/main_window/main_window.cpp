@@ -8,13 +8,11 @@
 
 #include "game_interface/ui_window/ui_window/ui_plate.h"
 #include "game_interface/sound_system/sound_system.h"
-#include "game_interface/settings/settings.h"
+
 
 
 void openMainWindow()
 {
-	Settings::load();
-
 	GameSound g1; // Test music implrmrntation. Will be expanded and reimplemented.
 	g1.loadSound();
 	g1.start();

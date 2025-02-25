@@ -4,18 +4,18 @@
 #include "res_enum.h"
 
 
-ResourceUnit::ResourceUnit(const int type, const char direction, const PixelCoord coord)
-{
-	this->type = type;
-	this->direction = direction;
-	this->coord = coord;
-}
+ResourceUnit::ResourceUnit(const int type, const char direction, const PixelCoord coord) :
+	type(type), direction(direction), coord(coord) {}
 
-ResourceUnit::ResourceUnit(const ResourceUnit& other)
-{
-	this->type = other.type;
-	this->direction = other.direction;
-	this->coord = other.coord;
+ResourceUnit::ResourceUnit(const ResourceUnit& other) :
+	type(other.type), direction(other.direction), coord(other.coord) {}
+
+
+void ResourceUnit::save(cereal::BinaryOutputArchive& archive) const {
+	archive(type, direction, coord);
+}
+void ResourceUnit::load(cereal::BinaryInputArchive& archive) {
+	archive(type, direction, coord);
 }
 
 

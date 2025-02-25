@@ -8,7 +8,7 @@
 class Auxilary : public Building
 {
 public:
-	Auxilary( const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team);
+	Auxilary(const TileCoord tile, Team* const team);
 	virtual ~Auxilary() = default;
 
 	BuildingType getType() const override final { return BuildingType::AUXILARY; }

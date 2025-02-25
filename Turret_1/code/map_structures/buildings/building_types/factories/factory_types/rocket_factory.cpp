@@ -2,23 +2,17 @@
 #include "rocket_factory.h"
 
 #include "map_structures/resources/res_enum.h"
+#include "map_structures/world/world.h"
 
 
-RocketFactory::RocketFactory(const uint16_t type, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team) :
-	Factory(type, durability, size, tile, team)
-{
-	timer = 120;
-}
+RocketFactory::RocketFactory(const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team) :
+	Factory(durability, size, tile, team) { }
 
 
 void RocketFactory::interact()
 {
-	--timer;
-
 	if (timer%15 == 0)
-	{
-		placeResourceUnitX9(RES_ROCKET);
-	}
+		placeResourceUnitX9(RES_ROCKET, world->getBuildingsMap());
 
 	if (timer == 0)
 	{
@@ -27,6 +21,7 @@ void RocketFactory::interact()
 	}
 
 	this->animation();
+	--timer;
 }
 
 
@@ -45,12 +40,11 @@ void RocketFactory::produceResource()
 
 bool RocketFactory::canAccept(const uint16_t resType) const
 {
-	if (resType == RES_IRON || resType == RES_COPPER || resType == RES_SILICON || resType == RES_SULFUR)
-	{
-		if (!isEnoughRes(resType, 60))
-			return true;
-	}
-	return false;
+	if (resType != RES_IRON && resType != RES_COPPER && resType != RES_SILICON && resType != RES_SULFUR)
+		return false;
+	if (isEnoughRes(resType, 60))
+		return false;
+	return true;
 }
 
 

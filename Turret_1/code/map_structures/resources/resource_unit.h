@@ -3,6 +3,7 @@
 #define RESOURCE_UNITS_H
 
 #include <SFML\Graphics.hpp>
+#include <cereal/archives/binary.hpp>
 #include "map_structures/base_engine/base_engine.h"
 
 
@@ -22,6 +23,9 @@ public:
 	ResourceUnit(const ResourceUnit& other);
 	ResourceUnit() = default;
 	~ResourceUnit() = default;
+
+	void save(cereal::BinaryOutputArchive& archive) const;
+	void load(cereal::BinaryInputArchive& archive);
 	
 	static void prepareSprites();
 	void draw(sf::RenderWindow& window, const TileCoord tile) const;

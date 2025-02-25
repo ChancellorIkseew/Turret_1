@@ -8,15 +8,15 @@
 class Drill : public Building
 {
 protected:
-	int timer;
-	int storageCapacity;
-	float rotorAngle;
+	int timer = 0;
+	float rotorAngle = 0.0f;
 
 public:
-	Drill(const uint16_t type, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team);
+	Drill(const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team);
+	Drill() = default;
 	virtual ~Drill() = default;
 
-	void mineResource(int amountFromOneTile);
+	void mineResource(const int amountFromOneTile, const int storageCapacity);
 
 };
 

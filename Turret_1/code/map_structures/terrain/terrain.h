@@ -29,7 +29,7 @@ public:
 
 	void generate(TerrainPre& terrainPre); //empty constructor
 	
-	int getTileType(int tileX, int tileY);
+	int getTileType(const TileCoord tile) const;
 	
 	static void prepareSprites();
 	void draw(sf::RenderWindow& window, const Camera& camera);

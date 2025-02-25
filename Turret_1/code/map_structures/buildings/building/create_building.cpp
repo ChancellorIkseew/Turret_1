@@ -9,33 +9,26 @@
 #include "map_structures/buildings/building_types/auxilary/auxilary.h"
 #include "map_structures/buildings/building_types/walls/wall_types/stone_wall.h"
 #include "map_structures/buildings/building_types/walls/tower_types/stone_tower.h"
-//#include "map_structures/buildings/building_types/drills/drill.h"
-//#include "map_structures/buildings/building_types/drills/drill_types/small_drill.h"
-//#include "map_structures/buildings/building_types/drills/drill_types/big_drill.h"
-//#include "map_structures/buildings/building_types/logistics/conveyer_types/standard_conveyer.h"
-//#include "map_structures/buildings/building_types/logistics/conveyer_types/shielded_conveyer.h"
-//#include "map_structures/buildings/building_types/logistics/bridge/bridge.h"
-//#include "map_structures/buildings/building_types/logistics/router/router.h"
+#include "map_structures/buildings/building_types/drills/drill_types/small_drill.h"
+#include "map_structures/buildings/building_types/drills/drill_types/big_drill.h"
+#include "map_structures/buildings/building_types/logistics/conveyer_types/standard_conveyer.h"
+#include "map_structures/buildings/building_types/logistics/conveyer_types/shielded_conveyer.h"
+#include "map_structures/buildings/building_types/logistics/bridge/bridge.h"
+#include "map_structures/buildings/building_types/logistics/router/router.h"
 #include "map_structures/buildings/building_types/storages/core_types/core_mk2.h"
-//#include "map_structures/buildings/building_types/factories/factory_types/shell_factory.h"
-//#include "map_structures/buildings/building_types/factories/factory_types/rocket_factory.h"
+#include "map_structures/buildings/building_types/factories/factory_types/shell_factory.h"
+#include "map_structures/buildings/building_types/factories/factory_types/rocket_factory.h"
 
 
 std::shared_ptr<Building> Building::createBuilding(const BuildingType type, const char direction, const TileCoord tile, Team* const team)
 {
-	int32_t durability = 0;
-	uint8_t size = 1;
-
-	if (type != BuildingType::AUXILARY)
-	{
-		durability = t1::bc::buildingsInfoTable[type].durability * world->getPreSettings().getBuildings().maxDurabilityModifier;
-		size = t1::bc::buildingsInfoTable[type].size;
-	}
+	int32_t durability = t1::bc::buildingsInfoTable[type].durability * world->getPreSettings().getBuildings().maxDurabilityModifier;
+	uint8_t size = t1::bc::buildingsInfoTable[type].size;
 
 	switch (type)
 	{
 	case BuildingType::AUXILARY:
-		return std::make_shared<Auxilary>(durability, size, tile, team);
+		return std::make_shared<Auxilary>(tile, team);
 
 	case BuildingType::CORE_MK1:
 		return nullptr;
@@ -56,34 +49,34 @@ std::shared_ptr<Building> Building::createBuilding(const BuildingType type, cons
 	case BuildingType::CONCRETE_TOWER:
 		break;
 	case BuildingType::URANIUM_TOWER:
-		break;
+		break;*/
 
 	case BuildingType::STANDARD_CONVEYER:
-		return std::make_shared<StandardConveyer>(STANDARD_CONVEYER, direction, durability, size, tile, team);
+		return std::make_shared<StandardConveyer>(direction, durability, size, tile, team);
 	case BuildingType::SHIELDED_CONVEYER:
-		return std::make_shared<ShieldedConveyer>(SHIELDED_CONVEYER, direction, durability, size, tile, team);
+		return std::make_shared<ShieldedConveyer>(direction, durability, size, tile, team);
 
 	case BuildingType::BRIDGE:
-		return std::make_shared<Bridge>(BRIDGE, direction, durability, size, tile, team);
+		return std::make_shared<Bridge>(direction, durability, size, tile, team);
 	case BuildingType::ROUTER:
-		return std::make_shared<Router>(ROUTER, durability, size, tile, team);
+		return std::make_shared<Router>(durability, size, tile, team);
 	case BuildingType::SORTER:
 		break;
 
 	case BuildingType::SMALL_DRILL:
-		return std::make_shared<SmallDrill>(SMALL_DRILL, durability, size, tile, team);
+		return std::make_shared<SmallDrill>(durability, size, tile, team);
 	case BuildingType::BIG_DRILL:
-		return std::make_shared<BigDrill>(BIG_DRILL, durability, size, tile, team);
+		return std::make_shared<BigDrill>(durability, size, tile, team);/*
 	case BuildingType::EFFECTIVE_DRILL:
 		break;
 	case BuildingType::REINFORCED_DRILL:
-		break;
+		break;*/
 
 	case BuildingType::SHELL_FACTORY:
-		return std::make_shared<ShellFactory>(SHELL_FACTORY, durability, size, tile, team);
+		return std::make_shared<ShellFactory>(durability, size, tile, team);
 	case BuildingType::ROCKET_FACTORY:
-		return std::make_shared<RocketFactory>(ROCKET_FACTORY, durability, size, tile, team);
-		*/
+		return std::make_shared<RocketFactory>(durability, size, tile, team);
+		
 	default:
 		std::cout << "building_type does not exist. type: " << static_cast<uint16_t>(type) << '\n';
 		return nullptr;
