@@ -7,28 +7,26 @@
 #include "map_structures/team/team.h"
 #include "map_structures/world/world.h"
 
+constexpr int TILE_RANGE = 8;
+const float PIXEL_RANGE = t1::be::pixelF(TILE_RANGE);
+const int SPYRAL_RANGE = t1::be::tileRangeToSpiralRange[TILE_RANGE];
 
 LaserBot::LaserBot(Team* const team) : Entity(team)
 {
 	durability = 10 * world->getPreSettings().getMobs().maxDurabilityModifier;
-	pixelRange = 8;
-	spyralRange = 249;
 }
 
 
 void LaserBot::shoot(const BuildingsMap& buildingsMap)
 {
 	Entity::reloadWeapon();
-	Entity::detectAim();
+	Entity::aim(SPYRAL_RANGE, PIXEL_RANGE);
 
-	PixelCoord newAim = Aiming::aimOnShell(*this, *world);
+	PixelCoord newAim = Aiming::aimOnShell(*this, PIXEL_RANGE, *world);
 	if (newAim.valid())
-	{
 		aimCoord = newAim;
-		isAimDetected = true;
-	}
 
-	if (isAimDetected)
+	if (aimCoord.valid())
 	{
 		shootingAngleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
 		shootingAngleDeg = t1::be::radToDegree(shootingAngleRad);
@@ -47,7 +45,7 @@ void LaserBot::draw(sf::RenderWindow& window)
 	entitySprite.setTextureRect(sf::IntRect(60, 0, 17, 15));
 	entitySprite.setOrigin(9, 8);
 
-	if (isAimDetected)
+	if (aimCoord.valid())
 		entitySprite.setRotation(shootingAngleDeg);
 	else
 		entitySprite.setRotation(motionAngleDeg);

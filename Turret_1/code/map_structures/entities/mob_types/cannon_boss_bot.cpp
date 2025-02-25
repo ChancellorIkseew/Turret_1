@@ -6,21 +6,22 @@
 #include "map_structures/team/team.h"
 #include "map_structures/world/world.h"
 
+constexpr int TILE_RANGE = 20;
+const float PIXEL_RANGE = t1::be::pixelF(TILE_RANGE);
+const int SPYRAL_RANGE = t1::be::tileRangeToSpiralRange[TILE_RANGE];
 
 CannonBossBot::CannonBossBot(Team* const team) : Entity(team)
 {
 	durability = 270 * world->getPreSettings().getMobs().maxDurabilityModifier;
-	pixelRange = 20;
-	spyralRange = 1369;
 }
 
 
 void CannonBossBot::shoot(const BuildingsMap& buildingsMap)
 {
 	Entity::reloadWeapon();
-	Entity::detectAim();
+	Entity::aim(SPYRAL_RANGE, PIXEL_RANGE);
 
-	if (isAimDetected)
+	if (aimCoord.valid())
 	{
 		shootingAngleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
 		shootingAngleDeg = t1::be::radToDegree(shootingAngleRad);
@@ -43,7 +44,7 @@ void CannonBossBot::draw(sf::RenderWindow& window)
 	entitySprite.setTextureRect(sf::IntRect(0, 18, 43, 43));
 	entitySprite.setOrigin(22, 22);
 
-	if (isAimDetected)
+	if (aimCoord.valid())
 		entitySprite.setRotation(shootingAngleDeg);
 	else
 		entitySprite.setRotation(motionAngleDeg);

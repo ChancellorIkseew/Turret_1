@@ -372,6 +372,9 @@
     <ClCompile Include="code\map_structures\buildings\building_types\walls\tower_types\stone_tower.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="code\internal_tests\save_load_test\save_load.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="libgcc_s_seh_64-1.dll" />
@@ -699,6 +702,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="code\map_structures\buildings\building_types\walls\tower_types\stone_tower.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="code\internal_tests\save_load_test\save_load.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,7 +2,6 @@
 #ifndef TOWER_H
 #define TOWER_H
 
-#include <cereal/types/polymorphic.hpp>
 #include "map_structures/buildings/building/building.h"
 #include "map_structures/entities/turret/turret.h"
 
@@ -27,8 +26,5 @@ public:
 	bool isTurretOnTower() const { return turret != nullptr; }
 
 };
-
-CEREAL_REGISTER_TYPE(Tower)
-CEREAL_REGISTER_POLYMORPHIC_RELATION(Building, Tower)
 
 #endif // TOWER_H

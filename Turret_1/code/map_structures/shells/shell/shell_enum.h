@@ -4,11 +4,11 @@
 
 enum class ShellType : uint8_t
 {
-	AC_SHELL = 1001,
-	HEAVY_SHELL = 1002,
-	ROCKET = 1003,
-	LASER = 1004,
-	RAIL_BOLT = 1005
+	AC_SHELL = 201,
+	HEAVY_SHELL = 202,
+	ROCKET = 203,
+	LASER = 204,
+	RAIL_BOLT = 205
 };
 
 #endif // SHELL_ENUM_H

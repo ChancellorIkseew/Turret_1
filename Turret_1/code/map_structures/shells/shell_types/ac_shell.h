@@ -15,6 +15,7 @@ public:
 	~AutocannonShell() = default;
 
 	ShellType getType() override final { return ShellType::AC_SHELL; }
+	float getDirectDamage() override final { return 1.0f; }
 
 	void draw(sf::RenderWindow& window) override final;
 

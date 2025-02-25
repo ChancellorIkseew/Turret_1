@@ -27,20 +27,13 @@ protected:
 	PixelCoord destCoord; // destination_point
 	TileCoord currentTile, oldTile;
 	
-	bool isAimDetected = false;
-	
 	float motionAngleRad = 0;
 	float motionAngleDeg = 0;
 	float shootingAngleRad = 0;
 	float shootingAngleDeg = 0;
 
-	float maxSpeed = 0;
-
 	int16_t durability = 0; // timer_and_durability can_be_negative_in_some_cases
 	int16_t reloadTimer = 0;
-	uint16_t pixelRange = 0;
-	uint16_t spyralRange = 0;
-	
 
 	static inline sf::Image entityImage;
 	static inline sf::Texture entityTexture;
@@ -51,7 +44,7 @@ protected:
 	static inline sf::Sprite shieldSprite;
 
 	void reloadWeapon();
-	void detectAim();
+	void aim(const int spyralRange, const float pixelRange);
 
 public:
 	Entity(Team* const team);

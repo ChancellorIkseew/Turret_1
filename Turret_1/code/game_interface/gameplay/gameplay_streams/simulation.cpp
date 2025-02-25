@@ -9,8 +9,8 @@
 void Gameplay::simulation()
 {
     Team& enemy = *world.getTeam("enemy");
-    //WaveConstructor::spawnTestWave(enemy, world.getBuildingsMap()); //test
-    //WaveConstructor::spawnTestWave(*player, world.getBuildingsMap()); //test
+    WaveConstructor::spawnTestWave(enemy, world.getBuildingsMap()); //test
+    WaveConstructor::spawnTestWave(*player, world.getBuildingsMap()); //test
     while (isGameplayActive)
     {
         if (!isPaused)

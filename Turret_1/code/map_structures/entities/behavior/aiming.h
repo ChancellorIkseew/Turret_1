@@ -11,10 +11,10 @@ class World;
 class Aiming
 {
 public:
-	static PixelCoord aimForward(const Entity& entity, const World& world);
-	static PixelCoord aimOnBuilding(const Entity& entity, const BuildingsMap& buildingsMap);
-	static PixelCoord aimOnEntity(const Entity& entity, const World& world);
-	static PixelCoord aimOnShell(const Entity& entity, const World& world);
+	static PixelCoord aimForward(const Entity& entity, const int tileRange, const World& world);
+	static PixelCoord aimOnBuilding(const Entity& entity, const int spyralRange, const BuildingsMap& buildingsMap);
+	static PixelCoord aimOnEntity(const Entity& entity, const float pixelRange, const World& world);
+	static PixelCoord aimOnShell(const Entity& entity, const float pixelRange, const World& world);
 };
 
 #endif // T1_ENT_AIMING_H

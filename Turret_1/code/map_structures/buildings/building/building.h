@@ -5,7 +5,6 @@
 #include <list>
 #include <SFML/Graphics.hpp>
 #include <cereal/archives/binary.hpp>
-#include <cereal/types/polymorphic.hpp>
 
 #include "map_structures/base_engine/base_engine.h"
 #include "map_structures/resources/resource_unit.h"
@@ -100,7 +99,5 @@ public:
 	friend Core;
 
 };
-
-CEREAL_REGISTER_TYPE(Building)
 
 #endif // BUILDING_H

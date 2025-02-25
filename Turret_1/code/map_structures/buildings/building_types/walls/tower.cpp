@@ -1,8 +1,7 @@
 
 #include "tower.h"
 #include "map_structures/resources/res_enum.h"
-#include "map_structures/entities/turret_types/autocannon_turret.h"
-#include "map_structures/entities/turret_types/rocket_turret.h"
+#include "map_structures/entities/turret/turret.h"
 
 
 Tower::Tower(const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team) :
@@ -11,19 +10,23 @@ Tower::Tower(const int16_t durability, const uint8_t size, const TileCoord tile,
 
 void Tower::save(cereal::BinaryOutputArchive& archive) const
 {
-	archive(cereal::virtual_base_class<Building>(this));
-	if (turret != nullptr)
-		archive(true, turret);
-	archive(false);
+	Building::save(archive);
+	bool hasTurret = turret != nullptr;
+	archive(hasTurret);
+	if (hasTurret)
+		archive(turret);
 }
 
 void Tower::load(cereal::BinaryInputArchive& archive)
 {
-	archive(cereal::virtual_base_class<Building>(this));
+	Building::load(archive);
 	bool hasTurret;
 	archive(hasTurret);
 	if (hasTurret)
+	{
 		archive(turret);
+		turret->setCoord(t1::be::pixel(tile));
+	}	
 }
 
 

@@ -4,6 +4,7 @@
 
 #include <SFML\Graphics.hpp>
 #include <cereal/archives/binary.hpp>
+#include <cereal/types/polymorphic.hpp>
 
 #include "map_structures/base_engine/base_engine.h"
 
@@ -19,7 +20,7 @@ private:
 
 protected:
 	PixelCoord coord;
-	Team* team;
+	Team* team = nullptr;
 	
 	float angleRad = 0;
 	float angleDeg = 0;
@@ -68,5 +69,7 @@ public:
 	}
 		
 };
+
+CEREAL_REGISTER_TYPE(Turret)
 
 #endif // TURRETS_H

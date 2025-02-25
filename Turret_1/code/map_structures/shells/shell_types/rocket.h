@@ -15,6 +15,7 @@ public:
 	~Rocket() = default;
 
 	ShellType getType() override final { return ShellType::ROCKET; }
+	float getDirectDamage() override final { return 0.0f; }
 
 	void tryHitting() override final;
 	void explosion() override final;

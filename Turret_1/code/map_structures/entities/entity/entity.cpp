@@ -10,13 +10,7 @@ using namespace t1::be;
 constexpr float BASIC_COLLISION_RADIUS = 30.0f;
 constexpr float MAX_SPEED = 0.1; // temporary desision
 
-Entity::Entity(Team* const team) : team(team)	//1st spawn
-{
-	aimCoord = destCoord;
-	reloadTimer = 0;
-	maxSpeed = 0.1f;
-}
-
+Entity::Entity(Team* const team) : team(team), reloadTimer(0) { }
 
 void Entity::save(cereal::BinaryOutputArchive& archive) const
 {
@@ -57,7 +51,6 @@ void Entity::motion(const BuildingsMap& buildingsMap)
 	if (tileChanged() || EventsHandler::active(t1::EventType::MAP_CHANGED))
 	{
 		destCoord = pixel(t1::ent::findClosestCore(*this, buildingsMap));
-		std::cout << destCoord.x << " " << destCoord.y << " core\n";
 	}
 
 	oldTile = currentTile;
@@ -65,21 +58,22 @@ void Entity::motion(const BuildingsMap& buildingsMap)
 }
 
 
-void Entity::detectAim()
+void Entity::aim(const int spyralRange, const float pixelRange)
 {
 	if (tileChanged() || EventsHandler::active(t1::EventType::MAP_CHANGED))
+		aimCoord = INCORRECT_PIXEL_COORD;
+
+	PixelCoord newAim;
+	if (!aimCoord.valid())
 	{
-		PixelCoord newAim = Aiming::aimOnBuilding(*this, world->getBuildingsMap());
+		newAim = Aiming::aimOnBuilding(*this, spyralRange, world->getBuildingsMap());
 		if (newAim.valid())
-		{
 			aimCoord = newAim;
-			isAimDetected = true;
-		}
-		else
-		{
-			isAimDetected = false;
-		}
 	}
+
+	newAim = Aiming::aimOnEntity(*this, pixelRange, *world);
+	if (newAim.valid())
+		aimCoord = newAim;
 }
 
 

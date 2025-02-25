@@ -1,11 +1,11 @@
 #pragma once
-#ifndef TURRET_1_NO_TEST_BUILD
-#ifndef TURRET_1_TEST_H
-#define TURRET_1_TEST_H
+#ifndef NDEBUG
+#ifndef TURRET_1_SPYRAL_TEST_H
+#define TURRET_1_SPYRAL_TEST_H
 
+class World;
 
-void spiralTest();
+void spiralTest(World& world);
 
-
-#endif // TURRET_1_TEST_H
-#endif // TURRET_1_NO_TEST_BUILD
+#endif // TURRET_1_SPYRAL_TEST_H
+#endif // NDEBUG

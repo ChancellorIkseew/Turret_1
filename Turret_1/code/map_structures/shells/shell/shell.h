@@ -17,8 +17,8 @@ class Shell
 protected:
 	static inline World* world;
 
-	PixelCoord coord = PixelCoord(0, 0);
-	PixelCoord lineMotion = PixelCoord(0, 0);
+	PixelCoord coord;
+	PixelCoord lineMotion;
 
 	Team* team = nullptr;
 
@@ -27,11 +27,7 @@ protected:
 
 	bool isWasted = false;
 
-	int16_t damage = 0;
-
-	uint16_t curentLifeTime = 0;
-	uint16_t maxLifeTime = 0;
-	
+	uint16_t restLifeTime = 0;
 
 	static inline sf::Image shellImage;
 	static inline sf::Texture shellTexture;
@@ -52,6 +48,7 @@ public:
 	virtual void explosion() { }
 
 	virtual ShellType getType() = 0;
+	virtual float getDirectDamage() = 0;
 	PixelCoord getCoord() const { return coord; }
 	bool getIsWasted() const { return isWasted; }
 	void setWasted() { isWasted = true; }

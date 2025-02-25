@@ -15,6 +15,7 @@ public:
 	~HeavyShell() = default;
 
 	ShellType getType() override final { return ShellType::HEAVY_SHELL; }
+	float getDirectDamage() override final { return 20.0f; }
 
 	void explosion() override final;
 

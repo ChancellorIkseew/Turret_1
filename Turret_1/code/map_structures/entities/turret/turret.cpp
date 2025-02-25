@@ -7,11 +7,8 @@
 #include "map_structures/world/world.h"
 
 		
-Turret::Turret(const TileCoord tile, Team* team)
+Turret::Turret(const TileCoord tile, Team* team) : team(team)
 {
-	//this->type = type;
-	this->team = team;
-	
 	coord = t1::be::pixel(tile) ;
 }
 

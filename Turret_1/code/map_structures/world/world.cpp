@@ -2,6 +2,7 @@
 #include "world.h"
 
 #include <fstream>
+#include <exception>
 #include <cereal/types/memory.hpp>
 #include <cereal/types/unordered_set.hpp>
 #include <cereal/archives/binary.hpp>
@@ -86,4 +87,6 @@ Team* World::getTeam(const std::string& name)
 		if (it.second->getName() == name)
 			return it.second.get();
 	}
+	throw std::runtime_error("team does not exist");
+	return nullptr;
 }

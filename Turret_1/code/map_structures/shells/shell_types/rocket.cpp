@@ -10,12 +10,13 @@ constexpr int ACTIVATION_RADIUS = _TILE_;
 constexpr int EXP_RADIUS = 3; // radius in tiles
 constexpr float EXP_DAMAGE = 20.0f;
 constexpr float SPEED = 2.4f;
+constexpr uint16_t MAX_LIFI_TIME = 420;
 
 Rocket::Rocket(PixelCoord coord, float angleRad, float angleDeg, Team* const team) :
 	Shell(coord, angleRad, angleDeg, team)
 {
 	// Rocket has no colision damage. Only burst damage. That's why there is not sth like "damage = x".
-	maxLifeTime = 420;
+	restLifeTime = MAX_LIFI_TIME;
 	lineMotion.x = sin(angleRad) * SPEED;
 	lineMotion.y = cos(angleRad) * SPEED;
 }
@@ -60,7 +61,7 @@ void Rocket::explosion()
 
 void Rocket::draw(sf::RenderWindow &window)
 {
-	if(curentLifeTime % 20 < 10)
+	if(restLifeTime % 20 < 10)
 		shellSprite.setTextureRect(sf::IntRect(5, 0, 10, 30));
 	else
 		shellSprite.setTextureRect(sf::IntRect(15, 0, 10, 30));

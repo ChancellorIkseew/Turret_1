@@ -15,6 +15,7 @@ public:
 	~Laser() = default;
 
 	ShellType getType() override final { return ShellType::LASER; }
+	float getDirectDamage() override final { return 1.0f; }
 
 	void tryHitting() override final;
 

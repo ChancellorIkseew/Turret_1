@@ -68,7 +68,7 @@ void acceptCheetCommand()
 		}
 
 		case 't':
-			spiralTest();
+			//spiralTest();
 			break;
 
 		case 'c':

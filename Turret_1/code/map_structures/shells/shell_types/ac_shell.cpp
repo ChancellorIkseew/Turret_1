@@ -2,12 +2,12 @@
 #include "ac_shell.h"
 
 constexpr float SPEED = 1.6f;
+constexpr uint16_t MAX_LIFI_TIME = 200;
 
 AutocannonShell::AutocannonShell(PixelCoord coord, float angleRad, float angleDeg, Team* const team) :
 	Shell(coord, angleRad, angleDeg, team)
 {
-	damage = 1;
-	maxLifeTime = 200;
+	restLifeTime = MAX_LIFI_TIME;
 	lineMotion.x = sin(angleRad) * SPEED;
 	lineMotion.y = cos(angleRad) * SPEED;
 }

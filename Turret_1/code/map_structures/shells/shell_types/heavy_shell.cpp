@@ -7,12 +7,12 @@
 constexpr int EXP_RADIUS = 1; // radius in tiles
 constexpr float EXP_DAMAGE = 10.0f;
 constexpr float SPEED = 1.6f;
+constexpr uint16_t MAX_LIFI_TIME = 500;
 
 HeavyShell::HeavyShell(PixelCoord coord, float angleRad, float angleDeg, Team* const team) :
 	Shell(coord, angleRad, angleDeg, team)
 {
-	damage = 20;
-	maxLifeTime = 500;
+	restLifeTime = MAX_LIFI_TIME;
 	lineMotion.x = sin(angleRad) * SPEED;
 	lineMotion.y = cos(angleRad) * SPEED;
 }

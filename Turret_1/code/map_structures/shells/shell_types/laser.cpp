@@ -4,13 +4,13 @@
 #include "map_structures/team/team.h"
 #include "map_structures/world/world.h"
 
-constexpr float SPEED = 8.0f;
+constexpr float SPEED = 12.0f;
+constexpr uint16_t MAX_LIFI_TIME = 20;
 
 Laser::Laser(PixelCoord coord, float angleRad, float angleDeg, Team* const team) :
 	Shell(coord, angleRad, angleDeg, team)
 {
-	damage = 1;
-	maxLifeTime = 40;
+	restLifeTime = MAX_LIFI_TIME;
 	lineMotion.x = sin(angleRad) * SPEED;
 	lineMotion.y = cos(angleRad) * SPEED;
 }
@@ -26,8 +26,11 @@ void Laser::tryHitting()
 		{
 			for (auto& shell : team.second->getShells().getList())
 			{
-				if (shell->getType() == ShellType::ROCKET)
+				if (shell->getType() == ShellType::ROCKET && abs(shell->getCoord().x - coord.x) < 5 && abs(shell->getCoord().y - coord.y) < 5)
+				{
 					shell->setWasted();
+					isWasted = true;
+				}
 			}
 		}
 	}
@@ -36,7 +39,7 @@ void Laser::tryHitting()
 
 void Laser::draw(sf::RenderWindow& window)
 {
-	shellSprite.setTextureRect(sf::IntRect(2, 0, 3, 7));
+	shellSprite.setTextureRect(sf::IntRect(0, 6, 3, 12));
 	shellSprite.setOrigin(2, 1);
 	shellSprite.setPosition(coord.x, coord.y);
 	shellSprite.setRotation(angleDeg);

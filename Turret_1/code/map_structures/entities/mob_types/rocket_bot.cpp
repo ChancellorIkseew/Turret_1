@@ -6,13 +6,15 @@
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/team/team.h"
 #include "map_structures/world/world.h"
+#include "t1_system/events/events_handler.h"
 
+constexpr int TILE_RANGE = 25;
+const float PIXEL_RANGE = t1::be::pixelF(TILE_RANGE);
+const int SPYRAL_RANGE = t1::be::tileRangeToSpiralRange[TILE_RANGE];
 
 RocketBot::RocketBot(Team* const team) : Entity(team)
 {
 	durability = 25 * world->getPreSettings().getMobs().maxDurabilityModifier;
-	pixelRange = 25;
-	spyralRange = 2109;
 }
 
 
@@ -20,7 +22,10 @@ void RocketBot::shoot(const BuildingsMap& buildingsMap)
 {
 	Entity::reloadWeapon();
 
-	if (isAimDetected)
+	if (tileChanged() || EventsHandler::active(t1::EventType::MAP_CHANGED))
+		aimCoord = Aiming::aimOnBuilding(*this, SPYRAL_RANGE, world->getBuildingsMap());
+
+	if (aimCoord.valid())
 	{
 		shootingAngleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
 		shootingAngleDeg = t1::be::radToDegree(shootingAngleRad);
@@ -42,7 +47,7 @@ void RocketBot::draw(sf::RenderWindow& window)
 	entitySprite.setTextureRect(sf::IntRect(42, 0, 17, 18));
 	entitySprite.setOrigin(8, 9);
 
-	if (isAimDetected)
+	if (aimCoord.valid())
 		entitySprite.setRotation(shootingAngleDeg);
 	else
 		entitySprite.setRotation(motionAngleDeg);

@@ -5,24 +5,18 @@
 #include "map_structures/team/team.h"
 #include "map_structures/world/world.h"
 
-constexpr float SPEED = 1.6f;
 
-Shell::Shell(const PixelCoord coord, float angleRad, float angleDeg, Team* const team)
-{
-	this->coord = coord;
-	this->angleRad = angleRad;
-	this->angleDeg = angleDeg;
-	this->team = team;
-}
+Shell::Shell(const PixelCoord coord, float angleRad, float angleDeg, Team* const team) :
+	coord(coord), angleRad(angleRad), angleDeg(angleDeg), team(team) { }
 
 void Shell::save(cereal::BinaryOutputArchive& archive) const
 {
-	archive(coord, lineMotion, angleRad, damage, curentLifeTime, maxLifeTime);
+	archive(coord, lineMotion, angleRad, restLifeTime);
 }
 
 void Shell::load(cereal::BinaryInputArchive& archive)
 {
-	archive(coord, lineMotion, angleRad, damage, curentLifeTime, maxLifeTime);
+	archive(coord, lineMotion, angleRad, restLifeTime);
 	angleDeg = t1::be::radToDegree(angleRad);
 }
 
@@ -31,8 +25,7 @@ void Shell::motion()
 {
 	coord.x += lineMotion.x;
 	coord.y += lineMotion.y;
-	
-	if(++curentLifeTime > maxLifeTime)
+	if(--restLifeTime < 1)
 		isWasted = true;
 }
 
@@ -42,7 +35,7 @@ void Shell::tryHitting()
 	BuildingsMap& buildingsMap = world->getBuildingsMap();
 	if (!buildingsMap.isVoidBuilding(tile) && buildingsMap.getTeamID(tile) != team->getID())
 	{
-		const float modifiedDamage = damage * world->getPreSettings().getShells().directDamageModifier;
+		const float modifiedDamage = getDirectDamage() * world->getPreSettings().getShells().directDamageModifier;
 		buildingsMap.setDamage(modifiedDamage, tile);
 		isWasted = true;
 		return;
@@ -56,7 +49,7 @@ void Shell::tryHitting()
 			{
 				if (abs(entity->getCoord().x - coord.x) < 7 && abs(entity->getCoord().y - coord.y) < 7)
 				{
-					const float modifiedDamage = damage * world->getPreSettings().getShells().directDamageModifier;
+					const float modifiedDamage = getDirectDamage() * world->getPreSettings().getShells().directDamageModifier;
 					entity->setDamage(modifiedDamage);
 					isWasted = true;
 					return;
