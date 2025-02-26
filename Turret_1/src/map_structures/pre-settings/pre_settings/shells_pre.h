@@ -2,6 +2,7 @@
 #ifndef MAP_STR_SHELLS_PRE_H
 #define MAP_STR_SHELLS_PRE_H
 
+#include <cpptoml.h>
 
 struct ShellsPre
 {

@@ -3,7 +3,7 @@
 #define MAP_STR_GENERAL_PRE_H
 
 #include <map>
-#include "util/parser/cpptoml.h"
+#include <cpptoml.h>
 #include "map_structures/resources/res_enum.h"
 
 enum class GameMode

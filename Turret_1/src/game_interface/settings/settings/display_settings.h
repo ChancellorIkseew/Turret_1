@@ -3,7 +3,7 @@
 #define T1_DISPLAY_SETTINGS_H
 
 #include <SFML/Graphics.hpp>
-#include "util/parser/cpptoml.h"
+#include <cpptoml.h>
 
 struct DisplaySettings
 {

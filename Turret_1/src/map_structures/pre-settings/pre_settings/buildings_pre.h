@@ -2,7 +2,7 @@
 #ifndef MAP_STR_BUILDINGS_PRE_H
 #define MAP_STR_BUILDINGS_PRE_H
 
-#include "util/parser/cpptoml.h"
+#include <cpptoml.h>
 
 struct BuildingsPre
 {

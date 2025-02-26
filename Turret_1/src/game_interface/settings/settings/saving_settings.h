@@ -2,7 +2,7 @@
 #ifndef T1_SAVING_SETTINGS_H
 #define T1_SAVING_SETTINGS_H
 
-#include "util/parser/cpptoml.h"
+#include <cpptoml.h>
 
 struct SavingSettings
 {

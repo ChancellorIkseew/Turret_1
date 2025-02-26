@@ -1,7 +1,7 @@
 
 #include <iostream>
 #include <fstream>
-#include "util/parser/cpptoml.h"
+#include <cpptoml.h>
 
 #include "settings.h"
 
