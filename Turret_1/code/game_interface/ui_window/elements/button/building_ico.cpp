@@ -7,7 +7,7 @@
 #include "t1_system/sleep.h"
 
 
-BuildingIco::BuildingIco(const uint16_t buildingType, const sf::Vector2u position)
+BuildingIco::BuildingIco(const BuildingType buildingType, const sf::Vector2u position)
 {
 	this->position = position;
 	this->buildingType = buildingType;
@@ -18,7 +18,7 @@ BuildingIco::BuildingIco(const uint16_t buildingType, const sf::Vector2u positio
 	ico.setOrigin(0.0f, 0.0f);
 }
 
-BuildingIco::BuildingIco(const uint16_t buildingType)
+BuildingIco::BuildingIco(const BuildingType buildingType)
 {
 	position = sf::Vector2u(0, 0);
 	this->buildingType = buildingType;
@@ -47,7 +47,7 @@ bool BuildingIco::press()
 	return false;
 }
 
-uint16_t BuildingIco::getBuildingType() const
+BuildingType BuildingIco::getBuildingType() const
 {
 	return buildingType;
 }

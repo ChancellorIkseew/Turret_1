@@ -2,8 +2,7 @@
 #ifndef BUILDINGS_ENUM_H
 #define BUILDINGS_ENUM_H
 
-
-enum bType
+enum class BuildingType : uint16_t
 {
 	// auxilary
 	REMOVE = 0,

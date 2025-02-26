@@ -7,8 +7,8 @@
 #include "map_structures/team/team.h"
 
 
-AutocannonTurret::AutocannonTurret(const uint16_t type, const TileCoord tile, Team* const team) :
-	Turret(AUTOCANNON_TURRET, tile, team)
+AutocannonTurret::AutocannonTurret(const TileCoord tile, Team* const team) :
+	Turret(tile, team)
 {
 	pixelRange = 11 * _TILE_;
 	spyralRange = 437;
@@ -23,7 +23,7 @@ void AutocannonTurret::shooting()
 	if(aim.x != 0)
 	{
 		angleRad = atan2f(aim.x - coord.x, aim.y - coord.y);
-		angleDeg = atan2f(aim.y - coord.y, aim.x - coord.x) * 57.3f + 90.0f;
+		angleDeg = t1::be::radToDegree(angleRad);
 
 		if (reloadTimer % 15 == 0 && amooQuantity > 0)
 		{
@@ -32,12 +32,12 @@ void AutocannonTurret::shooting()
 
 			if (reloadTimer <= 0)
 			{
-				team->spawnShell(AC_SHELL, { coord.x + correctionX, coord.y - correctionY }, angleRad, angleDeg);
+				team->spawnShell(ShellType::AC_SHELL, { coord.x + correctionX, coord.y - correctionY }, angleRad, angleDeg);
 				reloadTimer = 30;
 			}
 			else
 			{
-				team->spawnShell(AC_SHELL, { coord.x - correctionX, coord.y + correctionY }, angleRad, angleDeg);
+				team->spawnShell(ShellType::AC_SHELL, { coord.x - correctionX, coord.y + correctionY }, angleRad, angleDeg);
 			}
 			--amooQuantity;
 		}
@@ -45,8 +45,8 @@ void AutocannonTurret::shooting()
 }
 
 
-void AutocannonTurret::takeAmoo(int resType) { amooQuantity += 20; }
-int AutocannonTurret::getAmooType() const { return RES_AC_SHELLS; }
+void AutocannonTurret::takeAmoo(ResType resType) { amooQuantity += 20; }
+ResType AutocannonTurret::getAmooType() const { return ResType::AC_SHELLS; }
 
 
 void AutocannonTurret::draw(sf::RenderWindow& window)

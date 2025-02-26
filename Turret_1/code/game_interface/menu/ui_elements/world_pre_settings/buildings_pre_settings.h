@@ -22,7 +22,7 @@ public:
 
 	void interact() override final;
 	void relocateWithOwner(const sf::Vector2u ownerPosition) override final;
-	void enter() override final;
+	void enter(PreSettings& preSettings) override final;
 
 	void prepareInterfaceSprites() override final;
 	void draw(sf::RenderWindow& window) override final;

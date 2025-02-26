@@ -27,17 +27,17 @@ private:
 	void resize(const sf::RenderWindow& window);
 	void updateMapRegion(const sf::RenderWindow& window);
 
-	static inline TileCoord startTile;
-	static inline TileCoord endTile;
+	TileCoord startTile;
+	TileCoord endTile;
 
 public:
-	Camera();
+	Camera(const TileCoord mapSize);
 	~Camera() = default;
 
 	void interact(const sf::RenderWindow& window);
 
-	static TileCoord getStartTile() { return startTile; }
-	static TileCoord getEndTile() { return endTile; }
+	TileCoord getStartTile() const { return startTile; }
+	TileCoord getEndTile() const { return endTile; }
 	sf::View getView() const { return cameraView; }
 
 };

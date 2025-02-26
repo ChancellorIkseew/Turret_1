@@ -2,35 +2,38 @@
 #ifndef TERRAIN_MAP_H
 #define TERRAIN_MAP_H
 
-#include <string>
 #include <SFML\Graphics.hpp>
-
+#include <cereal/archives/binary.hpp>
 #include "map_structures/base_engine/base_engine.h"
+#include "map_structures/resources/res_enum.h"
 
+class Camera;
+struct TerrainPre;
 
 class TerrainMap
 {
 private:	
-	static inline TileCoord mapSize;
-	static inline std::vector<std::vector<std::unique_ptr<int>>> terrainMap;
+	TileCoord mapSize;
+	std::vector<std::vector<std::unique_ptr<int>>> terrainMap;
 	
 	static inline sf::Image terrainImage;
 	static inline sf::Texture terrainTexture;
 	static inline sf::Sprite mapSprite;
 	
 public:
+	TerrainMap() = default;
 	TerrainMap(const TileCoord mapSize);
-	~TerrainMap();
-	
-	static void saveMap(const std::string& folder);
-	static void loadMap(const std::string& folder);
+	~TerrainMap() = default;
 
-	static void generateMap(); //empty constructor
+	void save(cereal::BinaryOutputArchive& archive) const;
+	void load(cereal::BinaryInputArchive& archive);
+
+	void generate(TerrainPre& terrainPre); //empty constructor
 	
-	static int getTileType(int tileX, int tileY);
+	ResType getTileType(const TileCoord tile) const;
 	
 	static void prepareSprites();
-	static void drawMap(sf::RenderWindow& window);
+	void draw(sf::RenderWindow& window, const Camera& camera);
 	
 };
 

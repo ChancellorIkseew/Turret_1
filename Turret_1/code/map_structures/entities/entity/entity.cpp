@@ -1,46 +1,26 @@
 
 #include "entity.h"
 
+#include "map_structures/world/world.h"
 #include "map_structures/team/team.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
-#include "map_structures/buildings/building/buildings_enum.h"
-#include "map_structures/pre-settings/pre-settings.h"
 #include "t1_system/events/events_handler.h"
-
-#include "iostream"
 
 using namespace t1::be;
 constexpr float BASIC_COLLISION_RADIUS = 30.0f;
+constexpr float MAX_SPEED = 0.1; // temporary desision
 
-void Entity::initPreSettings()
+Entity::Entity(Team* const team) : team(team), reloadTimer(0) { }
+
+void Entity::save(cereal::BinaryOutputArchive& archive) const
 {
-	Entity::mapSize = PreSettings::getTerrain().mapSize;
-	Entity::maxDurabilityModifier = PreSettings::getMobs().maxDurabilityModifier;
+	archive(coord, motionAngleRad, durability);
 }
 
-Entity::Entity(const uint16_t type, Team* const team)		//1st spawn
+void Entity::load(cereal::BinaryInputArchive& archive)
 {
-	this->type = type;
-	this->team = team;
-	isAimDetected = false;
-	destCoord = pixel(t1::ent::findClosestCore(*this));
-	aimCoord = destCoord;
-	reloadTimer = 0;
-	maxSpeed = 0.1f;
-}
-
-
-void Entity::save(std::ofstream& fout) const
-{
-	fout << type << " " << coord.x << " " << coord.y << " " << motionAngleDeg << " " << durability << '\n';
-	fout << "$\n";
-}
-
-void Entity::load(std::ifstream& fin)
-{
-	fin >> coord.x >> coord.y >> motionAngleDeg >> durability;
-	char specialSymbol;
-	fin >> specialSymbol;
+	archive(coord, motionAngleRad, durability);
+	motionAngleDeg = t1::be::radToDegree(motionAngleRad);
 }
 
 
@@ -50,49 +30,50 @@ bool Entity::tileChanged() const
 }
 
 
-void Entity::motion()
+void Entity::motion(const BuildingsMap& buildingsMap)
 {
-	this->motionAngleRad = atan2f(destCoord.x - coord.x, destCoord.y - coord.y);
-	this->motionAngleDeg = t1::be::radToDegree(motionAngleRad);
+	motionAngleRad = atan2f(destCoord.x - coord.x, destCoord.y - coord.y);
+	motionAngleDeg = t1::be::radToDegree(motionAngleRad);
 
 	int nextTileX = tile(coord.x + sin(motionAngleRad) * BASIC_COLLISION_RADIUS);
 	int nextTileY = tile(coord.y + cos(motionAngleRad) * BASIC_COLLISION_RADIUS);
 
-	if (BuildingsMap::isVoidBuilding(nextTileX, nextTileY))
+	if (buildingsMap.isVoidBuilding(nextTileX, nextTileY))
 	{
-		this->coord.x += sin(motionAngleRad) * maxSpeed;
-		this->coord.y += cos(motionAngleRad) * maxSpeed;
+		coord.x += sin(motionAngleRad) * MAX_SPEED;
+		coord.y += cos(motionAngleRad) * MAX_SPEED;
 	}
 	else
 	{
-		destCoord = pixel(t1::ent::findDestination(*this));
+		destCoord = pixel(t1::ent::findDestination(*this, buildingsMap));
 	}
 
-	if (tileChanged())
+	if (tileChanged() || EventsHandler::active(t1::EventType::MAP_CHANGED))
 	{
-		destCoord = pixel(t1::ent::findClosestCore(*this));
+		destCoord = pixel(t1::ent::findClosestCore(*this, buildingsMap));
 	}
 
-	this->oldTile = this->currentTile;
-	this->currentTile = tile(coord);
+	oldTile = currentTile;
+	currentTile = tile(coord);
 }
 
 
-void Entity::detectAim()
+void Entity::aim(const int spyralRange, const float pixelRange)
 {
 	if (tileChanged() || EventsHandler::active(t1::EventType::MAP_CHANGED))
+		aimCoord = INCORRECT_PIXEL_COORD;
+
+	PixelCoord newAim;
+	if (!aimCoord.valid())
 	{
-		PixelCoord newAimCoord = t1::ent::findAim(*this);
-		if (newAimCoord.x != 0)	// "0" - aim_was_not_detected
-		{
-			aimCoord = newAimCoord;
-			isAimDetected = true;
-		}
-		else
-		{
-			isAimDetected = false;
-		}
+		newAim = Aiming::aimOnBuilding(*this, spyralRange, world->getBuildingsMap());
+		if (newAim.valid())
+			aimCoord = newAim;
 	}
+
+	newAim = Aiming::aimOnEntity(*this, pixelRange, *world);
+	if (newAim.valid())
+		aimCoord = newAim;
 }
 
 
@@ -102,29 +83,25 @@ void Entity::reloadWeapon()
 		--reloadTimer;
 }
 
-
-void Entity::setDurability(const int16_t durability)
-{
+void Entity::setTeam(Team* team) {
+	this->team = team;
+}
+void Entity::setDurability(const int16_t durability) {
 	this->durability = durability;
 }
-
-void Entity::setDamage(const int16_t damage)
-{
+void Entity::setDamage(const int16_t damage) {
 	durability -= damage;
 }
-
-void Entity::setCoord(const PixelCoord coord)
-{
-	this->coord = coord;
+void Entity::setDamage(const float damage) {
+	durability -= static_cast<int16_t>(damage);
 }
 
-
-uint16_t Entity::getType() const { return type; }
-PixelCoord Entity::getCoord() const { return coord; }
-TileCoord Entity::getTile() const { return tile(coord); }
-int Entity::getAngleDeg() const { return int(motionAngleDeg); }
-int Entity::getDurability() const { return durability; }
-
+void Entity::setCoord(const PixelCoord coord) {
+	this->coord = coord;
+}
+void Entity::setDestCoord(const PixelCoord destCoord) {
+	this->destCoord = destCoord;
+}
 
 // visual
 void Entity::prepareSprites()

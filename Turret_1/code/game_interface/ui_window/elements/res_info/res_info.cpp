@@ -7,39 +7,24 @@
 #include "game_interface/ui_window/sub_win_util/fonts.h"
 #include "map_structures/resources/res_enum.h"
 
-ResInfo::ResInfo(int resType, int resQuantity)
+ResInfo::ResInfo(const ResType resType, const int resQuantity) :
+	resType(resType), resQuantity(resQuantity)
 {
-	this->resType = resType;
-	this->resQuantity = resQuantity;
-
-	resQuantText.setFont(turretClassic);					//Text_stone_resQuantityility
+	ico.setResType(resType);
+	resQuantText.setFont(turretClassic);					//Text_resQuantityility
 	resQuantText.setCharacterSize(16);
 	resQuantText.setFillColor(standardColor);
 }
 
 ResInfo::ResInfo()
 {
-	resType = 0;
-	resQuantity = 0;
-
-	resQuantText.setFont(turretClassic);					//Text_stone_resQuantityility
+	resQuantText.setFont(turretClassic);					//Texte_resQuantityility
 	resQuantText.setCharacterSize(16);
 	resQuantText.setFillColor(standardColor);
 }
 
 
-
-void ResInfo::prepareSprites()
-{
-	resIcoImage.loadFromFile("images/resources_icons.bmp");				//Resources_icons
-	resIcoImage.createMaskFromColor(sf::Color(0, 255, 0));
-	resIcoTexture.loadFromImage(resIcoImage);
-	resIcoSprite.setTexture(resIcoTexture);
-}
-
-
-
-void ResInfo::update(int qurrentQuantity)
+void ResInfo::update(const int qurrentQuantity)
 {
 	resQuantity = qurrentQuantity;
 	
@@ -56,56 +41,17 @@ void ResInfo::draw(sf::RenderWindow& window, int positionX, int positionY)
 {
 	if (true) // there was "resQuantity > 0"
 	{
-		switch (resType)
-		{
-		case RES_STONE:
-			resIcoSprite.setTextureRect(sf::IntRect(0, 0, 18, 18));
-			break;
-
-		case RES_IRON:
-			resIcoSprite.setTextureRect(sf::IntRect(18, 0, 18, 18));
-			break;
-
-		case RES_COPPER:
-			resIcoSprite.setTextureRect(sf::IntRect(36, 0, 18, 18));
-			break;
-
-		case RES_SILICON:
-			resIcoSprite.setTextureRect(sf::IntRect(54, 0, 18, 18));
-			break;
-
-		case RES_COAL:
-			resIcoSprite.setTextureRect(sf::IntRect(72, 0, 18, 18));
-			break;
-
-		case RES_SULFUR:
-			resIcoSprite.setTextureRect(sf::IntRect(90, 0, 18, 18));
-			break;
-
-		case RES_AC_SHELLS:
-			resIcoSprite.setTextureRect(sf::IntRect(108, 0, 18, 18));
-			break;
-
-		case RES_ROCKET:
-			resIcoSprite.setTextureRect(sf::IntRect(126, 0, 18, 18));
-			break;
-
-		default:
-			resIcoSprite.setTextureRect(sf::IntRect(0, 0, 18, 18));
-			break;
-		}
-
-		resIcoSprite.setPosition(positionX, positionY);
+		ico.setPosition(sf::Vector2u(positionX, positionY));
 		resQuantText.setPosition(positionX + 25, positionY);
 
-		window.draw(resIcoSprite);
+		ico.draw(window);
 		window.draw(resQuantText);
 	}
 }
 
 
 
-void ResInfo::setResType(int resType)
+void ResInfo::setResType(const ResType resType)
 {
 	this->resType = resType;
 }

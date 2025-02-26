@@ -2,55 +2,49 @@
 #include "rocket_factory.h"
 
 #include "map_structures/resources/res_enum.h"
+#include "map_structures/world/world.h"
 
 
-RocketFactory::RocketFactory(const uint16_t type, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team) :
-	Factory(type, durability, size, tile, team)
-{
-	timer = 120;
-}
+RocketFactory::RocketFactory(const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team) :
+	Factory(durability, size, tile, team) { }
 
 
 void RocketFactory::interact()
 {
-	--timer;
-
 	if (timer%15 == 0)
-	{
-		placeResourceUnitX9(RES_ROCKET);
-	}
+		placeResourceUnitX9(ResType::ROCKET, world->getBuildingsMap());
 
-	if (timer == 0)
+	if (timer <= 0)
 	{
 		timer = 120;
 		produceResource();
 	}
 
 	this->animation();
+	--timer;
 }
 
 
 void RocketFactory::produceResource()
 {
-	if (isEnoughRes(RES_IRON, 3) && isEnoughRes(RES_COPPER, 2) && isEnoughRes(RES_SILICON, 1) && isEnoughRes(RES_SULFUR, 10) && !isEnoughRes(RES_ROCKET, 60))
+	if (isEnoughRes(ResType::IRON, 3) && isEnoughRes(ResType::COPPER, 2) && isEnoughRes(ResType::SILICON, 1) && isEnoughRes(ResType::SULFUR, 10) && !isEnoughRes(ResType::ROCKET, 60))
 	{
-		wasteResorce(RES_IRON, 3);
-		wasteResorce(RES_COPPER, 2);
-		wasteResorce(RES_SILICON, 1);
-		wasteResorce(RES_SULFUR, 10);
-		addToInventory(RES_ROCKET, 1);
+		wasteResorce(ResType::IRON, 3);
+		wasteResorce(ResType::COPPER, 2);
+		wasteResorce(ResType::SILICON, 1);
+		wasteResorce(ResType::SULFUR, 10);
+		addToInventory(ResType::ROCKET, 1);
 	}
 }
 
 
-bool RocketFactory::canAccept(const uint16_t resType) const
+bool RocketFactory::canAccept(const ResType resType) const
 {
-	if (resType == RES_IRON || resType == RES_COPPER || resType == RES_SILICON || resType == RES_SULFUR)
-	{
-		if (!isEnoughRes(resType, 60))
-			return true;
-	}
-	return false;
+	if (resType != ResType::IRON && resType != ResType::COPPER && resType != ResType::SILICON && resType != ResType::SULFUR)
+		return false;
+	if (isEnoughRes(resType, 60))
+		return false;
+	return true;
 }
 
 

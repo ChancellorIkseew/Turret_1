@@ -1,35 +1,30 @@
 
 #include <iostream>
+#include <cereal/types/vector.hpp>
 #include "conveyer.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
+#include "map_structures/world/world.h"
 
 const TileCoord nullCoord = { 0, 0 };
 
-Conveyer::Conveyer(const uint16_t type, const char direction, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team) :
-	Building(type, durability, size, tile, team)
+Conveyer::Conveyer(const char direction, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team) :
+	Building(durability, size, tile, team)
 {
 	this->direction = direction;
-	timer = 5;
-	speed = 0.0f;
-}
-
-Conveyer::~Conveyer()
-{
-	resUnits.clear();
 }
 
 
-void Conveyer::save(std::ofstream& fout) const
+void Conveyer::save(cereal::BinaryOutputArchive& archive) const
 {
-	fout << direction << '\n';
-	Building::save(fout);
+	Building::save(archive);
+	archive(direction, resUnits);
 }
 
-void Conveyer::load(std::ifstream& fin)
+void Conveyer::load(cereal::BinaryInputArchive& archive)
 {
-	fin >> direction;
-	Building::load(fin);
+	Building::load(archive);
+	archive(direction, resUnits);
 }
 
 
@@ -45,7 +40,9 @@ void Conveyer::interact()
 		return;
 	timer = 5;
 
-	TileCoord cheekTile = { 0, 0 };
+	TileCoord cheekTile;
+	BuildingsMap& buildingsMap = world->getBuildingsMap();
+	const float speed = getTransmitionSpeed();
 
 	for (auto res = resUnits.begin(); res != resUnits.end();)
 	{
@@ -60,7 +57,7 @@ void Conveyer::interact()
 			}
 
 			cheekTile = { tile.x, tile.y - 1 };
-			if (res->coord.y <= -12 && !BuildingsMap::canAccept(*res, cheekTile))
+			if (res->coord.y <= -12 && !buildingsMap.canAccept(*res, cheekTile))
 				goto retW;
 
 			for (auto& it : resUnits)
@@ -75,7 +72,7 @@ void Conveyer::interact()
 			if (res->coord.y <= -_HALF_TILE_)
 			{
 				res->coord.y += _TILE_;
-				BuildingsMap::addToInventory(*res, cheekTile);
+				buildingsMap.addToInventory(*res, cheekTile);
 				res = resUnits.erase(res);
 				break;
 			}
@@ -93,7 +90,7 @@ void Conveyer::interact()
 			}
 
 			cheekTile = { tile.x - 1, tile.y };
-			if (res->coord.x <= -12 && !BuildingsMap::canAccept(*res, cheekTile))
+			if (res->coord.x <= -12 && !buildingsMap.canAccept(*res, cheekTile))
 				goto retA;
 
 			for (auto& it : resUnits)
@@ -108,7 +105,7 @@ void Conveyer::interact()
 			if (res->coord.x <= -_HALF_TILE_)
 			{
 				res->coord.x += _TILE_;
-				BuildingsMap::addToInventory(*res, cheekTile);
+				buildingsMap.addToInventory(*res, cheekTile);
 				res = resUnits.erase(res);
 				break;
 			}
@@ -126,7 +123,7 @@ void Conveyer::interact()
 			}
 
 			cheekTile = { tile.x, tile.y + 1 };
-			if (res->coord.y >= 12 && !BuildingsMap::canAccept(*res, cheekTile))
+			if (res->coord.y >= 12 && !buildingsMap.canAccept(*res, cheekTile))
 				goto retS;
 
 			for (auto& it : resUnits)
@@ -141,7 +138,7 @@ void Conveyer::interact()
 			if (res->coord.y >= _HALF_TILE_)
 			{
 				res->coord.y -= _TILE_;
-				BuildingsMap::addToInventory(*res, cheekTile);
+				buildingsMap.addToInventory(*res, cheekTile);
 				res = resUnits.erase(res);
 				break;
 			}
@@ -159,7 +156,7 @@ void Conveyer::interact()
 			}
 
 			cheekTile = { tile.x + 1, tile.y };
-			if (res->coord.x >= 12 && !BuildingsMap::canAccept(*res, cheekTile))
+			if (res->coord.x >= 12 && !buildingsMap.canAccept(*res, cheekTile))
 				goto retD;
 
 			for (auto& it : resUnits)
@@ -174,7 +171,7 @@ void Conveyer::interact()
 			if (res->coord.x >= _HALF_TILE_)
 			{
 				res->coord.x -= _TILE_;
-				BuildingsMap::addToInventory(*res, cheekTile);
+				buildingsMap.addToInventory(*res, cheekTile);
 				res = resUnits.erase(res);
 				break;
 			}

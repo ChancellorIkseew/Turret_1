@@ -12,8 +12,9 @@
 class GeneralPreSettingsPage : public Page
 {
 private:
-	std::map<int, TextField> fields;
-	std::map<int, ResIco> resIco;
+	std::map<int, TextField> mapSize;
+	std::map<ResType, TextField> balance;
+	std::map<ResType, ResIco> resIco;
 
 public:
 	GeneralPreSettingsPage(const sf::Vector2u position);
@@ -21,7 +22,7 @@ public:
 
 	void interact() override final;
 	void relocateWithOwner(const sf::Vector2u ownerPosition) override final;
-	void enter() override final;
+	void enter(PreSettings& preSettings) override final;
 
 	void prepareInterfaceSprites() override final;
 	void draw(sf::RenderWindow& window) override final;

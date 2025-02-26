@@ -6,17 +6,17 @@
 
 struct MobsPre
 {
-	uint8_t quantityModifier;
-	float maxDurabilityModifier;
-	float collisionDamage;
-	uint8_t virtIntLevel;
+	uint8_t quantityModifier = 1;
+	float maxDurabilityModifier = 1.0f;
+	float collisionDamageModifier = 1.0f;
+	uint8_t virtIntLevel = 1;
 
 	void save(std::shared_ptr<cpptoml::table> root) const
 	{
 		auto mobsRoot = cpptoml::make_table();
 		mobsRoot->insert("quantity-modifier", quantityModifier);
 		mobsRoot->insert("max-durability-modifier", maxDurabilityModifier);
-		mobsRoot->insert("collision-damage", collisionDamage);
+		mobsRoot->insert("collision-damage", collisionDamageModifier);
 		mobsRoot->insert("ai-level", virtIntLevel);
 		root->insert("mobs", mobsRoot);
 	}
@@ -29,7 +29,7 @@ struct MobsPre
 		const auto x1 = table->get_as<double>("max-durability-modifier");
 		maxDurabilityModifier = static_cast<float>(x1.value_or(1.0f));
 		const auto x2 = table->get_as<double>("collision-damage");
-		collisionDamage = static_cast<float>(x2.value_or(1.0f));
+		collisionDamageModifier = static_cast<float>(x2.value_or(1.0f));
 		virtIntLevel = table->get_as<uint8_t>("ai-level").value_or(1);
 	}
 

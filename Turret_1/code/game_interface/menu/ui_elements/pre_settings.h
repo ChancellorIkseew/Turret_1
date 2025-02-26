@@ -5,9 +5,11 @@
 #include <map>
 #include <SFML/Graphics.hpp>
 
+#include "game_interface/main_window/game_state.h"
 #include "game_interface/ui_window/ui_window/ui_window.h"
 #include "game_interface/ui_window/sub_win_types/page/page.h"
 #include "game_interface/ui_window/elements/button/button.h"
+#include "map_structures/pre-settings/pre-settings.h"
 
 
 class PreSettingsWindow : public UIWindow
@@ -20,7 +22,7 @@ public:
 	PreSettingsWindow();
 	~PreSettingsWindow() = default;
 
-	int interact(bool& isMenuOpen);
+	GameState interact(bool& isMenuOpen, PreSettings& preSettings);
 	void relocate(sf::Vector2u windowSize) override final;
 
 	void prepareInterfaceSprites() override final;

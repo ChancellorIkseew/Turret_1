@@ -1,6 +1,9 @@
 
 #include "map_structures/entities/entity/entity.h"
 #include "map_structures/entities/entity/mob_enum.h"
+#include "map_structures/pre-settings/pre-settings.h"
+#include "map_structures/world/world.h"
+#include "t1_system/random/t1_random.h"
 
 #include "map_structures/entities/mob_types/standard_bot.h"
 #include "map_structures/entities/mob_types/heavy_bot.h"
@@ -11,22 +14,22 @@
 #include "map_structures/entities/mob_types/rocket_boss_bot.h"
 
 
-std::unique_ptr<Entity> Entity::createEntity(const uint16_t type, Team* const team)
+std::unique_ptr<Entity> Entity::createEntity(const MobType type, Team* const team)
 {
 	switch (type)
 	{
-	case STANDARD_BOT:
-		return std::make_unique<StandardBot>(STANDARD_BOT, team);
-	case HEAVY_BOT:
-		return std::make_unique<HeavyBot>(HEAVY_BOT, team);
-	case ROCKET_BOT:
-		return std::make_unique<RocketBot>(ROCKET_BOT, team);
-	case LASER_BOT:
-		return std::make_unique<LaserBot>(LASER_BOT, team);
-	case CANNON_BOSS:
-		return std::make_unique<CannonBossBot>(CANNON_BOSS, team);
-	case ROCKET_BOSS:
-		return std::make_unique<RocketBossBot>(ROCKET_BOSS, team);
+	case MobType::STANDARD_BOT:
+		return std::make_unique<StandardBot>(team);
+	case MobType::HEAVY_BOT:
+		return std::make_unique<HeavyBot>(team);
+	case MobType::ROCKET_BOT:
+		return std::make_unique<RocketBot>(team);
+	case MobType::LASER_BOT:
+		return std::make_unique<LaserBot>(team);
+	case MobType::CANNON_BOSS:
+		return std::make_unique<CannonBossBot>(team);
+	case MobType::ROCKET_BOSS:
+		return std::make_unique<RocketBossBot>(team);
 	default:
 		throw std::exception("mob_type does not exist");
 	}
@@ -36,10 +39,10 @@ std::unique_ptr<Entity> Entity::createEntity(const uint16_t type, Team* const te
 PixelCoord Entity::randomMapBorderSpawn()
 {
 	using namespace t1::be;
-
+	TileCoord mapSize = world->getPreSettings().getTerrain().mapSize;
 	float coordX, coordY;
-	int x = rand() % 4;
-	switch (x)
+	const int side = t1::Rand::getValue(0, 3);
+	switch (side)
 	{
 	case 0:
 		coordX = pixelF(0);

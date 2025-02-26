@@ -12,9 +12,9 @@
 class TerrainPreSettingsPage : public Page
 {
 private:
-	std::map<int, ResIco> resIco;
-	std::map<int, TextField> frequency;
-	std::map<int, TextField> depositSize;
+	std::map<ResType, ResIco> resIco;
+	std::map<ResType, TextField> frequency;
+	std::map<ResType, TextField> depositSize;
 
 	TextField seed;
 	TextField smoothLayer;
@@ -29,7 +29,7 @@ public:
 	~TerrainPreSettingsPage() = default;
 
 	void interact() override final;
-	void enter() override final;
+	void enter(PreSettings& preSettings) override final;
 	void relocateWithOwner(const sf::Vector2u windowSizeY) override final;
 
 	void prepareInterfaceSprites() override final;

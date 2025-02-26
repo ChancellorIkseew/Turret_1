@@ -6,6 +6,7 @@
 #include <map>
 #include "game_interface/ui_window/ui_window/ui_window.h"
 #include "game_interface/ui_window/elements/res_info/res_info.h"
+#include "map_structures/resources/res_enum.h"
 
 class Team;
 
@@ -13,7 +14,7 @@ class ResourcesPanel : public UIWindow
 {
 private:
 	static inline std::mutex mutex;
-	std::map<int, ResInfo> resInfo;
+	std::map<ResType, ResInfo> resInfo;
 
 	ResourcesPanel(const ResourcesPanel&) = delete;
 	ResourcesPanel& operator=(const ResourcesPanel&) = delete;

@@ -3,8 +3,15 @@
 #define WAVE_CONSTRUCTOR_H
 
 class Team;
+class World;
+class BuildingsMap;
 
-void createWave(Team& enemy);
-void switchEntities(const int wave, Team& enemy);
+class WaveConstructor
+{
+public:
+	static void createWave(Team& enemy, World& world);
+	static void switchEntities(const int wave, Team& enemy, const BuildingsMap& buildingsMap);
+	static void spawnTestWave(Team& enemy, const BuildingsMap& buildingsMap);
+};
 
 #endif // WAVE_CONSTRUCTOR_H

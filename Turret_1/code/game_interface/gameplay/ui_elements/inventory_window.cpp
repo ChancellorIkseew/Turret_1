@@ -2,38 +2,41 @@
 #include "inventory_window.h"
 #include "map_structures/resources/res_enum.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
+#include "map_structures/buildings/building/building.h"
 #include "t1_system/input/input_handler.h"
-#include "t1_system/sleep.h"
 
 
 InventoryWindow::InventoryWindow() : UIPlate(sf::Vector2u(225, 120), sf::Vector2u(0, 0))
 {
     isVisible = false;
 
-    resInfo.emplace(RES_STONE, ResInfo(RES_STONE, 0));
-    resInfo.emplace(RES_IRON, ResInfo(RES_IRON, 0));
-    resInfo.emplace(RES_COPPER, ResInfo(RES_COPPER, 0));
-    resInfo.emplace(RES_SILICON, ResInfo(RES_SILICON, 0));
-    resInfo.emplace(RES_COAL, ResInfo(RES_COAL, 0));
-    resInfo.emplace(RES_SULFUR, ResInfo(RES_SULFUR, 0));
+    resInfo.emplace(ResType::STONE, ResInfo(ResType::STONE, 0));
+    resInfo.emplace(ResType::IRON, ResInfo(ResType::IRON, 0));
+    resInfo.emplace(ResType::COPPER, ResInfo(ResType::COPPER, 0));
+    resInfo.emplace(ResType::SILICON, ResInfo(ResType::SILICON, 0));
+    resInfo.emplace(ResType::COAL, ResInfo(ResType::COAL, 0));
+    resInfo.emplace(ResType::SULFUR, ResInfo(ResType::SULFUR, 0));
+    resInfo.emplace(ResType::AC_SHELLS, ResInfo(ResType::AC_SHELLS, 0));
+    resInfo.emplace(ResType::HEAVY_SHELLS, ResInfo(ResType::HEAVY_SHELLS, 0));
+    resInfo.emplace(ResType::ROCKET, ResInfo(ResType::ROCKET, 0));
+    resInfo.emplace(ResType::RAIL_SHELLS, ResInfo(ResType::RAIL_SHELLS, 0));
 }
-void InventoryWindow::prepareInterfaceSprites() { }
 
 
-void InventoryWindow::interact(const sf::Vector2f& mouseMapCoord, Team* const team)
+void InventoryWindow::interact(const sf::Vector2f& mouseMapCoord, Team* team, const BuildingsMap& buildingsMap)
 {
     TileCoord selectedTile = t1::be::tile(mouseMapCoord.x, mouseMapCoord.y);
-    if (InputHandler::jactive(t1::BindName::LMB) && !BuildingsMap::isVoidBuilding(selectedTile))
+    if (InputHandler::jactive(t1::BindName::LMB) && !buildingsMap.isVoidBuilding(selectedTile))
     {
         isVisible = !isVisible;
     }
-    if (!isVisible || !BuildingsMap::buildingExists(selectedTile))
+    if (!isVisible || !buildingsMap.buildingExists(selectedTile))
         return;
 
     for (auto& info : resInfo)
     {
         int amount = 0;
-        for (auto& res : BuildingsMap::getInventory(selectedTile))
+        for (auto& res : buildingsMap.getInventory(selectedTile))
         {
             if (info.first == res.type)
             {

@@ -25,23 +25,23 @@ void MainMenu::prepareInterfaceSprites()
 	buttons[SETTINGS] = Button("settings.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 70));
 }
 
-int MainMenu::interact(bool& isMenuOpen)
+GameState MainMenu::interact(bool& isMenuOpen)
 {
 	while (isMenuOpen)
 	{
 		if (buttons[PLAY].press())
-			return CHOISE_FOLDER_MENU;
+			return GameState::CHOISE_FOLDER_MENU;
 
 		if (buttons[EXIT_GAME].press())
-			return EXIT;
+			return GameState::EXIT;
 
 		if (buttons[SETTINGS].press())
-			return OPTIONS;
+			return GameState::OPTIONS;
 
 		t1::system::sleep(16);
 	}
 
-	return MAIN_MENU;
+	return GameState::MAIN_MENU;
 }
 
 

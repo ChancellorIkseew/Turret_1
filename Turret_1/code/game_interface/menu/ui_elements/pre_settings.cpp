@@ -3,6 +3,7 @@
 
 #include "t1_system/sleep.h"
 #include "game_interface/main_window/main_window.h"
+#include "map_structures/pre-settings/pre-settings.h"
 
 #include "world_pre_settings/general_pre_settings.h"
 #include "world_pre_settings/terrain_pre_settings.h"
@@ -42,19 +43,19 @@ void PreSettingsWindow::prepareInterfaceSprites()
 }
 
 
-int PreSettingsWindow::interact(bool& isMenuOpen)
+GameState PreSettingsWindow::interact(bool& isMenuOpen, PreSettings& preSettings)
 {
 	while (isMenuOpen)
 	{
 		if (buttons[START_GAME].press())
 		{
 			for (auto& pg : pages)
-				pg.second->enter();
-			return GAMEPLAY;
+				pg.second->enter(preSettings);
+			return GameState::GAMEPLAY;
 		}
 
 		if (buttons[EXIT_TO_MENU].press())
-			return MAIN_MENU;
+			return GameState::MAIN_MENU;
 
 		for (auto& pg : pages)
 		{

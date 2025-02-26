@@ -2,9 +2,9 @@
 #ifndef MOB_ENUM_H
 #define MOB_ENUM_H
 
-
-enum MobType
+enum class MobType : uint8_t
 {
+	UNKNOWN_VALUE = 0, // for_test
 	STANDARD_BOT = 1,
 	HEAVY_BOT = 2,
 	CANNON_BOT = 3,
@@ -18,5 +18,13 @@ enum MobType
 	ROCKET_BOSS = 22
 };
 
+enum class MobCategory : uint8_t
+{
+	LIGHT,
+	MEDIUM,
+	HEAVY,
+	SUPER_HEAVY,
+	BOSS
+};
 
 #endif //!MOB_ENUM_H

@@ -8,10 +8,11 @@
 class Factory : public Building
 {
 protected:
-	int timer;
+	int timer = 0;
 
 public:
-	Factory(const uint16_t type, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team);
+	Factory(const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team);
+	Factory() = default;
 	virtual ~Factory() = default;
 
 	virtual void produceResource() = 0;

@@ -7,6 +7,8 @@
 #include "game_interface/ui_window/ui_window/ui_window.h"
 #include "game_interface/ui_window/elements/res_info/res_info.h"
 #include "map_structures/buildings/building/buildings_info.h"
+#include "map_structures/buildings/building/buildings_enum.h"
+#include "map_structures/pre-settings/pre_settings/buildings_pre.h"
 
 
 class ExpensesPanel : public UIWindow
@@ -16,7 +18,7 @@ private:
 	BuildingInfo& buildingInfo = nullInfo;
 	
 	sf::Text title;
-	std::map<int, ResInfo> resInfo;
+	std::map<ResType, ResInfo> resInfo;
 
 	ExpensesPanel(const ExpensesPanel&) = delete;
 	ExpensesPanel& operator=(const ExpensesPanel&) = delete;
@@ -25,7 +27,7 @@ public:
 	ExpensesPanel();
 	~ExpensesPanel() = default;
 	
-	void interact(const int index);
+	void interact(const BuildingType index, const BuildingsPre& buildingsPre);
 	void relocate(const sf::Vector2u windowSize) override final;
 
 	void prepareInterfaceSprites() override final;

@@ -7,8 +7,8 @@
 #include "map_structures/team/team.h"
 
 
-RocketTurret::RocketTurret(const uint16_t type, const TileCoord tile, Team* const team) :
-	Turret(ROCKET_TURRET, tile, team)
+RocketTurret::RocketTurret(const TileCoord tile, Team* const team) :
+	Turret(tile, team)
 {
 	spyralRange = 4109;
 	pixelRange = 34 * _TILE_;
@@ -27,7 +27,7 @@ void RocketTurret::shooting()
 
 		if (reloadTimer <= 0 && amooQuantity > 0)
 		{
-			team->spawnShell(ROCKET, { float(coord.x), float(coord.y) }, angleRad, angleDeg);
+			team->spawnShell(ShellType::ROCKET, { float(coord.x), float(coord.y) }, angleRad, angleDeg);
 			reloadTimer = 120;
 			--amooQuantity;
 		}
@@ -35,8 +35,8 @@ void RocketTurret::shooting()
 }
 
 
-void RocketTurret::takeAmoo(int resType) { amooQuantity += 1; }
-int RocketTurret::getAmooType() const { return RES_ROCKET; }
+void RocketTurret::takeAmoo(ResType resType) { amooQuantity += 1; }
+ResType RocketTurret::getAmooType() const { return ResType::ROCKET; }
 
 
 void RocketTurret::draw(sf::RenderWindow& window)

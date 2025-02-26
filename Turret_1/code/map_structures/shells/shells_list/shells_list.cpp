@@ -1,29 +1,20 @@
 
-#include "iostream"
+#include <iostream>
+#include <cereal/types/memory.hpp>
+#include <cereal/types/list.hpp>
 
 #include "shells_list.h"
 
-#include "map_structures/shells/shell/shell.h"
 
-
-ShellsList::ShellsList()
-{
-
+void ShellsList::save(cereal::BinaryOutputArchive& archive) const {
+	archive(shellsList);
+}
+void ShellsList::load(cereal::BinaryInputArchive& archive) {
+	archive(shellsList);
 }
 
 
-void ShellsList::save(const std::string& folder)
-{
-
-}
-
-void ShellsList::load(const std::string& folder)
-{
-
-}
-
-
-void ShellsList::spawnShell(const uint16_t type, const PixelCoord coord, float angleRad, float angleDeg, Team* const team)
+void ShellsList::spawnShell(const ShellType type, const PixelCoord coord, float angleRad, float angleDeg, Team* const team)
 {
 	try
 	{
@@ -31,12 +22,12 @@ void ShellsList::spawnShell(const uint16_t type, const PixelCoord coord, float a
 	}
 	catch (std::exception)
 	{
-		std::cout << "shell_type does not exist. type: " << type << '\n';
+		std::cout << "Shell_type does not exist. Type: " << static_cast<uint16_t>(type) << ".\n";
 	}
 }
 
 
-void ShellsList::move()
+void ShellsList::interact()
 {
 	for (auto it = shellsList.begin(); it != shellsList.end();)
 	{
@@ -54,17 +45,11 @@ void ShellsList::move()
 }
 
 
-void ShellsList::draw(sf::RenderWindow& window)
+void ShellsList::draw(sf::RenderWindow& window, const Camera& camera)
 {
-	for (auto it = shellsList.begin(); it != shellsList.end(); ++it)
+	for (auto& shell : shellsList)
 	{
-		(*it)->draw(window);
+		shell->draw(window);
 
 	}
-}
-
-
-void ShellsList::clean() noexcept
-{
-	shellsList.clear();
 }

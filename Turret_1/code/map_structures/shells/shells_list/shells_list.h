@@ -2,13 +2,13 @@
 #ifndef SHELLS_LIST_H
 #define SHELLS_LIST_H
 
-#include <string>
-#include <SFML\Graphics.hpp>
 #include <list>
+#include <SFML\Graphics.hpp>
+#include <cereal/archives/binary.hpp>
 
-#include "map_structures/base_engine/base_engine.h"
 #include "map_structures/shells/shell/shell.h"
 
+class Camera;
 
 class ShellsList
 {
@@ -16,18 +16,19 @@ private:
 	std::list<std::unique_ptr<Shell>> shellsList;
 	
 public:
-	ShellsList();
+	ShellsList() = default;
 	~ShellsList() = default;
 
-	void save(const std::string& folder);
-	void load(const std::string& folder);
+	void save(cereal::BinaryOutputArchive& archive) const;
+	void load(cereal::BinaryInputArchive& archive);
 
-	void spawnShell(const uint16_t type, const PixelCoord coord, float angleRad, float angleDeg, Team* const team);
-	void move();
+	void spawnShell(const ShellType type, const PixelCoord coord, float angleRad, float angleDeg, Team* const team);
+	void clear() noexcept { shellsList.clear(); }
 
-	void draw(sf::RenderWindow& window);
+	void interact();
+	void draw(sf::RenderWindow& window, const Camera& camera);
 
-	void clean() noexcept;
+	const std::list<std::unique_ptr<Shell>>& getList() const { return shellsList; }
 
 };
 

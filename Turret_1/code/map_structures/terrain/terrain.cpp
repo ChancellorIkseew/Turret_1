@@ -1,8 +1,10 @@
 
 #include <iostream>
-#include <fstream>
-#include <string>
 #include <SFML\Graphics.hpp>
+#include <cereal/cereal.hpp>
+#include <cereal/archives/binary.hpp>
+#include <cereal/types/vector.hpp>
+#include <cereal/types/memory.hpp>
 
 #include "terrain.h"
 
@@ -14,87 +16,36 @@
 #include "game_interface/gameplay/gameplay_util/camera.h"
 
 
-TerrainMap::TerrainMap(const TileCoord mapSize)
+TerrainMap::TerrainMap(const TileCoord mapSize) : mapSize(mapSize)
 {
-	this->mapSize = mapSize;
-
 	terrainMap.resize(mapSize.x);
-	terrainMap.reserve(mapSize.x);
 	for (auto& line : terrainMap)
-	{
 		line.resize(mapSize.y);
-		line.reserve(mapSize.y);
-		for (auto& terrain : line)
-		{
-			terrain = std::make_unique<int>(0);
-		}
-	}
-
-	this->prepareSprites();
 }
 
-TerrainMap::~TerrainMap()
+void TerrainMap::save(cereal::BinaryOutputArchive& archive) const
 {
-	terrainMap.clear();
+	std::cout << "try save terrain_map\n";
+	archive(terrainMap);
+	std::cout << "save terrain_map works\n";
 }
 
-
-void TerrainMap::generateMap()
+void TerrainMap::load(cereal::BinaryInputArchive& archive)
 {
-	terrainMap = std::move(generateTerrain(PreSettings::getTerrain()));
+	std::cout << "try load terrain_map\n";
+	archive(terrainMap);
+	std::cout << "load terrain_map works\n";
 }
 
-
-
-void TerrainMap::loadMap(const std::string& folder)
+void TerrainMap::generate(TerrainPre& terrainPre)
 {
-	std::string file = "saves/" + folder + "/terrain.txt";
-	std::ifstream fin;
-	fin.open(file);
-	if(fin.is_open())
-	{
-		for(int y=0; y < mapSize.y; ++y)
-		{
-			for(int x=0; x < mapSize.x; ++x)
-			{
-				char c; 
-				fin.get(c);
-				terrainMap[x][y] = std::move(std::make_unique<int>(c - 48));
-			}
-			char c;
-			fin.get(c);
-		}	
-	}
-	fin.close();
-	std::cout << "load_terrain_map_works" << '\n';
+	terrainMap = std::move(generateTerrain(terrainPre));
 }
 
 
-
-int TerrainMap::getTileType(int tileX, int tileY)
+ResType TerrainMap::getTileType(const TileCoord tile) const
 {
-	return *terrainMap[tileX][tileY];
-}
-
-
-void TerrainMap::saveMap(const std::string& folder)
-{
-	std::string file = "saves/" + folder + "/terrain.txt";
-	std::ofstream fout;
-	fout.open(file);
-	if (fout.is_open())
-	{
-		for (int y = 0; y < mapSize.y; ++y)
-		{
-			for (int x = 0; x < mapSize.x; ++x)
-			{
-				fout << *terrainMap[x][y];
-			}
-			fout << '\n';
-		}
-	}
-	fout.close();
-	std::cout << "Save map terrain works" <<'\n';
+	return static_cast<ResType>(*terrainMap[tile.x][tile.y]);
 }
 
 
@@ -105,10 +56,10 @@ void TerrainMap::prepareSprites()
 	mapSprite.setTexture(terrainTexture);
 }
 	
-void TerrainMap::drawMap(sf::RenderWindow& window)
+void TerrainMap::draw(sf::RenderWindow& window, const Camera& camera)
 {
-	const TileCoord start = Camera::getStartTile();
-	const TileCoord end = Camera::getEndTile();
+	const TileCoord start = camera.getStartTile();
+	const TileCoord end = camera.getEndTile();
 
 	for (int y = start.y; y < end.y; ++y)
 	{
@@ -117,63 +68,26 @@ void TerrainMap::drawMap(sf::RenderWindow& window)
 			switch (*terrainMap[x][y])
 			{
 			case TILE_GROUND:
-			{
 				mapSprite.setTextureRect(sf::IntRect(0, 0, _TILE_, _TILE_));	//void
-
 				break;
-			}
-
 			case TILE_STONE:
-			{
 				mapSprite.setTextureRect(sf::IntRect(32, 0, _TILE_, _TILE_));	//stone
-
 				break;
-			}
-
 			case TILE_IRON:
-			{
 				mapSprite.setTextureRect(sf::IntRect(64, 0, _TILE_, _TILE_));	//iron
-
 				break;
-			}
-
 			case TILE_COPPER:
-			{
 				mapSprite.setTextureRect(sf::IntRect(96, 0, _TILE_, _TILE_));	//copper
-
 				break;
-			}
-
 			case TILE_SILICON:
-			{
 				mapSprite.setTextureRect(sf::IntRect(0, 32, _TILE_, _TILE_));	//silicon
-
 				break;
-			}
-
 			case TILE_COAL:
-			{
 				mapSprite.setTextureRect(sf::IntRect(32, 32, _TILE_, _TILE_));	//coal
-
 				break;
-			}
-
 			case TILE_SULFUR:
-			{
 				mapSprite.setTextureRect(sf::IntRect(64, 32, _TILE_, _TILE_));	//sulfur
-
 				break;
-			}
-			/*
-			case '7':
-				{
-					terrainMap[i][j] = 0;
-					//mapSprite.setTextureRect(sf::IntRect(48, 16, 16, 16));	//leaf
-
-					break;
-				}
-			*/
-
 			}
 
 			mapSprite.setPosition(x * _TILE_, y * _TILE_);

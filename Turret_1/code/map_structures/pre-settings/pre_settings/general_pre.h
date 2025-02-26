@@ -4,11 +4,21 @@
 
 #include <map>
 #include "util/parser/cpptoml.h"
+#include "map_structures/resources/res_enum.h"
+
+enum class GameMode
+{
+	SANDBOX,
+	SURVIVAL,
+	STORM,
+	PVP
+};
 
 struct GeneralPre
 {
 public:
-	std::map<int, int> startBalance;
+	std::map<ResType, int> startBalance;
+	GameMode gameMode = GameMode::SANDBOX;
 
 	void save(std::shared_ptr<cpptoml::table> root) const
 	{

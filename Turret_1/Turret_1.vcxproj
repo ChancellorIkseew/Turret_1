@@ -150,6 +150,7 @@
     <ClCompile Include="code\game_interface\gameplay\gameplay.cpp" />
     <ClCompile Include="code\game_interface\gameplay\gameplay_streams\graphics.cpp" />
     <ClCompile Include="code\game_interface\gameplay\gameplay_streams\input.cpp" />
+    <ClCompile Include="code\game_interface\gameplay\gameplay_streams\scripts.cpp" />
     <ClCompile Include="code\game_interface\gameplay\gameplay_streams\simulation.cpp" />
     <ClCompile Include="code\game_interface\gameplay\gameplay_util\camera.cpp" />
     <ClCompile Include="code\game_interface\gameplay\gameplay_util\cheet_commands.cpp" />
@@ -195,24 +196,25 @@
     <ClCompile Include="code\game_interface\ui_window\sub_win_types\text_field\text_field.cpp" />
     <ClCompile Include="code\game_interface\ui_window\sub_win_util\fonts.cpp" />
     <ClCompile Include="code\internal_tests\coord_spyral_test.cpp" />
+    <ClCompile Include="code\internal_tests\save_load_test\save_load.cpp" />
     <ClCompile Include="code\map_structures\base_engine\coords\tile_coord_arrays.cpp" />
     <ClCompile Include="code\map_structures\base_engine\coords\transforms.cpp" />
     <ClCompile Include="code\map_structures\buildings\buildings_map\buildings_map.cpp" />
+    <ClCompile Include="code\map_structures\buildings\buildings_map\b_map_construction.cpp" />
+    <ClCompile Include="code\map_structures\buildings\buildings_map\b_map_get_set.cpp" />
+    <ClCompile Include="code\map_structures\buildings\buildings_map\b_map_save_load.cpp" />
+    <ClCompile Include="code\map_structures\buildings\buildings_map\b_map_turrets.cpp" />
     <ClCompile Include="code\map_structures\buildings\building\building.cpp" />
     <ClCompile Include="code\map_structures\buildings\building\buildings_info.cpp" />
     <ClCompile Include="code\map_structures\buildings\building\create_building.cpp" />
+    <ClCompile Include="code\map_structures\buildings\building\place_resource_unit.cpp" />
     <ClCompile Include="code\map_structures\buildings\building_types\auxilary\auxilary.cpp" />
     <ClCompile Include="code\map_structures\buildings\building_types\drills\drill.cpp" />
     <ClCompile Include="code\map_structures\buildings\building_types\drills\drill_types\big_drill.cpp" />
     <ClCompile Include="code\map_structures\buildings\building_types\drills\drill_types\small_drill.cpp" />
     <ClCompile Include="code\map_structures\buildings\building_types\factories\factory.cpp" />
-    <ClCompile Include="code\map_structures\buildings\building_types\factories\factory_types\concrete_factory.cpp" />
-    <ClCompile Include="code\map_structures\buildings\building_types\factories\factory_types\electronics_factory.cpp" />
-    <ClCompile Include="code\map_structures\buildings\building_types\factories\factory_types\rail_bolt_factory.cpp" />
     <ClCompile Include="code\map_structures\buildings\building_types\factories\factory_types\rocket_factory.cpp" />
     <ClCompile Include="code\map_structures\buildings\building_types\factories\factory_types\shell_factory.cpp" />
-    <ClCompile Include="code\map_structures\buildings\building_types\factories\factory_types\steel_factory.cpp" />
-    <ClCompile Include="code\map_structures\buildings\building_types\factories\factory_types\wire_factory.cpp" />
     <ClCompile Include="code\map_structures\buildings\building_types\logistics\bridge\bridge.cpp" />
     <ClCompile Include="code\map_structures\buildings\building_types\logistics\conveyer.cpp" />
     <ClCompile Include="code\map_structures\buildings\building_types\logistics\conveyer_types\shielded_conveyer.cpp" />
@@ -239,10 +241,15 @@
     <ClCompile Include="code\map_structures\entities\turret\turret.cpp" />
     <ClCompile Include="code\map_structures\entities\turret_types\autocannon_turret.cpp" />
     <ClCompile Include="code\map_structures\entities\turret_types\rocket_turret.cpp" />
-    <ClCompile Include="code\map_structures\particles\particles.cpp" />
+    <ClCompile Include="code\map_structures\particles\particles_list\particles_list.cpp" />
+    <ClCompile Include="code\map_structures\particles\particle\particle.cpp" />
     <ClCompile Include="code\map_structures\pre-settings\pre-settings.cpp" />
     <ClCompile Include="code\map_structures\resources\all_resources.cpp" />
     <ClCompile Include="code\map_structures\resources\resource_unit.cpp" />
+    <ClCompile Include="code\map_structures\shells\damage\damage.cpp" />
+    <ClCompile Include="code\map_structures\shells\shell_types\ac_shell.cpp" />
+    <ClCompile Include="code\map_structures\shells\shell_types\laser.cpp" />
+    <ClCompile Include="code\map_structures\world\world.cpp" />
     <ClCompile Include="code\map_structures\shells\shells_list\shells_list.cpp" />
     <ClCompile Include="code\map_structures\shells\shell\create_shell.cpp" />
     <ClCompile Include="code\map_structures\shells\shell\shell.cpp" />
@@ -255,6 +262,7 @@
     <ClCompile Include="code\map_structures\terrain\terrain_generator.cpp" />
     <ClCompile Include="code\t1_system\events\events_handler.cpp" />
     <ClCompile Include="code\t1_system\input\input_handler.cpp" />
+    <ClCompile Include="code\t1_system\random\t1_random.cpp" />
     <ClCompile Include="code\t1_system\sleep.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -282,6 +290,7 @@
     <ClInclude Include="code\game_interface\gameplay\ui_elements\settings_window.h" />
     <ClInclude Include="code\game_interface\gameplay\ui_elements\expenses_panel.h" />
     <ClInclude Include="code\game_interface\gameplay\ui_elements\specification_panel.h" />
+    <ClInclude Include="code\game_interface\main_window\game_state.h" />
     <ClInclude Include="code\game_interface\main_window\main_window.h" />
     <ClInclude Include="code\game_interface\main_window\main_window_resize.h" />
     <ClInclude Include="code\game_interface\menu\main_menu.h" />
@@ -296,6 +305,7 @@
     <ClInclude Include="code\game_interface\menu\world_pre-settings.h" />
     <ClInclude Include="code\game_interface\settings\settings.h" />
     <ClInclude Include="code\game_interface\settings\settings\display_settings.h" />
+    <ClInclude Include="code\game_interface\settings\settings\saving_settings.h" />
     <ClInclude Include="code\game_interface\sound_system\sound_system.h" />
     <ClInclude Include="code\game_interface\ui_window\elements\button\building_ico.h" />
     <ClInclude Include="code\game_interface\ui_window\elements\button\button.h" />
@@ -307,6 +317,7 @@
     <ClInclude Include="code\game_interface\ui_window\sub_win_types\text_field\text_field.h" />
     <ClInclude Include="code\game_interface\ui_window\sub_win_util\fonts.h" />
     <ClInclude Include="code\internal_tests\coord_spyral_test.h" />
+    <ClInclude Include="code\internal_tests\save_load_test\save_load.h" />
     <ClInclude Include="code\map_structures\base_engine\base_engine.h" />
     <ClInclude Include="code\map_structures\base_engine\coords\pixel_coord.h" />
     <ClInclude Include="code\map_structures\base_engine\coords\tile_coord.h" />
@@ -321,13 +332,8 @@
     <ClInclude Include="code\map_structures\buildings\building_types\drills\drill_types\big_drill.h" />
     <ClInclude Include="code\map_structures\buildings\building_types\drills\drill_types\small_drill.h" />
     <ClInclude Include="code\map_structures\buildings\building_types\factories\factory.h" />
-    <ClInclude Include="code\map_structures\buildings\building_types\factories\factory_types\concrete_factory.h" />
-    <ClInclude Include="code\map_structures\buildings\building_types\factories\factory_types\electronics_factory.h" />
-    <ClInclude Include="code\map_structures\buildings\building_types\factories\factory_types\rail_bolt_factory.h" />
     <ClInclude Include="code\map_structures\buildings\building_types\factories\factory_types\rocket_factory.h" />
     <ClInclude Include="code\map_structures\buildings\building_types\factories\factory_types\shell_factory.h" />
-    <ClInclude Include="code\map_structures\buildings\building_types\factories\factory_types\steel_factory.h" />
-    <ClInclude Include="code\map_structures\buildings\building_types\factories\factory_types\wire_factory.h" />
     <ClInclude Include="code\map_structures\buildings\building_types\logistics\bridge\bridge.h" />
     <ClInclude Include="code\map_structures\buildings\building_types\logistics\conveer.h" />
     <ClInclude Include="code\map_structures\buildings\building_types\logistics\conveer_types\shielded_conveer.h" />
@@ -355,7 +361,8 @@
     <ClInclude Include="code\map_structures\entities\turret\turret.h" />
     <ClInclude Include="code\map_structures\entities\turret_types\autocannon_turret.h" />
     <ClInclude Include="code\map_structures\entities\turret_types\rocket_turret.h" />
-    <ClInclude Include="code\map_structures\particles\particles.h" />
+    <ClInclude Include="code\map_structures\particles\particles_list\particles_list.h" />
+    <ClInclude Include="code\map_structures\particles\particle\particle.h" />
     <ClInclude Include="code\map_structures\pre-settings\pre-settings.h" />
     <ClInclude Include="code\map_structures\pre-settings\pre_settings\buildings_pre.h" />
     <ClInclude Include="code\map_structures\pre-settings\pre_settings\general_pre.h" />
@@ -366,6 +373,11 @@
     <ClInclude Include="code\map_structures\resources\all_resources.h" />
     <ClInclude Include="code\map_structures\resources\resource_unit.h" />
     <ClInclude Include="code\map_structures\resources\res_enum.h" />
+    <ClInclude Include="code\map_structures\resources\stored_resource.h" />
+    <ClInclude Include="code\map_structures\shells\damage\damage.h" />
+    <ClInclude Include="code\map_structures\shells\shell_types\ac_shell.h" />
+    <ClInclude Include="code\map_structures\shells\shell_types\laser.h" />
+    <ClInclude Include="code\map_structures\world\world.h" />
     <ClInclude Include="code\map_structures\shells\shells_list\shells_list.h" />
     <ClInclude Include="code\map_structures\shells\shell\shell.h" />
     <ClInclude Include="code\map_structures\shells\shell\shell_enum.h" />
@@ -381,6 +393,7 @@
     <ClInclude Include="code\t1_system\events\events_handler.h" />
     <ClInclude Include="code\t1_system\input\input_handler.h" />
     <ClInclude Include="code\t1_system\input\t1_input.h" />
+    <ClInclude Include="code\t1_system\random\t1_random.h" />
     <ClInclude Include="code\t1_system\sleep.h" />
     <ClInclude Include="code\t1_system\t1_mutex.h" />
   </ItemGroup>

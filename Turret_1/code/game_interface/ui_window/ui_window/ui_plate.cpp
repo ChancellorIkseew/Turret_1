@@ -26,7 +26,6 @@ void UIPlate::init()
 	prepareWindowBaseSprites();
 
 	ResIco::prepareSprites();
-	ResInfo::prepareSprites();
 	BuildingIco::prepareSprites();
 	initFonts();
 }

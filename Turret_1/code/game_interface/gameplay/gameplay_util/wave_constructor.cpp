@@ -7,121 +7,125 @@
 #include "map_structures/entities/entity/mob_enum.h"
 #include "map_structures/entities/entities_list/entities_list.h"
 #include "map_structures/team/team.h"
+#include "map_structures/world/world.h"
 
 
-void createWave(Team& team)
+void WaveConstructor::createWave(Team& team, World& world)
 {
-	if(t1::time::time%10800 == 0)
+	if(world.getTime().getTime() % 10800 == 0)
 	{
-		t1::time::waveNumber += 1;
-		
-		switchEntities(t1::time::waveNumber, team);
-		t1::time::time = 0;
+		world.time.setNextWave();
+		switchEntities(world.getTime().getWave(), team, world.getBuildingsMap());
+		world.time.setTime(0);
 	}
 }
 
 
-void switchEntities(const int wave, Team& enemy)
+void WaveConstructor::switchEntities(const int wave, Team& enemy, const BuildingsMap& buildingsMap)
 {
 	switch(wave)
 	{
 	case 1:
-		enemy.spawnEntity(2, STANDARD_BOT);
-//#ifdef TURRET_1_MOB_TYPES_TEST
-		enemy.spawnEntity(1, HEAVY_BOT);
-		enemy.spawnEntity(1, ROCKET_BOT);
-		enemy.spawnEntity(1, LASER_BOT);
-		enemy.spawnEntity(1, CANNON_BOSS);
-		enemy.spawnEntity(1, ROCKET_BOSS);
-		enemy.spawnEntity(1, 999);
-//#endif // TURRET_1_MOB_TYPES_TEST
+		enemy.spawnEntity(2, MobType::STANDARD_BOT, buildingsMap);
 		break;
 
 	case 2:
-		enemy.spawnEntity(5, STANDARD_BOT);
+		enemy.spawnEntity(5, MobType::STANDARD_BOT, buildingsMap);
 		break;
 
 	case 3:
-		enemy.spawnEntity(5, STANDARD_BOT);
-		enemy.spawnEntity(2, HEAVY_BOT);
+		enemy.spawnEntity(5, MobType::STANDARD_BOT, buildingsMap);
+		enemy.spawnEntity(2, MobType::HEAVY_BOT, buildingsMap);
 		break;
 
 	case 4:
-		enemy.spawnEntity(7, STANDARD_BOT);
-		enemy.spawnEntity(3, HEAVY_BOT);
+		enemy.spawnEntity(7, MobType::STANDARD_BOT, buildingsMap);
+		enemy.spawnEntity(3, MobType::HEAVY_BOT, buildingsMap);
 		break;
 
 	case 5:
-		enemy.spawnEntity(4, STANDARD_BOT);
-		enemy.spawnEntity(1, CANNON_BOSS);
+		enemy.spawnEntity(4, MobType::STANDARD_BOT, buildingsMap);
+		enemy.spawnEntity(1, MobType::CANNON_BOSS, buildingsMap);
 		break;
 
 	case 6:
-		enemy.spawnEntity(5, STANDARD_BOT);
-		enemy.spawnEntity(2, ROCKET_BOT);
+		enemy.spawnEntity(5, MobType::STANDARD_BOT, buildingsMap);
+		enemy.spawnEntity(2, MobType::ROCKET_BOT, buildingsMap);
 		break;
 
 	case 7:
-		enemy.spawnEntity(7, STANDARD_BOT);
-		enemy.spawnEntity(4, HEAVY_BOT);
-		enemy.spawnEntity(2, ROCKET_BOT);
+		enemy.spawnEntity(7, MobType::STANDARD_BOT, buildingsMap);
+		enemy.spawnEntity(4, MobType::HEAVY_BOT, buildingsMap);
+		enemy.spawnEntity(2, MobType::ROCKET_BOT, buildingsMap);
 		break;
 
 	case 8:
-		enemy.spawnEntity(7, STANDARD_BOT);
-		enemy.spawnEntity(2, HEAVY_BOT);
-		enemy.spawnEntity(5, ROCKET_BOT);
+		enemy.spawnEntity(7, MobType::STANDARD_BOT, buildingsMap);
+		enemy.spawnEntity(2, MobType::HEAVY_BOT, buildingsMap);
+		enemy.spawnEntity(5, MobType::ROCKET_BOT, buildingsMap);
 		break;
 
 	case 9:
-		enemy.spawnEntity(11, STANDARD_BOT);
-		enemy.spawnEntity(7, HEAVY_BOT);
-		enemy.spawnEntity(5, ROCKET_BOT);
+		enemy.spawnEntity(11, MobType::STANDARD_BOT, buildingsMap);
+		enemy.spawnEntity(7, MobType::HEAVY_BOT, buildingsMap);
+		enemy.spawnEntity(5, MobType::ROCKET_BOT, buildingsMap);
 		break;
 
 
 	case 10:
-		enemy.spawnEntity(11, STANDARD_BOT);
-		enemy.spawnEntity(5, HEAVY_BOT);
-		enemy.spawnEntity(2, ROCKET_BOT);
-		enemy.spawnEntity(2, CANNON_BOSS);
+		enemy.spawnEntity(11, MobType::STANDARD_BOT, buildingsMap);
+		enemy.spawnEntity(5, MobType::HEAVY_BOT, buildingsMap);
+		enemy.spawnEntity(2, MobType::ROCKET_BOT, buildingsMap);
+		enemy.spawnEntity(2, MobType::CANNON_BOSS, buildingsMap);
 		break;
 	}
 	
 	if(wave > 10 && wave < 20)
 	{
-		enemy.spawnEntity(15, STANDARD_BOT);
-		enemy.spawnEntity(9, HEAVY_BOT);
-		enemy.spawnEntity(7, ROCKET_BOT);
+		enemy.spawnEntity(15, MobType::STANDARD_BOT, buildingsMap);
+		enemy.spawnEntity(9, MobType::HEAVY_BOT, buildingsMap);
+		enemy.spawnEntity(7, MobType::ROCKET_BOT, buildingsMap);
 		
 		if(wave % 5 == 0)
-			enemy.spawnEntity(3, CANNON_BOSS);
+			enemy.spawnEntity(3, MobType::CANNON_BOSS, buildingsMap);
 	}
 	
 	if(wave > 19 && wave < 30)
 	{
-		enemy.spawnEntity(15, STANDARD_BOT);
-		enemy.spawnEntity(9, HEAVY_BOT);
-		enemy.spawnEntity(7, ROCKET_BOT);
+		enemy.spawnEntity(15, MobType::STANDARD_BOT, buildingsMap);
+		enemy.spawnEntity(9, MobType::HEAVY_BOT, buildingsMap);
+		enemy.spawnEntity(7, MobType::ROCKET_BOT, buildingsMap);
 
 		if(wave % 5 == 0)
 		{
-			enemy.spawnEntity(2, CANNON_BOSS);
-			enemy.spawnEntity(2, ROCKET_BOSS);
+			enemy.spawnEntity(2, MobType::CANNON_BOSS, buildingsMap);
+			enemy.spawnEntity(2, MobType::ROCKET_BOSS, buildingsMap);
 		}
 	}
 	
 	if(wave > 29 && wave < 40)
 	{
-		enemy.spawnEntity(15, STANDARD_BOT);
-		enemy.spawnEntity(9, HEAVY_BOT);
-		enemy.spawnEntity(7, ROCKET_BOT);
-		enemy.spawnEntity(7, LASER_BOT);
+		enemy.spawnEntity(15, MobType::STANDARD_BOT, buildingsMap);
+		enemy.spawnEntity(9, MobType::HEAVY_BOT, buildingsMap);
+		enemy.spawnEntity(7, MobType::ROCKET_BOT, buildingsMap);
+		enemy.spawnEntity(7, MobType::LASER_BOT, buildingsMap);
 		
 		if(wave % 5 == 0)
 		{
-			enemy.spawnEntity(2, CANNON_BOSS);
-			enemy.spawnEntity(2, ROCKET_BOSS);
+			enemy.spawnEntity(2, MobType::CANNON_BOSS, buildingsMap);
+			enemy.spawnEntity(2, MobType::ROCKET_BOSS, buildingsMap);
 		}	
 	}
+}
+
+
+void WaveConstructor::spawnTestWave(Team& enemy, const BuildingsMap& buildingsMap)
+{
+	enemy.spawnEntity(2, MobType::STANDARD_BOT, buildingsMap);
+	enemy.spawnEntity(1, MobType::HEAVY_BOT, buildingsMap);
+	enemy.spawnEntity(1, MobType::ROCKET_BOT, buildingsMap);
+	enemy.spawnEntity(1, MobType::LASER_BOT, buildingsMap);
+	enemy.spawnEntity(1, MobType::CANNON_BOSS, buildingsMap);
+	enemy.spawnEntity(1, MobType::ROCKET_BOSS, buildingsMap);
+	enemy.spawnEntity(1, MobType::UNKNOWN_VALUE, buildingsMap);
 }

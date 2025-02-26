@@ -5,33 +5,36 @@
 #include "map_structures/shells/shell/shell_enum.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/team/team.h"
+#include "map_structures/world/world.h"
 
+constexpr int TILE_RANGE = 8;
+const float PIXEL_RANGE = t1::be::pixelF(TILE_RANGE);
+const int SPYRAL_RANGE = t1::be::tileRangeToSpiralRange[TILE_RANGE];
 
-LaserBot::LaserBot(const uint16_t type, Team* const team) : Entity(type, team)
+LaserBot::LaserBot(Team* const team) : Entity(team)
 {
-	durability = 10 * maxDurabilityModifier;
-	pixelRange = 8;
-	spyralRange = 249;
+	durability = 10 * world->getPreSettings().getMobs().maxDurabilityModifier;
 }
 
 
-void LaserBot::shoot()
+void LaserBot::shoot(const BuildingsMap& buildingsMap)
 {
-	Entity::detectAim();
 	Entity::reloadWeapon();
+	Entity::aim(SPYRAL_RANGE, PIXEL_RANGE);
 
-	if (isAimDetected)
+	PixelCoord newAim = Aiming::aimOnShell(*this, PIXEL_RANGE, *world);
+	if (newAim.valid())
+		aimCoord = newAim;
+
+	if (aimCoord.valid())
 	{
 		shootingAngleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
-		shootingAngleDeg = atan2f(aimCoord.y - coord.y, aimCoord.x - coord.x) * 57.3f + 90.0f;
+		shootingAngleDeg = t1::be::radToDegree(shootingAngleRad);
 
 		if (reloadTimer <= 0)
 		{
-			float correctionX = cos(shootingAngleRad) * 4.5f;
-			float correctionY = sin(shootingAngleRad) * 4.5f;
-
-			team->spawnShell(AC_SHELL, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
-			reloadTimer = 60;
+			team->spawnShell(ShellType::LASER, coord, shootingAngleRad, shootingAngleDeg);
+			reloadTimer = 2;
 		}
 	}
 }
@@ -42,7 +45,7 @@ void LaserBot::draw(sf::RenderWindow& window)
 	entitySprite.setTextureRect(sf::IntRect(60, 0, 17, 15));
 	entitySprite.setOrigin(9, 8);
 
-	if (isAimDetected)
+	if (aimCoord.valid())
 		entitySprite.setRotation(shootingAngleDeg);
 	else
 		entitySprite.setRotation(motionAngleDeg);

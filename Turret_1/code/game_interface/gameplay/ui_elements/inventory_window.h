@@ -7,11 +7,12 @@
 #include "game_interface/ui_window/elements/res_info/res_info.h"
 
 class Team;
+class BuildingsMap;
 
 class InventoryWindow : public UIPlate
 {
 private:
-	std::map<int, ResInfo> resInfo;
+	std::map<ResType, ResInfo> resInfo;
 
 	InventoryWindow(const InventoryWindow&) = delete;
 	InventoryWindow& operator=(const InventoryWindow&) = delete;
@@ -20,10 +21,10 @@ public:
 	InventoryWindow();
 	~InventoryWindow() = default;
 
-	void interact(const sf::Vector2f& mouseMapCoord, Team* const team);
+	void interact(const sf::Vector2f& mouseMapCoord, Team* team, const BuildingsMap& buildingsMap);
 	void relocateToCoursor();
 
-	void prepareInterfaceSprites() override final;
+	void prepareInterfaceSprites() override final { /* No additional interface. */ }
 	void draw(sf::RenderWindow& window) override final;
 
 };

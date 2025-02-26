@@ -3,30 +3,28 @@
 #define RES_INDO_H
 
 #include <SFML\Graphics.hpp>
+#include "map_structures/resources/res_enum.h"
+#include "game_interface/ui_window/elements/res_ico/res_ico.h"
 
 
 class ResInfo
 {
 private:
-	static inline sf::Image resIcoImage;
-	static inline sf::Texture resIcoTexture;
-	static inline sf::Sprite resIcoSprite;
-
+	ResIco ico;
 	sf::Text resQuantText;
 
-	int resType;
-	int resQuantity;
+	ResType resType = ResType::NO_RESOURCES;
+	int resQuantity = 0;
 
 public:
-	ResInfo(int resType, int resQuantity);
+	ResInfo(const ResType resType, const int resQuantity);
 	ResInfo();
 	~ResInfo() = default;
 
-	void setResType(int resType);
-	void update(int qurrentQuantity);
+	void setResType(const ResType resType);
+	void update(const int qurrentQuantity);
 	int getQuantity() const;
 
-	static void prepareSprites();
 	void draw(sf::RenderWindow& window, int positionX, int powitionY);
 
 };

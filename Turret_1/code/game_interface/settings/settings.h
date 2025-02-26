@@ -3,16 +3,17 @@
 #define TURRET_1_SETTINGS_H
 
 #include "settings/display_settings.h"
+#include "settings/saving_settings.h"
 
 class Settings
 {
 private:
 	static inline DisplaySettings display;
+	static inline SavingSettings saving;
 
 public:
 	static void save();
 	static void load();
-	static void createDefaultSettingsFile();
 
 	static const DisplaySettings& getDisplay() { return display; }
 	static void getGraphics() { }

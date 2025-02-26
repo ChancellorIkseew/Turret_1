@@ -5,15 +5,15 @@
 #include "SFML/Graphics.hpp"
 #include "map_structures/buildings/building/building.h"
 
-
 class Core : public Building
 {
 public:
-	Core(const uint16_t type, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team);
+	Core(const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team);
+	Core() = default;
 	virtual ~Core() = default;
 
 	void interact() override final;
-	bool canAccept(const uint16_t resType) const override final;
+	bool canAccept(const ResType resType) const override final;
 	
 };
 

@@ -19,7 +19,7 @@ public:
 	~MobsPreSettingsPage() = default;
 
 	void interact() override final;
-	void enter() override final;
+	void enter(PreSettings& preSettings) override final;
 	void relocateWithOwner(const sf::Vector2u windowSizeY) override final;
 
 	void prepareInterfaceSprites() override final;

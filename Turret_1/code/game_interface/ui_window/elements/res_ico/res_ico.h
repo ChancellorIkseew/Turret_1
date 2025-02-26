@@ -3,6 +3,7 @@
 #define RES_ICO_H
 
 #include <SFML\Graphics.hpp>
+#include "map_structures/resources/res_enum.h"
 
 
 class ResIco
@@ -12,21 +13,17 @@ private:
 	static inline sf::Texture texture;
 	static inline sf::Sprite ico;
 
-	int resType;
-	sf::Vector2u position;
-	sf::Vector2u ownerPosition;
-
-	ResIco(const ResIco& other) = delete;
-	ResIco& operator=(const ResIco& other) = delete;
+	ResType resType = ResType::NO_RESOURCES;
+	sf::Vector2u position = sf::Vector2u(0, 0);
+	sf::Vector2u ownerPosition = sf::Vector2u(0, 0);
 
 public:
-	ResIco();
-	ResIco(const int resType, const sf::Vector2u position);
-	ResIco(const ResIco&& other) noexcept;
-	ResIco& operator=(const ResIco&& other) noexcept;
+	ResIco(const ResType resType, const sf::Vector2u position);
+	ResIco() = default;
 	~ResIco() = default;
 
-	void setResType(const int resType);
+	void setResType(const ResType resType);
+	void setPosition(const sf::Vector2u position);
 	void relocate(const sf::Vector2u ownerPosition);
 
 	static void prepareSprites();

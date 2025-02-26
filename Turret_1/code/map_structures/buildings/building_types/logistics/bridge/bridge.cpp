@@ -3,25 +3,27 @@
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/resources/res_enum.h"
+#include "map_structures/world/world.h"
 
+constexpr int STORAGE_CAPACITY = 10;
 
-Bridge::Bridge(const uint16_t type, const char direction, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team) :
-	Building(type, durability, size, tile, team)
+Bridge::Bridge(const char direction, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team) :
+	Building(durability, size, tile, team)
 {
 	this->direction = direction;
 }
 
 
-void Bridge::save(std::ofstream& fout) const
+void Bridge::save(cereal::BinaryOutputArchive& archive) const
 {
-	fout << direction << '\n';
-	Building::save(fout);
+	Building::save(archive);
+	archive(direction);
 }
 
-void Bridge::load(std::ifstream& fin)
+void Bridge::load(cereal::BinaryInputArchive& archive)
 {
-	fin >> direction;
-	Building::load(fin);
+	Building::load(archive);
+	archive(direction);
 }
 
 
@@ -33,8 +35,8 @@ void Bridge::interact()
 
 void Bridge::transmitResourceUnit()
 {
-	int resType = findResource();
-	if (resType == RES_NO_RESOURCES)
+	ResType resType = findResource();
+	if (resType == ResType::NO_RESOURCES)
 		return;
 
 	TileCoord aimTile{ tile.x, tile.y };
@@ -57,24 +59,24 @@ void Bridge::transmitResourceUnit()
 			break;
 		}
 
-		if (BuildingsMap::getBuildingType(aimTile) == ROUTER)
+		BuildingsMap& buildingsMap = world->getBuildingsMap();
+		if (buildingsMap.getBuildingType(aimTile) != BuildingType::ROUTER)
+			continue;
+
+		if (buildingsMap.canAccept(resType, aimTile))
 		{
-			if (BuildingsMap::canAccept(resType, aimTile))
-			{
-				wasteResorce(resType, 1);
-				BuildingsMap::addToInventory(resType, aimTile);
-			}
-			return;
+			wasteResorce(resType, 1);
+			buildingsMap.addToInventory(resType, aimTile);
 		}
+
+		return;
 	}
 }
 
 
-bool Bridge::canAccept(const uint16_t resType) const
+bool Bridge::canAccept(const ResType resType) const
 {
-	if (Building::isStorageFull(10))
-		return false;
-	return true;
+	return !Building::isStorageFull(STORAGE_CAPACITY);
 }
 
 
@@ -89,11 +91,9 @@ void Bridge::draw(sf::RenderWindow& window)
 	case 'a':
 		buildingSprite.setRotation(270);
 		break;
-
 	case 's':
 		buildingSprite.setRotation(180);
 		break;
-
 	case 'd':
 		buildingSprite.setRotation(90);
 		break;

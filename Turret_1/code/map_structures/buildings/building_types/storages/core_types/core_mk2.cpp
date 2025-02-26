@@ -2,12 +2,8 @@
 #include "core_mk2.h"
 
 
-CoreMK2::CoreMK2(const uint16_t type, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team) :
-	Core(type, durability, size, tile, team)
-{
-
-}
-
+CoreMK2::CoreMK2(const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team) :
+	Core(durability, size, tile, team) { }
 
 void CoreMK2::draw(sf::RenderWindow& window)
 {

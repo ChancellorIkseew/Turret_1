@@ -5,6 +5,7 @@
 #include <map>
 #include <SFML/Graphics.hpp>
 
+#include "game_interface/main_window/game_state.h"
 #include "game_interface/ui_window/ui_window/ui_window.h"
 #include "game_interface/ui_window/elements/button/button.h"
 
@@ -18,7 +19,7 @@ public:
 	MainMenu();
 	~MainMenu() = default;
 
-	int interact(bool& isMenuOpen);
+	GameState interact(bool& isMenuOpen);
 	void relocate(const sf::Vector2u windowSizeY) override final;
 
 	void prepareInterfaceSprites() override final;

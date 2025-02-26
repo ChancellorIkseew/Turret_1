@@ -5,14 +5,14 @@
 
 struct ShellsPre
 {
-	float directDamageModifier;
-	float burstDamageModifier;
+	float directDamageModifier = 1.0f;
+	float blastDamageModifier = 1.0f;
 
 	void save(std::shared_ptr<cpptoml::table> root) const
 	{
 		auto table = cpptoml::make_table();
 		table->insert("direct-damage-modifier", directDamageModifier);
-		table->insert("burst-damage-modifier", burstDamageModifier);
+		table->insert("blast-damage-modifier", blastDamageModifier);
 		root->insert("shells", table);
 	}
 
@@ -22,8 +22,8 @@ struct ShellsPre
 		//
 		const auto x1 = table->get_as<double>("direct-damage-modifier");
 		directDamageModifier = static_cast<float>(x1.value_or(1.0f));
-		const auto x2 = table->get_as<double>("burst-damage-modifier");
-		burstDamageModifier = static_cast<float>(x2.value_or(1.0f));
+		const auto x2 = table->get_as<double>("blast-damage-modifier");
+		blastDamageModifier = static_cast<float>(x2.value_or(1.0f));
 	}
 
 };

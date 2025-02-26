@@ -9,14 +9,18 @@
 #include "expenses_panel.h"
 #include "specification_panel.h"
 
+enum class BuildingType : uint16_t;
+
 class Team;
+class BuildingsMap;
+class Gameplay;
 
 class BuildingPanel : public UIWindow
 {
 private:
 	Button info;
 	std::map<int, Button> buttons;
-	std::map<int, std::map<uint16_t, BuildingIco>> pages;
+	std::map<int, std::map<BuildingType, BuildingIco>> pages;
 	
 	static inline sf::Image buildingsImage;
 	static inline sf::Texture buildingsTexture;
@@ -24,13 +28,13 @@ private:
 
 	int selectedPage;
 	bool isBuildingTypeSelected;
-	int oldBuildingType, newBuildingType;
+	BuildingType oldBuildingType, newBuildingType;
 	char direction;
 	bool isInfoOpen;
 
 	inline void selectBuildingType(BuildingIco& ico);
 	inline void rotateBuilding();
-	inline void placeBuilding(const sf::Vector2f& mouseMapCoord, Team* const team);
+	inline void placeBuilding(const sf::Vector2f& mouseMapCoord, Team* team, BuildingsMap& buildingsMap) const;
 
 	std::unique_ptr<ExpensesPanel> expensesPanel;
 	std::unique_ptr<SpecificationPanel> specificationPanel;
@@ -42,13 +46,13 @@ public:
 	BuildingPanel();
 	~BuildingPanel() = default;
 	
-	void interact(const sf::Vector2f& mouseMapCoord, Team* const team);
+	void interact(const sf::Vector2f& mouseMapCoord, Team* team, BuildingsMap& buildingsMap, const Gameplay& gameplay);
 	void relocate(const sf::Vector2u windowSize) override final;
 	bool containsCoursor() const override final;
 	
 	void prepareInterfaceSprites() override final;
 	void draw(sf::RenderWindow& window) override final;
-	void drawBuildExample(sf::RenderWindow& window, Team* const team);
+	void drawBuildExample(sf::RenderWindow& window, Team* team, const BuildingsMap& buildingsMap);
 	
 };
 

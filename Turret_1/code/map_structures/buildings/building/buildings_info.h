@@ -6,13 +6,14 @@
 #include <SFML/Graphics.hpp>
 
 #include "map_structures/resources/all_resources.h"
+#include "buildings_enum.h"
 
 struct BuildingInfo
 {
 	sf::String buildingTitle;
 
-	uint8_t size;
-	int16_t durability;
+	uint8_t size = 0;
+	int16_t durability = 0;
 
 	AllResources costToBuild;
 	sf::IntRect icoRect;
@@ -22,7 +23,7 @@ struct BuildingInfo
 
 namespace t1::bc
 {
-	extern std::map<uint16_t, const BuildingInfo> buildingsInfoTable;
+	extern std::map<BuildingType, const BuildingInfo> buildingsInfoTable;
 
 	void addBuildingsInfo(uint16_t type, const BuildingInfo info);
 }

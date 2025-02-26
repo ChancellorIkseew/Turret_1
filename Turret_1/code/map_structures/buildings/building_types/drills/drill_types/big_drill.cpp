@@ -1,42 +1,35 @@
 
 #include "big_drill.h"
+#include "map_structures/world/world.h"
 
+constexpr int STORAGE_CAPACITY = 20;
 
-BigDrill::BigDrill(const uint16_t type, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team) :
-	Drill(type, durability, size, tile, team)
-{
-	storageCapacity = 20;
-}
+BigDrill::BigDrill(const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team) :
+	Drill(durability, size, tile, team) { }
 
 
 void BigDrill::interact()
 {
 	if (timer % 15 == 0)
-	{
-		Building::placeResourceUnitX4(this->findResource());
-	}
+		Building::placeResourceUnitX4(findResource(), world->getBuildingsMap());
 
 	if (timer == 0)
 	{
 		timer = 150;
-		Drill::mineResource(2);
+		Drill::mineResource(2, STORAGE_CAPACITY);
 	}
 
-	--timer;
-
 	this->animation();
+	--timer;
 }
 
 void BigDrill::animation()
 {
-	if (!isStorageFull(storageCapacity))
-	{
-		rotorAngle += 0.5;
-		if (rotorAngle >= 360)
-		{
-			rotorAngle -= 360;
-		}
-	}
+	if (isStorageFull(STORAGE_CAPACITY))
+		return;
+	rotorAngle += 0.5f;
+	if (rotorAngle >= 360.0f)
+		rotorAngle -= 360.0f;
 }
 
 void BigDrill::draw(sf::RenderWindow& window)

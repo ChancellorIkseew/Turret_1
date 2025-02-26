@@ -5,42 +5,47 @@
 #include "map_structures/shells/shell/shell_enum.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/team/team.h"
+#include "map_structures/world/world.h"
+#include "t1_system/events/events_handler.h"
 
+constexpr int TILE_RANGE = 28;
+const int PIXEL_RANGE = t1::be::pixel(TILE_RANGE);
+const int SPYRAL_RANGE = t1::be::tileRangeToSpiralRange[TILE_RANGE];
 
-RocketBossBot::RocketBossBot(const uint16_t type, Team* const team) : Entity(type, team)
+RocketBossBot::RocketBossBot(Team* const team) : Entity(team)
 {
-	durability = 230 * maxDurabilityModifier;
-	pixelRange = 28;
-	spyralRange = 2661;
+	durability = 230 * world->getPreSettings().getMobs().maxDurabilityModifier;
 }
 
 
-void RocketBossBot::shoot()
+void RocketBossBot::shoot(const BuildingsMap& buildingsMap)
 {
-	Entity::detectAim();
 	Entity::reloadWeapon();
 
-	if (isAimDetected)
+	if (tileChanged() || EventsHandler::active(t1::EventType::MAP_CHANGED))
+		aimCoord = Aiming::aimOnBuilding(*this, SPYRAL_RANGE, world->getBuildingsMap());
+
+	if (aimCoord.valid())
 	{
 		shootingAngleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
-		shootingAngleDeg = atan2f(aimCoord.y - coord.y, aimCoord.x - coord.x) * 57.3f + 90.0f;
+		shootingAngleDeg = t1::be::radToDegree(shootingAngleRad);
 
 		if (reloadTimer <= 0)
 		{
-			float correctionX = cos(shootingAngleRad) * 18;
-			float correctionY = sin(shootingAngleRad) * 18;
+			float correctionX = cos(shootingAngleRad) * 18.0f;
+			float correctionY = sin(shootingAngleRad) * 18.0f;
 
-			team->spawnShell(ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
-			team->spawnShell(ROCKET, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg);
+			team->spawnShell(ShellType::ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
+			team->spawnShell(ShellType::ROCKET, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg);
 			reloadTimer = 60;
 		}
 		else if (reloadTimer == 30)
 		{
-			float correctionX = cos(shootingAngleRad) * 14;
-			float correctionY = sin(shootingAngleRad) * 14;
+			float correctionX = cos(shootingAngleRad) * 14.0f;
+			float correctionY = sin(shootingAngleRad) * 14.0f;
 
-			team->spawnShell(ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
-			team->spawnShell(ROCKET, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg);
+			team->spawnShell(ShellType::ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
+			team->spawnShell(ShellType::ROCKET, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg);
 		}
 	}
 }
@@ -51,7 +56,7 @@ void RocketBossBot::draw(sf::RenderWindow& window)
 	entitySprite.setTextureRect(sf::IntRect(0, 62, 47, 30));
 	entitySprite.setOrigin(24, 14);
 
-	if (isAimDetected)
+	if (aimCoord.valid())
 		entitySprite.setRotation(shootingAngleDeg);
 	else
 		entitySprite.setRotation(motionAngleDeg);

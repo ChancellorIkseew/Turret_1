@@ -2,9 +2,8 @@
 #ifndef TEAM_H
 #define TEAM_H
 
-#include <vector>
-#include <unordered_set>
 #include <SFML/Graphics.hpp>
+#include <cereal/archives/binary.hpp>
 
 #include "map_structures/entities/entities_list/entities_list.h"
 #include "map_structures/shells/shells_list/shells_list.h"
@@ -12,36 +11,41 @@
 
 #include "balance/balance.h"
 
+class Camera;
 
 class Team
 {
 private:
-	
-	int ID;
-	sf::String name;
+	int ID = 0;
+	std::string name;
 
-	void interact();
-	void draw(sf::RenderWindow& window);
-
-public:
-	static inline std::unordered_set<std::shared_ptr<Team>> teams;
 	EntitiesList entities;
 	ShellsList shells;
 	Balance balance;
 
-	Team(sf::String name);
+public:
+	Team(std::string name, int ID);
+	Team() = default;
 	~Team() = default;
 
-	static void addTeam(const sf::String& name);
-	static void addTeam(const std::shared_ptr<Team> team);
-	static void interactAll();
-	static void drawAll(sf::RenderWindow& window);
+	void save(cereal::BinaryOutputArchive& archive) const;
+	void load(cereal::BinaryInputArchive& archive);
 
-	void spawnShell(const uint16_t, const PixelCoord coord, float angleRad, float angleDeg);
-	void spawnEntity(const uint8_t amount, const uint16_t);
+	void interact(const BuildingsMap& buildingsMap);
+	void draw(sf::RenderWindow& window, const Camera& camera);
 
-	int getID();
-	Balance& getBalance();
+	void spawnShell(const ShellType type, const PixelCoord coord, float angleRad, float angleDeg);
+	void spawnEntity(const uint8_t amount, const MobType type, const BuildingsMap& buildingsMap);
+
+	Balance& getBalance() { return balance; }
+	EntitiesList& getEneities() { return entities; }
+	ShellsList& getShells() { return shells; }
+
+	const int getID() const { return ID; }
+	const std::string& getName() const { return name; }
+	const Balance& getBalance() const { return balance; }
+	const EntitiesList& getEneities() const { return entities; }
+	const ShellsList& getShells() const { return shells; }
 
 };
 

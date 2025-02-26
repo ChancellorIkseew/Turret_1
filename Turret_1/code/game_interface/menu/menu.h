@@ -3,9 +3,11 @@
 #define MENU_H
 
 #include <SFML/Graphics.hpp>
+#include "map_structures/pre-settings/pre-settings.h"
 
+enum class GameState;
 
-char openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string& saveFolderName);
+GameState openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string& saveFolderName, PreSettings& preSettings);
 
 
 #endif // MENU_H

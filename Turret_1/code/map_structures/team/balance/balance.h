@@ -2,28 +2,36 @@
 #ifndef TEAM_BALANCE_H
 #define TEAM_BALANCE_H
 
+#include <cereal/archives/binary.hpp>
 #include "map_structures/resources/all_resources.h"
+
+class World;
 
 class Balance
 {
 private:
-	
-
-public:
+	static inline World* world;
 	AllResources balance;
 
+public:
 	Balance();
+	~Balance() = default;
 
-	void giveStartRes(const std::map<int, int>& startRes);
+	void giveStartRes(const std::map<ResType, int>& startRes);
 
-	//void loadResources(std::string saveFolderName);
-	//void saveResources(std::string saveFolderName);
-
+	void save(cereal::BinaryOutputArchive& archive) const;
+	void load(cereal::BinaryInputArchive& archive);
+	
 	// Interaction
-
-	void accept(int type, short amount);
+	void accept(const ResType type, const short amount);
 	bool isEnough(const AllResources& expenses) const;
 	void waste(const AllResources& expenses);
+
+	const AllResources& getResources() const { return balance; }
+
+	static void initWorld(World* world) {
+		Balance::world = world;
+	}
 
 };
 

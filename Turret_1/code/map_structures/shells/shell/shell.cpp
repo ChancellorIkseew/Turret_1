@@ -1,28 +1,23 @@
 
 #include "shell.h"
 
-#include "shell_enum.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
-#include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/team/team.h"
+#include "map_structures/world/world.h"
 
 
-Shell::Shell(const uint16_t, const PixelCoord coord, float angleRad, float angleDeg, Team* const team)
+Shell::Shell(const PixelCoord coord, float angleRad, float angleDeg, Team* const team) :
+	coord(coord), angleRad(angleRad), angleDeg(angleDeg), team(team) { }
+
+void Shell::save(cereal::BinaryOutputArchive& archive) const
 {
-	this->type = type;
-	this->coord = coord;
-	this->angleRad = angleRad;
-	this->angleDeg = angleDeg;
-	this->team = team;
-	
-	damage = 1;
-	float speed = 1.6f;
-	lineMotion.x = sin(angleRad)*speed;
-	lineMotion.y = cos(angleRad)*speed;
-	
-	maxLifeTime = 200;
-	curentLifeTime = 0;
-	isWasted = false;
+	archive(coord, lineMotion, angleRad, restLifeTime);
+}
+
+void Shell::load(cereal::BinaryInputArchive& archive)
+{
+	archive(coord, lineMotion, angleRad, restLifeTime);
+	angleDeg = t1::be::radToDegree(angleRad);
 }
 
 
@@ -30,31 +25,32 @@ void Shell::motion()
 {
 	coord.x += lineMotion.x;
 	coord.y += lineMotion.y;
-	
-	if(++curentLifeTime > maxLifeTime)
+	if(--restLifeTime < 1)
 		isWasted = true;
 }
-
-void Shell::explosion() { }
 
 void Shell::tryHitting()
 {
 	TileCoord tile = t1::be::tile(coord);
-	if (!BuildingsMap::isVoidBuilding(tile) && BuildingsMap::getTeamID(tile) != team->getID())
+	BuildingsMap& buildingsMap = world->getBuildingsMap();
+	if (!buildingsMap.isVoidBuilding(tile) && buildingsMap.getTeamID(tile) != team->getID())
 	{
-		BuildingsMap::setDamage(this->damage, tile);
+		const float modifiedDamage = getDirectDamage() * world->getPreSettings().getShells().directDamageModifier;
+		buildingsMap.setDamage(modifiedDamage, tile);
 		isWasted = true;
+		return;
 	}
 
-	for (auto it = Team::teams.begin(); it != Team::teams.end(); ++it)
+	for (auto& team : world->getTeams())
 	{
-		if (this->team->getID() != (*it)->getID())
+		if (this->team->getID() != team.first)
 		{
-			for (auto entity = (*it)->entities.begin(); entity != (*it)->entities.end(); ++entity)
+			for (auto& entity : team.second->getEneities().getList())
 			{
-				if (abs((*entity)->getCoord().x - coord.x) < 7 && abs((*entity)->getCoord().y - coord.y) < 7)
+				if (abs(entity->getCoord().x - coord.x) < 7 && abs(entity->getCoord().y - coord.y) < 7)
 				{
-					(*entity)->setDamage(this->damage);
+					const float modifiedDamage = getDirectDamage() * world->getPreSettings().getShells().directDamageModifier;
+					entity->setDamage(modifiedDamage);
 					isWasted = true;
 					return;
 				}
@@ -62,10 +58,6 @@ void Shell::tryHitting()
 		}
 	}
 }
-
-
-PixelCoord Shell::getCoord() { return coord; }
-bool Shell::getIsWasted() { return isWasted; }
 
 
 void Shell::prepareSprites()
@@ -76,13 +68,4 @@ void Shell::prepareSprites()
 	shellSprite.setTexture(shellTexture);
 	shellSprite.setTextureRect(sf::IntRect(0, 0, 1, 2));
 	shellSprite.setOrigin(1, 1);
-}
-
-void Shell::draw(sf::RenderWindow& window)
-{
-	shellSprite.setTextureRect(sf::IntRect(0, 0, 1, 2));
-	shellSprite.setOrigin(0, 1);
-	shellSprite.setPosition(coord.x, coord.y);
-	shellSprite.setRotation(angleDeg);
-	window.draw(shellSprite);
 }

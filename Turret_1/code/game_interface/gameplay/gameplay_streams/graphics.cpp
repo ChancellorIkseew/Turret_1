@@ -10,11 +10,13 @@
 #include "game_interface/gameplay/ui_elements/exit_confirmation.h"
 #include "game_interface/gameplay/ui_elements/settings_window.h"
 
+#include "map_structures/buildings/building/building.h"
 #include "map_structures/entities/turret/turret.h"
 #include <iostream>
 
 void Gameplay::graphics(sf::RenderWindow& mainWindow)
 {
+    TerrainMap::prepareSprites();
     Building::prepareSprites();
     Turret::prepareSprites();
     ResourceUnit::prepareSprites();
@@ -46,19 +48,12 @@ void Gameplay::graphics(sf::RenderWindow& mainWindow)
         
         mainWindow.clear(sf::Color::Black);		//Begin draw_block
         camera.interact(mainWindow);
-
-        t1::system::mt::buildings.lock();
-        TerrainMap::drawMap(mainWindow);
-        BuildingsMap::drawMap(mainWindow);
-        drawParticlesList(mainWindow);
-        Team::drawAll(mainWindow);
-        t1::system::mt::buildings.unlock();
-
-        buildingPanel.drawBuildExample(mainWindow, player.get());
+        world.draw(mainWindow, camera);
+        buildingPanel.drawBuildExample(mainWindow, player, world.getBuildingsMap());
 
         mainWindow.setView(overlay);			//Draw_inteface block
         mainControlPanel.draw(mainWindow);
-        mainControlPanel.interactWaveTimer(isPaused);
+        mainControlPanel.interactWaveTimer(isPaused, world);
         buildingPanel.draw(mainWindow);
         resourcesPanel.draw(mainWindow);
         inventoryWindow.draw(mainWindow);

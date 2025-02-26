@@ -8,7 +8,7 @@ constexpr float SCALE_FACTOR = 1.2f;
 constexpr float MOTION_SPEED_MODIFIER = 20.0f;
 constexpr int MAX_MAP_STRUCTURE_SIZE = 6;
 
-Camera::Camera()
+Camera::Camera(const TileCoord mapSize)
 {
 	windowSize = sf::Vector2f(1024, 720);
 
@@ -17,7 +17,7 @@ Camera::Camera()
 	startTile = TileCoord(0, 0);
 	endTile = TileCoord(0, 0);
 
-	tileMapSize = PreSettings::getTerrain().mapSize;
+	tileMapSize = mapSize;
 	pixelMapSize = t1::be::pixel(tileMapSize);
 }
 
@@ -36,7 +36,10 @@ void Camera::interact(const sf::RenderWindow& window)
 void Camera::moveByMouse()
 {
 	if (InputHandler::jactive(t1::BindName::MidMB))
+	{
 		movingStartMouseCoord = InputHandler::getMouseMapCoord();
+		return;
+	}
 
 	if (InputHandler::active(t1::BindName::MidMB))
 	{

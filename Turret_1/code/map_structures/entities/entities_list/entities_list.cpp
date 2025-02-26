@@ -1,90 +1,44 @@
 
 #include <iostream>
+#include <cereal/types/memory.hpp>
+#include <cereal/types/list.hpp>
 
 #include "entities_list.h"
 
-#include "map_structures/entities/entity/entity.h"
 
-
-EntitiesList::EntitiesList()
-{
-
+void EntitiesList::save(cereal::BinaryOutputArchive& archive) const {
+	archive(entitiesList);
+}
+void EntitiesList::load(cereal::BinaryInputArchive& archive) {
+	archive(entitiesList);
 }
 
 
-void EntitiesList::save(const std::string& folder)
-{
-	/*
-	std::string file = "saves/" + folder + "/entities.txt";
-
-	std::ofstream fout;
-	fout.open(file);
-	if (fout.is_open())
-	{
-		for (auto it = entitiesList.cbegin(); it != entitiesList.cend(); ++it)
-		{
-			(*it)->save(fout);
-		}
-	}
-	fout << '&';
-	fout.close();
-	std::cout << "Save entities list works" << '\n';
-	*/
-}
-
-void EntitiesList::load(const std::string& folder)
-{
-	/*
-	std::string file = "saves/" + folder + "/entities.txt";
-	std::ifstream fin;
-	fin.open(file);
-	if (fin.is_open())
-	{
-		while (true)
-		{
-			char nextSymbol;
-			fin >> nextSymbol;
-
-			if (nextSymbol == '&')
-				break;
-
-			fin.seekg(-1, std::ios::cur);
-			int entityType;
-			fin >> entityType;
-			entitiesList.push_back(Entity::createEntity(entityType));
-			entitiesList.back()->load(fin);
-		}
-	}
-	fin.close();
-	std::cout << "Load entities list works" << '\n';
-	*/
-}
-
-
-
-void EntitiesList::spawnEntity(const uint8_t amount, const uint16_t type, Team* const team)
+void EntitiesList::spawnEntity(const uint8_t amount, const MobType type, Team* team, const BuildingsMap& buildingsMap)
 {
 	for (int i = 0; i < amount; ++i)
 	{
 		try
 		{
-			entitiesList.emplace_back(Entity::createEntity(type, team));
-			entitiesList.back()->setCoord(Entity::randomMapBorderSpawn());
+			std::unique_ptr<Entity> entity = Entity::createEntity(type, team);
+			entity->setCoord(Entity::randomMapBorderSpawn());
+			entity->setDestCoord(t1::be::pixel(t1::ent::findClosestCore(*entity, buildingsMap)));
+			entitiesList.push_back(std::move(entity));
 		}
 		catch (std::exception)
 		{
-			std::cout << "mob_type does not exist. type: " << type << '\n';
+			std::cout << "Mob_type does not exist. Type: " << static_cast<uint16_t>(type) << ".\n";
 		}
 	}
 }
 
 
-void EntitiesList::interact()
+void EntitiesList::interact(const BuildingsMap& buildingsMap)
 {
 	for (auto it = entitiesList.begin(); it != entitiesList.end();)
 	{
-		(*it)->motion();
-		(*it)->shoot();
+		(*it)->motion(buildingsMap);
+		(*it)->shoot(buildingsMap);
 
 		if ((*it)->getDurability() < 1)
 			it = entitiesList.erase(it);
@@ -94,25 +48,10 @@ void EntitiesList::interact()
 }
 
 
-void EntitiesList::draw(sf::RenderWindow& mainWindow)
+void EntitiesList::draw(sf::RenderWindow& mainWindow, const Camera& camera)
 {
-	for (auto it = entitiesList.begin(); it != entitiesList.end(); ++it)
+	for (auto& entity : entitiesList)
 	{
-		(*it)->draw(mainWindow);
+		entity->draw(mainWindow);
 	}
-}
-
-std::list<std::unique_ptr<Entity>>::iterator EntitiesList::begin() noexcept
-{
-	return entitiesList.begin();
-}
-
-std::list<std::unique_ptr<Entity>>::iterator EntitiesList::end() noexcept
-{
-	return entitiesList.end();
-}
-
-void EntitiesList::clean() noexcept
-{
-	entitiesList.clear();
 }

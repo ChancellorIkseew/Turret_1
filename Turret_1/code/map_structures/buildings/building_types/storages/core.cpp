@@ -3,12 +3,8 @@
 #include "map_structures/team/team.h"
 
 
-Core::Core(const uint16_t type, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team) :
-	Building(type, durability, size, tile, team)
-{
-
-}
-
+Core::Core(const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team) :
+	Building(durability, size, tile, team) { }
 
 void Core::interact()
 {
@@ -22,7 +18,7 @@ void Core::interact()
 	}
 }
 
-bool Core::canAccept(const uint16_t resType) const
+bool Core::canAccept(const ResType resType) const
 {
 	return true;
 }

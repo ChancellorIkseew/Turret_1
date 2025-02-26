@@ -14,10 +14,11 @@
 
 #include "map_structures/terrain/terrain.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
-#include "map_structures/particles/particles.h"
 #include "map_structures/pre-settings/pre-settings.h"
 #include "t1_system/input/input_handler.h"
 #include "t1_system/t1_mutex.h"
+
+#include "map_structures/world/world.h"
 
 enum buttonsEnum
 {
@@ -69,30 +70,16 @@ void MainControlPanel::prepareInterfaceSprites()
 
 
 
-void MainControlPanel::interact(bool& isPaused, bool& isGameplayActive)
+void MainControlPanel::interact(bool& isPaused, bool& isGameplayActive, const World& world)
 {
 	if (buttons[SAVE].press())
-	{
-		PreSettings::save();
-		//PreSettings::load();
-
-		std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
-		//TerrainMap::save(saveFolderName);
-		//BuildingsMap::save(saveFolderName);
-		//t1::time::save(saveFolderName);
-	}
+		world.save("save_1");
 	
 	if (buttons[EXIT_TO_MENU].press())
 	{
 		ConfirmationWindow::getInstance().setVisible(true);
-		
 		if(ConfirmationWindow::getInstance().interact())
-		{
-			std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
-			cleanParticlesList();
 			isGameplayActive = false;
-		}
-		
 		ConfirmationWindow::getInstance().setVisible(false);
 	}
 	
@@ -119,19 +106,19 @@ void MainControlPanel::interact(bool& isPaused, bool& isGameplayActive)
 
 
 
-void MainControlPanel::interactWaveTimer(const bool isPaused)
+void MainControlPanel::interactWaveTimer(const bool isPaused, const World& world)
 {
 	if(!isPaused)
 	{
 		std::ostringstream strWaveNumber;
-		strWaveNumber << t1::time::waveNumber;
+		strWaveNumber << world.getTime().getWave();
 		waveNumberText2.setString(strWaveNumber.str());
 
     	std::ostringstream strSeconds;
-		strSeconds << (59 - ((t1::time::time / 60) % 60));
+		strSeconds << (59 - ((world.getTime().getTime() / 60) % 60));
 
     	std::ostringstream strMinutes;
-		strMinutes << int(2 - (t1::time::time / 3600));
+		strMinutes << int(2 - (world.getTime().getTime() / 3600));
 
     	waveTimerText2.setString(strMinutes.str() + " : " + strSeconds.str());
 	}

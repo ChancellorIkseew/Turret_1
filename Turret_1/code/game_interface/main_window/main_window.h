@@ -2,17 +2,10 @@
 #ifndef MAIN_WINDOW_H
 #define MAIN_WINDOW_H
 
-enum GameCondition
-{
-	MAIN_MENU,
-	CHOISE_FOLDER_MENU,
-	PRE_SETTINGS_MENU,
-	GAMEPLAY,
-	OPTIONS,
-	EXIT
-};
+#include <SFML/Graphics.hpp>
 
 void openMainWindow();
+void startMenuCycle(sf::RenderWindow& mainWindow);
 
 
 #endif // MAIN_WINDOW_H

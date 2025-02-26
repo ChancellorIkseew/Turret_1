@@ -1,7 +1,7 @@
 
 #include "buildings_pages.h"
 
-void t1::bc::arrangePage(std::map<uint16_t, BuildingIco>& page)
+void t1::bc::arrangePage(std::map<BuildingType, BuildingIco>& page)
 {
 	int deltaX = 62, deltaY = 10;
 

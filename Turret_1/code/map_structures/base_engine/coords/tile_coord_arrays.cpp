@@ -2,6 +2,13 @@
 #include "tile_coord_arrays.h"
 
 
+const std::array<int, 35> t1::be::tileRangeToSpiralRange
+{
+	0, 8, 24, 44, 58, 108, 144, 192, 248, 304, 372, 436, 516, 608, 696, 792, 888, 1004, 1124, 1244, 1368, 1512, 1648,
+	1788, 1940, 2108, 2292, 2474, 2660, 2870, 3090, 3331, 3579, 3832, 4108
+};
+
+
 const std::array<TileCoord, 16> t1::be::coordSquareArr
 {
 	TileCoord(0,0),
