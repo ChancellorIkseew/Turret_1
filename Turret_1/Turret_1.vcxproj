@@ -207,6 +207,7 @@
     <ClCompile Include="code\map_structures\buildings\building\building.cpp" />
     <ClCompile Include="code\map_structures\buildings\building\buildings_info.cpp" />
     <ClCompile Include="code\map_structures\buildings\building\create_building.cpp" />
+    <ClCompile Include="code\map_structures\buildings\building\place_resource_unit.cpp" />
     <ClCompile Include="code\map_structures\buildings\building_types\auxilary\auxilary.cpp" />
     <ClCompile Include="code\map_structures\buildings\building_types\drills\drill.cpp" />
     <ClCompile Include="code\map_structures\buildings\building_types\drills\drill_types\big_drill.cpp" />

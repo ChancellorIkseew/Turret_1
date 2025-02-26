@@ -411,6 +411,9 @@
     <ClCompile Include="code\t1_system\random\t1_random.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="code\map_structures\buildings\building\place_resource_unit.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="libgcc_s_seh_64-1.dll" />

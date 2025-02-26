@@ -16,8 +16,11 @@ InventoryWindow::InventoryWindow() : UIPlate(sf::Vector2u(225, 120), sf::Vector2
     resInfo.emplace(ResType::SILICON, ResInfo(ResType::SILICON, 0));
     resInfo.emplace(ResType::COAL, ResInfo(ResType::COAL, 0));
     resInfo.emplace(ResType::SULFUR, ResInfo(ResType::SULFUR, 0));
+    resInfo.emplace(ResType::AC_SHELLS, ResInfo(ResType::AC_SHELLS, 0));
+    resInfo.emplace(ResType::HEAVY_SHELLS, ResInfo(ResType::HEAVY_SHELLS, 0));
+    resInfo.emplace(ResType::ROCKET, ResInfo(ResType::ROCKET, 0));
+    resInfo.emplace(ResType::RAIL_SHELLS, ResInfo(ResType::RAIL_SHELLS, 0));
 }
-void InventoryWindow::prepareInterfaceSprites() { }
 
 
 void InventoryWindow::interact(const sf::Vector2f& mouseMapCoord, Team* team, const BuildingsMap& buildingsMap)

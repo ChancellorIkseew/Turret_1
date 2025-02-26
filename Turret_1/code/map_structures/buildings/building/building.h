@@ -16,8 +16,6 @@ class Core;
 class BuildingsMap;
 class World;
 
-enum class ResType : uint8_t;
-
 class Building
 {
 private:

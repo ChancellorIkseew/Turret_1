@@ -24,7 +24,7 @@ public:
 	void interact(const sf::Vector2f& mouseMapCoord, Team* team, const BuildingsMap& buildingsMap);
 	void relocateToCoursor();
 
-	void prepareInterfaceSprites() override final;
+	void prepareInterfaceSprites() override final { /* No additional interface. */ }
 	void draw(sf::RenderWindow& window) override final;
 
 };

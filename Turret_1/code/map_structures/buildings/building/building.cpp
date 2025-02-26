@@ -50,32 +50,30 @@ bool Building::canAccept(const ResourceUnit& unit) const
 bool Building::isStorageFull(const short capacity) const
 {
 	short comonResQuant = 0;
-
-	for (auto it = inventory.cbegin(); it != inventory.cend(); ++it)
+	for (auto& res : inventory)
 	{
-		comonResQuant += it->quantity;
+		comonResQuant += res.quantity;
 	}
-
-	if (comonResQuant < capacity)
-		return false;
-	return true;
+	return comonResQuant >= capacity;
 }
 
 ResType Building::findResource() const
 {
-	for (auto it = inventory.cbegin(); it != inventory.cend(); ++it)
+	for (auto& res : inventory)
 	{
-		if (it->quantity > 0)
-			return it->type;
+		if (res.quantity > 0)
+			return res.type;
 	}
 	return ResType::NO_RESOURCES;
 }
 
 bool Building::isEnoughRes(const ResType resType, const uint16_t amount) const
 {
-	for (auto it = inventory.cbegin(); it != inventory.cend(); ++it)
+	for (auto& res : inventory)
 	{
-		if (it->type == resType && it->quantity >= amount)
+		if (res.type != resType)
+			continue;
+		if (res.quantity >= amount)
 			return true;
 	}
 	return false;
@@ -83,27 +81,25 @@ bool Building::isEnoughRes(const ResType resType, const uint16_t amount) const
 
 void Building::wasteResorce(const ResType resType, const uint16_t amount)
 {
-	for (auto it = inventory.begin(); it != inventory.end(); ++it)
+	for (auto& res : inventory)
 	{
-		if (it->type == resType)
-		{
-			it->quantity -= amount;
-			return;
-		}
+		if (res.type != resType)
+			continue;
+		res.quantity -= amount;
+		return;
 	}
 }
 
 void Building::addToInventory(const ResType resType, const uint16_t amount)
 {
-	for (auto it = inventory.begin(); it != inventory.end(); ++it)
+	for (auto& res : inventory)
 	{
-		if (it->type == resType)
-		{
-			it->quantity += amount;
-			return;
-		}
+		if (res.type != resType)
+			continue;
+		res.quantity += amount;
+		return;
 	}
-	inventory.emplace_back(StoredResource{ resType, amount });
+	inventory.emplace_back(resType, amount);
 }
 
 
@@ -136,101 +132,6 @@ bool Building::hasCorrectConveyerRight(const TileCoord tile, const BuildingsMap&
 		buildingsMap.getBuildingDirection(checkTile) == 'd');
 }
 
-
-// resUnits_and_inventory
-void Building::placeResourceUnit(const ResType resType, const TileCoord tile, BuildingsMap& buildingsMap)
-{
-	if (!isEnoughRes(resType, 1))
-		return;
-
-	int side = rand() % 4;
-	int i = 0;
-	TileCoord cheekTile(0, 0);
-	ResourceUnit unit;
-
-	while (true)
-	{
-		switch (side)
-		{
-		case 0:
-			if (++i > 4)
-				return;
-			cheekTile = TileCoord(tile.x, tile.y - 1);
-			unit = ResourceUnit(resType, 'w', PixelCoord(0, 12));
-			if (side == 0 && hasCorrectConveyerUp(tile, buildingsMap) &&
-				buildingsMap.canAccept(unit, cheekTile) && isEnoughRes(resType, 1))
-			{
-				buildingsMap.addToInventory(unit, cheekTile);
-				wasteResorce(resType, 1);
-			}
-			[[fallthrough]];
-		case 1:
-			if (++i > 4)
-				return;
-			cheekTile = TileCoord(tile.x - 1, tile.y);
-			unit = ResourceUnit(resType, 'a', PixelCoord(12, 0));
-			if (side == 1 && hasCorrectConveyerLeft(tile, buildingsMap) &&
-				buildingsMap.canAccept(unit, cheekTile) && isEnoughRes(resType, 1))
-			{
-				buildingsMap.addToInventory(unit, cheekTile);
-				wasteResorce(resType, 1);
-			}
-			[[fallthrough]];
-		case 2:
-			if (++i > 4)
-				return;
-			cheekTile = TileCoord(tile.x, tile.y + 1);
-			unit = ResourceUnit(resType, 's', PixelCoord(0, -12));
-			if (side == 2 && hasCorrectConveyerDown(tile, buildingsMap) &&
-				buildingsMap.canAccept(unit, cheekTile) && isEnoughRes(resType, 1))
-			{
-				buildingsMap.addToInventory(unit, cheekTile);
-				wasteResorce(resType, 1);
-			}
-			[[fallthrough]];
-		case 3:
-			if (++i > 4)
-				return;
-			cheekTile = TileCoord(tile.x + 1, tile.y);
-			unit = ResourceUnit(resType, 'd', PixelCoord(- 12, 0));
-			if (side == 3 && hasCorrectConveyerRight(tile, buildingsMap) &&
-				buildingsMap.canAccept(unit, cheekTile) && isEnoughRes(resType, 1))
-			{
-				buildingsMap.addToInventory(unit, cheekTile);
-				wasteResorce(resType, 1);
-			}
-		}
-
-		side = 0;
-	}
-}
-
-void Building::placeResourceUnitX1(const ResType resType, BuildingsMap& buildingsMap)
-{
-	placeResourceUnit(resType, tile, buildingsMap);
-}
-
-void Building::placeResourceUnitX4(const ResType resType, BuildingsMap& buildingsMap)
-{
-	if (!isEnoughRes(resType, 1))
-		return;
-	for (int i = 0; i < 4; ++i)
-	{
-		TileCoord tryTile = tile + t1::be::coordSquareArr[i];
-		placeResourceUnit(resType, tile, buildingsMap);
-	}
-}
-
-void Building::placeResourceUnitX9(const ResType resType, BuildingsMap& buildingsMap)
-{
-	if (!isEnoughRes(resType, 1))
-		return;
-	for (int i = 0; i < 9; (i != 3 ? ++i : i += 2))
-	{
-		TileCoord tryTile = tile + t1::be::coordSquareArr[i];
-		placeResourceUnit(resType, tile, buildingsMap);
-	}
-}
 
 // conveyers
 void Building::addToInventory(ResourceUnit& unit)

@@ -12,13 +12,11 @@ class Conveyer : public Building
 {
 protected:
 	int timer = 5;
-	float speed = 0.0f;
 	std::vector<ResourceUnit> resUnits;
 
 public:
 	Conveyer(const char direction, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team);
 	Conveyer() = default;
-	virtual ~Conveyer();
 
 	void save(cereal::BinaryOutputArchive& archive) const override final;
 	virtual void load(cereal::BinaryInputArchive& archive) override final;
@@ -26,6 +24,7 @@ public:
 	virtual void interact() override final;
 	void addToInventory(ResourceUnit& unit) override final;
 	bool canAccept(const ResourceUnit& unit) const override final;
+	virtual const float getTransmitionSpeed() = 0;
 	
 };
 

@@ -3,10 +3,7 @@
 
 
 StandardConveyer::StandardConveyer(const char direction, const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team) :
-	Conveyer(direction, durability, size, tile, team)
-{
-	speed = 2.0f;
-}
+	Conveyer(direction, durability, size, tile, team) { }
 
 
 void StandardConveyer::draw(sf::RenderWindow& window)

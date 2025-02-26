@@ -13,6 +13,7 @@ public:
 	~ShieldedConveyer() = default;
 
 	BuildingType getType() const override final { return BuildingType::SHIELDED_CONVEYER; }
+	const float getTransmitionSpeed() override final { return 2.0f; }
 
 	void draw(sf::RenderWindow& window) override final;
 	

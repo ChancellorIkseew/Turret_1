@@ -14,11 +14,6 @@ Conveyer::Conveyer(const char direction, const int16_t durability, const uint8_t
 	this->direction = direction;
 }
 
-Conveyer::~Conveyer()
-{
-	resUnits.clear();
-}
-
 
 void Conveyer::save(cereal::BinaryOutputArchive& archive) const
 {
@@ -47,6 +42,7 @@ void Conveyer::interact()
 
 	TileCoord cheekTile;
 	BuildingsMap& buildingsMap = world->getBuildingsMap();
+	const float speed = getTransmitionSpeed();
 
 	for (auto res = resUnits.begin(); res != resUnits.end();)
 	{

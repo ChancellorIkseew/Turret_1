@@ -7,6 +7,9 @@
 
 struct StoredResource
 {
+	StoredResource(ResType type, uint16_t quantity) :
+		type(type), quantity(quantity) { }
+
 	ResType type = ResType::NO_RESOURCES;
 	uint16_t quantity = 0;
 };

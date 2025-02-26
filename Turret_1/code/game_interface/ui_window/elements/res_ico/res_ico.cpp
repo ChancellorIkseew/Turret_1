@@ -57,10 +57,10 @@ void ResIco::draw(sf::RenderWindow& window) const
 		break;
 
 	case ResType::AC_SHELLS:
-		ico.setTextureRect(sf::IntRect(63, 0, 9, 9));
+		ico.setTextureRect(sf::IntRect(0, 18, 9, 9));
 		break;
 	case ResType::ROCKET:
-		ico.setTextureRect(sf::IntRect(72, 0, 9, 9));
+		ico.setTextureRect(sf::IntRect(18, 18, 9, 9));
 		break;
 
 	default:
