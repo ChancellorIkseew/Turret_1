@@ -1,6 +1,7 @@
 
 #include "building.h"
 #include "buildings_enum.h"
+#include <cereal/types/list.hpp>
 
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/resources/res_enum.h"
@@ -14,13 +15,13 @@ Building::Building(const int16_t durability, const uint8_t size, const TileCoord
 void Building::save(cereal::BinaryOutputArchive& archive) const
 {
 	int teamID = team->getID();
-	archive(durability, size, direction, tile, teamID);
+	archive(durability, size, direction, tile, teamID, inventory);
 }
 
 void Building::load(cereal::BinaryInputArchive& archive)
 {
 	int teamID;
-	archive(durability, size, direction, tile, teamID);
+	archive(durability, size, direction, tile, teamID, inventory);
 	team = world->getTeam(teamID);
 }
 

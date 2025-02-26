@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cereal/types/memory.hpp>
 #include <cereal/types/list.hpp>
+#include "game_interface/gameplay/gameplay_util/camera.h"
 
 #include "entities_list.h"
 
@@ -48,10 +49,14 @@ void EntitiesList::interact(const BuildingsMap& buildingsMap)
 }
 
 
-void EntitiesList::draw(sf::RenderWindow& mainWindow, const Camera& camera)
+void EntitiesList::draw(sf::RenderWindow& window, const Camera& camera)
 {
 	for (auto& entity : entitiesList)
 	{
-		entity->draw(mainWindow);
+		const TileCoord tile = t1::be::tile(entity->getCoord());
+		const TileCoord start = camera.getStartTile();
+		const TileCoord end = camera.getEndTile();
+		if (tile.x >= start.x && tile.x <= end.x && tile.y >= start.y && tile.y <= end.y)
+			entity->draw(window);
 	}
 }

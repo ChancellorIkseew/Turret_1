@@ -28,7 +28,7 @@ public:
 	void clean() noexcept { entitiesList.clear(); }
 
 	void interact(const BuildingsMap& buildingsMap);
-	void draw(sf::RenderWindow& mainWindow, const Camera& camera);
+	void draw(sf::RenderWindow& window, const Camera& camera);
 
 	const std::list<std::unique_ptr<Entity>>& getList() const { return entitiesList; }
 	

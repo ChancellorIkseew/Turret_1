@@ -6,9 +6,9 @@
 
 struct TimerPre
 {
-	uint32_t firstWave;
-	uint32_t normalWave;
-	uint32_t bossWave;
+	uint32_t firstWave = 10800;
+	uint32_t normalWave = 10800;
+	uint32_t bossWave = 10800;
 
 	void save(std::shared_ptr<cpptoml::table> root) const
 	{
@@ -27,7 +27,6 @@ struct TimerPre
 		normalWave = table->get_as<uint32_t>("normal-wave").value_or(180);
 		bossWave = table->get_as<uint32_t>("boss-wave").value_or(240);
 	}
-
 };
 
 #endif // MAP_STR_TIMER_PRE_H

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cereal/types/memory.hpp>
 #include <cereal/types/list.hpp>
+#include "game_interface/gameplay/gameplay_util/camera.h"
 
 #include "shells_list.h"
 
@@ -49,7 +50,10 @@ void ShellsList::draw(sf::RenderWindow& window, const Camera& camera)
 {
 	for (auto& shell : shellsList)
 	{
-		shell->draw(window);
-
+		const TileCoord tile = t1::be::tile(shell->getCoord());
+		const TileCoord start = camera.getStartTile();
+		const TileCoord end = camera.getEndTile();
+		if (tile.x >= start.x && tile.x <= end.x && tile.y >= start.y && tile.y <= end.y)
+			shell->draw(window);
 	}
 }
