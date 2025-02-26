@@ -23,20 +23,29 @@ InventoryWindow::InventoryWindow() : UIPlate(sf::Vector2u(225, 120), sf::Vector2
 }
 
 
-void InventoryWindow::interact(const sf::Vector2f& mouseMapCoord, Team* team, const BuildingsMap& buildingsMap)
+void InventoryWindow::interact(Team* team, const BuildingsMap& buildingsMap)
 {
-    TileCoord selectedTile = t1::be::tile(mouseMapCoord.x, mouseMapCoord.y);
-    if (InputHandler::jactive(t1::BindName::LMB) && !buildingsMap.isVoidBuilding(selectedTile))
+    const sf::Vector2f mouse = InputHandler::getMouseMapCoord();
+    const TileCoord newTile = t1::be::tile(mouse.x, mouse.y);
+    if (InputHandler::jactive(t1::BindName::LMB))
     {
         isVisible = !isVisible;
+        relocateToCoursor();
     }
-    if (!isVisible || !buildingsMap.buildingExists(selectedTile))
+    if (newTile.x != targetedTile.x || newTile.y != targetedTile.y)
+    {
+        targetedTile = newTile;
+        isVisible = false;
+    }
+    if (buildingsMap.isVoidBuilding(targetedTile) || buildingsMap.getTeam(targetedTile) != team)
+        isVisible = false;
+    if (!isVisible)
         return;
 
     for (auto& info : resInfo)
     {
         int amount = 0;
-        for (auto& res : buildingsMap.getInventory(selectedTile))
+        for (auto& res : buildingsMap.getInventory(targetedTile))
         {
             if (info.first == res.type)
             {
@@ -46,8 +55,6 @@ void InventoryWindow::interact(const sf::Vector2f& mouseMapCoord, Team* team, co
         }
         info.second.update(amount);
     }
-
-    relocateToCoursor();
 }
 
 
