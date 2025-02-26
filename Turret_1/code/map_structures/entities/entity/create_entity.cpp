@@ -3,6 +3,7 @@
 #include "map_structures/entities/entity/mob_enum.h"
 #include "map_structures/pre-settings/pre-settings.h"
 #include "map_structures/world/world.h"
+#include "t1_system/random/t1_random.h"
 
 #include "map_structures/entities/mob_types/standard_bot.h"
 #include "map_structures/entities/mob_types/heavy_bot.h"
@@ -40,8 +41,8 @@ PixelCoord Entity::randomMapBorderSpawn()
 	using namespace t1::be;
 	TileCoord mapSize = world->getPreSettings().getTerrain().mapSize;
 	float coordX, coordY;
-	int x = rand() % 4;
-	switch (x)
+	const int side = t1::Rand::getValue(0, 3);
+	switch (side)
 	{
 	case 0:
 		coordX = pixelF(0);

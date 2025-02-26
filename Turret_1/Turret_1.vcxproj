@@ -261,6 +261,7 @@
     <ClCompile Include="code\map_structures\terrain\terrain_generator.cpp" />
     <ClCompile Include="code\t1_system\events\events_handler.cpp" />
     <ClCompile Include="code\t1_system\input\input_handler.cpp" />
+    <ClCompile Include="code\t1_system\random\t1_random.cpp" />
     <ClCompile Include="code\t1_system\sleep.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -391,6 +392,7 @@
     <ClInclude Include="code\t1_system\events\events_handler.h" />
     <ClInclude Include="code\t1_system\input\input_handler.h" />
     <ClInclude Include="code\t1_system\input\t1_input.h" />
+    <ClInclude Include="code\t1_system\random\t1_random.h" />
     <ClInclude Include="code\t1_system\sleep.h" />
     <ClInclude Include="code\t1_system\t1_mutex.h" />
   </ItemGroup>
