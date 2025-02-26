@@ -5,11 +5,8 @@
 #include "particle.h"
 
 		
-Particle::Particle(const int type, const PixelCoord coord)
-{
-	this->type = type;
-	this->coord = coord;
-}
+Particle::Particle(const int type, const PixelCoord coord) :
+	type(type), coord(coord) { }
 
 void Particle::prepareSprites()
 {

@@ -14,7 +14,7 @@ void RocketFactory::interact()
 	if (timer%15 == 0)
 		placeResourceUnitX9(ResType::ROCKET, world->getBuildingsMap());
 
-	if (timer == 0)
+	if (timer <= 0)
 	{
 		timer = 120;
 		produceResource();

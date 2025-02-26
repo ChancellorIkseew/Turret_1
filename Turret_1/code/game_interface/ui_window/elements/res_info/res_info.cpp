@@ -10,6 +10,7 @@
 ResInfo::ResInfo(const ResType resType, const int resQuantity) :
 	resType(resType), resQuantity(resQuantity)
 {
+	ico.setResType(resType);
 	resQuantText.setFont(turretClassic);					//Text_resQuantityility
 	resQuantText.setCharacterSize(16);
 	resQuantText.setFillColor(standardColor);
@@ -21,17 +22,6 @@ ResInfo::ResInfo()
 	resQuantText.setCharacterSize(16);
 	resQuantText.setFillColor(standardColor);
 }
-
-
-
-void ResInfo::prepareSprites()
-{
-	resIcoImage.loadFromFile("images/resources_icons.bmp");	//Resources_icons
-	resIcoImage.createMaskFromColor(sf::Color(0, 255, 0));
-	resIcoTexture.loadFromImage(resIcoImage);
-	resIcoSprite.setTexture(resIcoTexture);
-}
-
 
 
 void ResInfo::update(const int qurrentQuantity)
@@ -51,49 +41,10 @@ void ResInfo::draw(sf::RenderWindow& window, int positionX, int positionY)
 {
 	if (true) // there was "resQuantity > 0"
 	{
-		switch (resType)
-		{
-		case ResType::STONE:
-			resIcoSprite.setTextureRect(sf::IntRect(0, 0, 18, 18));
-			break;
-
-		case ResType::IRON:
-			resIcoSprite.setTextureRect(sf::IntRect(18, 0, 18, 18));
-			break;
-
-		case ResType::COPPER:
-			resIcoSprite.setTextureRect(sf::IntRect(36, 0, 18, 18));
-			break;
-
-		case ResType::SILICON:
-			resIcoSprite.setTextureRect(sf::IntRect(54, 0, 18, 18));
-			break;
-
-		case ResType::COAL:
-			resIcoSprite.setTextureRect(sf::IntRect(72, 0, 18, 18));
-			break;
-
-		case ResType::SULFUR:
-			resIcoSprite.setTextureRect(sf::IntRect(90, 0, 18, 18));
-			break;
-
-		case ResType::AC_SHELLS:
-			resIcoSprite.setTextureRect(sf::IntRect(108, 0, 18, 18));
-			break;
-
-		case ResType::ROCKET:
-			resIcoSprite.setTextureRect(sf::IntRect(126, 0, 18, 18));
-			break;
-
-		default:
-			resIcoSprite.setTextureRect(sf::IntRect(0, 0, 18, 18));
-			break;
-		}
-
-		resIcoSprite.setPosition(positionX, positionY);
+		ico.setPosition(sf::Vector2u(positionX, positionY));
 		resQuantText.setPosition(positionX + 25, positionY);
 
-		window.draw(resIcoSprite);
+		ico.draw(window);
 		window.draw(resQuantText);
 	}
 }

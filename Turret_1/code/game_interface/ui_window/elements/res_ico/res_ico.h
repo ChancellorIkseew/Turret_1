@@ -17,17 +17,13 @@ private:
 	sf::Vector2u position = sf::Vector2u(0, 0);
 	sf::Vector2u ownerPosition = sf::Vector2u(0, 0);
 
-	ResIco(const ResIco& other) = delete;
-	ResIco& operator=(const ResIco& other) = delete;
-
 public:
 	ResIco(const ResType resType, const sf::Vector2u position);
-	ResIco(const ResIco&& other) noexcept;
-	ResIco& operator=(const ResIco&& other) noexcept;
 	ResIco() = default;
 	~ResIco() = default;
 
 	void setResType(const ResType resType);
+	void setPosition(const sf::Vector2u position);
 	void relocate(const sf::Vector2u ownerPosition);
 
 	static void prepareSprites();

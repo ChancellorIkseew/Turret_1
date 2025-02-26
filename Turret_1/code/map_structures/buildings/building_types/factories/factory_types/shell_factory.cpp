@@ -10,10 +10,10 @@ ShellFactory::ShellFactory(const int16_t durability, const uint8_t size, const T
 
 void ShellFactory::interact()
 {
-	if (timer == 0 || timer == 15)
+	if (timer <= 0 || timer == 15)
 		placeResourceUnitX4(ResType::AC_SHELLS, world->getBuildingsMap());
 
-	if (timer == 0)
+	if (timer <= 0)
 	{
 		timer = 30;
 		produceResource();

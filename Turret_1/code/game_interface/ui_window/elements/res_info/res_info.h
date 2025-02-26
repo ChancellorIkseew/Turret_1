@@ -4,15 +4,13 @@
 
 #include <SFML\Graphics.hpp>
 #include "map_structures/resources/res_enum.h"
+#include "game_interface/ui_window/elements/res_ico/res_ico.h"
 
 
 class ResInfo
 {
 private:
-	static inline sf::Image resIcoImage;
-	static inline sf::Texture resIcoTexture;
-	static inline sf::Sprite resIcoSprite;
-
+	ResIco ico;
 	sf::Text resQuantText;
 
 	ResType resType = ResType::NO_RESOURCES;
@@ -27,7 +25,6 @@ public:
 	void update(const int qurrentQuantity);
 	int getQuantity() const;
 
-	static void prepareSprites();
 	void draw(sf::RenderWindow& window, int positionX, int powitionY);
 
 };
