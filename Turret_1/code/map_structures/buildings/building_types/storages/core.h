@@ -13,7 +13,7 @@ public:
 	virtual ~Core() = default;
 
 	void interact() override final;
-	bool canAccept(const uint16_t resType) const override final;
+	bool canAccept(const ResType resType) const override final;
 	
 };
 

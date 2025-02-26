@@ -19,7 +19,7 @@ public:
 	void load(cereal::BinaryInputArchive& archive) override final;
 
 	void interact() override final;
-	bool canAccept(const uint16_t resType) const override final;
+	bool canAccept(const ResType resType) const override final;
 
 	void setTurret(const BuildingType turretType);
 	void removeTurret() { turret.reset(); }

@@ -15,8 +15,8 @@ class AutocannonTurret : public Turret
 
 		void shooting() override final;
 		
-		void takeAmoo(const int resType) override final;
-		int getAmooType() const override final;
+		void takeAmoo(const ResType resType) override final;
+		ResType getAmooType() const override final;
 		
 		void draw(sf::RenderWindow& window) override final;
 

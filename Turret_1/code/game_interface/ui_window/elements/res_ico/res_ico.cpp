@@ -3,18 +3,9 @@
 
 #include "map_structures/resources/res_enum.h"
 
-ResIco::ResIco(const int resType, const sf::Vector2u position)
-{
-	this->resType = resType;
-	this->position = position;
-	ownerPosition = sf::Vector2u(0, 0);
+ResIco::ResIco(const ResType resType, const sf::Vector2u position) :
+	resType(resType), position(position) { }
 
-}
-
-ResIco::ResIco()
-{
-	resType = 0;
-}
 
 ResIco& ResIco::operator=(const ResIco&& other) noexcept
 {
@@ -29,7 +20,7 @@ ResIco::ResIco(const ResIco&& other) noexcept
 	position = other.position;
 }
 
-void ResIco::setResType(const int resType)
+void ResIco::setResType(const ResType resType)
 {
 	this->resType = resType;
 }
@@ -54,29 +45,29 @@ void ResIco::draw(sf::RenderWindow& window) const
 {
 	switch (resType)
 	{
-	case RES_STONE:
+	case ResType::STONE:
 		ico.setTextureRect(sf::IntRect(0, 0, 18, 18));
 		break;
-	case RES_IRON:
+	case ResType::IRON:
 		ico.setTextureRect(sf::IntRect(18, 0, 18, 18));
 		break;
-	case RES_COPPER:
+	case ResType::COPPER:
 		ico.setTextureRect(sf::IntRect(36, 0, 18, 18));
 		break;
-	case RES_SILICON:
+	case ResType::SILICON:
 		ico.setTextureRect(sf::IntRect(54, 0, 18, 18));
 		break;
-	case RES_COAL:
+	case ResType::COAL:
 		ico.setTextureRect(sf::IntRect(72, 0, 18, 18));
 		break;
-	case RES_SULFUR:
+	case ResType::SULFUR:
 		ico.setTextureRect(sf::IntRect(90, 0, 18, 18));
 		break;
 
-	case RES_AC_SHELLS:
+	case ResType::AC_SHELLS:
 		ico.setTextureRect(sf::IntRect(108, 0, 18, 18));
 		break;
-	case RES_ROCKET:
+	case ResType::ROCKET:
 		ico.setTextureRect(sf::IntRect(126, 0, 18, 18));
 		break;
 

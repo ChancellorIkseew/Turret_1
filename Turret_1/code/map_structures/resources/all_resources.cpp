@@ -5,20 +5,13 @@
 
 AllResources::AllResources(const int stone, const int iron, const int copper, const int silicon, const int coal, const int sulfur)
 {
-	allResources.emplace(RES_STONE, stone);
-	allResources.emplace(RES_IRON, iron);
-	allResources.emplace(RES_COPPER, copper);
-	allResources.emplace(RES_SILICON, silicon);
-	allResources.emplace(RES_COAL, coal);
-	allResources.emplace(RES_SULFUR, sulfur);
+	allResources.emplace(ResType::STONE, stone);
+	allResources.emplace(ResType::IRON, iron);
+	allResources.emplace(ResType::COPPER, copper);
+	allResources.emplace(ResType::SILICON, silicon);
+	allResources.emplace(ResType::COAL, coal);
+	allResources.emplace(ResType::SULFUR, sulfur);
 }
 
-AllResources::AllResources(const std::map<int, int> allResources)
-{
-	this->allResources = allResources;
-}
-
-AllResources::AllResources()
-{
-
-}
+AllResources::AllResources(const std::map<ResType, int> allResources) :
+	allResources(allResources) { }

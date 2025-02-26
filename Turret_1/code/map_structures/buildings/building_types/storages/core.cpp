@@ -18,7 +18,7 @@ void Core::interact()
 	}
 }
 
-bool Core::canAccept(const uint16_t resType) const
+bool Core::canAccept(const ResType resType) const
 {
 	return true;
 }

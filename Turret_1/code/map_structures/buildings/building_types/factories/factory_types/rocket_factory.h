@@ -17,7 +17,7 @@ public:
 	void produceResource() override final;
 	BuildingType getType() const override final { return BuildingType::ROCKET_FACTORY; }
 
-	bool canAccept(const uint16_t resType) const override final;
+	bool canAccept(const ResType resType) const override final;
 
 	void animation();
 	void draw(sf::RenderWindow& window) override final;

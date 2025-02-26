@@ -21,7 +21,7 @@ private:
 	sf::Text durability;
 	sf::Text description;
 
-	std::map<int, ResInfo> resInfo;
+	std::map<ResType, ResInfo> resInfo;
 
 	SpecificationPanel(const SpecificationPanel&) = delete;
 	SpecificationPanel& operator=(const SpecificationPanel&) = delete;

@@ -8,12 +8,12 @@
 
 ResourcesPanel::ResourcesPanel() : UIWindow(sf::Vector2u(134, 219), sf::Vector2u(0, 0))
 {
-    resInfo[RES_STONE] = ResInfo(RES_STONE, 0);
-    resInfo[RES_IRON] = ResInfo(RES_IRON, 0);
-    resInfo[RES_COPPER] = ResInfo(RES_COPPER, 0);
-    resInfo[RES_SILICON] = ResInfo(RES_SILICON, 0);
-    resInfo[RES_COAL] = ResInfo(RES_COAL, 0);
-    resInfo[RES_SULFUR] = ResInfo(RES_SULFUR, 0);
+    resInfo[ResType::STONE] = ResInfo(ResType::STONE, 0);
+    resInfo[ResType::IRON] = ResInfo(ResType::IRON, 0);
+    resInfo[ResType::COPPER] = ResInfo(ResType::COPPER, 0);
+    resInfo[ResType::SILICON] = ResInfo(ResType::SILICON, 0);
+    resInfo[ResType::COAL] = ResInfo(ResType::COAL, 0);
+    resInfo[ResType::SULFUR] = ResInfo(ResType::SULFUR, 0);
 
     this->prepareInterfaceSprites();
 }

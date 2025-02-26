@@ -35,8 +35,8 @@ void Bridge::interact()
 
 void Bridge::transmitResourceUnit()
 {
-	int resType = findResource();
-	if (resType == RES_NO_RESOURCES)
+	ResType resType = findResource();
+	if (resType == ResType::NO_RESOURCES)
 		return;
 
 	TileCoord aimTile{ tile.x, tile.y };
@@ -74,7 +74,7 @@ void Bridge::transmitResourceUnit()
 }
 
 
-bool Bridge::canAccept(const uint16_t resType) const
+bool Bridge::canAccept(const ResType resType) const
 {
 	return !Building::isStorageFull(STORAGE_CAPACITY);
 }

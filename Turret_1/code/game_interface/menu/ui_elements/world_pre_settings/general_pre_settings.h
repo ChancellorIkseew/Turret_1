@@ -12,8 +12,9 @@
 class GeneralPreSettingsPage : public Page
 {
 private:
-	std::map<int, TextField> fields;
-	std::map<int, ResIco> resIco;
+	std::map<int, TextField> mapSize;
+	std::map<ResType, TextField> balance;
+	std::map<ResType, ResIco> resIco;
 
 public:
 	GeneralPreSettingsPage(const sf::Vector2u position);

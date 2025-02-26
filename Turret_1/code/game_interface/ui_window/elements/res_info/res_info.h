@@ -3,6 +3,7 @@
 #define RES_INDO_H
 
 #include <SFML\Graphics.hpp>
+#include "map_structures/resources/res_enum.h"
 
 
 class ResInfo
@@ -14,16 +15,16 @@ private:
 
 	sf::Text resQuantText;
 
-	int resType;
-	int resQuantity;
+	ResType resType = ResType::NO_RESOURCES;
+	int resQuantity = 0;
 
 public:
-	ResInfo(int resType, int resQuantity);
+	ResInfo(const ResType resType, const int resQuantity);
 	ResInfo();
 	~ResInfo() = default;
 
-	void setResType(int resType);
-	void update(int qurrentQuantity);
+	void setResType(const ResType resType);
+	void update(const int qurrentQuantity);
 	int getQuantity() const;
 
 	static void prepareSprites();

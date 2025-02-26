@@ -4,11 +4,11 @@
 #include "res_enum.h"
 
 
-ResourceUnit::ResourceUnit(const int type, const char direction, const PixelCoord coord) :
-	type(type), direction(direction), coord(coord) {}
+ResourceUnit::ResourceUnit(const ResType type, const char direction, const PixelCoord coord) :
+	type(type), direction(direction), coord(coord) { }
 
 ResourceUnit::ResourceUnit(const ResourceUnit& other) :
-	type(other.type), direction(other.direction), coord(other.coord) {}
+	type(other.type), direction(other.direction), coord(other.coord) { }
 
 
 void ResourceUnit::save(cereal::BinaryOutputArchive& archive) const {
@@ -33,29 +33,29 @@ void ResourceUnit::draw(sf::RenderWindow& window, const TileCoord tile) const
 {
 	switch (type)
 	{
-	case RES_STONE:
+	case ResType::STONE:
 		resourceSprite.setTextureRect(sf::IntRect(9, 0, 9, 9));	//Stone
 		break;
-	case RES_IRON:
+	case ResType::IRON:
 		resourceSprite.setTextureRect(sf::IntRect(18, 0, 9, 9));	//Iron
 		break;
-	case RES_COPPER:
+	case ResType::COPPER:
 		resourceSprite.setTextureRect(sf::IntRect(27, 0, 9, 9));	//Copper
 		break;
-	case RES_SILICON:
+	case ResType::SILICON:
 		resourceSprite.setTextureRect(sf::IntRect(36, 0, 9, 9));	//Silicon
 		break;
-	case RES_COAL:
+	case ResType::COAL:
 		resourceSprite.setTextureRect(sf::IntRect(45, 0, 9, 9));	//Coal
 		break;
-	case RES_SULFUR:
+	case ResType::SULFUR:
 		resourceSprite.setTextureRect(sf::IntRect(54, 0, 9, 9));	//Sulfur
 		break;
 
-	case RES_AC_SHELLS:
+	case ResType::AC_SHELLS:
 		resourceSprite.setTextureRect(sf::IntRect(0, 18, 9, 9));	//Shells
 		break;
-	case RES_ROCKET:
+	case ResType::ROCKET:
 		resourceSprite.setTextureRect(sf::IntRect(9, 18, 9, 9));	//Rocket
 		break;
 	default:

@@ -11,13 +11,13 @@ Router::Router(const int16_t durability, const uint8_t size, const TileCoord til
 
 void Router::interact()
 {
-	int resType = findResource();
-	if (resType != RES_NO_RESOURCES)
+	ResType resType = findResource();
+	if (resType != ResType::NO_RESOURCES)
 		placeResourceUnitX1(resType, world->getBuildingsMap());
 }
 
 
-bool Router::canAccept(const uint16_t resType) const
+bool Router::canAccept(const ResType resType) const
 {
 	return !Building::isStorageFull(STORAGE_CAPACITY);
 }

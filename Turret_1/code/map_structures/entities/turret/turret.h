@@ -9,6 +9,7 @@
 #include "map_structures/base_engine/base_engine.h"
 
 enum class BuildingType : uint16_t;
+enum class ResType : uint8_t;
 
 class Team;
 class World;
@@ -51,13 +52,13 @@ public:
 	virtual void shooting() = 0;
 
 	bool needAmoo() const;
-	virtual void takeAmoo(const int resType) = 0;
+	virtual void takeAmoo(const ResType resType) = 0;
 
 	TileCoord getTile() const { return t1::be::tile(coord); }
 	PixelCoord getCoord() const { return coord; }
 	int getAngleDeg() const { return int(angleDeg); }
 	short getAmooQuantity() const { return amooQuantity; }
-	virtual int getAmooType() const = 0;
+	virtual ResType getAmooType() const = 0;
 	void setCoord(const PixelCoord coord);
 
 	// visual

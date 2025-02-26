@@ -45,8 +45,8 @@ void AutocannonTurret::shooting()
 }
 
 
-void AutocannonTurret::takeAmoo(int resType) { amooQuantity += 20; }
-int AutocannonTurret::getAmooType() const { return RES_AC_SHELLS; }
+void AutocannonTurret::takeAmoo(ResType resType) { amooQuantity += 20; }
+ResType AutocannonTurret::getAmooType() const { return ResType::AC_SHELLS; }
 
 
 void AutocannonTurret::draw(sf::RenderWindow& window)

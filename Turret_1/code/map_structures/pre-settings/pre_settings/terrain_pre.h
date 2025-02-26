@@ -5,13 +5,14 @@
 #include <map>
 #include "util/parser/cpptoml.h"
 #include "map_structures/base_engine/base_engine.h"
+#include "map_structures/resources/res_enum.h"
 
 struct TerrainPre
 {
 	uint32_t seed = 0;
 	uint8_t smoothLayer = 0;
-	std::map<int, int> frequency;
-	std::map<int, int> depositSize;
+	std::map<ResType, int> frequency;
+	std::map<ResType, int> depositSize;
 	TileCoord mapSize = TileCoord(0, 0);
 
 	void save(std::shared_ptr<cpptoml::table> root) const

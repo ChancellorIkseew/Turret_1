@@ -18,7 +18,7 @@ private:
 	BuildingInfo& buildingInfo = nullInfo;
 	
 	sf::Text title;
-	std::map<int, ResInfo> resInfo;
+	std::map<ResType, ResInfo> resInfo;
 
 	ExpensesPanel(const ExpensesPanel&) = delete;
 	ExpensesPanel& operator=(const ExpensesPanel&) = delete;

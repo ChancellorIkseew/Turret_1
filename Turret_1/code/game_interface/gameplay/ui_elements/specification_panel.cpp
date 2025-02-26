@@ -13,12 +13,12 @@ BuildingInfo SpecificationPanel::nullInfo = { L" ", 0, 0, {0, 0, 0, 0, 0, 0}, sf
 
 SpecificationPanel::SpecificationPanel() : UIWindow(sf::Vector2u(340, 400), sf::Vector2u(0, 0))
 {
-    resInfo.emplace(RES_STONE, ResInfo(RES_STONE, 0));
-    resInfo.emplace(RES_IRON, ResInfo(RES_IRON, 0));
-    resInfo.emplace(RES_COPPER, ResInfo(RES_COPPER, 0));
-    resInfo.emplace(RES_SILICON, ResInfo(RES_SILICON, 0));
-    resInfo.emplace(RES_COAL, ResInfo(RES_COAL, 0));
-    resInfo.emplace(RES_SULFUR, ResInfo(RES_SULFUR, 0));
+    resInfo.emplace(ResType::STONE, ResInfo(ResType::STONE, 0));
+    resInfo.emplace(ResType::IRON, ResInfo(ResType::IRON, 0));
+    resInfo.emplace(ResType::COPPER, ResInfo(ResType::COPPER, 0));
+    resInfo.emplace(ResType::SILICON, ResInfo(ResType::SILICON, 0));
+    resInfo.emplace(ResType::COAL, ResInfo(ResType::COAL, 0));
+    resInfo.emplace(ResType::SULFUR, ResInfo(ResType::SULFUR, 0));
 
     this->prepareInterfaceSprites();
 }

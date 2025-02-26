@@ -68,7 +68,7 @@ inline int generateTile(TerrainPre& terrainPre, std::mt19937& gen)
 		{
 			std::uniform_int_distribution<> dist(0, int(10000 / it.second));
 			if (dist(gen) == 0)
-				return it.first;
+				return static_cast<int>(it.first);
 		}
 	}
 	return TILE_GROUND;
@@ -79,8 +79,8 @@ inline void generateSpot(const TerrainPre& terrainPre, std::vector<std::vector<s
 {
 	const TileCoord mapSize = terrainPre.mapSize;
 
-	int tileType = *terrainMap[start.x][start.y];
-	int spotSize = terrainPre.depositSize.find(tileType)->second;
+	ResType tileType = static_cast<ResType>(*terrainMap[start.x][start.y]);
+	int spotSize = static_cast<int>(terrainPre.depositSize.find(tileType)->second);
 
 	TileCoord tile = start;
 	std::uniform_int_distribution<> dist(0, 3);
@@ -106,7 +106,7 @@ inline void generateSpot(const TerrainPre& terrainPre, std::vector<std::vector<s
 			nTile.x = tile.x + t1::be::coordSpyralArr[i].x;
 			nTile.y = tile.y + t1::be::coordSpyralArr[i].y;
 			if (tileExitst(nTile, mapSize))
-				*terrainMap[nTile.x][nTile.y] = tileType;
+				*terrainMap[nTile.x][nTile.y] = static_cast<int>(tileType);
 		}
 	}
 }

@@ -12,7 +12,7 @@ class BuildingsMap;
 class InventoryWindow : public UIPlate
 {
 private:
-	std::map<int, ResInfo> resInfo;
+	std::map<ResType, ResInfo> resInfo;
 
 	InventoryWindow(const InventoryWindow&) = delete;
 	InventoryWindow& operator=(const InventoryWindow&) = delete;

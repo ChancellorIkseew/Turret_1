@@ -35,8 +35,8 @@ void RocketTurret::shooting()
 }
 
 
-void RocketTurret::takeAmoo(int resType) { amooQuantity += 1; }
-int RocketTurret::getAmooType() const { return RES_ROCKET; }
+void RocketTurret::takeAmoo(ResType resType) { amooQuantity += 1; }
+ResType RocketTurret::getAmooType() const { return ResType::ROCKET; }
 
 
 void RocketTurret::draw(sf::RenderWindow& window)

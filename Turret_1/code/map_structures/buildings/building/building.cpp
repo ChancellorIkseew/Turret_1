@@ -40,7 +40,7 @@ void Building::setDurability(const int16_t durability) {
 int Building::getTeamID() const { return team->getID(); }
 
 // resUnits_and_inventory
-bool Building::canAccept(const uint16_t resType) const { return false; }
+bool Building::canAccept(const ResType resType) const { return false; }
 bool Building::canAccept(const ResourceUnit& unit) const
 {
 	return canAccept(unit.type);
@@ -61,17 +61,17 @@ bool Building::isStorageFull(const short capacity) const
 	return true;
 }
 
-int Building::findResource() const
+ResType Building::findResource() const
 {
 	for (auto it = inventory.cbegin(); it != inventory.cend(); ++it)
 	{
 		if (it->quantity > 0)
 			return it->type;
 	}
-	return RES_NO_RESOURCES;
+	return ResType::NO_RESOURCES;
 }
 
-bool Building::isEnoughRes(const uint16_t resType, const uint16_t amount) const
+bool Building::isEnoughRes(const ResType resType, const uint16_t amount) const
 {
 	for (auto it = inventory.cbegin(); it != inventory.cend(); ++it)
 	{
@@ -81,7 +81,7 @@ bool Building::isEnoughRes(const uint16_t resType, const uint16_t amount) const
 	return false;
 }
 
-void Building::wasteResorce(const uint16_t resType, const uint16_t amount)
+void Building::wasteResorce(const ResType resType, const uint16_t amount)
 {
 	for (auto it = inventory.begin(); it != inventory.end(); ++it)
 	{
@@ -93,7 +93,7 @@ void Building::wasteResorce(const uint16_t resType, const uint16_t amount)
 	}
 }
 
-void Building::addToInventory(const uint16_t resType, const uint16_t amount)
+void Building::addToInventory(const ResType resType, const uint16_t amount)
 {
 	for (auto it = inventory.begin(); it != inventory.end(); ++it)
 	{
@@ -138,7 +138,7 @@ bool Building::hasCorrectConveyerRight(const TileCoord tile, const BuildingsMap&
 
 
 // resUnits_and_inventory
-void Building::placeResourceUnit(const uint16_t resType, const TileCoord tile, BuildingsMap& buildingsMap)
+void Building::placeResourceUnit(const ResType resType, const TileCoord tile, BuildingsMap& buildingsMap)
 {
 	if (!isEnoughRes(resType, 1))
 		return;
@@ -205,12 +205,12 @@ void Building::placeResourceUnit(const uint16_t resType, const TileCoord tile, B
 	}
 }
 
-void Building::placeResourceUnitX1(const uint16_t resType, BuildingsMap& buildingsMap)
+void Building::placeResourceUnitX1(const ResType resType, BuildingsMap& buildingsMap)
 {
 	placeResourceUnit(resType, tile, buildingsMap);
 }
 
-void Building::placeResourceUnitX4(const uint16_t resType, BuildingsMap& buildingsMap)
+void Building::placeResourceUnitX4(const ResType resType, BuildingsMap& buildingsMap)
 {
 	if (!isEnoughRes(resType, 1))
 		return;
@@ -221,7 +221,7 @@ void Building::placeResourceUnitX4(const uint16_t resType, BuildingsMap& buildin
 	}
 }
 
-void Building::placeResourceUnitX9(const uint16_t resType, BuildingsMap& buildingsMap)
+void Building::placeResourceUnitX9(const ResType resType, BuildingsMap& buildingsMap)
 {
 	if (!isEnoughRes(resType, 1))
 		return;

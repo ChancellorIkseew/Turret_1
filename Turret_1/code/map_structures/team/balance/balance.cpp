@@ -9,22 +9,19 @@ Balance::Balance()
 	balance = AllResources(0, 0, 0, 0, 0, 0);
 }
 
-void Balance::save(cereal::BinaryOutputArchive& archive) const
-{
+void Balance::save(cereal::BinaryOutputArchive& archive) const {
+	archive(balance);
+}
+void Balance::load(cereal::BinaryInputArchive& archive) {
 	archive(balance);
 }
 
-void Balance::load(cereal::BinaryInputArchive& archive)
-{
-	archive(balance);
-}
-
-void Balance::accept(int type, short amount)
+void Balance::accept(const ResType type, const short amount)
 {
 	balance.allResources[type] += amount;
 }
 
-void Balance::giveStartRes(const std::map<int, int>& startRes)
+void Balance::giveStartRes(const std::map<ResType, int>& startRes)
 {
 	balance = startRes;
 }
@@ -34,7 +31,7 @@ bool Balance::isEnough(const AllResources& expenses) const
 {
 	for (auto& res : expenses.allResources)
 	{
-		int index = res.first;
+		ResType index = res.first;
 		if (balance.allResources.find(index)->second < expenses.allResources.find(index)->second * world->getPreSettings().getBuildings().expensesModifier)
 			return false;
 	}
@@ -46,7 +43,7 @@ void Balance::waste(const AllResources& expenses)
 {
 	for (auto& res : expenses.allResources)
 	{
-		int index = res.first;
+		ResType index = res.first;
 		balance.allResources.find(index)->second -= expenses.allResources.find(index)->second * world->getPreSettings().getBuildings().expensesModifier;
 	
 	}

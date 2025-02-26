@@ -36,7 +36,7 @@ void Tower::interact()
 		return;
 	if (turret->needAmoo())
 		{
-		int resType = turret->getAmooType();
+		ResType resType = turret->getAmooType();
 		if (isEnoughRes(resType, 1))
 		{
 			wasteResorce(resType, 1);
@@ -47,9 +47,9 @@ void Tower::interact()
 }
 
 
-bool Tower::canAccept(const uint16_t resType) const
+bool Tower::canAccept(const ResType resType) const
 {
-	if (resType == RES_AC_SHELLS || resType == RES_ROCKET)
+	if (resType == ResType::AC_SHELLS || resType == ResType::ROCKET)
 	{
 		if (!Building::isStorageFull(20))
 			return true;

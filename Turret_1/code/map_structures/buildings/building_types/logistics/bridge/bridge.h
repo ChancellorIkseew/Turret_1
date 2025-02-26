@@ -17,7 +17,7 @@ public:
 
 	void interact() override final;
 	void transmitResourceUnit();
-	bool canAccept(const uint16_t resType) const override final;
+	bool canAccept(const ResType resType) const override final;
 	BuildingType getType() const override final { return BuildingType::BRIDGE; }
 
 	void draw(sf::RenderWindow& window) override final;

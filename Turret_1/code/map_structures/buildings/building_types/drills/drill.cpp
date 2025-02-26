@@ -14,9 +14,9 @@ void Drill::mineResource(const int amountFromOneTile, const int storageCapacity)
 	short size = Building::getSize();
 	for (int i = 0; i < size; ++i)
 	{
-		int resType = world->getTerrainMap().getTileType(tile + t1::be::coordSquareArr[i]);
+		ResType resType = world->getTerrainMap().getTileType(tile + t1::be::coordSquareArr[i]);
 
-		if (resType != RES_NO_RESOURCES && !isStorageFull(storageCapacity))
+		if (resType != ResType::NO_RESOURCES && !isStorageFull(storageCapacity))
 		{
 			addToInventory(resType, amountFromOneTile);
 		}

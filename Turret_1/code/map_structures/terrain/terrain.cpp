@@ -43,9 +43,9 @@ void TerrainMap::generate(TerrainPre& terrainPre)
 }
 
 
-int TerrainMap::getTileType(const TileCoord tile) const
+ResType TerrainMap::getTileType(const TileCoord tile) const
 {
-	return *terrainMap[tile.x][tile.y];
+	return static_cast<ResType>(*terrainMap[tile.x][tile.y]);
 }
 
 

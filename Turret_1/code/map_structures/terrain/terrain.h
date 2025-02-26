@@ -5,6 +5,7 @@
 #include <SFML\Graphics.hpp>
 #include <cereal/archives/binary.hpp>
 #include "map_structures/base_engine/base_engine.h"
+#include "map_structures/resources/res_enum.h"
 
 class Camera;
 struct TerrainPre;
@@ -29,7 +30,7 @@ public:
 
 	void generate(TerrainPre& terrainPre); //empty constructor
 	
-	int getTileType(const TileCoord tile) const;
+	ResType getTileType(const TileCoord tile) const;
 	
 	static void prepareSprites();
 	void draw(sf::RenderWindow& window, const Camera& camera);

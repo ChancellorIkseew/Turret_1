@@ -13,7 +13,7 @@ public:
 	~Router() = default;
 
 	void interact() override;
-	bool canAccept(const uint16_t resType) const override;
+	bool canAccept(const ResType resType) const override;
 	BuildingType getType() const override final { return BuildingType::ROUTER; }
 
 	void draw(sf::RenderWindow& window) override;

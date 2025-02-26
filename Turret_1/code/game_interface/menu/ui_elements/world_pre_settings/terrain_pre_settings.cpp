@@ -28,26 +28,26 @@ void TerrainPreSettingsPage::prepareInterfaceSprites()
 	tSeed.setFillColor(standardColor);
 	tSmoothLayer.setFillColor(standardColor);
 
-	frequency[RES_STONE] = TextField(sf::String(L"50"), 50, sf::Vector2u(line1, 40));
-	frequency[RES_IRON] = TextField(sf::String(L"50"), 50, sf::Vector2u(line1, 65));
-	frequency[RES_COPPER] = TextField(sf::String(L"50"), 50, sf::Vector2u(line1, 90));
-	frequency[RES_SILICON] = TextField(sf::String(L"50"), 50, sf::Vector2u(line1, 115));
-	frequency[RES_COAL] = TextField(sf::String(L"50"), 50, sf::Vector2u(line1, 140));
-	frequency[RES_SULFUR] = TextField(sf::String(L"50"), 50, sf::Vector2u(line1, 165));
+	frequency[ResType::STONE] = TextField(sf::String(L"50"), 50, sf::Vector2u(line1, 40));
+	frequency[ResType::IRON] = TextField(sf::String(L"50"), 50, sf::Vector2u(line1, 65));
+	frequency[ResType::COPPER] = TextField(sf::String(L"50"), 50, sf::Vector2u(line1, 90));
+	frequency[ResType::SILICON] = TextField(sf::String(L"50"), 50, sf::Vector2u(line1, 115));
+	frequency[ResType::COAL] = TextField(sf::String(L"50"), 50, sf::Vector2u(line1, 140));
+	frequency[ResType::SULFUR] = TextField(sf::String(L"50"), 50, sf::Vector2u(line1, 165));
 
-	depositSize[RES_STONE] = TextField(sf::String(L"10"), 50, sf::Vector2u(line2, 40));
-	depositSize[RES_IRON] = TextField(sf::String(L"7"), 50, sf::Vector2u(line2, 65));
-	depositSize[RES_COPPER] = TextField(sf::String(L"5"), 50, sf::Vector2u(line2, 90));
-	depositSize[RES_SILICON] = TextField(sf::String(L"3"), 50, sf::Vector2u(line2, 115));
-	depositSize[RES_COAL] = TextField(sf::String(L"3"), 50, sf::Vector2u(line2, 140));
-	depositSize[RES_SULFUR] = TextField(sf::String(L"5"), 50, sf::Vector2u(line2, 165));
+	depositSize[ResType::STONE] = TextField(sf::String(L"10"), 50, sf::Vector2u(line2, 40));
+	depositSize[ResType::IRON] = TextField(sf::String(L"7"), 50, sf::Vector2u(line2, 65));
+	depositSize[ResType::COPPER] = TextField(sf::String(L"5"), 50, sf::Vector2u(line2, 90));
+	depositSize[ResType::SILICON] = TextField(sf::String(L"3"), 50, sf::Vector2u(line2, 115));
+	depositSize[ResType::COAL] = TextField(sf::String(L"3"), 50, sf::Vector2u(line2, 140));
+	depositSize[ResType::SULFUR] = TextField(sf::String(L"5"), 50, sf::Vector2u(line2, 165));
 
-	resIco[RES_STONE] = ResIco(RES_STONE, sf::Vector2u(line0, 43));
-	resIco[RES_IRON] = ResIco(RES_IRON, sf::Vector2u(line0, 68));
-	resIco[RES_COPPER] = ResIco(RES_COPPER, sf::Vector2u(line0, 93));
-	resIco[RES_SILICON] = ResIco(RES_SILICON, sf::Vector2u(line0, 118));
-	resIco[RES_COAL] = ResIco(RES_COAL, sf::Vector2u(line0, 143));
-	resIco[RES_SULFUR] = ResIco(RES_SULFUR, sf::Vector2u(line0, 168));
+	resIco[ResType::STONE] = ResIco(ResType::STONE, sf::Vector2u(line0, 43));
+	resIco[ResType::IRON] = ResIco(ResType::IRON, sf::Vector2u(line0, 68));
+	resIco[ResType::COPPER] = ResIco(ResType::COPPER, sf::Vector2u(line0, 93));
+	resIco[ResType::SILICON] = ResIco(ResType::SILICON, sf::Vector2u(line0, 118));
+	resIco[ResType::COAL] = ResIco(ResType::COAL, sf::Vector2u(line0, 143));
+	resIco[ResType::SULFUR] = ResIco(ResType::SULFUR, sf::Vector2u(line0, 168));
 
 	seed = TextField(sf::String(L"0"), 90, sf::Vector2u(115, 40));
 	smoothLayer = TextField(sf::String(L"0"), 18, sf::Vector2u(187, 65));
@@ -69,8 +69,8 @@ void TerrainPreSettingsPage::interact()
 
 void TerrainPreSettingsPage::enter(PreSettings& preSettings)
 {
-	std::map<int, int> iFrequency;
-	std::map<int, int> iDepositSize;
+	std::map<ResType, int> iFrequency;
+	std::map<ResType, int> iDepositSize;
 
 	for (auto& field : frequency)
 		iFrequency[field.first] = field.second.getIntValue();

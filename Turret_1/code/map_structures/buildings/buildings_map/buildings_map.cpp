@@ -84,7 +84,7 @@ const std::vector<std::shared_ptr<Building>>& BuildingsMap::getCores() const
 }
 
 
-void BuildingsMap::addToInventory(const uint16_t resType, const TileCoord tile)
+void BuildingsMap::addToInventory(const ResType resType, const TileCoord tile)
 {
 	if (!buildingExists(tile))
 		return;
@@ -100,7 +100,7 @@ void BuildingsMap::addToInventory(ResourceUnit& unit, const TileCoord tile)
 	buildingsMap[mainTile.x][mainTile.y]->addToInventory(unit);
 }
 
-bool BuildingsMap::canAccept(const uint16_t resType, const TileCoord tile) const
+bool BuildingsMap::canAccept(const ResType resType, const TileCoord tile) const
 {
 	if (!buildingExists(tile))
 		return false;

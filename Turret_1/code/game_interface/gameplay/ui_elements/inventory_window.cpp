@@ -4,19 +4,18 @@
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/buildings/building/building.h"
 #include "t1_system/input/input_handler.h"
-#include "t1_system/sleep.h"
 
 
 InventoryWindow::InventoryWindow() : UIPlate(sf::Vector2u(225, 120), sf::Vector2u(0, 0))
 {
     isVisible = false;
 
-    resInfo.emplace(RES_STONE, ResInfo(RES_STONE, 0));
-    resInfo.emplace(RES_IRON, ResInfo(RES_IRON, 0));
-    resInfo.emplace(RES_COPPER, ResInfo(RES_COPPER, 0));
-    resInfo.emplace(RES_SILICON, ResInfo(RES_SILICON, 0));
-    resInfo.emplace(RES_COAL, ResInfo(RES_COAL, 0));
-    resInfo.emplace(RES_SULFUR, ResInfo(RES_SULFUR, 0));
+    resInfo.emplace(ResType::STONE, ResInfo(ResType::STONE, 0));
+    resInfo.emplace(ResType::IRON, ResInfo(ResType::IRON, 0));
+    resInfo.emplace(ResType::COPPER, ResInfo(ResType::COPPER, 0));
+    resInfo.emplace(ResType::SILICON, ResInfo(ResType::SILICON, 0));
+    resInfo.emplace(ResType::COAL, ResInfo(ResType::COAL, 0));
+    resInfo.emplace(ResType::SULFUR, ResInfo(ResType::SULFUR, 0));
 }
 void InventoryWindow::prepareInterfaceSprites() { }
 

@@ -773,5 +773,8 @@
     <ClInclude Include="code\map_structures\buildings\building_types\logistics\router\router.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="code\map_structures\resources\stored_resource.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

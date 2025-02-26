@@ -9,6 +9,7 @@
 #include "map_structures/base_engine/base_engine.h"
 
 enum class BuildingType : uint16_t;
+enum class ResType : uint8_t;
 
 class Team;
 class Camera;
@@ -63,9 +64,9 @@ public:
 	void setDamage(const float damage, const TileCoord tile);
 
 	// resources_and_inventory
-	bool canAccept(const uint16_t resType, const TileCoord tile) const;
+	bool canAccept(const ResType resType, const TileCoord tile) const;
 	bool canAccept(const ResourceUnit& unit, const TileCoord tile) const;
-	void addToInventory(const uint16_t resType, const TileCoord tile);
+	void addToInventory(const ResType resType, const TileCoord tile);
 	void addToInventory(ResourceUnit& unit, const TileCoord tile);
 
 	// turrets

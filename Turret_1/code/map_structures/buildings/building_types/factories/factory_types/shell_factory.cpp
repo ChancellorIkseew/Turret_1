@@ -11,7 +11,7 @@ ShellFactory::ShellFactory(const int16_t durability, const uint8_t size, const T
 void ShellFactory::interact()
 {
 	if (timer == 0 || timer == 15)
-		placeResourceUnitX4(RES_AC_SHELLS, world->getBuildingsMap());
+		placeResourceUnitX4(ResType::AC_SHELLS, world->getBuildingsMap());
 
 	if (timer == 0)
 	{
@@ -26,18 +26,18 @@ void ShellFactory::interact()
 
 void ShellFactory::produceResource()
 {
-	if (isEnoughRes(RES_IRON, 1) && isEnoughRes(RES_SULFUR, 2) && !isEnoughRes(RES_AC_SHELLS, 20))
+	if (isEnoughRes(ResType::IRON, 1) && isEnoughRes(ResType::SULFUR, 2) && !isEnoughRes(ResType::AC_SHELLS, 20))
 	{
-		wasteResorce(RES_IRON, 1);
-		wasteResorce(RES_SULFUR, 2);
-		addToInventory(RES_AC_SHELLS, 1);
+		wasteResorce(ResType::IRON, 1);
+		wasteResorce(ResType::SULFUR, 2);
+		addToInventory(ResType::AC_SHELLS, 1);
 	}
 }
 
 
-bool ShellFactory::canAccept(const uint16_t resType) const
+bool ShellFactory::canAccept(const ResType resType) const
 {
-	if (resType != RES_IRON && resType != RES_SULFUR)
+	if (resType != ResType::IRON && resType != ResType::SULFUR)
 		return false;
 	if (isEnoughRes(resType, 20))
 		return false;
