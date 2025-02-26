@@ -36,7 +36,10 @@ void Camera::interact(const sf::RenderWindow& window)
 void Camera::moveByMouse()
 {
 	if (InputHandler::jactive(t1::BindName::MidMB))
+	{
 		movingStartMouseCoord = InputHandler::getMouseMapCoord();
+		return;
+	}
 
 	if (InputHandler::active(t1::BindName::MidMB))
 	{

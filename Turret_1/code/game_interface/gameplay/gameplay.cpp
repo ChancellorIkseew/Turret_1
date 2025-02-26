@@ -3,8 +3,6 @@
 
 #include "gameplay.h"
 
-#include "game_interface/main_window/main_window.h"
-
 #include "map_structures/pre-settings/pre-settings.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/team/team.h"
@@ -14,13 +12,13 @@
 #include "game_interface/gameplay/ui_elements/settings_window.h"
 
 
-GameState Gameplay::startGameplay(sf::RenderWindow& mainWindow, const bool newGame, std::string saveFolderName, std::optional<PreSettings> preSettings)
+GameState Gameplay::startGameplay(sf::RenderWindow& mainWindow, const bool newGame, const std::string& saveFolderName, PreSettings& preSettings)
 {
 	if (newGame)
 	{
-		world.createNew(preSettings.value());
+		world.createNew(preSettings);
 		world.getBuildingsMap().placeBuilding(BuildingType::CORE_MK2, 0, TileCoord(48, 48), world.getTeam("player"));
-		world.getTeam("player")->getBalance().giveStartRes(preSettings.value().getGeneral().startBalance);
+		world.getTeam("player")->getBalance().giveStartRes(preSettings.getGeneral().startBalance);
 	}
 	else
     {

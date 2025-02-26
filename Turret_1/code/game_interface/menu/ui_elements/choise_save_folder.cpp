@@ -74,7 +74,6 @@ GameState ChoiseFolderMenu::interact(bool& isMenuOpen, bool& startNewGame, std::
 		{
 			if (isFolderSelected)
 			{
-				//PreSettings preSettings1(saveFolderName);
 				startNewGame = false;
 				return GameState::GAMEPLAY;
 			}
@@ -88,7 +87,6 @@ GameState ChoiseFolderMenu::interact(bool& isMenuOpen, bool& startNewGame, std::
 		{
 			if (isFolderSelected)
 			{
-				//PreSettings preSettings1(saveFolderName);
 				startNewGame = true;
 				return GameState::PRE_SETTINGS_MENU;
 			}

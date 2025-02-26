@@ -10,7 +10,6 @@
 #include "game_interface/sound_system/sound_system.h"
 
 
-
 void openMainWindow()
 {
 	GameSound g1; // Test music implrmrntation. Will be expanded and reimplemented.
