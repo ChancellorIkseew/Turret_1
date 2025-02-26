@@ -3,6 +3,7 @@
 #include "map_structures/resources/res_enum.h"
 #include "map_structures/entities/turret/turret.h"
 
+constexpr short STORAGE_CAPACITY = 20;
 
 Tower::Tower(const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team) :
 	Building (durability, size, tile, team) { }
@@ -49,12 +50,9 @@ void Tower::interact()
 
 bool Tower::canAccept(const ResType resType) const
 {
-	if (resType == ResType::AC_SHELLS || resType == ResType::ROCKET)
-	{
-		if (!Building::isStorageFull(20))
-			return true;
-	}
-	return false;
+	if (resType != ResType::AC_SHELLS && resType != ResType::ROCKET)
+		return false;
+	return !Building::isStorageFull(STORAGE_CAPACITY);
 }
 
 

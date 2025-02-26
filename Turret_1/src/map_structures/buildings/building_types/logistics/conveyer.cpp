@@ -192,25 +192,22 @@ bool Conveyer::canAccept(const ResourceUnit& unit) const
 		for (auto& res : resUnits)
 			if (res.coord.y >= 8)
 				return false;
-		return true;
-
+		break;
 	case 'a':
 		for (auto& res : resUnits)
 			if (res.coord.x >= 8)
 				return false;
-		return true;
-
+		break;
 	case 's':
 		for (auto& res : resUnits)
 			if (res.coord.y <= -8)
 				return false;
-		return true;
-
+		break;
 	case 'd':
 		for (auto& res : resUnits)
 			if (res.coord.x <= -8)
 				return false;
-		return true;
+		break;
 	}
-	return false;
+	return true;
 }
