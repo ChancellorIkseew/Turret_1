@@ -8,10 +8,12 @@
 #include "game_interface/ui_window/elements/button/building_ico.h"
 #include "expenses_panel.h"
 #include "specification_panel.h"
+#include "map_structures/pre-settings/pre_settings/buildings_pre.h"
 
 enum class BuildingType : uint16_t;
 
 class Team;
+class World;
 class BuildingsMap;
 class Gameplay;
 
@@ -31,6 +33,7 @@ private:
 	BuildingType oldBuildingType, newBuildingType;
 	char direction;
 	bool isInfoOpen;
+	BuildingsPre buildingsPre;
 
 	inline void selectBuildingType(BuildingIco& ico);
 	inline void rotateBuilding();
@@ -46,6 +49,7 @@ public:
 	BuildingPanel();
 	~BuildingPanel() = default;
 	
+	void initPresettings(const BuildingsPre& buildingsPre) { this->buildingsPre = buildingsPre; }
 	void interact(const sf::Vector2f& mouseMapCoord, Team* team, BuildingsMap& buildingsMap, const Gameplay& gameplay);
 	void relocate(const sf::Vector2u windowSize) override final;
 	bool containsCoursor() const override final;

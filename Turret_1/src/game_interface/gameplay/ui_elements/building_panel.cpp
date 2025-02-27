@@ -147,11 +147,11 @@ void BuildingPanel::draw(sf::RenderWindow& window)
 {
 	if (isBuildingTypeSelected)
 	{
-		//expensesPanel->interact(newBuildingType);
+		expensesPanel->interact(newBuildingType, buildingsPre);
 		expensesPanel->draw(window);
 		if (isInfoOpen)
 		{
-			//specificationPanel->interact(newBuildingType);
+			specificationPanel->interact(newBuildingType, buildingsPre);
 			specificationPanel->draw(window);
 		}
 	}

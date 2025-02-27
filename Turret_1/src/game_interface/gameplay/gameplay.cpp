@@ -27,6 +27,7 @@ GameState Gameplay::startGameplay(sf::RenderWindow& mainWindow, const bool newGa
 
 	player = world.getTeam("player");
 	camera = Camera(world.getPreSettings().getTerrain().mapSize);
+	buildingPanel.initPresettings(world.getPreSettings().getBuildings());
 
 	std::thread simulation(&Gameplay::simulation, this);
 	std::thread input(&Gameplay::input, this);
