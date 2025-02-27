@@ -426,6 +426,9 @@
     <ClCompile Include="src\map_structures\buildings\building_types\logistics\conveyer_types\shielded_conveyer.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="src\map_structures\buildings\building_types\logistics\intersection\intersection.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\game_interface\gameplay\gameplay_util\camera.h">
@@ -789,6 +792,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="src\map_structures\buildings\building_types\logistics\conveyer_types\shielded_conveyer.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="src\map_structures\buildings\building_types\logistics\intersection\intersection.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

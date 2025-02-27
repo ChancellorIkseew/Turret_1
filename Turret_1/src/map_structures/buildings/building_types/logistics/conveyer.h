@@ -11,7 +11,7 @@
 class Conveyer : public Building
 {
 protected:
-	int timer = 5;
+	int timer = 0;
 	std::vector<ResourceUnit> resUnits;
 
 public:

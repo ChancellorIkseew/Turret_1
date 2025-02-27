@@ -15,6 +15,7 @@
 #include "map_structures/buildings/building_types/logistics/conveyer_types/shielded_conveyer.h"
 #include "map_structures/buildings/building_types/logistics/bridge/bridge.h"
 #include "map_structures/buildings/building_types/logistics/router/router.h"
+#include "map_structures/buildings/building_types/logistics/intersection/intersection.h"
 #include "map_structures/buildings/building_types/storages/core_types/core_mk2.h"
 #include "map_structures/buildings/building_types/factories/factory_types/shell_factory.h"
 #include "map_structures/buildings/building_types/factories/factory_types/rocket_factory.h"
@@ -56,6 +57,8 @@ std::shared_ptr<Building> Building::createBuilding(const BuildingType type, cons
 	case BuildingType::SHIELDED_CONVEYER:
 		return std::make_shared<ShieldedConveyer>(direction, durability, size, tile, team);
 
+	case BuildingType::INTERSECTION:
+		return std::make_shared<Intersection>(durability, size, tile, team);
 	case BuildingType::BRIDGE:
 		return std::make_shared<Bridge>(direction, durability, size, tile, team);
 	case BuildingType::ROUTER:
