@@ -6,23 +6,21 @@
 #include "map_structures/shells/shell/shell_enum.h"
 #include "map_structures/team/team.h"
 
+constexpr int TILE_RANGE = 11;
+const float PIXEL_RANGE = t1::be::pixelF(TILE_RANGE);
+const int SPYRAL_RANGE = t1::be::tileRangeToSpiralRange[TILE_RANGE];
 
 AutocannonTurret::AutocannonTurret(const TileCoord tile, Team* const team) :
-	Turret(tile, team)
-{
-	pixelRange = 11 * _TILE_;
-	spyralRange = 437;
-	maxAmoo = 181;
-}
+	Turret(tile, team) { }
 
-		
+
 void AutocannonTurret::shooting()
 {
 	Turret::reloadWeapon();
-	PixelCoord aim = Turret::findShootingAim();
-	if(aim.x != 0)
+	Turret::aim(SPYRAL_RANGE, PIXEL_RANGE);
+	if(aimCoord.valid())
 	{
-		angleRad = atan2f(aim.x - coord.x, aim.y - coord.y);
+		angleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
 		angleDeg = t1::be::radToDegree(angleRad);
 
 		if (reloadTimer % 15 == 0 && amooQuantity > 0)

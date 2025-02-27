@@ -6,28 +6,26 @@
 #include "map_structures/shells/shell/shell_enum.h"
 #include "map_structures/team/team.h"
 
+constexpr int TILE_RANGE = 34;
+const float PIXEL_RANGE = t1::be::pixelF(TILE_RANGE);
+const int SPYRAL_RANGE = t1::be::tileRangeToSpiralRange[TILE_RANGE];
 
 RocketTurret::RocketTurret(const TileCoord tile, Team* const team) :
-	Turret(tile, team)
-{
-	spyralRange = 4109;
-	pixelRange = 34 * _TILE_;
-	maxAmoo = 2;
-}
+	Turret(tile, team) { }
 
 
 void RocketTurret::shooting()
 {
 	Turret::reloadWeapon();
-	PixelCoord aim = Turret::findShootingAim();
-	if (aim.x != 0)
+	Turret::aim(SPYRAL_RANGE, PIXEL_RANGE);
+	if (aimCoord.valid())
 	{
-		angleRad = atan2f(aim.x - coord.x, aim.y - coord.y);
-		angleDeg = atan2f(aim.y - coord.y, aim.x - coord.x) * 57.3f + 90.0f;
+		angleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
+		angleDeg = t1::be::radToDegree(angleRad);
 
 		if (reloadTimer <= 0 && amooQuantity > 0)
 		{
-			team->spawnShell(ShellType::ROCKET, { float(coord.x), float(coord.y) }, angleRad, angleDeg);
+			team->spawnShell(ShellType::ROCKET, coord, angleRad, angleDeg);
 			reloadTimer = 120;
 			--amooQuantity;
 		}

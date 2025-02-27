@@ -3,6 +3,7 @@
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/shells/shell/shell_enum.h"
 #include "map_structures/entities/entity/entity.h"
+#include "map_structures/entities/turret/turret.h"
 #include "map_structures/team/team.h"
 #include "map_structures/world/world.h"
 #include <iostream>
@@ -47,6 +48,26 @@ PixelCoord Aiming::aimOnEntity(const Entity& entity, const float pixelRange, con
 			{
 				float deltaX = entity.coord.x - it->getCoord().x;
 				float deltaY = entity.coord.y - it->getCoord().y;
+				if (sqrt(deltaX * deltaX + deltaY * deltaY) < pixelRange)
+					return it->getCoord();
+			}
+		}
+	}
+	return INCORRECT_PIXEL_COORD;
+}
+
+
+PixelCoord Aiming::aimOnEntity(const Turret& turret, const float pixelRange, const World& world)
+{
+	for (auto& team : world.getTeams())
+	{
+		if (turret.team->getID() != team.first)
+		{
+			auto& eList = team.second->getEneities().getList();
+			for (auto& it : eList)
+			{
+				float deltaX = turret.coord.x - it->getCoord().x;
+				float deltaY = turret.coord.y - it->getCoord().y;
 				if (sqrt(deltaX * deltaX + deltaY * deltaY) < pixelRange)
 					return it->getCoord();
 			}

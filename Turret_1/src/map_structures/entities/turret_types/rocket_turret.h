@@ -16,6 +16,7 @@ class RocketTurret : public Turret
 		void shooting() override final;
 		
 		void takeAmoo(const ResType resType) override final;
+		short getMaxAmoo() const override final { return 2; }
 		ResType getAmooType() const override final;
 		
 		void draw(sf::RenderWindow& window) override final;

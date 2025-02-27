@@ -28,10 +28,9 @@ void Turret::load(cereal::BinaryInputArchive& archive)
 }
 
 
-PixelCoord Turret::findShootingAim() const
+void Turret::aim(const int spyralRange, const float pixelRange)
 {
-	
-	return { 0.0f, 0.0f };
+	aimCoord = Aiming::aimOnEntity(*this, pixelRange, *world);
 }
 
 void Turret::reloadWeapon()
@@ -43,7 +42,7 @@ void Turret::reloadWeapon()
 
 bool Turret::needAmoo() const
 {
-	return amooQuantity < maxAmoo;
+	return amooQuantity < getMaxAmoo();
 }
 
 void Turret::setCoord(PixelCoord coord)

@@ -7,6 +7,7 @@
 #include <cereal/types/polymorphic.hpp>
 
 #include "map_structures/base_engine/base_engine.h"
+#include "map_structures/entities/behavior/aiming.h"
 
 enum class BuildingType : uint16_t;
 enum class ResType : uint8_t;
@@ -21,6 +22,7 @@ private:
 
 protected:
 	PixelCoord coord;
+	PixelCoord aimCoord;
 	Team* team = nullptr;
 	
 	float angleRad = 0;
@@ -28,17 +30,13 @@ protected:
 	
 	int16_t reloadTimer = 0;
 	uint16_t amooQuantity = 0;
-	uint16_t maxAmoo = 0;
-	
-	uint16_t spyralRange = 0;
-	uint16_t pixelRange = 0;
 	
 	static inline sf::Image turretImage;
 	static inline sf::Texture turretTexture;
 	static inline sf::Sprite turretSprite;
 
 	void reloadWeapon();
-	PixelCoord findShootingAim() const;
+	void aim(const int spyralRange, const float pixelRange);
 
 public:
 	Turret(const TileCoord tile, Team* const team);
@@ -58,6 +56,7 @@ public:
 	PixelCoord getCoord() const { return coord; }
 	int getAngleDeg() const { return int(angleDeg); }
 	short getAmooQuantity() const { return amooQuantity; }
+	virtual  short getMaxAmoo() const = 0;
 	virtual ResType getAmooType() const = 0;
 	void setCoord(const PixelCoord coord);
 
@@ -68,7 +67,7 @@ public:
 	static void initWorld(World* world) {
 		Turret::world = world;
 	}
-		
+	friend Aiming;
 };
 
 CEREAL_REGISTER_TYPE(Turret)
