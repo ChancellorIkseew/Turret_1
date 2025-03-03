@@ -42,18 +42,18 @@ void InventoryWindow::interact(Team* team, const BuildingsMap& buildingsMap)
     if (!isVisible)
         return;
 
-    for (auto& info : resInfo)
+    for (auto& [type, info] : resInfo)
     {
         int amount = 0;
         for (auto& res : buildingsMap.getInventory(targetedTile))
         {
-            if (info.first == res.type)
+            if (type == res.type)
             {
                 amount = res.quantity;
                 break;
             }
         }
-        info.second.update(amount);
+        info.update(amount);
     }
 }
 
@@ -73,11 +73,11 @@ void InventoryWindow::draw(sf::RenderWindow& window)
     drawBase(window);
     unsigned int posX = position.x + 16;
     unsigned int posY = position.y + 30;
-    for (auto& info : resInfo)
+    for (auto& [type, info] : resInfo)
     {
-        if (info.second.getQuantity() != 0)
+        if (info.getQuantity() != 0)
         {
-            info.second.draw(window, posX, posY);
+            info.draw(window, posX, posY);
             posY += 20;
         }
 

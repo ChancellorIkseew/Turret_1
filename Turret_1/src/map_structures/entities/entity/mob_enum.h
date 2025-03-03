@@ -15,7 +15,10 @@ enum class MobType : uint8_t
 	GRAVITY_BOT = 8,
 
 	CANNON_BOSS = 21,
-	ROCKET_BOSS = 22
+	ROCKET_BOSS = 22,
+
+	LIGHT_SHUTTLE = 41,
+	HEAVY_SHUTTLE = 42
 };
 
 enum class MobCategory : uint8_t

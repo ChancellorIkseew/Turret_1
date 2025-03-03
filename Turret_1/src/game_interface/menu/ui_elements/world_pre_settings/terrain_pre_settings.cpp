@@ -72,10 +72,10 @@ void TerrainPreSettingsPage::enter(PreSettings& preSettings)
 	std::map<ResType, int> iFrequency;
 	std::map<ResType, int> iDepositSize;
 
-	for (auto& field : frequency)
-		iFrequency[field.first] = field.second.getIntValue();
-	for (auto& field : depositSize)
-		iDepositSize[field.first] = field.second.getIntValue();
+	for (auto& [resType, field] : frequency)
+		iFrequency[resType] = field.getIntValue();
+	for (auto& [resType, field] : depositSize)
+		iDepositSize[resType] = field.getIntValue();
 
 	preSettings.changeTerrain().frequency = iFrequency;
 	preSettings.changeTerrain().depositSize = iDepositSize;

@@ -30,7 +30,7 @@ private:
 	BuildingPanel buildingPanel;
 	InventoryWindow inventoryWindow;
 
-	Team* player;
+	Team* player = nullptr;
 
 	void simulation();
 	void input();

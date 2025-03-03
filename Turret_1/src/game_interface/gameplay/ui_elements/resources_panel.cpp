@@ -28,9 +28,9 @@ void ResourcesPanel::prepareInterfaceSprites()
 void ResourcesPanel::interact(Team& team)
 {
     std::lock_guard<std::mutex> guard(mutex);
-    for (auto& resI : resInfo)
+    for (auto& [type, info] : resInfo)
     {
-        resI.second.update(team.getBalance().getResources().getQuantity(resI.first));
+        info.update(team.getBalance().getResources().getQuantity(type));
     }
 }
 
@@ -47,9 +47,9 @@ void ResourcesPanel::draw(sf::RenderWindow &window)
     drawBase(window);
     std::lock_guard<std::mutex> guard(mutex);
     int deltaY = 16;
-    for (auto& resI : resInfo)
+    for (auto& [type, info] : resInfo)
     {
-        resI.second.draw(window, position.x + 16, position.y + deltaY);
+        info.draw(window, position.x + 16, position.y + deltaY);
         deltaY += 20;
     }
 }

@@ -45,9 +45,9 @@ void MainControlPanel::prepareInterfaceSprites()
 	buttons[SET_PAUSE] = Button("set_pause.bmp", sf::Vector2i(48, 48), sf::Vector2i(250, 10));
 	buttons[REMOVE_PAUSE] = Button("remove_pause.bmp", sf::Vector2i(48, 48), sf::Vector2i(250, 10));
 
-	for (auto& btn : buttons)
+	for (auto& [name, button] : buttons)
 	{
-		btn.second.relocateWithOwner(position);
+		button.relocateWithOwner(position);
 	}
 
 	waveNumberText = sf::Text(sf::String(L"волна: "), turretClassic, 16);
@@ -129,9 +129,9 @@ void MainControlPanel::interactWaveTimer(const bool isPaused, const World& world
 void MainControlPanel::draw(sf::RenderWindow& window)
 {
 	drawBase(window);
-	for (auto& btn : buttons)
+	for (auto& [name, button] : buttons)
 	{
-		btn.second.draw(window);
+		button.draw(window);
 	}
     
 	window.draw(waveNumberText);

@@ -13,6 +13,8 @@
 #include "map_structures/entities/mob_types/cannon_boss_bot.h"
 #include "map_structures/entities/mob_types/rocket_boss_bot.h"
 
+#include "map_structures/entities/shuttle/shuttle.h"
+
 
 std::unique_ptr<Entity> Entity::createEntity(const MobType type, Team* const team)
 {
@@ -30,6 +32,8 @@ std::unique_ptr<Entity> Entity::createEntity(const MobType type, Team* const tea
 		return std::make_unique<CannonBossBot>(team);
 	case MobType::ROCKET_BOSS:
 		return std::make_unique<RocketBossBot>(team);
+	case MobType::LIGHT_SHUTTLE:
+		return std::make_unique<Shuttle>(team);
 	default:
 		throw std::exception("mob_type does not exist");
 	}

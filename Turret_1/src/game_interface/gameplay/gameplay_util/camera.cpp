@@ -1,6 +1,7 @@
 
 #include "camera.h"
 #include "map_structures/pre-settings/pre-settings.h"
+#include "map_structures/entities/entity/entity.h"
 #include "t1_system/input/input_handler.h"
 
 constexpr float MIN_MAP_SCALE = 0.5f, MAX_MAP_SCALE = 5.0f;
@@ -8,26 +9,20 @@ constexpr float SCALE_FACTOR = 1.2f;
 constexpr float MOTION_SPEED_MODIFIER = 20.0f;
 constexpr int MAX_MAP_STRUCTURE_SIZE = 6;
 
-Camera::Camera(const TileCoord mapSize)
-{
-	windowSize = sf::Vector2f(1024, 720);
-
-	mapScale = MIN_MAP_SCALE;
-
-	startTile = TileCoord(0, 0);
-	endTile = TileCoord(0, 0);
-
-	tileMapSize = mapSize;
-	pixelMapSize = t1::be::pixel(tileMapSize);
-}
+Camera::Camera(const TileCoord mapSize) :
+	windowSize(1024, 720), mapScale(MIN_MAP_SCALE), startTile(0, 0), endTile(0, 0),
+	tileMapSize(mapSize), pixelMapSize(t1::be::pixel(mapSize)) { }
 
 
-void Camera::interact(const sf::RenderWindow& window)
+void Camera::interact(const sf::RenderWindow& window, Entity* controlledEntity)
 {
 	resize(window);
 	scale();
 	moveByMouse();
-	moveByWASD();
+	if (controlledEntity == nullptr)
+		moveByWASD();
+	else
+		centreOnEntity(controlledEntity);
 	avoidEscapeFromMap();
 	updateMapRegion(window);
 }
@@ -51,7 +46,7 @@ void Camera::moveByMouse()
 
 void Camera::moveByWASD()
 {
-	sf::Vector2f delta = sf::Vector2f(0.0f, 0.0f);
+	sf::Vector2f delta(0.0f, 0.0f);
 
 	if (InputHandler::active(t1::BindName::Move_up))
 		delta.y -= 1.0f;
@@ -64,6 +59,14 @@ void Camera::moveByWASD()
 
 	if (delta != sf::Vector2f(0.0f, 0.0f))
 		cameraView.move(delta * MOTION_SPEED_MODIFIER * mapScale);
+}
+
+void Camera::centreOnEntity(Entity* entity)
+{
+	if (entity == nullptr)
+		return;
+	 const PixelCoord coord = entity->getCoord();
+	 cameraView.setCenter(coord.x, coord.y);
 }
 
 void Camera::avoidEscapeFromMap()

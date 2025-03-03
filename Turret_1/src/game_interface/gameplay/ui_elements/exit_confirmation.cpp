@@ -26,13 +26,12 @@ void ConfirmationWindow::prepareInterfaceSprites()
 
 void ConfirmationWindow::draw(sf::RenderWindow& window)
 {
-    if (isVisible)
-    {
-        drawBase(window);
-        confirm.draw(window);
-        reject.draw(window);
-        window.draw(confirmationText);
-    }
+    if (!isVisible)
+        return;
+    drawBase(window);
+    confirm.draw(window);
+    reject.draw(window);
+    window.draw(confirmationText);
 }
 
 
@@ -43,10 +42,8 @@ bool ConfirmationWindow::interact()
     {
         if (confirm.press())
             return true;
-
         if (reject.press())
             return false;
-
         t1::system::sleep(16);
     }
 }

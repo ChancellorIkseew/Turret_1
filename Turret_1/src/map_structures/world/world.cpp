@@ -57,8 +57,8 @@ void World::simulate()
 {
 	std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
 	buildingsMap.intetract();
-	for (auto& team : teams)
-		team.second->interact(buildingsMap);
+	for (auto& [teamID, team] : teams)
+		team->interact(buildingsMap);
 	particles.interact();
 	time.timeRun(1);
 	EventsHandler::pollSimulationEvents();
@@ -69,8 +69,8 @@ void World::draw(sf::RenderWindow& window, const Camera& camera)
 	std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
 	terrainMap.draw(window, camera);
 	buildingsMap.draw(window, camera);
-	for (auto& team : teams)
-		team.second->draw(window, camera);
+	for (auto& [teamID, team] : teams)
+		team->draw(window, camera);
 	particles.draw(window);
 }
 
@@ -82,10 +82,10 @@ void World::addTeam(const std::string& name)
 
 Team* World::getTeam(const std::string& name)
 {
-	for (auto& it : teams)
+	for (auto& [teamID, team] : teams)
 	{
-		if (it.second->getName() == name)
-			return it.second.get();
+		if (team->getName() == name)
+			return team.get();
 	}
 	throw std::runtime_error("team does not exist");
 	return nullptr;

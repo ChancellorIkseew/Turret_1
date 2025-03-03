@@ -38,9 +38,9 @@ void ExpensesPanel::interact(const BuildingType index, const BuildingsPre& build
 {
     buildingInfo = t1::bc::buildingsInfoTable[index];
     title.setString(buildingInfo.buildingTitle);
-    for (auto& resI : resInfo)
+    for (auto& [type, info] : resInfo)
     {
-        resI.second.update(buildingInfo.costToBuild.allResources[resI.first] * buildingsPre.expensesModifier);
+        info.update(buildingInfo.costToBuild.allResources[type] * buildingsPre.expensesModifier);
     }
 }
 
@@ -60,11 +60,11 @@ void ExpensesPanel::draw(sf::RenderWindow& window)
 
     unsigned int posX = position.x + 16;
     unsigned int posY = position.y + 30;
-    for (auto& resI : resInfo)
+    for (auto& [type, info] : resInfo)
     {
-        if (resI.second.getQuantity() != 0)
+        if (info.getQuantity() != 0)
         {
-            resI.second.draw(window, posX, posY);
+            info.draw(window, posX, posY);
             posY += 20;
         }
 

@@ -3,8 +3,9 @@
 #define T1_CAMERA
 
 #include <SFML/Graphics.hpp>
-
 #include "map_structures/base_engine/base_engine.h"
+
+class Entity;
 
 class Camera
 {
@@ -22,6 +23,7 @@ private:
 
 	void moveByMouse();
 	void moveByWASD();
+	void centreOnEntity(Entity* entity);
 	void avoidEscapeFromMap();
 	void scale();
 	void resize(const sf::RenderWindow& window);
@@ -34,7 +36,7 @@ public:
 	Camera(const TileCoord mapSize);
 	~Camera() = default;
 
-	void interact(const sf::RenderWindow& window);
+	void interact(const sf::RenderWindow& window, Entity* controlledEntity);
 
 	TileCoord getStartTile() const { return startTile; }
 	TileCoord getEndTile() const { return endTile; }

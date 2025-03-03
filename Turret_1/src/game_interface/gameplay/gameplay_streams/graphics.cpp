@@ -9,6 +9,7 @@
 
 #include "game_interface/gameplay/ui_elements/exit_confirmation.h"
 #include "game_interface/gameplay/ui_elements/settings_window.h"
+#include "game_interface/gameplay/gameplay_util/mob_controller.h"
 
 #include "map_structures/buildings/building/building.h"
 #include "map_structures/entities/turret/turret.h"
@@ -47,7 +48,7 @@ void Gameplay::graphics(sf::RenderWindow& mainWindow)
         }
         
         mainWindow.clear(sf::Color::Black);		//Begin draw_block
-        camera.interact(mainWindow);
+        camera.interact(mainWindow, MobController::getTarget());
         world.draw(mainWindow, camera);
         buildingPanel.drawBuildExample(mainWindow, player, world.getBuildingsMap());
 

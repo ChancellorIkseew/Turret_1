@@ -6,10 +6,8 @@
 
 void InputHandler::updateInput(const sf::Event& event)
 {
-	for (auto& entry : bindings)
+	for (auto& [bindName, binding] : bindings)
 	{
-		auto& binding = entry.second;
-
 		if (binding.inputType == t1::InputType::keyboard &&
 			static_cast<sf::Keyboard::Scancode>(binding.code) == event.key.scancode)
 		{
@@ -144,6 +142,9 @@ std::unordered_map<t1::BindName, t1::Binding> InputHandler::bindings
 
 	{BindName::Build, Binding(sf::Mouse::Left, InputType::mouse)},
 	{BindName::Rotate_building, Binding(sf::Mouse::Right, InputType::mouse)},
+
+	{BindName::Control_unit, Binding(sf::Keyboard::V, InputType::keyboard)},
+	{BindName::Shoot, Binding(sf::Mouse::Left, InputType::mouse)},
 
 	{BindName::Move_up, Binding(sf::Keyboard::W, InputType::keyboard)},
 	{BindName::Move_left, Binding(sf::Keyboard::A, InputType::keyboard)},

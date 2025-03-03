@@ -5,9 +5,9 @@ void t1::bc::arrangePage(std::map<BuildingType, BuildingIco>& page)
 {
 	int deltaX = 62, deltaY = 10;
 
-	for (auto& ico : page)
+	for (auto& [type, ico] : page)
 	{
-		ico.second.setPosition(sf::Vector2u(deltaX, deltaY));
+		ico.setPosition(sf::Vector2u(deltaX, deltaY));
 
 		if (deltaX < 188)
 			deltaX += 42;

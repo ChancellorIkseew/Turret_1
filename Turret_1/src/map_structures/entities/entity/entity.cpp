@@ -102,6 +102,9 @@ void Entity::setCoord(const PixelCoord coord) {
 void Entity::setDestCoord(const PixelCoord destCoord) {
 	this->destCoord = destCoord;
 }
+void Entity::setShootingAim(const PixelCoord aimCoord) {
+	this->aimCoord = aimCoord;
+}
 
 // visual
 void Entity::prepareSprites()

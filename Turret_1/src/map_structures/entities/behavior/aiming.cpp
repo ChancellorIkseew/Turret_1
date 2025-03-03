@@ -39,16 +39,15 @@ PixelCoord Aiming::aimOnBuilding(const Entity& entity, const int spyralRange, co
 
 PixelCoord Aiming::aimOnEntity(const Entity& entity, const float pixelRange, const World& world)
 {
-	for (auto& team : world.getTeams())
+	for (auto& [teamID, team] : world.getTeams())
 	{
-		if (entity.team->getID() != team.first)
+		if (entity.team->getID() != teamID)
 		{
-			auto& eList = team.second->getEneities().getList();
+			auto& eList = team->getEneities().getList();
 			for (auto& it : eList)
 			{
-				float deltaX = entity.coord.x - it->getCoord().x;
-				float deltaY = entity.coord.y - it->getCoord().y;
-				if (sqrt(deltaX * deltaX + deltaY * deltaY) < pixelRange)
+				PixelCoord delta = entity.coord - it->getCoord();
+				if (delta.x * delta.x + delta.y * delta.y < pixelRange * pixelRange)
 					return it->getCoord();
 			}
 		}
@@ -59,16 +58,15 @@ PixelCoord Aiming::aimOnEntity(const Entity& entity, const float pixelRange, con
 
 PixelCoord Aiming::aimOnEntity(const Turret& turret, const float pixelRange, const World& world)
 {
-	for (auto& team : world.getTeams())
+	for (auto& [teamID, team] : world.getTeams())
 	{
-		if (turret.team->getID() != team.first)
+		if (turret.team->getID() != teamID)
 		{
-			auto& eList = team.second->getEneities().getList();
+			auto& eList = team->getEneities().getList();
 			for (auto& it : eList)
 			{
-				float deltaX = turret.coord.x - it->getCoord().x;
-				float deltaY = turret.coord.y - it->getCoord().y;
-				if (sqrt(deltaX * deltaX + deltaY * deltaY) < pixelRange)
+				PixelCoord delta = turret.coord - it->getCoord();
+				if (delta.x * delta.x + delta.y * delta.y < pixelRange * pixelRange)
 					return it->getCoord();
 			}
 		}
@@ -79,17 +77,16 @@ PixelCoord Aiming::aimOnEntity(const Turret& turret, const float pixelRange, con
 
 PixelCoord Aiming::aimOnShell(const Entity& entity, const float pixelRange, const World& world)
 {
-	for (auto& team : world.getTeams())
+	for (auto& [teamID, team] : world.getTeams())
 	{
-		if (entity.team->getID() != team.first)
+		if (entity.team->getID() != teamID)
 		{
-			for (auto& shell : team.second->getShells().getList())
+			for (auto& shell : team->getShells().getList())
 			{
 				if (shell->getType() == ShellType::ROCKET)
 				{
-					float deltaX = entity.coord.x - shell->getCoord().x;
-					float deltaY = entity.coord.y - shell->getCoord().y;
-					if (sqrt(deltaX * deltaX + deltaY * deltaY) < pixelRange)
+					PixelCoord delta = entity.coord - shell->getCoord();
+					if (delta.x * delta.x + delta.y * delta.y < pixelRange * pixelRange)
 						return shell->getCoord();
 				}	
 			}

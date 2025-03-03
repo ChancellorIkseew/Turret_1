@@ -69,6 +69,7 @@ public:
 	void setDamage(const float damage);
 	void setCoord(const PixelCoord coord);
 	void setDestCoord(const PixelCoord destCoord);
+	void setShootingAim(const PixelCoord aimCoord);
 	PixelCoord getCoord() const { return coord; }
 	TileCoord getTile() const { return currentTile; }
 	float getAngleRad() const { return motionAngleRad; }

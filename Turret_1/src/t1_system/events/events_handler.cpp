@@ -15,25 +15,17 @@ void EventsHandler::clearEvents() noexcept
 
 void EventsHandler::pollSimulationEvents()
 {
-	for (auto& entry : events)
+	for (auto& [eventType, event] : events)
 	{
-		auto& event = entry.second;
 		if (event->active)
-		{
-			event->active = false;
-			//std::cout << " active\n";
-		}
-			
+			event->active = false;	
 	}
 }
 
 
-bool EventsHandler::active(const t1::EventType eventType)
+bool EventsHandler::active(const t1::EventType eventType) noexcept
 {
-	const auto& found = events.find(eventType);
-	if (found == events.end())
-		return false;
-	return found->second->active;
+	return events.count(eventType) && events.at(eventType)->active;
 }
 
 

@@ -21,7 +21,7 @@ public:
 	static void clearEvents() noexcept;
 	static void pollSimulationEvents();
 
-	static bool active(const t1::EventType eventType);
+	static bool active(const t1::EventType eventType) noexcept;
 	static void init();
 };
 

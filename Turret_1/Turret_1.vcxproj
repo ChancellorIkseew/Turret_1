@@ -156,6 +156,7 @@
     <ClCompile Include="src\game_interface\gameplay\gameplay_streams\simulation.cpp" />
     <ClCompile Include="src\game_interface\gameplay\gameplay_util\camera.cpp" />
     <ClCompile Include="src\game_interface\gameplay\gameplay_util\cheet_commands.cpp" />
+    <ClCompile Include="src\game_interface\gameplay\gameplay_util\mob_controller.cpp" />
     <ClCompile Include="src\game_interface\gameplay\gameplay_util\t1_time.cpp" />
     <ClCompile Include="src\game_interface\gameplay\gameplay_util\wave_constructor.cpp" />
     <ClCompile Include="src\game_interface\gameplay\ui_elements\building_panel.cpp" />
@@ -243,6 +244,7 @@
     <ClCompile Include="src\map_structures\entities\mob_types\rocket_boss_bot.cpp" />
     <ClCompile Include="src\map_structures\entities\mob_types\rocket_bot.cpp" />
     <ClCompile Include="src\map_structures\entities\mob_types\standard_bot.cpp" />
+    <ClCompile Include="src\map_structures\entities\shuttle\shuttle.cpp" />
     <ClCompile Include="src\map_structures\entities\turret\ctreate_turret.cpp" />
     <ClCompile Include="src\map_structures\entities\turret\turret.cpp" />
     <ClCompile Include="src\map_structures\entities\turret_types\autocannon_turret.cpp" />
@@ -275,6 +277,7 @@
     <ClInclude Include="src\game_interface\gameplay\gameplay.h" />
     <ClInclude Include="src\game_interface\gameplay\gameplay_util\camera.h" />
     <ClInclude Include="src\game_interface\gameplay\gameplay_util\cheet_commands.h" />
+    <ClInclude Include="src\game_interface\gameplay\gameplay_util\mob_controller.h" />
     <ClInclude Include="src\game_interface\gameplay\gameplay_util\t1_time.h" />
     <ClInclude Include="src\game_interface\gameplay\gameplay_util\wave_constructor.h" />
     <ClInclude Include="src\game_interface\gameplay\ui_elements\building_panel.h" />
@@ -356,6 +359,7 @@
     <ClInclude Include="src\map_structures\entities\mob_types\rocket_boss_bot.h" />
     <ClInclude Include="src\map_structures\entities\mob_types\rocket_bot.h" />
     <ClInclude Include="src\map_structures\entities\mob_types\standard_bot.h" />
+    <ClInclude Include="src\map_structures\entities\shuttle\shuttle.h" />
     <ClInclude Include="src\map_structures\entities\turret\turret.h" />
     <ClInclude Include="src\map_structures\entities\turret_types\autocannon_turret.h" />
     <ClInclude Include="src\map_structures\entities\turret_types\rocket_turret.h" />

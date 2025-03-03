@@ -56,8 +56,8 @@ void GeneralPreSettingsPage::enter(PreSettings& preSettings)
 	preSettings.changeTerrain().mapSize = {mapSize[MAP_MAX_X].getIntValue(), mapSize[MAP_MAX_Y].getIntValue()};
 
 	std::map<ResType, int> startRes;
-	for (auto& field : balance)
-		startRes[field.first] = field.second.getIntValue();
+	for (auto& [resType, field] : balance)
+		startRes[resType] = field.getIntValue();
 	preSettings.changeGeneral().startBalance = startRes;
 }
 

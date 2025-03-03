@@ -8,6 +8,7 @@
 #include "game_interface/gameplay/gameplay_util/cheet_commands.h"
 #include "game_interface/gameplay/ui_elements/main_control_panel.h"
 #include "game_interface/gameplay/ui_elements/building_panel.h"
+#include "game_interface/gameplay/gameplay_util/mob_controller.h"
 
 
 void Gameplay::input()
@@ -18,6 +19,7 @@ void Gameplay::input()
         mainControlPanel.interact(isPaused, isGameplayActive, world);
         buildingPanel.interact(mouseMapCoord, player, world.getBuildingsMap(), *this);
         inventoryWindow.interact(player, world.getBuildingsMap());
+        MobController::interact(*player);
 
 #ifndef TURRET_1_NO_TEST_BUILD
         if (InputHandler::jactive(t1::BindName::Console_cheat))
@@ -29,4 +31,5 @@ void Gameplay::input()
         
         t1::system::sleep(16);
     }
+    MobController::setTarget(nullptr);
 }

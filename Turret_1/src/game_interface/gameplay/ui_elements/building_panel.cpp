@@ -77,8 +77,8 @@ void BuildingPanel::prepareInterfaceSprites()
 	t1::bc::initSpecial(pages[SPECIAL]);
 	t1::bc::initStorages(pages[STORAGES]);
 
-	for (auto& pg : pages)
-		t1::bc::arrangePage(pg.second);
+	for (auto& [name, page] : pages)
+		t1::bc::arrangePage(page);
 
 	t1::bc::initUtil(pages[UTIL]);
 }
@@ -123,13 +123,13 @@ void BuildingPanel::relocate(const sf::Vector2u windowSize)
 	position = windowSize - size;
 	info.relocateWithOwner(position);
 
-	for (auto& btn : buttons)
-		btn.second.relocateWithOwner(position);
+	for (auto& [name, button] : buttons)
+		button.relocateWithOwner(position);
 
-	for (auto& pg : pages)
+	for (auto& [pageName, page] : pages)
 	{
-		for (auto& ico : pg.second)
-			ico.second.relocateWithOwner(position);
+		for (auto& [type, ico] : page)
+			ico.relocateWithOwner(position);
 	}
 
 	expensesPanel->relocate(windowSize);
@@ -157,12 +157,12 @@ void BuildingPanel::draw(sf::RenderWindow& window)
 	}
 	drawBase(window);
 	info.draw(window);
-	for (auto& btn : buttons)
-		btn.second.draw(window);
-	for (auto& ico : pages[selectedPage])
-		ico.second.draw(window);
-	for (auto& ico : pages[UTIL])
-		ico.second.draw(window);
+	for (auto& [name, button] : buttons)
+		button.draw(window);
+	for (auto& [type, ico] : pages[selectedPage])
+		ico.draw(window);
+	for (auto& [type, ico] : pages[UTIL])
+		ico.draw(window);
 }
 
 
