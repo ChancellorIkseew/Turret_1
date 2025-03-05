@@ -2,31 +2,30 @@
 #include "damage.h"
 #include "map_structures/world/world.h"
 
+using namespace t1::be;
 
 void Damage::createExplosion(const PixelCoord centrePixel, const int tileRadius, const float damage, const float dampingCoef, World& world)
 {
 	BuildingsMap& buildingsMap = world.getBuildingsMap();
-	TileCoord centreTile = t1::be::tile(centrePixel);
-	TileCoord tile;
-	for (int i = 0; i < t1::be::tileRangeToSpiralRange[tileRadius]; ++i)
+	TileCoord centreTile = tile(centrePixel);
+	TileCoord chekTile;
+	for (int i = 0; i < tileRangeToSpiralRange[tileRadius]; ++i)
 	{
-		tile = centreTile + t1::be::coordSpyralArr[i];
-		if (buildingsMap.buildingExists(tile))
+		chekTile = centreTile + coordSpyralArr[i];
+		if (buildingsMap.buildingExists(chekTile))
 		{
 			const float modifiedDamage = damage * world.getPreSettings().getShells().blastDamageModifier;
-			buildingsMap.setDamage(modifiedDamage, tile);
+			buildingsMap.setDamage(modifiedDamage, chekTile);
 		}
 	}
 
-	for (auto& it : world.getTeams())
+	for (auto& [teamID, team] : world.getTeams())
 	{
-		Team& team = *it.second;
-		for (auto& entity : team.getEneities().getList())
+		for (auto& entity : team->getEneities().getList())
 		{
-			float deltaX = centrePixel.x - entity->getCoord().x;
-			float deltaY = centrePixel.y - entity->getCoord().y;
-			float deltaS = sqrt(deltaX * deltaX + deltaY * deltaY);
-			if (deltaS < t1::be::pixel(tileRadius))
+			const PixelCoord delta = centrePixel - entity->getCoord();
+			const float radius = pixel(tileRadius);
+			if (pow2f(delta.x) + pow2f(delta.y) < pow2f(radius))
 			{
 				const float modifiedDamage = damage * world.getPreSettings().getShells().blastDamageModifier;
 				entity->setDamage(modifiedDamage);

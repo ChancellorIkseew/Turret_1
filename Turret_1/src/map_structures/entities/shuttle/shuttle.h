@@ -9,15 +9,17 @@
 
 class Shuttle : public Entity
 {
+private:
+	bool controlled = false;
 public:
 	Shuttle(Team* const team);
 	Shuttle() = default;
 	~Shuttle() = default;
 
 	MobCategory getCategory() const override final { return MobCategory::BOSS; }
-	MobType getType() const override final { return MobType::CANNON_BOSS; }
+	MobType getType() const override final { return MobType::LIGHT_SHUTTLE; }
 
-	void motion(const BuildingsMap& buildingsMap) override final;
+	void moveByOwnAI() override final;
 	void shoot(const BuildingsMap& buildingsMap) override final;
 	void draw(sf::RenderWindow& window) override final;
 

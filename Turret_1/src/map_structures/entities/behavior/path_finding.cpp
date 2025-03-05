@@ -16,41 +16,39 @@ static inline TileCoord findBuildingCenter(const Building& building)
 }
 
 
-TileCoord t1::ent::findDestination(const Entity& entity, const BuildingsMap& buildingsMap)
+TileCoord PathFinding::findNextTile(const TileCoord point, const TileCoord aim, const BuildingsMap& buildingsMap)
 {
-	TileCoord core = findClosestCore(entity, buildingsMap);
-	int currentDistance = pow2i(entity.currentTile.x - core.x) + pow2i(entity.currentTile.y - core.y); // SQR(real_distance)
+	const int currentDistance = pow2i(point.x - aim.x) + pow2i(point.y - aim.y); // SQR(real_distance)
 	int newDistance = 0;
 
-	for (int i = 1; i < 9; i += 2)
+	for (int i = 1; i < 5; i++) // [0](0,0); [1](-1,0); [2](0,-1); [3](0,1); [4](1,0)
 	{
-		TileCoord cheekTile = entity.currentTile + coordSpyralArr[i];
+		TileCoord cheekTile = point + coordSpyralArr[i];
 		if (!buildingsMap.isVoidBuilding(cheekTile))
 			continue;
 
-		newDistance = pow2i(cheekTile.x - core.x) + pow2i(cheekTile.y - core.y); // SQR(real_distance)
+		newDistance = pow2i(cheekTile.x - aim.x) + pow2i(cheekTile.y - aim.y); // SQR(real_distance)
 		if (newDistance < currentDistance)
 			return cheekTile;
 	}
-	return core;
+	return point;
 }
 
 
-TileCoord t1::ent::findClosestCore(const Entity& entity, const BuildingsMap& buildingsMap)
+TileCoord PathFinding::findClosestCore(const TileCoord point, const BuildingsMap& buildingsMap)
 {
 	const std::vector<std::shared_ptr<Building>>& cores = buildingsMap.getCores();
 	if (cores.size() == 0)
-		return { 0, 0 }; // возможны изменения
+		return INCORRECT_TILE_COORD; // возможны изменения
 
 	int distance = 0;
 	int minDistance = MAX_EXPECTED_DISTANCE;
 	int index = 0;
-	TileCoord entityTile = entity.getTile();
-	TileCoord coreCenter(0, 0);
+	TileCoord coreCenter;
 	for (int i = 0; i < cores.size(); ++i)
 	{
 		coreCenter = findBuildingCenter(*cores[i]);
-		distance = pow2i(entityTile.x - coreCenter.x) + pow2i(entityTile.y - coreCenter.y); // SQR(real_distance)
+		distance = pow2i(point.x - coreCenter.x) + pow2i(point.y - coreCenter.y); // SQR(real_distance)
 		if (distance < minDistance)
 		{
 			minDistance = distance;

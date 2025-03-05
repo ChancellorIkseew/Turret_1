@@ -36,7 +36,7 @@ public:
 	Camera(const TileCoord mapSize);
 	~Camera() = default;
 
-	void interact(const sf::RenderWindow& window, Entity* controlledEntity);
+	void interact(const sf::RenderWindow& window, Entity* controlledEntity, const bool& isPaused);
 
 	TileCoord getStartTile() const { return startTile; }
 	TileCoord getEndTile() const { return endTile; }

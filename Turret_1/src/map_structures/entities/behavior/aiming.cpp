@@ -13,12 +13,14 @@ using namespace t1::be;
 PixelCoord Aiming::aimForward(const Entity& entity, const int tileRange, const World& world)
 {
 	const BuildingsMap& buildingsMap = world.getBuildingsMap();
+	const PixelCoord coord = entity.getCoord();
+	const float motionAngleRad = entity.getAngleRad();
 	for (int i = 1; i <= tileRange; i++)
 	{
-		int tileX = tile(entity.coord.x + sin(entity.motionAngleRad) * _TILE_ * i);
-		int tileY = tile(entity.coord.y + cos(entity.motionAngleRad) * _TILE_ * i);
+		int tileX = tile(coord.x + sin(motionAngleRad) * _TILE_ * i);
+		int tileY = tile(coord.y + cos(motionAngleRad) * _TILE_ * i);
 		TileCoord tile(tileX, tileY);
-		if (buildingsMap.buildingExists(tile) && buildingsMap.getTeamID(tile) != entity.team->getID())
+		if (buildingsMap.buildingExists(tile) && buildingsMap.getTeamID(tile) != entity.getTeam()->getID())
 			return pixel(tile);
 	}
 	return INCORRECT_PIXEL_COORD;
@@ -27,11 +29,13 @@ PixelCoord Aiming::aimForward(const Entity& entity, const int tileRange, const W
 
 PixelCoord Aiming::aimOnBuilding(const Entity& entity, const int spyralRange, const BuildingsMap& buildingsMap)
 {
+	const TileCoord point = entity.getTile();
+	TileCoord checkTile;
 	for (int i = 0; i < spyralRange; i++)
 	{
-		TileCoord tile = entity.currentTile + coordSpyralArr[i];
-		if (buildingsMap.buildingExists(tile) && buildingsMap.getTeamID(tile) != entity.team->getID())
-			return pixel(tile);
+		checkTile = point + coordSpyralArr[i];
+		if (buildingsMap.buildingExists(checkTile) && buildingsMap.getTeamID(checkTile) != entity.getTeam()->getID())
+			return pixel(checkTile);
 	}
 	return INCORRECT_PIXEL_COORD;
 }
@@ -41,13 +45,13 @@ PixelCoord Aiming::aimOnEntity(const Entity& entity, const float pixelRange, con
 {
 	for (auto& [teamID, team] : world.getTeams())
 	{
-		if (entity.team->getID() != teamID)
+		if (entity.getTeam()->getID() != teamID)
 		{
 			auto& eList = team->getEneities().getList();
 			for (auto& it : eList)
 			{
-				PixelCoord delta = entity.coord - it->getCoord();
-				if (delta.x * delta.x + delta.y * delta.y < pixelRange * pixelRange)
+				PixelCoord delta = entity.getCoord() - it->getCoord();
+				if (pow2f(delta.x) + pow2f(delta.y) < pow2f(pixelRange))
 					return it->getCoord();
 			}
 		}
@@ -66,7 +70,7 @@ PixelCoord Aiming::aimOnEntity(const Turret& turret, const float pixelRange, con
 			for (auto& it : eList)
 			{
 				PixelCoord delta = turret.coord - it->getCoord();
-				if (delta.x * delta.x + delta.y * delta.y < pixelRange * pixelRange)
+				if (pow2f(delta.x) + pow2f(delta.y) < pow2f(pixelRange))
 					return it->getCoord();
 			}
 		}
@@ -79,14 +83,14 @@ PixelCoord Aiming::aimOnShell(const Entity& entity, const float pixelRange, cons
 {
 	for (auto& [teamID, team] : world.getTeams())
 	{
-		if (entity.team->getID() != teamID)
+		if (entity.getTeam()->getID() != teamID)
 		{
 			for (auto& shell : team->getShells().getList())
 			{
 				if (shell->getType() == ShellType::ROCKET)
 				{
-					PixelCoord delta = entity.coord - shell->getCoord();
-					if (delta.x * delta.x + delta.y * delta.y < pixelRange * pixelRange)
+					PixelCoord delta = entity.getCoord() - shell->getCoord();
+					if (pow2f(delta.x) + pow2f(delta.y) < pow2f(pixelRange))
 						return shell->getCoord();
 				}	
 			}

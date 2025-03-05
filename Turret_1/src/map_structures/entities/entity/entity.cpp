@@ -4,9 +4,11 @@
 #include "map_structures/world/world.h"
 #include "map_structures/team/team.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
+#include "map_structures/entities/behavior/aiming.h"
+#include "map_structures/entities/behavior/path_finding.h"
 #include "t1_system/events/events_handler.h"
+#include <iostream>
 
-using namespace t1::be;
 constexpr float BASIC_COLLISION_RADIUS = 30.0f;
 constexpr float MAX_SPEED = 0.1; // temporary desision
 
@@ -24,43 +26,64 @@ void Entity::load(cereal::BinaryInputArchive& archive)
 }
 
 
-bool Entity::tileChanged() const
+void Entity::checkTileChanged()
 {
-	return currentTile.x != oldTile.x || currentTile.y != oldTile.y;
+	const TileCoord newTile = t1::be::tile(coord);
+	tileJustChanged = currentTile == newTile;
+	if (tileJustChanged)
+		currentTile = newTile;
 }
 
 
-void Entity::motion(const BuildingsMap& buildingsMap)
+void Entity::calculateMotion(const BuildingsMap& buildingsMap)
 {
-	motionAngleRad = atan2f(destCoord.x - coord.x, destCoord.y - coord.y);
-	motionAngleDeg = t1::be::radToDegree(motionAngleRad);
+	checkTileChanged();
 
-	int nextTileX = tile(coord.x + sin(motionAngleRad) * BASIC_COLLISION_RADIUS);
-	int nextTileY = tile(coord.y + cos(motionAngleRad) * BASIC_COLLISION_RADIUS);
+	if (EventsHandler::active(t1::EventType::MAP_CHANGED)) //will be expanded to MAP_CANGED.coresChanged()
+		destCoord = PathFinding::findClosestCore(currentTile, buildingsMap);
 
-	if (buildingsMap.isVoidBuilding(nextTileX, nextTileY))
+	if (tileJustChanged || EventsHandler::active(t1::EventType::MAP_CHANGED))
 	{
-		coord.x += sin(motionAngleRad) * MAX_SPEED;
-		coord.y += cos(motionAngleRad) * MAX_SPEED;
-	}
-	else
-	{
-		destCoord = pixel(t1::ent::findDestination(*this, buildingsMap));
-	}
-
-	if (tileChanged() || EventsHandler::active(t1::EventType::MAP_CHANGED))
-	{
-		destCoord = pixel(t1::ent::findClosestCore(*this, buildingsMap));
+		const PixelCoord dest = t1::be::pixel(destCoord);
+		motionAngleRad = atan2f(dest.x - coord.x, dest.y - coord.y);
+		motionAngleDeg = t1::be::radToDegree(motionAngleRad);
+		lineMotion.x = sin(motionAngleRad) * MAX_SPEED;
+		lineMotion.y = cos(motionAngleRad) * MAX_SPEED;
+		//Implement finding nextTile;
+		PixelCoord line;
+		line.x = sin(motionAngleRad) * BASIC_COLLISION_RADIUS;
+		line.y = cos(motionAngleRad) * BASIC_COLLISION_RADIUS;
+		nextTile = t1::be::tile(coord + line); // temporary implementation
 	}
 
-	oldTile = currentTile;
-	currentTile = tile(coord);
+	if (!buildingsMap.isVoidBuilding(nextTile))
+	{
+		nextTile = PathFinding::findNextTile(currentTile, destCoord, buildingsMap);
+		const PixelCoord nextTileCenter = t1::be::pixel(nextTile);
+		motionAngleRad = atan2(nextTileCenter.x - coord.x, nextTileCenter.y - coord.y);
+		motionAngleDeg = t1::be::radToDegree(motionAngleRad);
+		lineMotion.x = sin(motionAngleRad) * MAX_SPEED;
+		lineMotion.y = cos(motionAngleRad) * MAX_SPEED;
+	}
+}
+
+void Entity::moveByDirectControl(const PixelCoord vector)
+{
+	coord = coord + vector * MAX_SPEED;
+}
+
+void Entity::moveByOwnAI()
+{
+	BuildingsMap& map = world->getBuildingsMap();
+	calculateMotion(map);
+	if (destCoord.valid() && !(nextTile == currentTile) && map.isVoidBuilding(nextTile))
+		coord = coord + lineMotion;
 }
 
 
 void Entity::aim(const int spyralRange, const float pixelRange)
 {
-	if (tileChanged() || EventsHandler::active(t1::EventType::MAP_CHANGED))
+	if (tileJustChanged || EventsHandler::active(t1::EventType::MAP_CHANGED))
 		aimCoord = INCORRECT_PIXEL_COORD;
 
 	PixelCoord newAim;
@@ -96,10 +119,13 @@ void Entity::setDamage(const float damage) {
 	durability -= static_cast<int16_t>(damage);
 }
 
+void Entity::setControlType(Control controlType) {
+	control = controlType;
+}
 void Entity::setCoord(const PixelCoord coord) {
 	this->coord = coord;
 }
-void Entity::setDestCoord(const PixelCoord destCoord) {
+void Entity::setDestCoord(const TileCoord destCoord) {
 	this->destCoord = destCoord;
 }
 void Entity::setShootingAim(const PixelCoord aimCoord) {

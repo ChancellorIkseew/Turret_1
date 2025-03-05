@@ -4,10 +4,8 @@
 
 #include <SFML\Graphics.hpp>
 #include <cereal/archives/binary.hpp>
-
 #include "map_structures/base_engine/base_engine.h"
-#include "map_structures/entities/behavior/aiming.h"
-#include "map_structures/entities/behavior/path_finding.h"
+#include "control.h"
 
 enum class MobType : uint8_t;
 enum class MobCategory : uint8_t;
@@ -23,14 +21,18 @@ protected:
 	Team* team = nullptr;
 	
 	PixelCoord coord;
-	PixelCoord aimCoord;
-	PixelCoord destCoord; // destination_point
-	TileCoord currentTile, oldTile;
+	PixelCoord aimCoord = INCORRECT_PIXEL_COORD;
+	TileCoord destCoord = INCORRECT_TILE_COORD; // destination_point
+	PixelCoord lineMotion;
+	TileCoord currentTile, nextTile;
 	
 	float motionAngleRad = 0;
 	float motionAngleDeg = 0;
 	float shootingAngleRad = 0;
 	float shootingAngleDeg = 0;
+
+	Control control = Control::HARD;
+	bool tileJustChanged = false;
 
 	int16_t durability = 0; // timer_and_durability can_be_negative_in_some_cases
 	int16_t reloadTimer = 0;
@@ -45,6 +47,7 @@ protected:
 
 	void reloadWeapon();
 	void aim(const int spyralRange, const float pixelRange);
+	void checkTileChanged();
 
 public:
 	Entity(Team* const team);
@@ -58,22 +61,25 @@ public:
 	static PixelCoord randomMapBorderSpawn();
 
 	// combat
-	bool tileChanged() const;
-	virtual void motion(const BuildingsMap& buildingsMap);
+	virtual void calculateMotion(const BuildingsMap& buildingsMap);
 	virtual void shoot(const BuildingsMap& buildingsMap) = 0;
+	virtual void moveByDirectControl(const PixelCoord vector);
+	virtual void moveByOwnAI();
 
 	// simple_utilites
 	void setTeam(Team* team);
 	void setDurability(const int16_t durability);
+	void setControlType(Control controlType);
 	void setDamage(const int16_t damage);
 	void setDamage(const float damage);
 	void setCoord(const PixelCoord coord);
-	void setDestCoord(const PixelCoord destCoord);
+	void setDestCoord(const TileCoord destCoord);
 	void setShootingAim(const PixelCoord aimCoord);
 	PixelCoord getCoord() const { return coord; }
 	TileCoord getTile() const { return currentTile; }
 	float getAngleRad() const { return motionAngleRad; }
 	int getDurability() const { return durability; }
+	Control getControlType() const { return control; }
 	Team* getTeam() const { return team; }
 
 	virtual MobCategory getCategory() const = 0;
@@ -86,8 +92,6 @@ public:
 	static void initWorld(World* world) {
 		Entity::world = world;
 	}
-	friend TileCoord t1::ent::findDestination(const Entity& entity, const BuildingsMap& buildingsMap);
-	friend Aiming;
 };
 
 #endif // ENTITY_H

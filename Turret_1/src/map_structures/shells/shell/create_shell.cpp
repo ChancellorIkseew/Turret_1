@@ -20,8 +20,7 @@ std::unique_ptr<Shell> Shell::createShell(const ShellType type, const PixelCoord
 	case ShellType::LASER:
 		return std::make_unique<Laser>(coord, angleRad, angleDeg, team);
 
-
 	default:
-		throw std::exception("shell_type does not exist");
+		throw std::runtime_error("shell_type does not exist");
 	}
 }

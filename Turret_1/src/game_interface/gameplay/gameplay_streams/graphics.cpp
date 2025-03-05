@@ -48,7 +48,7 @@ void Gameplay::graphics(sf::RenderWindow& mainWindow)
         }
         
         mainWindow.clear(sf::Color::Black);		//Begin draw_block
-        camera.interact(mainWindow, MobController::getTarget());
+        camera.interact(mainWindow, MobController::getTarget(), isPaused);
         world.draw(mainWindow, camera);
         buildingPanel.drawBuildExample(mainWindow, player, world.getBuildingsMap());
 

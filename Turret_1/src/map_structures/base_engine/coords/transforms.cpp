@@ -47,6 +47,14 @@ int t1::be::pow2i(const int value) {
 	return value * value;
 }
 
+float t1::be::pow2f(const float value) {
+	return value * value;
+}
+
+bool t1::be::areCloser(const PixelCoord first, const PixelCoord second, const float distance) {
+	return abs(first.x - second.x) < distance && abs(first.y - second.y) < distance;
+}
+
 PixelCoord t1::be::correction(const PixelCoord center, const PixelCoord point, const float angleRad) {
 
 	return PixelCoord(0, 0);

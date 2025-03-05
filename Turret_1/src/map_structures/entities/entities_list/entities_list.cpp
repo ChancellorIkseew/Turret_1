@@ -3,6 +3,7 @@
 #include <cereal/types/memory.hpp>
 #include <cereal/types/list.hpp>
 #include "game_interface/gameplay/gameplay_util/camera.h"
+#include "map_structures/entities/behavior/path_finding.h"
 
 #include "entities_list.h"
 
@@ -17,19 +18,18 @@ void EntitiesList::load(cereal::BinaryInputArchive& archive) {
 
 void EntitiesList::spawnEntity(const uint8_t amount, const MobType type, Team* team, const BuildingsMap& buildingsMap)
 {
-	for (int i = 0; i < amount; ++i)
+	try
 	{
-		try
-		{
-			std::unique_ptr<Entity> entity = Entity::createEntity(type, team);
-			entity->setCoord(Entity::randomMapBorderSpawn());
-			entity->setDestCoord(t1::be::pixel(t1::ent::findClosestCore(*entity, buildingsMap)));
-			entitiesList.push_back(std::move(entity));
-		}
-		catch (std::exception)
-		{
-			std::cout << "Mob_type does not exist. Type: " << static_cast<uint16_t>(type) << ".\n";
-		}
+		std::unique_ptr<Entity> entity = Entity::createEntity(type, team);
+		entity->setControlType(Control::NONE);
+		PixelCoord coord = Entity::randomMapBorderSpawn();
+		entity->setCoord(coord);
+		entity->setDestCoord(PathFinding::findClosestCore(t1::be::tile(coord), buildingsMap));
+		entitiesList.push_back(std::move(entity));
+	}
+	catch (std::exception)
+	{
+		std::cout << "Mob_type does not exist. Type: " << static_cast<uint16_t>(type) << ".\n";
 	}
 }
 
@@ -38,10 +38,19 @@ void EntitiesList::interact(const BuildingsMap& buildingsMap)
 {
 	for (auto it = entitiesList.begin(); it != entitiesList.end();)
 	{
-		(*it)->motion(buildingsMap);
-		(*it)->shoot(buildingsMap);
+		Entity& entity = **it;
 
-		if ((*it)->getDurability() < 1)
+		if (entity.getControlType() == Control::HARD)
+		{
+			entity.moveByDirectControl(PixelCoord(0, 0));
+		}
+		else
+		{
+			entity.moveByOwnAI();
+			entity.shoot(buildingsMap);
+		}
+
+		if (entity.getDurability() < 1)
 			it = entitiesList.erase(it);
 		else
 			++it;

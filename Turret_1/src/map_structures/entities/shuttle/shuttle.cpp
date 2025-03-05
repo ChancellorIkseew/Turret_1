@@ -14,24 +14,13 @@ constexpr float MAX_SPEED = 2.2;
 
 Shuttle::Shuttle(Team* const team) : Entity(team)
 {
-	durability = 270 * world->getPreSettings().getMobs().maxDurabilityModifier;
+	durability = 20 * world->getPreSettings().getMobs().maxDurabilityModifier;
 }
 
 
-void Shuttle::motion(const BuildingsMap& buildingsMap)
+void Shuttle::moveByOwnAI()
 {
-	PixelCoord delta(0.0f, 0.0f);
-
-	if (InputHandler::active(t1::BindName::Move_up))
-		delta.y -= 1.0f;
-	if (InputHandler::active(t1::BindName::Move_left))
-		delta.x -= 1.0f;
-	if (InputHandler::active(t1::BindName::Move_down))
-		delta.y += 1.0f;
-	if (InputHandler::active(t1::BindName::Move_right))
-		delta.x += 1.0f;
-
-	motionAngleRad = atan2f(delta.x, delta.y);
+	motionAngleRad = atan2f(destCoord.x - coord.x, destCoord.y - coord.y);
 	motionAngleDeg = t1::be::radToDegree(motionAngleRad);
 	
 	coord.x += sin(motionAngleRad) * MAX_SPEED;
@@ -44,11 +33,6 @@ void Shuttle::shoot(const BuildingsMap& buildingsMap)
 	Entity::reloadWeapon();
 	//Entity::aim(SPYRAL_RANGE, PIXEL_RANGE);
 
-	sf::Vector2f newAim;
-	if (InputHandler::active(t1::BindName::LMB))
-		newAim = InputHandler::getMouseMapCoord();
-	aimCoord = PixelCoord(newAim.x, newAim.y);
-
 	if (aimCoord.valid())
 	{
 		shootingAngleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
@@ -59,9 +43,8 @@ void Shuttle::shoot(const BuildingsMap& buildingsMap)
 			float correctionX = cos(shootingAngleRad) * 15.0f;
 			float correctionY = sin(shootingAngleRad) * 15.0f;
 
-			team->spawnShell(ShellType::HEAVY_SHELL, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
-			team->spawnShell(ShellType::HEAVY_SHELL, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg);
-			reloadTimer = 30;
+			team->spawnShell(ShellType::LASER, coord, shootingAngleRad, shootingAngleDeg);
+			reloadTimer = 2;
 		}
 	}
 }

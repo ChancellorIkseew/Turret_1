@@ -22,6 +22,8 @@ namespace t1::be
 	PixelCoord pixel(const TileCoord tileCoord);
 
 	int pow2i(const int value);
+	float pow2f(const float value);
+	bool areCloser(const PixelCoord first, const PixelCoord second, const float distance);
 	PixelCoord correction(const PixelCoord center, const PixelCoord point, const float angleRad);
 	int spiralRangeToTileRange(const int spiralRange);
 

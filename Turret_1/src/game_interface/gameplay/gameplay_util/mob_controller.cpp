@@ -37,8 +37,8 @@ void MobController::move()
 	if (InputHandler::active(t1::BindName::Move_right))
 		delta.x += 10.0f;
 
-	PixelCoord current = targetedEntity->getCoord();
-	targetedEntity->setDestCoord(current + delta);
+	//PixelCoord current = targetedEntity->getCoord();
+	//targetedEntity->setDestCoord(current + delta);
 }
 
 
@@ -60,7 +60,8 @@ void MobController::captureEntity(const Team& player)
 		return;
 	if (targetedEntity != nullptr)
 	{
-		targetedEntity->setDestCoord(INCORRECT_PIXEL_COORD);
+		targetedEntity->setControlType(preveousControlType);
+		targetedEntity->setDestCoord(INCORRECT_TILE_COORD);
 		targetedEntity = nullptr;
 		return;
 	}
@@ -76,6 +77,8 @@ void MobController::captureEntity(const Team& player)
 		if (abs(mouseC.x - coord.x) < _HALF_TILE_ && abs(mouseC.y - coord.y) < _HALF_TILE_)
 		{
 			targetedEntity = entity.get();
+			preveousControlType = targetedEntity->getControlType();
+			targetedEntity->setControlType(Control::HARD); 
 			t1::system::sleep(150);
 			return;
 		}

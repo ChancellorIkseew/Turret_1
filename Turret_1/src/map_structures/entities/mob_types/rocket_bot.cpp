@@ -1,9 +1,8 @@
 
 #include "rocket_bot.h"
 
-#include "map_structures/team/team.h"
 #include "map_structures/shells/shell/shell_enum.h"
-#include "map_structures/buildings/building/buildings_enum.h"
+#include "map_structures/entities/behavior/aiming.h"
 #include "map_structures/team/team.h"
 #include "map_structures/world/world.h"
 #include "t1_system/events/events_handler.h"
@@ -22,7 +21,7 @@ void RocketBot::shoot(const BuildingsMap& buildingsMap)
 {
 	Entity::reloadWeapon();
 
-	if (tileChanged() || EventsHandler::active(t1::EventType::MAP_CHANGED))
+	if (tileJustChanged || EventsHandler::active(t1::EventType::MAP_CHANGED))
 		aimCoord = Aiming::aimOnBuilding(*this, SPYRAL_RANGE, world->getBuildingsMap());
 
 	if (aimCoord.valid())

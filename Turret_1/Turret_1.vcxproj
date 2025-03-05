@@ -350,6 +350,7 @@
     <ClInclude Include="src\map_structures\entities\behavior\aiming.h" />
     <ClInclude Include="src\map_structures\entities\behavior\path_finding.h" />
     <ClInclude Include="src\map_structures\entities\entities_list\entities_list.h" />
+    <ClInclude Include="src\map_structures\entities\entity\control.h" />
     <ClInclude Include="src\map_structures\entities\entity\entity.h" />
     <ClInclude Include="src\map_structures\entities\entity\mob_enum.h" />
     <ClInclude Include="src\map_structures\entities\mob_types\cannon_boss_bot.h" />

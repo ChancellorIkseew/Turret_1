@@ -7,10 +7,11 @@
 class Entity;
 class BuildingsMap;
 
-namespace t1::ent
+class PathFinding
 {
-	TileCoord findDestination(const Entity& entity, const BuildingsMap& buildingsMap);
-	TileCoord findClosestCore(const Entity& entity, const BuildingsMap& buildingsMap);
-}
+public:
+	static TileCoord findNextTile(const TileCoord point, const TileCoord aim, const BuildingsMap& buildingsMap);
+	static TileCoord findClosestCore(const TileCoord point, const BuildingsMap& buildingsMap);
+};
 
 #endif // T1_ENT_PATH_FINDING_H

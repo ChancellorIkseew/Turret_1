@@ -1,9 +1,7 @@
 
 #include "standard_bot.h"
 
-#include "map_structures/team/team.h"
 #include "map_structures/shells/shell/shell_enum.h"
-#include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/team/team.h"
 #include "map_structures/world/world.h"
 

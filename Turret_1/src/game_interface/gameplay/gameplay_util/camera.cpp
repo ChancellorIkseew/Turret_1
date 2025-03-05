@@ -14,12 +14,12 @@ Camera::Camera(const TileCoord mapSize) :
 	tileMapSize(mapSize), pixelMapSize(t1::be::pixel(mapSize)) { }
 
 
-void Camera::interact(const sf::RenderWindow& window, Entity* controlledEntity)
+void Camera::interact(const sf::RenderWindow& window, Entity* controlledEntity, const bool& isPaused)
 {
 	resize(window);
 	scale();
 	moveByMouse();
-	if (controlledEntity == nullptr)
+	if (controlledEntity == nullptr || isPaused)
 		moveByWASD();
 	else
 		centreOnEntity(controlledEntity);
