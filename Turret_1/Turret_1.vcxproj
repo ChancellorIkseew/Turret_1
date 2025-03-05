@@ -233,10 +233,12 @@
     <ClCompile Include="src\map_structures\buildings\building_types\walls\tower_types\stone_tower.cpp" />
     <ClCompile Include="src\map_structures\buildings\building_types\walls\wall_types\stone_wall.cpp" />
     <ClCompile Include="src\map_structures\entities\behavior\aiming.cpp" />
+    <ClCompile Include="src\map_structures\entities\behavior\comon.cpp" />
     <ClCompile Include="src\map_structures\entities\behavior\path_finding.cpp" />
     <ClCompile Include="src\map_structures\entities\entities_list\entities_list.cpp" />
     <ClCompile Include="src\map_structures\entities\entity\create_entity.cpp" />
     <ClCompile Include="src\map_structures\entities\entity\entity.cpp" />
+    <ClCompile Include="src\map_structures\entities\entity\movement.cpp" />
     <ClCompile Include="src\map_structures\entities\mob_types\cannon_boss_bot.cpp" />
     <ClCompile Include="src\map_structures\entities\mob_types\heavy_bot.cpp" />
     <ClCompile Include="src\map_structures\entities\mob_types\laser_bot.cpp" />
@@ -348,6 +350,7 @@
     <ClInclude Include="src\map_structures\buildings\building_types\walls\tower_types\stone_tower.h" />
     <ClInclude Include="src\map_structures\buildings\building_types\walls\wall_types\stone_wall.h" />
     <ClInclude Include="src\map_structures\entities\behavior\aiming.h" />
+    <ClInclude Include="src\map_structures\entities\behavior\comon.h" />
     <ClInclude Include="src\map_structures\entities\behavior\path_finding.h" />
     <ClInclude Include="src\map_structures\entities\entities_list\entities_list.h" />
     <ClInclude Include="src\map_structures\entities\entity\control.h" />

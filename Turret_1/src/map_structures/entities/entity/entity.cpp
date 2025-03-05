@@ -26,60 +26,6 @@ void Entity::load(cereal::BinaryInputArchive& archive)
 }
 
 
-void Entity::checkTileChanged()
-{
-	const TileCoord newTile = t1::be::tile(coord);
-	tileJustChanged = currentTile == newTile;
-	if (tileJustChanged)
-		currentTile = newTile;
-}
-
-
-void Entity::calculateMotion(const BuildingsMap& buildingsMap)
-{
-	checkTileChanged();
-
-	if (EventsHandler::active(t1::EventType::MAP_CHANGED)) //will be expanded to MAP_CANGED.coresChanged()
-		destCoord = PathFinding::findClosestCore(currentTile, buildingsMap);
-
-	if (tileJustChanged || EventsHandler::active(t1::EventType::MAP_CHANGED))
-	{
-		const PixelCoord dest = t1::be::pixel(destCoord);
-		motionAngleRad = atan2f(dest.x - coord.x, dest.y - coord.y);
-		motionAngleDeg = t1::be::radToDegree(motionAngleRad);
-		lineMotion.x = sin(motionAngleRad) * MAX_SPEED;
-		lineMotion.y = cos(motionAngleRad) * MAX_SPEED;
-		//Implement finding nextTile;
-		PixelCoord line;
-		line.x = sin(motionAngleRad) * BASIC_COLLISION_RADIUS;
-		line.y = cos(motionAngleRad) * BASIC_COLLISION_RADIUS;
-		nextTile = t1::be::tile(coord + line); // temporary implementation
-	}
-
-	if (!buildingsMap.isVoidBuilding(nextTile))
-	{
-		nextTile = PathFinding::findNextTile(currentTile, destCoord, buildingsMap);
-		const PixelCoord nextTileCenter = t1::be::pixel(nextTile);
-		motionAngleRad = atan2(nextTileCenter.x - coord.x, nextTileCenter.y - coord.y);
-		motionAngleDeg = t1::be::radToDegree(motionAngleRad);
-		lineMotion.x = sin(motionAngleRad) * MAX_SPEED;
-		lineMotion.y = cos(motionAngleRad) * MAX_SPEED;
-	}
-}
-
-void Entity::moveByDirectControl(const PixelCoord vector)
-{
-	coord = coord + vector * MAX_SPEED;
-}
-
-void Entity::moveByOwnAI()
-{
-	BuildingsMap& map = world->getBuildingsMap();
-	calculateMotion(map);
-	if (destCoord.valid() && !(nextTile == currentTile) && map.isVoidBuilding(nextTile))
-		coord = coord + lineMotion;
-}
-
 
 void Entity::aim(const int spyralRange, const float pixelRange)
 {

@@ -21,7 +21,7 @@ void Team::spawnShell(const ShellType type, const PixelCoord coord, float angleR
     shells.spawnShell(type, coord, angleRad, angleDeg, this);
 }
 void Team::spawnEntity(const uint8_t amount, const MobType type, const BuildingsMap& buildingsMap) {
-    entities.spawnEntity(amount, type, this, buildingsMap);
+    //entities.spawnEntity(amount, type, this, buildingsMap);
 }
 
 void Team::interact(const BuildingsMap& buildingsMap)

@@ -48,6 +48,7 @@ protected:
 	void reloadWeapon();
 	void aim(const int spyralRange, const float pixelRange);
 	void checkTileChanged();
+	void changeLineMotion();
 
 public:
 	Entity(Team* const team);

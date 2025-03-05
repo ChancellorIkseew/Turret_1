@@ -435,6 +435,12 @@
     <ClCompile Include="src\game_interface\gameplay\gameplay_util\mob_controller.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="src\map_structures\entities\entity\movement.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="src\map_structures\entities\behavior\comon.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\game_interface\gameplay\gameplay_util\camera.h">
@@ -810,6 +816,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="src\map_structures\entities\entity\control.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="src\map_structures\entities\behavior\comon.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

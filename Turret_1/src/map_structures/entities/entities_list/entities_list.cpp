@@ -3,7 +3,7 @@
 #include <cereal/types/memory.hpp>
 #include <cereal/types/list.hpp>
 #include "game_interface/gameplay/gameplay_util/camera.h"
-#include "map_structures/entities/behavior/path_finding.h"
+#include "game_interface/gameplay/gameplay_util/mob_controller.h"
 
 #include "entities_list.h"
 
@@ -16,21 +16,9 @@ void EntitiesList::load(cereal::BinaryInputArchive& archive) {
 }
 
 
-void EntitiesList::spawnEntity(const uint8_t amount, const MobType type, Team* team, const BuildingsMap& buildingsMap)
+void EntitiesList::spawnEntity(std::unique_ptr<Entity> entity)
 {
-	try
-	{
-		std::unique_ptr<Entity> entity = Entity::createEntity(type, team);
-		entity->setControlType(Control::NONE);
-		PixelCoord coord = Entity::randomMapBorderSpawn();
-		entity->setCoord(coord);
-		entity->setDestCoord(PathFinding::findClosestCore(t1::be::tile(coord), buildingsMap));
-		entitiesList.push_back(std::move(entity));
-	}
-	catch (std::exception)
-	{
-		std::cout << "Mob_type does not exist. Type: " << static_cast<uint16_t>(type) << ".\n";
-	}
+	entitiesList.push_back(std::move(entity));
 }
 
 
@@ -42,7 +30,7 @@ void EntitiesList::interact(const BuildingsMap& buildingsMap)
 
 		if (entity.getControlType() == Control::HARD)
 		{
-			entity.moveByDirectControl(PixelCoord(0, 0));
+			entity.moveByDirectControl(MobController::getMotionVector());
 		}
 		else
 		{

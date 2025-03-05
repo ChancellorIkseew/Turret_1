@@ -1,7 +1,6 @@
 
 #include "mob_controller.h"
 
-#include <SFML/Graphics.hpp>
 #include "t1_system/input/input_handler.h"
 #include "t1_system/sleep.h"
 #include "map_structures/entities/entity/entity.h"
@@ -29,16 +28,15 @@ void MobController::move()
 	PixelCoord delta(0.0f, 0.0f);
 
 	if (InputHandler::active(t1::BindName::Move_up))
-		delta.y -= 10.0f;
+		delta.y -= 1.0f;
 	if (InputHandler::active(t1::BindName::Move_left))
-		delta.x -= 10.0f;
+		delta.x -= 1.0f;
 	if (InputHandler::active(t1::BindName::Move_down))
-		delta.y += 10.0f;
+		delta.y += 1.0f;
 	if (InputHandler::active(t1::BindName::Move_right))
-		delta.x += 10.0f;
+		delta.x += 1.0f;
 
-	//PixelCoord current = targetedEntity->getCoord();
-	//targetedEntity->setDestCoord(current + delta);
+	motionVector.store(delta, std::memory_order_relaxed);
 }
 
 

@@ -35,7 +35,8 @@ std::unique_ptr<Entity> Entity::createEntity(const MobType type, Team* const tea
 	case MobType::LIGHT_SHUTTLE:
 		return std::make_unique<Shuttle>(team);
 	default:
-		throw std::runtime_error("mob_type does not exist");
+		std::cout << "Mob_type does not exist. Type: " << static_cast<uint16_t>(type) << ".\n";
+		return nullptr;
 	}
 }
 

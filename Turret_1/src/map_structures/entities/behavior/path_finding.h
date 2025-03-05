@@ -1,6 +1,6 @@
 #pragma once
-#ifndef T1_ENT_PATH_FINDING_H
-#define T1_ENT_PATH_FINDING_H
+#ifndef T1_PATH_FINDING_H
+#define T1_PATH_FINDING_H
 
 #include "map_structures/base_engine/base_engine.h"
 
@@ -14,4 +14,4 @@ public:
 	static TileCoord findClosestCore(const TileCoord point, const BuildingsMap& buildingsMap);
 };
 
-#endif // T1_ENT_PATH_FINDING_H
+#endif // T1_PATH_FINDING_H
