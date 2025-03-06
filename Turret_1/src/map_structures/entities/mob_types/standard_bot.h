@@ -17,7 +17,8 @@ public:
 	MobCategory getCategory() const override final { return MobCategory::LIGHT; }
 	MobType getType() const override final { return MobType::STANDARD_BOT; }
 
-	void shoot(const BuildingsMap& buildingsMap) override final;
+	void shoot() override final;
+	void shootByOwnAI() override final;
 	void draw(sf::RenderWindow& window) override final;
 
 };

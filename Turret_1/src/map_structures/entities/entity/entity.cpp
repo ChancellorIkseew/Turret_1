@@ -7,7 +7,8 @@
 #include "map_structures/entities/behavior/aiming.h"
 #include "map_structures/entities/behavior/path_finding.h"
 #include "t1_system/events/events_handler.h"
-#include <iostream>
+#include "game_interface/gameplay/gameplay_util/mob_controller.h"
+
 
 constexpr float BASIC_COLLISION_RADIUS = 30.0f;
 constexpr float MAX_SPEED = 0.1; // temporary desision
@@ -25,24 +26,35 @@ void Entity::load(cereal::BinaryInputArchive& archive)
 	motionAngleDeg = t1::be::radToDegree(motionAngleRad);
 }
 
+void Entity::interact()
+{
+	reloadWeapon();
+
+	if (control == Control::HARD)
+	{
+		moveByDirectControl(MobController::getMotionVector());
+		aimCoord = MobController::getAimCoord();
+		shootingAngleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
+		shootingAngleDeg = t1::be::radToDegree(shootingAngleRad);
+		if (MobController::shootingActive())
+			shoot();
+		return;
+	}
+
+	moveByOwnAI();
+	shootByOwnAI();
+}
 
 
 void Entity::aim(const int spyralRange, const float pixelRange)
 {
-	if (tileJustChanged || EventsHandler::active(t1::EventType::MAP_CHANGED))
-		aimCoord = INCORRECT_PIXEL_COORD;
-
-	PixelCoord newAim;
-	if (!aimCoord.valid())
-	{
-		newAim = Aiming::aimOnBuilding(*this, spyralRange, world->getBuildingsMap());
-		if (newAim.valid())
-			aimCoord = newAim;
-	}
-
-	newAim = Aiming::aimOnEntity(*this, pixelRange, *world);
-	if (newAim.valid())
-		aimCoord = newAim;
+	if (control != Control::NONE)
+		return;
+	aimCoord = INCORRECT_PIXEL_COORD; // reset aim
+	aimCoord = Aiming::aimOnEntity(*this, pixelRange, *world);
+	if (aimCoord.valid())
+		return;
+	aimCoord = Aiming::aimOnBuilding(*this, spyralRange, world->getBuildingsMap());
 }
 
 

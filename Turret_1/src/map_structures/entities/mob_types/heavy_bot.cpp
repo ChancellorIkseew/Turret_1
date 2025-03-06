@@ -16,26 +16,26 @@ HeavyBot::HeavyBot(Team* const team) : Entity(team)
 }
 
 
-void HeavyBot::shoot(const BuildingsMap& buildingsMap)
+void HeavyBot::shoot()
 {
-	Entity::reloadWeapon();
+	if (!aimCoord.valid())
+		return;
+	shootingAngleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
+	shootingAngleDeg = t1::be::radToDegree(shootingAngleRad);
+
+	if (reloadTimer > 0)
+		return;
+	float correctionX = cos(shootingAngleRad) * 8.0f;
+	float correctionY = sin(shootingAngleRad) * 8.0f;
+	team->spawnShell(ShellType::AC_SHELL, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
+	team->spawnShell(ShellType::AC_SHELL, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg);
+	reloadTimer = 15;
+}
+
+void HeavyBot::shootByOwnAI()
+{
 	Entity::aim(SPYRAL_RANGE, PIXEL_RANGE);
-
-	if (aimCoord.valid())
-	{
-		shootingAngleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
-		shootingAngleDeg = t1::be::radToDegree(shootingAngleRad);
-
-		if (reloadTimer <= 0)
-		{
-			float correctionX = cos(shootingAngleRad) * 8.0f;
-			float correctionY = sin(shootingAngleRad) * 8.0f;
-
-			team->spawnShell(ShellType::AC_SHELL, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
-			team->spawnShell(ShellType::AC_SHELL, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg);
-			reloadTimer = 15;
-		}
-	}
+	shoot();
 }
 
 

@@ -17,27 +17,26 @@ RocketBot::RocketBot(Team* const team) : Entity(team)
 }
 
 
-void RocketBot::shoot(const BuildingsMap& buildingsMap)
+void RocketBot::shoot()
 {
-	Entity::reloadWeapon();
+	if (!aimCoord.valid())
+		return;
+	shootingAngleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
+	shootingAngleDeg = t1::be::radToDegree(shootingAngleRad);
 
+	if (reloadTimer > 0)
+		return;
+	float correctionX = cos(shootingAngleRad) * 5.0f;
+	float correctionY = sin(shootingAngleRad) * 5.0f;
+	team->spawnShell(ShellType::ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
+	reloadTimer = 240;
+}
+
+void RocketBot::shootByOwnAI()
+{
 	if (tileJustChanged || EventsHandler::active(t1::EventType::MAP_CHANGED))
 		aimCoord = Aiming::aimOnBuilding(*this, SPYRAL_RANGE, world->getBuildingsMap());
-
-	if (aimCoord.valid())
-	{
-		shootingAngleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
-		shootingAngleDeg = t1::be::radToDegree(shootingAngleRad);
-
-		if (reloadTimer <= 0)
-		{
-			float correctionX = cos(shootingAngleRad) * 5.0f;
-			float correctionY = sin(shootingAngleRad) * 5.0f;
-
-			team->spawnShell(ShellType::ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
-			reloadTimer = 240;
-		}
-	}
+	shoot();
 }
 
 

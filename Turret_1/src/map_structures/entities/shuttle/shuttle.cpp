@@ -28,25 +28,25 @@ void Shuttle::moveByOwnAI()
 }
 
 
-void Shuttle::shoot(const BuildingsMap& buildingsMap)
+void Shuttle::shoot()
 {
-	Entity::reloadWeapon();
-	//Entity::aim(SPYRAL_RANGE, PIXEL_RANGE);
+	if (!aimCoord.valid())
+		return;
+	shootingAngleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
+	shootingAngleDeg = t1::be::radToDegree(shootingAngleRad);
 
-	if (aimCoord.valid())
-	{
-		shootingAngleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
-		shootingAngleDeg = t1::be::radToDegree(shootingAngleRad);
+	if (reloadTimer > 0)
+		return;
+	float correctionX = cos(shootingAngleRad) * 15.0f;
+	float correctionY = sin(shootingAngleRad) * 15.0f;
+	team->spawnShell(ShellType::LASER, coord, shootingAngleRad, shootingAngleDeg);
+	reloadTimer = 2;
+}
 
-		if (reloadTimer <= 0)
-		{
-			float correctionX = cos(shootingAngleRad) * 15.0f;
-			float correctionY = sin(shootingAngleRad) * 15.0f;
-
-			team->spawnShell(ShellType::LASER, coord, shootingAngleRad, shootingAngleDeg);
-			reloadTimer = 2;
-		}
-	}
+void Shuttle::shootByOwnAI()
+{
+	aim(SPYRAL_RANGE, PIXEL_RANGE);
+	shoot();
 }
 
 

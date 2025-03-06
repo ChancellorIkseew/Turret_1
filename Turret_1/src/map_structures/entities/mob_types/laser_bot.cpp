@@ -16,26 +16,26 @@ LaserBot::LaserBot(Team* const team) : Entity(team)
 }
 
 
-void LaserBot::shoot(const BuildingsMap& buildingsMap)
+void LaserBot::shoot()
 {
-	Entity::reloadWeapon();
-	Entity::aim(SPYRAL_RANGE, PIXEL_RANGE);
+	if (!aimCoord.valid())
+		return;
+	shootingAngleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
+	shootingAngleDeg = t1::be::radToDegree(shootingAngleRad);
 
+	if (reloadTimer > 0)
+		return;
+	team->spawnShell(ShellType::LASER, coord, shootingAngleRad, shootingAngleDeg);
+	reloadTimer = 2;
+}
+
+void LaserBot::shootByOwnAI()
+{
+	Entity::aim(SPYRAL_RANGE, PIXEL_RANGE);
 	PixelCoord newAim = Aiming::aimOnShell(*this, PIXEL_RANGE, *world);
 	if (newAim.valid())
 		aimCoord = newAim;
-
-	if (aimCoord.valid())
-	{
-		shootingAngleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
-		shootingAngleDeg = t1::be::radToDegree(shootingAngleRad);
-
-		if (reloadTimer <= 0)
-		{
-			team->spawnShell(ShellType::LASER, coord, shootingAngleRad, shootingAngleDeg);
-			reloadTimer = 2;
-		}
-	}
+	shoot();
 }
 
 

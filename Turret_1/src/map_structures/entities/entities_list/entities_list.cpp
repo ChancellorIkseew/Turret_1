@@ -3,7 +3,6 @@
 #include <cereal/types/memory.hpp>
 #include <cereal/types/list.hpp>
 #include "game_interface/gameplay/gameplay_util/camera.h"
-#include "game_interface/gameplay/gameplay_util/mob_controller.h"
 
 #include "entities_list.h"
 
@@ -27,16 +26,7 @@ void EntitiesList::interact(const BuildingsMap& buildingsMap)
 	for (auto it = entitiesList.begin(); it != entitiesList.end();)
 	{
 		Entity& entity = **it;
-
-		if (entity.getControlType() == Control::HARD)
-		{
-			entity.moveByDirectControl(MobController::getMotionVector());
-		}
-		else
-		{
-			entity.moveByOwnAI();
-			entity.shoot(buildingsMap);
-		}
+		entity.interact();
 
 		if (entity.getDurability() < 1)
 			it = entitiesList.erase(it);

@@ -18,36 +18,35 @@ RocketBossBot::RocketBossBot(Team* const team) : Entity(team)
 }
 
 
-void RocketBossBot::shoot(const BuildingsMap& buildingsMap)
+void RocketBossBot::shoot()
 {
-	Entity::reloadWeapon();
+	if (!aimCoord.valid())
+		return;
+	shootingAngleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
+	shootingAngleDeg = t1::be::radToDegree(shootingAngleRad);
 
+	if (reloadTimer <= 0)
+	{
+		float correctionX = cos(shootingAngleRad) * 18.0f;
+		float correctionY = sin(shootingAngleRad) * 18.0f;
+		team->spawnShell(ShellType::ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
+		team->spawnShell(ShellType::ROCKET, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg);
+		reloadTimer = 60;
+	}
+	else if (reloadTimer == 30)
+	{
+		float correctionX = cos(shootingAngleRad) * 14.0f;
+		float correctionY = sin(shootingAngleRad) * 14.0f;
+		team->spawnShell(ShellType::ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
+		team->spawnShell(ShellType::ROCKET, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg);
+	}
+}
+
+void RocketBossBot::shootByOwnAI()
+{
 	if (tileJustChanged || EventsHandler::active(t1::EventType::MAP_CHANGED))
 		aimCoord = Aiming::aimOnBuilding(*this, SPYRAL_RANGE, world->getBuildingsMap());
-
-	if (aimCoord.valid())
-	{
-		shootingAngleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
-		shootingAngleDeg = t1::be::radToDegree(shootingAngleRad);
-
-		if (reloadTimer <= 0)
-		{
-			float correctionX = cos(shootingAngleRad) * 18.0f;
-			float correctionY = sin(shootingAngleRad) * 18.0f;
-
-			team->spawnShell(ShellType::ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
-			team->spawnShell(ShellType::ROCKET, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg);
-			reloadTimer = 60;
-		}
-		else if (reloadTimer == 30)
-		{
-			float correctionX = cos(shootingAngleRad) * 14.0f;
-			float correctionY = sin(shootingAngleRad) * 14.0f;
-
-			team->spawnShell(ShellType::ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
-			team->spawnShell(ShellType::ROCKET, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg);
-		}
-	}
+	shoot();
 }
 
 

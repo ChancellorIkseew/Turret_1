@@ -19,7 +19,7 @@ void Gameplay::input()
         mainControlPanel.interact(isPaused, isGameplayActive, world);
         buildingPanel.interact(mouseMapCoord, player, world.getBuildingsMap(), *this);
         inventoryWindow.interact(player, world.getBuildingsMap());
-        MobController::interact(*player);
+        MobController::interact(*player, *this);
 
 #ifndef TURRET_1_NO_TEST_BUILD
         if (InputHandler::jactive(t1::BindName::Console_cheat))

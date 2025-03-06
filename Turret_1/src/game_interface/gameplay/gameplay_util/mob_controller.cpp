@@ -5,17 +5,16 @@
 #include "t1_system/sleep.h"
 #include "map_structures/entities/entity/entity.h"
 #include "map_structures/team/team.h"
+#include "game_interface/gameplay/gameplay.h"
 
 
-void MobController::shoot()
+void MobController::shoot(const Gameplay& gameplay)
 {
-	PixelCoord newAim = INCORRECT_PIXEL_COORD;
-	if (InputHandler::active(t1::BindName::Shoot))
-	{
-		const sf::Vector2f mouse = InputHandler::getMouseMapCoord();
-		newAim = PixelCoord(mouse.x, mouse.y);
-	}
-	targetedEntity->setShootingAim(newAim);
+	const sf::Vector2f mouse = InputHandler::getMouseMapCoord();
+	aimCoord.store(PixelCoord(mouse.x, mouse.y), std::memory_order_relaxed);
+
+	const bool flag = InputHandler::active(t1::BindName::Shoot) && gameplay.noSubWindowSelected();
+	shooting.store(flag, std::memory_order_relaxed);
 }
 
 void MobController::mine()
@@ -40,13 +39,13 @@ void MobController::move()
 }
 
 
-void MobController::interact(const Team& player)
+void MobController::interact(const Team& player, const Gameplay& gameplay)
 {
 	captureEntity(player);
 	if (targetedEntity == nullptr)
 		return;
 	move();
-	shoot();
+	shoot(gameplay);
 	mine();
 }
 

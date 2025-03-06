@@ -20,7 +20,8 @@ public:
 	MobType getType() const override final { return MobType::LIGHT_SHUTTLE; }
 
 	void moveByOwnAI() override final;
-	void shoot(const BuildingsMap& buildingsMap) override final;
+	void shoot() override final;
+	void shootByOwnAI() override final;
 	void draw(sf::RenderWindow& window) override final;
 
 };

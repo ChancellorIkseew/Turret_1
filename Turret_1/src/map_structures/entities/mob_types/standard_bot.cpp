@@ -15,25 +15,25 @@ StandardBot::StandardBot(Team* const team) : Entity(team)
 }
 
 
-void StandardBot::shoot(const BuildingsMap& buildingsMap)
+void StandardBot::shoot()
 {
-	Entity::reloadWeapon();
+	if (!aimCoord.valid())
+		return;
+	shootingAngleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
+	shootingAngleDeg = t1::be::radToDegree(shootingAngleRad);
+
+	if (reloadTimer > 0)
+		return;
+	float correctionX = cos(shootingAngleRad) * 4.5f;
+	float correctionY = sin(shootingAngleRad) * 4.5f;	
+	team->spawnShell(ShellType::AC_SHELL, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
+	reloadTimer = 30;
+}
+
+void StandardBot::shootByOwnAI()
+{
 	Entity::aim(SPYRAL_RANGE, PIXEL_RANGE);
-	
-	if (aimCoord.valid())
-	{
-		shootingAngleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
-		shootingAngleDeg = t1::be::radToDegree(shootingAngleRad);
-
-		if (reloadTimer <= 0)
-		{
-			float correctionX = cos(shootingAngleRad) * 4.5f;
-			float correctionY = sin(shootingAngleRad) * 4.5f;	
-
-			team->spawnShell(ShellType::AC_SHELL, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
-			reloadTimer = 30;
-		}
-	}
+	shoot();
 }
 
 

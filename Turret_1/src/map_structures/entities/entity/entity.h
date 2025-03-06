@@ -49,6 +49,7 @@ protected:
 	void aim(const int spyralRange, const float pixelRange);
 	void checkTileChanged();
 	void changeLineMotion();
+	virtual void calculateMotion(const BuildingsMap& buildingsMap);
 
 public:
 	Entity(Team* const team);
@@ -62,10 +63,14 @@ public:
 	static PixelCoord randomMapBorderSpawn();
 
 	// combat
-	virtual void calculateMotion(const BuildingsMap& buildingsMap);
-	virtual void shoot(const BuildingsMap& buildingsMap) = 0;
+	
+	void interact();
+
 	virtual void moveByDirectControl(const PixelCoord vector);
 	virtual void moveByOwnAI();
+
+	virtual void shootByOwnAI() = 0;
+	virtual void shoot() = 0;
 
 	// simple_utilites
 	void setTeam(Team* team);
