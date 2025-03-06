@@ -25,10 +25,13 @@ enum buttonsEnum
 	EXIT_TO_MENU = 2,
 	SETTINGS = 3,
 	SET_PAUSE = 4,
-	REMOVE_PAUSE = 5
+	REMOVE_PAUSE = 5,
+	TICK_SPEED_1 = 6,
+	TICK_SPEED_2 = 7,
+	TICK_SPEED_4 = 8,
 };
 
-MainControlPanel::MainControlPanel() : UIWindow(sf::Vector2u(312, 110), sf::Vector2u(0, 0))
+MainControlPanel::MainControlPanel() : UIWindow(sf::Vector2u(372, 110), sf::Vector2u(0, 0))
 {
 	this->prepareInterfaceSprites();
 }
@@ -42,6 +45,11 @@ void MainControlPanel::prepareInterfaceSprites()
 	buttons[SETTINGS] = Button("settings.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 10));
 	buttons[SET_PAUSE] = Button("set_pause.bmp", sf::Vector2i(48, 48), sf::Vector2i(250, 10));
 	buttons[REMOVE_PAUSE] = Button("remove_pause.bmp", sf::Vector2i(48, 48), sf::Vector2i(250, 10));
+	buttons[TICK_SPEED_1] = Button("tick_speed_1.bmp", sf::Vector2i(48, 48), sf::Vector2i(310, 10));
+	buttons[TICK_SPEED_2] = Button("tick_speed_2.bmp", sf::Vector2i(48, 48), sf::Vector2i(310, 10));
+	buttons[TICK_SPEED_4] = Button("tick_speed_4.bmp", sf::Vector2i(48, 48), sf::Vector2i(310, 10));
+	buttons[TICK_SPEED_2].setVisible(false);
+	buttons[TICK_SPEED_4].setVisible(false);
 
 	for (auto& [name, button] : buttons)
 	{
@@ -68,7 +76,7 @@ void MainControlPanel::prepareInterfaceSprites()
 
 
 
-void MainControlPanel::interact(bool& isPaused, bool& isGameplayActive, const World& world)
+void MainControlPanel::interact(bool& isPaused, bool& isGameplayActive, std::atomic_int& tickSpeed, const World& world)
 {
 	if (buttons[SAVE].press())
 		world.save("save_1");
@@ -99,6 +107,28 @@ void MainControlPanel::interact(bool& isPaused, bool& isGameplayActive, const Wo
 		isPaused = !isPaused;
 		buttons[SET_PAUSE].setVisible(!isPaused);
 		buttons[REMOVE_PAUSE].setVisible(isPaused);
+	}
+
+	if (buttons[TICK_SPEED_1].press())
+	{
+		tickSpeed.store(2, std::memory_order_relaxed);
+		buttons[TICK_SPEED_1].setVisible(false);
+		buttons[TICK_SPEED_2].setVisible(true);
+		buttons[TICK_SPEED_4].setVisible(false);
+	}
+	else if (buttons[TICK_SPEED_2].press())
+	{
+		tickSpeed.store(4, std::memory_order_relaxed);
+		buttons[TICK_SPEED_1].setVisible(false);
+		buttons[TICK_SPEED_2].setVisible(false);
+		buttons[TICK_SPEED_4].setVisible(true);
+	}
+	else if (buttons[TICK_SPEED_4].press())
+	{
+		tickSpeed.store(1, std::memory_order_relaxed);
+		buttons[TICK_SPEED_1].setVisible(true);
+		buttons[TICK_SPEED_2].setVisible(false);
+		buttons[TICK_SPEED_4].setVisible(false);
 	}
 }
 

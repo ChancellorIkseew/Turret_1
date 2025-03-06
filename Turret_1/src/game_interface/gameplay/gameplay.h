@@ -21,6 +21,7 @@ class Gameplay
 private:
 	bool isPaused = true;
 	bool isGameplayActive = true;
+	std::atomic_int tickSpeed = 1;
 
 	World world;
 	Camera camera = Camera(TileCoord(0, 0));

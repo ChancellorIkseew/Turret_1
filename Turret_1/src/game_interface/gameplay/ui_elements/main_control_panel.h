@@ -26,7 +26,7 @@ public:
 	MainControlPanel();
 	~MainControlPanel() = default;
 	
-	void interact(bool& isPaused, bool& isGameplayActive, const World& world);
+	void interact(bool& isPaused, bool& isGameplayActive, std::atomic_int& tickSpeed, const World& world);
 	void interactWaveTimer(const bool isPaused, const World& world);
 
 	void prepareInterfaceSprites() override final;

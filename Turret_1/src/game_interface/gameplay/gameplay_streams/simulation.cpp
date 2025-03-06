@@ -7,6 +7,7 @@
 #include "map_structures/entities/entity/mob_enum.h"
 #include "game_interface/gameplay/gameplay_util/mob_controller.h"
 
+constexpr int TICK = 16;
 
 void Gameplay::simulation()
 {
@@ -23,6 +24,6 @@ void Gameplay::simulation()
             WaveConstructor::createWave(enemy, world);       
         }
         resourcesPanel.interact(*player);
-        t1::system::sleep(16);
+        t1::system::sleep(TICK / tickSpeed.load(std::memory_order_relaxed));
     }
 }
