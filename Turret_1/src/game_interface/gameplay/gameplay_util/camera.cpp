@@ -66,7 +66,7 @@ void Camera::centreOnEntity(Entity* entity)
 	if (entity == nullptr)
 		return;
 	 const PixelCoord coord = entity->getCoord();
-	 cameraView.setCenter(coord.x, coord.y);
+	 cameraView.setCenter(sf::Vector2f(coord.x, coord.y));
 }
 
 void Camera::avoidEscapeFromMap()

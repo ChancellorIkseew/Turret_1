@@ -13,7 +13,7 @@ enum buttonsEnum
 };
 
 
-MainMenu::MainMenu() : UIWindow(sf::Vector2u(720, 480), sf::Vector2u(0, 0))
+MainMenu::MainMenu() : UIWindow(sf::Vector2i(720, 480), sf::Vector2i(0, 0))
 {
 	this->prepareInterfaceSprites();
 }
@@ -45,7 +45,7 @@ GameState MainMenu::interact(bool& isMenuOpen)
 }
 
 
-void MainMenu::relocate(const sf::Vector2u windowSize)
+void MainMenu::relocate(const sf::Vector2i windowSize)
 {
 	relocateCentral(windowSize);
 	for (auto& btn : buttons)

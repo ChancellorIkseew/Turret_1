@@ -1,6 +1,6 @@
 #pragma once
-#ifndef RES_ENUM
-#define RES_ENUM
+#ifndef T1_RES_ENUM
+#define T1_RES_ENUM
 
 
 enum class ResType : uint8_t

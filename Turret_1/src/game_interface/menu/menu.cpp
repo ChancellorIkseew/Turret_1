@@ -1,7 +1,5 @@
 
 #include <thread>
-#include <SFML/Graphics.hpp>
-#include <iostream>
 
 #include "menu.h"
 
@@ -15,6 +13,7 @@
 #include "ui_elements/main_menu.h"
 #include "ui_elements/choise_save_folder.h"
 #include "ui_elements/pre_settings.h"
+#include "game_interface/gameplay/ui_elements/settings_window.h"
 #include "t1_system/t1_mutex.h"
 
 
@@ -24,15 +23,15 @@ GameState openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string
 	backImage.loadFromFile("images/background.bmp");
 	sf::Texture backTexture;
 	backTexture.loadFromImage(backImage);
-	sf::Sprite backSprite;
-	backSprite.setTexture(backTexture);
-    backSprite.setPosition(-100, -100);
+	sf::Sprite backSprite(backTexture);
+	backSprite.setPosition({ -100, -100 });
 	
 	sf::Vector2i mouseCoord;
 	
 	MainMenu mainMenu;
 	ChoiseFolderMenu choiseFolderMenu;
 	PreSettingsWindow preSettingsWindow;
+	SettingsWindow settingsWindow;
 	
 	bool isMenuOpen = true;
 	bool exit = false;
@@ -64,6 +63,13 @@ GameState openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string
 					preSettingsWindow.setVisible(false);
 				}
 
+				if (menuTab == GameState::OPTIONS)
+				{
+					settingsWindow.setVisible(true);
+					settingsWindow.interact();
+					settingsWindow.setVisible(false);
+				}
+
 				if (menuTab == GameState::GAMEPLAY)
 				{
 					isMenuOpen = false;
@@ -81,30 +87,30 @@ GameState openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string
 		}
 	);
 
-	sf::Event event;
 	while (isMenuOpen)
     {
 		mouseCoord = sf::Mouse::getPosition(mainWindow);
         
-        while (mainWindow.pollEvent(event))
+        while (const std::optional event = mainWindow.pollEvent())
         {
 			InputHandler::updateInput(event);
 			InputHandler::updateMouseCoord(mainWindow);
 			
-			if (event.type == sf::Event::Closed)
+			if (event->is<sf::Event::Closed>())
 			{
 				mainWindow.close();
 				isMenuOpen = false;
 				exit = true;
 			}
 
-			if (event.type == sf::Event::Resized || UIWindow::windowCreated)
+			if (event->is<sf::Event::Resized>() || UIWindow::windowCreated)
 			{
 				UIWindow::windowCreated = false;
 				overlayResize(mainWindow);
-				mainMenu.relocate(mainWindow.getSize());
-				choiseFolderMenu.relocate(mainWindow.getSize());
-				preSettingsWindow.relocate(mainWindow.getSize());
+				sf::Vector2i mainWindowSize = sf::Vector2i(mainWindow.getSize());
+				mainMenu.relocate(mainWindowSize);
+				choiseFolderMenu.relocate(mainWindowSize);
+				preSettingsWindow.relocate(mainWindowSize);
 			}
 		}
 
@@ -115,6 +121,7 @@ GameState openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string
 		mainMenu.draw(mainWindow);
 		choiseFolderMenu.draw(mainWindow);
 		preSettingsWindow.draw(mainWindow);
+		//settingsWindow.draw(mainWindow);
 
 		mainWindow.display();
 	}

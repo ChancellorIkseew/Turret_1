@@ -18,7 +18,7 @@ void openMainWindow()
 
 	UIPlate::init();
 
-	sf::RenderWindow mainWindow(sf::VideoMode(800, 600), L"Турельница. Версия альфа_0.6.5", sf::Style::Default);
+	sf::RenderWindow mainWindow(sf::VideoMode(sf::Vector2u(800, 600), 32), L"Турельница. Версия альфа_0.6.5", sf::Style::Default);
 	mainWindow.setFramerateLimit(60);
 	overlay.setSize(sf::Vector2f(800.0f, 600.0f));
 

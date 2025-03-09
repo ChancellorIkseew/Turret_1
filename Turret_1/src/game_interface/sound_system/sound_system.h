@@ -26,7 +26,7 @@ public:
 
 	void start()
 	{
-		soundTreak1.setLoop(true);
+		soundTreak1.setLooping(true);
 		soundTreak1.play();
 	}
 

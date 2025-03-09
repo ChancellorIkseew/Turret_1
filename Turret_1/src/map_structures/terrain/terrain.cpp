@@ -53,7 +53,6 @@ void TerrainMap::prepareSprites()
 {
 	terrainImage.loadFromFile("images/terrain.bmp");
 	terrainTexture.loadFromImage(terrainImage);
-	mapSprite.setTexture(terrainTexture);
 }
 	
 void TerrainMap::draw(sf::RenderWindow& window, const Camera& camera)
@@ -68,29 +67,29 @@ void TerrainMap::draw(sf::RenderWindow& window, const Camera& camera)
 			switch (*terrainMap[x][y])
 			{
 			case TILE_GROUND:
-				mapSprite.setTextureRect(sf::IntRect(0, 0, _TILE_, _TILE_));	//void
+				mapSprite.setTextureRect(sf::IntRect(sf::Vector2i(0, 0), X1_RECT));	//void
 				break;
 			case TILE_STONE:
-				mapSprite.setTextureRect(sf::IntRect(32, 0, _TILE_, _TILE_));	//stone
+				mapSprite.setTextureRect(sf::IntRect(sf::Vector2i(32, 0), X1_RECT));	//stone
 				break;
 			case TILE_IRON:
-				mapSprite.setTextureRect(sf::IntRect(64, 0, _TILE_, _TILE_));	//iron
+				mapSprite.setTextureRect(sf::IntRect(sf::Vector2i(64, 0), X1_RECT));	//iron
 				break;
 			case TILE_COPPER:
-				mapSprite.setTextureRect(sf::IntRect(96, 0, _TILE_, _TILE_));	//copper
+				mapSprite.setTextureRect(sf::IntRect(sf::Vector2i(96, 0), X1_RECT));	//copper
 				break;
 			case TILE_SILICON:
-				mapSprite.setTextureRect(sf::IntRect(0, 32, _TILE_, _TILE_));	//silicon
+				mapSprite.setTextureRect(sf::IntRect(sf::Vector2i(0, 32), X1_RECT));	//silicon
 				break;
 			case TILE_COAL:
-				mapSprite.setTextureRect(sf::IntRect(32, 32, _TILE_, _TILE_));	//coal
+				mapSprite.setTextureRect(sf::IntRect(sf::Vector2i(32, 32), X1_RECT));	//coal
 				break;
 			case TILE_SULFUR:
-				mapSprite.setTextureRect(sf::IntRect(64, 32, _TILE_, _TILE_));	//sulfur
+				mapSprite.setTextureRect(sf::IntRect(sf::Vector2i(64, 32), X1_RECT));	//sulfur
 				break;
 			}
 
-			mapSprite.setPosition(x * _TILE_, y * _TILE_);
+			mapSprite.setPosition(sf::Vector2f(static_cast<float>(x * _TILE_), static_cast<float>(y * _TILE_)));
 			window.draw(mapSprite);
 		}
 	}

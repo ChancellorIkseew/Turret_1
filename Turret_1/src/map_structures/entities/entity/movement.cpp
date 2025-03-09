@@ -21,7 +21,6 @@ void Entity::checkTileChanged()
 
 void Entity::changeLineMotion()
 {
-	motionAngleDeg = t1::be::radToDegree(motionAngleRad);
 	lineMotion.x = sin(motionAngleRad) * MAX_SPEED;
 	lineMotion.y = cos(motionAngleRad) * MAX_SPEED;
 }
@@ -57,7 +56,6 @@ void Entity::moveByDirectControl(const PixelCoord vector)
 		return;
 	coord = coord + vector * MAX_SPEED;
 	motionAngleRad = atan2(vector.x, vector.y);
-	motionAngleDeg = t1::be::radToDegree(motionAngleRad);
 }
 
 void Entity::moveByOwnAI()

@@ -25,7 +25,7 @@ bool Router::canAccept(const ResType resType) const
 
 void Router::draw(sf::RenderWindow& window)
 {
-	buildingSprite.setPosition(tile.x * _TILE_, tile.y * _TILE_);
-	buildingSprite.setTextureRect(sf::IntRect(0, 256, 32, 32));
+	buildingSprite.setPosition(sf::Vector2f(tile.x * _TILE_, tile.y * _TILE_));
+	buildingSprite.setTextureRect(sf::IntRect({ 0, 256 }, X1_RECT));
 	window.draw(buildingSprite);
 }

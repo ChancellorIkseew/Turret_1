@@ -8,32 +8,15 @@
 class SettingsWindow : public UIWindow
 {
 private:
-
-	sf::Image confirmButtonImage;
-	sf::Texture confirmButtonTexture;
-	sf::Sprite confirmButtonSprite;
-
-	sf::Image rejectButtonImage;
-	sf::Texture rejectButtonTexture;
-	sf::Sprite rejectButtonSprite;
-
-	sf::Text confirmationText;
-
-	SettingsWindow();
 	SettingsWindow(const SettingsWindow&) = delete;
 	SettingsWindow& operator=(const SettingsWindow&) = delete;
-	~SettingsWindow() = default;
 
 public:
-
-	static SettingsWindow& getInstance()
-	{
-		static SettingsWindow self;
-		return self;
-	}
+	SettingsWindow();
+	~SettingsWindow() = default;
 
 	bool interact();
-	void relocate(const sf::Vector2u windowSize) override final;
+	void relocate(const sf::Vector2i windowSize) override final;
 
 	void prepareInterfaceSprites() override final;
 	void draw(sf::RenderWindow& window) override final;

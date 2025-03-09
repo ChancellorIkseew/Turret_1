@@ -14,9 +14,9 @@ private:
 	short particlesLifeTime = 0;
 	bool isWasted = false;
 	
-	static inline sf::Image burstImage;
-	static inline sf::Texture burstTexture;
-	static inline sf::Sprite burstSprite;
+	static inline sf::Image particleImage;
+	static inline sf::Texture particleTexture;
+	static inline sf::Sprite particleSprite = sf::Sprite(particleTexture);
 
 public:
 	Particle(const int type, const PixelCoord coord);

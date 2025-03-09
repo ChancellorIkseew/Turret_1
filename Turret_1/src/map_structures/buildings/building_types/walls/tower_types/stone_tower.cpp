@@ -6,8 +6,8 @@ StoneTower::StoneTower(const int16_t durability, const uint8_t size, const TileC
 
 void StoneTower::draw(sf::RenderWindow& window)
 {
-	buildingSprite.setPosition(tile.x * _TILE_, tile.y * _TILE_);
-	buildingSprite.setTextureRect(sf::IntRect(0, 416, 32, 32));
+	buildingSprite.setPosition(sf::Vector2f(tile.x * _TILE_, tile.y * _TILE_));
+	buildingSprite.setTextureRect(sf::IntRect({ 0, 416 }, X1_RECT));
 
 	window.draw(buildingSprite);
 	if (turret != nullptr)

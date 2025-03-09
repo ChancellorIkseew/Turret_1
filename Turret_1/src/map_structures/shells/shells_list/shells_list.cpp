@@ -15,11 +15,11 @@ void ShellsList::load(cereal::BinaryInputArchive& archive) {
 }
 
 
-void ShellsList::spawnShell(const ShellType type, const PixelCoord coord, float angleRad, float angleDeg, Team* const team)
+void ShellsList::spawnShell(const ShellType type, const PixelCoord coord, const float angleRad, Team* team)
 {
 	try
 	{
-		shellsList.emplace_back(Shell::createShell(type, coord, angleRad, angleDeg, team));
+		shellsList.emplace_back(Shell::createShell(type, coord, angleRad, team));
 	}
 	catch (std::exception)
 	{

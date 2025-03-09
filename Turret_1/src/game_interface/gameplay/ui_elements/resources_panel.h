@@ -24,7 +24,7 @@ public:
 	~ResourcesPanel() = default;
 	
 	void interact(Team& team);
-	void relocate(const sf::Vector2u windowSizeY) override final;
+	void relocate(const sf::Vector2i windowSizeY) override final;
 	
 	void prepareInterfaceSprites() override final;
 	void draw(sf::RenderWindow &window) override final;

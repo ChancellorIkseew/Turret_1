@@ -7,6 +7,8 @@
 
 #include "map_structures/particles/particle/particle.h"
 
+class Camera;
+
 class ParticlesList
 {
 private:
@@ -19,7 +21,7 @@ public:
 	void spawnParticle(const int type, const PixelCoord coord);
 	void interact();
 	void animate();
-	void draw(sf::RenderWindow& window);
+	void draw(sf::RenderWindow& window, const Camera& camera);
 		
 };
 

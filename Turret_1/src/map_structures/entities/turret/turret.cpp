@@ -23,7 +23,6 @@ void Turret::load(cereal::BinaryInputArchive& archive)
 {
 	int teamID;
 	archive(angleRad, amooQuantity, teamID);
-	angleDeg = t1::be::radToDegree(angleRad);
 	team = world->getTeam(teamID);
 }
 
@@ -56,7 +55,4 @@ void Turret::prepareSprites()
 	turretImage.loadFromFile("images/autocannon_turret.bmp");
 	turretImage.createMaskFromColor(sf::Color(0, 255, 0));
 	turretTexture.loadFromImage(turretImage);
-	turretSprite.setTexture(turretTexture);
-	turretSprite.setTextureRect(sf::IntRect(4, 5, 12, 20));
-	turretSprite.setOrigin(6, 12);
 }

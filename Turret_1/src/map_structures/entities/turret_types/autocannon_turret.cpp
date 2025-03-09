@@ -21,7 +21,6 @@ void AutocannonTurret::shooting()
 	if(aimCoord.valid())
 	{
 		angleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
-		angleDeg = t1::be::radToDegree(angleRad);
 
 		if (reloadTimer % 15 == 0 && amooQuantity > 0)
 		{
@@ -30,12 +29,12 @@ void AutocannonTurret::shooting()
 
 			if (reloadTimer <= 0)
 			{
-				team->spawnShell(ShellType::AC_SHELL, { coord.x + correctionX, coord.y - correctionY }, angleRad, angleDeg);
+				team->spawnShell(ShellType::AC_SHELL, { coord.x + correctionX, coord.y - correctionY }, angleRad);
 				reloadTimer = 30;
 			}
 			else
 			{
-				team->spawnShell(ShellType::AC_SHELL, { coord.x - correctionX, coord.y + correctionY }, angleRad, angleDeg);
+				team->spawnShell(ShellType::AC_SHELL, { coord.x - correctionX, coord.y + correctionY }, angleRad);
 			}
 			--amooQuantity;
 		}
@@ -49,10 +48,10 @@ ResType AutocannonTurret::getAmooType() const { return ResType::AC_SHELLS; }
 
 void AutocannonTurret::draw(sf::RenderWindow& window)
 {
-	turretSprite.setTextureRect(sf::IntRect(4, 5, 12, 20));
-	turretSprite.setOrigin(5.5, 12);
+	turretSprite.setTextureRect(sf::IntRect({ 4, 5 }, { 12, 20 }));
+	turretSprite.setOrigin({ 5.5, 12 });
 
-	turretSprite.setPosition(coord.x, coord.y);
-	turretSprite.setRotation(angleDeg);
+	turretSprite.setPosition({ coord.x, coord.y });
+	turretSprite.setRotation(sf::radians(angleRad));
 	window.draw(turretSprite);
 }

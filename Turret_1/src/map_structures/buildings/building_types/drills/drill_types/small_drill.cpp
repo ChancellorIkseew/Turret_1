@@ -35,17 +35,18 @@ void SmallDrill::animation()
 
 void SmallDrill::draw(sf::RenderWindow& window)
 {
-	buildingSprite.setOrigin(16, 16);
-	buildingSprite.setRotation(rotorAngle);
-	buildingSprite.setPosition(tile.x * _TILE_ + _HALF_TILE_, tile.y * _TILE_ + _HALF_TILE_);
-	buildingSprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
+	using namespace sf::Literals;
+	buildingSprite.setOrigin({ 16, 16 });
+	buildingSprite.setRotation(sf::degrees(rotorAngle));
+	buildingSprite.setPosition(sf::Vector2f(tile.x * _TILE_ + _HALF_TILE_, tile.y * _TILE_ + _HALF_TILE_));
+	buildingSprite.setTextureRect(sf::IntRect({ 0, 0 }, X1_RECT));
 
 	window.draw(buildingSprite);
 
-	buildingSprite.setOrigin(0, 0);
-	buildingSprite.setRotation(0);
-	buildingSprite.setPosition(tile.x * _TILE_, tile.y * _TILE_);
-	buildingSprite.setTextureRect(sf::IntRect(32, 0, 32, 32));
+	buildingSprite.setOrigin({ 0, 0 });
+	buildingSprite.setRotation(0_deg);
+	buildingSprite.setPosition(sf::Vector2f(tile.x * _TILE_, tile.y * _TILE_));
+	buildingSprite.setTextureRect(sf::IntRect({ 32, 0 }, X1_RECT));
 
 	window.draw(buildingSprite);
 }

@@ -13,7 +13,7 @@ class ResourceUnit
 private:
 	static inline sf::Image resourcesImage;
 	static inline sf::Texture resourcesTexture;
-	static inline sf::Sprite resourceSprite;
+	static inline sf::Sprite resourceSprite = sf::Sprite(resourcesTexture);
 		
 public:
 	ResType type;

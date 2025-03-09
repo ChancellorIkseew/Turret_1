@@ -58,8 +58,8 @@ void RocketFactory::animation()
 
 void RocketFactory::draw(sf::RenderWindow& window)
 {
-	buildingSprite.setPosition(tile.x * _TILE_, tile.y * _TILE_);
-	buildingSprite.setTextureRect(sf::IntRect(256, 384, 96, 96));
+	buildingSprite.setPosition(sf::Vector2f(tile.x * _TILE_, tile.y * _TILE_));
+	buildingSprite.setTextureRect(sf::IntRect({ 256, 384 }, X3_RECT));
 
 	window.draw(buildingSprite);
 }

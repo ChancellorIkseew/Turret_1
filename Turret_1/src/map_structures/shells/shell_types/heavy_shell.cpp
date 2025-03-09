@@ -9,8 +9,8 @@ constexpr float EXP_DAMAGE = 10.0f;
 constexpr float SPEED = 1.6f;
 constexpr uint16_t MAX_LIFI_TIME = 500;
 
-HeavyShell::HeavyShell(PixelCoord coord, float angleRad, float angleDeg, Team* const team) :
-	Shell(coord, angleRad, angleDeg, team)
+HeavyShell::HeavyShell(const PixelCoord coord, const float angleRad, Team* team) :
+	Shell(coord, angleRad, team)
 {
 	restLifeTime = MAX_LIFI_TIME;
 	lineMotion.x = sin(angleRad) * SPEED;
@@ -27,9 +27,9 @@ void HeavyShell::explosion()
 
 void HeavyShell::draw(sf::RenderWindow& window)
 {
-	shellSprite.setTextureRect(sf::IntRect(2, 0, 3, 7));
-	shellSprite.setOrigin(2, 1);
-	shellSprite.setPosition(coord.x, coord.y);
-	shellSprite.setRotation(angleDeg);
+	shellSprite.setTextureRect(sf::IntRect({ 2, 0 }, { 3, 7 }));
+	shellSprite.setOrigin({ 2, 1 });
+	shellSprite.setPosition({ coord.x, coord.y });
+	shellSprite.setRotation(sf::radians(PI - angleRad));
 	window.draw(shellSprite);
 }

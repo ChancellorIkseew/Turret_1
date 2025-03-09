@@ -21,11 +21,10 @@ void LaserBot::shoot()
 	if (!aimCoord.valid())
 		return;
 	shootingAngleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
-	shootingAngleDeg = t1::be::radToDegree(shootingAngleRad);
 
 	if (reloadTimer > 0)
 		return;
-	team->spawnShell(ShellType::LASER, coord, shootingAngleRad, shootingAngleDeg);
+	team->spawnShell(ShellType::LASER, coord, shootingAngleRad);
 	reloadTimer = 2;
 }
 
@@ -38,17 +37,18 @@ void LaserBot::shootByOwnAI()
 	shoot();
 }
 
+constexpr sf::Vector2f BOT_ORIGIN(9.0f, 8.0f);
 
 void LaserBot::draw(sf::RenderWindow& window)
 {
-	entitySprite.setTextureRect(sf::IntRect(60, 0, 17, 15));
-	entitySprite.setOrigin(9, 8);
+	entitySprite.setTextureRect(sf::IntRect({ 60, 0 }, { 17, 15 }));
+	entitySprite.setOrigin(BOT_ORIGIN);
 
 	if (aimCoord.valid())
-		entitySprite.setRotation(shootingAngleDeg);
+		entitySprite.setRotation(sf::radians(PI - shootingAngleRad));
 	else
-		entitySprite.setRotation(motionAngleDeg);
+		entitySprite.setRotation(sf::radians(PI - motionAngleRad));
 
-	entitySprite.setPosition(coord.x, coord.y);
+	entitySprite.setPosition({ coord.x, coord.y });
 	window.draw(entitySprite);
 }

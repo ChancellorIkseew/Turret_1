@@ -11,40 +11,41 @@ private:
 	static void prepareWindowBaseSprites();
 
 protected:
-	sf::Vector2u size;
-	sf::Vector2u position;
+	sf::Vector2i size;
+	sf::Vector2i position;
 
-	bool isSelected;
-	bool isVisible;
+	bool isSelected = false;
+	bool isVisible = true;
 
 	//Base
 	static inline sf::Texture baseTexture;
-	static inline sf::Sprite base;
+	static inline sf::Sprite base = sf::Sprite(baseTexture);
 
 	//Borders
 	static inline sf::Texture upperBorderTexture;
 	static inline sf::Texture lowerBorderTexture;
 	static inline sf::Texture leftBorderTexture;
 	static inline sf::Texture rightBorderTexture;
-	static inline sf::Sprite upperBorder;
-	static inline sf::Sprite lowerBorder;
-	static inline sf::Sprite leftBorder;
-	static inline sf::Sprite rightBorder;
+	static inline sf::Sprite upperBorder = sf::Sprite(upperBorderTexture);
+	static inline sf::Sprite lowerBorder = sf::Sprite(lowerBorderTexture);
+	static inline sf::Sprite leftBorder = sf::Sprite(leftBorderTexture);
+	static inline sf::Sprite rightBorder = sf::Sprite(rightBorderTexture);
 
 	//Corners
 	static inline sf::Texture upperLeftCornerTexture;
 	static inline sf::Texture lowerLeftCornerTexture;
 	static inline sf::Texture upperRightCornerTexture;
 	static inline sf::Texture lowerRightCornerTexture;
-	static inline sf::Sprite upperLeftCorner;
-	static inline sf::Sprite lowerLeftCorner;
-	static inline sf::Sprite upperRightCorner;
-	static inline sf::Sprite lowerRightCorner;
+	static inline sf::Sprite upperLeftCorner = sf::Sprite(upperLeftCornerTexture);
+	static inline sf::Sprite lowerLeftCorner = sf::Sprite(lowerLeftCornerTexture);
+	static inline sf::Sprite upperRightCorner = sf::Sprite(upperRightCornerTexture);
+	static inline sf::Sprite lowerRightCorner = sf::Sprite(lowerRightCornerTexture);
 
 	void drawBase(sf::RenderWindow& window) const;
 
 public:
-	UIPlate(const sf::Vector2u size, const sf::Vector2u position);
+	UIPlate(const sf::Vector2i size, const sf::Vector2i position);
+	UIPlate(const sf::Vector2i size);
 	virtual ~UIPlate() = default;
 
 	void setVisible(const bool value);

@@ -9,12 +9,12 @@
 class BuildingIco
 {
 private:
-    sf::Vector2u position;
-    sf::Vector2u ownerPosition;
+    sf::Vector2i position;
+    sf::Vector2i ownerPosition;
 
     static inline sf::Image image;
     static inline sf::Texture texture;
-    sf::Sprite ico;
+    sf::Sprite ico = sf::Sprite(texture);
 
     BuildingType buildingType;
     sf::IntRect icoRect;
@@ -24,15 +24,15 @@ private:
 
 public:
     BuildingIco() = default;
-    BuildingIco(const BuildingType buildingType, const sf::Vector2u position);
+    BuildingIco(const BuildingType buildingType, const sf::Vector2i position);
     BuildingIco(const BuildingType buildingType);
     ~BuildingIco() = default;
    
     bool press();
     BuildingType getBuildingType() const;
 
-    void setPosition(const sf::Vector2u position);
-    void relocateWithOwner(const sf::Vector2u ownerPosition);
+    void setPosition(const sf::Vector2i position);
+    void relocateWithOwner(const sf::Vector2i ownerPosition);
     static void prepareSprites();
     void draw(sf::RenderWindow& window);
 

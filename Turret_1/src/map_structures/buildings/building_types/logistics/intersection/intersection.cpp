@@ -87,7 +87,7 @@ void Intersection::addToInventory(ResourceUnit& unit)
 
 void Intersection::draw(sf::RenderWindow& window)
 {
-	buildingSprite.setPosition(tile.x * _TILE_, tile.y * _TILE_);
-	buildingSprite.setTextureRect(sf::IntRect(32, 256, 32, 32));
+	buildingSprite.setPosition(sf::Vector2f(tile.x * _TILE_, tile.y * _TILE_));
+	buildingSprite.setTextureRect(sf::IntRect({ 32, 256 }, X1_RECT));
 	window.draw(buildingSprite);
 }

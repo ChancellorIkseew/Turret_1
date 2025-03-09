@@ -138,9 +138,6 @@
     <ClCompile Include="src\game_interface\gameplay\ui_elements\resources_panel.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="src\game_interface\gameplay\ui_elements\settings_window.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="src\game_interface\gameplay\ui_elements\specification_panel.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -441,6 +438,9 @@
     <ClCompile Include="src\map_structures\entities\behavior\comon.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="src\game_interface\gameplay\ui_elements\settings_window.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\game_interface\gameplay\gameplay_util\camera.h">
@@ -474,9 +474,6 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="src\game_interface\gameplay\ui_elements\resources_panel.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="src\game_interface\gameplay\ui_elements\settings_window.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="src\game_interface\gameplay\ui_elements\specification_panel.h">
@@ -819,6 +816,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="src\map_structures\entities\behavior\comon.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game_interface\gameplay\ui_elements\settings_window.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

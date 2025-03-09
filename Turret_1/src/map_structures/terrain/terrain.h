@@ -18,7 +18,7 @@ private:
 	
 	static inline sf::Image terrainImage;
 	static inline sf::Texture terrainTexture;
-	static inline sf::Sprite mapSprite;
+	static inline sf::Sprite mapSprite = sf::Sprite(terrainTexture);
 	
 public:
 	TerrainMap() = default;

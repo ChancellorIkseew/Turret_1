@@ -20,13 +20,12 @@ void StandardBot::shoot()
 	if (!aimCoord.valid())
 		return;
 	shootingAngleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
-	shootingAngleDeg = t1::be::radToDegree(shootingAngleRad);
 
 	if (reloadTimer > 0)
 		return;
 	float correctionX = cos(shootingAngleRad) * 4.5f;
 	float correctionY = sin(shootingAngleRad) * 4.5f;	
-	team->spawnShell(ShellType::AC_SHELL, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
+	team->spawnShell(ShellType::AC_SHELL, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad);
 	reloadTimer = 30;
 }
 
@@ -39,14 +38,14 @@ void StandardBot::shootByOwnAI()
 
 void StandardBot::draw(sf::RenderWindow& window)
 {
-	entitySprite.setTextureRect(sf::IntRect(1, 1, 15, 13));
-	entitySprite.setOrigin(8, 7);
+	entitySprite.setTextureRect(sf::IntRect({ 1, 1 }, { 15, 13 }));
+	entitySprite.setOrigin({ 8, 7 });
 
 	if (aimCoord.valid())
-		entitySprite.setRotation(shootingAngleDeg);
+		entitySprite.setRotation(sf::radians(PI - shootingAngleRad));
 	else
-		entitySprite.setRotation(motionAngleDeg);
+		entitySprite.setRotation(sf::radians(PI - motionAngleRad));
 
-	entitySprite.setPosition(coord.x, coord.y);
+	entitySprite.setPosition({ coord.x, coord.y });
 	window.draw(entitySprite);
 }

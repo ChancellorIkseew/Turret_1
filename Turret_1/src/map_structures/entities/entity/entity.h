@@ -27,9 +27,7 @@ protected:
 	TileCoord currentTile, nextTile;
 	
 	float motionAngleRad = 0;
-	float motionAngleDeg = 0;
 	float shootingAngleRad = 0;
-	float shootingAngleDeg = 0;
 
 	Control control = Control::HARD;
 	bool tileJustChanged = false;
@@ -39,11 +37,11 @@ protected:
 
 	static inline sf::Image entityImage;
 	static inline sf::Texture entityTexture;
-	static inline sf::Sprite entitySprite;
+	static inline sf::Sprite entitySprite = sf::Sprite(entityTexture);
 
 	static inline sf::Image shieldImage;
 	static inline sf::Texture shieldTexture;
-	static inline sf::Sprite shieldSprite;
+	static inline sf::Sprite shieldSprite = sf::Sprite(shieldTexture);
 
 	void reloadWeapon();
 	void aim(const int spyralRange, const float pixelRange);

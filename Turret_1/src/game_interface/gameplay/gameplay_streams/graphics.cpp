@@ -8,7 +8,7 @@
 #include "t1_system/t1_mutex.h"
 
 #include "game_interface/gameplay/ui_elements/exit_confirmation.h"
-#include "game_interface/gameplay/ui_elements/settings_window.h"
+//#include "game_interface/gameplay/ui_elements/settings_window.h"
 #include "game_interface/gameplay/gameplay_util/mob_controller.h"
 
 #include "map_structures/buildings/building/building.h"
@@ -25,25 +25,24 @@ void Gameplay::graphics(sf::RenderWindow& mainWindow)
     Shell::prepareSprites();
     Particle::prepareSprites();
 
-    sf::Event event;
     while (isGameplayActive)
     {
-        while (mainWindow.pollEvent(event))
+        while (const std::optional event = mainWindow.pollEvent())
         {
             InputHandler::updateInput(event);
             InputHandler::updateMouseCoord(mainWindow);
 
-            if (event.type == sf::Event::Closed)
+            if (event->is<sf::Event::Closed>())
             {
                 mainWindow.close();
                 isGameplayActive = false;
             }
 
-            if (event.type == sf::Event::Resized || UIWindow::windowCreated)
+            if (event->is<sf::Event::Resized>() || UIWindow::windowCreated)
             {
                 UIWindow::windowCreated = false;
                 overlayResize(mainWindow);
-                relocateSubWindows(mainWindow.getSize());
+                relocateSubWindows(sf::Vector2i(mainWindow.getSize()));
             }
         }
         
@@ -59,7 +58,7 @@ void Gameplay::graphics(sf::RenderWindow& mainWindow)
         resourcesPanel.draw(mainWindow);
         inventoryWindow.draw(mainWindow);
         ConfirmationWindow::getInstance().draw(mainWindow);
-        SettingsWindow::getInstance().draw(mainWindow);
+        //SettingsWindow::getInstance().draw(mainWindow);
 
         mainWindow.setView(camera.getView());
         mainWindow.display();                   //End draw_block

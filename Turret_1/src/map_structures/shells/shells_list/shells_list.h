@@ -22,7 +22,7 @@ public:
 	void save(cereal::BinaryOutputArchive& archive) const;
 	void load(cereal::BinaryInputArchive& archive);
 
-	void spawnShell(const ShellType type, const PixelCoord coord, float angleRad, float angleDeg, Team* const team);
+	void spawnShell(const ShellType type, const PixelCoord coord, const float angleRad, Team* team);
 	void clear() noexcept { shellsList.clear(); }
 
 	void interact();

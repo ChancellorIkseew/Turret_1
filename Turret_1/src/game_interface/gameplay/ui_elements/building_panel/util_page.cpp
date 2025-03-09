@@ -4,5 +4,5 @@
 
 void t1::bc::initUtil(std::map<BuildingType, BuildingIco>& util)
 {
-	util[BuildingType::REMOVE] = BuildingIco(BuildingType::REMOVE, sf::Vector2u(10, 52));
+	util[BuildingType::REMOVE] = BuildingIco(BuildingType::REMOVE, sf::Vector2i(10, 52));
 }

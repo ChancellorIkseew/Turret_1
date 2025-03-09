@@ -16,6 +16,10 @@
 #include "t1_system/t1_mutex.h"
 #include "t1_system/sleep.h"
 
+using namespace sf::Literals;
+constexpr float _F_HALF_TILE_ = static_cast<float>(_HALF_TILE_);
+constexpr sf::Vector2f BLUEPRINT_ORIGIN = sf::Vector2f(_F_HALF_TILE_, _F_HALF_TILE_);
+
 enum Pages
 {
 	UTIL = 0,
@@ -30,7 +34,7 @@ enum Pages
 };
 
 
-BuildingPanel::BuildingPanel() : UIWindow(sf::Vector2u(324, 192), sf::Vector2u(0, 0))
+BuildingPanel::BuildingPanel() : UIWindow(sf::Vector2i(324, 192))
 {
 	selectedPage = LOGISTICS;
 	isBuildingTypeSelected = false;
@@ -47,11 +51,10 @@ BuildingPanel::BuildingPanel() : UIWindow(sf::Vector2u(324, 192), sf::Vector2u(0
 
 void BuildingPanel::prepareInterfaceSprites()
 {
-	buildingsImage.loadFromFile("images/buildings_ico.bmp");
+	buildingsImage.loadFromFile("images/buildings_ico.bmp"); //Building_example_on_coursor
 	buildingsImage.createMaskFromColor(sf::Color(0, 255, 0));
 	buildingsTexture.loadFromImage(buildingsImage);
-	buildExample.setTexture(buildingsTexture); //Building_example_on_coursor
-	buildExample.setOrigin(_HALF_TILE_, _HALF_TILE_);
+	buildExample.setOrigin(BLUEPRINT_ORIGIN);
 
 	int line1 = 240;
 	int line2 = 282;
@@ -85,20 +88,18 @@ void BuildingPanel::prepareInterfaceSprites()
 
 
 
-void BuildingPanel::interact(const sf::Vector2f& mouseMapCoord, Team* team, BuildingsMap& buildingsMap, const Gameplay& gameplay)
+void BuildingPanel::interact(Team* team, BuildingsMap& buildingsMap, const Gameplay& gameplay)
 {
-	if (InputHandler::active(t1::BindName::Build) && isBuildingTypeSelected && (gameplay.noSubWindowSelected()))
+	if (InputHandler::active(t1::BindName::Build) && isBuildingTypeSelected && gameplay.noSubWindowSelected())
 	{
-		placeBuilding(mouseMapCoord, team, buildingsMap);
+		placeBuilding(team, buildingsMap);
 		t1::system::sleep(150);
-		return;
 	}
 
-	if (InputHandler::jactive(t1::BindName::Rotate_building))
+	if (InputHandler::jactive(t1::BindName::Rotate_building) || InputHandler::jactive(t1::BindName::RMB))
 	{
 		rotateBuilding();
 		t1::system::sleep(150);
-		return;
 	}
 
 	if (info.press())
@@ -118,7 +119,7 @@ void BuildingPanel::interact(const sf::Vector2f& mouseMapCoord, Team* team, Buil
 
 
 
-void BuildingPanel::relocate(const sf::Vector2u windowSize)
+void BuildingPanel::relocate(const sf::Vector2i windowSize)
 {
 	position = windowSize - size;
 	info.relocateWithOwner(position);
@@ -145,16 +146,12 @@ bool BuildingPanel::containsCoursor() const
 
 void BuildingPanel::draw(sf::RenderWindow& window)
 {
-	if (isBuildingTypeSelected)
-	{
-		expensesPanel->interact(newBuildingType, buildingsPre);
-		expensesPanel->draw(window);
-		if (isInfoOpen)
-		{
-			specificationPanel->interact(newBuildingType, buildingsPre);
-			specificationPanel->draw(window);
-		}
-	}
+	expensesPanel->setVisible(isBuildingTypeSelected);
+	expensesPanel->interact(newBuildingType, buildingsPre);
+	expensesPanel->draw(window);
+	specificationPanel->setVisible(isInfoOpen && isBuildingTypeSelected);
+	specificationPanel->interact(newBuildingType, buildingsPre);
+	specificationPanel->draw(window);
 	drawBase(window);
 	info.draw(window);
 	for (auto& [name, button] : buttons)
@@ -177,7 +174,7 @@ void BuildingPanel::drawBuildExample(sf::RenderWindow& window, Team* team, const
 		newBuildingType != BuildingType::BRIDGE && newBuildingType != BuildingType::SORTER)
 	{
 		direction = 'w';
-		buildExample.setRotation(0.0f);
+		buildExample.setRotation(0_deg);
 	}
 
 	TileCoord selectedTile = t1::be::tile(mouseMapCoord.x, mouseMapCoord.y);
@@ -204,28 +201,28 @@ void BuildingPanel::rotateBuilding()
 		if (direction == 'w')
 		{
 			direction = 'a';
-			buildExample.setRotation(270);
+			buildExample.setRotation(270_deg);
 		}
 		else if (direction == 'a')
 		{
 			direction = 's';
-			buildExample.setRotation(180);
+			buildExample.setRotation(180_deg);
 		}
 		else if (direction == 's')
 		{
 			direction = 'd';
-			buildExample.setRotation(90);
+			buildExample.setRotation(90_deg);
 		}
 		else if (direction == 'd')
 		{
 			direction = 'w';
-			buildExample.setRotation(0);
+			buildExample.setRotation(0_deg);
 		}
 		break;
 
 	default:
 		direction = 'w';
-		buildExample.setRotation(0);
+		buildExample.setRotation(0_deg);
 		break;
 	}
 }
@@ -233,27 +230,26 @@ void BuildingPanel::rotateBuilding()
 
 void BuildingPanel::selectBuildingType(BuildingIco& ico)
 {
-	if (!ico.press())
+	if (!ico.press() && !InputHandler::active(t1::BindName::Escape))
 		return;
 	newBuildingType = ico.getBuildingType();
-	if (oldBuildingType != newBuildingType)
-	{
-		buildExample.setTextureRect(t1::bc::buildingsInfoTable[newBuildingType].icoRect);
-		isBuildingTypeSelected = true;
-		oldBuildingType = newBuildingType;
-	}
-	else
+	if (oldBuildingType == newBuildingType || InputHandler::active(t1::BindName::Escape))
 	{
 		isBuildingTypeSelected = false;
 		oldBuildingType = BuildingType::VOID_;
 		isInfoOpen = false;
+		return;
 	}
+	buildExample.setTextureRect(t1::bc::buildingsInfoTable[newBuildingType].icoRect);
+	isBuildingTypeSelected = true;
+	oldBuildingType = newBuildingType;
 }
 
 
-void BuildingPanel::placeBuilding(const sf::Vector2f& mouseMapCoord, Team* team, BuildingsMap& buildingsMap) const
+void BuildingPanel::placeBuilding(Team* team, BuildingsMap& buildingsMap) const
 {
 	std::cout << "building_place_works: " << static_cast<uint16_t>(newBuildingType) << '\n';
+	const sf::Vector2f mouseMapCoord = InputHandler::getMouseMapCoord();
 	const TileCoord selectedTile = t1::be::tile(mouseMapCoord.x, mouseMapCoord.y);
 
 	std::lock_guard<std::mutex> guard(t1::system::mt::buildings);

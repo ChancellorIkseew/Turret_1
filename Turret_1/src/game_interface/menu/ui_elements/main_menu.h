@@ -20,7 +20,7 @@ public:
 	~MainMenu() = default;
 
 	GameState interact(bool& isMenuOpen);
-	void relocate(const sf::Vector2u windowSizeY) override final;
+	void relocate(const sf::Vector2i windowSizeY) override final;
 
 	void prepareInterfaceSprites() override final;
 	void draw(sf::RenderWindow& window) override final;

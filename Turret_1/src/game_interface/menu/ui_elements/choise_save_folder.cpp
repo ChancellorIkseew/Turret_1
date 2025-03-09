@@ -37,7 +37,7 @@ std::string ChoiseFolderMenu::selectFolder(std::string v_saveFileName, bool& isF
 }
 
 
-ChoiseFolderMenu::ChoiseFolderMenu() : UIWindow(sf::Vector2u(720, 480), sf::Vector2u(0, 0))
+ChoiseFolderMenu::ChoiseFolderMenu() : UIWindow(sf::Vector2i(720, 480), sf::Vector2i(0, 0))
 {
 	this->prepareInterfaceSprites();
 	isVisible = false;
@@ -54,7 +54,7 @@ void ChoiseFolderMenu::prepareInterfaceSprites()
 	buttons[EXIT_TO_MENU] = Button("exit_to_menu.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 10));
 	buttons[LOAD_1] = Button("choise_load.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 240));
 
-	helpText = sf::Text(sf::String(L" "), turretClassic,16);
+	helpText.setCharacterSize(16);
 	helpText.setString(sf::String(L"„тобы начать игру, нужно выбрать сохранение,\nв которое будет записыватьс€ игровой прогресс."));
 	helpText.setFillColor(darkRed);
 }
@@ -106,7 +106,7 @@ GameState ChoiseFolderMenu::interact(bool& isMenuOpen, bool& startNewGame, std::
 }
 
 
-void ChoiseFolderMenu::relocate(const sf::Vector2u windowSize)
+void ChoiseFolderMenu::relocate(const sf::Vector2i windowSize)
 {
 	relocateCentral(windowSize);
 	for (auto& btn : buttons)
@@ -114,7 +114,7 @@ void ChoiseFolderMenu::relocate(const sf::Vector2u windowSize)
 		btn.second.relocateWithOwner(position);
 	}
 
-	helpText.setPosition(position.x + 70, position.y + 350);
+	helpText.setPosition(sf::Vector2f(position.x + 70, position.y + 350));
 }
 
 

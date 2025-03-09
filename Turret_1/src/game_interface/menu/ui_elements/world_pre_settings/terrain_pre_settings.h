@@ -8,7 +8,6 @@
 #include "game_interface/ui_window/elements/res_ico/res_ico.h"
 #include "game_interface/ui_window/sub_win_types/text_field/text_field.h"
 
-
 class TerrainPreSettingsPage : public Page
 {
 private:
@@ -19,18 +18,18 @@ private:
 	TextField seed;
 	TextField smoothLayer;
 
-	sf::Text tFrequency;
-	sf::Text tDepositSize;
-	sf::Text tSeed;
-	sf::Text tSmoothLayer;
+	sf::Text tFrequency = sf::Text(turretClassic);
+	sf::Text tDepositSize = sf::Text(turretClassic);
+	sf::Text tSeed = sf::Text(turretClassic);
+	sf::Text tSmoothLayer = sf::Text(turretClassic);
 
 public:
-	TerrainPreSettingsPage(const sf::Vector2u position);
+	TerrainPreSettingsPage(const sf::Vector2i position);
 	~TerrainPreSettingsPage() = default;
 
 	void interact() override final;
 	void enter(PreSettings& preSettings) override final;
-	void relocateWithOwner(const sf::Vector2u windowSizeY) override final;
+	void relocateWithOwner(const sf::Vector2i windowSizeY) override final;
 
 	void prepareInterfaceSprites() override final;
 	void draw(sf::RenderWindow& window) override final;

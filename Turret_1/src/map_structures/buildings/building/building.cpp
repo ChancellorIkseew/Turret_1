@@ -146,7 +146,6 @@ void Building::prepareSprites()
 	buildingsImage.loadFromFile("images/buildings_map.bmp");
 	buildingsImage.createMaskFromColor(sf::Color(0, 255, 0));
 	buildingsTexture.loadFromImage(buildingsImage);
-	buildingSprite.setTexture(buildingsTexture);
 }
 
 void Building::animation() { }

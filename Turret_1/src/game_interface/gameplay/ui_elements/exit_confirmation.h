@@ -13,7 +13,7 @@ private:
 	Button confirm;
 	Button reject;
 
-	sf::Text confirmationText;
+	//sf::Text confirmationText;
 
 	ConfirmationWindow();
 	ConfirmationWindow(const ConfirmationWindow&) = delete;
@@ -29,7 +29,7 @@ public:
 	}
 
 	bool interact();
-	void relocate(const sf::Vector2u wndowSize) override final;
+	void relocate(const sf::Vector2i wndowSize) override final;
 
 	void prepareInterfaceSprites() override final;
 	void draw(sf::RenderWindow& window) override final;

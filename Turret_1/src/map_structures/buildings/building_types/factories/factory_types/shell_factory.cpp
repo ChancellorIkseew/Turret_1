@@ -55,8 +55,8 @@ void ShellFactory::animation()
 
 void ShellFactory::draw(sf::RenderWindow& window)
 {
-	buildingSprite.setPosition(tile.x * _TILE_, tile.y * _TILE_);
-	buildingSprite.setTextureRect(sf::IntRect(0, 320, 64, 64));
+	buildingSprite.setPosition(sf::Vector2f(tile.x * _TILE_, tile.y * _TILE_));
+	buildingSprite.setTextureRect(sf::IntRect({ 0, 320 }, X2_RECT));
 
 	window.draw(buildingSprite);
 }

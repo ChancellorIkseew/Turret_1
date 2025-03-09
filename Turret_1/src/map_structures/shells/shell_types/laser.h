@@ -10,7 +10,7 @@
 class Laser : public Shell
 {
 public:
-	Laser(PixelCoord coord, float angleRad, float angleDeg, Team* const team);
+	Laser(const PixelCoord coord, const float angleRad, Team* team);
 	Laser() = default;
 	~Laser() = default;
 

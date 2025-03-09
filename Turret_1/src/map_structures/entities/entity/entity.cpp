@@ -15,15 +15,11 @@ constexpr float MAX_SPEED = 0.1; // temporary desision
 
 Entity::Entity(Team* const team) : team(team), reloadTimer(0) { }
 
-void Entity::save(cereal::BinaryOutputArchive& archive) const
-{
+void Entity::save(cereal::BinaryOutputArchive& archive) const {
 	archive(coord, motionAngleRad, durability);
 }
-
-void Entity::load(cereal::BinaryInputArchive& archive)
-{
+void Entity::load(cereal::BinaryInputArchive& archive) {
 	archive(coord, motionAngleRad, durability);
-	motionAngleDeg = t1::be::radToDegree(motionAngleRad);
 }
 
 void Entity::interact()
@@ -35,7 +31,6 @@ void Entity::interact()
 		moveByDirectControl(MobController::getMotionVector());
 		aimCoord = MobController::getAimCoord();
 		shootingAngleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
-		shootingAngleDeg = t1::be::radToDegree(shootingAngleRad);
 		if (MobController::shootingActive())
 			shoot();
 		return;
@@ -96,13 +91,11 @@ void Entity::prepareSprites()
 	entityImage.loadFromFile("images/mobs.bmp");
 	entityImage.createMaskFromColor(sf::Color(0, 255, 0));
 	entityTexture.loadFromImage(entityImage);
-	entitySprite.setTexture(entityTexture);
 
 	shieldImage.loadFromFile("images/shield.bmp");
 	shieldImage.createMaskFromColor(sf::Color(0, 255, 0));
 	shieldTexture.loadFromImage(shieldImage);
-	shieldSprite.setTexture(shieldTexture);
-	shieldSprite.setTextureRect(sf::IntRect(0, 0, 49, 48));
-	shieldSprite.setOrigin(24, 24);
+	shieldSprite.setTextureRect(sf::IntRect({ 0, 0 }, { 49, 48 }));
+	shieldSprite.setOrigin({ 24, 24 });
 	shieldSprite.setColor(sf::Color(255, 255, 255, 128));
 }

@@ -26,7 +26,7 @@ private:
 	
 	static inline sf::Image buildingsImage;
 	static inline sf::Texture buildingsTexture;
-	static inline sf::Sprite buildExample;
+	static inline sf::Sprite buildExample = sf::Sprite(buildingsTexture);
 
 	int selectedPage;
 	bool isBuildingTypeSelected;
@@ -37,7 +37,7 @@ private:
 
 	inline void selectBuildingType(BuildingIco& ico);
 	inline void rotateBuilding();
-	inline void placeBuilding(const sf::Vector2f& mouseMapCoord, Team* team, BuildingsMap& buildingsMap) const;
+	inline void placeBuilding(Team* team, BuildingsMap& buildingsMap) const;
 
 	std::unique_ptr<ExpensesPanel> expensesPanel;
 	std::unique_ptr<SpecificationPanel> specificationPanel;
@@ -50,8 +50,8 @@ public:
 	~BuildingPanel() = default;
 	
 	void initPresettings(const BuildingsPre& buildingsPre) { this->buildingsPre = buildingsPre; }
-	void interact(const sf::Vector2f& mouseMapCoord, Team* team, BuildingsMap& buildingsMap, const Gameplay& gameplay);
-	void relocate(const sf::Vector2u windowSize) override final;
+	void interact(Team* team, BuildingsMap& buildingsMap, const Gameplay& gameplay);
+	void relocate(const sf::Vector2i windowSize) override final;
 	bool containsCoursor() const override final;
 	
 	void prepareInterfaceSprites() override final;

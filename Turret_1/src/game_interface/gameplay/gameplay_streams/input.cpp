@@ -15,9 +15,8 @@ void Gameplay::input()
 {
     while (isGameplayActive)
     {
-        sf::Vector2f mouseMapCoord = InputHandler::getMouseMapCoord();
         mainControlPanel.interact(isPaused, isGameplayActive, tickSpeed, world);
-        buildingPanel.interact(mouseMapCoord, player, world.getBuildingsMap(), *this);
+        buildingPanel.interact(player, world.getBuildingsMap(), *this);
         inventoryWindow.interact(player, world.getBuildingsMap());
         MobController::interact(*player, *this);
 

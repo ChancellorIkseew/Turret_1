@@ -6,8 +6,8 @@
 #include "map_structures/world/world.h"
 
 
-Shell::Shell(const PixelCoord coord, float angleRad, float angleDeg, Team* const team) :
-	coord(coord), angleRad(angleRad), angleDeg(angleDeg), team(team) { }
+Shell::Shell(const PixelCoord coord, float angleRad, Team* const team) :
+	coord(coord), angleRad(angleRad), team(team) { }
 
 void Shell::save(cereal::BinaryOutputArchive& archive) const
 {
@@ -17,7 +17,6 @@ void Shell::save(cereal::BinaryOutputArchive& archive) const
 void Shell::load(cereal::BinaryInputArchive& archive)
 {
 	archive(coord, lineMotion, angleRad, restLifeTime);
-	angleDeg = t1::be::radToDegree(angleRad);
 }
 
 
@@ -65,7 +64,4 @@ void Shell::prepareSprites()
 	shellImage.loadFromFile("images/bullet.bmp");
 	shellImage.createMaskFromColor(sf::Color(0, 255, 0));
 	shellTexture.loadFromImage(shellImage);
-	shellSprite.setTexture(shellTexture);
-	shellSprite.setTextureRect(sf::IntRect(0, 0, 1, 2));
-	shellSprite.setOrigin(1, 1);
 }

@@ -7,26 +7,22 @@
 #include "t1_system/sleep.h"
 
 
-BuildingIco::BuildingIco(const BuildingType buildingType, const sf::Vector2u position)
+BuildingIco::BuildingIco(const BuildingType buildingType, const sf::Vector2i position) :
+	position(position), buildingType(buildingType)
 {
-	this->position = position;
-	this->buildingType = buildingType;
 	this->icoRect = t1::bc::buildingsInfoTable[buildingType].icoRect;
 	scale = 1.0f / sqrt(t1::bc::buildingsInfoTable[buildingType].size);
-
-	ico.setTexture(texture);
-	ico.setOrigin(0.0f, 0.0f);
+	ico.setOrigin({ 0.0f, 0.0f });
 }
 
-BuildingIco::BuildingIco(const BuildingType buildingType)
+BuildingIco::BuildingIco(const BuildingType buildingType) :
+	buildingType(buildingType)
 {
-	position = sf::Vector2u(0, 0);
-	this->buildingType = buildingType;
 	this->icoRect = t1::bc::buildingsInfoTable[buildingType].icoRect;
 	scale = 1.0f / sqrt(t1::bc::buildingsInfoTable[buildingType].size);
 
 	ico.setTexture(texture);
-	ico.setOrigin(0.0f, 0.0f);
+	ico.setOrigin({ 0.0f, 0.0f });
 }
 
 
@@ -52,12 +48,12 @@ BuildingType BuildingIco::getBuildingType() const
 	return buildingType;
 }
 
-void BuildingIco::setPosition(const sf::Vector2u position)
+void BuildingIco::setPosition(const sf::Vector2i position)
 {
 	this->position = position;
 }
 
-void BuildingIco::relocateWithOwner(const sf::Vector2u ownerPosition)
+void BuildingIco::relocateWithOwner(const sf::Vector2i ownerPosition)
 {
 	position -= this->ownerPosition;
 	this->ownerPosition = ownerPosition;
@@ -67,8 +63,8 @@ void BuildingIco::relocateWithOwner(const sf::Vector2u ownerPosition)
 void BuildingIco::draw(sf::RenderWindow& window)
 {
 	ico.setTextureRect(icoRect);
-	ico.setScale(scale, scale);
-	ico.setPosition(position.x, position.y);
+	ico.setScale(sf::Vector2f(scale, scale));
+	ico.setPosition(sf::Vector2f(position.x, position.y));
 	window.draw(ico);
 }
 

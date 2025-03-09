@@ -6,7 +6,7 @@
 #include "t1_system/input/input_handler.h"
 
 
-InventoryWindow::InventoryWindow() : UIPlate(sf::Vector2u(225, 120), sf::Vector2u(0, 0))
+InventoryWindow::InventoryWindow() : UIPlate(sf::Vector2i(225, 120))
 {
     isVisible = false;
 

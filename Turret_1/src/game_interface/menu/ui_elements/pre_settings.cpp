@@ -20,15 +20,15 @@ enum pageTypes
 	MOBS = 5
 };
 
-PreSettingsWindow::PreSettingsWindow(): UIWindow(sf::Vector2u(720, 480), sf::Vector2u(0, 0))
+PreSettingsWindow::PreSettingsWindow(): UIWindow(sf::Vector2i(720, 480), sf::Vector2i(0, 0))
 {
 	this->prepareInterfaceSprites();
 	isVisible = false;
 
-	pages[GENERAL] = std::make_unique<GeneralPreSettingsPage>(sf::Vector2u(10, 70));
-	pages[TERRAIN] = std::make_unique<TerrainPreSettingsPage>(sf::Vector2u(10, 70));
-	pages[BUILDINGS] = std::make_unique<BuildingsPreSettingsPage>(sf::Vector2u(10, 70));
-	pages[MOBS] = std::make_unique<MobsPreSettingsPage>(sf::Vector2u(10, 70));
+	pages[GENERAL] = std::make_unique<GeneralPreSettingsPage>(sf::Vector2i(10, 70));
+	pages[TERRAIN] = std::make_unique<TerrainPreSettingsPage>(sf::Vector2i(10, 70));
+	pages[BUILDINGS] = std::make_unique<BuildingsPreSettingsPage>(sf::Vector2i(10, 70));
+	pages[MOBS] = std::make_unique<MobsPreSettingsPage>(sf::Vector2i(10, 70));
 }
 
 void PreSettingsWindow::prepareInterfaceSprites()
@@ -76,7 +76,7 @@ GameState PreSettingsWindow::interact(bool& isMenuOpen, PreSettings& preSettings
 
 
 
-void PreSettingsWindow::relocate(const sf::Vector2u windowSize)
+void PreSettingsWindow::relocate(const sf::Vector2i windowSize)
 {
 	relocateCentral(windowSize);
 	for (auto& btn : buttons)

@@ -10,7 +10,7 @@
 class Rocket : public Shell
 {
 public:
-	Rocket(PixelCoord coord, float angleRad, float angleDeg, Team* const team);
+	Rocket(const PixelCoord coord, const float angleRad, Team* team);
 	Rocket() = default;
 	~Rocket() = default;
 

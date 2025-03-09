@@ -17,8 +17,8 @@ void Team::load(cereal::BinaryInputArchive& archive) {
         shell->setTeam(this);
 }
 
-void Team::spawnShell(const ShellType type, const PixelCoord coord, float angleRad, float angleDeg) {
-    shells.spawnShell(type, coord, angleRad, angleDeg, this);
+void Team::spawnShell(const ShellType type, const PixelCoord coord, const float angleRad) {
+    shells.spawnShell(type, coord, angleRad, this);
 }
 void Team::spawnEntity(const uint8_t amount, const MobType type, const BuildingsMap& buildingsMap) {
     //entities.spawnEntity(amount, type, this, buildingsMap);

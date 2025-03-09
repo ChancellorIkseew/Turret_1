@@ -17,11 +17,11 @@ private:
 	std::map<ResType, ResIco> resIco;
 
 public:
-	GeneralPreSettingsPage(const sf::Vector2u position);
+	GeneralPreSettingsPage(const sf::Vector2i position);
 	~GeneralPreSettingsPage() = default;
 
 	void interact() override final;
-	void relocateWithOwner(const sf::Vector2u ownerPosition) override final;
+	void relocateWithOwner(const sf::Vector2i ownerPosition) override final;
 	void enter(PreSettings& preSettings) override final;
 
 	void prepareInterfaceSprites() override final;

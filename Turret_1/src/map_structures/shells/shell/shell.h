@@ -23,7 +23,6 @@ protected:
 	Team* team = nullptr;
 
 	float angleRad = 0.0f;
-	float angleDeg = 0.0f;
 
 	bool isWasted = false;
 
@@ -31,17 +30,17 @@ protected:
 
 	static inline sf::Image shellImage;
 	static inline sf::Texture shellTexture;
-	static inline sf::Sprite shellSprite;
+	static inline sf::Sprite shellSprite = sf::Sprite(shellTexture);
 	
 public:
-	Shell(const PixelCoord coord, float angleRad, float angleDeg, Team* const team);
+	Shell(const PixelCoord coord, float angleRad, Team* const team);
 	Shell() = default;
 	virtual ~Shell() = default;
 
 	void save(cereal::BinaryOutputArchive& archive) const;
 	void load(cereal::BinaryInputArchive& archive);
 
-	static std::unique_ptr<Shell> createShell(const ShellType type, const PixelCoord coord, float angleRad, float angleDeg, Team* const team);
+	static std::unique_ptr<Shell> createShell(const ShellType type, const PixelCoord coord, float angleRad, Team* const team);
 
 	virtual void motion();
 	virtual void tryHitting();

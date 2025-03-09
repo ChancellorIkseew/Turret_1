@@ -7,7 +7,7 @@ void t1::bc::arrangePage(std::map<BuildingType, BuildingIco>& page)
 
 	for (auto& [type, ico] : page)
 	{
-		ico.setPosition(sf::Vector2u(deltaX, deltaY));
+		ico.setPosition(sf::Vector2i(deltaX, deltaY));
 
 		if (deltaX < 188)
 			deltaX += 42;

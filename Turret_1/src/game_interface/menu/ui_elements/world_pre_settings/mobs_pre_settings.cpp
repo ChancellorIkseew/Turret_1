@@ -15,10 +15,10 @@ enum fieldEnum
 };
 
 
-MobsPreSettingsPage::MobsPreSettingsPage(const sf::Vector2u position) : Page(sf::Vector2u(700, 350), position)
+MobsPreSettingsPage::MobsPreSettingsPage(const sf::Vector2i position) : Page(sf::Vector2i(700, 350), position)
 {
 	this->prepareInterfaceSprites();
-	this->relocateWithOwner(sf::Vector2u(40, 60));
+	this->relocateWithOwner(sf::Vector2i(40, 60));
 	isVisible = false;
 }
 
@@ -27,22 +27,26 @@ void MobsPreSettingsPage::prepareInterfaceSprites()
 	int line0 = 95;
 	int line1 = 225;
 
-	fields[QUANTITY] = TextField(sf::String(L"1"), 34, sf::Vector2u(line0, 45));
-	fields[DURABILITY] = TextField(sf::String(L"1"), 34, sf::Vector2u(line0, 95));
-	fields[VI_LEVEL] = TextField(sf::String(L"1"), 34, sf::Vector2u(line0, 145));
-	fields[COLLISION_DAMAGE] = TextField(sf::String(L"1"), 34, sf::Vector2u(line0, 205));
-	fields[DIRECT_DAMAGE] = TextField(sf::String(L"1"), 34, sf::Vector2u(line1, 55));
-	fields[BLAST_DAMAGE] = TextField(sf::String(L"1"), 34, sf::Vector2u(line1, 105));
+	fields[QUANTITY] = TextField(sf::String(L"1"), 34, sf::Vector2i(line0, 45));
+	fields[DURABILITY] = TextField(sf::String(L"1"), 34, sf::Vector2i(line0, 95));
+	fields[VI_LEVEL] = TextField(sf::String(L"1"), 34, sf::Vector2i(line0, 145));
+	fields[COLLISION_DAMAGE] = TextField(sf::String(L"1"), 34, sf::Vector2i(line0, 205));
+	fields[DIRECT_DAMAGE] = TextField(sf::String(L"1"), 34, sf::Vector2i(line1, 55));
+	fields[BLAST_DAMAGE] = TextField(sf::String(L"1"), 34, sf::Vector2i(line1, 105));
 
-	texts[QUANTITY] = sf::Text(sf::String(L"Множитель\nчисленности\nврагов"), turretClassic, 12);
-	texts[DURABILITY] = sf::Text(sf::String(L"Множитель\nпрочности\nмобов"), turretClassic, 12);
-	texts[VI_LEVEL] = sf::Text(sf::String(L"Уровень\nвиртуально\nинтеллекта\nмобов"), turretClassic, 12);
-	texts[COLLISION_DAMAGE] = sf::Text(sf::String(L"Множитель\nконтактного\nурона мобов"), turretClassic, 12);
-	texts[DIRECT_DAMAGE] = sf::Text(sf::String(L"Множитель\nурона от\nпопадания\nснарядов"), turretClassic, 12);
-	texts[BLAST_DAMAGE] = sf::Text(sf::String(L"Множитель\nвзрывного\nурона"), turretClassic, 12);
+	quantity = sf::Text(turretClassic, sf::String(L"Множитель\nчисленности\nврагов"), 12);
+	durabity = sf::Text(turretClassic, sf::String(L"Множитель\nпрочности\nмобов"), 12);
+	VILevel = sf::Text(turretClassic, sf::String(L"Уровень\nвиртуально\nинтеллекта\nмобов"), 12);
+	collisionDamage = sf::Text(turretClassic, sf::String(L"Множитель\nконтактного\nурона мобов"), 12);
+	directDamage = sf::Text(turretClassic, sf::String(L"Множитель\nурона от\nпопадания\nснарядов"), 12);
+	blastDamage = sf::Text(turretClassic, sf::String(L"Множитель\nвзрывного\nурона"), 12);
 	
-	for (auto& text : texts)
-		text.second.setFillColor(standardColor);
+	quantity.setFillColor(standardColor);
+	durabity.setFillColor(standardColor);
+	VILevel.setFillColor(standardColor);
+	collisionDamage.setFillColor(standardColor);
+	directDamage.setFillColor(standardColor);
+	blastDamage.setFillColor(standardColor);
 }
 
 void MobsPreSettingsPage::interact()
@@ -64,23 +68,17 @@ void MobsPreSettingsPage::enter(PreSettings& preSettings)
 	preSettings.changeShells().blastDamageModifier = fields[BLAST_DAMAGE].getIntValue();
 }
 
-void MobsPreSettingsPage::relocateWithOwner(const sf::Vector2u ownerPosition)
+void MobsPreSettingsPage::relocateWithOwner(const sf::Vector2i ownerPosition)
 {
 	Page::relocateWithOwner(ownerPosition);
 	for (auto& field : fields)
 		field.second.relocateWithOwner(position);
-	int deltaY = 40;
-	for (int i = 0; i < 4; ++i)
-	{
-		texts[i].setPosition(position.x + 10, position.y + deltaY);
-		deltaY += 50;
-	}
-	deltaY = 40;
-	for (int i = 4; i < 6; ++i)
-	{
-		texts[i].setPosition(position.x + 150, position.y + deltaY);
-		deltaY += 60;
-	}
+	quantity.setPosition(sf::Vector2f(position.x + 10, position.y + 90));
+	durabity.setPosition(sf::Vector2f(position.x + 10, position.y + 140));
+	VILevel.setPosition(sf::Vector2f(position.x + 10, position.y + 190));
+	collisionDamage.setPosition(sf::Vector2f(position.x + 150, position.y + 90));
+	directDamage.setPosition(sf::Vector2f(position.x + 150, position.y + 150));
+	blastDamage.setPosition(sf::Vector2f(position.x + 150, position.y + 210));
 }
 
 void MobsPreSettingsPage::draw(sf::RenderWindow& window)
@@ -88,9 +86,13 @@ void MobsPreSettingsPage::draw(sf::RenderWindow& window)
 	if (isVisible)
 	{
 		drawBase(window);
-		for (auto& text : texts)
-			window.draw(text.second);
 		for (auto& field : fields)
 			field.second.draw(window);
+		window.draw(quantity);
+		window.draw(durabity);
+		window.draw(VILevel);
+		window.draw(collisionDamage);
+		window.draw(directDamage);
+		window.draw(blastDamage);
 	}
 }

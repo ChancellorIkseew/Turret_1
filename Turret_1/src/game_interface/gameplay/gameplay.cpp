@@ -9,7 +9,7 @@
 #include "map_structures/world/world.h"
 
 #include "game_interface/gameplay/ui_elements/exit_confirmation.h"
-#include "game_interface/gameplay/ui_elements/settings_window.h"
+//#include "game_interface/gameplay/ui_elements/settings_window.h"
 
 
 GameState Gameplay::startGameplay(sf::RenderWindow& mainWindow, const bool newGame, const std::string& saveFolderName, PreSettings& preSettings)
@@ -43,16 +43,19 @@ GameState Gameplay::startGameplay(sf::RenderWindow& mainWindow, const bool newGa
 }
 
 
-void Gameplay::relocateSubWindows(const sf::Vector2u windowSize)
+void Gameplay::relocateSubWindows(const sf::Vector2i windowSize)
 {
 	ConfirmationWindow::getInstance().relocate(windowSize);
-	SettingsWindow::getInstance().relocate(windowSize);
+	//SettingsWindow::getInstance().relocate(windowSize);
 	resourcesPanel.relocate(windowSize);
 	buildingPanel.relocate(windowSize);
 }
 
 bool Gameplay::noSubWindowSelected() const
 {
-	return (!mainControlPanel.containsCoursor() && !resourcesPanel.containsCoursor() &&
-		!buildingPanel.containsCoursor());
+	if (mainControlPanel.containsCoursor() && resourcesPanel.containsCoursor() &&
+		buildingPanel.containsCoursor())
+		std::cout << "select\n";
+	return !mainControlPanel.containsCoursor() && !resourcesPanel.containsCoursor() &&
+		!buildingPanel.containsCoursor();
 }

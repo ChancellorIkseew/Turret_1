@@ -21,11 +21,10 @@ void RocketTurret::shooting()
 	if (aimCoord.valid())
 	{
 		angleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
-		angleDeg = t1::be::radToDegree(angleRad);
 
 		if (reloadTimer <= 0 && amooQuantity > 0)
 		{
-			team->spawnShell(ShellType::ROCKET, coord, angleRad, angleDeg);
+			team->spawnShell(ShellType::ROCKET, coord, angleRad);
 			reloadTimer = 120;
 			--amooQuantity;
 		}
@@ -39,10 +38,10 @@ ResType RocketTurret::getAmooType() const { return ResType::ROCKET; }
 
 void RocketTurret::draw(sf::RenderWindow& window)
 {
-	turretSprite.setTextureRect(sf::IntRect(4, 23, 12, 20));
-	turretSprite.setOrigin(5.5, 12);
+	turretSprite.setTextureRect(sf::IntRect({ 4, 23 }, { 12, 20 }));
+	turretSprite.setOrigin({ 5.5, 12 });
 
-	turretSprite.setPosition(coord.x, coord.y);
-	turretSprite.setRotation(angleDeg);
+	turretSprite.setPosition({ coord.x, coord.y });
+	turretSprite.setRotation(sf::radians(angleRad));
 	window.draw(turretSprite);
 }

@@ -14,10 +14,10 @@ class MainControlPanel : public UIWindow
 private:
 	std::map<int, Button> buttons;
 	
-	sf::Text waveNumberText;
-	sf::Text waveNumberText2;
-	sf::Text waveTimerText;
-	sf::Text waveTimerText2;
+	//sf::Text waveNumberText;
+	//sf::Text waveNumberText2;
+	//sf::Text waveTimerText;
+	//sf::Text waveTimerText2;
 	
 	MainControlPanel(const MainControlPanel&) = delete;
 	MainControlPanel& operator=(const MainControlPanel&) = delete;

@@ -5,13 +5,14 @@
 #include <SFML\Graphics.hpp>
 #include "map_structures/resources/res_enum.h"
 #include "game_interface/ui_window/elements/res_ico/res_ico.h"
+#include "game_interface/ui_window/sub_win_util/fonts.h"
 
 
 class ResInfo
 {
 private:
 	ResIco ico;
-	sf::Text resQuantText;
+	sf::Text resQuantText = sf::Text(turretClassic);
 
 	ResType resType = ResType::NO_RESOURCES;
 	int resQuantity = 0;

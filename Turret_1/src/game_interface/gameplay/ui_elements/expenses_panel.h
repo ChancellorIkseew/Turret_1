@@ -17,7 +17,7 @@ private:
 	static BuildingInfo nullInfo;
 	BuildingInfo& buildingInfo = nullInfo;
 	
-	sf::Text title;
+	sf::Text title = sf::Text(turretClassic);
 	std::map<ResType, ResInfo> resInfo;
 
 	ExpensesPanel(const ExpensesPanel&) = delete;
@@ -28,7 +28,7 @@ public:
 	~ExpensesPanel() = default;
 	
 	void interact(const BuildingType index, const BuildingsPre& buildingsPre);
-	void relocate(const sf::Vector2u windowSize) override final;
+	void relocate(const sf::Vector2i windowSize) override final;
 
 	void prepareInterfaceSprites() override final;
 	void draw(sf::RenderWindow& window) override final;

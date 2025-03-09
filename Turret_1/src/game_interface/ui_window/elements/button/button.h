@@ -15,7 +15,7 @@ private:
 
     sf::Image image;
     sf::Texture texture;
-    sf::Sprite button;
+    sf::Sprite button = sf::Sprite(texture);
     sf::String name;
 
     bool isVisible = true;
@@ -39,7 +39,7 @@ public:
     bool press();
     void setVisible(const bool visible);
 
-    void relocateWithOwner(const sf::Vector2u ownerPosition);
+    void relocateWithOwner(const sf::Vector2i ownerPosition);
     void draw(sf::RenderWindow& window);
 
 };

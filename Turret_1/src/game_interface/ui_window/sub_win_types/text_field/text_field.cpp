@@ -7,18 +7,17 @@
 #include "t1_system/input/input_handler.h"
 #include "t1_system/sleep.h"
 #include "t1_system/t1_mutex.h"
-#include "game_interface/ui_window/sub_win_util/fonts.h"
 #include "game_interface/main_window/main_window.h"
 
 
-TextField::TextField(const sf::String& value, const uint32_t sizeX, const sf::Vector2u  position) : UIPlate(sf::Vector2u(sizeX, 23), position)
+TextField::TextField(const sf::String& value, const int sizeX, const sf::Vector2i  position) : UIPlate(sf::Vector2i(sizeX, 23), position)
 {
 	this->prepareInterfaceSprites();
 	text.setString(value);
 	maxLenght = (sizeX - 10) / 8;
 }
 
-TextField::TextField() : UIPlate(sf::Vector2u(100, 23), sf::Vector2u(0, 0))
+TextField::TextField() : UIPlate(sf::Vector2i(100, 23), sf::Vector2i(0, 0))
 {
 	this->prepareInterfaceSprites();
 }
@@ -70,12 +69,12 @@ void TextField::interact()
 }
 
 
-void TextField::relocateWithOwner(const sf::Vector2u ownerPosition)
+void TextField::relocateWithOwner(const sf::Vector2i ownerPosition)
 {
 	position -= this->ownerPosition;
 	this->ownerPosition = ownerPosition;
 	position += this->ownerPosition;
-	text.setPosition(position.x + 5, position.y + 1);
+	text.setPosition(sf::Vector2f(position.x + 5, position.y + 1));
 }
 
 

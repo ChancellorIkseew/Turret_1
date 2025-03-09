@@ -23,7 +23,7 @@ public:
 	~PreSettingsWindow() = default;
 
 	GameState interact(bool& isMenuOpen, PreSettings& preSettings);
-	void relocate(sf::Vector2u windowSize) override final;
+	void relocate(sf::Vector2i windowSize) override final;
 
 	void prepareInterfaceSprites() override final;
 	void draw(sf::RenderWindow& window) override final;

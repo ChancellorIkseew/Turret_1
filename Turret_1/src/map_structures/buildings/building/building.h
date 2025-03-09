@@ -36,7 +36,7 @@ protected:
 
 	static inline sf::Image buildingsImage;
 	static inline sf::Texture buildingsTexture;
-	static inline sf::Sprite buildingSprite;
+	static inline sf::Sprite buildingSprite = sf::Sprite(buildingsTexture);
 
 	void placeResourceUnitX1(const ResType resType, BuildingsMap& buildingsMap);
 	void placeResourceUnitX4(const ResType resType, BuildingsMap& buildingsMap);

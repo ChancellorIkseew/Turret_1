@@ -10,7 +10,7 @@
 class HeavyShell : public Shell
 {
 public:
-	HeavyShell(PixelCoord coord, float angleRad, float angleDeg, Team* const team);
+	HeavyShell(const PixelCoord coord, const float angleRad, Team* const team);
 	HeavyShell() = default;
 	~HeavyShell() = default;
 

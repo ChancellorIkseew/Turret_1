@@ -71,7 +71,7 @@ void World::draw(sf::RenderWindow& window, const Camera& camera)
 	buildingsMap.draw(window, camera);
 	for (auto& [teamID, team] : teams)
 		team->draw(window, camera);
-	particles.draw(window);
+	particles.draw(window, camera);
 }
 
 void World::addTeam(const std::string& name)

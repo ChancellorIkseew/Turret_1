@@ -1,67 +1,67 @@
 
 #include "buildings_info.h"
 #include "buildings_enum.h"
-
+#include "map_structures/base_engine/base_engine.h"
 
 std::map<BuildingType, const BuildingInfo> t1::bc::buildingsInfoTable
 {
 	std::pair<BuildingType, const BuildingInfo>
 
-	{ BuildingType::REMOVE, { L"Снести здание", 1, 0, {0, 0, 0, 0, 0, 0}, sf::IntRect(0, 0, 32, 32),
+	{ BuildingType::REMOVE, { L"Снести здание", 1, 0, {0, 0, 0, 0, 0, 0}, sf::IntRect({0, 0}, X1_RECT),
 	L"Будьте осторожны. Ресурсы, \nзатраченные на строительство \nпри сносе не возвращаются."} },
 
-	{ BuildingType::STONE_WALL, { L"Каменная стена", 1, 100, {20, 0, 0, 0, 0, 0}, sf::IntRect(0, 480, 32, 32),
+	{ BuildingType::STONE_WALL, { L"Каменная стена", 1, 100, {20, 0, 0, 0, 0, 0}, sf::IntRect({0, 480}, X1_RECT),
 	L"Защищает другие постройки."} },
-	{ BuildingType::STEEL_WALL, { L"Железная стена", 1, 300, {0, 32, 0, 0, 0, 0}, sf::IntRect(32, 480, 32, 32),
+	{ BuildingType::STEEL_WALL, { L"Железная стена", 1, 300, {0, 32, 0, 0, 0, 0}, sf::IntRect({32, 480}, X1_RECT),
 	L"Защищает другие постройки."} },
 
-	{ BuildingType::STONE_TOWER, { L"Каменная башня", 1, 100, {20, 4, 0, 0, 0, 0}, sf::IntRect(0, 512, 32, 32),
+	{ BuildingType::STONE_TOWER, { L"Каменная башня", 1, 100, {20, 4, 0, 0, 0, 0}, sf::IntRect({0, 512}, X1_RECT),
 	L"Платформа для установки \nтурелей.\nЗащищает другие постройки."} },
-	{ BuildingType::STEEL_TOWER, { L"Железная башня", 1, 300, {0, 36, 0, 0, 0, 0}, sf::IntRect(32, 512, 32, 32),
+	{ BuildingType::STEEL_TOWER, { L"Железная башня", 1, 300, {0, 36, 0, 0, 0, 0}, sf::IntRect({32, 512}, X1_RECT),
 	L"Платформа для установки \nтурелей.\nЗащищает другие постройки."} },
 
-	{ BuildingType::CORE_MK1, { L"Ядро mk1", 4, 1000, {400, 200, 300, 180, 0, 100}, sf::IntRect(64, 0, 64, 64),
+	{ BuildingType::CORE_MK1, { L"Ядро mk1", 4, 1000, {400, 200, 300, 180, 0, 100}, sf::IntRect({64, 0}, X2_RECT),
 	L"Ядро. Центр Базы."} },
-	{ BuildingType::CORE_MK2, { L"Ядро mk2", 16, 4000, {1600, 800, 1200, 720, 0, 400}, sf::IntRect(0, 64, 128, 128),
+	{ BuildingType::CORE_MK2, { L"Ядро mk2", 16, 4000, {1600, 800, 1200, 720, 0, 400}, sf::IntRect({0, 64}, X4_RECT),
 	L"Ядро. Центр Базы."} },
-	{ BuildingType::CORE_MK3, { L"Ядро mk3", 16, 4000, {1600, 800, 1200, 720, 0, 400}, sf::IntRect(0, 128, 192, 192),
+	{ BuildingType::CORE_MK3, { L"Ядро mk3", 16, 4000, {1600, 800, 1200, 720, 0, 400}, sf::IntRect({0, 128}, X6_RECT),
 	L"Ядро. Центр Базы."} },
 
 
-	{ BuildingType::STANDARD_CONVEYER, { L"Конвейер", 1, 15, {1, 2, 1, 0, 0, 0}, sf::IntRect(0, 192, 32, 32),
+	{ BuildingType::STANDARD_CONVEYER, { L"Конвейер", 1, 15, {1, 2, 1, 0, 0, 0}, sf::IntRect({0, 192}, X1_RECT),
 	L"Перемещает ресурсы между \nпостройками. \nЧтобы повернуть конвейер, \nнажмите ПКМ."} },
-	{ BuildingType::SHIELDED_CONVEYER, { L"Экранированный конвейер", 1, 30, {2, 4, 1, 0, 0, 0}, sf::IntRect(32, 192, 32, 32),
+	{ BuildingType::SHIELDED_CONVEYER, { L"Экранированный конвейер", 1, 30, {2, 4, 1, 0, 0, 0}, sf::IntRect({32, 192}, X1_RECT),
 	L"Перемещает ресурсы между \nпостройками. Принимает\n предметы по бокам только от \nконвейеров. Чтобы повернуть\n конвейер, нажмите ПКМ."} },
 	 
-	{ BuildingType::BRIDGE, { L"Мост", 1, 15, {2, 5, 2, 0, 0, 0}, sf::IntRect(128, 544, 32, 32),
+	{ BuildingType::BRIDGE, { L"Мост", 1, 15, {2, 5, 2, 0, 0, 0}, sf::IntRect({128, 544}, X1_RECT),
 	L"Передаёт ресурсы \nближайшему маршрутизатору \nв выбранном направлении. \nЧтобы повернуть мост, \nнажмите ПКМ."} },
-	{ BuildingType::ROUTER, { L"Маршрутизатор", 1, 15, {2, 3, 2, 1, 0, 0}, sf::IntRect(128, 512, 32, 32),
+	{ BuildingType::ROUTER, { L"Маршрутизатор", 1, 15, {2, 3, 2, 1, 0, 0}, sf::IntRect({128, 512}, X1_RECT),
 	L"Принимает ресурсы с одной \nстороны и распределяет \nих равномерно всем \nисходящим конвейерам."} },
-	{ BuildingType::INTERSECTION, { L"Перекрёсток", 1, 15, {2, 3, 2, 0, 0, 0}, sf::IntRect(128, 480, 32, 32),
+	{ BuildingType::INTERSECTION, { L"Перекрёсток", 1, 15, {2, 3, 2, 0, 0, 0}, sf::IntRect({128, 480}, X1_RECT),
 	L"Позволяет двум конвейерам \nперпендикулярно пересечь \nдруг друга."} },
-	{ BuildingType::SORTER, { L"Сортировщик", 1, 15, {2, 3, 2, 2, 0, 0}, sf::IntRect(160, 480, 32, 32),
+	{ BuildingType::SORTER, { L"Сортировщик", 1, 15, {2, 3, 2, 2, 0, 0}, sf::IntRect({160, 480}, X1_RECT),
 	L"(временно выведен из игры, \nпри установке вызовет вылет)"} },
 	 
-	{ BuildingType::SMALL_DRILL, { L"Малый бур", 1, 70, {10, 14, 8, 0, 0, 0}, sf::IntRect(0, 224, 32, 32),
+	{ BuildingType::SMALL_DRILL, { L"Малый бур", 1, 70, {10, 14, 8, 0, 0, 0}, sf::IntRect({0, 224}, X1_RECT),
 	L"Добывает ресурс из клетки, \nв которую установлен. \nНе требует энергии для \nработы."} },
-	{ BuildingType::BIG_DRILL, { L"Большой бур", 4, 320, {40, 56, 32, 8, 0, 0}, sf::IntRect(0, 256, 64, 64),
+	{ BuildingType::BIG_DRILL, { L"Большой бур", 4, 320, {40, 56, 32, 8, 0, 0}, sf::IntRect({0, 256}, X2_RECT),
 	L"Добывает ресурсы из клеток, \nв которые установлен. \nТребует 10 ед. энергии в \nсекунду для работы."} },
-	{ BuildingType::EFFECTIVE_DRILL, { L"Эффективный бур", 9, 800, {90, 126, 72, 18, 0, 0}, sf::IntRect(64, 224, 96, 96),
+	{ BuildingType::EFFECTIVE_DRILL, { L"Эффективный бур", 9, 800, {90, 126, 72, 18, 0, 0}, sf::IntRect({64, 224}, X3_RECT),
 	L"Добывает ресурсы из клеток, \nв которые установлен. \nТребует 20 ед. энергии в \nсекунду для работы."} },
-	{ BuildingType::REINFORCED_DRILL, { L"Усиленный бур", 1, 90, {10, 14, 8, 4, 0, 0}, sf::IntRect(32, 224, 32, 32),
+	{ BuildingType::REINFORCED_DRILL, { L"Усиленный бур", 1, 90, {10, 14, 8, 4, 0, 0}, sf::IntRect({32, 224}, X1_RECT),
 	L"Добывает ресурсы из клетки, \nв которую установлен. \nСпособен добывать уран и марганец. \nТребует 10 ед. энергии в \nсекунду для работы."} },
 
-	{ BuildingType::SHELL_FACTORY, { L"Завод снарядов", 4, 400, {60, 80, 32, 24, 0, 0}, sf::IntRect(0, 320, 64, 64),
+	{ BuildingType::SHELL_FACTORY, { L"Завод снарядов", 4, 400, {60, 80, 32, 24, 0, 0}, sf::IntRect({0, 320}, X2_RECT),
 	L"Производит снаряды для \nавтопушек."} },
-	{ BuildingType::ROCKET_FACTORY, { L"Завод ракет", 9, 800, {160, 240, 100, 90, 0, 0}, sf::IntRect(0, 384, 96, 96),
+	{ BuildingType::ROCKET_FACTORY, { L"Завод ракет", 9, 800, {160, 240, 100, 90, 0, 0}, sf::IntRect({0, 384}, X3_RECT),
 	L"Производит ракеты."} },
 
-	{ BuildingType::AUTOCANNON_TURRET, { L"Автопушечная турель", 1, 0, {0, 12, 6, 2, 0, 0}, sf::IntRect(0, 544, 32, 32),
+	{ BuildingType::AUTOCANNON_TURRET, { L"Автопушечная турель", 1, 0, {0, 12, 6, 2, 0, 0}, sf::IntRect({0, 544}, X1_RECT),
 	L"Стреляет мальеними \nснарядами с высокой \nскорострельностью."} },
-	{ BuildingType::ROCKET_TURRET, { L"Ракетная турель", 1, 0, {0, 10, 6, 5, 0, 0}, sf::IntRect(32, 544, 32, 32),
+	{ BuildingType::ROCKET_TURRET, { L"Ракетная турель", 1, 0, {0, 10, 6, 5, 0, 0}, sf::IntRect({32, 544}, X1_RECT),
 	L"Стреляет ракетами с \nбольшим радиусом \nвзрыва."} },
 
-	{ BuildingType::COAL_GENERATOR, { L"Генератор", 1, 15, {5, 10, 5, 0, 0, 0}, sf::IntRect(0, 0, 0, 0),
+	{ BuildingType::COAL_GENERATOR, { L"Генератор", 1, 15, {5, 10, 5, 0, 0, 0}, sf::IntRect({0, 0}, X2_RECT),
 	L"Вырабатывает энергию \n(временно выведен из игры, \nпри установке вызовет вылет)"} },
 };
 

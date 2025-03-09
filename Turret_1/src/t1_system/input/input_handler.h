@@ -20,7 +20,7 @@ public:
 	InputHandler() = default;
 	~InputHandler() = default;
 
-	static void updateInput(const sf::Event& event);
+	static void updateInput(const std::optional<sf::Event>& event);
 
 	static bool active(const t1::BindName bindName);
 	static bool jactive(const t1::BindName bindName);
@@ -31,7 +31,7 @@ public:
 	static sf::Vector2f getMouseMapCoord();
 	static t1::MouseWheelScroll getMouseWheelScroll();
 
-	static void rebind(const t1::BindName keyName, const sf::Event& event);
+	static void rebind(const t1::BindName keyName, const std::optional<sf::Event>& event);
 };
 
 #endif // T1_SYSTEM_INPUT_HANDLER_H

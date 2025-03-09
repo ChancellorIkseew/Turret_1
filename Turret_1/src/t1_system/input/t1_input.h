@@ -24,6 +24,8 @@ namespace t1
 		Move_right,
 
 		Pause,
+		Cancel,
+		Escape,
 		Console_cheat
 	};
 

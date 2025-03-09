@@ -14,8 +14,8 @@ Button::Button(const std::string& imageFile, const sf::Vector2i size, const sf::
 	image.createMaskFromColor(sf::Color(0, 255, 0));
 	texture.loadFromImage(image);
 	button.setTexture(texture);
-	button.setTextureRect(sf::IntRect(0, 0, size.x, size.y));
-	button.setOrigin(0.0f, 0.0f);
+	button.setTextureRect(sf::IntRect({ 0, 0 }, { size.x, size.y }));
+	button.setOrigin({ 0.0f, 0.0f });
 }
 
 Button& Button::operator=(const Button&& other) noexcept
@@ -27,7 +27,7 @@ Button& Button::operator=(const Button&& other) noexcept
 
 	texture.loadFromImage(image);
 	button.setTexture(texture);
-	button.setTextureRect(sf::IntRect(0, 0, size.x, size.y));
+	button.setTextureRect(sf::IntRect({ 0, 0 }, { size.x, size.y }));
 
 	isVisible = true;
 	isSelected = false;
@@ -45,7 +45,7 @@ Button::Button(const Button&& other) noexcept
 
 	texture.loadFromImage(image);
 	button.setTexture(texture);
-	button.setTextureRect(sf::IntRect(0, 0, size.x, size.y));
+	button.setTextureRect(sf::IntRect({ 0, 0 }, { size.x, size.y }));
 
 	isVisible = true;
 	isSelected = false;
@@ -55,7 +55,7 @@ Button::Button(const Button&& other) noexcept
 bool Button::select()
 {
 	const sf::Vector2i mouseCoord = InputHandler::getMouseCoord();
-	isSelected = button.getGlobalBounds().contains(mouseCoord.x, mouseCoord.y);
+	isSelected = button.getGlobalBounds().contains(sf::Vector2f(mouseCoord.x, mouseCoord.y));
 	return isSelected;
 }
 
@@ -81,9 +81,9 @@ void Button::setVisible(const bool visible)
 
 
 
-void Button::relocateWithOwner(const sf::Vector2u ownerPosition)
+void Button::relocateWithOwner(const sf::Vector2i ownerPosition)
 {
-	button.setPosition(float(ownerPosition.x + position.x), float(ownerPosition.y + position.y));
+	button.setPosition(sf::Vector2f(ownerPosition.x + position.x, ownerPosition.y + position.y));
 }
 
 void Button::draw(sf::RenderWindow& window)
@@ -92,11 +92,11 @@ void Button::draw(sf::RenderWindow& window)
 		return;
 	
 	if (isPressed)
-		button.setTextureRect(sf::IntRect(0, size.y * 2, size.x, size.y));
+		button.setTextureRect(sf::IntRect(sf::Vector2i(0, size.y * 2), size));
 	else if (isSelected)
-		button.setTextureRect(sf::IntRect(0, size.y, size.x, size.y));
+		button.setTextureRect(sf::IntRect(sf::Vector2i(0, size.y), size));
 	else
-		button.setTextureRect(sf::IntRect(0, 0, size.x, size.y));
+		button.setTextureRect(sf::IntRect(sf::Vector2i(0, 0), size));
 	
 	window.draw(button);
 }

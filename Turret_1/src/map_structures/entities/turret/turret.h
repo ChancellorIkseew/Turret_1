@@ -26,14 +26,13 @@ protected:
 	Team* team = nullptr;
 	
 	float angleRad = 0;
-	float angleDeg = 0;
 	
 	int16_t reloadTimer = 0;
 	uint16_t amooQuantity = 0;
 	
 	static inline sf::Image turretImage;
 	static inline sf::Texture turretTexture;
-	static inline sf::Sprite turretSprite;
+	static inline sf::Sprite turretSprite = sf::Sprite(turretTexture);
 
 	void reloadWeapon();
 	void aim(const int spyralRange, const float pixelRange);
@@ -54,7 +53,7 @@ public:
 
 	TileCoord getTile() const { return t1::be::tile(coord); }
 	PixelCoord getCoord() const { return coord; }
-	int getAngleDeg() const { return int(angleDeg); }
+	float getAngleRad() const { return angleRad; }
 	short getAmooQuantity() const { return amooQuantity; }
 	virtual  short getMaxAmoo() const = 0;
 	virtual ResType getAmooType() const = 0;

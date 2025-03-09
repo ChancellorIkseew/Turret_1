@@ -11,20 +11,20 @@ class ResIco
 private:
 	static inline sf::Image image;
 	static inline sf::Texture texture;
-	static inline sf::Sprite ico;
+	static inline sf::Sprite ico = sf::Sprite(texture);
 
 	ResType resType = ResType::NO_RESOURCES;
-	sf::Vector2u position = sf::Vector2u(0, 0);
-	sf::Vector2u ownerPosition = sf::Vector2u(0, 0);
+	sf::Vector2i position;
+	sf::Vector2i ownerPosition;
 
 public:
-	ResIco(const ResType resType, const sf::Vector2u position);
+	ResIco(const ResType resType, const sf::Vector2i position);
 	ResIco() = default;
 	~ResIco() = default;
 
 	void setResType(const ResType resType);
-	void setPosition(const sf::Vector2u position);
-	void relocate(const sf::Vector2u ownerPosition);
+	void setPosition(const sf::Vector2i position);
+	void relocate(const sf::Vector2i ownerPosition);
 
 	static void prepareSprites();
 	void draw(sf::RenderWindow& window) const;

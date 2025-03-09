@@ -10,13 +10,12 @@ Particle::Particle(const int type, const PixelCoord coord) :
 
 void Particle::prepareSprites()
 {
-	burstImage.loadFromFile("images/shell_burst.bmp");
-	burstImage.createMaskFromColor(sf::Color(0, 255, 0));
-	burstTexture.loadFromImage(burstImage);
-	burstSprite.setTexture(burstTexture);
-	burstSprite.setTextureRect(sf::IntRect(0, 0, 96, 96));
-	burstSprite.setOrigin(48, 48);
-	burstSprite.setColor(sf::Color(255, 255, 255, 128));
+	particleImage.loadFromFile("images/shell_burst.bmp");
+	particleImage.createMaskFromColor(sf::Color(0, 255, 0));
+	particleTexture.loadFromImage(particleImage);
+	particleSprite.setTextureRect(sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(96, 96)));
+	particleSprite.setOrigin(sf::Vector2f(48, 48));
+	particleSprite.setColor(sf::Color(255, 255, 255, 128));
 }
 
 void Particle::interact()
@@ -31,16 +30,16 @@ void Particle::draw(sf::RenderWindow& window)
 	switch (type)
 	{
 	case 1:
-		burstSprite.setScale(1.0f, 1.0f);
+		particleSprite.setScale(sf::Vector2f(1.0f, 1.0f));
 		break;
 	case 2:
-		burstSprite.setScale(2.4f, 2.4f);
+		particleSprite.setScale(sf::Vector2f(2.4f, 2.4f));
 		break;
 	default:
-		burstSprite.setScale(0, 0);
+		particleSprite.setScale(sf::Vector2f(0, 0));
 		break;
 	}
 
-	burstSprite.setPosition(coord.x, coord.y);
-	window.draw(burstSprite);
+	particleSprite.setPosition(sf::Vector2f(coord.x, coord.y));
+	window.draw(particleSprite);
 }

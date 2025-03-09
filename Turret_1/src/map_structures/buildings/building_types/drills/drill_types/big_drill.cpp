@@ -34,17 +34,18 @@ void BigDrill::animation()
 
 void BigDrill::draw(sf::RenderWindow& window)
 {
-	buildingSprite.setOrigin(32, 32);
-	buildingSprite.setRotation(rotorAngle);
-	buildingSprite.setPosition(tile.x * _TILE_ + _TILE_, tile.y * _TILE_ + _TILE_);
-	buildingSprite.setTextureRect(sf::IntRect(0, 32, 64, 64));
+	using namespace sf::Literals;
+	buildingSprite.setOrigin({ 32, 32 });
+	buildingSprite.setRotation(sf::degrees(rotorAngle));
+	buildingSprite.setPosition(sf::Vector2f(tile.x * _TILE_ + _TILE_, tile.y * _TILE_ + _TILE_));
+	buildingSprite.setTextureRect(sf::IntRect({ 0, 32 }, X2_RECT));
 
 	window.draw(buildingSprite);
 
-	buildingSprite.setOrigin(0, 0);
-	buildingSprite.setRotation(0);
-	buildingSprite.setPosition(tile.x * _TILE_, tile.y * _TILE_);
-	buildingSprite.setTextureRect(sf::IntRect(64, 32, 64, 64));
+	buildingSprite.setOrigin({ 0, 0 });
+	buildingSprite.setRotation(0_deg);
+	buildingSprite.setPosition(sf::Vector2f(tile.x * _TILE_, tile.y * _TILE_));
+	buildingSprite.setTextureRect(sf::IntRect({ 64, 32 }, X2_RECT));
 
 	window.draw(buildingSprite);
 }

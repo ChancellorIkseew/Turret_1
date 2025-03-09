@@ -6,7 +6,7 @@
 #include "map_structures/team/team.h"
 
 
-ResourcesPanel::ResourcesPanel() : UIWindow(sf::Vector2u(134, 219), sf::Vector2u(0, 0))
+ResourcesPanel::ResourcesPanel() : UIWindow(sf::Vector2i(134, 219))
 {
     resInfo[ResType::STONE] = ResInfo(ResType::STONE, 0);
     resInfo[ResType::IRON] = ResInfo(ResType::IRON, 0);
@@ -35,7 +35,7 @@ void ResourcesPanel::interact(Team& team)
 }
 
 
-void ResourcesPanel::relocate(const sf::Vector2u windowSize)
+void ResourcesPanel::relocate(const sf::Vector2i windowSize)
 {
     position.x = windowSize.x - size.x;
     position.y = windowSize.y - 550;

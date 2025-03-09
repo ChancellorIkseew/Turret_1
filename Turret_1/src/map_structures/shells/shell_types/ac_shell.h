@@ -10,7 +10,7 @@
 class AutocannonShell : public Shell
 {
 public:
-	AutocannonShell(PixelCoord coord, float angleRad, float angleDeg, Team* const team);
+	AutocannonShell(const PixelCoord coord, const float angleRad, Team* team);
 	AutocannonShell() = default;
 	~AutocannonShell() = default;
 

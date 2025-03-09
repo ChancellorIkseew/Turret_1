@@ -12,16 +12,16 @@ class BuildingsPreSettingsPage : public Page
 {
 private:
 	std::map<int, TextField> fields;
-	sf::Text tDurability;
-	sf::Text tExspenses;
-	sf::Text tConstructionSpeed;
+	sf::Text tDurability = sf::Text(turretClassic);
+	sf::Text tExspenses = sf::Text(turretClassic);
+	sf::Text tConstructionSpeed = sf::Text(turretClassic);
 
 public:
-	BuildingsPreSettingsPage(const sf::Vector2u position);
+	BuildingsPreSettingsPage(const sf::Vector2i position);
 	~BuildingsPreSettingsPage() = default;
 
 	void interact() override final;
-	void relocateWithOwner(const sf::Vector2u ownerPosition) override final;
+	void relocateWithOwner(const sf::Vector2i ownerPosition) override final;
 	void enter(PreSettings& preSettings) override final;
 
 	void prepareInterfaceSprites() override final;

@@ -22,13 +22,12 @@ void RocketBot::shoot()
 	if (!aimCoord.valid())
 		return;
 	shootingAngleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
-	shootingAngleDeg = t1::be::radToDegree(shootingAngleRad);
 
 	if (reloadTimer > 0)
 		return;
 	float correctionX = cos(shootingAngleRad) * 5.0f;
 	float correctionY = sin(shootingAngleRad) * 5.0f;
-	team->spawnShell(ShellType::ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
+	team->spawnShell(ShellType::ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad);
 	reloadTimer = 240;
 }
 
@@ -42,14 +41,14 @@ void RocketBot::shootByOwnAI()
 
 void RocketBot::draw(sf::RenderWindow& window)
 {
-	entitySprite.setTextureRect(sf::IntRect(42, 0, 17, 18));
-	entitySprite.setOrigin(8, 9);
+	entitySprite.setTextureRect(sf::IntRect({ 42, 0 }, { 17, 18 }));
+	entitySprite.setOrigin({ 8, 9 });
 
 	if (aimCoord.valid())
-		entitySprite.setRotation(shootingAngleDeg);
+		entitySprite.setRotation(sf::radians(PI - shootingAngleRad));
 	else
-		entitySprite.setRotation(motionAngleDeg);
+		entitySprite.setRotation(sf::radians(PI - motionAngleRad));
 
-	entitySprite.setPosition(coord.x, coord.y);
+	entitySprite.setPosition({ coord.x, coord.y });
 	window.draw(entitySprite);
 }

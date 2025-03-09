@@ -7,7 +7,7 @@
 
 #include "game_interface/ui_window/sub_win_util/fonts.h"
 
-#include "settings_window.h"
+//#include "settings_window.h"
 #include "exit_confirmation.h"
 
 #include "game_interface/gameplay/gameplay_util/t1_time.h"
@@ -31,7 +31,7 @@ enum buttonsEnum
 	TICK_SPEED_4 = 8,
 };
 
-MainControlPanel::MainControlPanel() : UIWindow(sf::Vector2u(372, 110), sf::Vector2u(0, 0))
+MainControlPanel::MainControlPanel() : UIWindow(sf::Vector2i(372, 110))
 {
 	this->prepareInterfaceSprites();
 }
@@ -55,7 +55,7 @@ void MainControlPanel::prepareInterfaceSprites()
 	{
 		button.relocateWithOwner(position);
 	}
-
+	/*
 	waveNumberText = sf::Text(sf::String(L"волна: "), turretClassic, 16);
 	waveNumberText.setFillColor(standardColor);
 	waveNumberText.setPosition(10, 60);
@@ -72,6 +72,7 @@ void MainControlPanel::prepareInterfaceSprites()
 	waveTimerText2 = sf::Text(sf::String(L" "), turretClassic, 16);
     waveTimerText2.setFillColor(standardColor);
 	waveTimerText2.setPosition(200, 80);
+	*/
 }
 
 
@@ -140,7 +141,7 @@ void MainControlPanel::interactWaveTimer(const bool isPaused, const World& world
 	{
 		std::ostringstream strWaveNumber;
 		strWaveNumber << world.getTime().getWave();
-		waveNumberText2.setString(strWaveNumber.str());
+		//waveNumberText2.setString(strWaveNumber.str());
 
     	std::ostringstream strSeconds;
 		strSeconds << (59 - ((world.getTime().getTime() / 60) % 60));
@@ -148,7 +149,7 @@ void MainControlPanel::interactWaveTimer(const bool isPaused, const World& world
     	std::ostringstream strMinutes;
 		strMinutes << int(2 - (world.getTime().getTime() / 3600));
 
-    	waveTimerText2.setString(strMinutes.str() + " : " + strSeconds.str());
+    	//waveTimerText2.setString(strMinutes.str() + " : " + strSeconds.str());
 	}
 }
 
@@ -162,9 +163,9 @@ void MainControlPanel::draw(sf::RenderWindow& window)
 		button.draw(window);
 	}
     
-	window.draw(waveNumberText);
-	window.draw(waveNumberText2);
+	//window.draw(waveNumberText);
+	//window.draw(waveNumberText2);
 
-    window.draw(waveTimerText);
-    window.draw(waveTimerText2);
+    //window.draw(waveTimerText);
+    //window.draw(waveTimerText2);
 }

@@ -5,23 +5,24 @@
 
 #include <SFML\Graphics.hpp>
 #include "game_interface/ui_window/ui_window/ui_window.h"
+#include "game_interface/ui_window/sub_win_util/fonts.h"
 
 
 class TextField : public UIPlate
 {
 private:
 	int8_t maxLenght;
-	sf::Text text;
-	sf::Vector2u ownerPosition;
+	sf::Text text = sf::Text(turretClassic);
+	sf::Vector2i ownerPosition;
 	static inline bool isOneSelected = false;
 
 public:
-	TextField(const sf::String& value, const uint32_t sizeX, const sf::Vector2u position);
+	TextField(const sf::String& value, const int sizeX, const sf::Vector2i position);
 	TextField();
 	~TextField() = default;
 
 	void interact();
-	void relocateWithOwner(const sf::Vector2u ownerPosition);
+	void relocateWithOwner(const sf::Vector2i ownerPosition);
 	static bool isOneSeltcted() { return isOneSelected; }
 
 	void setText(const sf::String& value);

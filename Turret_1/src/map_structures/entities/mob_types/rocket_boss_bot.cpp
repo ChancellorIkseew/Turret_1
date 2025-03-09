@@ -23,22 +23,21 @@ void RocketBossBot::shoot()
 	if (!aimCoord.valid())
 		return;
 	shootingAngleRad = atan2f(aimCoord.x - coord.x, aimCoord.y - coord.y);
-	shootingAngleDeg = t1::be::radToDegree(shootingAngleRad);
 
 	if (reloadTimer <= 0)
 	{
 		float correctionX = cos(shootingAngleRad) * 18.0f;
 		float correctionY = sin(shootingAngleRad) * 18.0f;
-		team->spawnShell(ShellType::ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
-		team->spawnShell(ShellType::ROCKET, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg);
+		team->spawnShell(ShellType::ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad);
+		team->spawnShell(ShellType::ROCKET, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad);
 		reloadTimer = 60;
 	}
 	else if (reloadTimer == 30)
 	{
 		float correctionX = cos(shootingAngleRad) * 14.0f;
 		float correctionY = sin(shootingAngleRad) * 14.0f;
-		team->spawnShell(ShellType::ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad, shootingAngleDeg);
-		team->spawnShell(ShellType::ROCKET, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad, shootingAngleDeg);
+		team->spawnShell(ShellType::ROCKET, { coord.x - correctionX, coord.y + correctionY }, shootingAngleRad);
+		team->spawnShell(ShellType::ROCKET, { coord.x + correctionX, coord.y - correctionY }, shootingAngleRad);
 	}
 }
 
@@ -52,20 +51,20 @@ void RocketBossBot::shootByOwnAI()
 
 void RocketBossBot::draw(sf::RenderWindow& window)
 {
-	entitySprite.setTextureRect(sf::IntRect(0, 62, 47, 30));
-	entitySprite.setOrigin(24, 14);
+	entitySprite.setTextureRect(sf::IntRect({ 0, 62 }, { 47, 30 }));
+	entitySprite.setOrigin({ 24, 14 });
 
 	if (aimCoord.valid())
-		entitySprite.setRotation(shootingAngleDeg);
+		entitySprite.setRotation(sf::radians(PI - shootingAngleRad));
 	else
-		entitySprite.setRotation(motionAngleDeg);
+		entitySprite.setRotation(sf::radians(PI - motionAngleRad));
 
-	entitySprite.setPosition(coord.x, coord.y);
+	entitySprite.setPosition({ coord.x, coord.y });
 	window.draw(entitySprite);
 
 	if (durability > 110)    //Boss_energy_shield
 	{
-		shieldSprite.setPosition(coord.x, coord.y);
+		shieldSprite.setPosition({ coord.x, coord.y });
 		window.draw(shieldSprite);
 	}
 }
