@@ -7,8 +7,6 @@
 #include "t1_system/input/input_handler.h"
 #include "t1_system/t1_mutex.h"
 
-#include "game_interface/gameplay/ui_elements/exit_confirmation.h"
-//#include "game_interface/gameplay/ui_elements/settings_window.h"
 #include "game_interface/gameplay/gameplay_util/mob_controller.h"
 
 #include "map_structures/buildings/building/building.h"
@@ -57,8 +55,6 @@ void Gameplay::graphics(sf::RenderWindow& mainWindow)
         buildingPanel.draw(mainWindow);
         resourcesPanel.draw(mainWindow);
         inventoryWindow.draw(mainWindow);
-        ConfirmationWindow::getInstance().draw(mainWindow);
-        //SettingsWindow::getInstance().draw(mainWindow);
 
         mainWindow.setView(camera.getView());
         mainWindow.display();                   //End draw_block

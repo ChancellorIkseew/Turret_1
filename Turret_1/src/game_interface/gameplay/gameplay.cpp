@@ -45,8 +45,7 @@ GameState Gameplay::startGameplay(sf::RenderWindow& mainWindow, const bool newGa
 
 void Gameplay::relocateSubWindows(const sf::Vector2i windowSize)
 {
-	ConfirmationWindow::getInstance().relocate(windowSize);
-	//SettingsWindow::getInstance().relocate(windowSize);
+	mainControlPanel.relocate(windowSize);
 	resourcesPanel.relocate(windowSize);
 	buildingPanel.relocate(windowSize);
 }

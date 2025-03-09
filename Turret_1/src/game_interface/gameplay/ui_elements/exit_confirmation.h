@@ -4,32 +4,25 @@
 
 #include "game_interface/ui_window/ui_window/ui_window.h"
 #include "game_interface/ui_window/elements/button/button.h"
-
+#include "game_interface/ui_window/sub_win_util/fonts.h"
 
 class ConfirmationWindow : public UIWindow
 {
 private:
-
 	Button confirm;
 	Button reject;
 
-	//sf::Text confirmationText;
+	sf::Text confirmationText = sf::Text(turretClassic);
 
-	ConfirmationWindow();
 	ConfirmationWindow(const ConfirmationWindow&) = delete;
 	ConfirmationWindow& operator=(const ConfirmationWindow&) = delete;
-	~ConfirmationWindow() = default;
 
 public:
-
-	static ConfirmationWindow& getInstance()
-	{
-		static ConfirmationWindow self;
-		return self;
-	}
+	ConfirmationWindow();
+	~ConfirmationWindow() = default;
 
 	bool interact();
-	void relocate(const sf::Vector2i wndowSize) override final;
+	void relocate(const sf::Vector2i windowSize) override final;
 
 	void prepareInterfaceSprites() override final;
 	void draw(sf::RenderWindow& window) override final;

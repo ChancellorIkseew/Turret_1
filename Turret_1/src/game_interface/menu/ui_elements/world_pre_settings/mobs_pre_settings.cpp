@@ -73,12 +73,12 @@ void MobsPreSettingsPage::relocateWithOwner(const sf::Vector2i ownerPosition)
 	Page::relocateWithOwner(ownerPosition);
 	for (auto& field : fields)
 		field.second.relocateWithOwner(position);
-	quantity.setPosition(sf::Vector2f(position.x + 10, position.y + 90));
-	durabity.setPosition(sf::Vector2f(position.x + 10, position.y + 140));
-	VILevel.setPosition(sf::Vector2f(position.x + 10, position.y + 190));
-	collisionDamage.setPosition(sf::Vector2f(position.x + 150, position.y + 90));
-	directDamage.setPosition(sf::Vector2f(position.x + 150, position.y + 150));
-	blastDamage.setPosition(sf::Vector2f(position.x + 150, position.y + 210));
+	quantity.setPosition(sf::Vector2f(position.x + 10, position.y + 40));
+	durabity.setPosition(sf::Vector2f(position.x + 10, position.y + 90));
+	VILevel.setPosition(sf::Vector2f(position.x + 10, position.y + 140));
+	collisionDamage.setPosition(sf::Vector2f(position.x + 10, position.y + 190));
+	directDamage.setPosition(sf::Vector2f(position.x + 150, position.y + 40));
+	blastDamage.setPosition(sf::Vector2f(position.x + 150, position.y + 100));
 }
 
 void MobsPreSettingsPage::draw(sf::RenderWindow& window)

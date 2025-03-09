@@ -18,10 +18,9 @@ void ConfirmationWindow::prepareInterfaceSprites()
     confirm = Button("confirm.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 10));
     reject = Button("reject.bmp", sf::Vector2i(48, 48), sf::Vector2i(70, 10));
 
-    //confirmationText = sf::Text(sf::String(L"Выйти без\nсохранения?"), turretClassic, 16);
-    //confirmationText.setFillColor(darkRed);
+    confirmationText = sf::Text(turretClassic, sf::String(L"Выйти без\nсохранения?"),  16);
+    confirmationText.setFillColor(darkRed);
 }
-
 
 
 void ConfirmationWindow::draw(sf::RenderWindow& window)
@@ -31,10 +30,8 @@ void ConfirmationWindow::draw(sf::RenderWindow& window)
     drawBase(window);
     confirm.draw(window);
     reject.draw(window);
-    //window.draw(confirmationText);
+    window.draw(confirmationText);
 }
-
-
 
 bool ConfirmationWindow::interact()
 {
@@ -54,5 +51,5 @@ void ConfirmationWindow::relocate(const sf::Vector2i windowSize)
     relocateCentral(windowSize);
     confirm.relocateWithOwner(position);
     reject.relocateWithOwner(position);
-    //confirmationText.setPosition(position.x + 10, position.y + 60);
+    confirmationText.setPosition(sf::Vector2f(position.x + 10, position.y + 60));
 }

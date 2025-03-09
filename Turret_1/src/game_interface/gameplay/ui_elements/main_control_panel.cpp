@@ -8,7 +8,7 @@
 #include "game_interface/ui_window/sub_win_util/fonts.h"
 
 //#include "settings_window.h"
-#include "exit_confirmation.h"
+
 
 #include "game_interface/gameplay/gameplay_util/t1_time.h"
 
@@ -55,24 +55,25 @@ void MainControlPanel::prepareInterfaceSprites()
 	{
 		button.relocateWithOwner(position);
 	}
-	/*
-	waveNumberText = sf::Text(sf::String(L"волна: "), turretClassic, 16);
+
+	waveNumberText = sf::Text(turretClassic, sf::String(L"волна: "), 16);
 	waveNumberText.setFillColor(standardColor);
-	waveNumberText.setPosition(10, 60);
+	waveNumberText.setPosition(sf::Vector2f(10, 60));
 
-	waveNumberText2 = sf::Text(sf::String(L" "), turretClassic, 16);
+	waveNumberText2 = sf::Text(turretClassic, sf::String(L" "), 16);
 	waveNumberText2.setFillColor(standardColor);
-	waveNumberText2.setPosition(65, 60);
+	waveNumberText2.setPosition(sf::Vector2f(65, 60));
 	
 
-    waveTimerText = sf::Text(sf::String(L"до следующей волны: "), turretClassic, 16);
+    waveTimerText = sf::Text(turretClassic, sf::String(L"до следующей волны: "), 16);
     waveTimerText.setFillColor(standardColor);
-	waveTimerText.setPosition(10, 80);
+	waveTimerText.setPosition(sf::Vector2f(10, 80));
 	
-	waveTimerText2 = sf::Text(sf::String(L" "), turretClassic, 16);
+	waveTimerText2 = sf::Text(turretClassic, sf::String(L" "), 16);
     waveTimerText2.setFillColor(standardColor);
-	waveTimerText2.setPosition(200, 80);
-	*/
+	waveTimerText2.setPosition(sf::Vector2f(200, 80));
+
+	confirmationWindow = std::make_unique<ConfirmationWindow>();
 }
 
 
@@ -84,10 +85,10 @@ void MainControlPanel::interact(bool& isPaused, bool& isGameplayActive, std::ato
 	
 	if (buttons[EXIT_TO_MENU].press())
 	{
-		ConfirmationWindow::getInstance().setVisible(true);
-		if(ConfirmationWindow::getInstance().interact())
+		confirmationWindow->setVisible(true);
+		if(confirmationWindow->interact())
 			isGameplayActive = false;
-		ConfirmationWindow::getInstance().setVisible(false);
+		confirmationWindow->setVisible(false);
 	}
 	
 	if (buttons[SETTINGS].press())
@@ -141,7 +142,7 @@ void MainControlPanel::interactWaveTimer(const bool isPaused, const World& world
 	{
 		std::ostringstream strWaveNumber;
 		strWaveNumber << world.getTime().getWave();
-		//waveNumberText2.setString(strWaveNumber.str());
+		waveNumberText2.setString(strWaveNumber.str());
 
     	std::ostringstream strSeconds;
 		strSeconds << (59 - ((world.getTime().getTime() / 60) % 60));
@@ -149,10 +150,15 @@ void MainControlPanel::interactWaveTimer(const bool isPaused, const World& world
     	std::ostringstream strMinutes;
 		strMinutes << int(2 - (world.getTime().getTime() / 3600));
 
-    	//waveTimerText2.setString(strMinutes.str() + " : " + strSeconds.str());
+    	waveTimerText2.setString(strMinutes.str() + " : " + strSeconds.str());
 	}
 }
 
+
+void MainControlPanel::relocate(const sf::Vector2i windowSize)
+{
+	confirmationWindow->relocate(windowSize);
+}
 
 
 void MainControlPanel::draw(sf::RenderWindow& window)
@@ -163,9 +169,11 @@ void MainControlPanel::draw(sf::RenderWindow& window)
 		button.draw(window);
 	}
     
-	//window.draw(waveNumberText);
-	//window.draw(waveNumberText2);
+	window.draw(waveNumberText);
+	window.draw(waveNumberText2);
 
-    //window.draw(waveTimerText);
-    //window.draw(waveTimerText2);
+    window.draw(waveTimerText);
+    window.draw(waveTimerText2);
+
+	confirmationWindow->draw(window);
 }
