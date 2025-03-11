@@ -35,7 +35,7 @@ public:
 	void draw(sf::RenderWindow& window, const Camera& camera);
 
 	void spawnShell(const ShellType type, const PixelCoord coord, const float angleRad);
-	void spawnEntity(const uint8_t amount, const MobType type, const BuildingsMap& buildingsMap);
+	void spawnEntity(const MobType type, const PixelCoord coord, const Control control);
 
 	Balance& getBalance() { return balance; }
 	EntitiesList& getEneities() { return entities; }

@@ -441,6 +441,15 @@
     <ClCompile Include="src\game_interface\gameplay\ui_elements\settings_window.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="src\map_structures\blueprints\blueprints_map.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game_interface\gameplay\gameplay_streams\scripts\survival\spawn_entity.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game_interface\gameplay\gameplay_streams\scripts\survival\new_survival.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\game_interface\gameplay\gameplay_util\camera.h">
@@ -819,6 +828,18 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="src\game_interface\gameplay\ui_elements\settings_window.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="src\map_structures\blueprints\blueprints_map.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game_interface\gameplay\gameplay_streams\scripts\survival\spawn_entity.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="src\map_structures\blueprints\blueprint.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game_interface\gameplay\gameplay_streams\scripts\survival\new_survival.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

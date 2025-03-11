@@ -29,10 +29,6 @@ Button& Button::operator=(const Button&& other) noexcept
 	button.setTexture(texture);
 	button.setTextureRect(sf::IntRect({ 0, 0 }, { size.x, size.y }));
 
-	isVisible = true;
-	isSelected = false;
-	isPressed = false;
-
 	return *this;
 }
 
@@ -46,10 +42,6 @@ Button::Button(const Button&& other) noexcept
 	texture.loadFromImage(image);
 	button.setTexture(texture);
 	button.setTextureRect(sf::IntRect({ 0, 0 }, { size.x, size.y }));
-
-	isVisible = true;
-	isSelected = false;
-	isPressed = false;
 }
 
 bool Button::select()

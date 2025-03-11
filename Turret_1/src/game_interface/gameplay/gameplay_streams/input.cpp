@@ -16,17 +16,17 @@ void Gameplay::input()
     while (isGameplayActive)
     {
         mainControlPanel.interact(isPaused, isGameplayActive, tickSpeed, world);
-        buildingPanel.interact(player, world.getBuildingsMap(), *this);
+        buildingPanel.interact(player, world.getBuildingsMap(), world.getBlueprintsMap(), *this);
         inventoryWindow.interact(player, world.getBuildingsMap());
         MobController::interact(*player, *this);
 
-#ifndef TURRET_1_NO_TEST_BUILD
+#ifndef NDEBUG
         if (InputHandler::jactive(t1::BindName::Console_cheat))
         {
             std::cout << "cheet_comands_panel_called\n";
             acceptCheetCommand();
         }
-#endif // TURRET_1_NO_TEST_BUILD
+#endif // NDEBUG
         
         t1::system::sleep(16);
     }

@@ -8,6 +8,7 @@
 #include "game_interface/ui_window/sub_win_util/fonts.h"
 
 #include "map_structures/terrain/terrain.h"
+#include "map_structures/blueprints/blueprints_map.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/base_engine/base_engine.h"
@@ -88,19 +89,16 @@ void BuildingPanel::prepareInterfaceSprites()
 
 
 
-void BuildingPanel::interact(Team* team, BuildingsMap& buildingsMap, const Gameplay& gameplay)
+void BuildingPanel::interact(Team* team, BuildingsMap& buildingsMap, BlueprintsMap& blueprintsMap, const Gameplay& gameplay)
 {
 	if (InputHandler::active(t1::BindName::Build) && isBuildingTypeSelected && gameplay.noSubWindowSelected())
 	{
-		placeBuilding(team, buildingsMap);
+		placeBuilding(team, buildingsMap, blueprintsMap);
 		t1::system::sleep(150);
 	}
 
 	if (InputHandler::jactive(t1::BindName::Rotate_building) || InputHandler::jactive(t1::BindName::RMB))
-	{
 		rotateBuilding();
-		t1::system::sleep(150);
-	}
 
 	if (info.press())
 		isInfoOpen = !isInfoOpen;
@@ -246,7 +244,7 @@ void BuildingPanel::selectBuildingType(BuildingIco& ico)
 }
 
 
-void BuildingPanel::placeBuilding(Team* team, BuildingsMap& buildingsMap) const
+void BuildingPanel::placeBuilding(Team* team, BuildingsMap& buildingsMap, BlueprintsMap& blueprintsMap) const
 {
 	std::cout << "building_place_works: " << static_cast<uint16_t>(newBuildingType) << '\n';
 	const sf::Vector2f mouseMapCoord = InputHandler::getMouseMapCoord();
@@ -267,6 +265,7 @@ void BuildingPanel::placeBuilding(Team* team, BuildingsMap& buildingsMap) const
 	}
 	else
 	{
-		buildingsMap.constructBuilding(newBuildingType, direction, selectedTile, team);
+		//buildingsMap.constructBuilding(newBuildingType, direction, selectedTile, team);
+		blueprintsMap.placeBlueprint(newBuildingType, direction, selectedTile);
 	}
 }

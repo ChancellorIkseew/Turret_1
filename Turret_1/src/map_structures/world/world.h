@@ -6,6 +6,7 @@
 
 #include "map_structures/team/team.h"
 #include "map_structures/terrain/terrain.h"
+#include "map_structures/blueprints/blueprints_map.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/particles/particles_list/particles_list.h"
 #include "map_structures/pre-settings/pre-settings.h"
@@ -18,6 +19,7 @@ class World
 private:
 	PreSettings preSettings;
 	TerrainMap terrainMap;
+	BlueprintsMap blueprintsMap;
 	BuildingsMap buildingsMap;
 	std::unordered_map<int, std::unique_ptr<Team>> teams;
 	ParticlesList particles;
@@ -35,6 +37,7 @@ public:
 	void simulate();
 	void draw(sf::RenderWindow& window, const Camera& camera);
 
+	BlueprintsMap& getBlueprintsMap() { return blueprintsMap; }
 	BuildingsMap& getBuildingsMap() { return buildingsMap; } // non_const
 	ParticlesList& getParticles() { return particles; }
 	Team* getTeam(const int ID) { return teams.at(ID).get(); }
@@ -42,6 +45,7 @@ public:
 	
 	const PreSettings& getPreSettings() const { return preSettings; };
 	const TerrainMap& getTerrainMap() const { return terrainMap; }
+	const BlueprintsMap& getBlueprintsMap() const { return blueprintsMap; }
 	const BuildingsMap& getBuildingsMap() const { return buildingsMap; }
 	const t1::Time& getTime() const { return time; }
 	const std::unordered_map<int, std::unique_ptr<Team>>& getTeams() const { return teams; }

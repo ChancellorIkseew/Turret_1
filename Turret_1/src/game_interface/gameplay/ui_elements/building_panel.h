@@ -15,6 +15,7 @@ enum class BuildingType : uint16_t;
 class Team;
 class World;
 class BuildingsMap;
+class BlueprintsMap;
 class Gameplay;
 
 class BuildingPanel : public UIWindow
@@ -37,7 +38,7 @@ private:
 
 	inline void selectBuildingType(BuildingIco& ico);
 	inline void rotateBuilding();
-	inline void placeBuilding(Team* team, BuildingsMap& buildingsMap) const;
+	inline void placeBuilding(Team* team, BuildingsMap& buildingsMap, BlueprintsMap& blueprint) const;
 
 	std::unique_ptr<ExpensesPanel> expensesPanel;
 	std::unique_ptr<SpecificationPanel> specificationPanel;
@@ -50,7 +51,7 @@ public:
 	~BuildingPanel() = default;
 	
 	void initPresettings(const BuildingsPre& buildingsPre) { this->buildingsPre = buildingsPre; }
-	void interact(Team* team, BuildingsMap& buildingsMap, const Gameplay& gameplay);
+	void interact(Team* team, BuildingsMap& buildingsMap, BlueprintsMap& blueprintsMap, const Gameplay& gameplay);
 	void relocate(const sf::Vector2i windowSize) override final;
 	bool containsCoursor() const override final;
 	

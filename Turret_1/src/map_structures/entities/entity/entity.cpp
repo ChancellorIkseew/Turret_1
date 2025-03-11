@@ -5,7 +5,6 @@
 #include "map_structures/team/team.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/entities/behavior/aiming.h"
-#include "map_structures/entities/behavior/path_finding.h"
 #include "t1_system/events/events_handler.h"
 #include "game_interface/gameplay/gameplay_util/mob_controller.h"
 

@@ -5,18 +5,17 @@
 #include "game_interface/main_window/main_window_resize.h"
 
 #include "t1_system/input/input_handler.h"
-#include "t1_system/t1_mutex.h"
 
 #include "game_interface/gameplay/gameplay_util/mob_controller.h"
 
 #include "map_structures/buildings/building/building.h"
 #include "map_structures/entities/turret/turret.h"
-#include <iostream>
 
 void Gameplay::graphics(sf::RenderWindow& mainWindow)
 {
     TerrainMap::prepareSprites();
     Building::prepareSprites();
+    BlueprintsMap::prepareSprites();
     Turret::prepareSprites();
     ResourceUnit::prepareSprites();
     Entity::prepareSprites();

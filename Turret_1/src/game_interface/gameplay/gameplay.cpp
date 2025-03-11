@@ -7,9 +7,7 @@
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/team/team.h"
 #include "map_structures/world/world.h"
-
-#include "game_interface/gameplay/ui_elements/exit_confirmation.h"
-//#include "game_interface/gameplay/ui_elements/settings_window.h"
+#include "game_interface/gameplay/gameplay_streams/scripts/survival/new_survival.h"
 
 
 GameState Gameplay::startGameplay(sf::RenderWindow& mainWindow, const bool newGame, const std::string& saveFolderName, PreSettings& preSettings)
@@ -17,14 +15,25 @@ GameState Gameplay::startGameplay(sf::RenderWindow& mainWindow, const bool newGa
 	if (newGame)
 	{
 		world.createNew(preSettings);
-		world.getBuildingsMap().placeBuilding(BuildingType::CORE_MK2, 0, TileCoord(48, 48), world.getTeam("player"));
-		world.getTeam("player")->getBalance().giveStartRes(preSettings.getGeneral().startBalance);
+		switch (preSettings.getGeneral().gameMode)
+		{
+		case GameMode::SANDBOX:
+		case GameMode::SURVIVAL:
+			createPlayerBase(world, preSettings);
+			break;/*
+		case GameMode::STORM:	not implemented
+			break;
+		case GameMode::PVP:		not implemented
+			break;*/
+		default:
+			return GameState::MAIN_MENU;
+		}
 	}
 	else
     {
 		world.load("save_1");
     }
-
+	
 	player = world.getTeam("player");
 	camera = Camera(world.getPreSettings().getTerrain().mapSize);
 	buildingPanel.initPresettings(world.getPreSettings().getBuildings());

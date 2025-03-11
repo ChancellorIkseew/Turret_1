@@ -62,10 +62,10 @@ PixelCoord t1::be::correction(const PixelCoord center, const PixelCoord point, c
 
 int t1::be::spiralRangeToTileRange(const int spiralRange) {
 	for (int i = 0; i < 35; ++i) {
-		if (t1::be::tileRangeToSpiralRange[i] > spiralRange) {
+		if (t1::be::tileRangeToSpiralRange[i] > spiralRange)
 			return i;
-		}
 	}
+	return 0;
 }
 
 

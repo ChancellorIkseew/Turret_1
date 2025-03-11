@@ -149,6 +149,7 @@ std::unordered_map<t1::BindName, t1::Binding> InputHandler::bindings
 
 	{BindName::Build, Binding(code(sf::Mouse::Button::Left), InputType::mouse)},
 	{BindName::Rotate_building, Binding(code(sf::Keyboard::Key::R), InputType::keyboard)},
+	{BindName::Pipette, Binding(code(sf::Keyboard::Key::Q), InputType::keyboard)},
 
 	{BindName::Control_unit, Binding(code(sf::Keyboard::Key::V), InputType::keyboard)},
 	{BindName::Shoot, Binding(code(sf::Mouse::Button::Left), InputType::mouse)},
@@ -161,5 +162,6 @@ std::unordered_map<t1::BindName, t1::Binding> InputHandler::bindings
 	{BindName::Pause, Binding(code(sf::Keyboard::Key::Space), InputType::keyboard)},
 	{BindName::Cancel, Binding(code(sf::Keyboard::Key::Escape), InputType::keyboard)},
 	{BindName::Escape, Binding(code(sf::Keyboard::Key::Escape), InputType::keyboard)},
+	{BindName::Hide_GUI, Binding(code(sf::Keyboard::Key::F1), InputType::keyboard)},
 	{BindName::Console_cheat, Binding(code(sf::Keyboard::Key::RAlt), InputType::keyboard)}
 };

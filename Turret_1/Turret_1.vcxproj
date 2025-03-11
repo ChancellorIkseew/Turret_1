@@ -153,6 +153,8 @@
     <ClCompile Include="src\game_interface\gameplay\gameplay_streams\input.cpp" />
     <ClCompile Include="src\game_interface\gameplay\gameplay_streams\network.cpp" />
     <ClCompile Include="src\game_interface\gameplay\gameplay_streams\scripts.cpp" />
+    <ClCompile Include="src\game_interface\gameplay\gameplay_streams\scripts\survival\new_survival.cpp" />
+    <ClCompile Include="src\game_interface\gameplay\gameplay_streams\scripts\survival\spawn_entity.cpp" />
     <ClCompile Include="src\game_interface\gameplay\gameplay_streams\simulation.cpp" />
     <ClCompile Include="src\game_interface\gameplay\gameplay_util\camera.cpp" />
     <ClCompile Include="src\game_interface\gameplay\gameplay_util\cheet_commands.cpp" />
@@ -200,6 +202,7 @@
     <ClCompile Include="src\game_interface\ui_window\ui_window\ui_window.cpp" />
     <ClCompile Include="src\map_structures\base_engine\coords\tile_coord_arrays.cpp" />
     <ClCompile Include="src\map_structures\base_engine\coords\transforms.cpp" />
+    <ClCompile Include="src\map_structures\blueprints\blueprints_map.cpp" />
     <ClCompile Include="src\map_structures\buildings\buildings_map\buildings_map.cpp" />
     <ClCompile Include="src\map_structures\buildings\buildings_map\b_map_construction.cpp" />
     <ClCompile Include="src\map_structures\buildings\buildings_map\b_map_get_set.cpp" />
@@ -277,6 +280,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\game_interface\gameplay\gameplay.h" />
+    <ClInclude Include="src\game_interface\gameplay\gameplay_streams\scripts\survival\new_survival.h" />
+    <ClInclude Include="src\game_interface\gameplay\gameplay_streams\scripts\survival\spawn_entity.h" />
     <ClInclude Include="src\game_interface\gameplay\gameplay_util\camera.h" />
     <ClInclude Include="src\game_interface\gameplay\gameplay_util\cheet_commands.h" />
     <ClInclude Include="src\game_interface\gameplay\gameplay_util\mob_controller.h" />
@@ -322,6 +327,8 @@
     <ClInclude Include="src\map_structures\base_engine\coords\tile_coord.h" />
     <ClInclude Include="src\map_structures\base_engine\coords\tile_coord_arrays.h" />
     <ClInclude Include="src\map_structures\base_engine\coords\transforms.h" />
+    <ClInclude Include="src\map_structures\blueprints\blueprint.h" />
+    <ClInclude Include="src\map_structures\blueprints\blueprints_map.h" />
     <ClInclude Include="src\map_structures\buildings\buildings_map\buildings_map.h" />
     <ClInclude Include="src\map_structures\buildings\building\building.h" />
     <ClInclude Include="src\map_structures\buildings\building\buildings_enum.h" />

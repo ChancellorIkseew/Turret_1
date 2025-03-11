@@ -2,6 +2,7 @@
 #include "path_finding.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/buildings/building/building.h"
+#include "map_structures/blueprints/blueprints_map.h"
 #include "map_structures/entities/entity/entity.h"
 #include "map_structures/team/team.h"
 
@@ -58,6 +59,20 @@ TileCoord PathFinding::findClosestCore(const TileCoord point, const BuildingsMap
 
 	return findBuildingCenter(*cores[index]);
 }
+
+constexpr int SPYRAL_RANGE = 4109;
+TileCoord PathFinding::findClosestBlueprint(const TileCoord point, const BlueprintsMap& blueprintsMap)
+{;
+	TileCoord checkTile;
+	for (int i = 0; i < SPYRAL_RANGE; i++)
+	{
+		checkTile = point + coordSpyralArr[i];
+		if (blueprintsMap.isFilledTile(checkTile))
+			return checkTile;
+	}
+	return INCORRECT_TILE_COORD;
+}
+
 
 // With comparing distances we dont use SQRT,
 // because we dont need to know real distance value.

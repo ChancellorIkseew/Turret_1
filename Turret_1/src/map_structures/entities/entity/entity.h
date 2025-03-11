@@ -58,7 +58,6 @@ public:
 	void load(cereal::BinaryInputArchive& archive);
 
 	static std::unique_ptr<Entity> createEntity(const MobType type, Team* const team);
-	static PixelCoord randomMapBorderSpawn();
 
 	// combat
 	

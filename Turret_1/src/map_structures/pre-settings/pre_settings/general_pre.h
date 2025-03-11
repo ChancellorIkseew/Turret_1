@@ -6,12 +6,12 @@
 #include <cpptoml.h>
 #include "map_structures/resources/res_enum.h"
 
-enum class GameMode
+enum class GameMode : uint8_t
 {
-	SANDBOX,
-	SURVIVAL,
-	STORM,
-	PVP
+	SANDBOX = 0,
+	SURVIVAL = 1,
+	STORM = 2,
+	PVP = 3
 };
 
 struct GeneralPre
@@ -22,12 +22,15 @@ public:
 
 	void save(std::shared_ptr<cpptoml::table> root) const
 	{
-
+		auto generalRoot = cpptoml::make_table();
+		generalRoot->insert("quantity-modifier", static_cast<uint8_t>(gameMode));
 	}
 
 	void load(std::shared_ptr<cpptoml::table> root)
 	{
-
+		const auto table = root->get_table("general");
+		//
+		gameMode = static_cast<GameMode>(table->get_as<uint8_t>("quantity-modifier").value_or(1));
 	}
 
 };

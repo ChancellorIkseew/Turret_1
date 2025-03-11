@@ -6,6 +6,7 @@
 #include "map_structures/team/team.h"
 #include "map_structures/world/world.h"
 #include "t1_system/input/input_handler.h"
+#include "map_structures/entities/behavior/path_finding.h"
 
 constexpr int TILE_RANGE = 20;
 const float PIXEL_RANGE = t1::be::pixelF(TILE_RANGE);
@@ -20,12 +21,25 @@ Shuttle::Shuttle(Team* const team) : Entity(team)
 
 void Shuttle::moveByOwnAI()
 {
-	motionAngleRad = atan2f(destCoord.x - coord.x, destCoord.y - coord.y);
+	BuildingsMap& map = world->getBuildingsMap();
+	calculateMotion(map);
 	
-	coord.x += sin(motionAngleRad) * MAX_SPEED;
-	coord.y += cos(motionAngleRad) * MAX_SPEED;
+	if (currentTile == destCoord)
+		world->getBlueprintsMap().constructBuilding(map, destCoord);
+	if (destCoord.valid())
+		coord = coord + lineMotion;
 }
 
+
+void Shuttle::calculateMotion(const BuildingsMap& buildingsMap)
+{
+	checkTileChanged();
+	destCoord = PathFinding::findClosestBlueprint(currentTile, world->getBlueprintsMap());
+	
+	PixelCoord destCentre = t1::be::pixel(destCoord);
+	motionAngleRad = atan2(destCentre.x - coord.x, destCentre.y - coord.y);
+	changeLineMotion();
+}
 
 void Shuttle::shoot()
 {
@@ -47,16 +61,17 @@ void Shuttle::shootByOwnAI()
 	shoot();
 }
 
+constexpr sf::Vector2f BOT_ORIGIN(9.0f, 8.0f);
 
 void Shuttle::draw(sf::RenderWindow& window)
 {
-	entitySprite.setTextureRect(sf::IntRect({ 0, 18 }, { 43, 43 }));
-	entitySprite.setOrigin({ 22, 22 });
+	entitySprite.setTextureRect(sf::IntRect({ 60, 0 }, { 17, 15 }));
+	entitySprite.setOrigin(BOT_ORIGIN);
 
 	if (aimCoord.valid())
-		entitySprite.setRotation(sf::radians(shootingAngleRad));
+		entitySprite.setRotation(sf::radians(PI - shootingAngleRad));
 	else
-		entitySprite.setRotation(sf::radians(motionAngleRad));
+		entitySprite.setRotation(sf::radians(PI - motionAngleRad));
 
 	entitySprite.setPosition({ coord.x, coord.y });
 	window.draw(entitySprite);

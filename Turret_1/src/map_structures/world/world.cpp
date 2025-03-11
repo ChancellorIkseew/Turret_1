@@ -48,6 +48,7 @@ void World::createNew(PreSettings& preSettings)
 	this->preSettings = std::move(preSettings);
 	terrainMap.generate(preSettings.changeTerrain());
 	buildingsMap = BuildingsMap(preSettings.getTerrain().mapSize);
+	blueprintsMap = BlueprintsMap(preSettings.getTerrain().mapSize);
 
 	addTeam("player");
 	addTeam("enemy");
@@ -69,6 +70,7 @@ void World::draw(sf::RenderWindow& window, const Camera& camera)
 	std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
 	terrainMap.draw(window, camera);
 	buildingsMap.draw(window, camera);
+	blueprintsMap.draw(window, camera);
 	for (auto& [teamID, team] : teams)
 		team->draw(window, camera);
 	particles.draw(window, camera);

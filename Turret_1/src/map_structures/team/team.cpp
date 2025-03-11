@@ -20,8 +20,13 @@ void Team::load(cereal::BinaryInputArchive& archive) {
 void Team::spawnShell(const ShellType type, const PixelCoord coord, const float angleRad) {
     shells.spawnShell(type, coord, angleRad, this);
 }
-void Team::spawnEntity(const uint8_t amount, const MobType type, const BuildingsMap& buildingsMap) {
-    //entities.spawnEntity(amount, type, this, buildingsMap);
+void Team::spawnEntity(const MobType type, const PixelCoord coord, const Control control) {
+    auto entity = Entity::createEntity(type, this);
+    if (entity == nullptr)
+        return;
+    entity->setCoord(coord);
+    entity->setControlType(control);
+    entities.spawnEntity(std::move(entity));
 }
 
 void Team::interact(const BuildingsMap& buildingsMap)

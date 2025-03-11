@@ -15,6 +15,7 @@ namespace t1
 		Build,
 		Demolish,
 		Rotate_building,
+		Pipette,
 		Shoot,
 		Control_unit,
 
@@ -26,6 +27,7 @@ namespace t1
 		Pause,
 		Cancel,
 		Escape,
+		Hide_GUI,
 		Console_cheat
 	};
 

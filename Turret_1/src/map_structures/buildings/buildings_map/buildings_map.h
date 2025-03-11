@@ -20,7 +20,7 @@ struct StoredResource;
 class BuildingsMap
 {
 private:
-	TileCoord mapSize = TileCoord(0, 0);
+	TileCoord mapSize;
 	std::vector<std::vector<std::shared_ptr<Building>>> buildingsMap;
 	std::vector<std::shared_ptr<Building>> cores;
 	std::vector<TileCoord> justChangedTiles;

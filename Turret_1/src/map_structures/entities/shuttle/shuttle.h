@@ -19,6 +19,7 @@ public:
 	MobCategory getCategory() const override final { return MobCategory::BOSS; }
 	MobType getType() const override final { return MobType::LIGHT_SHUTTLE; }
 
+	void calculateMotion(const BuildingsMap& buildingsMap) override final;
 	void moveByOwnAI() override final;
 	void shoot() override final;
 	void shootByOwnAI() override final;
