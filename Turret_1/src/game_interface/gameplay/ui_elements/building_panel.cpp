@@ -38,12 +38,6 @@ enum Pages
 BuildingPanel::BuildingPanel() : UIWindow(sf::Vector2i(324, 192))
 {
 	selectedPage = LOGISTICS;
-	isBuildingTypeSelected = false;
-	newBuildingType = BuildingType::VOID_;
-	oldBuildingType = BuildingType::VOID_;
-	direction = 'w';
-	isInfoOpen = false;
-
 	this->prepareInterfaceSprites();
 	expensesPanel = std::make_unique<ExpensesPanel>();
 	specificationPanel = std::make_unique<SpecificationPanel>();
@@ -57,8 +51,8 @@ void BuildingPanel::prepareInterfaceSprites()
 	buildingsTexture.loadFromImage(buildingsImage);
 	buildExample.setOrigin(BLUEPRINT_ORIGIN);
 
-	int line1 = 240;
-	int line2 = 282;
+	const int line1 = 240;
+	const int line2 = 282;
 	info = Button("building/info_ico.bmp", sf::Vector2i(32, 32), sf::Vector2i(10, 10));
 
 	buttons[LOGISTICS] = Button("building/logistics_ico.bmp", sf::Vector2i(32, 32), sf::Vector2i(line1, 10));
@@ -91,7 +85,7 @@ void BuildingPanel::prepareInterfaceSprites()
 
 void BuildingPanel::interact(Team* team, BuildingsMap& buildingsMap, BlueprintsMap& blueprintsMap, const Gameplay& gameplay)
 {
-	if (InputHandler::active(t1::BindName::Build) && isBuildingTypeSelected && gameplay.noSubWindowSelected())
+	if (InputHandler::active(t1::BindName::Build) && buildingType != BuildingType::VOID_ && gameplay.noSubWindowSelected())
 		placeBuilding(team, buildingsMap, blueprintsMap);
 
 	if (InputHandler::jactive(t1::BindName::Rotate_building) || InputHandler::jactive(t1::BindName::RMB))
@@ -124,10 +118,8 @@ void BuildingPanel::relocate(const sf::Vector2i windowSize)
 		button.relocateWithOwner(position);
 
 	for (auto& [pageName, page] : pages)
-	{
 		for (auto& [type, ico] : page)
 			ico.relocateWithOwner(position);
-	}
 
 	expensesPanel->relocate(windowSize);
 	specificationPanel->relocate(windowSize);
@@ -135,18 +127,16 @@ void BuildingPanel::relocate(const sf::Vector2i windowSize)
 
 bool BuildingPanel::containsCoursor() const
 {
-	return 
-		UIPlate::containsCoursor() ||
-		expensesPanel->containsCoursor();
+	return UIPlate::containsCoursor() ||expensesPanel->containsCoursor();
 }
 
 void BuildingPanel::draw(sf::RenderWindow& window)
 {
-	expensesPanel->setVisible(isBuildingTypeSelected);
-	expensesPanel->interact(newBuildingType, buildingsPre);
+	expensesPanel->setVisible(buildingType != BuildingType::VOID_);
+	expensesPanel->interact(buildingType, buildingsPre);
 	expensesPanel->draw(window);
-	specificationPanel->setVisible(isInfoOpen && isBuildingTypeSelected);
-	specificationPanel->interact(newBuildingType, buildingsPre);
+	specificationPanel->setVisible(isInfoOpen && buildingType != BuildingType::VOID_);
+	specificationPanel->interact(buildingType, buildingsPre);
 	specificationPanel->draw(window);
 	drawBase(window);
 	info.draw(window);
@@ -162,20 +152,18 @@ void BuildingPanel::draw(sf::RenderWindow& window)
 
 void BuildingPanel::drawBuildExample(sf::RenderWindow& window, Team* team, const BuildingsMap& buildingsMap)
 {
-	const sf::Vector2f mouseMapCoord = InputHandler::getMouseMapCoord();
-
-	if (!isBuildingTypeSelected)
+	if (buildingType == BuildingType::VOID_)
 		return;
-	if (newBuildingType != BuildingType::STANDARD_CONVEYER && newBuildingType != BuildingType::SHIELDED_CONVEYER &&
-		newBuildingType != BuildingType::BRIDGE && newBuildingType != BuildingType::SORTER)
+	if (buildingType != BuildingType::STANDARD_CONVEYER && buildingType != BuildingType::SHIELDED_CONVEYER &&
+		buildingType != BuildingType::BRIDGE && buildingType != BuildingType::SORTER)
 	{
 		direction = 'w';
 		buildExample.setRotation(0_deg);
 	}
-
+	const sf::Vector2f mouseMapCoord = InputHandler::getMouseMapCoord();
 	TileCoord selectedTile = t1::be::tile(mouseMapCoord.x, mouseMapCoord.y);
-	if (buildingsMap.isAvaluablePlaceBuilding(newBuildingType, selectedTile, team) ||
-		newBuildingType == BuildingType::AUTOCANNON_TURRET || newBuildingType == BuildingType::ROCKET_TURRET)
+	if (buildingsMap.isAvaluablePlaceBuilding(buildingType, selectedTile, team) ||
+		buildingType == BuildingType::AUTOCANNON_TURRET || buildingType == BuildingType::ROCKET_TURRET)
 		buildExample.setColor(whiteTransparent);
 	else
 		buildExample.setColor(darkRedTransparent);
@@ -188,34 +176,32 @@ void BuildingPanel::drawBuildExample(sf::RenderWindow& window, Team* team, const
 
 void BuildingPanel::rotateBuilding()
 {
-	switch (newBuildingType)
+	switch (buildingType)
 	{
 	case BuildingType::STANDARD_CONVEYER:
 	case BuildingType::SHIELDED_CONVEYER:
 	case BuildingType::BRIDGE:
 	case BuildingType::SORTER:
-		if (direction == 'w')
+		switch (direction)
 		{
+		case 'w': 
 			direction = 'a';
 			buildExample.setRotation(270_deg);
-		}
-		else if (direction == 'a')
-		{
+			break;
+		case 'a':
 			direction = 's';
 			buildExample.setRotation(180_deg);
-		}
-		else if (direction == 's')
-		{
+			break;
+		case 's':
 			direction = 'd';
 			buildExample.setRotation(90_deg);
-		}
-		else if (direction == 'd')
-		{
+			break;
+		case 'd':
 			direction = 'w';
 			buildExample.setRotation(0_deg);
+			break;
 		}
 		break;
-
 	default:
 		direction = 'w';
 		buildExample.setRotation(0_deg);
@@ -228,43 +214,41 @@ void BuildingPanel::selectBuildingType(BuildingIco& ico)
 {
 	if (!ico.press() && !InputHandler::active(t1::BindName::Escape))
 		return;
-	newBuildingType = ico.getBuildingType();
-	if (oldBuildingType == newBuildingType || InputHandler::active(t1::BindName::Escape))
+	BuildingType type = ico.getBuildingType();
+	if (type == buildingType || InputHandler::active(t1::BindName::Escape))
 	{
-		isBuildingTypeSelected = false;
-		oldBuildingType = BuildingType::VOID_;
+		buildingType = BuildingType::VOID_;
 		isInfoOpen = false;
 		return;
 	}
-	buildExample.setTextureRect(t1::bc::buildingsInfoTable[newBuildingType].icoRect);
-	isBuildingTypeSelected = true;
-	oldBuildingType = newBuildingType;
+	buildingType = type;
+	buildExample.setTextureRect(t1::bc::buildingsInfoTable[buildingType].icoRect);
 }
 
 
 void BuildingPanel::placeBuilding(Team* team, BuildingsMap& buildingsMap, BlueprintsMap& blueprintsMap) const
 {
-	std::cout << "building_place_works: " << static_cast<uint16_t>(newBuildingType) << '\n';
+	std::cout << "building_place_works: " << static_cast<uint16_t>(buildingType) << '\n';
 	const sf::Vector2f mouseMapCoord = InputHandler::getMouseMapCoord();
 	const TileCoord selectedTile = t1::be::tile(mouseMapCoord.x, mouseMapCoord.y);
 
 	std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
-	if (newBuildingType == BuildingType::REMOVE)
+	if (buildingType == BuildingType::REMOVE)
 	{
 		if (buildingsMap.isTurretOnTile(selectedTile))
 			buildingsMap.removeTurret(selectedTile);
 		else
 			buildingsMap.demolishBuilding(selectedTile);
 	}
-	else if (newBuildingType == BuildingType::AUTOCANNON_TURRET || newBuildingType == BuildingType::ROCKET_TURRET)
+	else if (buildingType == BuildingType::AUTOCANNON_TURRET || buildingType == BuildingType::ROCKET_TURRET)
 	{
 		if (!buildingsMap.isTurretOnTile(selectedTile))
-			buildingsMap.setTurret(newBuildingType, selectedTile, team);
+			buildingsMap.setTurret(buildingType, selectedTile, team);
 	}
 	else
 	{
-		//buildingsMap.constructBuilding(newBuildingType, direction, selectedTile, team);
-		blueprintsMap.placeBlueprint(newBuildingType, direction, selectedTile);
+		//buildingsMap.constructBuilding(buildingType, direction, selectedTile, team);
+		blueprintsMap.placeBlueprint(buildingType, direction, selectedTile);
 	}
 }
 
@@ -276,7 +260,6 @@ void BuildingPanel::pickBuildingType(const BuildingsMap& buildingsMap, const Blu
 	BuildingType type = blueprint.getType(selectedTile);
 	if (type == BuildingType::VOID_)
 		type = buildingsMap.getBuildingType(selectedTile);
-	newBuildingType = type;
-	isBuildingTypeSelected = type != BuildingType::VOID_;
-	buildExample.setTextureRect(t1::bc::buildingsInfoTable[newBuildingType].icoRect);
+	buildingType = type;
+	buildExample.setTextureRect(t1::bc::buildingsInfoTable[buildingType].icoRect);
 }

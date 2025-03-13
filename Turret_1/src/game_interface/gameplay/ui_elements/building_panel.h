@@ -30,10 +30,9 @@ private:
 	static inline sf::Sprite buildExample = sf::Sprite(buildingsTexture);
 
 	int selectedPage;
-	bool isBuildingTypeSelected;
-	BuildingType oldBuildingType, newBuildingType;
-	char direction;
-	bool isInfoOpen;
+	BuildingType buildingType = BuildingType::VOID_;
+	char direction = 'w';
+	bool isInfoOpen = false;
 	BuildingsPre buildingsPre;
 
 	inline void selectBuildingType(BuildingIco& ico);
