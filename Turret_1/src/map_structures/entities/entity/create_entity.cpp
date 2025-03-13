@@ -10,7 +10,7 @@
 #include "map_structures/entities/mob_types/cannon_boss_bot.h"
 #include "map_structures/entities/mob_types/rocket_boss_bot.h"
 
-#include "map_structures/entities/shuttle/shuttle.h"
+#include "map_structures/entities/mob_types/shuttle.h"
 
 
 std::unique_ptr<Entity> Entity::createEntity(const MobType type, Team* const team)

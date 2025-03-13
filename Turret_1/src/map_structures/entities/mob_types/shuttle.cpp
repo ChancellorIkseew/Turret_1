@@ -8,7 +8,7 @@
 #include "t1_system/input/input_handler.h"
 #include "map_structures/entities/behavior/path_finding.h"
 
-constexpr int TILE_RANGE = 20;
+constexpr int TILE_RANGE = 8;
 const float PIXEL_RANGE = t1::be::pixelF(TILE_RANGE);
 const int SPYRAL_RANGE = t1::be::tileRangeToSpiralRange[TILE_RANGE];
 constexpr float MAX_SPEED = 2.2;
@@ -38,7 +38,13 @@ void Shuttle::calculateMotion(const BuildingsMap& buildingsMap)
 	
 	PixelCoord destCentre = t1::be::pixel(destCoord);
 	motionAngleRad = atan2(destCentre.x - coord.x, destCentre.y - coord.y);
-	changeLineMotion();
+	changeLineMotion(MAX_SPEED);
+}
+
+void Shuttle::moveByDirectControl(const PixelCoord vector)
+{
+	coord = coord + vector * MAX_SPEED;
+	motionAngleRad = atan2(vector.x, vector.y);
 }
 
 void Shuttle::shoot()

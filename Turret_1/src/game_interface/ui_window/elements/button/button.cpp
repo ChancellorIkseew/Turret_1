@@ -82,13 +82,13 @@ void Button::draw(sf::RenderWindow& window)
 {
 	if (!isVisible)
 		return;
-	
+
 	if (isPressed)
 		button.setTextureRect(sf::IntRect(sf::Vector2i(0, size.y * 2), size));
 	else if (isSelected)
 		button.setTextureRect(sf::IntRect(sf::Vector2i(0, size.y), size));
 	else
 		button.setTextureRect(sf::IntRect(sf::Vector2i(0, 0), size));
-	
+
 	window.draw(button);
 }

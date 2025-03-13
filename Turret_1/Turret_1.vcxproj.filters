@@ -426,9 +426,6 @@
     <ClCompile Include="src\map_structures\buildings\building_types\logistics\intersection\intersection.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="src\map_structures\entities\shuttle\shuttle.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="src\game_interface\gameplay\gameplay_util\mob_controller.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -448,6 +445,9 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="src\game_interface\gameplay\gameplay_streams\scripts\survival\new_survival.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="src\map_structures\entities\mob_types\shuttle.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -815,9 +815,6 @@
     <ClInclude Include="src\map_structures\buildings\building_types\logistics\intersection\intersection.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="src\map_structures\entities\shuttle\shuttle.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="src\game_interface\gameplay\gameplay_util\mob_controller.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -840,6 +837,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="src\game_interface\gameplay\gameplay_streams\scripts\survival\new_survival.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="src\map_structures\entities\mob_types\shuttle.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

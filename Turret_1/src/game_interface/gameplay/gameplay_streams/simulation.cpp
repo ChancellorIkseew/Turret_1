@@ -11,7 +11,7 @@ void Gameplay::simulation()
 {
     BlueprintsMap::initTeam(player);
     Team& enemy = *world.getTeam("enemy");
-    //WaveConstructor::spawnTestWave(enemy, world.getBuildingsMap()); //test
+    //WaveConstructor::spawnTestWave(enemy, world.getPreSettings().getTerrain().mapSize); //test
     while (isGameplayActive)
     {
         if (!isPaused)

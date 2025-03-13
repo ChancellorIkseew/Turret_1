@@ -10,7 +10,7 @@
 class Shuttle : public Entity
 {
 private:
-	bool controlled = false;
+	void calculateMotion(const BuildingsMap& buildingsMap) override final;
 public:
 	Shuttle(Team* const team);
 	Shuttle() = default;
@@ -19,10 +19,12 @@ public:
 	MobCategory getCategory() const override final { return MobCategory::BOSS; }
 	MobType getType() const override final { return MobType::LIGHT_SHUTTLE; }
 
-	void calculateMotion(const BuildingsMap& buildingsMap) override final;
+	void moveByDirectControl(const PixelCoord vector) override final;
 	void moveByOwnAI() override final;
-	void shoot() override final;
+
 	void shootByOwnAI() override final;
+	void shoot() override final;
+
 	void draw(sf::RenderWindow& window) override final;
 
 };

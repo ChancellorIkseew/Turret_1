@@ -19,10 +19,10 @@ void Entity::checkTileChanged()
 }
 
 
-void Entity::changeLineMotion()
+void Entity::changeLineMotion(const float speed)
 {
-	lineMotion.x = sin(motionAngleRad) * MAX_SPEED;
-	lineMotion.y = cos(motionAngleRad) * MAX_SPEED;
+	lineMotion.x = sin(motionAngleRad) * speed;
+	lineMotion.y = cos(motionAngleRad) * speed;
 }
 
 
@@ -38,7 +38,7 @@ void Entity::calculateMotion(const BuildingsMap& buildingsMap)
 		const PixelCoord dest = t1::be::pixel(destCoord);
 		motionAngleRad = atan2(dest.x - coord.x, dest.y - coord.y);
 		nextTile = Comon::findDirectPahtNextTile(coord, currentTile, motionAngleRad);
-		changeLineMotion();
+		changeLineMotion(MAX_SPEED);
 	}
 	
 	if (!buildingsMap.isVoidBuilding(nextTile))
@@ -46,7 +46,7 @@ void Entity::calculateMotion(const BuildingsMap& buildingsMap)
 		nextTile = PathFinding::findNextTile(currentTile, destCoord, buildingsMap);
 		const PixelCoord nextTileCenter = t1::be::pixel(nextTile);
 		motionAngleRad = atan2(nextTileCenter.x - coord.x, nextTileCenter.y - coord.y);
-		changeLineMotion();
+		changeLineMotion(MAX_SPEED);
 	}
 }
 

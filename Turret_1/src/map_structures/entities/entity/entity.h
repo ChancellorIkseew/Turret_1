@@ -46,7 +46,7 @@ protected:
 	void reloadWeapon();
 	void aim(const int spyralRange, const float pixelRange);
 	void checkTileChanged();
-	void changeLineMotion();
+	void changeLineMotion(const float speed);
 	virtual void calculateMotion(const BuildingsMap& buildingsMap);
 
 public:
