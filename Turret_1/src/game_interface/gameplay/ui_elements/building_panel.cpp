@@ -92,22 +92,20 @@ void BuildingPanel::prepareInterfaceSprites()
 void BuildingPanel::interact(Team* team, BuildingsMap& buildingsMap, BlueprintsMap& blueprintsMap, const Gameplay& gameplay)
 {
 	if (InputHandler::active(t1::BindName::Build) && isBuildingTypeSelected && gameplay.noSubWindowSelected())
-	{
 		placeBuilding(team, buildingsMap, blueprintsMap);
-		t1::system::sleep(150);
-	}
 
 	if (InputHandler::jactive(t1::BindName::Rotate_building) || InputHandler::jactive(t1::BindName::RMB))
 		rotateBuilding();
 
+	if (InputHandler::jactive(t1::BindName::Pipette) && gameplay.noSubWindowSelected())
+		pickBuildingType(buildingsMap, blueprintsMap);
+	////
 	if (info.press())
 		isInfoOpen = !isInfoOpen;
 	
 	for (auto& btn : buttons)
-	{
 		if (btn.second.press())
 			selectedPage = btn.first;
-	}
 
 	for (auto& ico : pages[selectedPage])
 		selectBuildingType(ico.second);
@@ -268,4 +266,17 @@ void BuildingPanel::placeBuilding(Team* team, BuildingsMap& buildingsMap, Bluepr
 		//buildingsMap.constructBuilding(newBuildingType, direction, selectedTile, team);
 		blueprintsMap.placeBlueprint(newBuildingType, direction, selectedTile);
 	}
+}
+
+
+void BuildingPanel::pickBuildingType(const BuildingsMap& buildingsMap, const BlueprintsMap& blueprint)
+{
+	const sf::Vector2f mouseMapCoord = InputHandler::getMouseMapCoord();
+	const TileCoord selectedTile = t1::be::tile(mouseMapCoord.x, mouseMapCoord.y);
+	BuildingType type = blueprint.getType(selectedTile);
+	if (type == BuildingType::VOID_)
+		type = buildingsMap.getBuildingType(selectedTile);
+	newBuildingType = type;
+	isBuildingTypeSelected = type != BuildingType::VOID_;
+	buildExample.setTextureRect(t1::bc::buildingsInfoTable[newBuildingType].icoRect);
 }

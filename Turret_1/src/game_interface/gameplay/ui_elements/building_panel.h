@@ -39,6 +39,7 @@ private:
 	inline void selectBuildingType(BuildingIco& ico);
 	inline void rotateBuilding();
 	inline void placeBuilding(Team* team, BuildingsMap& buildingsMap, BlueprintsMap& blueprint) const;
+	inline void pickBuildingType(const BuildingsMap& buildingsMap, const BlueprintsMap& blueprint);
 
 	std::unique_ptr<ExpensesPanel> expensesPanel;
 	std::unique_ptr<SpecificationPanel> specificationPanel;

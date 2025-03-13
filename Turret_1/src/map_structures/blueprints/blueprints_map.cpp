@@ -47,6 +47,7 @@ BuildingType BlueprintsMap::getType(const TileCoord tile) const
 
 void BlueprintsMap::draw(sf::RenderWindow& window, const Camera& camera)
 {
+	using namespace sf::Literals;
 	const TileCoord start = camera.getStartTile();
 	const TileCoord end = camera.getEndTile();
 
@@ -56,8 +57,15 @@ void BlueprintsMap::draw(sf::RenderWindow& window, const Camera& camera)
 		{
 			if (blueprintsMap[x][y].type == BuildingType::VOID_)
 				continue;
+			switch (blueprintsMap[x][y].direction)
+			{
+			case 'w': buildExample.setRotation(0_deg); break;
+			case 'a': buildExample.setRotation(270_deg); break;
+			case 's': buildExample.setRotation(180_deg); break;
+			case 'd': buildExample.setRotation(90_deg); break;
+			}
 			buildExample.setTextureRect(t1::bc::buildingsInfoTable.at(blueprintsMap[x][y].type).icoRect);
-			buildExample.setPosition(sf::Vector2f(x * _TILE_ , y * _TILE_));
+			buildExample.setPosition(sf::Vector2f(t1::be::pixelF(x), t1::be::pixelF(y)));
 			window.draw(buildExample);
 		}
 	}
@@ -69,4 +77,5 @@ void BlueprintsMap::prepareSprites()
 	buildingsImage.createMaskFromColor(sf::Color(0, 255, 0));
 	buildingsTexture.loadFromImage(buildingsImage);
 	buildExample.setColor(sf::Color(128, 128, 225, 128));
+	buildExample.setOrigin(sf::Vector2f(_HALF_TILE_, _HALF_TILE_));
 }
