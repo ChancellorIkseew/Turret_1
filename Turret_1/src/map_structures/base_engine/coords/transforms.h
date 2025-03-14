@@ -20,15 +20,15 @@ constexpr float PI = 3.14159265359f;
 
 namespace t1::be
 {
-	int tile(float pixelCoord);
-	int tile(int pixelCoord);
-	TileCoord tile(float pixelCoordX, float pixelCoordY);
-	TileCoord tile(int pixelCoordX, int pixelCoordY);
+	int tile(const float pixelCoord);
+	int tile(const int pixelCoord);
+	TileCoord tile(const float pixelCoordX, const float pixelCoordY);
+	TileCoord tile(const int pixelCoordX, const int pixelCoordY);
 	TileCoord tile(const PixelCoord pixelCoord);
 
-	int pixel(int tileCoord);
-	float pixelF(int tileCoord);
-	PixelCoord pixel(int tileCoordX, int tileCoordY);
+	int pixel(const int tileCoord);
+	float pixelF(const int tileCoord);
+	PixelCoord pixel(const int tileCoordX, const int tileCoordY);
 	PixelCoord pixel(const TileCoord tileCoord);
 
 	int pow2i(const int value);

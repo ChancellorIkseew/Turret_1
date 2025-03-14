@@ -19,8 +19,8 @@ std::unique_ptr<Shell> Shell::createShell(const ShellType type, const PixelCoord
 		return std::make_unique<Rocket>(coord, angleRad, team);
 	case ShellType::LASER:
 		return std::make_unique<Laser>(coord, angleRad, team);
-
 	default:
-		throw std::runtime_error("shell_type does not exist");
+		std::cout << "Shell_type does not exist. Type: " << static_cast<uint16_t>(type) << ".\n";
+		return nullptr;
 	}
 }

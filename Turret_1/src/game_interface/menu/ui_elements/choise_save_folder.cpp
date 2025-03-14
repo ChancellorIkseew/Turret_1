@@ -110,9 +110,7 @@ void ChoiseFolderMenu::relocate(const sf::Vector2i windowSize)
 {
 	relocateCentral(windowSize);
 	for (auto& btn : buttons)
-	{
 		btn.second.relocateWithOwner(position);
-	}
 
 	helpText.setPosition(sf::Vector2f(position.x + 70, position.y + 350));
 }
@@ -120,15 +118,11 @@ void ChoiseFolderMenu::relocate(const sf::Vector2i windowSize)
 
 void ChoiseFolderMenu::draw(sf::RenderWindow& window)
 {
-	if (isVisible)
-	{
-		drawBase(window);
-		for (auto& btn : buttons)
-		{
-			btn.second.draw(window);
-		}
-
-		if (isTextVisible)
-			window.draw(helpText);
-	}
+	if (!isVisible)
+		return;
+	drawBase(window);
+	for (auto& btn : buttons)
+		btn.second.draw(window);
+	if (isTextVisible)
+		window.draw(helpText);
 }

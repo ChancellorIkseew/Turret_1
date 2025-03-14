@@ -15,9 +15,9 @@ TerrainPreSettingsPage::TerrainPreSettingsPage(const sf::Vector2i position) : Pa
 
 void TerrainPreSettingsPage::prepareInterfaceSprites()
 {
-	int line0 = 425;
-	int line1 = 445;
-	int line2 = 500;
+	const int line0 = 425;
+	const int line1 = 445;
+	const int line2 = 500;
 
 	tFrequency = sf::Text(turretClassic, sf::String(L"Частота"), 12);
 	tDepositSize= sf::Text(turretClassic, sf::String(L"Размер"), 12);
@@ -55,16 +55,14 @@ void TerrainPreSettingsPage::prepareInterfaceSprites()
 
 void TerrainPreSettingsPage::interact()
 {
-	if (isVisible)
-	{
-		for (auto& field : frequency)
-			field.second.interact();
-		for (auto& field : depositSize)
-			field.second.interact();
-
-		seed.interact();
-		smoothLayer.interact();
-	}
+	if (!isVisible)
+		return;
+	for (auto& field : frequency)
+		field.second.interact();
+	for (auto& field : depositSize)
+		field.second.interact();
+	seed.interact();
+	smoothLayer.interact();
 }
 
 void TerrainPreSettingsPage::enter(PreSettings& preSettings)
@@ -104,22 +102,21 @@ void TerrainPreSettingsPage::relocateWithOwner(const sf::Vector2i ownerPosition)
 
 void TerrainPreSettingsPage::draw(sf::RenderWindow& window)
 {
-	if (isVisible)
-	{
-		drawBase(window);
-		window.draw(tFrequency);
-		window.draw(tDepositSize);
-		window.draw(tSeed);
-		window.draw(tSmoothLayer);
+	if (!isVisible)
+		return;
+	drawBase(window);
+	window.draw(tFrequency);
+	window.draw(tDepositSize);
+	window.draw(tSeed);
+	window.draw(tSmoothLayer);
 
-		for (auto& field : depositSize)
-			field.second.draw(window);
-		for (auto& field : frequency)
-			field.second.draw(window);
-		for (auto& ico : resIco)
-			ico.second.draw(window);
+	for (auto& field : depositSize)
+		field.second.draw(window);
+	for (auto& field : frequency)
+		field.second.draw(window);
+	for (auto& ico : resIco)
+		ico.second.draw(window);
 
-		seed.draw(window);
-		smoothLayer.draw(window);
-	}
+	seed.draw(window);
+	smoothLayer.draw(window);
 }

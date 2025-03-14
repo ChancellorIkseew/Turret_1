@@ -17,14 +17,9 @@ void ShellsList::load(cereal::BinaryInputArchive& archive) {
 
 void ShellsList::spawnShell(const ShellType type, const PixelCoord coord, const float angleRad, Team* team)
 {
-	try
-	{
-		shellsList.emplace_back(Shell::createShell(type, coord, angleRad, team));
-	}
-	catch (std::exception)
-	{
-		std::cout << "Shell_type does not exist. Type: " << static_cast<uint16_t>(type) << ".\n";
-	}
+	auto shell = Shell::createShell(type, coord, angleRad, team);
+	if (shell != nullptr)
+		shellsList.push_back(std::move(shell));
 }
 
 
@@ -32,12 +27,13 @@ void ShellsList::interact()
 {
 	for (auto it = shellsList.begin(); it != shellsList.end();)
 	{
-		(*it)->motion();
-		(*it)->tryHitting();
+		Shell& shell = **it;
+		shell.motion();
+		shell.tryHitting();
 
-		if ((*it)->getIsWasted())
+		if (shell.getIsWasted())
 		{
-			(*it)->explosion();
+			shell.explosion();
 			it = shellsList.erase(it);
 		}
 		else

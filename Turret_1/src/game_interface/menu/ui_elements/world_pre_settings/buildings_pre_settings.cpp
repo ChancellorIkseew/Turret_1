@@ -21,7 +21,7 @@ BuildingsPreSettingsPage::BuildingsPreSettingsPage(const sf::Vector2i position) 
 
 void BuildingsPreSettingsPage::prepareInterfaceSprites()
 {
-	int line0 = 110;
+	const int line0 = 110;
 
 	fields[DURABILITY] = TextField(sf::String(L"1"), 26, sf::Vector2i(line0, 40));
 	fields[EXPENSES] = TextField(sf::String(L"1"), 26, sf::Vector2i(line0, 80));
@@ -37,11 +37,10 @@ void BuildingsPreSettingsPage::prepareInterfaceSprites()
 
 void BuildingsPreSettingsPage::interact()
 {
-	if (isVisible)
-	{
-		for (auto& field : fields)
-			field.second.interact();
-	}
+	if (!isVisible)
+		return;
+	for (auto& field : fields)
+		field.second.interact();
 }
 
 void BuildingsPreSettingsPage::enter(PreSettings& preSettings)
@@ -64,14 +63,12 @@ void BuildingsPreSettingsPage::relocateWithOwner(const sf::Vector2i ownerPositio
 
 void BuildingsPreSettingsPage::draw(sf::RenderWindow& window)
 {
-	if (isVisible)
-	{
-		drawBase(window);
-		for (auto& field : fields)
-			field.second.draw(window);
-
-		window.draw(tDurability);
-		window.draw(tExspenses);
-		window.draw(tConstructionSpeed);
-	}
+	if (!isVisible)
+		return;
+	drawBase(window);
+	for (auto& field : fields)
+		field.second.draw(window);
+	window.draw(tDurability);
+	window.draw(tExspenses);
+	window.draw(tConstructionSpeed);
 }

@@ -9,31 +9,26 @@ constexpr float MINIMAL_FLOAT = std::numeric_limits<float>::lowest();
 
 struct PixelCoord
 {
+private:
+	static inline constexpr float epsilon = 0.0001f;
+public:
 	float x = 0.0f, y = 0.0f;
 
 	PixelCoord() = default;
-	PixelCoord(float x, float y) : x(x), y(y) { }
-	PixelCoord(int x, int y) {
-		this->x = static_cast<float>(x);
-		this->y = static_cast<float>(y);
-	}
+	PixelCoord(const float x, const float y) : x(x), y(y) {}
+	PixelCoord(const int x, const int y) : x(static_cast<float>(x)), y(static_cast<float>(y)) {}
+	constexpr PixelCoord(const float x, const float y, const char cExprFlag) : x(x), y(y) {}
 
-	void save(cereal::BinaryOutputArchive& archive) const {
-		archive(x);
-		archive(y);
-	}
-	void load(cereal::BinaryInputArchive& archive) {
-		archive(x);
-		archive(y);
-	}
+	void save(cereal::BinaryOutputArchive& archive) const { archive(x, y); }
+	void load(cereal::BinaryInputArchive& archive) { archive(x, y); }
 
-	bool valid() const {
-		constexpr float epsilon = 0.0001f;
-		return x > MINIMAL_FLOAT + epsilon;
-	}
+	bool valid() const { return x > MINIMAL_FLOAT + epsilon; }
+
 	bool operator==(const PixelCoord& rhs) const {
-		constexpr float epsilon = 0.0001f;
-		return std::abs(x - rhs.x) < epsilon && std::abs(y - rhs.y) < epsilon;
+		return std::abs(x - rhs.x) <= epsilon && std::abs(y - rhs.y) <= epsilon;
+	}
+	bool operator!=(const PixelCoord& rhs) const {
+		return std::abs(x - rhs.x) > epsilon || std::abs(y - rhs.y) > epsilon;
 	}
 
 	PixelCoord operator+(const PixelCoord& rhs) const {
@@ -58,6 +53,6 @@ struct PixelCoord
 	}
 };
 
-const PixelCoord INCORRECT_PIXEL_COORD = PixelCoord(MINIMAL_FLOAT, MINIMAL_FLOAT);
+constexpr PixelCoord INCORRECT_PIXEL_COORD(MINIMAL_FLOAT, MINIMAL_FLOAT, 'c');
 
 #endif // T1_BE_PIXEL_COORD_H

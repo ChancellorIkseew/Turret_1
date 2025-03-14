@@ -19,8 +19,8 @@ GeneralPreSettingsPage::GeneralPreSettingsPage(const sf::Vector2i position) : Pa
 
 void GeneralPreSettingsPage::prepareInterfaceSprites()
 {
-	int line0 = 280;
-	int line1 = 300;
+	const int line0 = 280;
+	const int line1 = 300;
 
 	mapSize[MAP_MAX_X] = TextField(sf::String(L"100"), 100, sf::Vector2i(10, 40));
 	mapSize[MAP_MAX_Y] = TextField(sf::String(L"100"), 100, sf::Vector2i(10, 65));
@@ -42,13 +42,12 @@ void GeneralPreSettingsPage::prepareInterfaceSprites()
 
 void GeneralPreSettingsPage::interact()
 {
-	if (isVisible)
-	{
-		for (auto& field : mapSize)
-			field.second.interact();
-		for (auto& field : balance)
-			field.second.interact();
-	}
+	if (!isVisible)
+		return;
+	for (auto& field : mapSize)
+		field.second.interact();
+	for (auto& field : balance)
+		field.second.interact();
 }
 
 void GeneralPreSettingsPage::enter(PreSettings& preSettings)
@@ -74,14 +73,13 @@ void GeneralPreSettingsPage::relocateWithOwner(const sf::Vector2i ownerPosition)
 
 void GeneralPreSettingsPage::draw(sf::RenderWindow& window)
 {
-	if (isVisible)
-	{
-		drawBase(window);
-		for (auto& field : mapSize)
-			field.second.draw(window);
-		for (auto& field : balance)
-			field.second.draw(window);
-		for (auto& ico : resIco)
-			ico.second.draw(window);
-	}
+	if (!isVisible)
+		return;
+	drawBase(window);
+	for (auto& field : mapSize)
+		field.second.draw(window);
+	for (auto& field : balance)
+		field.second.draw(window);
+	for (auto& ico : resIco)
+		ico.second.draw(window);
 }

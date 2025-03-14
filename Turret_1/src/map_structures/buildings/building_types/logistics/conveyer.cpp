@@ -211,3 +211,9 @@ bool Conveyer::canAccept(const ResourceUnit& unit) const
 	}
 	return true;
 }
+
+void Conveyer::drawResources(sf::RenderWindow& window)
+{
+	for (auto& res : resUnits)
+		res.draw(window, tile);
+}

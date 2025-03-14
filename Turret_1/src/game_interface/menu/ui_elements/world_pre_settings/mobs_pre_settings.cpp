@@ -24,8 +24,8 @@ MobsPreSettingsPage::MobsPreSettingsPage(const sf::Vector2i position) : Page(sf:
 
 void MobsPreSettingsPage::prepareInterfaceSprites()
 {
-	int line0 = 95;
-	int line1 = 225;
+	const int line0 = 95;
+	const int line1 = 225;
 
 	fields[QUANTITY] = TextField(sf::String(L"1"), 34, sf::Vector2i(line0, 45));
 	fields[DURABILITY] = TextField(sf::String(L"1"), 34, sf::Vector2i(line0, 95));
@@ -51,11 +51,10 @@ void MobsPreSettingsPage::prepareInterfaceSprites()
 
 void MobsPreSettingsPage::interact()
 {
-	if (isVisible)
-	{
-		for (auto& field : fields)
-			field.second.interact();
-	}
+	if (!isVisible)
+		return;
+	for (auto& field : fields)
+		field.second.interact();
 }
 
 void MobsPreSettingsPage::enter(PreSettings& preSettings)
@@ -83,16 +82,15 @@ void MobsPreSettingsPage::relocateWithOwner(const sf::Vector2i ownerPosition)
 
 void MobsPreSettingsPage::draw(sf::RenderWindow& window)
 {
-	if (isVisible)
-	{
-		drawBase(window);
-		for (auto& field : fields)
-			field.second.draw(window);
-		window.draw(quantity);
-		window.draw(durabity);
-		window.draw(VILevel);
-		window.draw(collisionDamage);
-		window.draw(directDamage);
-		window.draw(blastDamage);
-	}
+	if (!isVisible)
+		return;
+	drawBase(window);
+	for (auto& field : fields)
+		field.second.draw(window);
+	window.draw(quantity);
+	window.draw(durabity);
+	window.draw(VILevel);
+	window.draw(collisionDamage);
+	window.draw(directDamage);
+	window.draw(blastDamage);
 }

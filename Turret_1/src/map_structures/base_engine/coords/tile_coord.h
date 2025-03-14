@@ -12,22 +12,19 @@ struct TileCoord
 	int x = 0, y = 0;
 
 	TileCoord() = default;
-	TileCoord(int x, int y) : x(x), y(y) {}
+	TileCoord(const int x, const int y) : x(x), y(y) {}
+	constexpr TileCoord(const int x, const int y, const char cExprFlag) : x(x), y(y) {}
 
-	void save(cereal::BinaryOutputArchive& archive) const {
-		archive(x);
-		archive(y);
-	}
-	void load(cereal::BinaryInputArchive& archive) {
-		archive(x);
-		archive(y);
-	}
+	void save(cereal::BinaryOutputArchive& archive) const { archive(x, y); }
+	void load(cereal::BinaryInputArchive& archive) { archive(x, y); }
 
-	bool valid() const {
-		return x > MINIMAL_INT;
-	}
-	bool operator==(const TileCoord& rhs) {
+	bool valid() const { return x > MINIMAL_INT; }
+
+	bool operator==(const TileCoord& rhs) const {
 		return { x == rhs.x && y == rhs.y };
+	}
+	bool operator!=(const TileCoord& rhs) const {
+		return { x != rhs.x || y != rhs.y };
 	}
 
 	TileCoord operator+(const TileCoord& rhs) const {
@@ -44,6 +41,6 @@ struct TileCoord
 	}
 };
 
-const TileCoord INCORRECT_TILE_COORD = TileCoord(MINIMAL_INT, MINIMAL_INT);
+constexpr TileCoord INCORRECT_TILE_COORD(1, 1, 'c');
 
 #endif // T1_BE_TILE_COORD_H

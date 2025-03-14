@@ -88,12 +88,11 @@ void PreSettingsWindow::relocate(const sf::Vector2i windowSize)
 
 void PreSettingsWindow::draw(sf::RenderWindow& window)
 {
-	if (isVisible)
-	{
-		drawBase(window);
-		for (auto& btn : buttons)
-			btn.second.draw(window);
-		for (auto& pg : pages)
-			pg.second->draw(window);
-	}
+	if (!isVisible)
+		return;
+	drawBase(window);
+	for (auto& btn : buttons)
+		btn.second.draw(window);
+	for (auto& pg : pages)
+		pg.second->draw(window);
 }

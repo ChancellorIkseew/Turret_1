@@ -3,19 +3,19 @@
 #include "tile_coord_arrays.h"
 
 // pixel_to_tile
-int t1::be::tile(float pixelCoord) {
+int t1::be::tile(const float pixelCoord) {
 	return int(static_cast<int>(pixelCoord) / _TILE_);
 }
 
-int t1::be::tile(int pixelCoord) {
+int t1::be::tile(const int pixelCoord) {
 	return int(pixelCoord / _TILE_);
 }
 
-TileCoord t1::be::tile(float pixelCoordX, float pixelCoordY) {
+TileCoord t1::be::tile(const float pixelCoordX, const float pixelCoordY) {
 	return { tile(pixelCoordX) , tile(pixelCoordY) };
 }
 
-TileCoord t1::be::tile(int pixelCoordX, int pixelCoordY) {
+TileCoord t1::be::tile(const int pixelCoordX, const int pixelCoordY) {
 	return { tile(pixelCoordX) , tile(pixelCoordY) };
 }
 
@@ -25,15 +25,15 @@ TileCoord t1::be::tile(const PixelCoord pixelCoord) {
 
 
 // tile_to_pixel
-int t1::be::pixel(int tileCoord) {
+int t1::be::pixel(const int tileCoord) {
 	return tileCoord * _TILE_ + _HALF_TILE_;
 }
 
-float t1::be::pixelF(int tileCoord) {
+float t1::be::pixelF(const int tileCoord) {
 	return static_cast<float>(tileCoord * _TILE_ + _HALF_TILE_);
 }
 
-PixelCoord t1::be::pixel(int tileCoordX, int tileCoordY) {
+PixelCoord t1::be::pixel(const int tileCoordX, const int tileCoordY) {
 	return { pixelF(tileCoordX),  pixelF(tileCoordY) };
 }
 

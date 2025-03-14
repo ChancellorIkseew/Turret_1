@@ -91,7 +91,7 @@ void Building::placeResourceUnitX9(const ResType resType, BuildingsMap& building
 {
 	if (!isEnoughRes(resType, 1))
 		return;
-	for (int i = 0; i < 9; (i != 3 ? ++i : i += 2))
+	for (int i = 0; i < 9; (i != 2 ? ++i : i += 2))
 	{
 		TileCoord tryTile = tile + t1::be::coordSquareArr[i];
 		placeResourceUnit(resType, tryTile, buildingsMap);

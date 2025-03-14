@@ -49,20 +49,15 @@ void MainMenu::relocate(const sf::Vector2i windowSize)
 {
 	relocateCentral(windowSize);
 	for (auto& btn : buttons)
-	{
 		btn.second.relocateWithOwner(position);
-	}
 }
 
 
 void MainMenu::draw(sf::RenderWindow& window)
 {
-	if (isVisible)
-	{
-		drawBase(window);
-		for (auto& btn : buttons)
-		{
-			btn.second.draw(window);
-		}
-	}
+	if (!isVisible)
+		return;
+	drawBase(window);
+	for (auto& btn : buttons)
+		btn.second.draw(window);
 }

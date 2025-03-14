@@ -150,8 +150,4 @@ void ShieldedConveyer::draw(sf::RenderWindow& window)
 
 	buildingSprite.setRotation(0_deg);
 	buildingSprite.setOrigin({ 0, 0 });
-
-
-	for (auto& res : resUnits)
-		res.draw(window, tile);
 }

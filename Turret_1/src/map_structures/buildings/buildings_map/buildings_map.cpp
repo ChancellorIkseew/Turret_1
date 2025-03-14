@@ -4,6 +4,7 @@
 #include "map_structures/buildings/building/building.h"
 #include "map_structures/buildings/building/buildings_enum.h"
 #include "map_structures/buildings/building/buildings_info.h"
+#include "map_structures/buildings/building_types/logistics/conveyer.h"
 
 #include "game_interface/gameplay/gameplay_util/camera.h"
 
@@ -128,6 +129,20 @@ void BuildingsMap::draw(sf::RenderWindow& window, const Camera& camera)
 		{
 			if (buildingsMap[x][y] != nullptr && buildingsMap[x][y]->getType() != BuildingType::AUXILARY)
 				buildingsMap[x][y]->draw(window);
+		}
+	}
+
+	for (int x = start.x; x < end.x; ++x)
+	{
+		for (int y = start.y; y < end.y; ++y)
+		{
+			if (buildingsMap[x][y] == nullptr)
+				continue;
+			const BuildingType type = buildingsMap[x][y]->getType();
+			if (type != BuildingType::STANDARD_CONVEYER && type != BuildingType::SHIELDED_CONVEYER)
+				continue;
+			Conveyer* conveyer = static_cast<Conveyer*>(buildingsMap[x][y].get());
+			conveyer->drawResources(window);
 		}
 	}
 }

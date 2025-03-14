@@ -25,6 +25,8 @@ public:
 	void addToInventory(ResourceUnit& unit) override final;
 	bool canAccept(const ResourceUnit& unit) const override final;
 	virtual const float getTransmitionSpeed() = 0;
+
+	void drawResources(sf::RenderWindow& window);
 	
 };
 
