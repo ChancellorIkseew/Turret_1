@@ -16,6 +16,9 @@ extern sf::Color lightGreen;
 extern sf::Color whiteTransparent;
 extern sf::Color darkRedTransparent;
 
+extern sf::Color playerColor;
+extern sf::Color enemyColor;
+
 void initFonts();
 
 #endif // NEW_FONTS_H

@@ -3,7 +3,8 @@
 #include <cereal/types/string.hpp>
 
 
-Team::Team(std::string name, int ID) : name(name), ID(ID) { }
+Team::Team(const std::string& name, const sf::Color& color, const int ID) :
+    name(name), color(color), ID(ID) { }
 
 void Team::save(cereal::BinaryOutputArchive& archive) const {
     archive(ID, name, balance, entities, shells);

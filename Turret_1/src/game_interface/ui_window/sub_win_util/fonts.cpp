@@ -13,6 +13,9 @@ sf::Color lightGreen(40, 128, 40);
 sf::Color whiteTransparent(255, 255, 255, 200);
 sf::Color darkRedTransparent(180, 52, 52, 200);
 
+sf::Color playerColor(sf::Color::Yellow);
+sf::Color enemyColor(sf::Color::Red);
+
 void initFonts()
 {
 	turretClassic.openFromFile("fonts/turret_classic_full.ttf");

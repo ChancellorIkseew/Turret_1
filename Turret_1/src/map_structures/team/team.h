@@ -18,13 +18,14 @@ class Team
 private:
 	int ID = 0;
 	std::string name;
+	sf::Color color;
 
 	EntitiesList entities;
 	ShellsList shells;
 	Balance balance;
 
 public:
-	Team(std::string name, int ID);
+	Team(const std::string& name, const sf::Color& color, const int ID);
 	Team() = default;
 	~Team() = default;
 
@@ -43,9 +44,14 @@ public:
 
 	const int getID() const { return ID; }
 	const std::string& getName() const { return name; }
+	const sf::Color& getColor() const { return color; }
 	const Balance& getBalance() const { return balance; }
 	const EntitiesList& getEneities() const { return entities; }
 	const ShellsList& getShells() const { return shells; }
+
+	void setColor(const sf::Color& color) {
+		this->color = color;
+	}
 
 };
 

@@ -10,6 +10,7 @@
 #include "t1_system/events/events_handler.h"
 #include "map_structures/entities/turret/turret.h"
 #include "map_structures/buildings/building/building.h"
+#include "game_interface/ui_window/sub_win_util/fonts.h"
 
 
 World::World()
@@ -50,8 +51,8 @@ void World::createNew(PreSettings& preSettings)
 	buildingsMap = BuildingsMap(preSettings.getTerrain().mapSize);
 	blueprintsMap = BlueprintsMap(preSettings.getTerrain().mapSize);
 
-	addTeam("player");
-	addTeam("enemy");
+	addTeam("player", playerColor);
+	addTeam("enemy", enemyColor);
 }
 
 void World::simulate()
@@ -76,9 +77,9 @@ void World::draw(sf::RenderWindow& window, const Camera& camera)
 	particles.draw(window, camera);
 }
 
-void World::addTeam(const std::string& name)
+void World::addTeam(const std::string& name, const sf::Color& color)
 {
-	teams.emplace(nextTeamID, std::make_unique<Team>(name, nextTeamID));
+	teams.emplace(nextTeamID, std::make_unique<Team>(name, color, nextTeamID));
 	++nextTeamID;
 }
 

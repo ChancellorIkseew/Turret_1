@@ -36,6 +36,7 @@ GameState Gameplay::startGameplay(sf::RenderWindow& mainWindow, const bool newGa
 	
 	player = world.getTeam("player");
 	camera = Camera(world.getPreSettings().getTerrain().mapSize);
+	minimap.initMapSize(world.getPreSettings().getTerrain().mapSize);
 	buildingPanel.initPresettings(world.getPreSettings().getBuildings());
 
 	std::thread simulation(&Gameplay::simulation, this);
@@ -57,6 +58,7 @@ void Gameplay::relocateSubWindows(const sf::Vector2i windowSize)
 	mainControlPanel.relocate(windowSize);
 	resourcesPanel.relocate(windowSize);
 	buildingPanel.relocate(windowSize);
+	minimap.relocate(windowSize);
 }
 
 bool Gameplay::noSubWindowSelected() const

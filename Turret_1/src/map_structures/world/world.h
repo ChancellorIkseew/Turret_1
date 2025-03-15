@@ -50,7 +50,7 @@ public:
 	const t1::Time& getTime() const { return time; }
 	const std::unordered_map<int, std::unique_ptr<Team>>& getTeams() const { return teams; }
 
-	void addTeam(const std::string& name);
+	void addTeam(const std::string& name, const sf::Color& color);
 	Team* getTeam(const std::string& name);
 	friend WaveConstructor;
 };

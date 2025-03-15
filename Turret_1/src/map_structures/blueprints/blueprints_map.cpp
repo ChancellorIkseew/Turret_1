@@ -33,7 +33,10 @@ void BlueprintsMap::constructBuilding(BuildingsMap& buildingsMap, const TileCoor
 {
 	if (!tileExists(tile))
 		return;
-	buildingsMap.constructBuilding(blueprintsMap[tile.x][tile.y].type, blueprintsMap[tile.x][tile.y].direction, tile, player);
+	if (blueprintsMap[tile.x][tile.y].type == BuildingType::REMOVE)
+		buildingsMap.demolishBuilding(tile);
+	else
+		buildingsMap.constructBuilding(blueprintsMap[tile.x][tile.y].type, blueprintsMap[tile.x][tile.y].direction, tile, player);
 	blueprintsMap[tile.x][tile.y].type = BuildingType::VOID_;
 }
 

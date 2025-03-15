@@ -54,6 +54,7 @@ void Gameplay::graphics(sf::RenderWindow& mainWindow)
         buildingPanel.draw(mainWindow);
         resourcesPanel.draw(mainWindow);
         inventoryWindow.draw(mainWindow);
+        minimap.draw(mainWindow);
 
         mainWindow.setView(camera.getView());
         mainWindow.display();                   //End draw_block

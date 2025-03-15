@@ -41,6 +41,6 @@ struct TileCoord
 	}
 };
 
-constexpr TileCoord INCORRECT_TILE_COORD(1, 1, 'c');
+constexpr TileCoord INCORRECT_TILE_COORD(MINIMAL_INT, MINIMAL_INT, 'c');
 
 #endif // T1_BE_TILE_COORD_H

@@ -238,7 +238,8 @@ void BuildingPanel::placeBuilding(Team* team, BuildingsMap& buildingsMap, Bluepr
 		if (buildingsMap.isTurretOnTile(selectedTile))
 			buildingsMap.removeTurret(selectedTile);
 		else
-			buildingsMap.demolishBuilding(selectedTile);
+			blueprintsMap.placeBlueprint(buildingType, direction, selectedTile);
+			//buildingsMap.demolishBuilding(selectedTile);
 	}
 	else if (buildingType == BuildingType::AUTOCANNON_TURRET || buildingType == BuildingType::ROCKET_TURRET)
 	{
@@ -247,8 +248,8 @@ void BuildingPanel::placeBuilding(Team* team, BuildingsMap& buildingsMap, Bluepr
 	}
 	else
 	{
-		//buildingsMap.constructBuilding(buildingType, direction, selectedTile, team);
 		blueprintsMap.placeBlueprint(buildingType, direction, selectedTile);
+		//buildingsMap.constructBuilding(buildingType, direction, selectedTile, team);
 	}
 }
 

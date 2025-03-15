@@ -176,6 +176,7 @@
     <ClCompile Include="src\game_interface\gameplay\ui_elements\expenses_panel.cpp" />
     <ClCompile Include="src\game_interface\gameplay\ui_elements\inventory_window.cpp" />
     <ClCompile Include="src\game_interface\gameplay\ui_elements\main_control_panel.cpp" />
+    <ClCompile Include="src\game_interface\gameplay\ui_elements\minimap.cpp" />
     <ClCompile Include="src\game_interface\gameplay\ui_elements\resources_panel.cpp" />
     <ClCompile Include="src\game_interface\gameplay\ui_elements\settings_window.cpp" />
     <ClCompile Include="src\game_interface\gameplay\ui_elements\specification_panel.cpp" />
@@ -293,6 +294,7 @@
     <ClInclude Include="src\game_interface\gameplay\ui_elements\expenses_panel.h" />
     <ClInclude Include="src\game_interface\gameplay\ui_elements\inventory_window.h" />
     <ClInclude Include="src\game_interface\gameplay\ui_elements\main_control_panel.h" />
+    <ClInclude Include="src\game_interface\gameplay\ui_elements\minimap.h" />
     <ClInclude Include="src\game_interface\gameplay\ui_elements\resources_panel.h" />
     <ClInclude Include="src\game_interface\gameplay\ui_elements\settings_window.h" />
     <ClInclude Include="src\game_interface\gameplay\ui_elements\specification_panel.h" />

@@ -13,6 +13,7 @@
 #include "game_interface/gameplay/ui_elements/resources_panel.h"
 #include "game_interface/gameplay/ui_elements/building_panel.h"
 #include "game_interface/gameplay/ui_elements/inventory_window.h"
+#include "game_interface/gameplay/ui_elements/minimap.h"
 #include "map_structures/world/world.h"
 
 
@@ -30,6 +31,7 @@ private:
 	ResourcesPanel resourcesPanel;
 	BuildingPanel buildingPanel;
 	InventoryWindow inventoryWindow;
+	Minimap minimap;
 
 	Team* player = nullptr;
 
