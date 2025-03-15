@@ -6,7 +6,7 @@
 
 #include "map_structures/resources/res_enum.h"
 
-ResInfo::ResInfo(const ResType resType, const int resQuantity) :
+ResInfo::ResInfo(const ResType resType, const uint32_t resQuantity) :
 	resType(resType), resQuantity(resQuantity)
 {
 	ico.setResType(resType);
@@ -21,7 +21,7 @@ ResInfo::ResInfo()
 }
 
 
-void ResInfo::update(const int qurrentQuantity)
+void ResInfo::update(const uint32_t qurrentQuantity)
 {
 	resQuantity = qurrentQuantity;
 	
@@ -29,9 +29,6 @@ void ResInfo::update(const int qurrentQuantity)
 	strQuant << resQuantity;
 	resQuantText.setString(strQuant.str());
 }
-
-int ResInfo::getQuantity() const { return resQuantity; }
-
 
 
 void ResInfo::draw(sf::RenderWindow& window, int positionX, int positionY)
@@ -42,7 +39,6 @@ void ResInfo::draw(sf::RenderWindow& window, int positionX, int positionY)
 	ico.draw(window);
 	window.draw(resQuantText);
 }
-
 
 
 void ResInfo::setResType(const ResType resType)

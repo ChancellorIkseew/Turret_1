@@ -26,7 +26,7 @@ public:
 	static bool isOneSeltcted() { return isOneSelected; }
 
 	void setText(const sf::String& value);
-	int getIntValue();
+	uint32_t getValueUint32();
 
 	void prepareInterfaceSprites() override final;
 	void draw(sf::RenderWindow& window) override final;

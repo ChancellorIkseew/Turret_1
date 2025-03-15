@@ -15,16 +15,16 @@ private:
 	sf::Text resQuantText = sf::Text(turretClassic);
 
 	ResType resType = ResType::NO_RESOURCES;
-	int resQuantity = 0;
+	uint32_t resQuantity = 0;
 
 public:
-	ResInfo(const ResType resType, const int resQuantity);
+	ResInfo(const ResType resType, const uint32_t resQuantity);
 	ResInfo();
 	~ResInfo() = default;
 
 	void setResType(const ResType resType);
-	void update(const int qurrentQuantity);
-	int getQuantity() const;
+	void update(const uint32_t qurrentQuantity);
+	uint32_t getQuantity() const { return resQuantity; }
 
 	void draw(sf::RenderWindow& window, int positionX, int powitionY);
 

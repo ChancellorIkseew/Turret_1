@@ -52,11 +52,11 @@ void GeneralPreSettingsPage::interact()
 
 void GeneralPreSettingsPage::enter(PreSettings& preSettings)
 {
-	preSettings.changeTerrain().mapSize = {mapSize[MAP_MAX_X].getIntValue(), mapSize[MAP_MAX_Y].getIntValue()};
+	preSettings.changeTerrain().mapSize = TileCoord(mapSize[MAP_MAX_X].getValueUint32(), mapSize[MAP_MAX_Y].getValueUint32());
 
-	std::map<ResType, int> startRes;
+	std::map<ResType, uint32_t> startRes;
 	for (auto& [resType, field] : balance)
-		startRes[resType] = field.getIntValue();
+		startRes[resType] = field.getValueUint32();
 	preSettings.changeGeneral().startBalance = startRes;
 }
 

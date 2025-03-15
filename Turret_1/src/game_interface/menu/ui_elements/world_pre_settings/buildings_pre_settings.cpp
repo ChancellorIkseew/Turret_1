@@ -45,9 +45,9 @@ void BuildingsPreSettingsPage::interact()
 
 void BuildingsPreSettingsPage::enter(PreSettings& preSettings)
 {
-	preSettings.changeBuildings().maxDurabilityModifier = fields[DURABILITY].getIntValue();
-	preSettings.changeBuildings().expensesModifier = fields[EXPENSES].getIntValue();
-	preSettings.changeBuildings().constructionSpeedModifier = fields[CONSTRUCTION_SPEED].getIntValue();
+	preSettings.changeBuildings().maxDurabilityModifier = fields[DURABILITY].getValueUint32();
+	preSettings.changeBuildings().expensesModifier = fields[EXPENSES].getValueUint32();
+	preSettings.changeBuildings().constructionSpeedModifier = fields[CONSTRUCTION_SPEED].getValueUint32();
 }
 
 void BuildingsPreSettingsPage::relocateWithOwner(const sf::Vector2i ownerPosition)

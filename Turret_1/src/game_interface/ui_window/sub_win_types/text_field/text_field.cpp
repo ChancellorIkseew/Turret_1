@@ -1,6 +1,6 @@
 
-#include <iostream>
 #include <sstream>
+#include <limits>
 
 #include "text_field.h"
 
@@ -94,10 +94,13 @@ void TextField::setText(const sf::String& value)
 }
 
 
-int TextField::getIntValue()
+uint32_t TextField::getValueUint32()
 {
 	if (text.getString().getSize() < 1)
 		return 0;
-	std::string str = text.getString();
-	return std::stoi(str);
+	const std::string str = text.getString();
+	uint32_t value = std::numeric_limits<uint32_t>::max();
+	try { value = std::stoul(str); }
+	catch (const std::out_of_range& exception) {}
+	return value;
 }

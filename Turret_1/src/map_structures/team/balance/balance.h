@@ -17,13 +17,13 @@ public:
 	Balance();
 	~Balance() = default;
 
-	void giveStartRes(const std::map<ResType, int>& startRes);
+	void giveStartRes(const std::map<ResType, uint32_t>& startRes);
 
 	void save(cereal::BinaryOutputArchive& archive) const;
 	void load(cereal::BinaryInputArchive& archive);
 	
 	// Interaction
-	void accept(const ResType type, const short amount);
+	void accept(const ResType type, uint32_t amount);
 	bool isEnough(const AllResources& expenses) const;
 	void waste(const AllResources& expenses);
 

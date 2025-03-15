@@ -71,14 +71,14 @@ void TerrainPreSettingsPage::enter(PreSettings& preSettings)
 	std::map<ResType, int> iDepositSize;
 
 	for (auto& [resType, field] : frequency)
-		iFrequency[resType] = field.getIntValue();
+		iFrequency[resType] = field.getValueUint32();
 	for (auto& [resType, field] : depositSize)
-		iDepositSize[resType] = field.getIntValue();
+		iDepositSize[resType] = field.getValueUint32();
 
 	preSettings.changeTerrain().frequency = iFrequency;
 	preSettings.changeTerrain().depositSize = iDepositSize;
-	preSettings.changeTerrain().seed = seed.getIntValue();
-	preSettings.changeTerrain().smoothLayer = smoothLayer.getIntValue();
+	preSettings.changeTerrain().seed = seed.getValueUint32();
+	preSettings.changeTerrain().smoothLayer = smoothLayer.getValueUint32();
 }
 
 void TerrainPreSettingsPage::relocateWithOwner(const sf::Vector2i ownerPosition)

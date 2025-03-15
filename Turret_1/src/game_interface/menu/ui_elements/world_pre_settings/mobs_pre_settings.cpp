@@ -59,12 +59,12 @@ void MobsPreSettingsPage::interact()
 
 void MobsPreSettingsPage::enter(PreSettings& preSettings)
 {
-	preSettings.changeMobs().quantityModifier = fields[QUANTITY].getIntValue();
-	preSettings.changeMobs().maxDurabilityModifier = fields[DURABILITY].getIntValue();
-	preSettings.changeMobs().virtIntLevel = fields[VI_LEVEL].getIntValue();
-	preSettings.changeMobs().collisionDamageModifier = fields[COLLISION_DAMAGE].getIntValue();
-	preSettings.changeShells().directDamageModifier = fields[DIRECT_DAMAGE].getIntValue();
-	preSettings.changeShells().blastDamageModifier = fields[BLAST_DAMAGE].getIntValue();
+	preSettings.changeMobs().quantityModifier = fields[QUANTITY].getValueUint32();
+	preSettings.changeMobs().maxDurabilityModifier = fields[DURABILITY].getValueUint32();
+	preSettings.changeMobs().virtIntLevel = fields[VI_LEVEL].getValueUint32();
+	preSettings.changeMobs().collisionDamageModifier = fields[COLLISION_DAMAGE].getValueUint32();
+	preSettings.changeShells().directDamageModifier = fields[DIRECT_DAMAGE].getValueUint32();
+	preSettings.changeShells().blastDamageModifier = fields[BLAST_DAMAGE].getValueUint32();
 }
 
 void MobsPreSettingsPage::relocateWithOwner(const sf::Vector2i ownerPosition)

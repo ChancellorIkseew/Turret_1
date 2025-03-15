@@ -44,14 +44,13 @@ void InventoryWindow::interact(Team* team, const BuildingsMap& buildingsMap)
 
     for (auto& [type, info] : resInfo)
     {
-        int amount = 0;
-        for (auto& res : buildingsMap.getInventory(targetedTile))
+        uint32_t amount = 0;
+        for (const auto& res : buildingsMap.getInventory(targetedTile))
         {
-            if (type == res.type)
-            {
-                amount = res.quantity;
-                break;
-            }
+            if (type != res.type)
+                continue;
+            amount = static_cast<uint32_t>(res.quantity);
+            break;
         }
         info.update(amount);
     }

@@ -58,7 +58,9 @@ void SpecificationPanel::interact(const BuildingType index, const BuildingsPre& 
 
     for (auto& [type, info] : resInfo)
     {
-        info.update(buildingInfo.costToBuild.allResources[type] * buildingsPre.expensesModifier);
+        const uint32_t price = buildingInfo.costToBuild.allResources[type];
+        const uint32_t priceModified = static_cast<uint32_t>(static_cast<float>(price) * buildingsPre.expensesModifier);
+        info.update(priceModified);
     }
 
     description.setString(buildingInfo.description);

@@ -17,7 +17,7 @@ enum class GameMode : uint8_t
 struct GeneralPre
 {
 public:
-	std::map<ResType, int> startBalance;
+	std::map<ResType, uint32_t> startBalance;
 	GameMode gameMode = GameMode::SANDBOX;
 
 	void save(std::shared_ptr<cpptoml::table> root) const
