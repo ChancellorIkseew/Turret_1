@@ -56,6 +56,7 @@ void Entity::moveByDirectControl(const PixelCoord vector)
 		return;
 	coord = coord + vector * MAX_SPEED;
 	motionAngleRad = atan2(vector.x, vector.y);
+	checkTileChanged();
 }
 
 void Entity::moveByOwnAI()

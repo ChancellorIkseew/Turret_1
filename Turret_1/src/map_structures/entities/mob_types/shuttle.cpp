@@ -45,6 +45,7 @@ void Shuttle::moveByDirectControl(const PixelCoord vector)
 {
 	coord = coord + vector * MAX_SPEED;
 	motionAngleRad = atan2(vector.x, vector.y);
+	checkTileChanged();
 }
 
 void Shuttle::shoot()

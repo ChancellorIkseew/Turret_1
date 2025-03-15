@@ -45,7 +45,9 @@ void Minimap::interact(const World& world)
 		const sf::Color& color = team->getColor();
 		for (const auto& entity : team->getEneities().getList())
 		{
-			const TileCoord tile = entity->getTile();
+			TileCoord tile = entity->getTile();
+			tile.x = std::clamp(tile.x, 0, mapSize.x - 1);
+			tile.y = std::clamp(tile.y, 0, mapSize.y - 1);
 			mapImage.setPixel(sf::Vector2u(tile.x, tile.y), color);
 		}
 	}
