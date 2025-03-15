@@ -18,6 +18,7 @@ private:
 
 	ResourcesPanel(const ResourcesPanel&) = delete;
 	ResourcesPanel& operator=(const ResourcesPanel&) = delete;
+	void prepareInterfaceSprites() override final;
 	
 public:
 	ResourcesPanel();
@@ -26,7 +27,6 @@ public:
 	void interact(Team& team);
 	void relocate(const sf::Vector2i windowSizeY) override final;
 	
-	void prepareInterfaceSprites() override final;
 	void draw(sf::RenderWindow &window) override final;
 	
 };

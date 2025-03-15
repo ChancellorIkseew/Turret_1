@@ -25,6 +25,7 @@ private:
 
 	SpecificationPanel(const SpecificationPanel&) = delete;
 	SpecificationPanel& operator=(const SpecificationPanel&) = delete;
+	void prepareInterfaceSprites() override final;
 
 public:
 	SpecificationPanel();
@@ -33,9 +34,7 @@ public:
 	void interact(const BuildingType index, const BuildingsPre& buildingsPre);
 	void relocate(const sf::Vector2i windowSize) override final;
 
-	void prepareInterfaceSprites() override final;
 	void draw(sf::RenderWindow& window) override final;
-	bool getIsVisible();
 
 };
 

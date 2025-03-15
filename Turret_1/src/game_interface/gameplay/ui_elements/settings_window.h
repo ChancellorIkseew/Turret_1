@@ -10,6 +10,7 @@ class SettingsWindow : public UIWindow
 private:
 	SettingsWindow(const SettingsWindow&) = delete;
 	SettingsWindow& operator=(const SettingsWindow&) = delete;
+	void prepareInterfaceSprites() override final;
 
 public:
 	SettingsWindow();
@@ -18,7 +19,6 @@ public:
 	bool interact();
 	void relocate(const sf::Vector2i windowSize) override final;
 
-	void prepareInterfaceSprites() override final;
 	void draw(sf::RenderWindow& window) override final;
 
 };

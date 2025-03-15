@@ -102,8 +102,3 @@ void SpecificationPanel::draw(sf::RenderWindow& window)
     description.setPosition(sf::Vector2f(position.x + 10, posY));
     window.draw(description);
 }
-
-bool SpecificationPanel::getIsVisible()
-{
-    return isVisible;
-}

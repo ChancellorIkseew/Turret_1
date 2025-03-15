@@ -26,8 +26,6 @@ GameState openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string
 	sf::Sprite backSprite(backTexture);
 	backSprite.setPosition({ -100, -100 });
 	
-	sf::Vector2i mouseCoord;
-	
 	MainMenu mainMenu;
 	ChoiseFolderMenu choiseFolderMenu;
 	PreSettingsWindow preSettingsWindow;
@@ -42,46 +40,35 @@ GameState openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string
 
 			while (isMenuOpen)
 			{
-				if (menuTab == GameState::MAIN_MENU)
+				switch (menuTab)
 				{
+				case GameState::MAIN_MENU:
 					mainMenu.setVisible(true);
 					menuTab = mainMenu.interact(isMenuOpen);
 					mainMenu.setVisible(false);
-				}
-				
-				if (menuTab == GameState::CHOISE_FOLDER_MENU)
-				{
+					break;
+				case GameState::CHOISE_FOLDER_MENU:
 					choiseFolderMenu.setVisible(true);
 					menuTab = choiseFolderMenu.interact(isMenuOpen, startNewGame, saveFolderName);
 					choiseFolderMenu.setVisible(false);
-				}
-
-				if (menuTab == GameState::PRE_SETTINGS_MENU)
-				{
+					break;
+				case GameState::PRE_SETTINGS_MENU:
 					preSettingsWindow.setVisible(true);
 					menuTab = preSettingsWindow.interact(isMenuOpen, preSettings);
 					preSettingsWindow.setVisible(false);
-				}
-
-				if (menuTab == GameState::OPTIONS)
-				{
+					break;
+				case GameState::OPTIONS:
 					settingsWindow.setVisible(true);
 					settingsWindow.interact();
 					settingsWindow.setVisible(false);
-				}
-
-				if (menuTab == GameState::GAMEPLAY)
-				{
-					isMenuOpen = false;
-					exit = false;
-				}
-
-				if (menuTab == GameState::EXIT)
-				{
-					isMenuOpen = false;
+					break;
+				case GameState::EXIT:
 					exit = true;
+					[[fallthrough]];
+				case GameState::GAMEPLAY:
+					isMenuOpen = false;
+					break;
 				}
-
 				t1::system::sleep(16);
 			}
 		}
@@ -89,8 +76,6 @@ GameState openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string
 
 	while (isMenuOpen)
     {
-		mouseCoord = sf::Mouse::getPosition(mainWindow);
-        
         while (const std::optional event = mainWindow.pollEvent())
         {
 			InputHandler::updateInput(event);
@@ -128,9 +113,7 @@ GameState openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string
 	
 	input.join();
 	
-	if (!exit)
-	{
-		return GameState::GAMEPLAY;
-	}
-	return GameState::EXIT;
+	if (exit)
+		return GameState::EXIT;
+	return GameState::GAMEPLAY;
 }

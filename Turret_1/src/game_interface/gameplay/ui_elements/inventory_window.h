@@ -18,6 +18,7 @@ private:
 
 	InventoryWindow(const InventoryWindow&) = delete;
 	InventoryWindow& operator=(const InventoryWindow&) = delete;
+	void prepareInterfaceSprites() override final { /* No additional interface. */ }
 
 public:
 	InventoryWindow();
@@ -25,8 +26,7 @@ public:
 
 	void interact(Team* team, const BuildingsMap& buildingsMap);
 	void relocateToCoursor();
-
-	void prepareInterfaceSprites() override final { /* No additional interface. */ }
+	
 	void draw(sf::RenderWindow& window) override final;
 
 };

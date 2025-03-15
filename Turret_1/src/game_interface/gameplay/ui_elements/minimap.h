@@ -18,7 +18,7 @@ private:
 
 	Minimap(const Minimap&) = delete;
 	Minimap& operator=(const Minimap&) = delete;
-	void prepareInterfaceSprites() override final { }
+	void prepareInterfaceSprites() override final { /*Interface is being created in "initMapSize"*/ }
 
 public:
 	Minimap();

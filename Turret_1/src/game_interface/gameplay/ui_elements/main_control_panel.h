@@ -24,6 +24,7 @@ private:
 	
 	MainControlPanel(const MainControlPanel&) = delete;
 	MainControlPanel& operator=(const MainControlPanel&) = delete;
+	void prepareInterfaceSprites() override final;
 	
 public:
 	MainControlPanel();
@@ -33,7 +34,6 @@ public:
 	void interactWaveTimer(const bool isPaused, const World& world);
 	void relocate(const sf::Vector2i windowSize) override final;
 
-	void prepareInterfaceSprites() override final;
 	void draw(sf::RenderWindow& window) override final;
 	
 };

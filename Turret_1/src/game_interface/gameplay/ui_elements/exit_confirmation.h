@@ -16,6 +16,7 @@ private:
 
 	ConfirmationWindow(const ConfirmationWindow&) = delete;
 	ConfirmationWindow& operator=(const ConfirmationWindow&) = delete;
+	void prepareInterfaceSprites() override final;
 
 public:
 	ConfirmationWindow();
@@ -24,7 +25,6 @@ public:
 	bool interact();
 	void relocate(const sf::Vector2i windowSize) override final;
 
-	void prepareInterfaceSprites() override final;
 	void draw(sf::RenderWindow& window) override final;
 
 };

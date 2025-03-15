@@ -86,8 +86,7 @@ void MainControlPanel::interact(bool& isPaused, bool& isGameplayActive, std::ato
 	if (buttons[EXIT_TO_MENU].press())
 	{
 		confirmationWindow->setVisible(true);
-		if(confirmationWindow->interact())
-			isGameplayActive = false;
+		isGameplayActive = !confirmationWindow->interact();
 		confirmationWindow->setVisible(false);
 	}
 	
@@ -165,9 +164,7 @@ void MainControlPanel::draw(sf::RenderWindow& window)
 {
 	drawBase(window);
 	for (auto& [name, button] : buttons)
-	{
 		button.draw(window);
-	}
     
 	window.draw(waveNumberText);
 	window.draw(waveNumberText2);

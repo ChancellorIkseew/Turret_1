@@ -45,6 +45,7 @@ private:
 
 	BuildingPanel(const BuildingPanel&) = delete;
 	BuildingPanel& operator=(const BuildingPanel&) = delete;
+	void prepareInterfaceSprites() override final;
 	
 public:
 	BuildingPanel();
@@ -55,7 +56,6 @@ public:
 	void relocate(const sf::Vector2i windowSize) override final;
 	bool containsCoursor() const override final;
 	
-	void prepareInterfaceSprites() override final;
 	void draw(sf::RenderWindow& window) override final;
 	void drawBuildExample(sf::RenderWindow& window, Team* team, const BuildingsMap& buildingsMap);
 	

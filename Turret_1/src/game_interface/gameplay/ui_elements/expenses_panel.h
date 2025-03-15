@@ -22,6 +22,7 @@ private:
 
 	ExpensesPanel(const ExpensesPanel&) = delete;
 	ExpensesPanel& operator=(const ExpensesPanel&) = delete;
+	void prepareInterfaceSprites() override final;
 	
 public:
 	ExpensesPanel();
@@ -30,7 +31,6 @@ public:
 	void interact(const BuildingType index, const BuildingsPre& buildingsPre);
 	void relocate(const sf::Vector2i windowSize) override final;
 
-	void prepareInterfaceSprites() override final;
 	void draw(sf::RenderWindow& window) override final;
 	
 };
