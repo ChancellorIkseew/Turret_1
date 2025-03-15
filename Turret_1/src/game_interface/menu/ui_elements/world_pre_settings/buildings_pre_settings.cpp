@@ -23,9 +23,9 @@ void BuildingsPreSettingsPage::prepareInterfaceSprites()
 {
 	const int line0 = 110;
 
-	fields[DURABILITY] = TextField(sf::String(L"1"), 26, sf::Vector2i(line0, 40));
-	fields[EXPENSES] = TextField(sf::String(L"1"), 26, sf::Vector2i(line0, 80));
-	fields[CONSTRUCTION_SPEED] = TextField(sf::String(L"1"), 26, sf::Vector2i(line0, 125));
+	fields[DURABILITY] = TextField(sf::String(L"1.0"), 42, sf::Vector2i(line0, 40));
+	fields[EXPENSES] = TextField(sf::String(L"1.0"), 42, sf::Vector2i(line0, 80));
+	fields[CONSTRUCTION_SPEED] = TextField(sf::String(L"1.0"), 42, sf::Vector2i(line0, 125));
 
 	tDurability = sf::Text(turretClassic, sf::String(L"Множитель\nпрочности"), 12);
 	tExspenses = sf::Text(turretClassic, sf::String(L"Множитель\nстоимости"), 12);
@@ -45,9 +45,9 @@ void BuildingsPreSettingsPage::interact()
 
 void BuildingsPreSettingsPage::enter(PreSettings& preSettings)
 {
-	preSettings.changeBuildings().maxDurabilityModifier = fields[DURABILITY].getValueUint32();
-	preSettings.changeBuildings().expensesModifier = fields[EXPENSES].getValueUint32();
-	preSettings.changeBuildings().constructionSpeedModifier = fields[CONSTRUCTION_SPEED].getValueUint32();
+	preSettings.changeBuildings().maxDurabilityModifier = fields[DURABILITY].getValueFloat();
+	preSettings.changeBuildings().expensesModifier = fields[EXPENSES].getValueFloat();
+	preSettings.changeBuildings().constructionSpeedModifier = fields[CONSTRUCTION_SPEED].getValueFloat();
 }
 
 void BuildingsPreSettingsPage::relocateWithOwner(const sf::Vector2i ownerPosition)

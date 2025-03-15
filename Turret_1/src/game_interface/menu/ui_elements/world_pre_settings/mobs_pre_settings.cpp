@@ -27,16 +27,16 @@ void MobsPreSettingsPage::prepareInterfaceSprites()
 	const int line0 = 95;
 	const int line1 = 225;
 
-	fields[QUANTITY] = TextField(sf::String(L"1"), 34, sf::Vector2i(line0, 45));
-	fields[DURABILITY] = TextField(sf::String(L"1"), 34, sf::Vector2i(line0, 95));
-	fields[VI_LEVEL] = TextField(sf::String(L"1"), 34, sf::Vector2i(line0, 145));
-	fields[COLLISION_DAMAGE] = TextField(sf::String(L"1"), 34, sf::Vector2i(line0, 205));
-	fields[DIRECT_DAMAGE] = TextField(sf::String(L"1"), 34, sf::Vector2i(line1, 55));
-	fields[BLAST_DAMAGE] = TextField(sf::String(L"1"), 34, sf::Vector2i(line1, 105));
+	fields[QUANTITY] = TextField(sf::String(L"1"), 42, sf::Vector2i(line0, 45));
+	fields[DURABILITY] = TextField(sf::String(L"1.0"), 42, sf::Vector2i(line0, 95));
+	fields[VI_LEVEL] = TextField(sf::String(L"1"), 42, sf::Vector2i(line0, 145));
+	fields[COLLISION_DAMAGE] = TextField(sf::String(L"1.0"), 42, sf::Vector2i(line0, 195));
+	fields[DIRECT_DAMAGE] = TextField(sf::String(L"1.0"), 42, sf::Vector2i(line1, 55));
+	fields[BLAST_DAMAGE] = TextField(sf::String(L"1.0"), 42, sf::Vector2i(line1, 105));
 
 	quantity = sf::Text(turretClassic, sf::String(L"Множитель\nчисленности\nврагов"), 12);
 	durabity = sf::Text(turretClassic, sf::String(L"Множитель\nпрочности\nмобов"), 12);
-	VILevel = sf::Text(turretClassic, sf::String(L"Уровень\nвиртуально\nинтеллекта\nмобов"), 12);
+	VILevel = sf::Text(turretClassic, sf::String(L"Уровень\nинтеллекта\nмобов"), 12);
 	collisionDamage = sf::Text(turretClassic, sf::String(L"Множитель\nконтактного\nурона мобов"), 12);
 	directDamage = sf::Text(turretClassic, sf::String(L"Множитель\nурона от\nпопадания\nснарядов"), 12);
 	blastDamage = sf::Text(turretClassic, sf::String(L"Множитель\nвзрывного\nурона"), 12);
@@ -60,11 +60,11 @@ void MobsPreSettingsPage::interact()
 void MobsPreSettingsPage::enter(PreSettings& preSettings)
 {
 	preSettings.changeMobs().quantityModifier = fields[QUANTITY].getValueUint32();
-	preSettings.changeMobs().maxDurabilityModifier = fields[DURABILITY].getValueUint32();
+	preSettings.changeMobs().maxDurabilityModifier = fields[DURABILITY].getValueFloat();
 	preSettings.changeMobs().virtIntLevel = fields[VI_LEVEL].getValueUint32();
-	preSettings.changeMobs().collisionDamageModifier = fields[COLLISION_DAMAGE].getValueUint32();
-	preSettings.changeShells().directDamageModifier = fields[DIRECT_DAMAGE].getValueUint32();
-	preSettings.changeShells().blastDamageModifier = fields[BLAST_DAMAGE].getValueUint32();
+	preSettings.changeMobs().collisionDamageModifier = fields[COLLISION_DAMAGE].getValueFloat();
+	preSettings.changeShells().directDamageModifier = fields[DIRECT_DAMAGE].getValueFloat();
+	preSettings.changeShells().blastDamageModifier = fields[BLAST_DAMAGE].getValueFloat();
 }
 
 void MobsPreSettingsPage::relocateWithOwner(const sf::Vector2i ownerPosition)

@@ -27,6 +27,7 @@ public:
 
 	void setText(const sf::String& value);
 	uint32_t getValueUint32();
+	float getValueFloat();
 
 	void prepareInterfaceSprites() override final;
 	void draw(sf::RenderWindow& window) override final;

@@ -52,7 +52,7 @@ void SpecificationPanel::interact(const BuildingType index, const BuildingsPre& 
     title.setString(buildingInfo.buildingTitle);
 
     std::ostringstream strDurability;
-    strDurability << buildingInfo.durability * buildingsPre.maxDurabilityModifier;
+    strDurability << static_cast<int16_t>(static_cast<float>(buildingInfo.durability) * buildingsPre.maxDurabilityModifier);
     sf::String durb = strDurability.str();
     durability.setString(L"прочность " + durb);
 
