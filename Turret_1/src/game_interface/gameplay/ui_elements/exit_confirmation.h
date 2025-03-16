@@ -22,7 +22,7 @@ public:
 	ConfirmationWindow();
 	~ConfirmationWindow() = default;
 
-	bool interact();
+	bool interact(const bool& windowOpen);
 	void relocate(const sf::Vector2i windowSize) override final;
 
 	void draw(sf::RenderWindow& window) override final;

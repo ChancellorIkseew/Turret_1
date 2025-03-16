@@ -59,7 +59,7 @@ GameState openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string
 					break;
 				case GameState::OPTIONS:
 					settingsWindow.setVisible(true);
-					settingsWindow.interact();
+					settingsWindow.interact(isMenuOpen);
 					settingsWindow.setVisible(false);
 					break;
 				case GameState::EXIT:
@@ -96,6 +96,7 @@ GameState openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string
 				mainMenu.relocate(mainWindowSize);
 				choiseFolderMenu.relocate(mainWindowSize);
 				preSettingsWindow.relocate(mainWindowSize);
+				settingsWindow.relocate(mainWindowSize);
 			}
 		}
 
@@ -106,7 +107,7 @@ GameState openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string
 		mainMenu.draw(mainWindow);
 		choiseFolderMenu.draw(mainWindow);
 		preSettingsWindow.draw(mainWindow);
-		//settingsWindow.draw(mainWindow);
+		settingsWindow.draw(mainWindow);
 
 		mainWindow.display();
 	}

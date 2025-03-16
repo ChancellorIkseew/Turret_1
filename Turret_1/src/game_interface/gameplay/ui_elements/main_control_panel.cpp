@@ -7,7 +7,7 @@
 
 #include "game_interface/ui_window/sub_win_util/fonts.h"
 
-//#include "settings_window.h"
+#include "settings_window.h"
 
 
 #include "game_interface/gameplay/gameplay_util/t1_time.h"
@@ -74,6 +74,7 @@ void MainControlPanel::prepareInterfaceSprites()
 	waveTimerText2.setPosition(sf::Vector2f(200, 80));
 
 	confirmationWindow = std::make_unique<ConfirmationWindow>();
+	settingsWindow = std::make_unique<SettingsWindow>();
 }
 
 
@@ -86,15 +87,15 @@ void MainControlPanel::interact(bool& isPaused, bool& isGameplayActive, std::ato
 	if (buttons[EXIT_TO_MENU].press())
 	{
 		confirmationWindow->setVisible(true);
-		isGameplayActive = !confirmationWindow->interact();
+		isGameplayActive = !confirmationWindow->interact(isGameplayActive);
 		confirmationWindow->setVisible(false);
 	}
 	
 	if (buttons[SETTINGS].press())
 	{
-		//SettingsWindow::getInstance().setVisible(true);
-		//SettingsWindow::getInstance().interact(mouseCoord);
-		//SettingsWindow::getInstance().setVisible(false);
+		settingsWindow->setVisible(true);
+		settingsWindow->interact(isGameplayActive);
+		settingsWindow->setVisible(false);
 	}
 	
 	if (buttons[HELP].press())
@@ -157,6 +158,7 @@ void MainControlPanel::interactWaveTimer(const bool isPaused, const World& world
 void MainControlPanel::relocate(const sf::Vector2i windowSize)
 {
 	confirmationWindow->relocate(windowSize);
+	settingsWindow->relocate(windowSize);
 }
 
 
@@ -173,4 +175,5 @@ void MainControlPanel::draw(sf::RenderWindow& window)
     window.draw(waveTimerText2);
 
 	confirmationWindow->draw(window);
+	settingsWindow->draw(window);
 }

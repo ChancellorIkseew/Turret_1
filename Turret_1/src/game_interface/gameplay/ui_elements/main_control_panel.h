@@ -7,6 +7,7 @@
 #include "game_interface/ui_window/ui_window/ui_window.h"
 #include "game_interface/ui_window/elements/button/button.h"
 #include "exit_confirmation.h"
+#include "settings_window.h"
 
 class World;
 
@@ -21,6 +22,7 @@ private:
 	sf::Text waveTimerText2 = sf::Text(turretClassic);
 
 	std::unique_ptr<ConfirmationWindow> confirmationWindow;
+	std::unique_ptr<SettingsWindow> settingsWindow;
 	
 	MainControlPanel(const MainControlPanel&) = delete;
 	MainControlPanel& operator=(const MainControlPanel&) = delete;

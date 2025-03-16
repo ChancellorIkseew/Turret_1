@@ -12,5 +12,4 @@ void createPlayerBase(World& world, const PreSettings& preSettings)
 	Team* player = world.getTeam("player");
 	world.getBuildingsMap().placeBuilding(BuildingType::CORE_MK2, 0, mapCentre, player);
 	player->getBalance().giveStartRes(preSettings.getGeneral().startBalance);
-	player->spawnEntity(MobType::LIGHT_SHUTTLE, t1::be::pixel(mapCentre), Control::NONE);
 }

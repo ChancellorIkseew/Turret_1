@@ -31,8 +31,8 @@ void Gameplay::graphics(sf::RenderWindow& mainWindow)
 
             if (event->is<sf::Event::Closed>())
             {
-                mainWindow.close();
                 isGameplayActive = false;
+                mainWindow.close(); 
             }
 
             if (event->is<sf::Event::Resized>() || UIWindow::windowCreated)

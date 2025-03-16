@@ -1,6 +1,7 @@
 
 #include "game_interface/main_window/main_window_resize.h"
 #include "t1_system/sleep.h"
+#include <iostream>
 
 #include "exit_confirmation.h"
 
@@ -32,9 +33,9 @@ void ConfirmationWindow::draw(sf::RenderWindow& window)
     window.draw(confirmationText);
 }
 
-bool ConfirmationWindow::interact()
+bool ConfirmationWindow::interact(const bool& windowOpen)
 {
-    while (true)
+    while (windowOpen)
     {
         if (confirm.press())
             return true;
@@ -42,6 +43,7 @@ bool ConfirmationWindow::interact()
             return false;
         t1::system::sleep(16);
     }
+    return true;
 }
 
 
