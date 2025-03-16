@@ -10,7 +10,7 @@
 class CannonBossBot : public Entity
 {
 public:
-	CannonBossBot(Team* const team);
+	CannonBossBot(Team* team);
 	CannonBossBot() = default;
 	~CannonBossBot() = default;
 

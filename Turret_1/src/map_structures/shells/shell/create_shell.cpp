@@ -7,7 +7,7 @@
 #include "map_structures/shells/shell_types/laser.h"
 
 
-std::unique_ptr<Shell> Shell::createShell(const ShellType type, const PixelCoord coord, float angleRad, Team* const team)
+std::unique_ptr<Shell> Shell::createShell(const ShellType type, const PixelCoord coord, const float angleRad, Team* team)
 {
 	switch (type)
 	{

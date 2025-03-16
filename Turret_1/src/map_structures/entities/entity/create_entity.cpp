@@ -13,7 +13,7 @@
 #include "map_structures/entities/mob_types/shuttle.h"
 
 
-std::unique_ptr<Entity> Entity::createEntity(const MobType type, Team* const team)
+std::unique_ptr<Entity> Entity::createEntity(const MobType type, Team* team)
 {
 	switch (type)
 	{

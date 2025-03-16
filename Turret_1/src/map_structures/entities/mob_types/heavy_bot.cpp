@@ -10,7 +10,7 @@ constexpr int TILE_RANGE = 7;
 const float PIXEL_RANGE = t1::be::pixelF(TILE_RANGE);
 const int SPYRAL_RANGE = t1::be::tileRangeToSpiralRange[TILE_RANGE];
 
-HeavyBot::HeavyBot(Team* const team) : Entity(team)
+HeavyBot::HeavyBot(Team* team) : Entity(team)
 {
 	durability = 50 * world->getPreSettings().getMobs().maxDurabilityModifier;
 }

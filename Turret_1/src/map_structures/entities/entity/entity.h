@@ -50,14 +50,14 @@ protected:
 	virtual void calculateMotion(const BuildingsMap& buildingsMap);
 
 public:
-	Entity(Team* const team);
+	Entity(Team* team);
 	Entity() = default;
 	virtual ~Entity() = default;
 
 	void save(cereal::BinaryOutputArchive& archive) const;
 	void load(cereal::BinaryInputArchive& archive);
 
-	static std::unique_ptr<Entity> createEntity(const MobType type, Team* const team);
+	static std::unique_ptr<Entity> createEntity(const MobType type, Team* team);
 
 	// combat
 	

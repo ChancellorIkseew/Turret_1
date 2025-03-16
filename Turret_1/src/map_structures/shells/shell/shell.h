@@ -33,14 +33,14 @@ protected:
 	static inline sf::Sprite shellSprite = sf::Sprite(shellTexture);
 	
 public:
-	Shell(const PixelCoord coord, float angleRad, Team* const team);
+	Shell(const PixelCoord coord, const float angleRad, Team* team);
 	Shell() = default;
 	virtual ~Shell() = default;
 
 	void save(cereal::BinaryOutputArchive& archive) const;
 	void load(cereal::BinaryInputArchive& archive);
 
-	static std::unique_ptr<Shell> createShell(const ShellType type, const PixelCoord coord, float angleRad, Team* const team);
+	static std::unique_ptr<Shell> createShell(const ShellType type, const PixelCoord coord, const float angleRad, Team* team);
 
 	virtual void motion();
 	virtual void tryHitting();

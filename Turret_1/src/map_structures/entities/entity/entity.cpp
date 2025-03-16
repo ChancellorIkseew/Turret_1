@@ -12,7 +12,7 @@
 constexpr float BASIC_COLLISION_RADIUS = 30.0f;
 constexpr float MAX_SPEED = 0.1; // temporary desision
 
-Entity::Entity(Team* const team) : team(team), reloadTimer(0) { }
+Entity::Entity(Team* team) : team(team), reloadTimer(0) { }
 
 void Entity::save(cereal::BinaryOutputArchive& archive) const {
 	archive(coord, motionAngleRad, durability);

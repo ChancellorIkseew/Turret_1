@@ -6,8 +6,8 @@
 #include "map_structures/team/team.h"
 #include "map_structures/world/world.h"
 
-constexpr int ACTIVATION_RADIUS = _TILE_;
 constexpr int EXP_RADIUS = 3; // radius in tiles
+constexpr float ACTIVATION_RADIUS = static_cast<float>(_TILE_);
 constexpr float EXP_DAMAGE = 20.0f;
 constexpr float SPEED = 2.4f;
 constexpr uint16_t MAX_LIFI_TIME = 420;
@@ -32,20 +32,16 @@ void Rocket::tryHitting()
 		return;
 	}
 	
-	for (auto& it : world->getTeams())
+	for (auto& [teamID, team] : world->getTeams())
 	{
-		Team& team = *it.second;
-		if (this->team->getID() != team.getID())
+		if (this->team->getID() != teamID)
 		{
-			for (auto& entity : team.getEneities().getList())
+			for (auto& entity : team->getEneities().getList())
 			{
-				float deltaX = coord.x - entity->getCoord().x;
-				float deltaY = coord.y - entity->getCoord().y;
-				if (abs(deltaX) < ACTIVATION_RADIUS && abs(deltaY) < ACTIVATION_RADIUS)
-				{
-					isWasted = true;
-					return;
-				}
+				if (!t1::be::areCloser(coord, entity->getCoord(), ACTIVATION_RADIUS))
+					continue;
+				isWasted = true;
+				return;
 			}
 		}
 	}

@@ -313,6 +313,7 @@
     <ClInclude Include="src\game_interface\settings\settings\audio.h" />
     <ClInclude Include="src\game_interface\settings\settings\display_settings.h" />
     <ClInclude Include="src\game_interface\settings\settings\graphics.h" />
+    <ClInclude Include="src\game_interface\settings\settings\gui_settings.h" />
     <ClInclude Include="src\game_interface\settings\settings\saving_settings.h" />
     <ClInclude Include="src\game_interface\sound_system\sound_system.h" />
     <ClInclude Include="src\game_interface\ui_window\elements\button\building_ico.h" />

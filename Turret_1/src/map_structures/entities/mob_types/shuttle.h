@@ -12,7 +12,7 @@ class Shuttle : public Entity
 private:
 	void calculateMotion(const BuildingsMap& buildingsMap) override final;
 public:
-	Shuttle(Team* const team);
+	Shuttle(Team* team);
 	Shuttle() = default;
 	~Shuttle() = default;
 

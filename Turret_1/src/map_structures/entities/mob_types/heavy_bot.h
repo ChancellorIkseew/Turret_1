@@ -10,7 +10,7 @@
 class HeavyBot : public Entity
 {
 public:
-	HeavyBot(Team* const team);
+	HeavyBot(Team* team);
 	HeavyBot() = default;
 	~HeavyBot() = default;
 

@@ -20,6 +20,8 @@ struct DisplaySettings
 	void load(std::shared_ptr<cpptoml::table> root)
 	{
 		const auto table = root->get_table("display");
+		if (table == nullptr) // "display" section does not exist.
+			return;
 		//
 		windowMaxSize.x = table->get_as<uint32_t>("window-max-size-x").value_or(1920);
 		windowMaxSize.y = table->get_as<uint32_t>("window-max-size-y").value_or(1016);

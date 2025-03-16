@@ -13,7 +13,7 @@ const float PIXEL_RANGE = t1::be::pixelF(TILE_RANGE);
 const int SPYRAL_RANGE = t1::be::tileRangeToSpiralRange[TILE_RANGE];
 constexpr float MAX_SPEED = 2.2;
 
-Shuttle::Shuttle(Team* const team) : Entity(team)
+Shuttle::Shuttle(Team* team) : Entity(team)
 {
 	durability = 20 * world->getPreSettings().getMobs().maxDurabilityModifier;
 }

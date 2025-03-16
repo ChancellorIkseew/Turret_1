@@ -11,7 +11,7 @@ constexpr int TILE_RANGE = 25;
 const float PIXEL_RANGE = t1::be::pixelF(TILE_RANGE);
 const int SPYRAL_RANGE = t1::be::tileRangeToSpiralRange[TILE_RANGE];
 
-RocketBot::RocketBot(Team* const team) : Entity(team)
+RocketBot::RocketBot(Team* team) : Entity(team)
 {
 	durability = 25 * world->getPreSettings().getMobs().maxDurabilityModifier;
 }

@@ -8,7 +8,7 @@ constexpr int TILE_RANGE = 20;
 const float PIXEL_RANGE = t1::be::pixelF(TILE_RANGE);
 const int SPYRAL_RANGE = t1::be::tileRangeToSpiralRange[TILE_RANGE];
 
-CannonBossBot::CannonBossBot(Team* const team) : Entity(team)
+CannonBossBot::CannonBossBot(Team* team) : Entity(team)
 {
 	durability = 270 * world->getPreSettings().getMobs().maxDurabilityModifier;
 }
@@ -49,9 +49,8 @@ void CannonBossBot::draw(sf::RenderWindow& window)
 	entitySprite.setPosition({ coord.x, coord.y });
 	window.draw(entitySprite);
 
-	if (durability > 150)    //Boss_energy_shield
-	{
-		shieldSprite.setPosition({ coord.x, coord.y });
-		window.draw(shieldSprite);
-	}
+	if (durability < 150)    //Boss_energy_shield
+		return;
+	shieldSprite.setPosition({ coord.x, coord.y });
+	window.draw(shieldSprite);
 }

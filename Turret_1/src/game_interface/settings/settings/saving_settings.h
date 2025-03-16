@@ -22,6 +22,8 @@ struct SavingSettings
 	void load(std::shared_ptr<cpptoml::table> root)
 	{
 		const auto table = root->get_table("saving");
+		if (table == nullptr) // "saving" section does not exist.
+			return;
 		//
 		autosave = table->get_as<bool>("autosave").value_or(false);
 		autosaveWithExit = table->get_as<bool>("autosave-with-exit").value_or(false);

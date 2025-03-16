@@ -10,7 +10,7 @@
 class LaserBot : public Entity
 {
 public:
-	LaserBot(Team* const team);
+	LaserBot(Team* team);
 	LaserBot() = default;
 	~LaserBot() = default;
 

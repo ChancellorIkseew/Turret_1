@@ -3,12 +3,14 @@
 #define TURRET_1_SETTINGS_H
 
 #include "settings/display_settings.h"
+#include "settings/gui_settings.h"
 #include "settings/saving_settings.h"
 
 class Settings
 {
 private:
 	static inline DisplaySettings display;
+	static inline GuiSettings gui;
 	static inline SavingSettings saving;
 
 public:

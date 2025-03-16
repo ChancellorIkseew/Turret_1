@@ -10,7 +10,7 @@
 class StandardBot : public Entity
 {
 public:
-	StandardBot(Team* const team);
+	StandardBot(Team* team);
 	StandardBot() = default;
 	~StandardBot() = default;
 

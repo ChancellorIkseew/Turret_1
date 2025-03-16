@@ -6,16 +6,13 @@
 #include "map_structures/world/world.h"
 
 
-Shell::Shell(const PixelCoord coord, float angleRad, Team* const team) :
+Shell::Shell(const PixelCoord coord, const float angleRad, Team* team) :
 	coord(coord), angleRad(angleRad), team(team) { }
 
-void Shell::save(cereal::BinaryOutputArchive& archive) const
-{
+void Shell::save(cereal::BinaryOutputArchive& archive) const {
 	archive(coord, lineMotion, angleRad, restLifeTime);
 }
-
-void Shell::load(cereal::BinaryInputArchive& archive)
-{
+void Shell::load(cereal::BinaryInputArchive& archive) {
 	archive(coord, lineMotion, angleRad, restLifeTime);
 }
 
@@ -40,19 +37,18 @@ void Shell::tryHitting()
 		return;
 	}
 
-	for (auto& team : world->getTeams())
+	for (auto& [teamID, team] : world->getTeams())
 	{
-		if (this->team->getID() != team.first)
+		if (this->team->getID() != teamID)
 		{
-			for (auto& entity : team.second->getEneities().getList())
+			for (auto& entity : team->getEneities().getList())
 			{
-				if (abs(entity->getCoord().x - coord.x) < 7 && abs(entity->getCoord().y - coord.y) < 7)
-				{
-					const float modifiedDamage = getDirectDamage() * world->getPreSettings().getShells().directDamageModifier;
-					entity->setDamage(modifiedDamage);
-					isWasted = true;
-					return;
-				}
+				if (!t1::be::areCloser(coord, entity->getCoord(), 7.0f))
+					continue;
+				const float modifiedDamage = getDirectDamage() * world->getPreSettings().getShells().directDamageModifier;
+				entity->setDamage(modifiedDamage);
+				isWasted = true;
+				return;
 			}
 		}
 	}
