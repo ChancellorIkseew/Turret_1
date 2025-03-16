@@ -16,7 +16,7 @@ void Gameplay::input()
     while (isGameplayActive)
     {
         mainControlPanel.interact(isPaused, isGameplayActive, tickSpeed, world);
-        buildingPanel.interact(player, world.getBuildingsMap(), world.getBlueprintsMap(), *this);
+        buildingPanel.interact(player, world.getBuildingsMap(), world.getBlueprintsMap(), world.getPreSettings().getGeneral().gameMode, *this);
         inventoryWindow.interact(player, world.getBuildingsMap());
         MobController::interact(*player, *this);
 

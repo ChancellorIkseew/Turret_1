@@ -6,13 +6,13 @@
 
 struct Blueprint
 {
+	BuildingType type = BuildingType::VOID_;
+	char direction = 'w';
+
 	Blueprint(const BuildingType type, const char direction) :
 		type(type), direction(direction) { }
 	Blueprint() = default;
 	~Blueprint() = default;
-
-	BuildingType type = BuildingType::VOID_;
-	char direction = 'w';
 };
 
 #endif // BLUEPRINTS_H

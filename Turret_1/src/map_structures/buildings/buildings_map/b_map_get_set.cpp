@@ -24,7 +24,7 @@ void BuildingsMap::setDamage(const int16_t damage, const TileCoord tile)
 TileCoord BuildingsMap::getBuildingMainTileCoord(const TileCoord tile) const
 {
 	if (!buildingExists(tile))
-		return { -1,-1 };
+		return INCORRECT_TILE_COORD;
 	return buildingsMap[tile.x][tile.y]->getTileCoord();
 }
 

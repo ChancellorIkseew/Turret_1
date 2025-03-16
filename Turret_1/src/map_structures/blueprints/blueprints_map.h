@@ -24,17 +24,25 @@ private:
 	static inline sf::Texture buildingsTexture;
 	static inline sf::Sprite buildExample = sf::Sprite(buildingsTexture);
 
+	bool isAvaluablePlaceBlueprint(const BuildingType type, const TileCoord tile) const;
+	TileCoord getMainTile(const TileCoord tile) const;
+
+	void createBlueprint(const TileCoord mainTile, const BuildingType type, const char direction);
+	void deleteBlueprint(const TileCoord mainTile);
+
 public:
 	BlueprintsMap(const TileCoord mapSize);
 	BlueprintsMap() = default;
 	~BlueprintsMap() = default;
 
-	void placeBlueprint(const BuildingType type, const char direction, const TileCoord tile);
+	void placeBlueprint(const BuildingsMap& buildingsMap, const BuildingType type, const char direction, const TileCoord tile);
 	void constructBuilding(BuildingsMap& buildingsMap, const TileCoord tile);
 
 	bool tileExists(const TileCoord tile) const;
 	bool isVoidTile(const TileCoord tile) const;
 	bool isFilledTile(const TileCoord tile) const;
+	bool isMainTile(const TileCoord tile) const;
+
 	BuildingType getType(const TileCoord tile) const;
 
 	static void prepareSprites();

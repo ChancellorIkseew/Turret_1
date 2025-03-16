@@ -53,6 +53,7 @@ void GeneralPreSettingsPage::interact()
 void GeneralPreSettingsPage::enter(PreSettings& preSettings)
 {
 	preSettings.changeTerrain().mapSize = TileCoord(mapSize[MAP_MAX_X].getValueUint32(), mapSize[MAP_MAX_Y].getValueUint32());
+	preSettings.changeGeneral().gameMode = GameMode::SURVIVAL; // temporary
 
 	std::map<ResType, uint32_t> startRes;
 	for (auto& [resType, field] : balance)

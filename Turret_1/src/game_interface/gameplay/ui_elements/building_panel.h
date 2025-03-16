@@ -37,7 +37,7 @@ private:
 
 	inline void selectBuildingType(BuildingIco& ico);
 	inline void rotateBuilding();
-	inline void placeBuilding(Team* team, BuildingsMap& buildingsMap, BlueprintsMap& blueprint) const;
+	inline void placeBuilding(Team* team, BuildingsMap& buildingsMap, BlueprintsMap& blueprint, const GameMode gameMode) const;
 	inline void pickBuildingType(const BuildingsMap& buildingsMap, const BlueprintsMap& blueprint);
 
 	std::unique_ptr<ExpensesPanel> expensesPanel;
@@ -52,7 +52,7 @@ public:
 	~BuildingPanel() = default;
 	
 	void initPresettings(const BuildingsPre& buildingsPre) { this->buildingsPre = buildingsPre; }
-	void interact(Team* team, BuildingsMap& buildingsMap, BlueprintsMap& blueprintsMap, const Gameplay& gameplay);
+	void interact(Team* team, BuildingsMap& buildingsMap, BlueprintsMap& blueprintsMap, const GameMode gameMode, const Gameplay& gameplay);
 	void relocate(const sf::Vector2i windowSize) override final;
 	bool containsCoursor() const override final;
 	

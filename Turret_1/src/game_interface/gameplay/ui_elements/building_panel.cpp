@@ -83,10 +83,10 @@ void BuildingPanel::prepareInterfaceSprites()
 
 
 
-void BuildingPanel::interact(Team* team, BuildingsMap& buildingsMap, BlueprintsMap& blueprintsMap, const Gameplay& gameplay)
+void BuildingPanel::interact(Team* team, BuildingsMap& buildingsMap, BlueprintsMap& blueprintsMap, const GameMode gameMode, const Gameplay& gameplay)
 {
 	if (InputHandler::active(t1::BindName::Build) && buildingType != BuildingType::VOID_ && gameplay.noSubWindowSelected())
-		placeBuilding(team, buildingsMap, blueprintsMap);
+		placeBuilding(team, buildingsMap, blueprintsMap, gameMode);
 
 	if (InputHandler::jactive(t1::BindName::Rotate_building) || InputHandler::jactive(t1::BindName::RMB))
 		rotateBuilding();
@@ -226,31 +226,23 @@ void BuildingPanel::selectBuildingType(BuildingIco& ico)
 }
 
 
-void BuildingPanel::placeBuilding(Team* team, BuildingsMap& buildingsMap, BlueprintsMap& blueprintsMap) const
+void BuildingPanel::placeBuilding(Team* team, BuildingsMap& buildingsMap, BlueprintsMap& blueprintsMap, const GameMode gameMode) const
 {
 	std::cout << "building_place_works: " << static_cast<uint16_t>(buildingType) << '\n';
 	const sf::Vector2f mouseMapCoord = InputHandler::getMouseMapCoord();
 	const TileCoord selectedTile = t1::be::tile(mouseMapCoord.x, mouseMapCoord.y);
 
 	std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
+	if (gameMode != GameMode::SANDBOX)
+	{
+		blueprintsMap.placeBlueprint(buildingsMap, buildingType, direction, selectedTile);
+		return;
+	}
+
 	if (buildingType == BuildingType::REMOVE)
-	{
-		if (buildingsMap.isTurretOnTile(selectedTile))
-			buildingsMap.removeTurret(selectedTile);
-		else
-			blueprintsMap.placeBlueprint(buildingType, direction, selectedTile);
-			//buildingsMap.demolishBuilding(selectedTile);
-	}
-	else if (buildingType == BuildingType::AUTOCANNON_TURRET || buildingType == BuildingType::ROCKET_TURRET)
-	{
-		if (!buildingsMap.isTurretOnTile(selectedTile))
-			buildingsMap.setTurret(buildingType, selectedTile, team);
-	}
+		buildingsMap.demolishBuilding(selectedTile);
 	else
-	{
-		blueprintsMap.placeBlueprint(buildingType, direction, selectedTile);
-		//buildingsMap.constructBuilding(buildingType, direction, selectedTile, team);
-	}
+		buildingsMap.constructBuilding(buildingType, direction, selectedTile, team);	
 }
 
 
