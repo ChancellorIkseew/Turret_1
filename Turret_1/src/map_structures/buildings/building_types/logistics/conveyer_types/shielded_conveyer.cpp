@@ -17,6 +17,11 @@ constexpr sf::IntRect leftUp(start + tileY * 4, X1_RECT);
 constexpr sf::IntRect rightUp(start + tileY * 5, X1_RECT);
 constexpr sf::IntRect leftRightUp(start + tileY * 6, X1_RECT);
 
+static inline bool checkTile(const BuildingsMap& map, int x, int y) {
+	const BuildingType type = map.getBuildingType(TileCoord(x, y));
+	return type >= BuildingType::ROUTER && type <= BuildingType::RAIL_BOLT_FACTORY;
+}
+
 void ShieldedConveyer::draw(sf::RenderWindow& window)
 {
 	using namespace sf::Literals;
@@ -27,7 +32,7 @@ void ShieldedConveyer::draw(sf::RenderWindow& window)
 	switch (direction)
 	{
 	case 'w':
-		if (map.getBuildingDirection(TileCoord(tile.x, tile.y + 1)) == 'w')
+		if (map.getBuildingDirection(TileCoord(tile.x, tile.y + 1)) == 'w' || checkTile(map, tile.x, tile.y + 1))
 		{
 			if (map.getBuildingDirection(TileCoord(tile.x + 1, tile.y)) == 'a')
 				if (map.getBuildingDirection(TileCoord(tile.x - 1, tile.y)) == 'd')
@@ -56,7 +61,7 @@ void ShieldedConveyer::draw(sf::RenderWindow& window)
 		break;
 
 	case 'a':
-		if (map.getBuildingDirection(TileCoord(tile.x + 1, tile.y)) == 'a')
+		if (map.getBuildingDirection(TileCoord(tile.x + 1, tile.y)) == 'a' || checkTile(map, tile.x + 1, tile.y))
 		{
 			if (map.getBuildingDirection(TileCoord(tile.x, tile.y - 1)) == 's')
 				if (map.getBuildingDirection(TileCoord(tile.x, tile.y + 1)) == 'w')
@@ -86,7 +91,7 @@ void ShieldedConveyer::draw(sf::RenderWindow& window)
 		break;
 
 	case 's':
-		if (map.getBuildingDirection(TileCoord(tile.x, tile.y - 1)) == 's')
+		if (map.getBuildingDirection(TileCoord(tile.x, tile.y - 1)) == 's' || checkTile(map, tile.x, tile.y - 1))
 		{
 			if (map.getBuildingDirection(TileCoord(tile.x - 1, tile.y)) == 'd')
 				if (map.getBuildingDirection(TileCoord(tile.x + 1, tile.y)) == 'a')
@@ -116,7 +121,7 @@ void ShieldedConveyer::draw(sf::RenderWindow& window)
 		break;
 
 	case 'd':
-		if (map.getBuildingDirection(TileCoord(tile.x - 1, tile.y)) == 'd')
+		if (map.getBuildingDirection(TileCoord(tile.x - 1, tile.y)) == 'd' || checkTile(map, tile.x - 1, tile.y))
 		{
 			if (map.getBuildingDirection(TileCoord(tile.x, tile.y + 1)) == 'w')
 				if (map.getBuildingDirection(TileCoord(tile.x, tile.y - 1)) == 's')
