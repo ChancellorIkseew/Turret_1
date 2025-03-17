@@ -4,17 +4,23 @@
 
 #include <map>
 #include "game_interface/ui_window/ui_window/ui_window.h"
+#include "game_interface/ui_window/elements/button/button.h"
 #include "game_interface/ui_window/sub_win_types/text_field/text_field.h"
 
 class SettingsWindow : public UIWindow
 {
 private:
-	std::map<int, TextField> fields;
+	Button exit;
+	Button confirm;
 
+	std::map<int, TextField> fields;
+	sf::Text tResolution = sf::Text(turretClassic);
+	sf::Text tMinimap = sf::Text(turretClassic);
 
 	SettingsWindow(const SettingsWindow&) = delete;
 	SettingsWindow& operator=(const SettingsWindow&) = delete;
 	void prepareInterfaceSprites() override final;
+	void aply();
 
 public:
 	SettingsWindow();

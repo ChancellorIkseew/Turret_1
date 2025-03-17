@@ -2,6 +2,7 @@
 #include "minimap.h"
 #include "map_structures/world/world.h"
 #include "game_interface/ui_window/sub_win_util/fonts.h"
+#include "game_interface/settings/settings.h"
 #include <mutex>
 
 static std::mutex minimap;
@@ -23,7 +24,7 @@ void Minimap::initMapSize(const TileCoord mapSize)
 
 void Minimap::interact(const World& world)
 {
-	if (!isVisible)
+	if (!isVisible || !Settings::getGui().showMinimap)
 		return;
 	const BuildingsMap& buildingsMap = world.getBuildingsMap();
 	const BlueprintsMap& blueprintsMap = world.getBlueprintsMap();
@@ -66,7 +67,7 @@ void Minimap::relocate(const sf::Vector2i windowSize)
 
 void Minimap::draw(sf::RenderWindow& window)
 {
-	if (!isVisible)
+	if (!isVisible || !Settings::getGui().showMinimap)
 		return;
 	drawBase(window);
 	std::lock_guard<std::mutex> guard(minimap);

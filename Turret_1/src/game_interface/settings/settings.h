@@ -17,7 +17,9 @@ public:
 	static void save();
 	static void load();
 
-	static const DisplaySettings& getDisplay() { return display; }
+	static DisplaySettings& getDisplay() { return display; }
+	static GuiSettings& getGui() { return gui; }
+	static SavingSettings& getSaving() { return saving; }
 	static void getGraphics() { }
 	static void getAudio() { }
 

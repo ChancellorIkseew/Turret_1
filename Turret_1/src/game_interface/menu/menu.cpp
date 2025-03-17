@@ -61,6 +61,7 @@ GameState openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string
 					settingsWindow.setVisible(true);
 					settingsWindow.interact(isMenuOpen);
 					settingsWindow.setVisible(false);
+					menuTab = GameState::MAIN_MENU;
 					break;
 				case GameState::EXIT:
 					exit = true;
