@@ -31,15 +31,16 @@ void Balance::giveStartRes(const std::map<ResType, uint32_t>& startRes)
 	balance = startRes;
 }
 
+static uint32_t applyModifier(uint32_t price, float modifier) {
+	return static_cast<uint32_t>(static_cast<float>(price) * modifier);
+}
 
 bool Balance::isEnough(const AllResources& expenses) const
 {
 	const float modifier = world->getPreSettings().getBuildings().expensesModifier;
 	for (const auto& [res, amount] : expenses.allResources)
 	{
-		const uint32_t price = expenses.allResources.find(res)->second;
-		const uint32_t priceModified = static_cast<uint32_t>(static_cast<float>(price) * modifier);
-		if (balance.allResources.find(res)->second < priceModified)
+		if (balance.allResources.find(res)->second < applyModifier(amount, modifier))
 			return false;
 	}
 	return true;
@@ -51,8 +52,6 @@ void Balance::waste(const AllResources& expenses)
 	const float modifier = world->getPreSettings().getBuildings().expensesModifier;
 	for (auto& [res, amount] : expenses.allResources)
 	{
-		const uint32_t price = expenses.allResources.find(res)->second;
-		const uint32_t priceModified = static_cast<uint32_t>(static_cast<float>(price) * modifier);
-		balance.allResources.find(res)->second -= price;
+		balance.allResources.find(res)->second -= applyModifier(amount, modifier);
 	}
 }
