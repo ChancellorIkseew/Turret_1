@@ -22,25 +22,18 @@ BuildingsMap::BuildingsMap(const TileCoord mapSize) : mapSize(mapSize)
 }
 
 
-bool BuildingsMap::buildingExists(const int tileX, const int tileY) const
-{
+bool BuildingsMap::buildingExists(const int tileX, const int tileY) const {
 	return (tileX >= 0 && tileX < mapSize.x && tileY >= 0 && tileY < mapSize.y &&
 		buildingsMap[tileX][tileY] != nullptr);
 }
-
-bool BuildingsMap::isVoidBuilding(const int tileX, const int tileY) const
-{
+bool BuildingsMap::isVoidBuilding(const int tileX, const int tileY) const {
 	return (tileX >= 0 && tileX < mapSize.x && tileY >= 0 && tileY < mapSize.y &&
 		buildingsMap[tileX][tileY] == nullptr);
 }
-
-bool BuildingsMap::buildingExists(const TileCoord tile) const
-{
+bool BuildingsMap::buildingExists(const TileCoord tile) const {
 	return buildingExists(tile.x, tile.y);
 }
-
-bool BuildingsMap::isVoidBuilding(const TileCoord tile) const
-{
+bool BuildingsMap::isVoidBuilding(const TileCoord tile) const {
 	return isVoidBuilding(tile.x, tile.y);
 }
 

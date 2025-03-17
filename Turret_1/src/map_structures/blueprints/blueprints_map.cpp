@@ -55,7 +55,6 @@ TileCoord BlueprintsMap::getMainTile(const TileCoord tile) const
 
 void BlueprintsMap::createBlueprint(const TileCoord mainTile, const BuildingType type, const char direction)
 {
-	std::cout << "create\n";
 	map(mainTile) = Blueprint(type, direction);
 	const uint8_t size = t1::bc::buildingsInfoTable.at(type).size;
 	TileCoord tile;
