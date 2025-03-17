@@ -21,11 +21,15 @@ struct BuildingInfo
 	sf::String description;
 };
 
-namespace t1::bc
+class BuildingsInfoTable
 {
-	extern std::map<BuildingType, const BuildingInfo> buildingsInfoTable;
+private:
+	static std::map<BuildingType, const BuildingInfo> table;
 
-	void addBuildingsInfo(uint16_t type, const BuildingInfo info);
-}
+public:
+	static const BuildingInfo at(const BuildingType type);
+	static bool exists(const BuildingType type);
+	static void addBuildingsInfo(const BuildingType type, const BuildingInfo info);
+};
 
 #endif // BUILDINGS_INFO

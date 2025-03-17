@@ -20,13 +20,14 @@
 #include "map_structures/buildings/building_types/factories/factory_types/shell_factory.h"
 #include "map_structures/buildings/building_types/factories/factory_types/rocket_factory.h"
 
+using Info = BuildingsInfoTable;
 
 std::shared_ptr<Building> Building::createBuilding(const BuildingType type, const char direction, const TileCoord tile, Team* const team)
 {
-	const int16_t durability = t1::bc::buildingsInfoTable[type].durability;
+	const int16_t durability = Info::at(type).durability;
 	const float modifier = world->getPreSettings().getBuildings().maxDurabilityModifier;
 	const int16_t durabilityModified = static_cast<int16_t>(static_cast<float>(durability) * modifier);
-	const uint8_t size = t1::bc::buildingsInfoTable[type].size;
+	const uint8_t size = Info::at(type).size;
 
 	switch (type)
 	{

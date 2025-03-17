@@ -8,7 +8,7 @@
 #include "map_structures/resources/res_enum.h"
 #include "map_structures/pre-settings/pre-settings.h"
 
-
+using Info = BuildingsInfoTable;
 BuildingInfo SpecificationPanel::nullInfo = { L" ", 0, 0, {0, 0, 0, 0, 0, 0}, sf::IntRect({0, 0}, {0, 0}), L" " };
 
 SpecificationPanel::SpecificationPanel() : UIWindow(sf::Vector2i(340, 400))
@@ -44,11 +44,11 @@ void SpecificationPanel::prepareInterfaceSprites()
 
 
 
-void SpecificationPanel::interact(const BuildingType index, const BuildingsPre& buildingsPre)
+void SpecificationPanel::interact(const BuildingType type, const BuildingsPre& buildingsPre)
 {
     if (!isVisible)
         return;
-    buildingInfo = t1::bc::buildingsInfoTable[index];
+    buildingInfo = Info::at(type);
     title.setString(buildingInfo.buildingTitle);
 
     std::ostringstream strDurability;

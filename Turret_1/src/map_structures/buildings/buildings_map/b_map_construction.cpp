@@ -6,7 +6,7 @@
 #include "map_structures/buildings/building/buildings_info.h"
 #include "map_structures/team/team.h"
 
-#define info t1::bc::buildingsInfoTable
+using Info = BuildingsInfoTable;
 
 static inline bool isCore(const BuildingType type) {
 	return type >= BuildingType::CORE_MK1 && type <= BuildingType::CORE_MK3;
@@ -25,12 +25,10 @@ void BuildingsMap::createAuxilary(const uint8_t size, const TileCoord mainTile, 
 
 void BuildingsMap::constructBuilding(const BuildingType type, const char direction, const TileCoord tile, Team* team)
 {
-	if (!info.count(type)) // not contains
-		return;
-	if (!team->getBalance().isEnough(info[type].costToBuild))
+	if (!Info::exists(type) || !team->getBalance().isEnough(Info::at(type).costToBuild))
 		return;
 	if (placeBuilding(type, direction, tile, team))
-		team->getBalance().waste(info[type].costToBuild);
+		team->getBalance().waste(Info::at(type).costToBuild);
 }
 
 
@@ -40,7 +38,7 @@ bool BuildingsMap::placeBuilding(const BuildingType type, const char direction, 
 		return false;
 	auto building = Building::createBuilding(type, direction, tile, team);
 	buildingsMap[tile.x][tile.y] = building;
-	createAuxilary(info[type].size, tile, team);
+	createAuxilary(Info::at(type).size, tile, team);
 	justChangedTiles.push_back(tile);
 	if (isCore(type))
 		cores.emplace_back(building);
@@ -50,7 +48,9 @@ bool BuildingsMap::placeBuilding(const BuildingType type, const char direction, 
 
 bool BuildingsMap::isAvaluablePlaceBuilding(const BuildingType type, const TileCoord tile, Team* team) const
 {
-	uint8_t size = info[type].size;
+	if (!Info::exists(type))
+		return false;
+	uint8_t size = Info::at(type).size;
 	for (uint8_t i = 0; i < size; i++) // cheeck_square_for_place
 	{
 		TileCoord cheekTile = tile + t1::be::coordSquareArr[i];

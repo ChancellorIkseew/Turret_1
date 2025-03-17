@@ -9,6 +9,7 @@
 
 void BuildingsMap::setTurret(const BuildingType turretType, const TileCoord tile, Team* team)
 {
+	/*
 	if (t1::bc::buildingsInfoTable.find(turretType) == t1::bc::buildingsInfoTable.end() || !buildingExists(tile) ||
 		(buildingsMap[tile.x][tile.y]->getType() != BuildingType::STONE_TOWER && buildingsMap[tile.x][tile.y]->getType() != BuildingType::STEEL_TOWER))
 		return;
@@ -19,6 +20,7 @@ void BuildingsMap::setTurret(const BuildingType turretType, const TileCoord tile
 		Tower* tower = static_cast<Tower*>(buildingsMap[tile.x][tile.y].get());
 		tower->setTurret(turretType);
 	}
+	*/
 }
 
 void BuildingsMap::removeTurret(const TileCoord tile)

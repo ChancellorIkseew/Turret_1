@@ -31,7 +31,7 @@ public:
 	SpecificationPanel();
 	~SpecificationPanel() = default;
 
-	void interact(const BuildingType index, const BuildingsPre& buildingsPre);
+	void interact(const BuildingType type, const BuildingsPre& buildingsPre);
 	void relocate(const sf::Vector2i windowSize) override final;
 
 	void draw(sf::RenderWindow& window) override final;

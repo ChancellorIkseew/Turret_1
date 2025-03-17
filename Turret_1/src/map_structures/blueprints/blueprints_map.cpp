@@ -4,8 +4,9 @@
 #include "map_structures/buildings/building/buildings_info.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 
+using Info = BuildingsInfoTable;
 #define map(tileForMap) blueprintsMap[tileForMap.x][tileForMap.y]
-#define info(tileForInfo) t1::bc::buildingsInfoTable.at(map(tileForInfo).type)
+#define info(tileForInfo) Info::at(map(tileForInfo).type)
 
 BlueprintsMap::BlueprintsMap(const TileCoord mapSize) : mapSize(mapSize)
 {
@@ -30,7 +31,7 @@ bool BlueprintsMap::isMainTile(const TileCoord tile) const {
 
 bool BlueprintsMap::isAvaluablePlaceBlueprint(const BuildingType type, const TileCoord mainTile) const
 {
-	const uint8_t size = t1::bc::buildingsInfoTable.at(type).size;
+	const uint8_t size = Info::at(type).size;
 	TileCoord checkTile;
 	for (uint8_t i = 0; i < size; ++i)
 	{
@@ -56,7 +57,7 @@ TileCoord BlueprintsMap::getMainTile(const TileCoord tile) const
 void BlueprintsMap::createBlueprint(const TileCoord mainTile, const BuildingType type, const char direction)
 {
 	map(mainTile) = Blueprint(type, direction);
-	const uint8_t size = t1::bc::buildingsInfoTable.at(type).size;
+	const uint8_t size = Info::at(type).size;
 	TileCoord tile;
 	for (uint8_t i = 1; i < size; ++i)
 	{
@@ -78,7 +79,7 @@ void BlueprintsMap::deleteBlueprint(const TileCoord mainTile)
 
 void BlueprintsMap::placeBlueprint(const BuildingsMap& buildingsMap, const BuildingType type, const char direction, const TileCoord tile)
 {
-	if (!tileExists(tile))
+	if (!tileExists(tile) || !Info::exists(type))
 		return;
 	const bool remove = type == BuildingType::REMOVE;
 	const bool build = buildingsMap.isAvaluablePlaceBuilding(type, tile, player);

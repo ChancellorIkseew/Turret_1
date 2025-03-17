@@ -8,7 +8,7 @@
 #include "map_structures/resources/res_enum.h"
 #include "map_structures/pre-settings/pre-settings.h"
 
-
+using Info = BuildingsInfoTable;
 BuildingInfo ExpensesPanel::nullInfo = { L" ", 0, 0, {0, 0, 0, 0, 0, 0}, sf::IntRect({0, 0}, {0, 0}), L" " };
 
 ExpensesPanel::ExpensesPanel() : UIWindow(sf::Vector2i(225, 120))
@@ -37,7 +37,7 @@ void ExpensesPanel::interact(const BuildingType index, const BuildingsPre& build
 {
     if (!isVisible)
         return;
-    buildingInfo = t1::bc::buildingsInfoTable[index];
+    buildingInfo = Info::at(index);
     title.setString(buildingInfo.buildingTitle);
     for (auto& [type, info] : resInfo)
     {

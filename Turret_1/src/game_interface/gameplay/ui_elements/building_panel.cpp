@@ -18,6 +18,7 @@
 #include "t1_system/sleep.h"
 
 using namespace sf::Literals;
+using Info = BuildingsInfoTable;
 constexpr float _F_HALF_TILE_ = static_cast<float>(_HALF_TILE_);
 constexpr sf::Vector2f BLUEPRINT_ORIGIN = sf::Vector2f(_F_HALF_TILE_, _F_HALF_TILE_);
 
@@ -222,7 +223,7 @@ void BuildingPanel::selectBuildingType(BuildingIco& ico)
 		return;
 	}
 	buildingType = type;
-	buildExample.setTextureRect(t1::bc::buildingsInfoTable[buildingType].icoRect);
+	buildExample.setTextureRect(Info::at(buildingType).icoRect);
 }
 
 
@@ -254,5 +255,5 @@ void BuildingPanel::pickBuildingType(const BuildingsMap& buildingsMap, const Blu
 	if (type == BuildingType::VOID_)
 		type = buildingsMap.getBuildingType(selectedTile);
 	buildingType = type;
-	buildExample.setTextureRect(t1::bc::buildingsInfoTable[buildingType].icoRect);
+	buildExample.setTextureRect(Info::at(buildingType).icoRect);
 }

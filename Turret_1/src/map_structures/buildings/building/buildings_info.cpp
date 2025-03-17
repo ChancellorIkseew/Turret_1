@@ -3,7 +3,7 @@
 #include "buildings_enum.h"
 #include "map_structures/base_engine/base_engine.h"
 
-std::map<BuildingType, const BuildingInfo> t1::bc::buildingsInfoTable
+std::map<BuildingType, const BuildingInfo> BuildingsInfoTable::table
 {
 	std::pair<BuildingType, const BuildingInfo>
 
@@ -65,8 +65,17 @@ std::map<BuildingType, const BuildingInfo> t1::bc::buildingsInfoTable
 	L"Вырабатывает энергию \n(временно выведен из игры, \nпри установке вызовет вылет)"} },
 };
 
+const BuildingInfo BuildingsInfoTable::at(const BuildingType type)
+{
+	return table[type];
+}
 
-void t1::bc::addBuildingsInfo(uint16_t type, const BuildingInfo info)
+bool BuildingsInfoTable::exists(const BuildingType type)
+{
+	return table.count(type);
+}
+
+void BuildingsInfoTable::addBuildingsInfo(const BuildingType type, const BuildingInfo info)
 {
 
 }

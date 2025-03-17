@@ -6,20 +6,21 @@
 #include "t1_system/input/input_handler.h"
 #include "t1_system/sleep.h"
 
+using Info = BuildingsInfoTable;
 
 BuildingIco::BuildingIco(const BuildingType buildingType, const sf::Vector2i position) :
 	position(position), buildingType(buildingType)
 {
-	this->icoRect = t1::bc::buildingsInfoTable[buildingType].icoRect;
-	scale = 1.0f / sqrt(t1::bc::buildingsInfoTable[buildingType].size);
+	this->icoRect = Info::at(buildingType).icoRect;
+	scale = 1.0f / sqrt(Info::at(buildingType).size);
 	ico.setOrigin({ 0.0f, 0.0f });
 }
 
 BuildingIco::BuildingIco(const BuildingType buildingType) :
 	buildingType(buildingType)
 {
-	this->icoRect = t1::bc::buildingsInfoTable[buildingType].icoRect;
-	scale = 1.0f / sqrt(t1::bc::buildingsInfoTable[buildingType].size);
+	this->icoRect = Info::at(buildingType).icoRect;
+	scale = 1.0f / sqrt(Info::at(buildingType).size);
 
 	ico.setTexture(texture);
 	ico.setOrigin({ 0.0f, 0.0f });
