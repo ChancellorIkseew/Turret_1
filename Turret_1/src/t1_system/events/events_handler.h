@@ -21,8 +21,7 @@ public:
 	static void clearEvents() noexcept;
 	static void pollSimulationEvents();
 
-	static bool active(const t1::EventType eventType) noexcept;
-	static void init();
+	static bool active(const t1::EventType eventType);
 };
 
 #endif // T1_SYSTEM_EVENTS_HANDLER_H

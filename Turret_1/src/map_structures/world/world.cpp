@@ -63,7 +63,10 @@ void World::simulate()
 		team->interact(buildingsMap);
 	particles.interact();
 	time.timeRun(1);
-	EventsHandler::pollSimulationEvents();
+	EventsHandler::clearEvents();
+	buildingsMap.pushChanges();
+	//  for (auto& [teamID, team] : teams)
+	//		team->pushChanges();
 }
 
 void World::draw(sf::RenderWindow& window, const Camera& camera)

@@ -22,17 +22,7 @@ void EventsHandler::pollSimulationEvents()
 	}
 }
 
-
-bool EventsHandler::active(const t1::EventType eventType) noexcept
+bool EventsHandler::active(const t1::EventType eventType)
 {
 	return events.count(eventType) && events.at(eventType)->active;
 }
-
-
-void EventsHandler::init()
-{
-	using namespace t1;
-
-	events.emplace(EventType::MAP_CHANGED, std::unique_ptr<MapChanged>());
-
-};

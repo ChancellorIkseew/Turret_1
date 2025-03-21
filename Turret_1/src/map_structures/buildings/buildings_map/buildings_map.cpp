@@ -61,7 +61,6 @@ void BuildingsMap::intetract()
 				building->interact();
 		}
 	}
-	pushChanges();
 }
 
 void BuildingsMap::pushChanges()

@@ -26,7 +26,6 @@ private:
 	std::vector<TileCoord> justChangedTiles;
 	
 	void createAuxilary(const uint8_t size, const TileCoord mainTile, Team* team);
-	void pushChanges();
 
 public:
 	BuildingsMap(const TileCoord mapSize);
@@ -37,6 +36,7 @@ public:
 	void load(cereal::BinaryInputArchive& archive);
 	
 	void intetract();
+	void pushChanges();
 	const std::vector<std::shared_ptr<Building>>& getCores() const;
 
 	// Construction_process

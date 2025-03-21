@@ -2,6 +2,7 @@
 #include "game_interface/gameplay/gameplay.h"
 
 #include "t1_system/sleep.h"
+#include "t1_system/events/events_handler.h"
 #include "game_interface/gameplay/gameplay_util/wave_constructor.h"
 #include "game_interface/gameplay/ui_elements/resources_panel.h"
 
@@ -25,4 +26,5 @@ void Gameplay::simulation()
         resourcesPanel.interact(*player);
         t1::system::sleep(TICK / tickSpeed.load(std::memory_order_relaxed));
     }
+    EventsHandler::clearEvents();
 }
