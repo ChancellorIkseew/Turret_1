@@ -10,34 +10,34 @@ constexpr int MINIMAL_INT = std::numeric_limits<int>::lowest();
 struct TileCoord
 {
 	int x = 0, y = 0;
-
+	
 	TileCoord() = default;
 	TileCoord(const int x, const int y) : x(x), y(y) {}
 	constexpr TileCoord(const int x, const int y, const char cExprFlag) : x(x), y(y) {}
-
+	
 	void save(cereal::BinaryOutputArchive& archive) const { archive(x, y); }
 	void load(cereal::BinaryInputArchive& archive) { archive(x, y); }
-
+	
 	bool valid() const { return x > MINIMAL_INT; }
-
+	
 	bool operator==(const TileCoord& rhs) const {
-		return { x == rhs.x && y == rhs.y };
+		return x == rhs.x && y == rhs.y;
 	}
 	bool operator!=(const TileCoord& rhs) const {
-		return { x != rhs.x || y != rhs.y };
+		return x != rhs.x || y != rhs.y;
 	}
-
+	
 	TileCoord operator+(const TileCoord& rhs) const {
-		return { x + rhs.x, y + rhs.y };
+		return TileCoord(x + rhs.x, y + rhs.y);
 	}
 	TileCoord operator-(const TileCoord& rhs) const {
-		return { x - rhs.x, y - rhs.y };
+		return TileCoord(x - rhs.x, y - rhs.y);
 	}
 	TileCoord operator*(const int value) const {
-		return { x * value, y * value };
+		return TileCoord(x * value, y * value);
 	}
 	TileCoord operator/(const int value) const {
-		return { x / value, y / value };
+		return TileCoord(x / value, y / value);
 	}
 };
 

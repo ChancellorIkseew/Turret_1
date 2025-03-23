@@ -11,7 +11,6 @@
 #include "terrain_enum.h"
 #include "terrain_generator.h"
 #include "map_structures/pre-settings/pre-settings.h"
-#include "map_structures/base_engine/base_engine.h"
 
 #include "game_interface/gameplay/gameplay_util/camera.h"
 
@@ -54,43 +53,57 @@ void TerrainMap::prepareSprites()
 	terrainImage.loadFromFile("images/terrain.bmp");
 	terrainTexture.loadFromImage(terrainImage);
 }
-	
-void TerrainMap::draw(sf::RenderWindow& window, const Camera& camera)
-{
+
+
+static TileCoord cameraStart, cameraEnd;
+constexpr sf::Color WHITE = sf::Color::White;
+
+void TerrainMap::draw(sf::RenderWindow& window, const Camera& camera) {
 	const TileCoord start = camera.getStartTile();
 	const TileCoord end = camera.getEndTile();
-
-	for (int y = start.y; y < end.y; ++y)
+	if (cameraStart != start || cameraEnd != end)
 	{
-		for (int x = start.x; x < end.x; ++x)
-		{
-			switch (*terrainMap[x][y])
-			{
-			case TILE_GROUND:
-				mapSprite.setTextureRect(sf::IntRect(sf::Vector2i(0, 0), X1_RECT));	//void
-				break;
-			case TILE_STONE:
-				mapSprite.setTextureRect(sf::IntRect(sf::Vector2i(32, 0), X1_RECT));	//stone
-				break;
-			case TILE_IRON:
-				mapSprite.setTextureRect(sf::IntRect(sf::Vector2i(64, 0), X1_RECT));	//iron
-				break;
-			case TILE_COPPER:
-				mapSprite.setTextureRect(sf::IntRect(sf::Vector2i(96, 0), X1_RECT));	//copper
-				break;
-			case TILE_SILICON:
-				mapSprite.setTextureRect(sf::IntRect(sf::Vector2i(0, 32), X1_RECT));	//silicon
-				break;
-			case TILE_COAL:
-				mapSprite.setTextureRect(sf::IntRect(sf::Vector2i(32, 32), X1_RECT));	//coal
-				break;
-			case TILE_SULFUR:
-				mapSprite.setTextureRect(sf::IntRect(sf::Vector2i(64, 32), X1_RECT));	//sulfur
-				break;
-			}
+		cameraStart = start;
+		cameraEnd = end;
+		sf::Vector2f textureCoord;
+		for (auto& [_, vertexArray] : tileVertexArrays)
+			vertexArray.clear();
 
-			mapSprite.setPosition(sf::Vector2f(static_cast<float>(x * _TILE_), static_cast<float>(y * _TILE_)));
-			window.draw(mapSprite);
+		for (int y = start.y; y < end.y; ++y)
+		{
+			for (int x = start.x; x < end.x; ++x)
+			{
+				const int tileType = *terrainMap[x][y];
+				if (tileVertexArrays.find(tileType) == tileVertexArrays.end())
+					tileVertexArrays[tileType] = sf::VertexArray(sf::PrimitiveType::Triangles);
+
+				const int xPos = x * _TILE_;
+				const int yPos = y * _TILE_;
+
+				switch (tileType)
+				{
+				case TILE_GROUND:   textureCoord = sf::Vector2f(0.0f, 0.0f);   break;
+				case TILE_STONE:    textureCoord = sf::Vector2f(32.0f, 0.0f);  break;
+				case TILE_IRON:     textureCoord = sf::Vector2f(64.0f, 0.0f);  break;
+				case TILE_COPPER:   textureCoord = sf::Vector2f(96.0f, 0.0f);  break;
+				case TILE_SILICON:  textureCoord = sf::Vector2f(0.0f, 32.0f);  break;
+				case TILE_COAL:     textureCoord = sf::Vector2f(32.0f, 32.0f); break;
+				case TILE_SULFUR:   textureCoord = sf::Vector2f(64.0f, 32.0f); break;
+				default:			textureCoord = sf::Vector2f(0.0f, 0.0f);   break;
+				}
+
+				sf::VertexArray& currentVA = tileVertexArrays[tileType];
+				currentVA.append({ sf::Vector2f(xPos, yPos), WHITE, textureCoord });
+				currentVA.append({ sf::Vector2f(xPos + _TILE_, yPos),  WHITE, sf::Vector2f(textureCoord.x + _TILE_, textureCoord.y) });
+				currentVA.append({ sf::Vector2f(xPos + _TILE_, yPos + _TILE_),  WHITE, sf::Vector2f(textureCoord.x + _TILE_, textureCoord.y + _TILE_) });
+				currentVA.append({ sf::Vector2f(xPos, yPos), sf::Color::White, textureCoord });
+				currentVA.append({ sf::Vector2f(xPos + _TILE_, yPos + _TILE_),  WHITE, sf::Vector2f(textureCoord.x + _TILE_, textureCoord.y + _TILE_) });
+				currentVA.append({ sf::Vector2f(xPos, yPos + _TILE_),  WHITE, sf::Vector2f(textureCoord.x, textureCoord.y + _TILE_) });
+			}
 		}
 	}
+	sf::RenderStates states;
+	states.texture = &terrainTexture;
+	for (auto& [_, vertexArray] : tileVertexArrays)
+		window.draw(vertexArray, states);
 }

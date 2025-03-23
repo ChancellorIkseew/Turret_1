@@ -2,6 +2,7 @@
 #ifndef TERRAIN_MAP_H
 #define TERRAIN_MAP_H
 
+#include <unordered_map>
 #include <SFML\Graphics.hpp>
 #include <cereal/archives/binary.hpp>
 #include "map_structures/base_engine/base_engine.h"
@@ -15,6 +16,7 @@ class TerrainMap
 private:	
 	TileCoord mapSize;
 	std::vector<std::vector<std::unique_ptr<int>>> terrainMap;
+	std::unordered_map<int, sf::VertexArray> tileVertexArrays;
 	
 	static inline sf::Image terrainImage;
 	static inline sf::Texture terrainTexture;
