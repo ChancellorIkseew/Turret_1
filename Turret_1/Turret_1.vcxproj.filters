@@ -234,9 +234,6 @@
     <ClCompile Include="src\map_structures\buildings\buildings_map\b_map_save_load.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="src\map_structures\buildings\buildings_map\b_map_turrets.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="src\map_structures\buildings\buildings_map\buildings_map.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>

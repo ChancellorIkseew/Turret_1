@@ -163,8 +163,7 @@ void BuildingPanel::drawBuildExample(sf::RenderWindow& window, Team* team, const
 	}
 	const sf::Vector2f mouseMapCoord = InputHandler::getMouseMapCoord();
 	TileCoord selectedTile = t1::be::tile(mouseMapCoord.x, mouseMapCoord.y);
-	if (buildingsMap.isAvaluablePlaceBuilding(buildingType, selectedTile, team) ||
-		buildingType == BuildingType::AUTOCANNON_TURRET || buildingType == BuildingType::ROCKET_TURRET)
+	if (buildingsMap.isAvaluablePlaceBuilding(buildingType, selectedTile, team))
 		buildExample.setColor(whiteTransparent);
 	else
 		buildExample.setColor(darkRedTransparent);

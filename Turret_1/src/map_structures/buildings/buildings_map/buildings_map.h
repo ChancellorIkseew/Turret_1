@@ -68,11 +68,6 @@ public:
 	bool canAccept(const ResourceUnit& unit, const TileCoord tile) const;
 	void addToInventory(const ResType resType, const TileCoord tile);
 	void addToInventory(ResourceUnit& unit, const TileCoord tile);
-
-	// turrets
-	void setTurret(const BuildingType turretType, const TileCoord tile, Team* team);
-	void removeTurret(const TileCoord tile);
-	bool isTurretOnTile(const TileCoord tile) const;
 	
 	// Visual
 	void draw(sf::RenderWindow& window, const Camera& camera);

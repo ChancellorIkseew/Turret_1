@@ -209,7 +209,6 @@
     <ClCompile Include="src\map_structures\buildings\buildings_map\b_map_construction.cpp" />
     <ClCompile Include="src\map_structures\buildings\buildings_map\b_map_get_set.cpp" />
     <ClCompile Include="src\map_structures\buildings\buildings_map\b_map_save_load.cpp" />
-    <ClCompile Include="src\map_structures\buildings\buildings_map\b_map_turrets.cpp" />
     <ClCompile Include="src\map_structures\buildings\building\building.cpp" />
     <ClCompile Include="src\map_structures\buildings\building\buildings_info.cpp" />
     <ClCompile Include="src\map_structures\buildings\building\create_building.cpp" />

@@ -15,10 +15,10 @@ std::map<BuildingType, const BuildingInfo> BuildingsInfoTable::table
 	{ BuildingType::STEEL_WALL, { L"Железная стена", 1, 300, {0, 32, 0, 0, 0, 0}, sf::IntRect({32, 480}, X1_RECT),
 	L"Защищает другие постройки."} },
 
-	{ BuildingType::STONE_TOWER, { L"Каменная башня", 1, 100, {20, 4, 0, 0, 0, 0}, sf::IntRect({0, 512}, X1_RECT),
-	L"Платформа для установки \nтурелей.\nЗащищает другие постройки."} },
-	{ BuildingType::STEEL_TOWER, { L"Железная башня", 1, 300, {0, 36, 0, 0, 0, 0}, sf::IntRect({32, 512}, X1_RECT),
-	L"Платформа для установки \nтурелей.\nЗащищает другие постройки."} },
+	//{ BuildingType::STONE_TOWER, { L"Каменная башня", 1, 100, {20, 4, 0, 0, 0, 0}, sf::IntRect({0, 512}, X1_RECT),
+	//L"Платформа для установки \nтурелей.\nЗащищает другие постройки."} },
+	//{ BuildingType::STEEL_TOWER, { L"Железная башня", 1, 300, {0, 36, 0, 0, 0, 0}, sf::IntRect({32, 512}, X1_RECT),
+	//L"Платформа для установки \nтурелей.\nЗащищает другие постройки."} },
 
 	{ BuildingType::CORE_MK1, { L"Ядро mk1", 4, 1000, {400, 200, 300, 180, 0, 100}, sf::IntRect({64, 0}, X2_RECT),
 	L"Ядро. Центр Базы."} },
@@ -56,9 +56,9 @@ std::map<BuildingType, const BuildingInfo> BuildingsInfoTable::table
 	{ BuildingType::ROCKET_FACTORY, { L"Завод ракет", 9, 800, {160, 240, 100, 90, 0, 0}, sf::IntRect({0, 384}, X3_RECT),
 	L"Производит ракеты."} },
 
-	{ BuildingType::AUTOCANNON_TURRET, { L"Автопушечная турель", 1, 0, {0, 12, 6, 2, 0, 0}, sf::IntRect({0, 544}, X1_RECT),
+	{ BuildingType::AUTOCANNON_TURRET, { L"Автопушечная турель", 1, 0, {20, 16, 6, 2, 0, 0}, sf::IntRect({0, 544}, X1_RECT),
 	L"Стреляет мальеними \nснарядами с высокой \nскорострельностью."} },
-	{ BuildingType::ROCKET_TURRET, { L"Ракетная турель", 1, 0, {0, 10, 6, 5, 0, 0}, sf::IntRect({32, 544}, X1_RECT),
+	{ BuildingType::ROCKET_TURRET, { L"Ракетная турель", 1, 0, {20, 14, 6, 5, 0, 0}, sf::IntRect({32, 544}, X1_RECT),
 	L"Стреляет ракетами с \nбольшим радиусом \nвзрыва."} },
 
 	{ BuildingType::COAL_GENERATOR, { L"Генератор", 1, 15, {5, 10, 5, 0, 0, 0}, sf::IntRect({0, 0}, X2_RECT),

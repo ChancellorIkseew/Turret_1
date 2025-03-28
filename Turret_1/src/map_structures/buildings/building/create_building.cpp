@@ -48,13 +48,19 @@ std::shared_ptr<Building> Building::createBuilding(const BuildingType type, cons
 	case BuildingType::URANIUM_WALL:
 		break;*/
 
-	case BuildingType::STONE_TOWER:
-		return std::make_shared<StoneTower>(durabilityModified, size, tile, team);/*
-	case BuildingType::CONCRETE_TOWER:
-		break;
-	case BuildingType::URANIUM_TOWER:
-		break;*/
-
+	case BuildingType::AUTOCANNON_TURRET:
+	{
+		std::shared_ptr<StoneTower> tower = std::make_shared<StoneTower>(durabilityModified, size, tile, team);
+		tower->setTurret(BuildingType::AUTOCANNON_TURRET);
+		return tower;
+	}
+	case BuildingType::ROCKET_TURRET:
+	{
+		std::shared_ptr<StoneTower> tower = std::make_shared<StoneTower>(durabilityModified, size, tile, team);
+		tower->setTurret(BuildingType::ROCKET_TURRET);
+		return tower;
+	}
+		
 	case BuildingType::STANDARD_CONVEYER:
 		return std::make_shared<StandardConveyer>(direction, durabilityModified, size, tile, team);
 	case BuildingType::SHIELDED_CONVEYER:

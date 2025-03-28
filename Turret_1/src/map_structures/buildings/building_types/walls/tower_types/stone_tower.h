@@ -12,7 +12,7 @@ public:
 	StoneTower() = default;
 	~StoneTower() = default;
 
-	BuildingType getType() const override final { return BuildingType::STONE_TOWER; }
+	BuildingType getType() const override final { return BuildingType::AUTOCANNON_TURRET; }
 
 	void draw(sf::RenderWindow& window) override final;
 
