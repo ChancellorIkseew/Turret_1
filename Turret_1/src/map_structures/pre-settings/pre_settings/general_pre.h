@@ -24,7 +24,7 @@ public:
 	{
 		auto table = cpptoml::make_table();
 		table->insert("game-mode", static_cast<uint8_t>(gameMode));
-		root->insert("buildings", table);
+		root->insert("general", table);
 	}
 
 	void load(std::shared_ptr<cpptoml::table> root)
