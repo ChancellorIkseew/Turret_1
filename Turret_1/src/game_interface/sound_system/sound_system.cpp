@@ -1,6 +1,8 @@
 
 #include "sound_system.h"
+#include <mutex>
 
+static std::mutex soundsMutex;
 
 void SoundSystem::loadSounds()
 {
@@ -19,20 +21,18 @@ void SoundSystem::startMusic()
 
 void SoundSystem::pushSound(const SoundType type, const TileCoord tile)
 {
+	std::lock_guard<std::mutex> guard(soundsMutex);
 	preSounds.emplace_back(type, tile);
 }
 
 void SoundSystem::pushNewSounds(const Camera& camera)
 {
-	const TileCoord start = camera.getStartTile();
-	const TileCoord end = camera.getEndTile();
+	std::lock_guard<std::mutex> guard(soundsMutex);
 	std::unordered_set<SoundType> newSounds;
 	for (const auto& it : preSounds)
 	{
-		if (it.tile.x < start.x || it.tile.x > end.x || it.tile.y < start.y || it.tile.y > end.y)
-			continue;
-		if (newSounds.count(it.type))
-			continue;
+		if (!camera.contains(it.tile) || newSounds.count(it.type))
+			continue;	
 		newSounds.insert(it.type);
 		sounds.push_back(SoundSystem::createSound(it.type));
 		sounds.back().play();

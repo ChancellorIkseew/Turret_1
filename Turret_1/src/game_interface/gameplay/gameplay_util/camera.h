@@ -29,6 +29,7 @@ private:
 	void resize(const sf::RenderWindow& window);
 	void updateMapRegion(const sf::RenderWindow& window);
 
+	TileCoord buildingsStartTile;
 	TileCoord startTile;
 	TileCoord endTile;
 
@@ -38,9 +39,17 @@ public:
 
 	void interact(const sf::RenderWindow& window, Entity* controlledEntity, const bool& isPaused);
 
+	///@brief applies correction for building max size
+	TileCoord getBuildingsStartTile() const { return buildingsStartTile; }
 	TileCoord getStartTile() const { return startTile; }
 	TileCoord getEndTile() const { return endTile; }
 	sf::View getView() const { return cameraView; }
+	float getMapScale() const { return mapScale; }
+
+	inline bool contains(const TileCoord tile) const {
+		return	tile.x >= startTile.x && tile.x <= endTile.x &&
+				tile.y >= startTile.y && tile.y <= endTile.y;
+	}
 
 };
 

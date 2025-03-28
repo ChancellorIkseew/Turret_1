@@ -7,7 +7,7 @@
 constexpr float MIN_MAP_SCALE = 0.5f, MAX_MAP_SCALE = 5.0f;
 constexpr float SCALE_FACTOR = 1.2f;
 constexpr float MOTION_SPEED_MODIFIER = 20.0f;
-constexpr int MAX_MAP_STRUCTURE_SIZE = 6;
+constexpr TileCoord MAX_MAP_STRUCTURE_SIZE(6, 6, 'c');
 
 Camera::Camera(const TileCoord mapSize) :
 	windowSize(1024, 720), mapScale(MIN_MAP_SCALE), startTile(0, 0), endTile(0, 0),
@@ -113,8 +113,9 @@ void Camera::updateMapRegion(const sf::RenderWindow& window)
 	using namespace t1::be;
 
 	sf::Vector2f startPixel = window.mapPixelToCoords(sf::Vector2i(0, 0));
-	startTile = TileCoord(tile(startPixel.x) - MAX_MAP_STRUCTURE_SIZE, tile(startPixel.y) - MAX_MAP_STRUCTURE_SIZE);
-	// 6 is max building_line_size. Correction is needed to correct big_buildings drawing.
+	startTile = TileCoord(tile(startPixel.x), tile(startPixel.y));
+	buildingsStartTile = startTile - MAX_MAP_STRUCTURE_SIZE;
+	// Correction is needed to correct big_buildings drawing.
 
 	sf::Vector2f endPixel = window.mapPixelToCoords(sf::Vector2i(window.getSize().x, window.getSize().y));
 	endTile = TileCoord(tile(endPixel.x) + 1, tile(endPixel.y) + 1);
@@ -123,6 +124,11 @@ void Camera::updateMapRegion(const sf::RenderWindow& window)
 		startTile.x = 0;
 	if (startTile.y < 0)
 		startTile.y = 0;
+
+	if (buildingsStartTile.x < 0)
+		buildingsStartTile.x = 0;
+	if (buildingsStartTile.y < 0)
+		buildingsStartTile.y = 0;
 
 	if (endTile.x > tileMapSize.x)
 		endTile.x = tileMapSize.x;

@@ -114,7 +114,7 @@ BuildingType BlueprintsMap::getType(const TileCoord tile) const
 void BlueprintsMap::draw(sf::RenderWindow& window, const Camera& camera)
 {
 	using namespace sf::Literals;
-	const TileCoord start = camera.getStartTile();
+	const TileCoord start = camera.getBuildingsStartTile();
 	const TileCoord end = camera.getEndTile();
 
 	for (int x = start.x; x < end.x; ++x)

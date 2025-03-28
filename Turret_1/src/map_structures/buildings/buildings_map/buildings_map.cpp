@@ -112,7 +112,7 @@ bool BuildingsMap::canAccept(const ResourceUnit& unit, const TileCoord tile) con
 
 void BuildingsMap::draw(sf::RenderWindow& window, const Camera& camera)
 {
-	const TileCoord start = camera.getStartTile();
+	const TileCoord start = camera.getBuildingsStartTile();
 	const TileCoord end = camera.getEndTile();
 
 	for (int x = start.x; x < end.x; ++x)

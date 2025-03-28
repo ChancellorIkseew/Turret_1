@@ -33,9 +33,7 @@ void ParticlesList::draw(sf::RenderWindow& window, const Camera& camera)
 	for (auto& particle : particlesList)
 	{
 		const TileCoord tile = t1::be::tile(particle->getCoord());
-		const TileCoord start = camera.getStartTile() - TileCoord(6, 6);
-		const TileCoord end = camera.getEndTile();
-		if (tile.x >= start.x && tile.x <= end.x && tile.y >= start.y && tile.y <= end.y)
+		if (camera.contains(tile))
 			particle->draw(window);
 	}
 }

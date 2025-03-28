@@ -50,9 +50,7 @@ void ShellsList::draw(sf::RenderWindow& window, const Camera& camera)
 	for (auto& shell : shellsList)
 	{
 		const TileCoord tile = t1::be::tile(shell->getCoord());
-		const TileCoord start = camera.getStartTile();
-		const TileCoord end = camera.getEndTile();
-		if (tile.x >= start.x && tile.x <= end.x && tile.y >= start.y && tile.y <= end.y)
+		if (camera.contains(tile))
 			shell->draw(window);
 	}
 }

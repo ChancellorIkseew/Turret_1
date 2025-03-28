@@ -71,7 +71,7 @@ void MobController::captureEntity(const Team& player)
 	for (auto& entity : entities)
 	{
 		coord = entity->getCoord();
-		if (abs(mouseC.x - coord.x) < _HALF_TILE_ && abs(mouseC.y - coord.y) < _HALF_TILE_)
+		if (t1::be::areCloser(mouseC, coord, static_cast<float>(_HALF_TILE_)))
 		{
 			targetedEntity = entity.get();
 			preveousControlType = targetedEntity->getControlType();
