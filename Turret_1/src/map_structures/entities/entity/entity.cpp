@@ -11,7 +11,6 @@
 
 
 constexpr float BASIC_COLLISION_RADIUS = 30.0f;
-constexpr float MAX_SPEED = 0.1; // temporary desision
 
 Entity::Entity(Team* team) : team(team), reloadTimer(0)
 {
