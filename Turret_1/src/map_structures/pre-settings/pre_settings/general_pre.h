@@ -22,15 +22,16 @@ public:
 
 	void save(std::shared_ptr<cpptoml::table> root) const
 	{
-		auto generalRoot = cpptoml::make_table();
-		generalRoot->insert("quantity-modifier", static_cast<uint8_t>(gameMode));
+		auto table = cpptoml::make_table();
+		table->insert("game-mode", static_cast<uint8_t>(gameMode));
+		root->insert("buildings", table);
 	}
 
 	void load(std::shared_ptr<cpptoml::table> root)
 	{
 		const auto table = root->get_table("general");
 		//
-		gameMode = static_cast<GameMode>(table->get_as<uint8_t>("quantity-modifier").value_or(1));
+		gameMode = static_cast<GameMode>(table->get_as<uint8_t>("game-mode").value_or(1));
 	}
 
 };

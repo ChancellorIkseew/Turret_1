@@ -12,11 +12,11 @@ struct TimerPre
 
 	void save(std::shared_ptr<cpptoml::table> root) const
 	{
-		auto mobsRoot = cpptoml::make_table();
-		mobsRoot->insert("first-wave", firstWave);
-		mobsRoot->insert("normal-wave", normalWave);
-		mobsRoot->insert("boss-wave", bossWave);
-		root->insert("timer", mobsRoot);
+		auto table = cpptoml::make_table();
+		table->insert("first-wave", firstWave);
+		table->insert("normal-wave", normalWave);
+		table->insert("boss-wave", bossWave);
+		root->insert("timer", table);
 	}
 
 	void load(std::shared_ptr<cpptoml::table> root)

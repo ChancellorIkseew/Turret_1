@@ -13,12 +13,12 @@ struct MobsPre
 
 	void save(std::shared_ptr<cpptoml::table> root) const
 	{
-		auto mobsRoot = cpptoml::make_table();
-		mobsRoot->insert("quantity-modifier", quantityModifier);
-		mobsRoot->insert("max-durability-modifier", maxDurabilityModifier);
-		mobsRoot->insert("collision-damage", collisionDamageModifier);
-		mobsRoot->insert("ai-level", virtIntLevel);
-		root->insert("mobs", mobsRoot);
+		auto table = cpptoml::make_table();
+		table->insert("quantity-modifier", quantityModifier);
+		table->insert("max-durability-modifier", maxDurabilityModifier);
+		table->insert("collision-damage", collisionDamageModifier);
+		table->insert("ai-level", virtIntLevel);
+		root->insert("mobs", table);
 	}
 
 	void load(std::shared_ptr<cpptoml::table> root)

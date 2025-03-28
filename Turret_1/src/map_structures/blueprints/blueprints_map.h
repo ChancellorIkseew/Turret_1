@@ -4,6 +4,8 @@
 
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include <cereal/archives/binary.hpp>
+#include <cereal/types/vector.hpp>
 
 #include "map_structures/base_engine/base_engine.h"
 #include "blueprint.h"
@@ -34,6 +36,9 @@ public:
 	BlueprintsMap(const TileCoord mapSize);
 	BlueprintsMap() = default;
 	~BlueprintsMap() = default;
+
+	void save(cereal::BinaryOutputArchive& archive) const { archive(mapSize, blueprintsMap); }
+	void load(cereal::BinaryInputArchive& archive) { archive(mapSize, blueprintsMap); }
 
 	void placeBlueprint(const BuildingsMap& buildingsMap, const BuildingType type, const char direction, const TileCoord tile);
 	void constructBuilding(BuildingsMap& buildingsMap, const TileCoord tile);

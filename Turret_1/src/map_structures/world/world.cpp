@@ -29,7 +29,7 @@ void World::save(const std::string& saveFolderName) const
 	std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
 	std::ofstream fout(saveFileName, std::ios::binary);
 	cereal::BinaryOutputArchive archive(fout);
-	archive(time, nextTeamID, teams, terrainMap, buildingsMap);
+	archive(time, nextTeamID, teams, terrainMap, buildingsMap, blueprintsMap);
 	fout.close();
 }
 
@@ -40,7 +40,7 @@ void World::load(const std::string& saveFolderName)
 	std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
 	std::ifstream fin(saveFileName, std::ios::binary);
 	cereal::BinaryInputArchive archive(fin);
-	archive(time, nextTeamID, teams, terrainMap, buildingsMap);
+	archive(time, nextTeamID, teams, terrainMap, buildingsMap, blueprintsMap);
 	fin.close();
 }
 

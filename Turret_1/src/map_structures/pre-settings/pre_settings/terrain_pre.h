@@ -17,11 +17,11 @@ struct TerrainPre
 
 	void save(std::shared_ptr<cpptoml::table> root) const
 	{
-		auto mobsRoot = cpptoml::make_table();
-		mobsRoot->insert("seed", seed);
-		mobsRoot->insert("map-size-x", mapSize.x);
-		mobsRoot->insert("map-size-y", mapSize.y);
-		root->insert("terrain", mobsRoot);
+		auto table = cpptoml::make_table();
+		table->insert("seed", seed);
+		table->insert("map-size-x", mapSize.x);
+		table->insert("map-size-y", mapSize.y);
+		root->insert("terrain", table);
 	}
 
 	void load(std::shared_ptr<cpptoml::table> root)
