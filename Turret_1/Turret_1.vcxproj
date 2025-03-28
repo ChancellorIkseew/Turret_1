@@ -191,6 +191,7 @@
     <ClCompile Include="src\game_interface\menu\ui_elements\world_pre_settings\mobs_pre_settings.cpp" />
     <ClCompile Include="src\game_interface\menu\ui_elements\world_pre_settings\terrain_pre_settings.cpp" />
     <ClCompile Include="src\game_interface\settings\settings.cpp" />
+    <ClCompile Include="src\game_interface\sound_system\create_sound.cpp" />
     <ClCompile Include="src\game_interface\sound_system\sound_system.cpp" />
     <ClCompile Include="src\game_interface\ui_window\elements\button\building_ico.cpp" />
     <ClCompile Include="src\game_interface\ui_window\elements\button\button.cpp" />
@@ -315,6 +316,7 @@
     <ClInclude Include="src\game_interface\settings\settings\graphics.h" />
     <ClInclude Include="src\game_interface\settings\settings\gui_settings.h" />
     <ClInclude Include="src\game_interface\settings\settings\saving_settings.h" />
+    <ClInclude Include="src\game_interface\sound_system\sound_enum.h" />
     <ClInclude Include="src\game_interface\sound_system\sound_system.h" />
     <ClInclude Include="src\game_interface\ui_window\elements\button\building_ico.h" />
     <ClInclude Include="src\game_interface\ui_window\elements\button\button.h" />
@@ -412,6 +414,9 @@
     <ClInclude Include="src\t1_system\random\t1_random.h" />
     <ClInclude Include="src\t1_system\sleep.h" />
     <ClInclude Include="src\t1_system\t1_mutex.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="src\game_interface\sound_system\sound_on_tile.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -3,6 +3,7 @@
 #include <cereal/types/memory.hpp>
 #include <cereal/types/list.hpp>
 #include "game_interface/gameplay/gameplay_util/camera.h"
+#include "game_interface/sound_system/sound_system.h"
 
 #include "shells_list.h"
 
@@ -18,8 +19,10 @@ void ShellsList::load(cereal::BinaryInputArchive& archive) {
 void ShellsList::spawnShell(const ShellType type, const PixelCoord coord, const float angleRad, Team* team)
 {
 	auto shell = Shell::createShell(type, coord, angleRad, team);
-	if (shell != nullptr)
-		shellsList.push_back(std::move(shell));
+	if (shell == nullptr)
+		return;
+	shellsList.push_back(std::move(shell));
+	SoundSystem::pushSound(SoundType::AC_SHOOT, t1::be::tile(coord));
 }
 
 

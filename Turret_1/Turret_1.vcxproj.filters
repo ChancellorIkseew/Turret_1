@@ -453,6 +453,9 @@
     <ClCompile Include="src\game_interface\gameplay\ui_elements\minimap.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="src\game_interface\sound_system\create_sound.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\game_interface\gameplay\gameplay_util\camera.h">
@@ -851,5 +854,11 @@
     <ClInclude Include="src\game_interface\settings\settings\gui_settings.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="src\game_interface\sound_system\sound_enum.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="src\game_interface\sound_system\sound_on_tile.h" />
   </ItemGroup>
 </Project>

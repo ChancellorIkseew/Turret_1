@@ -12,9 +12,8 @@
 
 void openMainWindow()
 {
-	GameSound g1; // Test music implrmrntation. Will be expanded and reimplemented.
-	g1.loadSound();
-	g1.start();
+	SoundSystem::loadSounds();
+	SoundSystem::startMusic();
 
 	UIPlate::init();
 

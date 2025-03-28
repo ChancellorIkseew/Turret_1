@@ -7,12 +7,14 @@
 #include "t1_system/input/input_handler.h"
 
 #include "game_interface/gameplay/gameplay_util/mob_controller.h"
+#include "game_interface/sound_system/sound_system.h"
 
 #include "map_structures/buildings/building/building.h"
 #include "map_structures/entities/turret/turret.h"
 
 void Gameplay::graphics(sf::RenderWindow& mainWindow)
 {
+    // join into loadTextures for texture packs hot reload
     TerrainMap::prepareSprites();
     Building::prepareSprites();
     BlueprintsMap::prepareSprites();
@@ -21,6 +23,7 @@ void Gameplay::graphics(sf::RenderWindow& mainWindow)
     Entity::prepareSprites();
     Shell::prepareSprites();
     Particle::prepareSprites();
+    //
 
     while (isGameplayActive)
     {
@@ -28,6 +31,7 @@ void Gameplay::graphics(sf::RenderWindow& mainWindow)
         {
             InputHandler::updateInput(event);
             InputHandler::updateMouseCoord(mainWindow);
+            SoundSystem::updateSounds(camera);
 
             if (event->is<sf::Event::Closed>())
             {
@@ -59,4 +63,6 @@ void Gameplay::graphics(sf::RenderWindow& mainWindow)
         mainWindow.setView(camera.getView());
         mainWindow.display();                   //End draw_block
     }
+
+    SoundSystem::clearSounds();
 }

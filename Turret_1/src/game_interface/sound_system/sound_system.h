@@ -3,48 +3,30 @@
 #define SOUND_SYSTEM_H
 
 #include <SFML/Audio.hpp>
+#include "sound_enum.h"
+#include "sound_on_tile.h"
+#include "game_interface/gameplay/gameplay_util/camera.h"
 
-class GameSound
+class SoundSystem
 {
 private:
+	static inline sf::Music soundTreak1;
+	static inline sf::SoundBuffer autocannon;
+	static inline std::list<sf::Sound> sounds;
+	static inline std::vector<SoundOnTile> preSounds;
 
-	sf::Music soundTreak1;
-
+	static void pushNewSounds(const Camera& camera);
+	static void removeFinishedSounds();
+	static sf::Sound createSound(const SoundType type);
 
 public:
+	static void loadSounds();
+	static void startMusic();
 
-	GameSound()
-	{
-
-	}
-
-	void loadSound()
-	{
-		soundTreak1.openFromFile("sounds/neutral_music.mp3");
-		soundTreak1.setVolume(5);
-	}
-
-	void start()
-	{
-		soundTreak1.setLooping(true);
-		soundTreak1.play();
-	}
-
-
-
-	~GameSound()
-	{
-
-	}
+	static void pushSound(const SoundType type, const TileCoord tile);
+	static void updateSounds(const Camera& camera);
+	static void clearSounds();
 
 };
-
-
-
-
-
-
-
-
 
 #endif // SOUND_SYSTEM_H
