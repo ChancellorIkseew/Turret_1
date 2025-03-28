@@ -16,6 +16,8 @@ private:
 	std::map<int, TextField> fields;
 	sf::Text tResolution = sf::Text(turretClassic);
 	sf::Text tMinimap = sf::Text(turretClassic);
+	sf::Text tMusic = sf::Text(turretClassic);
+	sf::Text tSounds = sf::Text(turretClassic);
 
 	SettingsWindow(const SettingsWindow&) = delete;
 	SettingsWindow& operator=(const SettingsWindow&) = delete;

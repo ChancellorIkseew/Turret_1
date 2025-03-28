@@ -14,6 +14,7 @@ void Settings::save()
 		throw std::runtime_error("Unable to open file to write: saves/settings.toml"); // Should not be catched. (crash the game)
 	cpptoml::toml_writer writer(fout, " ");
 	auto root = cpptoml::make_table();
+	audio.save(root);
 	display.save(root);
 	gui.save(root);
 	saving.save(root);
@@ -26,6 +27,7 @@ void Settings::load()
 	try
 	{
 		const auto root = std::move(cpptoml::parse_file("saves/settings.toml"));
+		audio.load(root);
 		display.load(root);
 		gui.load(root);
 		saving.load(root);

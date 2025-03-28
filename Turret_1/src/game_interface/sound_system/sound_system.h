@@ -15,12 +15,15 @@ private:
 	static inline std::list<sf::Sound> sounds;
 	static inline std::vector<SoundOnTile> preSounds;
 
+	static inline float soundsVolumeModifier = 20.0f;
+
 	static void pushNewSounds(const Camera& camera);
 	static void removeFinishedSounds();
 	static sf::Sound createSound(const SoundType type);
 
 public:
 	static void loadSounds();
+	static void setVolumeBySettings();
 	static void startMusic();
 
 	static void pushSound(const SoundType type, const TileCoord tile);

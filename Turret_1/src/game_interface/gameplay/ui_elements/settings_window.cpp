@@ -2,6 +2,7 @@
 #include "settings_window.h"
 
 #include "game_interface/ui_window/sub_win_util/fonts.h"
+#include "game_interface/sound_system/sound_system.h"
 #include "game_interface/settings/settings.h"
 #include "game_interface/main_window/main_window_resize.h"
 #include "t1_system/input/input_handler.h"
@@ -12,6 +13,8 @@ enum fieldEnum
 	WINDOW_SIZE_X = 0,
 	WINDOW_SIZE_Y = 1,
 	SHOW_MINIMAP = 2,
+	MUSIC = 3,
+	SOUNDS = 4
 };
 
 SettingsWindow::SettingsWindow() : UIWindow(sf::Vector2i(720, 480))
@@ -30,17 +33,26 @@ void SettingsWindow::prepareInterfaceSprites()
 	fields[WINDOW_SIZE_X] = TextField(sf::String(L"1920"), 42, sf::Vector2i(line0, 70));
 	fields[WINDOW_SIZE_Y] = TextField(sf::String(L"1016"), 42, sf::Vector2i(line0, 95));
 	fields[SHOW_MINIMAP] = TextField(sf::String(L"1"), 42, sf::Vector2i(line0, 125));
+	fields[MUSIC] = TextField(sf::String(L"5"), 42, sf::Vector2i(line0, 155));
+	fields[SOUNDS] = TextField(sf::String(L"20"), 42, sf::Vector2i(line0, 185));
 	tResolution = sf::Text(turretClassic, sf::String(L"Разрешение\nэкрана"), 12);
 	tMinimap = sf::Text(turretClassic, sf::String(L"Отображать\nминикарту"), 12);
+	tMusic = sf::Text(turretClassic, sf::String(L"Громкость\nмузыки"), 12);
+	tSounds = sf::Text(turretClassic, sf::String(L"Громкось\nзвуков"), 12);
 	tResolution.setFillColor(standardColor);
 	tMinimap.setFillColor(standardColor);
+	tMusic.setFillColor(standardColor);
+	tSounds.setFillColor(standardColor);
 }
 
 void SettingsWindow::aply()
 {
 	Settings::getDisplay().windowMaxSize = sf::Vector2u(fields[WINDOW_SIZE_X].getValueUint32(), fields[WINDOW_SIZE_Y].getValueUint32());
 	Settings::getGui().showMinimap = fields[SHOW_MINIMAP].getValueUint32() != 0;
+	Settings::getAudio().music = fields[MUSIC].getValueUint32();
+	Settings::getAudio().sounds = fields[SOUNDS].getValueUint32();
 	Settings::save();
+	SoundSystem::setVolumeBySettings();
 }
 
 void SettingsWindow::interact(const bool& windowOpen)
@@ -65,6 +77,8 @@ void SettingsWindow::relocate(const sf::Vector2i windowSize)
 	confirm.relocateWithOwner(position);
 	tResolution.setPosition(sf::Vector2f(position.x + 10, position.y + 80));
 	tMinimap.setPosition(sf::Vector2f(position.x + 10, position.y + 125));
+	tMusic.setPosition(sf::Vector2f(position.x + 10, position.y + 155));
+	tSounds.setPosition(sf::Vector2f(position.x + 10, position.y + 185));
 	for (auto& field : fields)
 		field.second.relocateWithOwner(position);
 }
@@ -79,6 +93,8 @@ void SettingsWindow::draw(sf::RenderWindow& window)
 	confirm.draw(window);
 	window.draw(tResolution);
 	window.draw(tMinimap);
+	window.draw(tMusic);
+	window.draw(tSounds);
 	for (auto& field : fields)
 		field.second.draw(window);
 }

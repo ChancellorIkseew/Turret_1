@@ -1,5 +1,6 @@
 
 #include "sound_system.h"
+#include "game_interface/settings/settings.h"
 #include <mutex>
 
 static std::mutex soundsMutex;
@@ -7,10 +8,15 @@ static std::mutex soundsMutex;
 void SoundSystem::loadSounds()
 {
 	soundTreak1.openFromFile("sounds/neutral_music.mp3");
-	soundTreak1.setVolume(5);
-
-
+	setVolumeBySettings();
 	autocannon.loadFromFile("sounds/combat/autocannon.mp3");
+}
+
+void SoundSystem::setVolumeBySettings()
+{
+	soundTreak1.setVolume(Settings::getAudio().music);
+	std::lock_guard<std::mutex> guard(soundsMutex);
+	soundsVolumeModifier = static_cast<float>(Settings::getAudio().sounds);
 }
 
 void SoundSystem::startMusic()
@@ -35,6 +41,7 @@ void SoundSystem::pushNewSounds(const Camera& camera)
 			continue;	
 		newSounds.insert(it.type);
 		sounds.push_back(SoundSystem::createSound(it.type));
+		sounds.back().setVolume(soundsVolumeModifier);
 		sounds.back().play();
 	}
 	preSounds.clear();
