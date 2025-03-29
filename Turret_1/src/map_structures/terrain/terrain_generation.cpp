@@ -1,15 +1,12 @@
 
-#include <memory>
-#include <limits>
-
 #include "terrain.h"
 
-#include "map_structures/base_engine/base_engine.h"
 #include "map_structures/pre-settings/pre-settings.h"
 #include "map_structures/terrain/terrain_enum.h"
 #include "t1_system/random/t1_random.h"
 
 using MapVector = std::vector<std::vector<std::unique_ptr<int>>>;
+constexpr int DEFAULT_MAP_SIZE = 10000; // 100x100 tiles.
 
 static inline bool tileExitst(const TileCoord tile, const TileCoord mapSize)
 {
@@ -23,7 +20,7 @@ inline int generateTile(const TerrainPre& terrainPre)
 	{
 		if (frequency <= 0)
 			continue;
-		if (t1::Rand::getValue(0, (10000 / frequency)) == 0)
+		if (t1::Rand::getChance(DEFAULT_MAP_SIZE / frequency))
 			return static_cast<int>(type);
 	}
 	return TILE_GROUND;

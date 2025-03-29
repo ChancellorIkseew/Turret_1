@@ -8,6 +8,11 @@ int t1::Rand::getValue(const int min, const int max)
 	return dist(generator);
 }
 
+bool t1::Rand::getChance(const int from)
+{
+	return getValue(0, from) == 0;
+}
+
 void t1::Rand::setSeed(uint32_t seed)
 {
 	Rand::seed = seed;

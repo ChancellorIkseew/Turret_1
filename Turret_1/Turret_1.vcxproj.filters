@@ -288,7 +288,7 @@
     <ClCompile Include="src\map_structures\terrain\terrain.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="src\map_structures\terrain\terrain_generator.cpp">
+    <ClCompile Include="src\map_structures\terrain\terrain_generation.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="src\map_structures\world\world.cpp">
