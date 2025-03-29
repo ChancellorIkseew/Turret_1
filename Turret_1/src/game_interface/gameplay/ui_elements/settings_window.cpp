@@ -30,11 +30,11 @@ void SettingsWindow::prepareInterfaceSprites()
 	confirm = Button("confirm.bmp", sf::Vector2i(48, 48), sf::Vector2i(70, 10));
 
 	const int line0 = 110;
-	fields[WINDOW_SIZE_X] = TextField(sf::String(L"1920"), 42, sf::Vector2i(line0, 70));
-	fields[WINDOW_SIZE_Y] = TextField(sf::String(L"1016"), 42, sf::Vector2i(line0, 95));
-	fields[SHOW_MINIMAP] = TextField(sf::String(L"1"), 42, sf::Vector2i(line0, 125));
-	fields[MUSIC] = TextField(sf::String(L"5"), 42, sf::Vector2i(line0, 155));
-	fields[SOUNDS] = TextField(sf::String(L"20"), 42, sf::Vector2i(line0, 185));
+	fields[WINDOW_SIZE_X] = TextField(Settings::getDisplay().windowMaxSize.x, 42, sf::Vector2i(line0, 70));
+	fields[WINDOW_SIZE_Y] = TextField(Settings::getDisplay().windowMaxSize.y, 42, sf::Vector2i(line0, 95));
+	fields[SHOW_MINIMAP] = TextField(static_cast<uint32_t>(Settings::getGui().showMinimap), 42, sf::Vector2i(line0, 125));
+	fields[MUSIC] = TextField(Settings::getAudio().music, 42, sf::Vector2i(line0, 155));
+	fields[SOUNDS] = TextField(Settings::getAudio().sounds, 42, sf::Vector2i(line0, 185));
 	tResolution = sf::Text(turretClassic, sf::String(L"Разрешение\nэкрана"), 12);
 	tMinimap = sf::Text(turretClassic, sf::String(L"Отображать\nминикарту"), 12);
 	tMusic = sf::Text(turretClassic, sf::String(L"Громкость\nмузыки"), 12);

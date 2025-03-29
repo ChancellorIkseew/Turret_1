@@ -16,6 +16,17 @@ TextField::TextField(const sf::String& value, const int sizeX, const sf::Vector2
 	maxLenght = (sizeX - 10) / 8;
 }
 
+template <typename Number>
+TextField::TextField(const Number value, const int sizeX, const sf::Vector2i  position) : UIPlate(sf::Vector2i(sizeX, 23), position)
+{
+	this->prepareInterfaceSprites();
+	text.setString(std::to_string(value));
+	maxLenght = (sizeX - 10) / 8;
+}
+
+template TextField::TextField(const unsigned int value, const int sizeX, const sf::Vector2i position);
+template TextField::TextField(const uint8_t value, const int sizeX, const sf::Vector2i position);
+
 TextField::TextField() : UIPlate(sf::Vector2i(100, 23), sf::Vector2i(0, 0))
 {
 	this->prepareInterfaceSprites();

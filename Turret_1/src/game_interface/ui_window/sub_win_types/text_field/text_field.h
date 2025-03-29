@@ -11,13 +11,15 @@
 class TextField : public UIPlate
 {
 private:
-	int8_t maxLenght;
+	int8_t maxLenght = 0;
 	sf::Text text = sf::Text(turretClassic);
 	sf::Vector2i ownerPosition;
 	static inline bool isOneSelected = false;
 
 public:
 	TextField(const sf::String& value, const int sizeX, const sf::Vector2i position);
+	template <typename Number>
+	TextField(const Number value, const int sizeX, const sf::Vector2i position);
 	TextField();
 	~TextField() = default;
 
