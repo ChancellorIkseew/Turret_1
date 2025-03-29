@@ -9,7 +9,6 @@
 #include "terrain.h"
 
 #include "terrain_enum.h"
-#include "terrain_generator.h"
 #include "map_structures/pre-settings/pre-settings.h"
 
 #include "game_interface/gameplay/gameplay_util/camera.h"
@@ -34,11 +33,6 @@ void TerrainMap::load(cereal::BinaryInputArchive& archive)
 	std::cout << "try load terrain_map\n";
 	archive(terrainMap);
 	std::cout << "load terrain_map works\n";
-}
-
-void TerrainMap::generate(const TerrainPre& terrainPre)
-{
-	terrainMap = std::move(generateTerrain(terrainPre));
 }
 
 

@@ -680,9 +680,6 @@
     <ClInclude Include="src\map_structures\terrain\terrain_enum.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="src\map_structures\terrain\terrain_generator.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="src\map_structures\world\world.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>

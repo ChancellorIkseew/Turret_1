@@ -2,75 +2,35 @@
 #include <memory>
 #include <limits>
 
-#include "terrain_generator.h"
+#include "terrain.h"
 
 #include "map_structures/base_engine/base_engine.h"
 #include "map_structures/pre-settings/pre-settings.h"
 #include "map_structures/terrain/terrain_enum.h"
 #include "t1_system/random/t1_random.h"
 
+using MapVector = std::vector<std::vector<std::unique_ptr<int>>>;
+
 static inline bool tileExitst(const TileCoord tile, const TileCoord mapSize)
 {
 	return tile.x >= 0 && tile.x < mapSize.x && tile.y >= 0 && tile.y < mapSize.y;
 }
 
-inline int generateTile(const TerrainPre& terrainPre);
-inline void generateSpot(const TerrainPre& terrainPre, std::vector<std::vector<std::unique_ptr<int>>>& terrainMap, const TileCoord start);
-
-std::vector<std::vector<std::unique_ptr<int>>> generateTerrain(const TerrainPre& terrainPre)
-{
-	t1::Rand::setSeed(terrainPre.seed);
-
-	std::vector<std::vector<std::unique_ptr<int>>> terrainMap;
-	const TileCoord mapSize = terrainPre.mapSize;
-
-	terrainMap.resize(mapSize.x);
-	terrainMap.reserve(mapSize.x);
-	for (auto& x : terrainMap)
-	{
-		x.resize(mapSize.y);
-		x.reserve(mapSize.y);
-		for (auto& y : x)
-		{
-			y = std::make_unique<int>(TILE_GROUND);
-		}
-	}
-
-	for (int x = 0; x < mapSize.x; ++x)
-	{
-		for(int y = 0; y < mapSize.y; ++y)
-		{ 
-			int tileNewType = generateTile(terrainPre);
-			if (tileNewType != TILE_GROUND)
-			{
-				*terrainMap[x][y] = tileNewType;
-				generateSpot(terrainPre, terrainMap, { x, y });
-			}
-		}
-	}
-
-	// will_be_expanded
-
-	return terrainMap;
-}
-
 
 inline int generateTile(const TerrainPre& terrainPre)
 {
-	for (auto& it : terrainPre.frequency)
+	for (auto& [type, frequency] : terrainPre.frequency)
 	{
-		if (it.second > 0)
-		{
-			int flag = t1::Rand::getValue(0, (10000 / it.second));
-			if (flag == 0)
-				return static_cast<int>(it.first);
-		}
+		if (frequency <= 0)
+			continue;
+		if (t1::Rand::getValue(0, (10000 / frequency)) == 0)
+			return static_cast<int>(type);
 	}
 	return TILE_GROUND;
 }
 
 
-inline void generateSpot(const TerrainPre& terrainPre, std::vector<std::vector<std::unique_ptr<int>>>& terrainMap, const TileCoord start)
+inline void generateSpot(const TerrainPre& terrainPre, MapVector& terrainMap, const TileCoord start)
 {
 	const TileCoord mapSize = terrainPre.mapSize;
 
@@ -78,7 +38,7 @@ inline void generateSpot(const TerrainPre& terrainPre, std::vector<std::vector<s
 	int spotSize = static_cast<int>(terrainPre.depositSize.find(tileType)->second);
 
 	TileCoord tile = start;
-	
+
 	for (int s = 0; s < spotSize; ++s)
 	{
 		if (s != 0)
@@ -93,14 +53,41 @@ inline void generateSpot(const TerrainPre& terrainPre, std::vector<std::vector<s
 			else if (dir == 0)
 				tile.y += 1;
 		}
-			
-		TileCoord nTile = { 0, 0 };
+
+		TileCoord nTile;
 		for (int i = 0; i < 5; ++i)
 		{
-			nTile.x = tile.x + t1::be::coordSpyralArr[i].x;
-			nTile.y = tile.y + t1::be::coordSpyralArr[i].y;
+			nTile = tile + t1::be::coordSpyralArr[i];
 			if (tileExitst(nTile, mapSize))
 				*terrainMap[nTile.x][nTile.y] = static_cast<int>(tileType);
 		}
 	}
+}
+
+
+void TerrainMap::generate(const TerrainPre& terrainPre)
+{
+	t1::Rand::setSeed(terrainPre.seed);
+	mapSize = terrainPre.mapSize;
+	terrainMap.resize(mapSize.x);
+	for (auto& x : terrainMap)
+	{
+		x.resize(mapSize.y);
+		for (auto& y : x)
+			y = std::make_unique<int>(TILE_GROUND);
+	}
+
+	for (int x = 0; x < mapSize.x; ++x)
+	{
+		for(int y = 0; y < mapSize.y; ++y)
+		{ 
+			int tileNewType = generateTile(terrainPre);
+			if (tileNewType == TILE_GROUND)
+				continue;
+			*terrainMap[x][y] = tileNewType;
+			generateSpot(terrainPre, terrainMap, TileCoord(x, y));
+		}
+	}
+
+	// will_be_expanded
 }

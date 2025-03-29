@@ -405,7 +405,6 @@
     <ClInclude Include="src\map_structures\team\team.h" />
     <ClInclude Include="src\map_structures\terrain\terrain.h" />
     <ClInclude Include="src\map_structures\terrain\terrain_enum.h" />
-    <ClInclude Include="src\map_structures\terrain\terrain_generator.h" />
     <ClInclude Include="src\map_structures\world\world.h" />
     <ClInclude Include="src\t1_system\events\events_handler.h" />
     <ClInclude Include="src\t1_system\events\t1_events.h" />
