@@ -150,6 +150,7 @@ std::unordered_map<t1::BindName, t1::Binding> InputHandler::bindings
 	{BindName::Build, Binding(code(sf::Mouse::Button::Left), InputType::mouse)},
 	{BindName::Rotate_building, Binding(code(sf::Keyboard::Key::R), InputType::keyboard)},
 	{BindName::Pipette, Binding(code(sf::Keyboard::Key::Q), InputType::keyboard)},
+	{BindName::Demolish, Binding(code(sf::Keyboard::Key::LControl), InputType::keyboard)},
 
 	{BindName::Control_unit, Binding(code(sf::Keyboard::Key::V), InputType::keyboard)},
 	{BindName::Shoot, Binding(code(sf::Mouse::Button::Left), InputType::mouse)},

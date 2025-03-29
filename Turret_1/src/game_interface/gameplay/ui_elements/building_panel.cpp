@@ -18,6 +18,7 @@
 #include "t1_system/sleep.h"
 
 using namespace sf::Literals;
+using BType = BuildingType;
 using Info = BuildingsInfoTable;
 constexpr float _F_HALF_TILE_ = static_cast<float>(_HALF_TILE_);
 constexpr sf::Vector2f BLUEPRINT_ORIGIN = sf::Vector2f(_F_HALF_TILE_, _F_HALF_TILE_);
@@ -86,7 +87,7 @@ void BuildingPanel::prepareInterfaceSprites()
 
 void BuildingPanel::interact(Team* team, BuildingsMap& buildingsMap, BlueprintsMap& blueprintsMap, const GameMode gameMode, const Gameplay& gameplay)
 {
-	if (InputHandler::active(t1::BindName::Build) && buildingType != BuildingType::VOID_ && gameplay.noSubWindowSelected())
+	if (InputHandler::active(t1::BindName::Build) && buildingType != BType::VOID_ && gameplay.noSubWindowSelected())
 		placeBuilding(team, buildingsMap, blueprintsMap, gameMode);
 
 	if (InputHandler::jactive(t1::BindName::Rotate_building) || InputHandler::jactive(t1::BindName::RMB))
@@ -133,10 +134,10 @@ bool BuildingPanel::containsCoursor() const
 
 void BuildingPanel::draw(sf::RenderWindow& window)
 {
-	expensesPanel->setVisible(buildingType != BuildingType::VOID_);
+	expensesPanel->setVisible(buildingType != BType::VOID_);
 	expensesPanel->interact(buildingType, buildingsPre);
 	expensesPanel->draw(window);
-	specificationPanel->setVisible(isInfoOpen && buildingType != BuildingType::VOID_);
+	specificationPanel->setVisible(isInfoOpen && buildingType != BType::VOID_);
 	specificationPanel->interact(buildingType, buildingsPre);
 	specificationPanel->draw(window);
 	drawBase(window);
@@ -149,14 +150,19 @@ void BuildingPanel::draw(sf::RenderWindow& window)
 		ico.draw(window);
 }
 
-
+static inline sf::Vector2f cutToTileGrid(const sf::Vector2f coord)
+{
+	sf::Vector2i intCoord(coord);
+	sf::Vector2i correction(intCoord.x % _TILE_, intCoord.y % _TILE_);
+	return sf::Vector2f(intCoord - correction) + BLUEPRINT_ORIGIN;
+}
 
 void BuildingPanel::drawBuildExample(sf::RenderWindow& window, Team* team, const BuildingsMap& buildingsMap)
 {
-	if (buildingType == BuildingType::VOID_)
+	if (buildingType == BType::VOID_)
 		return;
-	if (buildingType != BuildingType::STANDARD_CONVEYER && buildingType != BuildingType::SHIELDED_CONVEYER &&
-		buildingType != BuildingType::BRIDGE && buildingType != BuildingType::SORTER)
+	if (buildingType != BType::STANDARD_CONVEYER && buildingType != BType::SHIELDED_CONVEYER &&
+		buildingType != BType::BRIDGE && buildingType != BType::SORTER)
 	{
 		direction = 'w';
 		buildExample.setRotation(0_deg);
@@ -168,7 +174,7 @@ void BuildingPanel::drawBuildExample(sf::RenderWindow& window, Team* team, const
 	else
 		buildExample.setColor(darkRedTransparent);
 
-	buildExample.setPosition(mouseMapCoord);
+	buildExample.setPosition(cutToTileGrid(mouseMapCoord));
 	window.draw(buildExample);
 }
 
@@ -178,10 +184,10 @@ void BuildingPanel::rotateBuilding()
 {
 	switch (buildingType)
 	{
-	case BuildingType::STANDARD_CONVEYER:
-	case BuildingType::SHIELDED_CONVEYER:
-	case BuildingType::BRIDGE:
-	case BuildingType::SORTER:
+	case BType::STANDARD_CONVEYER:
+	case BType::SHIELDED_CONVEYER:
+	case BType::BRIDGE:
+	case BType::SORTER:
 		switch (direction)
 		{
 		case 'w': 
@@ -217,7 +223,7 @@ void BuildingPanel::selectBuildingType(BuildingIco& ico)
 	BuildingType type = ico.getBuildingType();
 	if (type == buildingType || InputHandler::active(t1::BindName::Escape))
 	{
-		buildingType = BuildingType::VOID_;
+		buildingType = BType::VOID_;
 		isInfoOpen = false;
 		return;
 	}
@@ -235,11 +241,14 @@ void BuildingPanel::placeBuilding(Team* team, BuildingsMap& buildingsMap, Bluepr
 	std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
 	if (gameMode != GameMode::SANDBOX)
 	{
-		blueprintsMap.placeBlueprint(buildingsMap, buildingType, direction, selectedTile);
+		BuildingType type = buildingType;
+		if (InputHandler::active(t1::BindName::Demolish))
+			type = (buildingType == BType::REMOVE && buildingsMap.buildingExists(selectedTile)) ? BType::STONE_WALL : BType::REMOVE;
+		blueprintsMap.placeBlueprint(buildingsMap, type, direction, selectedTile);
 		return;
 	}
 
-	if (buildingType == BuildingType::REMOVE)
+	if (buildingType == BType::REMOVE || InputHandler::active(t1::BindName::Demolish))
 		buildingsMap.demolishBuilding(selectedTile);
 	else
 		buildingsMap.constructBuilding(buildingType, direction, selectedTile, team);	
@@ -251,7 +260,7 @@ void BuildingPanel::pickBuildingType(const BuildingsMap& buildingsMap, const Blu
 	const sf::Vector2f mouseMapCoord = InputHandler::getMouseMapCoord();
 	const TileCoord selectedTile = t1::be::tile(mouseMapCoord.x, mouseMapCoord.y);
 	BuildingType type = blueprint.getType(selectedTile);
-	if (type == BuildingType::VOID_)
+	if (type == BType::VOID_)
 		type = buildingsMap.getBuildingType(selectedTile);
 	buildingType = type;
 	buildExample.setTextureRect(Info::at(buildingType).icoRect);
