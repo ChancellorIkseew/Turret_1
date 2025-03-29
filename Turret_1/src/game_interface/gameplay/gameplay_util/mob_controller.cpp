@@ -75,6 +75,8 @@ void MobController::captureEntity(const Team& player)
 		{
 			targetedEntity = entity.get();
 			preveousControlType = targetedEntity->getControlType();
+			if (preveousControlType == Control::HARD)
+				preveousControlType = Control::NONE;
 			targetedEntity->setControlType(Control::HARD); 
 			t1::system::sleep(150);
 			return;
