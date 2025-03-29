@@ -52,6 +52,6 @@ void AutocannonTurret::draw(sf::RenderWindow& window)
 	turretSprite.setOrigin({ 5.5, 12 });
 
 	turretSprite.setPosition({ coord.x, coord.y });
-	turretSprite.setRotation(sf::radians(angleRad));
+	turretSprite.setRotation(sf::radians(PI - angleRad));
 	window.draw(turretSprite);
 }

@@ -38,10 +38,10 @@ ResType RocketTurret::getAmooType() const { return ResType::ROCKET; }
 
 void RocketTurret::draw(sf::RenderWindow& window)
 {
-	turretSprite.setTextureRect(sf::IntRect({ 4, 23 }, { 12, 20 }));
-	turretSprite.setOrigin({ 5.5, 12 });
+	turretSprite.setTextureRect(sf::IntRect({ 4, 25 }, { 12, 18 }));
+	turretSprite.setOrigin({ 5.5, 11 });
 
 	turretSprite.setPosition({ coord.x, coord.y });
-	turretSprite.setRotation(sf::radians(angleRad));
+	turretSprite.setRotation(sf::radians(PI - angleRad));
 	window.draw(turretSprite);
 }
