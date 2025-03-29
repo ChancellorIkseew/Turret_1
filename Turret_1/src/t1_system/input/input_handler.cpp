@@ -2,12 +2,11 @@
 #include "input_handler.h"
 
 #include "game_interface/ui_window/sub_win_types/text_field/text_field.h"
-#include <iostream>
 
-static int code(sf::Mouse::Button sfMB) {
+static inline int code(sf::Mouse::Button sfMB) {
 	return static_cast<int>(sfMB);
 }
-static int code(sf::Keyboard::Key sfKey) {
+static inline int code(sf::Keyboard::Key sfKey) {
 	return static_cast<int>(sfKey);
 }
 
@@ -49,50 +48,34 @@ void InputHandler::updateInput(const std::optional<sf::Event>& event)
 	}
 
 	if (const auto mouseWheelScrolled = event->getIf<sf::Event::MouseWheelScrolled>())
-	{
 		mouseWheelScroll.store(static_cast<t1::MouseWheelScroll>(mouseWheelScrolled->delta), std::memory_order_relaxed);
-	}
 	
 	if (!TextField::isOneSeltcted())
 		return;
 	if (const auto textEntered = event->getIf<sf::Event::TextEntered>())
-	{
 		symbolJustEntered.store(textEntered->unicode, std::memory_order_relaxed);
-	}
 }
 
-///@brief cheek long press
+
 bool InputHandler::active(const t1::BindName bindName)
 {
 	const auto& found = bindings.find(bindName);
-	if (found == bindings.end())
+	if (found == bindings.end() || !found->second.active)
 		return false;
-	if (found->second.active)
-	{
-		found->second.justTriggered = false;
-		return true;
-	}
-	return false;
+	found->second.justTriggered = false;
+	return true;
 }
 
-///@brief cheek short press
 bool InputHandler::jactive(const t1::BindName bindName)
 {
 	const auto& found = bindings.find(bindName);
-	if (found == bindings.end())
+	if (found == bindings.end() || !found->second.justTriggered)
 		return false;
-	if (found->second.active && found->second.justTriggered)
-	{
-		found->second.justTriggered = false;
-		return true;
-	}
-	return false;
+	found->second.justTriggered = false;
+	return true;
 }
 
-char32_t InputHandler::getLastSymbolEntered()
-{
-	return symbolJustEntered.exchange(NON_USABLE_SYMBOL, std::memory_order_relaxed);
-}
+
 
 
 void InputHandler::updateMouseCoord(sf::RenderWindow& window)
@@ -101,21 +84,17 @@ void InputHandler::updateMouseCoord(sf::RenderWindow& window)
 	mouseMapCoord = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 }
 
-///@brief coordinate in SFML window
-sf::Vector2i InputHandler::getMouseCoord()
-{
+sf::Vector2i InputHandler::getMouseCoord() {
 	return mouseCoord.load(std::memory_order_relaxed);
 }
-
-///@brief coordinate on map
-sf::Vector2f InputHandler::getMouseMapCoord()
-{
+sf::Vector2f InputHandler::getMouseMapCoord() {
 	return mouseMapCoord.load(std::memory_order_relaxed);
 }
-
-t1::MouseWheelScroll InputHandler::getMouseWheelScroll()
-{
+t1::MouseWheelScroll InputHandler::getMouseWheelScroll() {
 	return mouseWheelScroll.exchange(t1::MouseWheelScroll::none, std::memory_order_relaxed);
+}
+char32_t InputHandler::getLastSymbolEntered() {
+	return symbolJustEntered.exchange(NON_USABLE_SYMBOL, std::memory_order_relaxed);
 }
 
 
@@ -132,8 +111,8 @@ void InputHandler::rebind(const t1::BindName bindName, const std::optional<sf::E
 		inputType = t1::InputType::mouse;
 		nCode = code(btnPressed->button);
 	}
-
-	bindings.erase(bindName);
+	
+	bindings.erase(bindName); // t1::Binding has no copy constructor.
 	bindings.emplace(bindName, t1::Binding(nCode, inputType));
 }
 

@@ -21,13 +21,17 @@ public:
 	~InputHandler() = default;
 
 	static void updateInput(const std::optional<sf::Event>& event);
-
+	///@brief Check any press/click.
 	static bool active(const t1::BindName bindName);
+	///@brief Check only short press/click.
 	static bool jactive(const t1::BindName bindName);
+	///@brief Last symbol entered in any text field.
 	static char32_t getLastSymbolEntered();
 
 	static void updateMouseCoord(sf::RenderWindow& window);
+	///@brief Coordinate in SFML window.
 	static sf::Vector2i getMouseCoord();
+	///@brief Pixel coordinate on map.
 	static sf::Vector2f getMouseMapCoord();
 	static t1::MouseWheelScroll getMouseWheelScroll();
 
