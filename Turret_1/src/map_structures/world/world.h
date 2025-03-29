@@ -32,7 +32,7 @@ public:
 
 	void save(const std::string& saveFolderName) const;
 	void load(const std::string& saveFolderName);
-	void createNew(PreSettings& preSettings);
+	void createNew(const PreSettings& preSettings);
 
 	void simulate();
 	void draw(sf::RenderWindow& window, const Camera& camera);

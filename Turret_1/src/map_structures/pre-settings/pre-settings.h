@@ -26,6 +26,7 @@ public:
 	PreSettings() = default;
 	~PreSettings() = default;
 
+	static void validate(PreSettings& preSettings);
 	void load(const std::string& saveFolderName);
 	void save(const std::string& saveFolderName) const;
 	

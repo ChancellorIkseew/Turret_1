@@ -9,6 +9,6 @@
 #include "map_structures/pre-settings/pre_settings/terrain_pre.h"
 
 
-std::vector<std::vector<std::unique_ptr<int>>> generateTerrain(TerrainPre& terrainPre);
+std::vector<std::vector<std::unique_ptr<int>>> generateTerrain(const TerrainPre& terrainPre);
 
 #endif // TERRAIN_GENERATOR_H

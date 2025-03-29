@@ -14,13 +14,11 @@ static inline bool tileExitst(const TileCoord tile, const TileCoord mapSize)
 	return tile.x >= 0 && tile.x < mapSize.x && tile.y >= 0 && tile.y < mapSize.y;
 }
 
-inline int generateTile(TerrainPre& terrainPre);
+inline int generateTile(const TerrainPre& terrainPre);
 inline void generateSpot(const TerrainPre& terrainPre, std::vector<std::vector<std::unique_ptr<int>>>& terrainMap, const TileCoord start);
 
-std::vector<std::vector<std::unique_ptr<int>>> generateTerrain(TerrainPre& terrainPre)
+std::vector<std::vector<std::unique_ptr<int>>> generateTerrain(const TerrainPre& terrainPre)
 {
-	if (terrainPre.seed == 0)
-		terrainPre.seed = t1::Rand::getValue(0, 1000000);
 	t1::Rand::setSeed(terrainPre.seed);
 
 	std::vector<std::vector<std::unique_ptr<int>>> terrainMap;
@@ -57,7 +55,7 @@ std::vector<std::vector<std::unique_ptr<int>>> generateTerrain(TerrainPre& terra
 }
 
 
-inline int generateTile(TerrainPre& terrainPre)
+inline int generateTile(const TerrainPre& terrainPre)
 {
 	for (auto& it : terrainPre.frequency)
 	{

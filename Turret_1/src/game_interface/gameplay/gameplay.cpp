@@ -14,6 +14,7 @@ GameState Gameplay::startGameplay(sf::RenderWindow& mainWindow, const bool newGa
 {
 	if (newGame)
 	{
+		PreSettings::validate(preSettings);
 		world.createNew(preSettings);
 		switch (preSettings.getGeneral().gameMode)
 		{

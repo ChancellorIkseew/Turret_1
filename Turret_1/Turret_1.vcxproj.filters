@@ -453,6 +453,9 @@
     <ClCompile Include="src\game_interface\sound_system\create_sound.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="src\map_structures\pre-settings\validate-pre-settings.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\game_interface\gameplay\gameplay_util\camera.h">

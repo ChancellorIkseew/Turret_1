@@ -44,10 +44,10 @@ void World::load(const std::string& saveFolderName)
 	fin.close();
 }
 
-void World::createNew(PreSettings& preSettings)
+void World::createNew(const PreSettings& preSettings)
 {
-	this->preSettings = std::move(preSettings);
-	terrainMap.generate(preSettings.changeTerrain());
+	this->preSettings = preSettings;
+	terrainMap.generate(preSettings.getTerrain());
 	buildingsMap = BuildingsMap(preSettings.getTerrain().mapSize);
 	blueprintsMap = BlueprintsMap(preSettings.getTerrain().mapSize);
 

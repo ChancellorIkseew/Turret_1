@@ -22,8 +22,8 @@ void GeneralPreSettingsPage::prepareInterfaceSprites()
 	const int line0 = 280;
 	const int line1 = 300;
 
-	mapSize[MAP_MAX_X] = TextField(sf::String(L"100"), 100, sf::Vector2i(10, 40));
-	mapSize[MAP_MAX_Y] = TextField(sf::String(L"100"), 100, sf::Vector2i(10, 65));
+	mapSize[MAP_MAX_X] = TextField(sf::String(L"100"), 42, sf::Vector2i(10, 40));
+	mapSize[MAP_MAX_Y] = TextField(sf::String(L"100"), 42, sf::Vector2i(10, 65));
 
 	balance[ResType::STONE] = TextField(sf::String(L"500"), 100, sf::Vector2i(line1, 40));
 	balance[ResType::IRON] = TextField(sf::String(L"1000"), 100, sf::Vector2i(line1, 65));

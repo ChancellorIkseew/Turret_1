@@ -30,7 +30,7 @@ public:
 	void save(cereal::BinaryOutputArchive& archive) const;
 	void load(cereal::BinaryInputArchive& archive);
 
-	void generate(TerrainPre& terrainPre); //empty constructor
+	void generate(const TerrainPre& terrainPre); //empty constructor
 	
 	ResType getTileType(const TileCoord tile) const;
 	
