@@ -1,17 +1,19 @@
 
-#include <fstream>
-
 #include "pre-settings.h"
+#include <fstream>
+#include <filesystem>
 
+namespace stdfs = std::filesystem;
+static const stdfs::path saves("saves");
+static const stdfs::path preSettings("world_pre-settings.toml");
 
 void PreSettings::save(const std::string& saveFolderName) const
 {
-    const std::string saveFileName = "saves/" + saveFolderName + "/world_pre-settings.toml";
+    const stdfs::path path = saves / saveFolderName / preSettings;
     std::ofstream fout;
-    fout.open(saveFileName);
+    fout.open(path);
     if (!fout.is_open())
-        throw std::runtime_error("Unable to open file to write: " + saveFileName);
-    cpptoml::toml_writer writer(fout, " ");
+        throw std::runtime_error("Unable to open file to write: " + path.string());
     auto root = cpptoml::make_table();
     buildings.save(root);
     general.save(root);
@@ -19,14 +21,15 @@ void PreSettings::save(const std::string& saveFolderName) const
     shells.save(root);
     terrain.save(root);
     timer.save(root);
+    cpptoml::toml_writer writer(fout, " ");
     writer.visit(*root, false);
     fout.close();
 }
 
 void PreSettings::load(const std::string& saveFolderName)
 {
-    const std::string saveFileName = "saves/" + saveFolderName + "/world_pre-settings.toml";
-    const auto root = std::move(cpptoml::parse_file(saveFileName));
+    const stdfs::path path = saves / saveFolderName / preSettings;
+    const auto root = cpptoml::parse_file(path.string());
     buildings.load(root);
     general.load(root);
     mobs.load(root);

@@ -5,6 +5,7 @@
 #include "map_structures/buildings/building/buildings_info.h"
 #include "t1_system/input/input_handler.h"
 #include "t1_system/sleep.h"
+#include "content/texturepacks.h"
 
 using Info = BuildingsInfoTable;
 
@@ -13,7 +14,6 @@ BuildingIco::BuildingIco(const BuildingType buildingType, const sf::Vector2i pos
 {
 	this->icoRect = Info::at(buildingType).icoRect;
 	scale = 1.0f / sqrt(Info::at(buildingType).size);
-	ico.setOrigin({ 0.0f, 0.0f });
 }
 
 BuildingIco::BuildingIco(const BuildingType buildingType) :
@@ -23,7 +23,6 @@ BuildingIco::BuildingIco(const BuildingType buildingType) :
 	scale = 1.0f / sqrt(Info::at(buildingType).size);
 
 	ico.setTexture(texture);
-	ico.setOrigin({ 0.0f, 0.0f });
 }
 
 
@@ -71,7 +70,7 @@ void BuildingIco::draw(sf::RenderWindow& window)
 
 void BuildingIco::prepareSprites()
 {
-	image.loadFromFile("images/buildings_ico.bmp");
+	image.loadFromFile(Texturepacks::findImage("buildings_ico.bmp"));
 	image.createMaskFromColor(sf::Color(0, 255, 0));
 	texture.loadFromImage(image);
 }

@@ -15,7 +15,7 @@
 
 static void loadTextures()
 {
-    Texturepacks::pushActivePack("pack");
+    Texturepacks::pushActivePack("test_pack");
     TerrainMap::prepareSprites();
     Building::prepareSprites();
     BlueprintsMap::prepareSprites();

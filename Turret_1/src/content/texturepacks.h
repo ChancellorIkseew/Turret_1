@@ -7,12 +7,15 @@
 class Texturepacks
 {
 public:
-	static void findPacks();
-	static std::filesystem::path findImage(const std::string fileName);
+	static void saveConfig();
+	static void loadConfig();
 
-	static void pushActivePack(const std::string packName);
-	static void removeActivePack(const std::string packName);
-	static void clearActivePacks();
+	static void findPacks();
+	static std::filesystem::path findImage(const std::string& fileName);
+
+	static void pushActivePack(const std::string& packName);
+	static void removeActivePack(const std::string& packName);
+	static void resetActivePacks();
 
 };
 

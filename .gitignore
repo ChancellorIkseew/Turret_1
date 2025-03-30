@@ -399,3 +399,5 @@ FodyWeavers.xsd
 
 # Game saves
 /Turret_1/saves/
+/Turret_1/settings/
+

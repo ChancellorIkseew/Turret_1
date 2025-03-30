@@ -3,9 +3,7 @@
 
 #include "building_panel.h"
 #include "building_panel/buildings_pages.h"
-
 #include "game_interface/gameplay/gameplay.h"
-#include "game_interface/ui_window/sub_win_util/fonts.h"
 
 #include "map_structures/terrain/terrain.h"
 #include "map_structures/blueprints/blueprints_map.h"
@@ -16,6 +14,7 @@
 #include "t1_system/input/input_handler.h"
 #include "t1_system/t1_mutex.h"
 #include "t1_system/sleep.h"
+#include "content/texturepacks.h"
 
 using namespace sf::Literals;
 using BType = BuildingType;
@@ -48,7 +47,7 @@ BuildingPanel::BuildingPanel() : UIWindow(sf::Vector2i(324, 192))
 
 void BuildingPanel::prepareInterfaceSprites()
 {
-	buildingsImage.loadFromFile("images/buildings_ico.bmp"); //Building_example_on_coursor
+	buildingsImage.loadFromFile(Texturepacks::findImage("buildings_ico.bmp")); //Building_example_on_coursor
 	buildingsImage.createMaskFromColor(sf::Color(0, 255, 0));
 	buildingsTexture.loadFromImage(buildingsImage);
 	buildExample.setOrigin(BLUEPRINT_ORIGIN);

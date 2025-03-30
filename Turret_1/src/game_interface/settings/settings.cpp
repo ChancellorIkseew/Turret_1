@@ -1,23 +1,24 @@
 
+#include "settings.h"
 #include <iostream>
 #include <fstream>
 #include <cpptoml.h>
+#include <filesystem>
 
-#include "settings.h"
-
+static const std::filesystem::path settings("settings/settings");
 
 void Settings::save()
 {
 	std::ofstream fout;
-	fout.open("saves/settings.toml");
+	fout.open(settings);
 	if (!fout.is_open())
 		throw std::runtime_error("Unable to open file to write: saves/settings.toml"); // Should not be catched. (crash the game)
-	cpptoml::toml_writer writer(fout, " ");
 	auto root = cpptoml::make_table();
 	audio.save(root);
 	display.save(root);
 	gui.save(root);
 	saving.save(root);
+	cpptoml::toml_writer writer(fout, " ");
 	writer.visit(*root, false);
 	fout.close();
 }
@@ -26,7 +27,7 @@ void Settings::load()
 {
 	try
 	{
-		const auto root = std::move(cpptoml::parse_file("saves/settings.toml"));
+		const auto root = cpptoml::parse_file(settings.string());
 		audio.load(root);
 		display.load(root);
 		gui.load(root);

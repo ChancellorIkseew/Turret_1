@@ -7,6 +7,7 @@
 #include "game_interface/main_window/main_window_resize.h"
 #include "t1_system/input/input_handler.h"
 #include "t1_system/sleep.h"
+#include "content/texturepacks.h"
 
 enum fieldEnum
 {
@@ -52,6 +53,7 @@ void SettingsWindow::aply()
 	Settings::getAudio().music = fields[MUSIC].getValueUint32();
 	Settings::getAudio().sounds = fields[SOUNDS].getValueUint32();
 	Settings::save();
+	Texturepacks::saveConfig();
 	SoundSystem::setVolumeBySettings();
 }
 

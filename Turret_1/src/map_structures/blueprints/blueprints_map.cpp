@@ -3,6 +3,7 @@
 #include "game_interface/gameplay/gameplay_util/camera.h"
 #include "map_structures/buildings/building/buildings_info.h"
 #include "map_structures/buildings/buildings_map/buildings_map.h"
+#include "content/texturepacks.h"
 
 using Info = BuildingsInfoTable;
 #define map(tileForMap) blueprintsMap[tileForMap.x][tileForMap.y]
@@ -139,7 +140,7 @@ void BlueprintsMap::draw(sf::RenderWindow& window, const Camera& camera)
 
 void BlueprintsMap::prepareSprites()
 {
-	buildingsImage.loadFromFile("images/buildings_ico.bmp");
+	buildingsImage.loadFromFile(Texturepacks::findImage("buildings_ico.bmp"));
 	buildingsImage.createMaskFromColor(sf::Color(0, 255, 0));
 	buildingsTexture.loadFromImage(buildingsImage);
 	buildExample.setColor(sf::Color(128, 128, 225, 128));
