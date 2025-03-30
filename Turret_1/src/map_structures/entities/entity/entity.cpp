@@ -8,7 +8,7 @@
 #include "map_structures/entities/behavior/aiming.h"
 #include "t1_system/events/events_handler.h"
 #include "game_interface/gameplay/gameplay_util/mob_controller.h"
-
+#include "content/texturepacks.h"
 
 constexpr float BASIC_COLLISION_RADIUS = 30.0f;
 
@@ -91,11 +91,11 @@ void Entity::setShootingAim(const PixelCoord aimCoord) {
 // visual
 void Entity::prepareSprites()
 {
-	entityImage.loadFromFile("images/mobs.bmp");
+	entityImage.loadFromFile(Texturepacks::findImage("mobs.bmp"));
 	entityImage.createMaskFromColor(sf::Color(0, 255, 0));
 	entityTexture.loadFromImage(entityImage);
 
-	shieldImage.loadFromFile("images/shield.bmp");
+	shieldImage.loadFromFile(Texturepacks::findImage("shield.bmp"));
 	shieldImage.createMaskFromColor(sf::Color(0, 255, 0));
 	shieldTexture.loadFromImage(shieldImage);
 	shieldSprite.setTextureRect(sf::IntRect({ 0, 0 }, { 49, 48 }));

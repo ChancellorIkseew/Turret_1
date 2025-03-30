@@ -3,6 +3,7 @@
 #include <list>
 
 #include "particle.h"
+#include "content/texturepacks.h"
 
 		
 Particle::Particle(const int type, const PixelCoord coord) :
@@ -10,7 +11,7 @@ Particle::Particle(const int type, const PixelCoord coord) :
 
 void Particle::prepareSprites()
 {
-	particleImage.loadFromFile("images/shell_burst.bmp");
+	particleImage.loadFromFile(Texturepacks::findImage("shell_burst.bmp"));
 	particleImage.createMaskFromColor(sf::Color(0, 255, 0));
 	particleTexture.loadFromImage(particleImage);
 	particleSprite.setTextureRect(sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(96, 96)));

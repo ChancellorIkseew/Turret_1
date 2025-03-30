@@ -7,6 +7,7 @@
 #include "map_structures/resources/res_enum.h"
 #include "map_structures/team/team.h"
 #include "map_structures/world/world.h"
+#include "content/texturepacks.h"
 
 
 Building::Building(const int16_t durability, const uint8_t size, const TileCoord tile, Team* const team) :
@@ -143,7 +144,7 @@ void Building::addToInventory(ResourceUnit& unit)
 // visual
 void Building::prepareSprites()
 {
-	buildingsImage.loadFromFile("images/buildings_map.bmp");
+	buildingsImage.loadFromFile(Texturepacks::findImage("buildings.bmp"));
 	buildingsImage.createMaskFromColor(sf::Color(0, 255, 0));
 	buildingsTexture.loadFromImage(buildingsImage);
 }

@@ -8,13 +8,14 @@
 
 #include "game_interface/gameplay/gameplay_util/mob_controller.h"
 #include "game_interface/sound_system/sound_system.h"
+#include "content/texturepacks.h"
 
 #include "map_structures/buildings/building/building.h"
 #include "map_structures/entities/turret/turret.h"
 
-void Gameplay::graphics(sf::RenderWindow& mainWindow)
+static void loadTextures()
 {
-    // join into loadTextures for texture packs hot reload
+    Texturepacks::pushActivePack("pack");
     TerrainMap::prepareSprites();
     Building::prepareSprites();
     BlueprintsMap::prepareSprites();
@@ -23,7 +24,12 @@ void Gameplay::graphics(sf::RenderWindow& mainWindow)
     Entity::prepareSprites();
     Shell::prepareSprites();
     Particle::prepareSprites();
-    //
+}
+
+
+void Gameplay::graphics(sf::RenderWindow& mainWindow)
+{
+    loadTextures();
 
     while (isGameplayActive)
     {

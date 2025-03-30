@@ -4,6 +4,7 @@
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/team/team.h"
 #include "map_structures/world/world.h"
+#include "content/texturepacks.h"
 
 
 Shell::Shell(const PixelCoord coord, const float angleRad, Team* team) :
@@ -57,7 +58,7 @@ void Shell::tryHitting()
 
 void Shell::prepareSprites()
 {
-	shellImage.loadFromFile("images/bullet.bmp");
+	shellImage.loadFromFile(Texturepacks::findImage("shells.bmp"));
 	shellImage.createMaskFromColor(sf::Color(0, 255, 0));
 	shellTexture.loadFromImage(shellImage);
 }

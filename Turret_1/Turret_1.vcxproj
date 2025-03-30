@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\content\texturepacks.cpp" />
     <ClCompile Include="src\game_interface\gameplay\gameplay.cpp" />
     <ClCompile Include="src\game_interface\gameplay\gameplay_streams\graphics.cpp" />
     <ClCompile Include="src\game_interface\gameplay\gameplay_streams\input.cpp" />
@@ -281,6 +282,7 @@
     <ClCompile Include="src\t1_system\sleep.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\content\texturepacks.h" />
     <ClInclude Include="src\game_interface\gameplay\gameplay.h" />
     <ClInclude Include="src\game_interface\gameplay\gameplay_streams\scripts\survival\new_survival.h" />
     <ClInclude Include="src\game_interface\gameplay\gameplay_streams\scripts\survival\spawn_entity.h" />

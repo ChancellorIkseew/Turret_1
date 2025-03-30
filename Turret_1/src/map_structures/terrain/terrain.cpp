@@ -9,6 +9,7 @@
 #include "terrain.h"
 
 #include "terrain_enum.h"
+#include "content/texturepacks.h"
 #include "game_interface/gameplay/gameplay_util/camera.h"
 
 
@@ -42,7 +43,7 @@ ResType TerrainMap::getTileType(const TileCoord tile) const
 
 void TerrainMap::prepareSprites()
 {
-	terrainImage.loadFromFile("images/terrain.bmp");
+	terrainImage.loadFromFile(Texturepacks::findImage("terrain.bmp"));
 	terrainTexture.loadFromImage(terrainImage);
 }
 

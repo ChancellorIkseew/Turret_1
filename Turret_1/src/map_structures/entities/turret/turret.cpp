@@ -5,6 +5,7 @@
 #include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/team/team.h"
 #include "map_structures/world/world.h"
+#include "content/texturepacks.h"
 
 		
 Turret::Turret(const TileCoord tile, Team* team) : team(team)
@@ -52,7 +53,7 @@ void Turret::setCoord(PixelCoord coord)
 
 void Turret::prepareSprites()
 {
-	turretImage.loadFromFile("images/autocannon_turret.bmp");
+	turretImage.loadFromFile(Texturepacks::findImage("turrets.bmp"));
 	turretImage.createMaskFromColor(sf::Color(0, 255, 0));
 	turretTexture.loadFromImage(turretImage);
 }

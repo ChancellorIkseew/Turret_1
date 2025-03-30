@@ -1,7 +1,7 @@
 
 #include "resource_unit.h"
-
 #include "res_enum.h"
+#include "content/texturepacks.h"
 
 constexpr sf::Vector2f RES_UNIT_CENTRE(4.5f, 4.5f);
 constexpr sf::Vector2i RES_UNIT_RECT(9, 9);
@@ -23,7 +23,7 @@ void ResourceUnit::load(cereal::BinaryInputArchive& archive) {
 
 void ResourceUnit::prepareSprites()
 {
-	resourcesImage.loadFromFile("images/resources.bmp");			//Resources
+	resourcesImage.loadFromFile(Texturepacks::findImage("resources.bmp"));			//Resources
 	resourcesImage.createMaskFromColor(sf::Color(0, 255, 0));
 	resourcesTexture.loadFromImage(resourcesImage);
 	resourceSprite.setOrigin(RES_UNIT_CENTRE);

@@ -32,7 +32,7 @@ void Settings::load()
 		gui.load(root);
 		saving.load(root);
 	}
-	catch (cpptoml::parse_exception) // Settings file does not exist.
+	catch (cpptoml::parse_exception) // If settings file does not exist.
 	{
 		std::cout << "Settings file not found. Default settings applied.\n";
 		save();
