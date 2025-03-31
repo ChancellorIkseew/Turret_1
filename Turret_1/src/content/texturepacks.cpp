@@ -1,41 +1,35 @@
 
 #include "texturepacks.h"
 #include <algorithm>
-#include <vector>
+#include <unordered_set>
 #include <iostream>
 #include <fstream>
-#include <cpptoml.h>
+#include <cereal/types/unordered_set.hpp>
+#include <cereal/archives/json.hpp>
 
 namespace stdfs = std::filesystem;
 static const stdfs::path images("images");
 static const stdfs::path vanilla(images / "vanilla");
-static std::vector<stdfs::path> allPacks;
-static std::vector<stdfs::path> activePacks;
+static const stdfs::path config("settings/texturepacks.json");
+static std::unordered_set<std::string> allPacks;
+static std::unordered_set<std::string> activePacks;
 
 void Texturepacks::saveConfig()
 {
-	std::ofstream fout;
-	fout.open("settings/texturepacks.toml");
-	if (!fout.is_open())
-		throw std::runtime_error("Unable to open file to write: settings/texturepacks.toml"); // Should not be catched. (crash the game)
-	auto packs = cpptoml::make_array();
-	for (const auto& path : activePacks)
-		packs->push_back(path.filename().string());
-	cpptoml::toml_writer writer(fout, " ");
-	writer.visit(*packs, false);
-	fout.close();
+	std::ofstream fout(config);
+	cereal::JSONOutputArchive archive(fout);
+	archive(activePacks);
 }
 
 void Texturepacks::loadConfig()
 {
 	try
 	{
-		const auto config = cpptoml::parse_file("settings/texturepacks.toml");
-		const auto packs = config->get_array_of<std::string>("active_packs");
-		for (auto& pack : *packs)
-			activePacks.emplace_back(images / pack);
+		std::ifstream fin(config);
+		cereal::JSONInputArchive archive(fin);
+		archive(activePacks);
 	}
-	catch (cpptoml::parse_exception) // If active texturepacks file does not exist.
+	catch (std::runtime_error&) // If active texturepacks file does not exist.
 	{
 		std::cout << "Texturepacks file not found. Default vanilla pack applied.\n";
 		resetActivePacks();
@@ -50,14 +44,14 @@ void Texturepacks::findPacks()
 		return;
 	for (const auto& entry : stdfs::directory_iterator(images))
 		if (stdfs::is_directory(entry))
-			allPacks.push_back(entry.path());
+			allPacks.emplace(entry.path().filename().string());
 }
 
 stdfs::path Texturepacks::findImage(const std::string& fileName)
 {
-	for (const auto& folder : activePacks)
+	for (const std::string& pack : activePacks)
 	{
-		const stdfs::path path = folder / fileName;
+		const stdfs::path path = images / pack / fileName;
 		if (stdfs::exists(path))
 			return path;
 	}
@@ -69,18 +63,16 @@ void Texturepacks::pushActivePack(const std::string& packName)
 {
 	stdfs::path path = images / packName;
 	if (stdfs::exists(path) && stdfs::is_directory(path))
-		activePacks.push_back(path);
+		activePacks.emplace(packName);
 }
 
 void Texturepacks::removeActivePack(const std::string& packName)
 {
-	stdfs::path path = images / packName;
-	const auto& it = std::remove_if(activePacks.begin(), activePacks.end(), [&](const auto& pack) { return pack == path; });
-	activePacks.erase(it, activePacks.end());
+	activePacks.erase(packName);
 }
 
 void Texturepacks::resetActivePacks()
 {
 	activePacks.clear();
-	activePacks.push_back(vanilla);
+	activePacks.emplace(vanilla.filename().string());
 }

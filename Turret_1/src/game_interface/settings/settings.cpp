@@ -5,12 +5,11 @@
 #include <cpptoml.h>
 #include <filesystem>
 
-static const std::filesystem::path settings("settings/settings");
+static const std::filesystem::path settings("settings/settings.toml");
 
 void Settings::save()
 {
-	std::ofstream fout;
-	fout.open(settings);
+	std::ofstream fout(settings);
 	if (!fout.is_open())
 		throw std::runtime_error("Unable to open file to write: saves/settings.toml"); // Should not be catched. (crash the game)
 	auto root = cpptoml::make_table();
@@ -20,7 +19,6 @@ void Settings::save()
 	saving.save(root);
 	cpptoml::toml_writer writer(fout, " ");
 	writer.visit(*root, false);
-	fout.close();
 }
 
 void Settings::load()

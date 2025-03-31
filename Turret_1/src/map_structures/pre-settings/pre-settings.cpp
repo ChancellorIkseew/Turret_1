@@ -10,8 +10,7 @@ static const stdfs::path preSettings("world_pre-settings.toml");
 void PreSettings::save(const std::string& saveFolderName) const
 {
     const stdfs::path path = saves / saveFolderName / preSettings;
-    std::ofstream fout;
-    fout.open(path);
+    std::ofstream fout(path);
     if (!fout.is_open())
         throw std::runtime_error("Unable to open file to write: " + path.string());
     auto root = cpptoml::make_table();
@@ -23,7 +22,6 @@ void PreSettings::save(const std::string& saveFolderName) const
     timer.save(root);
     cpptoml::toml_writer writer(fout, " ");
     writer.visit(*root, false);
-    fout.close();
 }
 
 void PreSettings::load(const std::string& saveFolderName)

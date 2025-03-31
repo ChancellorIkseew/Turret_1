@@ -53,8 +53,9 @@ void SettingsWindow::aply()
 	Settings::getAudio().music = fields[MUSIC].getValueUint32();
 	Settings::getAudio().sounds = fields[SOUNDS].getValueUint32();
 	Settings::save();
-	Texturepacks::saveConfig();
 	SoundSystem::setVolumeBySettings();
+	Texturepacks::saveConfig();
+	Texturepacks::loadTextures();
 }
 
 void SettingsWindow::interact(const bool& windowOpen)

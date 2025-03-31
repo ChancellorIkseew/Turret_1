@@ -10,26 +10,10 @@
 #include "game_interface/sound_system/sound_system.h"
 #include "content/texturepacks.h"
 
-#include "map_structures/buildings/building/building.h"
-#include "map_structures/entities/turret/turret.h"
-
-static void loadTextures()
-{
-    Texturepacks::pushActivePack("test_pack");
-    TerrainMap::prepareSprites();
-    Building::prepareSprites();
-    BlueprintsMap::prepareSprites();
-    Turret::prepareSprites();
-    ResourceUnit::prepareSprites();
-    Entity::prepareSprites();
-    Shell::prepareSprites();
-    Particle::prepareSprites();
-}
-
 
 void Gameplay::graphics(sf::RenderWindow& mainWindow)
 {
-    loadTextures();
+    Texturepacks::loadTextures();
 
     while (isGameplayActive)
     {

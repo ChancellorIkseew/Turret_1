@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\content\load_textures.cpp" />
     <ClCompile Include="src\content\texturepacks.cpp" />
     <ClCompile Include="src\game_interface\gameplay\gameplay.cpp" />
     <ClCompile Include="src\game_interface\gameplay\gameplay_streams\graphics.cpp" />

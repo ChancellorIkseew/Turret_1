@@ -30,7 +30,6 @@ void World::save(const std::string& saveFolderName) const
 	std::ofstream fout(saveFileName, std::ios::binary);
 	cereal::BinaryOutputArchive archive(fout);
 	archive(time, nextTeamID, teams, terrainMap, buildingsMap, blueprintsMap);
-	fout.close();
 }
 
 void World::load(const std::string& saveFolderName)
@@ -41,7 +40,6 @@ void World::load(const std::string& saveFolderName)
 	std::ifstream fin(saveFileName, std::ios::binary);
 	cereal::BinaryInputArchive archive(fin);
 	archive(time, nextTeamID, teams, terrainMap, buildingsMap, blueprintsMap);
-	fin.close();
 }
 
 void World::createNew(const PreSettings& preSettings)

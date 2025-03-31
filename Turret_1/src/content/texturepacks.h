@@ -17,6 +17,8 @@ public:
 	static void removeActivePack(const std::string& packName);
 	static void resetActivePacks();
 
+	static void loadTextures();
+
 };
 
 #endif // T1_TEXTUREPACKS_H
