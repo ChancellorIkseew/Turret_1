@@ -9,7 +9,6 @@
 
 namespace stdfs = std::filesystem;
 static const stdfs::path images("images");
-static const stdfs::path vanilla(images / "vanilla");
 static const stdfs::path config("settings/texturepacks.json");
 static std::unordered_set<std::string> allPacks;
 static std::unordered_set<std::string> activePacks;
@@ -18,7 +17,7 @@ void Texturepacks::saveConfig()
 {
 	std::ofstream fout(config);
 	cereal::JSONOutputArchive archive(fout);
-	archive(activePacks);
+	archive(cereal::make_nvp("active_packs", activePacks));
 }
 
 void Texturepacks::loadConfig()
@@ -27,12 +26,12 @@ void Texturepacks::loadConfig()
 	{
 		std::ifstream fin(config);
 		cereal::JSONInputArchive archive(fin);
-		archive(activePacks);
+		archive(cereal::make_nvp("active_packs", activePacks));
 	}
 	catch (std::runtime_error&) // If active texturepacks file does not exist.
 	{
 		std::cout << "Texturepacks file not found. Default vanilla pack applied.\n";
-		resetActivePacks();
+		clearActivePacks();
 		saveConfig();
 	}
 }
@@ -53,9 +52,13 @@ stdfs::path Texturepacks::findImage(const std::string& fileName)
 	{
 		const stdfs::path path = images / pack / fileName;
 		if (stdfs::exists(path))
+		{
+			std::cout << "Found.\n";
 			return path;
+		}
+			
 	}
-	return vanilla / fileName;
+	return images / "vanilla" / fileName;
 }
 
 
@@ -71,8 +74,7 @@ void Texturepacks::removeActivePack(const std::string& packName)
 	activePacks.erase(packName);
 }
 
-void Texturepacks::resetActivePacks()
+void Texturepacks::clearActivePacks()
 {
 	activePacks.clear();
-	activePacks.emplace(vanilla.filename().string());
 }

@@ -15,7 +15,7 @@ public:
 
 	static void pushActivePack(const std::string& packName);
 	static void removeActivePack(const std::string& packName);
-	static void resetActivePacks();
+	static void clearActivePacks();
 
 	static void loadTextures();
 
