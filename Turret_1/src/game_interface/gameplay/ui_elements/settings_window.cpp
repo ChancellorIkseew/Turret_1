@@ -29,6 +29,7 @@ void SettingsWindow::prepareInterfaceSprites()
 {
 	exit = Button("exit_to_menu.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 10));
 	confirm = Button("confirm.bmp", sf::Vector2i(48, 48), sf::Vector2i(70, 10));
+	update = Button("update.bmp", sf::Vector2i(48, 48), sf::Vector2i(662, 10));
 
 	const int line0 = 110;
 	fields[WINDOW_SIZE_X] = TextField(Settings::getDisplay().windowMaxSize.x, 42, sf::Vector2i(line0, 70));
@@ -63,6 +64,8 @@ void SettingsWindow::interact(const bool& windowOpen)
 			return;
 		if (confirm.press())
 			aply();
+		if (update.press())
+			Texturepacks::findPacks();
 		for (auto& [_, field] : fields)
 			field.interact();
 		t1::system::sleep(16);
@@ -75,6 +78,7 @@ void SettingsWindow::relocate(const sf::Vector2i windowSize)
 	relocateCentral(windowSize);
 	exit.relocateWithOwner(position);
 	confirm.relocateWithOwner(position);
+	update.relocateWithOwner(position);
 	for (auto& [_, label] : labels)
 		label.relocateWithOwner(position);
 	for (auto& [_, field] : fields)
@@ -89,6 +93,7 @@ void SettingsWindow::draw(sf::RenderWindow& window)
 	drawBase(window);
 	exit.draw(window);
 	confirm.draw(window);
+	update.draw(window);
 	for (const auto& [_, label] : labels)
 		label.draw(window);
 	for (auto& [_, field] : fields)

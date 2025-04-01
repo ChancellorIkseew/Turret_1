@@ -279,6 +279,7 @@
     <ClCompile Include="src\map_structures\terrain\terrain_generation.cpp" />
     <ClCompile Include="src\map_structures\world\world.cpp" />
     <ClCompile Include="src\t1_system\events\events_handler.cpp" />
+    <ClCompile Include="src\t1_system\input\default_bindings.cpp" />
     <ClCompile Include="src\t1_system\input\input_handler.cpp" />
     <ClCompile Include="src\t1_system\random\t1_random.cpp" />
     <ClCompile Include="src\t1_system\sleep.cpp" />

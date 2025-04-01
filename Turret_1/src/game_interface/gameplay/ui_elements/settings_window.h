@@ -13,6 +13,7 @@ class SettingsWindow : public UIWindow
 private:
 	Button exit;
 	Button confirm;
+	Button update;
 	std::map<int, TextField> fields;
 	std::map<int, Label> labels;
 

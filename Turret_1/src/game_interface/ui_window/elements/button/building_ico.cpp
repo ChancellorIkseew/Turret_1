@@ -14,6 +14,7 @@ BuildingIco::BuildingIco(const BuildingType buildingType, const sf::Vector2i pos
 {
 	this->icoRect = Info::at(buildingType).icoRect;
 	scale = 1.0f / sqrt(Info::at(buildingType).size);
+	ico.setTexture(texture);
 }
 
 BuildingIco::BuildingIco(const BuildingType buildingType) :
@@ -21,7 +22,6 @@ BuildingIco::BuildingIco(const BuildingType buildingType) :
 {
 	this->icoRect = Info::at(buildingType).icoRect;
 	scale = 1.0f / sqrt(Info::at(buildingType).size);
-
 	ico.setTexture(texture);
 }
 
@@ -35,12 +35,10 @@ bool BuildingIco::select() const
 
 bool BuildingIco::press()
 {
-	if (select() && InputHandler::jactive(t1::BindName::LMB))
-	{
-		t1::system::sleep(150);
-		return true;
-	}
-	return false;
+	if (!select() || !(InputHandler::jactive(t1::BindName::LMB) || InputHandler::active(t1::BindName::Pipette)))
+		return false;
+	t1::system::sleep(150); // Unable to use "jactive(t1::BindName::Pipette)", because it is already used in BuildingPanel.
+	return true;
 }
 
 BuildingType BuildingIco::getBuildingType() const

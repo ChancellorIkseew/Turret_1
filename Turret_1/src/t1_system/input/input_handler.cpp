@@ -3,10 +3,10 @@
 
 #include "game_interface/ui_window/sub_win_types/text_field/text_field.h"
 
-static inline int code(sf::Mouse::Button sfMB) {
+static inline int intCode(sf::Mouse::Button sfMB) {
 	return static_cast<int>(sfMB);
 }
-static inline int code(sf::Keyboard::Key sfKey) {
+static inline int intCode(sf::Keyboard::Key sfKey) {
 	return static_cast<int>(sfKey);
 }
 
@@ -14,34 +14,32 @@ static inline int code(sf::Keyboard::Key sfKey) {
 void InputHandler::updateInput(const std::optional<sf::Event>& event)
 {
 	t1::InputType inputType = t1::InputType::keyboard;
-	int nCode = -1;
+	int code = -1;
 	bool pressed = false;
 	if (const auto keyPressed = event->getIf<sf::Event::KeyPressed>())
 	{
-		nCode = code(keyPressed->code);
+		code = intCode(keyPressed->code);
 		pressed = true;
 	}
 	else if (const auto keyReleased = event->getIf<sf::Event::KeyReleased>())
 	{
-		nCode = code(keyReleased->code);
-		pressed = false;
+		code = intCode(keyReleased->code);
 	}
 	else if (const auto btnPressed = event->getIf<sf::Event::MouseButtonPressed>())
 	{
 		inputType = t1::InputType::mouse;
-		nCode = code(btnPressed->button);
+		code = intCode(btnPressed->button);
 		pressed = true;
 	}
 	else if (const auto btnreleased = event->getIf<sf::Event::MouseButtonReleased>())
 	{
 		inputType = t1::InputType::mouse;
-		nCode = code(btnreleased->button);
-		pressed = false;
+		code = intCode(btnreleased->button);
 	}
 
 	for (auto& [bindName, binding] : bindings)
 	{
-		if (inputType != binding.inputType || nCode != binding.code)
+		if (inputType != binding.inputType || code != binding.code)
 			continue;
 		binding.justTriggered = !binding.active;
 		binding.active = pressed;
@@ -104,44 +102,14 @@ void InputHandler::rebind(const t1::BindName bindName, const std::optional<sf::E
 	t1::InputType inputType = t1::InputType::keyboard;
 	if (const auto keyPressed = event->getIf<sf::Event::KeyPressed>())
 	{
-		nCode = code(keyPressed->code);
+		nCode = intCode(keyPressed->code);
 	}
 	else if (const auto btnPressed = event->getIf<sf::Event::MouseButtonPressed>())
 	{
 		inputType = t1::InputType::mouse;
-		nCode = code(btnPressed->button);
+		nCode = intCode(btnPressed->button);
 	}
 	
 	bindings.erase(bindName); // t1::Binding has no copy constructor.
 	bindings.emplace(bindName, t1::Binding(nCode, inputType));
 }
-
-using BindName = t1::BindName;
-using Binding = t1::Binding;
-using InputType = t1::InputType;
-
-std::unordered_map<t1::BindName, t1::Binding> InputHandler::bindings
-{
-	{BindName::LMB, Binding(code(sf::Mouse::Button::Left), InputType::mouse)},
-	{BindName::RMB, Binding(code(sf::Mouse::Button::Right), InputType::mouse)},
-	{BindName::MidMB, Binding(code(sf::Mouse::Button::Middle), InputType::mouse)},
-
-	{BindName::Build, Binding(code(sf::Mouse::Button::Left), InputType::mouse)},
-	{BindName::Rotate_building, Binding(code(sf::Keyboard::Key::R), InputType::keyboard)},
-	{BindName::Pipette, Binding(code(sf::Keyboard::Key::Q), InputType::keyboard)},
-	{BindName::Demolish, Binding(code(sf::Keyboard::Key::LControl), InputType::keyboard)},
-
-	{BindName::Control_unit, Binding(code(sf::Keyboard::Key::V), InputType::keyboard)},
-	{BindName::Shoot, Binding(code(sf::Mouse::Button::Left), InputType::mouse)},
-
-	{BindName::Move_up, Binding(code(sf::Keyboard::Key::W), InputType::keyboard)},
-	{BindName::Move_left, Binding(code(sf::Keyboard::Key::A), InputType::keyboard)},
-	{BindName::Move_down, Binding(code(sf::Keyboard::Key::S), InputType::keyboard)},
-	{BindName::Move_right, Binding(code(sf::Keyboard::Key::D), InputType::keyboard)},
-
-	{BindName::Pause, Binding(code(sf::Keyboard::Key::Space), InputType::keyboard)},
-	{BindName::Cancel, Binding(code(sf::Keyboard::Key::Escape), InputType::keyboard)},
-	{BindName::Escape, Binding(code(sf::Keyboard::Key::Escape), InputType::keyboard)},
-	{BindName::Hide_GUI, Binding(code(sf::Keyboard::Key::F1), InputType::keyboard)},
-	{BindName::Console_cheat, Binding(code(sf::Keyboard::Key::RAlt), InputType::keyboard)}
-};
