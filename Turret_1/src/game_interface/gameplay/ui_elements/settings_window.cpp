@@ -36,14 +36,11 @@ void SettingsWindow::prepareInterfaceSprites()
 	fields[SHOW_MINIMAP] = TextField(static_cast<uint32_t>(Settings::getGui().showMinimap), 42, sf::Vector2i(line0, 125));
 	fields[MUSIC] = TextField(Settings::getAudio().music, 42, sf::Vector2i(line0, 155));
 	fields[SOUNDS] = TextField(Settings::getAudio().sounds, 42, sf::Vector2i(line0, 185));
-	tResolution = sf::Text(turretClassic, sf::String(L"Разрешение\nэкрана"), 12);
-	tMinimap = sf::Text(turretClassic, sf::String(L"Отображать\nминикарту"), 12);
-	tMusic = sf::Text(turretClassic, sf::String(L"Громкость\nмузыки"), 12);
-	tSounds = sf::Text(turretClassic, sf::String(L"Громкось\nзвуков"), 12);
-	tResolution.setFillColor(standardColor);
-	tMinimap.setFillColor(standardColor);
-	tMusic.setFillColor(standardColor);
-	tSounds.setFillColor(standardColor);
+
+	labels[WINDOW_SIZE_X] = Label(L"Разрешение\nэкрана", sf::Vector2i(position.x + 10, position.y + 80));
+	labels[SHOW_MINIMAP] = Label(L"Отображать\nминикарту", sf::Vector2i(position.x + 10, position.y + 125));
+	labels[MUSIC] = Label(L"Громкость\nмузыки", sf::Vector2i(position.x + 10, position.y + 155));
+	labels[SOUNDS] = Label(L"Громкось\nзвуков", sf::Vector2i(position.x + 10, position.y + 185));
 }
 
 void SettingsWindow::aply()
@@ -66,8 +63,8 @@ void SettingsWindow::interact(const bool& windowOpen)
 			return;
 		if (confirm.press())
 			aply();
-		for (auto& field : fields)
-			field.second.interact();
+		for (auto& [_, field] : fields)
+			field.interact();
 		t1::system::sleep(16);
 	}
 }
@@ -78,12 +75,10 @@ void SettingsWindow::relocate(const sf::Vector2i windowSize)
 	relocateCentral(windowSize);
 	exit.relocateWithOwner(position);
 	confirm.relocateWithOwner(position);
-	tResolution.setPosition(sf::Vector2f(position.x + 10, position.y + 80));
-	tMinimap.setPosition(sf::Vector2f(position.x + 10, position.y + 125));
-	tMusic.setPosition(sf::Vector2f(position.x + 10, position.y + 155));
-	tSounds.setPosition(sf::Vector2f(position.x + 10, position.y + 185));
-	for (auto& field : fields)
-		field.second.relocateWithOwner(position);
+	for (auto& [_, label] : labels)
+		label.relocateWithOwner(position);
+	for (auto& [_, field] : fields)
+		field.relocateWithOwner(position);
 }
 
 
@@ -94,10 +89,8 @@ void SettingsWindow::draw(sf::RenderWindow& window)
 	drawBase(window);
 	exit.draw(window);
 	confirm.draw(window);
-	window.draw(tResolution);
-	window.draw(tMinimap);
-	window.draw(tMusic);
-	window.draw(tSounds);
-	for (auto& field : fields)
-		field.second.draw(window);
+	for (const auto& [_, label] : labels)
+		label.draw(window);
+	for (auto& [_, field] : fields)
+		field.draw(window);
 }

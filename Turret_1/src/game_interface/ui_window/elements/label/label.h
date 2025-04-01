@@ -21,7 +21,7 @@ public:
     void setVisible(const bool visible);
 
     void relocateWithOwner(const sf::Vector2i ownerPosition);
-    void draw(sf::RenderWindow& window);
+    void draw(sf::RenderWindow& window) const;
 
 };
 

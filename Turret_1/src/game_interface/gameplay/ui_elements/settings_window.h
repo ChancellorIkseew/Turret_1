@@ -4,6 +4,7 @@
 
 #include <map>
 #include "game_interface/ui_window/ui_window/ui_window.h"
+#include "game_interface/ui_window/elements/label/label.h"
 #include "game_interface/ui_window/elements/button/button.h"
 #include "game_interface/ui_window/sub_win_types/text_field/text_field.h"
 
@@ -12,12 +13,8 @@ class SettingsWindow : public UIWindow
 private:
 	Button exit;
 	Button confirm;
-
 	std::map<int, TextField> fields;
-	sf::Text tResolution = sf::Text(turretClassic);
-	sf::Text tMinimap = sf::Text(turretClassic);
-	sf::Text tMusic = sf::Text(turretClassic);
-	sf::Text tSounds = sf::Text(turretClassic);
+	std::map<int, Label> labels;
 
 	SettingsWindow(const SettingsWindow&) = delete;
 	SettingsWindow& operator=(const SettingsWindow&) = delete;
