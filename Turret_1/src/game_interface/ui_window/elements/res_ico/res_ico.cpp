@@ -1,7 +1,7 @@
 
 #include "res_ico.h"
-
 #include "map_structures/resources/res_enum.h"
+#include "content/texturepacks.h"
 
 constexpr sf::Vector2i ICO_RECT(9, 9);
 
@@ -28,7 +28,7 @@ void ResIco::setPosition(const sf::Vector2i position)
 
 void ResIco::prepareSprites()
 {
-	image.loadFromFile("images/resources.bmp");
+	image.loadFromFile(Texturepacks::findImage("resources.bmp"));
 	image.createMaskFromColor(sf::Color(0, 255, 0));
 	texture.loadFromImage(image);
 	ico.setTexture(texture);

@@ -5,6 +5,7 @@
 #include "game_interface/ui_window/elements/res_ico/res_ico.h"
 #include "game_interface/ui_window/elements/res_info/res_info.h"
 #include "game_interface/ui_window/elements/button/building_ico.h"
+#include "game_interface/ui_window/elements/button/checkbox.h"
 
 #include "t1_system/input/input_handler.h"
 
@@ -20,6 +21,7 @@ void UIPlate::init()
 
 	ResIco::prepareSprites();
 	BuildingIco::prepareSprites();
+	Checkbox::prepareSprites();
 	initFonts();
 }
 

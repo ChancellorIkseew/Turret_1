@@ -468,6 +468,9 @@
     <ClCompile Include="src\t1_system\input\default_bindings.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="src\game_interface\ui_window\elements\button\checkbox.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\game_interface\gameplay\gameplay_util\camera.h">
@@ -870,6 +873,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="src\game_interface\ui_window\elements\label\label.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game_interface\ui_window\elements\button\checkbox.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

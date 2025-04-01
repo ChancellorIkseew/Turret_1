@@ -7,7 +7,6 @@
 class Button
 {
 private:
-
     sf::Vector2i size;
     sf::Vector2i position;
 

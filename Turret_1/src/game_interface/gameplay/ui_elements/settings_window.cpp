@@ -31,23 +31,24 @@ void SettingsWindow::prepareInterfaceSprites()
 	confirm = Button("confirm.bmp", sf::Vector2i(48, 48), sf::Vector2i(70, 10));
 	update = Button("update.bmp", sf::Vector2i(48, 48), sf::Vector2i(662, 10));
 
-	const int line0 = 110;
-	fields[WINDOW_SIZE_X] = TextField(Settings::getDisplay().windowMaxSize.x, 42, sf::Vector2i(line0, 70));
-	fields[WINDOW_SIZE_Y] = TextField(Settings::getDisplay().windowMaxSize.y, 42, sf::Vector2i(line0, 95));
-	fields[SHOW_MINIMAP] = TextField(static_cast<uint32_t>(Settings::getGui().showMinimap), 42, sf::Vector2i(line0, 125));
-	fields[MUSIC] = TextField(Settings::getAudio().music, 42, sf::Vector2i(line0, 155));
-	fields[SOUNDS] = TextField(Settings::getAudio().sounds, 42, sf::Vector2i(line0, 185));
+	const int line0 = 10;
+	labels[WINDOW_SIZE_X] = Label(L"Разрешение\nэкрана", sf::Vector2i(line0, position.y + 80));
+	labels[SHOW_MINIMAP] = Label(L"Отображать\nминикарту", sf::Vector2i(line0, position.y + 125));
+	labels[MUSIC] = Label(L"Громкость\nмузыки", sf::Vector2i(line0, position.y + 155));
+	labels[SOUNDS] = Label(L"Громкось\nзвуков", sf::Vector2i(line0, position.y + 185));
 
-	labels[WINDOW_SIZE_X] = Label(L"Разрешение\nэкрана", sf::Vector2i(position.x + 10, position.y + 80));
-	labels[SHOW_MINIMAP] = Label(L"Отображать\nминикарту", sf::Vector2i(position.x + 10, position.y + 125));
-	labels[MUSIC] = Label(L"Громкость\nмузыки", sf::Vector2i(position.x + 10, position.y + 155));
-	labels[SOUNDS] = Label(L"Громкось\nзвуков", sf::Vector2i(position.x + 10, position.y + 185));
+	const int line1 = 110;
+	fields[WINDOW_SIZE_X] = TextField(Settings::getDisplay().windowMaxSize.x, 42, sf::Vector2i(line1, 70));
+	fields[WINDOW_SIZE_Y] = TextField(Settings::getDisplay().windowMaxSize.y, 42, sf::Vector2i(line1, 95));
+	fields[MUSIC] = TextField(Settings::getAudio().music, 42, sf::Vector2i(line1, 155));
+	fields[SOUNDS] = TextField(Settings::getAudio().sounds, 42, sf::Vector2i(line1, 185));
+	showMinimap = Checkbox(Settings::getGui().showMinimap, sf::Vector2i(line1, position.y + 125));
 }
 
 void SettingsWindow::aply()
 {
 	Settings::getDisplay().windowMaxSize = sf::Vector2u(fields[WINDOW_SIZE_X].getValueUint32(), fields[WINDOW_SIZE_Y].getValueUint32());
-	Settings::getGui().showMinimap = fields[SHOW_MINIMAP].getValueUint32() != 0;
+	Settings::getGui().showMinimap = showMinimap.getValue();
 	Settings::getAudio().music = fields[MUSIC].getValueUint32();
 	Settings::getAudio().sounds = fields[SOUNDS].getValueUint32();
 	Settings::save();
@@ -66,6 +67,7 @@ void SettingsWindow::interact(const bool& windowOpen)
 			aply();
 		if (update.press())
 			Texturepacks::findPacks();
+		showMinimap.press();
 		for (auto& [_, field] : fields)
 			field.interact();
 		t1::system::sleep(16);
@@ -79,6 +81,7 @@ void SettingsWindow::relocate(const sf::Vector2i windowSize)
 	exit.relocateWithOwner(position);
 	confirm.relocateWithOwner(position);
 	update.relocateWithOwner(position);
+	showMinimap.relocateWithOwner(position);
 	for (auto& [_, label] : labels)
 		label.relocateWithOwner(position);
 	for (auto& [_, field] : fields)
@@ -94,6 +97,7 @@ void SettingsWindow::draw(sf::RenderWindow& window)
 	exit.draw(window);
 	confirm.draw(window);
 	update.draw(window);
+	showMinimap.draw(window);
 	for (const auto& [_, label] : labels)
 		label.draw(window);
 	for (auto& [_, field] : fields)
