@@ -3,8 +3,6 @@
 #define T1_BUTTON_H
 
 #include <SFML/Graphics.hpp>
-#include <string>
-
 
 class Button
 {
@@ -21,8 +19,6 @@ private:
     bool isVisible = true;
     bool isSelected = false;
     bool isPressed = false;
-
-	static bool anyButtonSelected;
 
     Button(const Button& other) = delete;
     Button& operator=(const Button& other) = delete;

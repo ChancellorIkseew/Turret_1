@@ -5,17 +5,14 @@
 #include "t1_system/sleep.h"
 
 
-Button::Button(const std::string& imageFile, const sf::Vector2i size, const sf::Vector2i position)
+Button::Button(const std::string& imageFile, const sf::Vector2i size, const sf::Vector2i position):
+	size(size), position(position)
 {
-	this->size = size;
-	this->position = position;
-
 	image.loadFromFile("images/buttons/" + imageFile);
 	image.createMaskFromColor(sf::Color(0, 255, 0));
 	texture.loadFromImage(image);
 	button.setTexture(texture);
-	button.setTextureRect(sf::IntRect({ 0, 0 }, { size.x, size.y }));
-	button.setOrigin({ 0.0f, 0.0f });
+	button.setTextureRect(sf::IntRect({ 0, 0 }, size));
 }
 
 Button& Button::operator=(const Button&& other) noexcept
@@ -27,7 +24,7 @@ Button& Button::operator=(const Button&& other) noexcept
 
 	texture.loadFromImage(image);
 	button.setTexture(texture);
-	button.setTextureRect(sf::IntRect({ 0, 0 }, { size.x, size.y }));
+	button.setTextureRect(sf::IntRect({ 0, 0 }, size));
 
 	return *this;
 }
@@ -41,7 +38,7 @@ Button::Button(const Button&& other) noexcept
 
 	texture.loadFromImage(image);
 	button.setTexture(texture);
-	button.setTextureRect(sf::IntRect({ 0, 0 }, { size.x, size.y }));
+	button.setTextureRect(sf::IntRect({ 0, 0 }, size));
 }
 
 bool Button::select()
@@ -53,17 +50,12 @@ bool Button::select()
 
 bool Button::press()
 {
-	if (!isVisible || !select())
+	if (!isVisible || !select() || !InputHandler::jactive(t1::BindName::LMB))
 		return false;
-
-	if (InputHandler::jactive(t1::BindName::LMB))
-	{
-		isPressed = true;
-		t1::system::sleep(150);
-		isPressed = false;
-		return true;
-	}
-	return false;
+	isPressed = true;
+	t1::system::sleep(150);
+	isPressed = false;
+	return true;
 }
 
 void Button::setVisible(const bool visible)

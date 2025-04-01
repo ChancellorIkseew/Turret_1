@@ -52,11 +52,7 @@ stdfs::path Texturepacks::findImage(const std::string& fileName)
 	{
 		const stdfs::path path = images / pack / fileName;
 		if (stdfs::exists(path))
-		{
-			std::cout << "Found.\n";
 			return path;
-		}
-			
 	}
 	return images / "vanilla" / fileName;
 }

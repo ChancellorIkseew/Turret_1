@@ -33,6 +33,7 @@ public:
 	static sf::Vector2i getMouseCoord();
 	///@brief Pixel coordinate on map.
 	static sf::Vector2f getMouseMapCoord();
+	///@brief (none/up/down)
 	static t1::MouseWheelScroll getMouseWheelScroll();
 
 	static void rebind(const t1::BindName keyName, const std::optional<sf::Event>& event);

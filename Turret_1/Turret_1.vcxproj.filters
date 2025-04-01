@@ -462,6 +462,9 @@
     <ClCompile Include="src\content\load_textures.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="src\game_interface\ui_window\elements\label\label.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\game_interface\gameplay\gameplay_util\camera.h">
@@ -861,6 +864,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="src\content\texturepacks.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game_interface\ui_window\elements\label\label.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

@@ -197,6 +197,7 @@
     <ClCompile Include="src\game_interface\sound_system\sound_system.cpp" />
     <ClCompile Include="src\game_interface\ui_window\elements\button\building_ico.cpp" />
     <ClCompile Include="src\game_interface\ui_window\elements\button\button.cpp" />
+    <ClCompile Include="src\game_interface\ui_window\elements\label\label.cpp" />
     <ClCompile Include="src\game_interface\ui_window\elements\res_ico\res_ico.cpp" />
     <ClCompile Include="src\game_interface\ui_window\elements\res_info\res_info.cpp" />
     <ClCompile Include="src\game_interface\ui_window\sub_win_types\page\page.cpp" />
@@ -323,6 +324,7 @@
     <ClInclude Include="src\game_interface\sound_system\sound_system.h" />
     <ClInclude Include="src\game_interface\ui_window\elements\button\building_ico.h" />
     <ClInclude Include="src\game_interface\ui_window\elements\button\button.h" />
+    <ClInclude Include="src\game_interface\ui_window\elements\label\label.h" />
     <ClInclude Include="src\game_interface\ui_window\elements\res_ico\res_ico.h" />
     <ClInclude Include="src\game_interface\ui_window\elements\res_info\res_info.h" />
     <ClInclude Include="src\game_interface\ui_window\sub_win_types\page\page.h" />
