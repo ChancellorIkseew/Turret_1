@@ -1,7 +1,12 @@
 
 #include "input_handler.h"
-
 #include "game_interface/ui_window/sub_win_types/text_field/text_field.h"
+
+constexpr char32_t NON_USABLE_SYMBOL = static_cast<char32_t>(0);
+static std::atomic<char32_t> symbolJustEntered = NON_USABLE_SYMBOL;
+static std::atomic<sf::Vector2i> mouseCoord = sf::Vector2i(0, 0);
+static std::atomic<sf::Vector2f> mouseMapCoord = sf::Vector2f(0.0f, 0.0f);
+static std::atomic<t1::MouseWheelScroll> mouseWheelScroll = t1::MouseWheelScroll::none;
 
 static inline int intCode(sf::Mouse::Button sfMB) {
 	return static_cast<int>(sfMB);
@@ -58,10 +63,7 @@ void InputHandler::updateInput(const std::optional<sf::Event>& event)
 bool InputHandler::active(const t1::BindName bindName)
 {
 	const auto& found = bindings.find(bindName);
-	if (found == bindings.end() || !found->second.active)
-		return false;
-	found->second.justTriggered = false;
-	return true;
+	return found != bindings.end() && found->second.active;
 }
 
 bool InputHandler::jactive(const t1::BindName bindName)

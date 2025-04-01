@@ -18,7 +18,7 @@ void EventsHandler::pollSimulationEvents()
 	for (auto& [eventType, event] : events)
 	{
 		if (event->active)
-			event->active = false;	
+			event->active = false;
 	}
 }
 

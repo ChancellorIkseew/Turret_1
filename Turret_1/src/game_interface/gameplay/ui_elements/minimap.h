@@ -15,6 +15,9 @@ private:
 	sf::Sprite map = sf::Sprite(mapTexture);
 
 	TileCoord mapSize;
+	int markerSize = 2;
+
+	void setMarker(const TileCoord tile, const sf::Color color);
 
 	Minimap(const Minimap&) = delete;
 	Minimap& operator=(const Minimap&) = delete;

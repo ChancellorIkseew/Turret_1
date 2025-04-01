@@ -1,6 +1,3 @@
-#pragma once
-#ifndef MAP_STR_VALIDATE_PRE_SETTINGS
-#define MAP_STR_VALIDATE_PRE_SETTINGS
 
 #include "pre-settings.h"
 #include "t1_system/random/t1_random.h"
@@ -16,5 +13,3 @@ void PreSettings::validate(PreSettings& preSettings)
 	if (terrain.seed == 0)
 		terrain.seed = t1::Rand::getValue(0, 1000000);
 }
-
-#endif // MAP_STR_VALIDATE_PRE_SETTINGS
