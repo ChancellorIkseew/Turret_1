@@ -45,11 +45,15 @@ BuildingPanel::BuildingPanel() : UIWindow(sf::Vector2i(324, 192))
 }
 
 
-void BuildingPanel::prepareInterfaceSprites()
+void BuildingPanel::prepareSprites()
 {
 	buildingsImage.loadFromFile(Texturepacks::findImage("buildings_ico.bmp")); //Building_example_on_coursor
 	buildingsImage.createMaskFromColor(sf::Color(0, 255, 0));
 	buildingsTexture.loadFromImage(buildingsImage);
+}
+
+void BuildingPanel::prepareInterfaceSprites()
+{
 	buildExample.setOrigin(BLUEPRINT_ORIGIN);
 
 	const int line1 = 240;

@@ -56,6 +56,8 @@ public:
 	void relocate(const sf::Vector2i windowSize) override final;
 	bool containsCoursor() const override final;
 	
+	///@brief Static metodth is needed for texturepacks reload.
+	static void prepareSprites();
 	void draw(sf::RenderWindow& window) override final;
 	void drawBuildExample(sf::RenderWindow& window, Team* team, const BuildingsMap& buildingsMap);
 	

@@ -8,13 +8,12 @@
 
 #include "game_interface/gameplay/gameplay_util/mob_controller.h"
 #include "game_interface/sound_system/sound_system.h"
-#include "content/texturepacks.h"
+//#include "content/texturepacks.h"
+#include "t1_system/t1_mutex.h"
 
 
 void Gameplay::graphics(sf::RenderWindow& mainWindow)
 {
-    Texturepacks::loadTextures();
-
     while (isGameplayActive)
     {
         while (const std::optional event = mainWindow.pollEvent())
@@ -39,6 +38,7 @@ void Gameplay::graphics(sf::RenderWindow& mainWindow)
         
         mainWindow.clear(sf::Color::Black);		//Begin draw_block
         camera.interact(mainWindow, MobController::getTarget(), isPaused);
+        std::lock_guard guard(t1::system::mt::drawing);
         world.draw(mainWindow, camera);
         buildingPanel.drawBuildExample(mainWindow, player, world.getBuildingsMap());
 

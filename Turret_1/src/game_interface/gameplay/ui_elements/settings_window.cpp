@@ -32,17 +32,17 @@ void SettingsWindow::prepareInterfaceSprites()
 	update = Button("update.bmp", sf::Vector2i(48, 48), sf::Vector2i(662, 10));
 
 	const int line0 = 10;
-	labels[WINDOW_SIZE_X] = Label(L"Разрешение\nэкрана", sf::Vector2i(line0, position.y + 80));
-	labels[SHOW_MINIMAP] = Label(L"Отображать\nминикарту", sf::Vector2i(line0, position.y + 125));
-	labels[MUSIC] = Label(L"Громкость\nмузыки", sf::Vector2i(line0, position.y + 155));
-	labels[SOUNDS] = Label(L"Громкось\nзвуков", sf::Vector2i(line0, position.y + 185));
+	labels[WINDOW_SIZE_X] = Label(L"Разрешение\nэкрана", sf::Vector2i(line0, 80));
+	labels[SHOW_MINIMAP] = Label(L"Отображать\nминикарту", sf::Vector2i(line0, 125));
+	labels[MUSIC] = Label(L"Громкость\nмузыки", sf::Vector2i(line0, 155));
+	labels[SOUNDS] = Label(L"Громкось\nзвуков", sf::Vector2i(line0, 185));
 
 	const int line1 = 110;
 	fields[WINDOW_SIZE_X] = TextField(Settings::getDisplay().windowMaxSize.x, 42, sf::Vector2i(line1, 70));
 	fields[WINDOW_SIZE_Y] = TextField(Settings::getDisplay().windowMaxSize.y, 42, sf::Vector2i(line1, 95));
 	fields[MUSIC] = TextField(Settings::getAudio().music, 42, sf::Vector2i(line1, 155));
 	fields[SOUNDS] = TextField(Settings::getAudio().sounds, 42, sf::Vector2i(line1, 185));
-	showMinimap = Checkbox(Settings::getGui().showMinimap, sf::Vector2i(line1, position.y + 125));
+	showMinimap = Checkbox(Settings::getGui().showMinimap, sf::Vector2i(line1, 125));
 }
 
 void SettingsWindow::aply()
@@ -53,8 +53,8 @@ void SettingsWindow::aply()
 	Settings::getAudio().sounds = fields[SOUNDS].getValueUint32();
 	Settings::save();
 	SoundSystem::setVolumeBySettings();
-	Texturepacks::saveConfig();
-	Texturepacks::loadTextures();
+	//Texturepacks::saveConfig();
+	//Texturepacks::loadTextures();
 }
 
 void SettingsWindow::interact(const bool& windowOpen)
@@ -66,7 +66,10 @@ void SettingsWindow::interact(const bool& windowOpen)
 		if (confirm.press())
 			aply();
 		if (update.press())
-			Texturepacks::findPacks();
+		{
+			Texturepacks::loadConfig();
+			Texturepacks::loadTextures();
+		}
 		showMinimap.press();
 		for (auto& [_, field] : fields)
 			field.interact();

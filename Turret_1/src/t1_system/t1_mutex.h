@@ -11,6 +11,8 @@ namespace t1::system::mt
 	inline std::mutex mobs;
 	inline std::mutex shells;
 	inline std::mutex particles;
+	///@brief Locks all drawing. Is needed for texturepacks reload.
+	inline std::mutex drawing;
 }
 
 #endif // T1_MUTEX
