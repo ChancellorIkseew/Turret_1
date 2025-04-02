@@ -14,8 +14,8 @@ private:
 	static inline sf::Sprite ico = sf::Sprite(texture);
 
 	ResType resType = ResType::NO_RESOURCES;
-	sf::Vector2i position;
-	sf::Vector2i ownerPosition;
+	sf::Vector2i localPosition;
+	sf::Vector2f absolutePosition;
 
 public:
 	ResIco(const ResType resType, const sf::Vector2i position);

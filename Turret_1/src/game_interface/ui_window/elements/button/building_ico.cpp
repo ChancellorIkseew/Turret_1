@@ -28,9 +28,7 @@ BuildingIco::BuildingIco(const BuildingType buildingType) :
 
 bool BuildingIco::select() const
 {
-	sf::Vector2i mouseCoord = InputHandler::getMouseCoord();
-	return position.x <= mouseCoord.x && (position.x + 32) >= mouseCoord.x &&
-		position.y <= mouseCoord.y && (position.y + 32) >= mouseCoord.y;
+	return ico.getGlobalBounds().contains(sf::Vector2f(InputHandler::getMouseCoord()));
 }
 
 bool BuildingIco::press()

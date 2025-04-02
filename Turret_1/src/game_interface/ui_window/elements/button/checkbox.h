@@ -7,7 +7,8 @@
 class Checkbox
 {
 private:
-    sf::Vector2i position;
+    sf::Vector2i localPosition;
+    sf::Vector2f absolutePosition;
 
     static inline sf::Image image;
     static inline sf::Texture texture;

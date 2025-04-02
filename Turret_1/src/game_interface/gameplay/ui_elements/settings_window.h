@@ -16,6 +16,7 @@ private:
 	Button confirm;
 	Button update;
 	Checkbox showMinimap;
+	Checkbox fullscreen;
 	std::map<int, TextField> fields;
 	std::map<int, Label> labels;
 

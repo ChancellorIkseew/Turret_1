@@ -6,7 +6,7 @@
 constexpr sf::Vector2i ICO_RECT(9, 9);
 
 ResIco::ResIco(const ResType resType, const sf::Vector2i position) :
-	resType(resType), position(position) { }
+	resType(resType), localPosition(position) { }
 
 void ResIco::setResType(const ResType resType)
 {
@@ -15,14 +15,12 @@ void ResIco::setResType(const ResType resType)
 
 void ResIco::relocate(const sf::Vector2i ownerPosition)
 {
-	position -= this->ownerPosition;
-	this->ownerPosition = ownerPosition;
-	position += this->ownerPosition;
+	absolutePosition = sf::Vector2f(localPosition + ownerPosition);
 }
 
 void ResIco::setPosition(const sf::Vector2i position)
 {
-	this->position = position;
+	absolutePosition = sf::Vector2f(position);
 }
 
 
@@ -73,6 +71,6 @@ void ResIco::draw(sf::RenderWindow& window) const
 		break;
 	}
 ;
-	ico.setPosition(sf::Vector2f(position));
+	ico.setPosition(sf::Vector2f(absolutePosition));
 	window.draw(ico);
 }

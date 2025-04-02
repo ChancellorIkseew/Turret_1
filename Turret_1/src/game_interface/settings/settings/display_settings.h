@@ -8,12 +8,14 @@
 struct DisplaySettings
 {
 	sf::Vector2u windowMaxSize = sf::Vector2u(1920, 1016);
+	bool fullscreen = false;
 
 	void save(std::shared_ptr<cpptoml::table> root) const
 	{
 		auto table = cpptoml::make_table();
 		table->insert("window-max-size-x", windowMaxSize.x);
 		table->insert("window-max-size-y", windowMaxSize.y);
+		table->insert("fullscreen", fullscreen);
 		root->insert("display", table);
 	}
 
@@ -25,6 +27,7 @@ struct DisplaySettings
 		//
 		windowMaxSize.x = table->get_as<uint32_t>("window-max-size-x").value_or(1920);
 		windowMaxSize.y = table->get_as<uint32_t>("window-max-size-y").value_or(1016);
+		fullscreen = table->get_as<bool>("fullscreen").value_or(false);
 	}
 
 };

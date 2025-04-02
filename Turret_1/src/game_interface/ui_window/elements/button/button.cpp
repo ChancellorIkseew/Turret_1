@@ -44,7 +44,7 @@ Button::Button(const Button&& other) noexcept
 bool Button::select()
 {
 	const sf::Vector2i mouseCoord = InputHandler::getMouseCoord();
-	isSelected = button.getGlobalBounds().contains(sf::Vector2f(mouseCoord.x, mouseCoord.y));
+	isSelected = button.getGlobalBounds().contains(sf::Vector2f(mouseCoord));
 	return isSelected;
 }
 
