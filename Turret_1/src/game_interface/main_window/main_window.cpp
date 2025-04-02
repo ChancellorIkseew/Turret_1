@@ -21,6 +21,9 @@ void openMainWindow()
 	sf::State state = Settings::getDisplay().fullscreen ? sf::State::Fullscreen : sf::State::Windowed;
 	sf::RenderWindow mainWindow(sf::VideoMode(sf::Vector2u(800, 600), 32), L"Турельница. Версия альфа_0.7.0", state);
 	mainWindow.setFramerateLimit(60);
+	sf::Image icon;
+	if (icon.loadFromFile("images/icon.bmp"))
+		mainWindow.setIcon(sf::Vector2u(32, 32), icon.getPixelsPtr());
 	overlay.setSize(sf::Vector2f(800.0f, 600.0f));
 
 	startMenuCycle(mainWindow);
