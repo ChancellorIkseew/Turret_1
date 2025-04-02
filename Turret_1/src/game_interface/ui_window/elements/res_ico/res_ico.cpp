@@ -73,6 +73,6 @@ void ResIco::draw(sf::RenderWindow& window) const
 		break;
 	}
 ;
-	ico.setPosition(sf::Vector2f(position.x, position.y));
+	ico.setPosition(sf::Vector2f(position));
 	window.draw(ico);
 }

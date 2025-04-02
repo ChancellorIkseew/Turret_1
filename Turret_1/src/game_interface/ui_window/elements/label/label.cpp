@@ -15,7 +15,7 @@ void Label::setVisible(const bool visible)
 
 void Label::relocateWithOwner(const sf::Vector2i ownerPosition)
 {
-	text.setPosition(sf::Vector2f(ownerPosition.x + position.x, ownerPosition.y + position.y));
+	text.setPosition(sf::Vector2f(ownerPosition + position));
 }
 
 void Label::draw(sf::RenderWindow& window) const

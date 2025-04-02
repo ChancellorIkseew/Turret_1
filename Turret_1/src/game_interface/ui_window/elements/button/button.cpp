@@ -67,7 +67,7 @@ void Button::setVisible(const bool visible)
 
 void Button::relocateWithOwner(const sf::Vector2i ownerPosition)
 {
-	button.setPosition(sf::Vector2f(ownerPosition.x + position.x, ownerPosition.y + position.y));
+	button.setPosition(sf::Vector2f(ownerPosition + position));
 }
 
 void Button::draw(sf::RenderWindow& window)

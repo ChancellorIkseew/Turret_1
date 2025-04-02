@@ -10,7 +10,6 @@ class BuildingIco
 {
 private:
     sf::Vector2i position;
-    sf::Vector2i ownerPosition;
 
     static inline sf::Image image;
     static inline sf::Texture texture;

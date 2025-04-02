@@ -29,7 +29,7 @@ public:
 
     void relocateWithOwner(const sf::Vector2i ownerPosition);
     static void prepareSprites();
-    void draw(sf::RenderWindow& window);
+    void draw(sf::RenderWindow& window) const;
 
 };
 

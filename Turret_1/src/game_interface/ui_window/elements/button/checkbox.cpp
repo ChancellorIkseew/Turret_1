@@ -27,7 +27,7 @@ bool Checkbox::press()
 
 void Checkbox::relocateWithOwner(const sf::Vector2i ownerPosition)
 {
-	button.setPosition(sf::Vector2f(ownerPosition.x + position.x, ownerPosition.y + position.y));
+	button.setPosition(sf::Vector2f(ownerPosition + position));
 }
 
 void Checkbox::prepareSprites()
@@ -37,7 +37,7 @@ void Checkbox::prepareSprites()
 	button.setTexture(texture);
 }
 
-void Checkbox::draw(sf::RenderWindow& window)
+void Checkbox::draw(sf::RenderWindow& window) const
 {
 	if (!isVisible)
 		return;

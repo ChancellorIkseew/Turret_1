@@ -74,7 +74,7 @@ void UIPlate::drawBase(sf::RenderWindow& window) const
 	window.draw(rightBorder);
 
 	//Corners
-	upperLeftCorner.setPosition(sf::Vector2f(position.x, position.y));
+	upperLeftCorner.setPosition(sf::Vector2f(position));
 	window.draw(upperLeftCorner);
 
 	lowerLeftCorner.setPosition(sf::Vector2f(position.x, position.y + size.y - 5));
@@ -95,8 +95,8 @@ void UIPlate::setVisible(const bool value)
 
 bool UIPlate::containsCoursor() const
 {
-	sf::Vector2i mouseCoord = InputHandler::getMouseCoord();
+	sf::Vector2i mouse = InputHandler::getMouseCoord();
 	return isVisible &&
-		position.x <= mouseCoord.x && (position.x + size.x) >= mouseCoord.x &&
-		position.y <= mouseCoord.y && (position.y + size.y) >= mouseCoord.y;
+		position.x <= mouse.x && (position.x + size.x) >= mouse.x &&
+		position.y <= mouse.y && (position.y + size.y) >= mouse.y;
 }

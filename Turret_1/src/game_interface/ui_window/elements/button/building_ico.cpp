@@ -53,16 +53,14 @@ void BuildingIco::setPosition(const sf::Vector2i position)
 
 void BuildingIco::relocateWithOwner(const sf::Vector2i ownerPosition)
 {
-	position -= this->ownerPosition;
-	this->ownerPosition = ownerPosition;
-	position += this->ownerPosition;
+	ico.setPosition(sf::Vector2f(ownerPosition + position));
 }
 
 void BuildingIco::draw(sf::RenderWindow& window)
 {
 	ico.setTextureRect(icoRect);
 	ico.setScale(sf::Vector2f(scale, scale));
-	ico.setPosition(sf::Vector2f(position.x, position.y));
+	
 	window.draw(ico);
 }
 

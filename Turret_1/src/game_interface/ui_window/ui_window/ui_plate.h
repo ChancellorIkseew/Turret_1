@@ -8,18 +8,8 @@
 class UIPlate
 {
 private:
-	static void prepareWindowBaseSprites();
-
-protected:
-	sf::Vector2i size;
-	sf::Vector2i position;
-
-	bool isSelected = false;
-	bool isVisible = true;
-
 	//Base
 	static inline sf::Texture baseTexture;
-	static inline sf::Sprite base = sf::Sprite(baseTexture);
 
 	//Borders
 	static inline sf::Texture upperBorderTexture;
@@ -40,6 +30,15 @@ protected:
 	static inline sf::Sprite lowerLeftCorner = sf::Sprite(lowerLeftCornerTexture);
 	static inline sf::Sprite upperRightCorner = sf::Sprite(upperRightCornerTexture);
 	static inline sf::Sprite lowerRightCorner = sf::Sprite(lowerRightCornerTexture);
+
+	static void prepareWindowBaseSprites();
+
+protected:
+	static inline sf::Sprite base = sf::Sprite(baseTexture);
+	sf::Vector2i size;
+	sf::Vector2i position;
+	bool isSelected = false;
+	bool isVisible = true;
 
 	void drawBase(sf::RenderWindow& window) const;
 

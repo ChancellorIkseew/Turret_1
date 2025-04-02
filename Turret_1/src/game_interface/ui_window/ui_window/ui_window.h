@@ -14,7 +14,7 @@ public:
 	virtual ~UIWindow() = default;
 
 	void relocateCentral(const sf::Vector2i wndowSize);
-	virtual void relocate(const sf::Vector2i wndowSize);
+	virtual void relocate(const sf::Vector2i wndowSize) { /*Empty implementation.*/ }
 
 };
 
