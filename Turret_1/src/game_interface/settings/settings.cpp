@@ -5,10 +5,18 @@
 #include <cpptoml.h>
 #include <filesystem>
 
-static const std::filesystem::path settings("settings/settings.toml");
+namespace stdfs = std::filesystem;
+static const stdfs::path settings("settings/settings.toml");
+
+void Settings::tryCreateFolder()
+{
+	if (!stdfs::is_directory("settings"))
+		stdfs::create_directory("settings");
+}
 
 void Settings::save()
 {
+	tryCreateFolder();
 	std::ofstream fout(settings);
 	if (!fout.is_open())
 		throw std::runtime_error("Unable to open file to write: saves/settings.toml"); // Should not be catched. (crash the game)
@@ -31,7 +39,7 @@ void Settings::load()
 		gui.load(root);
 		saving.load(root);
 	}
-	catch (cpptoml::parse_exception) // If settings file does not exist.
+	catch (cpptoml::parse_exception&) // If settings file does not exist.
 	{
 		std::cout << "Settings file not found. Default settings applied.\n";
 		save();

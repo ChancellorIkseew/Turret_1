@@ -147,7 +147,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="src\content\load_textures.cpp" />
     <ClCompile Include="src\content\texturepacks.cpp" />
     <ClCompile Include="src\game_interface\gameplay\gameplay.cpp" />
@@ -206,6 +205,7 @@
     <ClCompile Include="src\game_interface\ui_window\sub_win_util\fonts.cpp" />
     <ClCompile Include="src\game_interface\ui_window\ui_window\ui_plate.cpp" />
     <ClCompile Include="src\game_interface\ui_window\ui_window\ui_window.cpp" />
+    <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\map_structures\base_engine\coords\tile_coord_arrays.cpp" />
     <ClCompile Include="src\map_structures\base_engine\coords\transforms.cpp" />
     <ClCompile Include="src\map_structures\blueprints\blueprints_map.cpp" />
