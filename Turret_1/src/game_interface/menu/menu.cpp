@@ -47,13 +47,15 @@ GameState openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string
 					break;
 				case GameState::CHOISE_FOLDER_MENU:
 					choiseFolderMenu.setVisible(true);
-					menuTab = choiseFolderMenu.interact(isMenuOpen, startNewGame, saveFolderName);
+					menuTab = choiseFolderMenu.interact(isMenuOpen, saveFolderName);
 					choiseFolderMenu.setVisible(false);
+					startNewGame = false;
 					break;
 				case GameState::PRE_SETTINGS_MENU:
 					preSettingsWindow.setVisible(true);
 					menuTab = preSettingsWindow.interact(isMenuOpen, preSettings);
 					preSettingsWindow.setVisible(false);
+					startNewGame = true;
 					break;
 				case GameState::OPTIONS:
 					settingsWindow.setVisible(true);

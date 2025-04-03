@@ -12,10 +12,9 @@
 
 enum buttonsEnum
 {
-	NEW_GAME = 0,
-	LOAD_GAME = 1,
-	EXIT_TO_MENU = 2,
-	LOAD_1 = 3,
+	LOAD_GAME = 0,
+	EXIT_TO_MENU = 1,
+	LOAD_1 = 2,
 };
 
 std::string ChoiseFolderMenu::selectFolder(std::string v_saveFileName, bool& isFolderSelected)
@@ -49,10 +48,9 @@ ChoiseFolderMenu::ChoiseFolderMenu() : UIWindow(sf::Vector2i(720, 480), sf::Vect
 
 void ChoiseFolderMenu::prepareInterfaceSprites()
 {
-	buttons[NEW_GAME] = Button("new_game.bmp", sf::Vector2i(242, 48), sf::Vector2i(10, 100));
-	buttons[LOAD_GAME] = Button("load_game.bmp", sf::Vector2i(364, 48), sf::Vector2i(10, 170));
+	buttons[LOAD_GAME] = Button("load_game.bmp", sf::Vector2i(364, 48), sf::Vector2i(10, 68));
 	buttons[EXIT_TO_MENU] = Button("exit_to_menu.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 10));
-	buttons[LOAD_1] = Button("choise_load.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 240));
+	buttons[LOAD_1] = Button("choise_load.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 126));
 
 	helpText.setCharacterSize(16);
 	helpText.setString(sf::String(L"„тобы начать игру, нужно выбрать сохранение,\nв которое будет записыватьс€ игровой прогресс."));
@@ -60,7 +58,7 @@ void ChoiseFolderMenu::prepareInterfaceSprites()
 }
 
 
-GameState ChoiseFolderMenu::interact(bool& isMenuOpen, bool& startNewGame, std::string& saveFolderName)
+GameState ChoiseFolderMenu::interact(bool& isMenuOpen, std::string& saveFolderName)
 {
 	while (isMenuOpen)
 	{
@@ -73,27 +71,8 @@ GameState ChoiseFolderMenu::interact(bool& isMenuOpen, bool& startNewGame, std::
 		if (buttons[LOAD_GAME].press())
 		{
 			if (isFolderSelected)
-			{
-				startNewGame = false;
 				return GameState::GAMEPLAY;
-			}
-			else
-			{
-				isTextVisible = true;
-			}
-		}
-
-		if (buttons[NEW_GAME].press())
-		{
-			if (isFolderSelected)
-			{
-				startNewGame = true;
-				return GameState::PRE_SETTINGS_MENU;
-			}
-			else
-			{
-				isTextVisible = true;
-			}
+			isTextVisible = true;
 		}
 
 		if (buttons[EXIT_TO_MENU].press())
