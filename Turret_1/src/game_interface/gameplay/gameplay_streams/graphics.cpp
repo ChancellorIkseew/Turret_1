@@ -2,13 +2,11 @@
 #include "game_interface/gameplay/gameplay.h"
 
 #include "game_interface/main_window/main_window.h"
-#include "game_interface/main_window/main_window_resize.h"
 
 #include "t1_system/input/input_handler.h"
 
 #include "game_interface/gameplay/gameplay_util/mob_controller.h"
 #include "game_interface/sound_system/sound_system.h"
-//#include "content/texturepacks.h"
 #include "t1_system/t1_mutex.h"
 
 
@@ -31,7 +29,7 @@ void Gameplay::graphics(sf::RenderWindow& mainWindow)
             if (event->is<sf::Event::Resized>() || UIWindow::windowCreated)
             {
                 UIWindow::windowCreated = false;
-                overlayResize(mainWindow);
+                MainWindow::resize(mainWindow);
                 relocateSubWindows(sf::Vector2i(mainWindow.getSize()));
             }
         }
@@ -42,7 +40,7 @@ void Gameplay::graphics(sf::RenderWindow& mainWindow)
         world.draw(mainWindow, camera);
         buildingPanel.drawBuildExample(mainWindow, player, world.getBuildingsMap());
 
-        mainWindow.setView(overlay);			//Draw_inteface block
+        mainWindow.setView(MainWindow::getOverlay());			//Draw_inteface block
         mainControlPanel.draw(mainWindow);
         mainControlPanel.interactWaveTimer(isPaused, world);
         buildingPanel.draw(mainWindow);

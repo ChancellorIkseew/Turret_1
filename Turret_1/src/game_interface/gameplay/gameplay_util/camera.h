@@ -43,7 +43,7 @@ public:
 	TileCoord getBuildingsStartTile() const { return buildingsStartTile; }
 	TileCoord getStartTile() const { return startTile; }
 	TileCoord getEndTile() const { return endTile; }
-	sf::View getView() const { return cameraView; }
+	const sf::View& getView() const { return cameraView; }
 	float getMapScale() const { return mapScale; }
 
 	inline bool contains(const TileCoord tile) const {

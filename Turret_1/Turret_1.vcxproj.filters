@@ -518,9 +518,6 @@
     <ClInclude Include="src\game_interface\main_window\main_window.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="src\game_interface\main_window\main_window_resize.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="src\game_interface\menu\ui_elements\world_pre_settings\buildings_pre_settings.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>

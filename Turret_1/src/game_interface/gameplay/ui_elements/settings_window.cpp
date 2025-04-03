@@ -4,7 +4,6 @@
 #include "game_interface/ui_window/sub_win_util/fonts.h"
 #include "game_interface/sound_system/sound_system.h"
 #include "game_interface/settings/settings.h"
-#include "game_interface/main_window/main_window_resize.h"
 #include "t1_system/input/input_handler.h"
 #include "t1_system/sleep.h"
 #include "content/texturepacks.h"

@@ -1,17 +1,16 @@
 
 #include "main_window.h"
-#include "main_window_resize.h"
 #include "game_state.h"
 
 #include "game_interface/menu/menu.h"
 #include "game_interface/gameplay/gameplay.h"
 #include "game_interface/settings/settings.h"
 
-#include "game_interface/ui_window/ui_window/ui_plate.h"
 #include "game_interface/sound_system/sound_system.h"
 
+sf::View MainWindow::overlay;
 
-void openMainWindow()
+void MainWindow::open()
 {
 	SoundSystem::loadSounds();
 	SoundSystem::startMusic();
@@ -30,7 +29,7 @@ void openMainWindow()
 }
 
 
-void startMenuCycle(sf::RenderWindow& mainWindow)
+void MainWindow::startMenuCycle(sf::RenderWindow& mainWindow)
 {
 	PreSettings preSettings;
 	std::string saveFolderName = "0";

@@ -2,25 +2,26 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-#include "main_window_resize.h"
+#include "main_window.h"
 
 #include "game_interface/settings/settings.h"
 
 
-void overlayResize(sf::RenderWindow& mainWindow)
+static inline void checkSize(sf::RenderWindow& mainWindow)
 {
-	mainWindowResize(mainWindow);
-	sf::Vector2u overlaySize = mainWindow.getSize();
-	std::cout << overlaySize.x << " " << overlaySize.y << '\n';
-	overlay.setSize(sf::Vector2f(overlaySize));
-	overlay.setCenter(sf::Vector2f(overlaySize.x / 2, overlaySize.y / 2));
-	mainWindow.setView(overlay);
+	const sf::Vector2u maxSize = Settings::getDisplay().windowMaxSize;
+	if (mainWindow.getSize().x > maxSize.x)
+		mainWindow.setSize(sf::Vector2u(maxSize.x, mainWindow.getSize().y));
+	if (mainWindow.getSize().y > maxSize.y)
+		mainWindow.setSize(sf::Vector2u(mainWindow.getSize().x, maxSize.y));
 }
 
-void mainWindowResize(sf::RenderWindow& mainWindow)
+void MainWindow::resize(sf::RenderWindow& mainWindow)
 {
-	if (mainWindow.getSize().x > Settings::getDisplay().windowMaxSize.x)
-		mainWindow.setSize(sf::Vector2u(Settings::getDisplay().windowMaxSize.x, mainWindow.getSize().y));
-	if (mainWindow.getSize().y > Settings::Settings::getDisplay().windowMaxSize.y)
-		mainWindow.setSize(sf::Vector2u(mainWindow.getSize().x, Settings::getDisplay().windowMaxSize.y));
+	checkSize(mainWindow);
+	sf::Vector2f size = sf::Vector2f(mainWindow.getSize());
+	std::cout << size.x << " " << size.y << '\n';
+	overlay.setSize(size);
+	overlay.setCenter(size / 2.0f);
+	mainWindow.setView(overlay);
 }

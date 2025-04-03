@@ -307,7 +307,6 @@
     <ClInclude Include="src\game_interface\gameplay\ui_elements\specification_panel.h" />
     <ClInclude Include="src\game_interface\main_window\game_state.h" />
     <ClInclude Include="src\game_interface\main_window\main_window.h" />
-    <ClInclude Include="src\game_interface\main_window\main_window_resize.h" />
     <ClInclude Include="src\game_interface\menu\menu.h" />
     <ClInclude Include="src\game_interface\menu\ui_elements\choise_save_folder.h" />
     <ClInclude Include="src\game_interface\menu\ui_elements\main_menu.h" />

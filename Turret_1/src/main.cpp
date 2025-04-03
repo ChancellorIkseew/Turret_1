@@ -9,7 +9,7 @@ int main()
     Settings::load();
     Texturepacks::loadConfig();
     Texturepacks::loadTextures();
-    openMainWindow();
+    MainWindow::open();
 
     std::cout << "return_to_main_works\n";
     return 0;

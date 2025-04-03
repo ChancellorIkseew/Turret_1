@@ -3,17 +3,15 @@
 
 #include "menu.h"
 
-#include "game_interface/main_window/main_window_resize.h"
 #include "game_interface/main_window/main_window.h"
 #include "game_interface/ui_window/sub_win_types/text_field/text_field.h"
-
-#include "t1_system/input/input_handler.h"
-#include "t1_system/sleep.h"
+#include "game_interface/gameplay/ui_elements/settings_window.h"
 
 #include "ui_elements/main_menu.h"
 #include "ui_elements/choise_save_folder.h"
 #include "ui_elements/pre_settings.h"
-#include "game_interface/gameplay/ui_elements/settings_window.h"
+#include "t1_system/input/input_handler.h"
+#include "t1_system/sleep.h"
 #include "t1_system/t1_mutex.h"
 
 
@@ -92,7 +90,7 @@ GameState openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string
 			if (event->is<sf::Event::Resized>() || UIWindow::windowCreated)
 			{
 				UIWindow::windowCreated = false;
-				overlayResize(mainWindow);
+				MainWindow::resize(mainWindow);
 				sf::Vector2i mainWindowSize = sf::Vector2i(mainWindow.getSize());
 				mainMenu.relocate(mainWindowSize);
 				choiseFolderMenu.relocate(mainWindowSize);
