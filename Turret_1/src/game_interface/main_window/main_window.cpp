@@ -16,11 +16,11 @@ void openMainWindow()
 	SoundSystem::loadSounds();
 	SoundSystem::startMusic();
 
-	UIPlate::init();
-
+	sf::Vector2u resolution = Settings::getDisplay().windowMaxSize;
 	sf::State state = Settings::getDisplay().fullscreen ? sf::State::Fullscreen : sf::State::Windowed;
-	sf::RenderWindow mainWindow(sf::VideoMode(sf::Vector2u(800, 600), 32), L"Турельница. Версия альфа_0.7.0", state);
+	sf::RenderWindow mainWindow(sf::VideoMode(resolution, 32), L"Турельница. Версия альфа_0.7.0", state);
 	mainWindow.setFramerateLimit(60);
+	mainWindow.setVerticalSyncEnabled(state == sf::State::Fullscreen);
 	sf::Image icon;
 	if (icon.loadFromFile("images/icon.bmp"))
 		mainWindow.setIcon(sf::Vector2u(32, 32), icon.getPixelsPtr());
