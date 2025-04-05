@@ -50,11 +50,12 @@ void ChoiseFolderMenu::prepareInterfaceSprites()
 {
 	buttons[LOAD_GAME] = Button("load_game.bmp", sf::Vector2i(364, 48), sf::Vector2i(10, 68));
 	buttons[EXIT_TO_MENU] = Button("exit_to_menu.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 10));
-	buttons[LOAD_1] = Button("choise_load.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 126));
 
 	helpText.setCharacterSize(16);
 	helpText.setString(sf::String(L"„тобы начать игру, нужно выбрать сохранение,\nв которое будет записыватьс€ игровой прогресс."));
 	helpText.setFillColor(darkRed);
+
+	saves[LOAD_1] = SaveUI("save_1", sf::Vector2i(10, 126));
 }
 
 
@@ -62,12 +63,13 @@ GameState ChoiseFolderMenu::interact(bool& isMenuOpen, std::string& saveFolderNa
 {
 	while (isMenuOpen)
 	{
+		/*
 		if (buttons[LOAD_1].press())
 		{
 			saveFolderName = selectFolder("save_1", isFolderSelected);
 			isTextVisible = false;
 		}
-
+		*/
 		if (buttons[LOAD_GAME].press())
 		{
 			if (isFolderSelected)
@@ -80,16 +82,17 @@ GameState ChoiseFolderMenu::interact(bool& isMenuOpen, std::string& saveFolderNa
 
 		t1::system::sleep(16);
 	}
-
-	return GameState::CHOISE_FOLDER_MENU;
+	return GameState::EXIT;
 }
 
 
 void ChoiseFolderMenu::relocate(const sf::Vector2i windowSize)
 {
 	relocateCentral(windowSize);
-	for (auto& btn : buttons)
-		btn.second.relocateWithOwner(position);
+	for (auto& [_, btn] : buttons)
+		btn.relocateWithOwner(position);
+	for (auto& [_, save] : saves)
+		save.relocateWithOwner(position);
 
 	helpText.setPosition(sf::Vector2f(position.x + 70, position.y + 350));
 }
@@ -100,8 +103,10 @@ void ChoiseFolderMenu::draw(sf::RenderWindow& window)
 	if (!isVisible)
 		return;
 	drawBase(window);
-	for (auto& btn : buttons)
-		btn.second.draw(window);
+	for (auto& [_, btn] : buttons)
+		btn.draw(window);
+	for (auto& [_, save] : saves)
+		save.draw(window);
 	if (isTextVisible)
 		window.draw(helpText);
 }

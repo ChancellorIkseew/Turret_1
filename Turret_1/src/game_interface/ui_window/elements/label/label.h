@@ -19,6 +19,7 @@ public:
     ~Label() = default;
 
     void setVisible(const bool visible);
+    const std::string& getString() const { return text.getString(); }
 
     void relocateWithOwner(const sf::Vector2i ownerPosition);
     void draw(sf::RenderWindow& window) const;

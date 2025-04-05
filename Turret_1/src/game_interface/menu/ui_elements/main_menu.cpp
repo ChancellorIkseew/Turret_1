@@ -41,8 +41,7 @@ GameState MainMenu::interact(bool& isMenuOpen)
 			return GameState::OPTIONS;
 		t1::system::sleep(16);
 	}
-
-	return GameState::MAIN_MENU;
+	return GameState::EXIT;
 }
 
 

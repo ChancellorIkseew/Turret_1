@@ -20,13 +20,13 @@ private:
     bool isPressed = false;
 
     Button(const Button& other) = delete;
+    Button(const Button&& other) = delete;
     Button& operator=(const Button& other) = delete;
 
 public:
-    Button() = default;
     Button(const std::string& imageFile, const sf::Vector2i size, const sf::Vector2i position);
-    Button(const Button&& other) noexcept;
     Button& operator=(const Button&& other) noexcept;
+    Button() = default;
     ~Button() = default;
     
 

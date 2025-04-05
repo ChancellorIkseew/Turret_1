@@ -3,16 +3,18 @@
 #define CHOISE_FOLDER_MENU_H
 
 #include <map>
+#include <unordered_set>
 
 #include "game_interface/main_window/game_state.h"
 #include "game_interface/ui_window/ui_window/ui_window.h"
-#include "game_interface/ui_window/elements/button/button.h"
+#include "game_interface/ui_window/elements/save_ui/save_ui.h"
 #include "game_interface/ui_window/sub_win_util/fonts.h"
 
 class ChoiseFolderMenu : public UIWindow
 {
 private:
 	std::map<int, Button> buttons;
+	std::map<int, SaveUI> saves;
 	sf::Text helpText = sf::Text(turretClassic);
 
 	bool isFolderSelected;

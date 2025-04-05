@@ -200,6 +200,7 @@
     <ClCompile Include="src\game_interface\ui_window\elements\label\label.cpp" />
     <ClCompile Include="src\game_interface\ui_window\elements\res_ico\res_ico.cpp" />
     <ClCompile Include="src\game_interface\ui_window\elements\res_info\res_info.cpp" />
+    <ClCompile Include="src\game_interface\ui_window\elements\save_ui\save_ui.cpp" />
     <ClCompile Include="src\game_interface\ui_window\sub_win_types\page\page.cpp" />
     <ClCompile Include="src\game_interface\ui_window\sub_win_types\text_field\text_field.cpp" />
     <ClCompile Include="src\game_interface\ui_window\sub_win_util\fonts.cpp" />
@@ -329,6 +330,7 @@
     <ClInclude Include="src\game_interface\ui_window\elements\label\label.h" />
     <ClInclude Include="src\game_interface\ui_window\elements\res_ico\res_ico.h" />
     <ClInclude Include="src\game_interface\ui_window\elements\res_info\res_info.h" />
+    <ClInclude Include="src\game_interface\ui_window\elements\save_ui\save_ui.h" />
     <ClInclude Include="src\game_interface\ui_window\sub_win_types\page\page.h" />
     <ClInclude Include="src\game_interface\ui_window\sub_win_types\text_field\text_field.h" />
     <ClInclude Include="src\game_interface\ui_window\sub_win_util\fonts.h" />

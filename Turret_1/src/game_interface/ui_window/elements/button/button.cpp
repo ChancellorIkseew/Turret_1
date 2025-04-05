@@ -29,18 +29,6 @@ Button& Button::operator=(const Button&& other) noexcept
 	return *this;
 }
 
-Button::Button(const Button&& other) noexcept
-{
-	size = other.size;
-	position = other.position;
-	image = other.image;
-	name = other.name;
-
-	texture.loadFromImage(image);
-	button.setTexture(texture);
-	button.setTextureRect(sf::IntRect({ 0, 0 }, size));
-}
-
 bool Button::select()
 {
 	const sf::Vector2i mouseCoord = InputHandler::getMouseCoord();

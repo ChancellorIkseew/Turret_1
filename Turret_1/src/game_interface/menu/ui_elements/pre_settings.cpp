@@ -72,6 +72,7 @@ GameState PreSettingsWindow::interact(bool& isMenuOpen, PreSettings& preSettings
 
 		t1::system::sleep(16);
 	}
+	return GameState::EXIT;
 }
 
 
