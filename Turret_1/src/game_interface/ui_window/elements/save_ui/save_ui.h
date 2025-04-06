@@ -24,8 +24,7 @@ public:
 	~SaveUI() = default;
 
 	bool press();
-
-	std::string getFolder() const { label.getString(); }
+	const std::string& getFolder() const { return label.getString(); }
 
 	void relocateWithOwner(const sf::Vector2i ownerPosition);
 	void draw(sf::RenderWindow& window);

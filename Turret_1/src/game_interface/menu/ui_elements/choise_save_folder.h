@@ -16,11 +16,7 @@ private:
 	std::map<int, Button> buttons;
 	std::map<int, SaveUI> saves;
 	sf::Text helpText = sf::Text(turretClassic);
-
-	bool isFolderSelected;
-	bool isTextVisible;
-
-	std::string selectFolder(std::string v_saveFolderName, bool& isSaveSelected);
+	bool folderSelected;
 
 public:
 	ChoiseFolderMenu();

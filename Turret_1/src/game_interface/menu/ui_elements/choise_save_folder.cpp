@@ -17,32 +17,11 @@ enum buttonsEnum
 	LOAD_1 = 2,
 };
 
-std::string ChoiseFolderMenu::selectFolder(std::string v_saveFileName, bool& isFolderSelected)
-{
-	std::string saveFolderName;
-
-	if (isFolderSelected == false)
-	{
-		saveFolderName = v_saveFileName;
-		isFolderSelected = true;
-	}
-	else
-	{
-		saveFolderName = "0";
-		isFolderSelected = false;
-	}
-
-	return saveFolderName;
-}
-
-
 ChoiseFolderMenu::ChoiseFolderMenu() : UIWindow(sf::Vector2i(720, 480), sf::Vector2i(0, 0))
 {
 	this->prepareInterfaceSprites();
 	isVisible = false;
-
-	isFolderSelected = false;
-	isTextVisible = false;
+	folderSelected = false;
 }
 
 
@@ -63,22 +42,17 @@ GameState ChoiseFolderMenu::interact(bool& isMenuOpen, std::string& saveFolderNa
 {
 	while (isMenuOpen)
 	{
-		/*
-		if (buttons[LOAD_1].press())
-		{
-			saveFolderName = selectFolder("save_1", isFolderSelected);
-			isTextVisible = false;
-		}
-		*/
-		if (buttons[LOAD_GAME].press())
-		{
-			if (isFolderSelected)
-				return GameState::GAMEPLAY;
-			isTextVisible = true;
-		}
-
+		if (buttons[LOAD_GAME].press() && folderSelected)
+			return GameState::GAMEPLAY;	
 		if (buttons[EXIT_TO_MENU].press())
 			return GameState::MAIN_MENU;
+
+		for (auto& [_, save] : saves)
+			if (save.press())
+			{
+				saveFolderName = save.getFolder();
+				folderSelected = true;
+			}
 
 		t1::system::sleep(16);
 	}
@@ -107,6 +81,6 @@ void ChoiseFolderMenu::draw(sf::RenderWindow& window)
 		btn.draw(window);
 	for (auto& [_, save] : saves)
 		save.draw(window);
-	if (isTextVisible)
+	if (!folderSelected)
 		window.draw(helpText);
 }
