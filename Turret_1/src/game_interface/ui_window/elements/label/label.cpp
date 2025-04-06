@@ -8,9 +8,11 @@ Label::Label(const sf::String& string, const sf::Vector2i position) : position(p
 	text.setFillColor(standardColor);
 }
 
-void Label::setVisible(const bool visible)
-{
+void Label::setVisible(const bool visible) {
 	isVisible = visible;
+}
+void Label::setSize(const unsigned int size) {
+	text.setCharacterSize(size);
 }
 
 void Label::relocateWithOwner(const sf::Vector2i ownerPosition)

@@ -4,6 +4,7 @@
 
 #include "game_interface/ui_window/elements/button/button.h"
 #include "game_interface/ui_window/elements/label/label.h"
+#include "game_interface/ui_window/ui_window/ui_window.h"
 
 class SaveUI
 {

@@ -4,9 +4,9 @@
 
 SaveUI::SaveUI(const std::string name, const sf::Vector2i position) :
 	button("choise_load.bmp", sf::Vector2i(48, 48), position),
-	label(name, position), position(position)
+	label(name, position + sf::Vector2i(52, 0)), position(position)
 {
-
+	label.setSize(18);
 }
 
 SaveUI& SaveUI::operator= (const SaveUI&& other) noexcept
