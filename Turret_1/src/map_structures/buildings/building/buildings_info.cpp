@@ -72,7 +72,7 @@ const BuildingInfo BuildingsInfoTable::at(const BuildingType type)
 
 bool BuildingsInfoTable::exists(const BuildingType type)
 {
-	return table.count(type);
+	return table.contains(type);
 }
 
 void BuildingsInfoTable::addBuildingsInfo(const BuildingType type, const BuildingInfo info)

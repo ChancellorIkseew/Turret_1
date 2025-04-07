@@ -62,8 +62,7 @@ void InputHandler::updateInput(const std::optional<sf::Event>& event)
 
 bool InputHandler::active(const t1::BindName bindName)
 {
-	const auto& found = bindings.find(bindName);
-	return found != bindings.end() && found->second.active;
+	return bindings.contains(bindName) && bindings.at(bindName).active;
 }
 
 bool InputHandler::jactive(const t1::BindName bindName)

@@ -24,5 +24,5 @@ void EventsHandler::pollSimulationEvents()
 
 bool EventsHandler::active(const t1::EventType eventType)
 {
-	return events.count(eventType) && events.at(eventType)->active;
+	return events.contains(eventType) && events.at(eventType)->active;
 }
