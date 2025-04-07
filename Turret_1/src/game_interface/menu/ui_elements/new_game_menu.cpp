@@ -1,5 +1,5 @@
 
-#include "pre_settings.h"
+#include "new_game_menu.h"
 
 #include "t1_system/sleep.h"
 #include "t1_system/input/input_handler.h"
@@ -20,7 +20,7 @@ enum pageTypes
 	MOBS = 5
 };
 
-PreSettingsWindow::PreSettingsWindow(): UIWindow(sf::Vector2i(720, 480), sf::Vector2i(0, 0))
+NewGameMenu::NewGameMenu(): UIWindow(sf::Vector2i(720, 480))
 {
 	this->prepareInterfaceSprites();
 	isVisible = false;
@@ -31,7 +31,7 @@ PreSettingsWindow::PreSettingsWindow(): UIWindow(sf::Vector2i(720, 480), sf::Vec
 	pages[MOBS] = std::make_unique<MobsPreSettingsPage>(sf::Vector2i(10, 70));
 }
 
-void PreSettingsWindow::prepareInterfaceSprites()
+void NewGameMenu::prepareInterfaceSprites()
 {
 	buttons[START_GAME] = Button("start_game.bmp", sf::Vector2i(266, 48), sf::Vector2i(310, 10));
 	buttons[EXIT_TO_MENU] = Button("exit_to_menu.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 10));
@@ -43,7 +43,7 @@ void PreSettingsWindow::prepareInterfaceSprites()
 }
 
 
-GameState PreSettingsWindow::interact(bool& isMenuOpen, PreSettings& preSettings)
+GameState NewGameMenu::interact(bool& isMenuOpen, PreSettings& preSettings)
 {
 	while (isMenuOpen && !InputHandler::active(t1::BindName::Escape))
 	{
@@ -77,7 +77,7 @@ GameState PreSettingsWindow::interact(bool& isMenuOpen, PreSettings& preSettings
 
 
 
-void PreSettingsWindow::relocate(const sf::Vector2i windowSize)
+void NewGameMenu::relocate(const sf::Vector2i windowSize)
 {
 	relocateCentral(windowSize);
 	for (auto& btn : buttons)
@@ -87,7 +87,7 @@ void PreSettingsWindow::relocate(const sf::Vector2i windowSize)
 }
 
 
-void PreSettingsWindow::draw(sf::RenderWindow& window)
+void NewGameMenu::draw(sf::RenderWindow& window)
 {
 	if (!isVisible)
 		return;

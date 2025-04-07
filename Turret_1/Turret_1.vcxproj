@@ -184,9 +184,9 @@
     <ClCompile Include="src\game_interface\main_window\main_window.cpp" />
     <ClCompile Include="src\game_interface\main_window\main_window_resize.cpp" />
     <ClCompile Include="src\game_interface\menu\menu.cpp" />
-    <ClCompile Include="src\game_interface\menu\ui_elements\choise_save_folder.cpp" />
+    <ClCompile Include="src\game_interface\menu\ui_elements\load_game_menu.cpp" />
     <ClCompile Include="src\game_interface\menu\ui_elements\main_menu.cpp" />
-    <ClCompile Include="src\game_interface\menu\ui_elements\pre_settings.cpp" />
+    <ClCompile Include="src\game_interface\menu\ui_elements\new_game_menu.cpp" />
     <ClCompile Include="src\game_interface\menu\ui_elements\world_pre_settings\buildings_pre_settings.cpp" />
     <ClCompile Include="src\game_interface\menu\ui_elements\world_pre_settings\general_pre_settings.cpp" />
     <ClCompile Include="src\game_interface\menu\ui_elements\world_pre_settings\mobs_pre_settings.cpp" />
@@ -310,9 +310,9 @@
     <ClInclude Include="src\game_interface\main_window\game_state.h" />
     <ClInclude Include="src\game_interface\main_window\main_window.h" />
     <ClInclude Include="src\game_interface\menu\menu.h" />
-    <ClInclude Include="src\game_interface\menu\ui_elements\choise_save_folder.h" />
+    <ClInclude Include="src\game_interface\menu\ui_elements\load_game_menu.h" />
     <ClInclude Include="src\game_interface\menu\ui_elements\main_menu.h" />
-    <ClInclude Include="src\game_interface\menu\ui_elements\pre_settings.h" />
+    <ClInclude Include="src\game_interface\menu\ui_elements\new_game_menu.h" />
     <ClInclude Include="src\game_interface\menu\ui_elements\world_pre_settings\buildings_pre_settings.h" />
     <ClInclude Include="src\game_interface\menu\ui_elements\world_pre_settings\general_pre_settings.h" />
     <ClInclude Include="src\game_interface\menu\ui_elements\world_pre_settings\mobs_pre_settings.h" />

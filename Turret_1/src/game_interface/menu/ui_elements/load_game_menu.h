@@ -10,7 +10,7 @@
 #include "game_interface/ui_window/elements/save_ui/save_ui.h"
 #include "game_interface/ui_window/sub_win_util/fonts.h"
 
-class ChoiseFolderMenu : public UIWindow
+class LoadGameMenu : public UIWindow
 {
 private:
 	std::map<int, Button> buttons;
@@ -19,8 +19,8 @@ private:
 	bool folderSelected;
 
 public:
-	ChoiseFolderMenu();
-	~ChoiseFolderMenu() = default;
+	LoadGameMenu();
+	~LoadGameMenu() = default;
 
 	GameState interact(bool& isMenuOpen, std::string& saveFolderName);
 	void relocate(sf::Vector2i windowSize) override final;

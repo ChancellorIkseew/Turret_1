@@ -11,7 +11,6 @@
 
 
 #include "game_interface/gameplay/gameplay_util/t1_time.h"
-#include "game_interface/menu/ui_elements/choise_save_folder.h"
 
 #include "map_structures/pre-settings/pre-settings.h"
 #include "t1_system/input/input_handler.h"
@@ -142,20 +141,19 @@ void MainControlPanel::interact(bool& isPaused, bool& isGameplayActive, std::ato
 
 void MainControlPanel::interactWaveTimer(const bool isPaused, const World& world)
 {
-	if(!isPaused)
-	{
-		std::ostringstream strWaveNumber;
-		strWaveNumber << world.getTime().getWave();
-		waveNumberText2.setString(strWaveNumber.str());
+	if (isPaused)
+		return;
+	std::ostringstream strWaveNumber;
+	strWaveNumber << world.getTime().getWave();
+	waveNumberText2.setString(strWaveNumber.str());
 
-    	std::ostringstream strSeconds;
-		strSeconds << (59 - ((world.getTime().getTime() / 60) % 60));
+    std::ostringstream strSeconds;
+	strSeconds << (59 - ((world.getTime().getTime() / 60) % 60));
 
-    	std::ostringstream strMinutes;
-		strMinutes << int(2 - (world.getTime().getTime() / 3600));
+    std::ostringstream strMinutes;
+	strMinutes << int(2 - (world.getTime().getTime() / 3600));
 
-    	waveTimerText2.setString(strMinutes.str() + " : " + strSeconds.str());
-	}
+    waveTimerText2.setString(strMinutes.str() + " : " + strSeconds.str());
 }
 
 

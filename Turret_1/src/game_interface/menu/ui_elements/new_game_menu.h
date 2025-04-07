@@ -12,15 +12,15 @@
 #include "map_structures/pre-settings/pre-settings.h"
 
 
-class PreSettingsWindow : public UIWindow
+class NewGameMenu : public UIWindow
 {
 private:
 	std::map<int, Button> buttons;
 	std::map<int, std::unique_ptr<Page>> pages;
 
 public:
-	PreSettingsWindow();
-	~PreSettingsWindow() = default;
+	NewGameMenu();
+	~NewGameMenu() = default;
 
 	GameState interact(bool& isMenuOpen, PreSettings& preSettings);
 	void relocate(sf::Vector2i windowSize) override final;

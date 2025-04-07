@@ -1,5 +1,5 @@
 
-#include "choise_save_folder.h"
+#include "load_game_menu.h"
 
 #include "map_structures/pre-settings/pre-settings.h"
 #include "game_interface/ui_window/sub_win_util/fonts.h"
@@ -12,7 +12,7 @@ enum buttonsEnum
 	EXIT_TO_MENU = 1,
 };
 
-ChoiseFolderMenu::ChoiseFolderMenu() : UIWindow(sf::Vector2i(720, 480), sf::Vector2i(0, 0))
+LoadGameMenu::LoadGameMenu() : UIWindow(sf::Vector2i(720, 480))
 {
 	this->prepareInterfaceSprites();
 	isVisible = false;
@@ -20,7 +20,7 @@ ChoiseFolderMenu::ChoiseFolderMenu() : UIWindow(sf::Vector2i(720, 480), sf::Vect
 }
 
 
-void ChoiseFolderMenu::prepareInterfaceSprites()
+void LoadGameMenu::prepareInterfaceSprites()
 {
 	buttons[LOAD_GAME] = Button("load_game.bmp", sf::Vector2i(364, 48), sf::Vector2i(10, 68));
 	buttons[EXIT_TO_MENU] = Button("exit_to_menu.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 10));
@@ -40,7 +40,7 @@ void ChoiseFolderMenu::prepareInterfaceSprites()
 }
 
 
-GameState ChoiseFolderMenu::interact(bool& isMenuOpen, std::string& saveFolderName)
+GameState LoadGameMenu::interact(bool& isMenuOpen, std::string& saveFolderName)
 {
 	while (isMenuOpen && !InputHandler::active(t1::BindName::Escape))
 	{
@@ -62,7 +62,7 @@ GameState ChoiseFolderMenu::interact(bool& isMenuOpen, std::string& saveFolderNa
 }
 
 
-void ChoiseFolderMenu::relocate(const sf::Vector2i windowSize)
+void LoadGameMenu::relocate(const sf::Vector2i windowSize)
 {
 	relocateCentral(windowSize);
 	for (auto& [_, btn] : buttons)
@@ -72,7 +72,7 @@ void ChoiseFolderMenu::relocate(const sf::Vector2i windowSize)
 }
 
 
-void ChoiseFolderMenu::draw(sf::RenderWindow& window)
+void LoadGameMenu::draw(sf::RenderWindow& window)
 {
 	if (!isVisible)
 		return;

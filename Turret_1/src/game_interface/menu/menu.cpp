@@ -4,15 +4,13 @@
 #include "menu.h"
 
 #include "game_interface/main_window/main_window.h"
-#include "game_interface/ui_window/sub_win_types/text_field/text_field.h"
 #include "game_interface/gameplay/ui_elements/settings_window.h"
 
 #include "ui_elements/main_menu.h"
-#include "ui_elements/choise_save_folder.h"
-#include "ui_elements/pre_settings.h"
+#include "ui_elements/load_game_menu.h"
+#include "ui_elements/new_game_menu.h"
 #include "t1_system/input/input_handler.h"
 #include "t1_system/sleep.h"
-#include "t1_system/t1_mutex.h"
 
 
 GameState openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string& saveFolderName, PreSettings& preSettings)
@@ -25,8 +23,8 @@ GameState openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string
 	backSprite.setPosition({ -100, -100 });
 	
 	MainMenu mainMenu;
-	ChoiseFolderMenu choiseFolderMenu;
-	PreSettingsWindow preSettingsWindow;
+	LoadGameMenu loadGameMenu;
+	NewGameMenu newGameMenu;
 	SettingsWindow settingsWindow;
 	
 	bool isMenuOpen = true;
@@ -46,15 +44,15 @@ GameState openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string
 					mainMenu.setVisible(false);
 					break;
 				case GameState::CHOISE_FOLDER_MENU:
-					choiseFolderMenu.setVisible(true);
-					menuTab = choiseFolderMenu.interact(isMenuOpen, saveFolderName);
-					choiseFolderMenu.setVisible(false);
+					loadGameMenu.setVisible(true);
+					menuTab = loadGameMenu.interact(isMenuOpen, saveFolderName);
+					loadGameMenu.setVisible(false);
 					startNewGame = false;
 					break;
 				case GameState::PRE_SETTINGS_MENU:
-					preSettingsWindow.setVisible(true);
-					menuTab = preSettingsWindow.interact(isMenuOpen, preSettings);
-					preSettingsWindow.setVisible(false);
+					newGameMenu.setVisible(true);
+					menuTab = newGameMenu.interact(isMenuOpen, preSettings);
+					newGameMenu.setVisible(false);
 					startNewGame = true;
 					break;
 				case GameState::OPTIONS:
@@ -95,8 +93,8 @@ GameState openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string
 				MainWindow::resize(mainWindow);
 				sf::Vector2i mainWindowSize = sf::Vector2i(mainWindow.getSize());
 				mainMenu.relocate(mainWindowSize);
-				choiseFolderMenu.relocate(mainWindowSize);
-				preSettingsWindow.relocate(mainWindowSize);
+				loadGameMenu.relocate(mainWindowSize);
+				newGameMenu.relocate(mainWindowSize);
 				settingsWindow.relocate(mainWindowSize);
 			}
 		}
@@ -106,8 +104,8 @@ GameState openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string
 		mainWindow.draw(backSprite);
 		
 		mainMenu.draw(mainWindow);
-		choiseFolderMenu.draw(mainWindow);
-		preSettingsWindow.draw(mainWindow);
+		loadGameMenu.draw(mainWindow);
+		newGameMenu.draw(mainWindow);
 		settingsWindow.draw(mainWindow);
 
 		mainWindow.display();

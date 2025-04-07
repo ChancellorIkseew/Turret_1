@@ -159,13 +159,13 @@
     <ClCompile Include="src\game_interface\menu\ui_elements\world_pre_settings\terrain_pre_settings.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="src\game_interface\menu\ui_elements\choise_save_folder.cpp">
+    <ClCompile Include="src\game_interface\menu\ui_elements\load_game_menu.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="src\game_interface\menu\ui_elements\main_menu.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="src\game_interface\menu\ui_elements\pre_settings.cpp">
+    <ClCompile Include="src\game_interface\menu\ui_elements\new_game_menu.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="src\game_interface\menu\menu.cpp">
@@ -536,13 +536,13 @@
     <ClInclude Include="src\game_interface\menu\ui_elements\world_pre_settings\terrain_pre_settings.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="src\game_interface\menu\ui_elements\choise_save_folder.h">
+    <ClInclude Include="src\game_interface\menu\ui_elements\load_game_menu.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="src\game_interface\menu\ui_elements\main_menu.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="src\game_interface\menu\ui_elements\pre_settings.h">
+    <ClInclude Include="src\game_interface\menu\ui_elements\new_game_menu.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="src\game_interface\menu\menu.h">
