@@ -65,7 +65,7 @@ void SettingsWindow::aply()
 
 void SettingsWindow::interact(const bool& windowOpen)
 {
-	while (windowOpen)
+	while (windowOpen && !InputHandler::active(t1::BindName::Escape))
 	{
 		if (exit.press())
 			return;

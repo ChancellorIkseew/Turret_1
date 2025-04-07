@@ -1,9 +1,7 @@
 
-#include "t1_system/sleep.h"
-#include <iostream>
-
 #include "exit_confirmation.h"
-
+#include "t1_system/input/input_handler.h"
+#include "t1_system/sleep.h"
 
 ConfirmationWindow::ConfirmationWindow() : UIWindow(sf::Vector2i(128, 100))
 {
@@ -34,7 +32,7 @@ void ConfirmationWindow::draw(sf::RenderWindow& window)
 
 bool ConfirmationWindow::interact(const bool& windowOpen)
 {
-    while (windowOpen)
+    while (windowOpen && !InputHandler::active(t1::BindName::Escape))
     {
         if (confirm.press())
             return true;
@@ -42,7 +40,7 @@ bool ConfirmationWindow::interact(const bool& windowOpen)
             return false;
         t1::system::sleep(16);
     }
-    return true;
+    return false;
 }
 
 

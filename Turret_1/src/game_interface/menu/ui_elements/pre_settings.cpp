@@ -2,7 +2,7 @@
 #include "pre_settings.h"
 
 #include "t1_system/sleep.h"
-#include "game_interface/main_window/main_window.h"
+#include "t1_system/input/input_handler.h"
 #include "map_structures/pre-settings/pre-settings.h"
 
 #include "world_pre_settings/general_pre_settings.h"
@@ -45,7 +45,7 @@ void PreSettingsWindow::prepareInterfaceSprites()
 
 GameState PreSettingsWindow::interact(bool& isMenuOpen, PreSettings& preSettings)
 {
-	while (isMenuOpen)
+	while (isMenuOpen && !InputHandler::active(t1::BindName::Escape))
 	{
 		if (buttons[START_GAME].press())
 		{
@@ -55,7 +55,7 @@ GameState PreSettingsWindow::interact(bool& isMenuOpen, PreSettings& preSettings
 		}
 
 		if (buttons[EXIT_TO_MENU].press())
-			return GameState::MAIN_MENU;
+			break;
 
 		for (auto& pg : pages)
 		{
@@ -72,7 +72,7 @@ GameState PreSettingsWindow::interact(bool& isMenuOpen, PreSettings& preSettings
 
 		t1::system::sleep(16);
 	}
-	return GameState::EXIT;
+	return GameState::MAIN_MENU;
 }
 
 

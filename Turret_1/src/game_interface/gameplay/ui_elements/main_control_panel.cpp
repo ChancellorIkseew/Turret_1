@@ -11,6 +11,7 @@
 
 
 #include "game_interface/gameplay/gameplay_util/t1_time.h"
+#include "game_interface/menu/ui_elements/choise_save_folder.h"
 
 #include "map_structures/pre-settings/pre-settings.h"
 #include "t1_system/input/input_handler.h"
@@ -82,7 +83,10 @@ void MainControlPanel::prepareInterfaceSprites()
 void MainControlPanel::interact(bool& isPaused, bool& isGameplayActive, std::atomic_int& tickSpeed, const World& world)
 {
 	if (buttons[SAVE].press())
-		world.save("save_1");
+	{
+		std::string folder = "save_1";
+		world.save(folder);
+	}
 	
 	if (buttons[EXIT_TO_MENU].press())
 	{
