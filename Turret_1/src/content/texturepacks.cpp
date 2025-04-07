@@ -1,6 +1,7 @@
 
 #include "texturepacks.h"
-#include "game_interface/settings/settings.h"
+#include "t1_system/files/files.h"
+#include <fstream>
 #include <unordered_set>
 #include <cereal/types/unordered_set.hpp>
 #include <cereal/archives/json.hpp>
@@ -13,7 +14,7 @@ static std::unordered_set<std::string> activePacks;
 
 void Texturepacks::saveConfig()
 {
-	Settings::tryCreateFolder();
+	t1::system::tryCreateFolder("settings");
 	std::ofstream fout(config);
 	cereal::JSONOutputArchive archive(fout);
 	archive(cereal::make_nvp("active_packs", activePacks));

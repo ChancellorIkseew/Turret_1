@@ -20,7 +20,7 @@ public:
 
     void setVisible(const bool visible);
     void setSize(const unsigned int size);
-    const std::string& getString() const { return text.getString(); }
+    const sf::String& getString() const { return text.getString(); }
 
     void relocateWithOwner(const sf::Vector2i ownerPosition);
     void draw(sf::RenderWindow& window) const;

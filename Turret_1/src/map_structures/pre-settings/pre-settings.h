@@ -27,8 +27,8 @@ public:
 	~PreSettings() = default;
 
 	static void validate(PreSettings& preSettings);
-	void load(const std::string& saveFolderName);
-	void save(const std::string& saveFolderName) const;
+	void load(const std::string& folder);
+	void save(const std::string& folder) const;
 	
 	const GeneralPre& getGeneral() const { return general; }
 	const TerrainPre& getTerrain() const { return terrain; }

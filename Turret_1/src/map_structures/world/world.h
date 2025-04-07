@@ -30,8 +30,8 @@ public:
 	World();
 	~World() = default;
 
-	void save(const std::string& saveFolderName) const;
-	void load(const std::string& saveFolderName);
+	void save(const std::string& folder) const;
+	void load(const std::string& folder);
 	void createNew(const PreSettings& preSettings);
 
 	void simulate();

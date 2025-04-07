@@ -12,6 +12,7 @@ private:
 	sf::Vector2i position;
 	Button button;
 	Label label;
+	std::string folder;
 
 	SaveUI(const SaveUI& other) = delete;
 	SaveUI(const SaveUI&& other) = delete;
@@ -24,7 +25,7 @@ public:
 	~SaveUI() = default;
 
 	bool press();
-	const std::string& getFolder() const { return label.getString(); }
+	const std::string& getFolder() const { return folder; }
 
 	void relocateWithOwner(const sf::Vector2i ownerPosition);
 	void draw(sf::RenderWindow& window);

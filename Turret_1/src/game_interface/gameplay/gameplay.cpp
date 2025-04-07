@@ -10,7 +10,7 @@
 #include "game_interface/gameplay/gameplay_streams/scripts/survival/new_survival.h"
 
 
-GameState Gameplay::startGameplay(sf::RenderWindow& mainWindow, const bool newGame, const std::string& saveFolderName, PreSettings& preSettings)
+GameState Gameplay::startGameplay(sf::RenderWindow& mainWindow, const bool newGame, const std::string& saveFolder, PreSettings& preSettings)
 {
 	if (newGame)
 	{
@@ -32,7 +32,7 @@ GameState Gameplay::startGameplay(sf::RenderWindow& mainWindow, const bool newGa
 	}
 	else
     {
-		world.load("save_1");
+		world.load(saveFolder);
     }
 	
 	player = world.getTeam("player");

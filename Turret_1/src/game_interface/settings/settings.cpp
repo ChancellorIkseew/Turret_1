@@ -1,22 +1,16 @@
 
 #include "settings.h"
+#include "t1_system/files/files.h"
 #include <iostream>
 #include <fstream>
 #include <cpptoml.h>
-#include <filesystem>
 
 namespace stdfs = std::filesystem;
 static const stdfs::path settings("settings/settings.toml");
 
-void Settings::tryCreateFolder()
-{
-	if (!stdfs::is_directory("settings"))
-		stdfs::create_directory("settings");
-}
-
 void Settings::save()
 {
-	tryCreateFolder();
+	t1::system::tryCreateFolder("settings");
 	std::ofstream fout(settings);
 	if (!fout.is_open())
 		throw std::runtime_error("Unable to open file to write: saves/settings.toml"); // Should not be catched. (crash the game)

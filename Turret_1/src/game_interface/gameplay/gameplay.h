@@ -45,7 +45,7 @@ public:
 	Gameplay() = default;
 	~Gameplay() = default;
 
-	GameState startGameplay(sf::RenderWindow& mainWindow, const bool newGame, const std::string& saveFolderName, PreSettings& preSettings);
+	GameState startGameplay(sf::RenderWindow& mainWindow, const bool newGame, const std::string& saveFolder, PreSettings& preSettings);
 
 	void relocateSubWindows(const sf::Vector2i windowSize);
 	bool noSubWindowSelected() const;

@@ -16,8 +16,6 @@ private:
 	static inline SavingSettings saving;
 
 public:
-	///@brief Create "settings" folder, if it does not exist.
-	static void tryCreateFolder();
 	static void save();
 	static void load();
 

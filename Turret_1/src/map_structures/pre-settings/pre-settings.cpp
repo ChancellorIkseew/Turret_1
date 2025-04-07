@@ -7,9 +7,9 @@ namespace stdfs = std::filesystem;
 static const stdfs::path saves("saves");
 static const stdfs::path preSettings("world_pre-settings.toml");
 
-void PreSettings::save(const std::string& saveFolderName) const
+void PreSettings::save(const std::string& folder) const
 {
-    const stdfs::path path = saves / saveFolderName / preSettings;
+    const stdfs::path path = saves / folder / preSettings;
     std::ofstream fout(path);
     if (!fout.is_open())
         throw std::runtime_error("Unable to open file to write: " + path.string());
@@ -24,9 +24,9 @@ void PreSettings::save(const std::string& saveFolderName) const
     writer.visit(*root, false);
 }
 
-void PreSettings::load(const std::string& saveFolderName)
+void PreSettings::load(const std::string& folder)
 {
-    const stdfs::path path = saves / saveFolderName / preSettings;
+    const stdfs::path path = saves / folder / preSettings;
     const auto root = cpptoml::parse_file(path.string());
     buildings.load(root);
     general.load(root);

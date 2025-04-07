@@ -8,10 +8,13 @@
 #include <cereal/archives/binary.hpp>
 #include "t1_system/t1_mutex.h"
 #include "t1_system/events/events_handler.h"
+#include "t1_system/files/files.h"
 #include "map_structures/entities/turret/turret.h"
 #include "map_structures/buildings/building/building.h"
 #include "game_interface/ui_window/sub_win_util/fonts.h"
 
+namespace stdfs = std::filesystem;
+stdfs::path saves("saves");
 
 World::World()
 {
@@ -22,22 +25,23 @@ World::World()
 	Balance::initWorld(this);
 }
 
-void World::save(const std::string& saveFolderName) const
+void World::save(const std::string& folder) const
 {
-	preSettings.save(saveFolderName);
-	const std::string saveFileName = "saves/" + saveFolderName + "/world.bin";
+	t1::system::tryCreateFolder(saves);
+	t1::system::tryCreateFolder(saves / folder);
+	preSettings.save(folder);
+	const stdfs::path saveFile = saves / folder / "world.bin";
 	std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
-	std::ofstream fout(saveFileName, std::ios::binary);
+	std::ofstream fout(saveFile, std::ios::binary);
 	cereal::BinaryOutputArchive archive(fout);
 	archive(time, nextTeamID, teams, terrainMap, buildingsMap, blueprintsMap);
 }
 
-void World::load(const std::string& saveFolderName)
+void World::load(const std::string& folder)
 {
-	preSettings.load(saveFolderName);
-	const std::string saveFileName = "saves/" + saveFolderName + "/world.bin";
-	std::lock_guard<std::mutex> guard(t1::system::mt::buildings);
-	std::ifstream fin(saveFileName, std::ios::binary);
+	preSettings.load(folder);
+	const stdfs::path saveFile = saves / folder / "world.bin";
+	std::ifstream fin(saveFile, std::ios::binary);
 	cereal::BinaryInputArchive archive(fin);
 	archive(time, nextTeamID, teams, terrainMap, buildingsMap, blueprintsMap);
 }
