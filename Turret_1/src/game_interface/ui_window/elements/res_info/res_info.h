@@ -26,7 +26,7 @@ public:
 	void update(const uint32_t qurrentQuantity);
 	uint32_t getQuantity() const { return resQuantity; }
 
-	void draw(sf::RenderWindow& window, int positionX, int powitionY);
+	void draw(sf::RenderWindow& window, int positionX, int positionY);
 
 };
 

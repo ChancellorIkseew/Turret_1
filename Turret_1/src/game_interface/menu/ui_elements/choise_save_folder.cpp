@@ -14,7 +14,6 @@ enum buttonsEnum
 {
 	LOAD_GAME = 0,
 	EXIT_TO_MENU = 1,
-	LOAD_1 = 2,
 };
 
 ChoiseFolderMenu::ChoiseFolderMenu() : UIWindow(sf::Vector2i(720, 480), sf::Vector2i(0, 0))
@@ -34,7 +33,14 @@ void ChoiseFolderMenu::prepareInterfaceSprites()
 	helpText.setString(sf::String(L"„тобы начать игру, нужно выбрать сохранение,\nв которое будет записыватьс€ игровой прогресс."));
 	helpText.setFillColor(darkRed);
 
-	saves[LOAD_1] = SaveUI("save_1", sf::Vector2i(10, 126));
+	namespace stdfs = std::filesystem;
+	int i;
+	for (const auto& entry : stdfs::directory_iterator("saves"))
+		if (stdfs::is_directory(entry))
+		{
+			saves[i] = SaveUI(entry.path().filename().string(), sf::Vector2i(0, 0));
+			++i;
+		}
 }
 
 
@@ -65,8 +71,6 @@ void ChoiseFolderMenu::relocate(const sf::Vector2i windowSize)
 	relocateCentral(windowSize);
 	for (auto& [_, btn] : buttons)
 		btn.relocateWithOwner(position);
-	for (auto& [_, save] : saves)
-		save.relocateWithOwner(position);
 
 	helpText.setPosition(sf::Vector2f(position.x + 70, position.y + 350));
 }
@@ -79,8 +83,13 @@ void ChoiseFolderMenu::draw(sf::RenderWindow& window)
 	drawBase(window);
 	for (auto& [_, btn] : buttons)
 		btn.draw(window);
-	for (auto& [_, save] : saves)
-		save.draw(window);
 	if (!folderSelected)
 		window.draw(helpText);
+	int posX = position.x + 10;
+	int posY = position.y + 126;
+	for (auto& [_, save] : saves)
+	{
+		save.draw(window, posX, posY);
+		posY += 60;
+	}
 }

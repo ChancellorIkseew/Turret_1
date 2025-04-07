@@ -31,8 +31,12 @@ void SaveUI::relocateWithOwner(const sf::Vector2i ownerPosition)
 	label.relocateWithOwner(ownerPosition + position);
 }
 
-void SaveUI::draw(sf::RenderWindow& window)
+void SaveUI::draw(sf::RenderWindow& window, int positionX, int positionY)
 {
+	sf::Vector2i position(positionX, positionY);
+
+	button.relocateWithOwner(position);
+	label.relocateWithOwner(position);
 	button.draw(window);
 	label.draw(window);
 }

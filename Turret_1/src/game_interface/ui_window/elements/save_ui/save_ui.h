@@ -28,7 +28,7 @@ public:
 	const std::string& getFolder() const { return folder; }
 
 	void relocateWithOwner(const sf::Vector2i ownerPosition);
-	void draw(sf::RenderWindow& window);
+	void draw(sf::RenderWindow& window, int positionX, int powitionY);
 
 };
 

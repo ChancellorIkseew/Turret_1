@@ -59,9 +59,7 @@ void InventoryWindow::interact(Team* team, const BuildingsMap& buildingsMap)
 
 void InventoryWindow::relocateToCoursor()
 {
-    const sf::Vector2i mouseCoord = InputHandler::getMouseCoord();
-    position.x = mouseCoord.x;
-    position.y = mouseCoord.y;
+    position = InputHandler::getMouseCoord();
 }
 
 

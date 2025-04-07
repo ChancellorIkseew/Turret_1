@@ -61,8 +61,8 @@ void ExpensesPanel::draw(sf::RenderWindow& window)
     title.setPosition(sf::Vector2f(position.x + 16, position.y + 10));
 	window.draw(title);
 
-    unsigned int posX = position.x + 16;
-    unsigned int posY = position.y + 30;
+    int posX = position.x + 16;
+    int posY = position.y + 30;
     for (auto& [type, info] : resInfo)
     {
         if (info.getQuantity() != 0)
