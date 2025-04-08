@@ -41,7 +41,7 @@ void MainControlPanel::prepareInterfaceSprites()
 {
 	buttons[SAVE] = Button("save.bmp", sf::Vector2i(48, 48), sf::Vector2i(130, 10));
 	buttons[HELP] = Button("help.bmp", sf::Vector2i(48, 48), sf::Vector2i(190, 10));
-	buttons[EXIT_TO_MENU] = Button("exit_to_menu.bmp", sf::Vector2i(48, 48), sf::Vector2i(70, 10));
+	buttons[EXIT_TO_MENU] = Button("exit.bmp", sf::Vector2i(48, 48), sf::Vector2i(70, 10));
 	buttons[SETTINGS] = Button("settings.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 10));
 	buttons[SET_PAUSE] = Button("set_pause.bmp", sf::Vector2i(48, 48), sf::Vector2i(250, 10));
 	buttons[REMOVE_PAUSE] = Button("remove_pause.bmp", sf::Vector2i(48, 48), sf::Vector2i(250, 10));
@@ -75,6 +75,7 @@ void MainControlPanel::prepareInterfaceSprites()
 
 	confirmationWindow = std::make_unique<ConfirmationWindow>();
 	settingsWindow = std::make_unique<SettingsWindow>();
+	loadGameMenu = std::make_unique<LoadGameMenu>();
 }
 
 
@@ -83,8 +84,11 @@ void MainControlPanel::interact(bool& isPaused, bool& isGameplayActive, std::ato
 {
 	if (buttons[SAVE].press())
 	{
-		std::string folder = "save_1";
+		loadGameMenu->setVisible(true);
+		std::string folder;
+		loadGameMenu->interact(isGameplayActive, folder, SavesAction::SAVE);
 		world.save(folder);
+		loadGameMenu->setVisible(false);
 	}
 	
 	if (buttons[EXIT_TO_MENU].press())
@@ -143,17 +147,10 @@ void MainControlPanel::interactWaveTimer(const bool isPaused, const World& world
 {
 	if (isPaused)
 		return;
-	std::ostringstream strWaveNumber;
-	strWaveNumber << world.getTime().getWave();
-	waveNumberText2.setString(strWaveNumber.str());
-
-    std::ostringstream strSeconds;
-	strSeconds << (59 - ((world.getTime().getTime() / 60) % 60));
-
-    std::ostringstream strMinutes;
-	strMinutes << int(2 - (world.getTime().getTime() / 3600));
-
-    waveTimerText2.setString(strMinutes.str() + " : " + strSeconds.str());
+	const int seconds = 59 - ((world.getTime().getTime() / 60) % 60);
+	const int minutes = 2 - (world.getTime().getTime() / 3600);
+	waveTimerText2.setString(std::to_string(minutes) + " : " + std::to_string(seconds));
+	waveNumberText2.setString(std::to_string(world.getTime().getWave()));
 }
 
 
@@ -161,6 +158,7 @@ void MainControlPanel::relocate(const sf::Vector2i windowSize)
 {
 	confirmationWindow->relocate(windowSize);
 	settingsWindow->relocate(windowSize);
+	loadGameMenu->relocate(windowSize);
 }
 
 
@@ -178,4 +176,5 @@ void MainControlPanel::draw(sf::RenderWindow& window)
 
 	confirmationWindow->draw(window);
 	settingsWindow->draw(window);
+	loadGameMenu->draw(window);
 }

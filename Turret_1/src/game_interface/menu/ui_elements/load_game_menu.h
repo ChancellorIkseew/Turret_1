@@ -10,6 +10,12 @@
 #include "game_interface/ui_window/elements/save_ui/save_ui.h"
 #include "game_interface/ui_window/sub_win_util/fonts.h"
 
+enum class SavesAction : uint8_t
+{
+	SAVE = 0,
+	LOAD = 1
+};
+
 class LoadGameMenu : public UIWindow
 {
 private:
@@ -22,7 +28,7 @@ public:
 	LoadGameMenu();
 	~LoadGameMenu() = default;
 
-	GameState interact(bool& isMenuOpen, std::string& saveFolderName);
+	GameState interact(bool& isMenuOpen, std::string& saveFolderName, const SavesAction action);
 	void relocate(sf::Vector2i windowSize) override final;
 
 	void prepareInterfaceSprites() override final;

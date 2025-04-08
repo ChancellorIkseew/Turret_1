@@ -34,7 +34,7 @@ NewGameMenu::NewGameMenu(): UIWindow(sf::Vector2i(720, 480))
 void NewGameMenu::prepareInterfaceSprites()
 {
 	buttons[START_GAME] = Button("start_game.bmp", sf::Vector2i(266, 48), sf::Vector2i(310, 10));
-	buttons[EXIT_TO_MENU] = Button("exit_to_menu.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 10));
+	buttons[EXIT_TO_MENU] = Button("exit.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 10));
 
 	buttons[GENERAL] = Button("general.bmp", sf::Vector2i(48, 48), sf::Vector2i(70, 10));
 	buttons[TERRAIN] = Button("terrain.bmp", sf::Vector2i(48, 48), sf::Vector2i(130, 10));

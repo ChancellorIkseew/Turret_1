@@ -45,7 +45,7 @@ GameState openMenu(sf::RenderWindow& mainWindow, bool& startNewGame, std::string
 					break;
 				case GameState::CHOISE_FOLDER_MENU:
 					loadGameMenu.setVisible(true);
-					menuTab = loadGameMenu.interact(isMenuOpen, saveFolderName);
+					menuTab = loadGameMenu.interact(isMenuOpen, saveFolderName, SavesAction::LOAD);
 					loadGameMenu.setVisible(false);
 					startNewGame = false;
 					break;

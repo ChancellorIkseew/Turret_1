@@ -6,6 +6,7 @@
 
 #include "game_interface/ui_window/ui_window/ui_window.h"
 #include "game_interface/ui_window/elements/button/button.h"
+#include "game_interface/menu/ui_elements/load_game_menu.h"
 #include "exit_confirmation.h"
 #include "settings_window.h"
 
@@ -23,6 +24,7 @@ private:
 
 	std::unique_ptr<ConfirmationWindow> confirmationWindow;
 	std::unique_ptr<SettingsWindow> settingsWindow;
+	std::unique_ptr<LoadGameMenu> loadGameMenu;
 	
 	MainControlPanel(const MainControlPanel&) = delete;
 	MainControlPanel& operator=(const MainControlPanel&) = delete;

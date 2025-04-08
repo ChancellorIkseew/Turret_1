@@ -28,7 +28,7 @@ SettingsWindow::SettingsWindow() : UIWindow(sf::Vector2i(720, 480))
 
 void SettingsWindow::prepareInterfaceSprites()
 {
-	exit = Button("exit_to_menu.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 10));
+	exit = Button("exit.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 10));
 	confirm = Button("confirm.bmp", sf::Vector2i(48, 48), sf::Vector2i(70, 10));
 	update = Button("update.bmp", sf::Vector2i(48, 48), sf::Vector2i(662, 10));
 

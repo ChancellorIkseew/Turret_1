@@ -23,8 +23,8 @@ void MainMenu::prepareInterfaceSprites()
 {
 	buttons[NEW_GAME] = Button("new_game.bmp", sf::Vector2i(242, 48), sf::Vector2i(10, 10));
 	buttons[LOAD_GAME] = Button("load_game.bmp", sf::Vector2i(364, 48), sf::Vector2i(10, 68));
-	buttons[EXIT_GAME] = Button("exit_to_menu.bmp", sf::Vector2i(48, 48), sf::Vector2i(70, 126));
-	buttons[SETTINGS] = Button("settings.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 126));
+	buttons[EXIT_GAME] = Button("exit.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 126));
+	buttons[SETTINGS] = Button("settings.bmp", sf::Vector2i(48, 48), sf::Vector2i(68, 126));
 }
 
 GameState MainMenu::interact(bool& isMenuOpen)

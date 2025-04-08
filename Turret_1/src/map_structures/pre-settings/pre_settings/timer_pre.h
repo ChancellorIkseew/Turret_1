@@ -6,9 +6,9 @@
 
 struct TimerPre
 {
-	uint32_t firstWave = 10800;
-	uint32_t normalWave = 10800;
-	uint32_t bossWave = 10800;
+	uint32_t firstWave = 180; // time in seconds
+	uint32_t normalWave = 180; // time in seconds
+	uint32_t bossWave = 180; // time in seconds
 
 	void save(std::shared_ptr<cpptoml::table> root) const
 	{

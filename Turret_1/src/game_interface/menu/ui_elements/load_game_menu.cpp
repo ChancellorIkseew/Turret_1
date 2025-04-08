@@ -9,7 +9,8 @@
 enum buttonsEnum
 {
 	LOAD_GAME = 0,
-	EXIT_TO_MENU = 1,
+	SAVE = 1,
+	EXIT_TO_MENU = 2,
 };
 
 LoadGameMenu::LoadGameMenu() : UIWindow(sf::Vector2i(720, 480))
@@ -22,8 +23,9 @@ LoadGameMenu::LoadGameMenu() : UIWindow(sf::Vector2i(720, 480))
 
 void LoadGameMenu::prepareInterfaceSprites()
 {
-	buttons[LOAD_GAME] = Button("load_game.bmp", sf::Vector2i(364, 48), sf::Vector2i(10, 68));
-	buttons[EXIT_TO_MENU] = Button("exit_to_menu.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 10));
+	buttons[EXIT_TO_MENU] = Button("exit.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 10));
+	buttons[LOAD_GAME] = Button("load_game.bmp", sf::Vector2i(364, 48), sf::Vector2i(68, 10));
+	buttons[SAVE] = Button("save.bmp", sf::Vector2i(48, 48), sf::Vector2i(68, 10));
 
 	helpText.setCharacterSize(16);
 	helpText.setString(sf::String(L"„тобы начать игру, нужно выбрать сохранение,\nв которое будет записыватьс€ игровой прогресс."));
@@ -40,11 +42,16 @@ void LoadGameMenu::prepareInterfaceSprites()
 }
 
 
-GameState LoadGameMenu::interact(bool& isMenuOpen, std::string& saveFolderName)
+GameState LoadGameMenu::interact(bool& isMenuOpen, std::string& saveFolderName, const SavesAction action)
 {
+	if (action == SavesAction::LOAD)
+		buttons[SAVE].setVisible(false);
+	else
+		buttons[LOAD_GAME].setVisible(false);
+
 	while (isMenuOpen && !InputHandler::active(t1::BindName::Escape))
 	{
-		if (buttons[LOAD_GAME].press() && folderSelected)
+		if ((buttons[LOAD_GAME].press() || buttons[SAVE].press()) && folderSelected)
 			return GameState::GAMEPLAY;	
 		if (buttons[EXIT_TO_MENU].press())
 			break;
@@ -82,7 +89,7 @@ void LoadGameMenu::draw(sf::RenderWindow& window)
 	if (!folderSelected)
 		window.draw(helpText);
 	int posX = position.x + 10;
-	int posY = position.y + 126;
+	int posY = position.y + 68;
 	for (auto& [_, save] : saves)
 	{
 		save.draw(window, posX, posY);

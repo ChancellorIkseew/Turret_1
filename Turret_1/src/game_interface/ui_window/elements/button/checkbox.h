@@ -17,14 +17,13 @@ private:
     bool isVisible = true;
     bool isSelected = false;
     bool isPressed = false;
+    bool select();
 
 public:
     Checkbox(const bool startValue, const sf::Vector2i position);
     Checkbox() = default;
     ~Checkbox() = default;
 
-
-    bool select();
     bool press();
     bool getValue() const { return isPressed; }
 

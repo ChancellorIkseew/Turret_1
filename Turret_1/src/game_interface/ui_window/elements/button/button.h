@@ -18,6 +18,7 @@ private:
     bool isVisible = true;
     bool isSelected = false;
     bool isPressed = false;
+    bool select();
 
     Button(const Button& other) = delete;
     Button(const Button&& other) = delete;
@@ -29,8 +30,6 @@ public:
     Button() = default;
     ~Button() = default;
     
-
-    bool select();
     bool press();
     void setVisible(const bool visible);
 
