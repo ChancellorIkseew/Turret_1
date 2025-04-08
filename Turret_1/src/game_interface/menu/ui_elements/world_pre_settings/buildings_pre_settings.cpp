@@ -23,9 +23,9 @@ void BuildingsPreSettingsPage::prepareInterfaceSprites()
 {
 	const int line0 = 110;
 
-	fields[DURABILITY] = TextField(sf::String(L"1.0"), 42, sf::Vector2i(line0, 40));
-	fields[EXPENSES] = TextField(sf::String(L"1.0"), 42, sf::Vector2i(line0, 80));
-	fields[CONSTRUCTION_SPEED] = TextField(sf::String(L"1.0"), 42, sf::Vector2i(line0, 125));
+	fields[DURABILITY] = TextField(1.0f, 42, sf::Vector2i(line0, 40));
+	fields[EXPENSES] = TextField(1.0f, 42, sf::Vector2i(line0, 80));
+	fields[CONSTRUCTION_SPEED] = TextField(1.0f, 42, sf::Vector2i(line0, 125));
 
 	tDurability = sf::Text(turretClassic, sf::String(L"Множитель\nпрочности"), 12);
 	tExspenses = sf::Text(turretClassic, sf::String(L"Множитель\nстоимости"), 12);

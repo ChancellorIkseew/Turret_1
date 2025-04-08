@@ -8,9 +8,12 @@
 #include "game_interface/ui_window/sub_win_util/fonts.h"
 
 
+
 class TextField : public UIPlate
 {
 private:
+	enum class FieldType : uint8_t { NUMBER = 0, TEXT = 1 };
+	FieldType fieldType = FieldType::NUMBER;
 	int8_t maxLenght = 0;
 	sf::Text text = sf::Text(turretClassic);
 	sf::Vector2i ownerPosition;
@@ -28,6 +31,7 @@ public:
 	static bool isOneSeltcted() { return isOneSelected; }
 
 	void setText(const sf::String& value);
+	std::string getValueSTDString();
 	uint32_t getValueUint32();
 	float getValueFloat();
 

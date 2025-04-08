@@ -26,13 +26,10 @@ void LoadGameMenu::prepareInterfaceSprites()
 	buttons[EXIT_TO_MENU] = Button("exit.bmp", sf::Vector2i(48, 48), sf::Vector2i(10, 10));
 	buttons[LOAD_GAME] = Button("load_game.bmp", sf::Vector2i(364, 48), sf::Vector2i(68, 10));
 	buttons[SAVE] = Button("save.bmp", sf::Vector2i(48, 48), sf::Vector2i(68, 10));
-
-	helpText.setCharacterSize(16);
-	helpText.setString(sf::String(L"„тобы начать игру, нужно выбрать сохранение,\nв которое будет записыватьс€ игровой прогресс."));
-	helpText.setFillColor(darkRed);
+	newFolder = TextField(sf::String(""), 170, sf::Vector2i(126, 10));
 
 	namespace stdfs = std::filesystem;
-	int i;
+	int i = 0;
 	for (const auto& entry : stdfs::directory_iterator("saves"))
 		if (stdfs::is_directory(entry))
 		{
@@ -55,13 +52,21 @@ GameState LoadGameMenu::interact(bool& isMenuOpen, std::string& saveFolderName, 
 			return GameState::GAMEPLAY;	
 		if (buttons[EXIT_TO_MENU].press())
 			break;
-
 		for (auto& [_, save] : saves)
 			if (save.press())
 			{
 				saveFolderName = save.getFolder();
 				folderSelected = true;
 			}
+		if (action == SavesAction::SAVE)
+		{
+			newFolder.interact();
+			std::string str = newFolder.getValueSTDString();
+			if (str.empty())
+				continue;
+			saveFolderName = str;
+			folderSelected = true;
+		}
 
 		t1::system::sleep(16);
 	}
@@ -74,8 +79,7 @@ void LoadGameMenu::relocate(const sf::Vector2i windowSize)
 	relocateCentral(windowSize);
 	for (auto& [_, btn] : buttons)
 		btn.relocateWithOwner(position);
-
-	helpText.setPosition(sf::Vector2f(position.x + 70, position.y + 350));
+	newFolder.relocateWithOwner(position);
 }
 
 
@@ -84,10 +88,9 @@ void LoadGameMenu::draw(sf::RenderWindow& window)
 	if (!isVisible)
 		return;
 	drawBase(window);
+	newFolder.draw(window);
 	for (auto& [_, btn] : buttons)
 		btn.draw(window);
-	if (!folderSelected)
-		window.draw(helpText);
 	int posX = position.x + 10;
 	int posY = position.y + 68;
 	for (auto& [_, save] : saves)

@@ -22,15 +22,15 @@ void GeneralPreSettingsPage::prepareInterfaceSprites()
 	const int line0 = 280;
 	const int line1 = 300;
 
-	mapSize[MAP_MAX_X] = TextField(sf::String(L"100"), 42, sf::Vector2i(10, 40));
-	mapSize[MAP_MAX_Y] = TextField(sf::String(L"100"), 42, sf::Vector2i(10, 65));
+	mapSize[MAP_MAX_X] = TextField(100, 42, sf::Vector2i(10, 40));
+	mapSize[MAP_MAX_Y] = TextField(100, 42, sf::Vector2i(10, 65));
 
-	balance[ResType::STONE] = TextField(sf::String(L"500"), 100, sf::Vector2i(line1, 40));
-	balance[ResType::IRON] = TextField(sf::String(L"1000"), 100, sf::Vector2i(line1, 65));
-	balance[ResType::COPPER] = TextField(sf::String(L"500"), 100, sf::Vector2i(line1, 90));
-	balance[ResType::SILICON] = TextField(sf::String(L"0"), 100, sf::Vector2i(line1, 115));
-	balance[ResType::COAL] = TextField(sf::String(L"0"), 100, sf::Vector2i(line1, 140));
-	balance[ResType::SULFUR] = TextField(sf::String(L"0"), 100, sf::Vector2i(line1, 165));
+	balance[ResType::STONE] = TextField(500, 100, sf::Vector2i(line1, 40));
+	balance[ResType::IRON] = TextField(1000, 100, sf::Vector2i(line1, 65));
+	balance[ResType::COPPER] = TextField(500, 100, sf::Vector2i(line1, 90));
+	balance[ResType::SILICON] = TextField(0, 100, sf::Vector2i(line1, 115));
+	balance[ResType::COAL] = TextField(0, 100, sf::Vector2i(line1, 140));
+	balance[ResType::SULFUR] = TextField(0, 100, sf::Vector2i(line1, 165));
 
 	resIco[ResType::STONE] = ResIco(ResType::STONE, sf::Vector2i(line0, 43));
 	resIco[ResType::IRON] = ResIco(ResType::IRON, sf::Vector2i(line0, 68));

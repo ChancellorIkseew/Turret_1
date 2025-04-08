@@ -27,12 +27,12 @@ void MobsPreSettingsPage::prepareInterfaceSprites()
 	const int line0 = 95;
 	const int line1 = 225;
 
-	fields[QUANTITY] = TextField(sf::String(L"1"), 42, sf::Vector2i(line0, 45));
-	fields[DURABILITY] = TextField(sf::String(L"1.0"), 42, sf::Vector2i(line0, 95));
-	fields[VI_LEVEL] = TextField(sf::String(L"1"), 42, sf::Vector2i(line0, 145));
-	fields[COLLISION_DAMAGE] = TextField(sf::String(L"1.0"), 42, sf::Vector2i(line0, 195));
-	fields[DIRECT_DAMAGE] = TextField(sf::String(L"1.0"), 42, sf::Vector2i(line1, 55));
-	fields[BLAST_DAMAGE] = TextField(sf::String(L"1.0"), 42, sf::Vector2i(line1, 105));
+	fields[QUANTITY] = TextField(1, 42, sf::Vector2i(line0, 45));
+	fields[DURABILITY] = TextField(1.0f, 42, sf::Vector2i(line0, 95));
+	fields[VI_LEVEL] = TextField(1, 42, sf::Vector2i(line0, 145));
+	fields[COLLISION_DAMAGE] = TextField(1.0f, 42, sf::Vector2i(line0, 195));
+	fields[DIRECT_DAMAGE] = TextField(1.0f, 42, sf::Vector2i(line1, 55));
+	fields[BLAST_DAMAGE] = TextField(1.0f, 42, sf::Vector2i(line1, 105));
 
 	quantity = sf::Text(turretClassic, sf::String(L"Множитель\nчисленности\nврагов"), 12);
 	durabity = sf::Text(turretClassic, sf::String(L"Множитель\nпрочности\nмобов"), 12);

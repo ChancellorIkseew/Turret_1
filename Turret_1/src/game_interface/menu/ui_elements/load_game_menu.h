@@ -7,6 +7,7 @@
 
 #include "game_interface/main_window/game_state.h"
 #include "game_interface/ui_window/ui_window/ui_window.h"
+#include "game_interface/ui_window/sub_win_types/text_field/text_field.h"
 #include "game_interface/ui_window/elements/save_ui/save_ui.h"
 #include "game_interface/ui_window/sub_win_util/fonts.h"
 
@@ -21,7 +22,7 @@ class LoadGameMenu : public UIWindow
 private:
 	std::map<int, Button> buttons;
 	std::map<int, SaveUI> saves;
-	sf::Text helpText = sf::Text(turretClassic);
+	TextField newFolder; 
 	bool folderSelected;
 
 public:

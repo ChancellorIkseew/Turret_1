@@ -14,6 +14,7 @@ TextField::TextField(const sf::String& value, const int sizeX, const sf::Vector2
 	this->prepareInterfaceSprites();
 	text.setString(value);
 	maxLenght = (sizeX - 10) / 8;
+	fieldType = FieldType::TEXT;
 }
 
 template <typename Number>
@@ -24,8 +25,10 @@ TextField::TextField(const Number value, const int sizeX, const sf::Vector2i  po
 	maxLenght = (sizeX - 10) / 8;
 }
 
+template TextField::TextField(const int value, const int sizeX, const sf::Vector2i position);
 template TextField::TextField(const unsigned int value, const int sizeX, const sf::Vector2i position);
 template TextField::TextField(const uint8_t value, const int sizeX, const sf::Vector2i position);
+template TextField::TextField(const float value, const int sizeX, const sf::Vector2i position);
 
 TextField::TextField() : UIPlate(sf::Vector2i(100, 23), sf::Vector2i(0, 0))
 {
@@ -42,7 +45,7 @@ void TextField::prepareInterfaceSprites()
 
 void TextField::interact()
 {
-	if (!isSelected && text.getString().getSize() < 1)
+	if (!isSelected && fieldType == FieldType::NUMBER && text.getString().getSize() < 1)
 		text.setString("0");
 	if (!containsCoursor() || !InputHandler::jactive(t1::BindName::LMB))
 		return;
@@ -53,16 +56,18 @@ void TextField::interact()
 		const char32_t sym = InputHandler::getLastSymbolEntered();
 		t1::system::sleep(50);
 
-		if ((sym >= '0' && sym <= '9' || sym == '.') && text.getString().getSize() < maxLenght)
+		if (sym == 8) // backspace
 		{
+			text.setString(text.getString().substring(0, text.getString().getSize() - 1));
+			continue;
+		}	
+		if (text.getString().getSize() >= maxLenght)
+			continue;
+
+		if (fieldType == FieldType::NUMBER && (sym >= U'0' && sym <= U'9' || sym == U'.'))
 			text.setString(text.getString() + sym);
-		}
-		else if (sym == 8) // backspace
-		{
-			std::string str = text.getString();
-			std::string new_str = str.substr(0, str.length() - 1);
-			text.setString(new_str);
-		}
+		else if (fieldType == FieldType::TEXT && (sym >= U'A' && sym <= U'z' || sym >= U'0' && sym <= U'9'))
+			text.setString(text.getString() + sym);
 	}
 	isSelected = false;
 	isOneSelected = false;
@@ -93,6 +98,13 @@ void TextField::setText(const sf::String& value)
 	text.setString(value);
 }
 
+
+std::string TextField::getValueSTDString()
+{
+	if (text.getString().isEmpty())
+		return "";
+	return text.getString();
+}
 
 uint32_t TextField::getValueUint32() // need to chek it in other compilers and OS
 {
