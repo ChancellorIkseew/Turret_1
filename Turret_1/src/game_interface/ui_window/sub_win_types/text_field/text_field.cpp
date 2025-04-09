@@ -21,8 +21,10 @@ template <typename Number>
 TextField::TextField(const Number value, const int sizeX, const sf::Vector2i  position) : UIPlate(sf::Vector2i(sizeX, 23), position)
 {
 	this->prepareInterfaceSprites();
-	text.setString(std::to_string(value));
 	maxLenght = (sizeX - 10) / 8;
+	std::stringstream ss;
+	ss << std::fixed << std::setprecision(1) << value;
+	text.setString(ss.str());
 }
 
 template TextField::TextField(const int value, const int sizeX, const sf::Vector2i position);
@@ -57,11 +59,8 @@ void TextField::interact()
 		t1::system::sleep(50);
 
 		if (sym == 8) // backspace
-		{
-			text.setString(text.getString().substring(0, text.getString().getSize() - 1));
-			continue;
-		}	
-		if (text.getString().getSize() >= maxLenght)
+			text.setString(text.getString().substring(0, text.getString().getSize() - 1));	
+		else if (text.getString().getSize() >= maxLenght)
 			continue;
 
 		if (fieldType == FieldType::NUMBER && (sym >= U'0' && sym <= U'9' || sym == U'.'))

@@ -17,7 +17,8 @@ void MainWindow::open()
 
 	sf::Vector2u resolution = Settings::getDisplay().windowMaxSize;
 	sf::State state = Settings::getDisplay().fullscreen ? sf::State::Fullscreen : sf::State::Windowed;
-	sf::RenderWindow mainWindow(sf::VideoMode(resolution, 32), L"Турельница. Версия альфа_0.7.0", state);
+	sf::RenderWindow mainWindow(sf::VideoMode(resolution, 32), L"Турельница. Версия альфа_0.7.1", state);
+	mainWindow.setPosition(sf::Vector2i(0, 0));
 	mainWindow.setFramerateLimit(60);
 	mainWindow.setVerticalSyncEnabled(state == sf::State::Fullscreen);
 	sf::Image icon;

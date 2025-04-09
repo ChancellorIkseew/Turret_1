@@ -1,6 +1,4 @@
 
-#include <iostream>
-
 #include "building_panel.h"
 #include "building_panel/buildings_pages.h"
 #include "game_interface/gameplay/gameplay.h"
