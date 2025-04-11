@@ -29,7 +29,7 @@ protected:
 	float motionAngleRad = 0;
 	float shootingAngleRad = 0;
 
-	Control control = Control::HARD;
+	Control control = Control::NONE;
 	bool tileJustChanged = false;
 
 	int16_t durability = 0; // timer_and_durability can_be_negative_in_some_cases

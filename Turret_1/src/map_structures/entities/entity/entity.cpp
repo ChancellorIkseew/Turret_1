@@ -3,7 +3,6 @@
 
 #include "map_structures/world/world.h"
 #include "map_structures/team/team.h"
-#include "map_structures/buildings/buildings_map/buildings_map.h"
 #include "map_structures/entities/behavior/path_finding.h"
 #include "map_structures/entities/behavior/aiming.h"
 #include "t1_system/events/events_handler.h"
@@ -14,8 +13,7 @@ constexpr float BASIC_COLLISION_RADIUS = 30.0f;
 
 Entity::Entity(Team* team) : team(team), reloadTimer(0)
 {
-	if (control != Control::HARD)
-		destCoord = PathFinding::findClosestCore(currentTile, world->getBuildingsMap());
+	destCoord = PathFinding::findClosestCore(currentTile, world->getBuildingsMap());
 }
 
 void Entity::save(cereal::BinaryOutputArchive& archive) const {
