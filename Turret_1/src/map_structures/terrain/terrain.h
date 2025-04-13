@@ -16,11 +16,6 @@ class TerrainMap
 private:	
 	TileCoord mapSize;
 	std::vector<std::vector<std::unique_ptr<int>>> terrainMap;
-	std::unordered_map<int, sf::VertexArray> tileVertexArrays;
-	
-	static inline sf::Image terrainImage;
-	static inline sf::Texture terrainTexture;
-	static inline sf::Sprite mapSprite = sf::Sprite(terrainTexture);
 	
 public:
 	TerrainMap() = default;

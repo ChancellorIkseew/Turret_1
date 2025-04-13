@@ -286,7 +286,6 @@
     <ClCompile Include="src\t1_system\input\input_handler.cpp" />
     <ClCompile Include="src\t1_system\random\t1_random.cpp" />
     <ClCompile Include="src\t1_system\sleep.cpp" />
-    <ClCompile Include="src\t1_system\time\time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\content\texturepacks.h" />

@@ -12,6 +12,14 @@
 #include "content/texturepacks.h"
 #include "game_interface/gameplay/gameplay_util/camera.h"
 
+static sf::Image terrainImage;
+static sf::Texture terrainTexture;
+//
+static sf::Shader tileShader;
+static sf::RenderStates renderStates;
+static sf::VertexArray vertexArray;
+static TileCoord cashedStart, cashedEnd;
+constexpr float TILE_F = static_cast<float>(_TILE_);
 
 TerrainMap::TerrainMap(const TileCoord mapSize) : mapSize(mapSize)
 {
@@ -45,58 +53,46 @@ void TerrainMap::prepareSprites()
 {
 	terrainImage.loadFromFile(Texturepacks::findImage("terrain.bmp"));
 	terrainTexture.loadFromImage(terrainImage);
+	tileShader.loadFromFile("shaders/tile.frag", sf::Shader::Type::Fragment);
+	tileShader.setUniform("tileset", terrainTexture);
+	tileShader.setUniform("tile_size", sf::Glsl::Vec2(32.0f, 32.0f));
+	tileShader.setUniform("atlas_size", sf::Glsl::Vec2(128.0f, 96.0f));
 }
 
 
-static TileCoord cameraStart, cameraEnd;
-constexpr sf::Color WHITE = sf::Color::White;
-
-void TerrainMap::draw(sf::RenderWindow& window, const Camera& camera) {
+void TerrainMap::draw(sf::RenderWindow& window, const Camera& camera)
+{
 	const TileCoord start = camera.getStartTile();
 	const TileCoord end = camera.getEndTile();
-	if (cameraStart != start || cameraEnd != end)
+	
+	if (cashedStart != start || cashedEnd != end)
 	{
-		cameraStart = start;
-		cameraEnd = end;
-		sf::Vector2f textureCoord;
-		for (auto& [_, vertexArray] : tileVertexArrays)
-			vertexArray.clear();
-
+		cashedStart = start;
+		cashedEnd = end;
+		vertexArray.clear();
+		vertexArray.setPrimitiveType(sf::PrimitiveType::Triangles);
 		for (int y = start.y; y < end.y; ++y)
 		{
 			for (int x = start.x; x < end.x; ++x)
 			{
-				const int tileType = *terrainMap[x][y];
-				if (tileVertexArrays.find(tileType) == tileVertexArrays.end())
-					tileVertexArrays[tileType] = sf::VertexArray(sf::PrimitiveType::Triangles);
+				const float xPos = x * _TILE_;
+				const float yPos = y * _TILE_;
 
-				const int xPos = x * _TILE_;
-				const int yPos = y * _TILE_;
+				sf::Color tileColor; // Color is used as terrain and resource type
+				tileColor.r = static_cast<uint8_t>(*terrainMap[x][y]);
+				//tileColor.g = ;
 
-				switch (tileType)
-				{
-				case TILE_GROUND:   textureCoord = sf::Vector2f(0.0f, 0.0f);   break;
-				case TILE_STONE:    textureCoord = sf::Vector2f(32.0f, 0.0f);  break;
-				case TILE_IRON:     textureCoord = sf::Vector2f(64.0f, 0.0f);  break;
-				case TILE_COPPER:   textureCoord = sf::Vector2f(96.0f, 0.0f);  break;
-				case TILE_SILICON:  textureCoord = sf::Vector2f(0.0f, 32.0f);  break;
-				case TILE_COAL:     textureCoord = sf::Vector2f(32.0f, 32.0f); break;
-				case TILE_SULFUR:   textureCoord = sf::Vector2f(64.0f, 32.0f); break;
-				default:			textureCoord = sf::Vector2f(0.0f, 0.0f);   break;
-				}
-
-				sf::VertexArray& currentVA = tileVertexArrays[tileType];
-				currentVA.append({ sf::Vector2f(xPos, yPos), WHITE, textureCoord });
-				currentVA.append({ sf::Vector2f(xPos + _TILE_, yPos),  WHITE, sf::Vector2f(textureCoord.x + _TILE_, textureCoord.y) });
-				currentVA.append({ sf::Vector2f(xPos + _TILE_, yPos + _TILE_),  WHITE, sf::Vector2f(textureCoord.x + _TILE_, textureCoord.y + _TILE_) });
-				currentVA.append({ sf::Vector2f(xPos, yPos), sf::Color::White, textureCoord });
-				currentVA.append({ sf::Vector2f(xPos + _TILE_, yPos + _TILE_),  WHITE, sf::Vector2f(textureCoord.x + _TILE_, textureCoord.y + _TILE_) });
-				currentVA.append({ sf::Vector2f(xPos, yPos + _TILE_),  WHITE, sf::Vector2f(textureCoord.x, textureCoord.y + _TILE_) });
+				vertexArray.append({ {xPos, yPos}, tileColor, {0.f, 0.f} });
+				vertexArray.append({ {xPos + TILE_F, yPos}, tileColor, {32.f, 0.f} });
+				vertexArray.append({ {xPos + TILE_F, yPos + TILE_F}, tileColor, {32.f, 32.f} });
+				vertexArray.append({ {xPos, yPos}, tileColor, {0.f, 0.f} });
+				vertexArray.append({ {xPos + TILE_F, yPos + TILE_F}, tileColor, {32.f, 32.f} });
+				vertexArray.append({ {xPos, yPos + TILE_F}, tileColor, {0.f, 32.f} });
 			}
 		}
 	}
-	sf::RenderStates states;
-	states.texture = &terrainTexture;
-	for (auto& [_, vertexArray] : tileVertexArrays)
-		window.draw(vertexArray, states);
+	
+	renderStates.shader = &tileShader;
+	renderStates.texture = &terrainTexture;
+	window.draw(vertexArray, renderStates);
 }

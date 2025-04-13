@@ -90,7 +90,7 @@ void MainControlPanel::interact(bool& isPaused, bool& isGameplayActive, std::ato
 		world.save(folder);
 		loadGameMenu->setVisible(false);
 	}
-	
+
 	if (buttons[EXIT_TO_MENU].press())
 	{
 		confirmationWindow->setVisible(true);
