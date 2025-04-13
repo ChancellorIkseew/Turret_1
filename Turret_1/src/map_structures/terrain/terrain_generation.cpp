@@ -14,6 +14,20 @@ static inline bool tileExitst(const TileCoord tile, const TileCoord mapSize)
 }
 
 
+static void interpolate(MapVector& terrainMap, const TileCoord tile, const TileCoord mapSize)
+{
+	int count = 0;
+	TileCoord nTile;
+	ResType tileType = static_cast<ResType>(*terrainMap[tile.x][tile.y]);
+
+	for (int i = 1; i < 5; ++i)
+	{
+		nTile = tile + t1::be::coordSpyralArr[i];
+		if (tileExitst(nTile, mapSize) && *terrainMap[nTile.x][nTile.y] == static_cast<int>(tileType))
+			++count;
+	}
+}
+
 inline int generateTile(const TerrainPre& terrainPre)
 {
 	for (auto& [type, frequency] : terrainPre.frequency)
@@ -71,7 +85,7 @@ void TerrainMap::generate(const TerrainPre& terrainPre)
 	{
 		x.resize(mapSize.y);
 		for (auto& y : x)
-			y = std::make_unique<int>(TILE_GROUND);
+			y = TerrainTile(TileType::SAND, ResType::IRON);
 	}
 
 	for (int x = 0; x < mapSize.x; ++x)
@@ -81,7 +95,7 @@ void TerrainMap::generate(const TerrainPre& terrainPre)
 			int tileNewType = generateTile(terrainPre);
 			if (tileNewType == TILE_GROUND)
 				continue;
-			*terrainMap[x][y] = tileNewType;
+			terrainMap[x][y] = tileNewType;
 			generateSpot(terrainPre, terrainMap, TileCoord(x, y));
 		}
 	}

@@ -11,12 +11,35 @@
 class Camera;
 struct TerrainPre;
 
+enum class TileType
+{
+	VOID = 0,
+	SAND = 1,
+	WATER = 2
+};
+
+
+class TerrainTile
+{
+private:
+	TileType tileType = TileType::VOID;
+	ResType resType = ResType::NO_RESOURCES;
+
+public:
+	TerrainTile(TileType tileType, ResType resType) :
+		tileType(tileType), resType(resType) { }
+
+	TileType getTileType() { return tileType; }
+	ResType getResType() { return resType; }
+};
+
+
 class TerrainMap
 {
 private:	
 	TileCoord mapSize;
-	std::vector<std::vector<std::unique_ptr<int>>> terrainMap;
-	std::unordered_map<int, sf::VertexArray> tileVertexArrays;
+	std::vector<std::vector<TerrainTile>> terrainMap;
+	std::unordered_map<TileType, sf::VertexArray> tileVertexArrays;
 	
 	static inline sf::Image terrainImage;
 	static inline sf::Texture terrainTexture;
@@ -32,7 +55,7 @@ public:
 
 	void generate(const TerrainPre& terrainPre); //empty constructor
 	
-	ResType getTileType(const TileCoord tile) const;
+	TerrainTile getTile(const TileCoord tile) const;
 	
 	static void prepareSprites();
 	void draw(sf::RenderWindow& window, const Camera& camera);

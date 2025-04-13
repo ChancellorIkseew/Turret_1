@@ -35,9 +35,9 @@ void TerrainMap::load(cereal::BinaryInputArchive& archive)
 }
 
 
-ResType TerrainMap::getTileType(const TileCoord tile) const
+TerrainTile TerrainMap::getTile(const TileCoord tile) const
 {
-	return static_cast<ResType>(*terrainMap[tile.x][tile.y]);
+	return terrainMap[tile.x][tile.y];
 }
 
 
@@ -66,7 +66,7 @@ void TerrainMap::draw(sf::RenderWindow& window, const Camera& camera) {
 		{
 			for (int x = start.x; x < end.x; ++x)
 			{
-				const int tileType = *terrainMap[x][y];
+				const TileType tileType = terrainMap[x][y].getTileType();
 				if (tileVertexArrays.find(tileType) == tileVertexArrays.end())
 					tileVertexArrays[tileType] = sf::VertexArray(sf::PrimitiveType::Triangles);
 
@@ -75,13 +75,13 @@ void TerrainMap::draw(sf::RenderWindow& window, const Camera& camera) {
 
 				switch (tileType)
 				{
-				case TILE_GROUND:   textureCoord = sf::Vector2f(0.0f, 0.0f);   break;
-				case TILE_STONE:    textureCoord = sf::Vector2f(32.0f, 0.0f);  break;
-				case TILE_IRON:     textureCoord = sf::Vector2f(64.0f, 0.0f);  break;
-				case TILE_COPPER:   textureCoord = sf::Vector2f(96.0f, 0.0f);  break;
-				case TILE_SILICON:  textureCoord = sf::Vector2f(0.0f, 32.0f);  break;
-				case TILE_COAL:     textureCoord = sf::Vector2f(32.0f, 32.0f); break;
-				case TILE_SULFUR:   textureCoord = sf::Vector2f(64.0f, 32.0f); break;
+				case TileType::SAND:	textureCoord = sf::Vector2f(0.0f, 0.0f);   break;
+				case TileType::WATER:	textureCoord = sf::Vector2f(32.0f, 0.0f);  break;
+				//case TILE_IRON:     textureCoord = sf::Vector2f(64.0f, 0.0f);  break;
+				//case TILE_COPPER:   textureCoord = sf::Vector2f(96.0f, 0.0f);  break;
+				//case TILE_SILICON:  textureCoord = sf::Vector2f(0.0f, 32.0f);  break;
+				//case TILE_COAL:     textureCoord = sf::Vector2f(32.0f, 32.0f); break;
+				//case TILE_SULFUR:   textureCoord = sf::Vector2f(64.0f, 32.0f); break;
 				default:			textureCoord = sf::Vector2f(0.0f, 0.0f);   break;
 				}
 
